@@ -1,0 +1,7 @@
+finding_id,asset_id,cve,software,vulnerability_type,base_vector,description
+F-001,A-CORP-SRV,CVE-2016-0036,Microsoft Windows Server,SYS,CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,RDP elevation of privilege affecting backend server
+F-002,POS-01,CVE-2016-0469,POS Terminal System,SYS,CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,Local POS terminal vulnerability affecting confidentiality
+F-003,ADMIN-01,CVE-2016-3234,Microsoft Office,APP,CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H,Office document vulnerability on administrative workstation
+F-004,WIRELESS-LEGACY-01,CVE-2016-1619,Google Chrome,APP,CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H,Chrome vulnerability in wireless legacy/customer system
+F-005,CORE-SW-01,CVE-2016-6441,IOS Core Switch,SYS,CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:H,Core switch ACL enforcement vulnerability
+F-006,CORE-SW-01,CVE-2016-6428,IOS Core Switch,SYS,CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H,Core switch system vulnerability

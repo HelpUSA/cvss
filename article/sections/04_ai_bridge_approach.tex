@@ -1,0 +1,41 @@
+\section{AI Bridge Approach}
+
+AI Bridge is used as a local execution and orchestration layer. The intended
+workflow is shown in Figure~\ref{fig:pipeline}.
+
+\begin{figure}[ht]
+\centering
+\begin{tikzpicture}[
+  node distance=1.4cm,
+  block/.style={draw, rounded corners, align=center, minimum width=2.8cm, minimum height=0.8cm},
+  arrow/.style={->, thick}
+]
+\node[block] (inputs) {Environment\\Evidence};
+\node[block, right=of inputs] (watcher) {AI Bridge\\Watcher};
+\node[block, right=of watcher] (agents) {Specialized\\AI Agents};
+\node[block, below=of agents] (scoring) {CVSS Env.\\Scoring};
+\node[block, left=of scoring] (audit) {Evidence\\Audit Trail};
+\node[block, left=of audit] (report) {Report +\\Review};
+
+\draw[arrow] (inputs) -- (watcher);
+\draw[arrow] (watcher) -- (agents);
+\draw[arrow] (agents) -- (scoring);
+\draw[arrow] (scoring) -- (audit);
+\draw[arrow] (audit) -- (report);
+\draw[arrow] (watcher) |- (audit);
+\end{tikzpicture}
+\caption{Evidence-based CVSS Environmental assessment workflow using AI Bridge.}
+\label{fig:pipeline}
+\end{figure}
+
+We define four agent roles:
+\begin{enumerate}[noitemsep]
+  \item Network/Topology Analyst;
+  \item PCI-DSS Scope Reviewer;
+  \item CVSS Environmental Analyst;
+  \item Evidence Consolidator.
+\end{enumerate}
+
+The agents do not simply output a score. Each metric value must reference
+evidence, such as asset inventory, business impact classification, firewall
+rules, topology, or vulnerability metadata.

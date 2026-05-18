@@ -1,0 +1,59 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{xcolor}
+
+\title{From Manual to Evidence-Based CVSS Environmental Assessment:\\
+A Multi-Agent Automation Case Study with AI Bridge}
+
+\author{
+Wagner Santos \and
+[Co-authors to be completed]
+}
+
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Environmental metrics in the Common Vulnerability Scoring System (CVSS) allow
+assessors to adapt vulnerability severity to the deployment context of an
+organization. Prior empirical work showed that human assessment of these
+metrics becomes error-prone as network segmentation and system dependencies
+increase. This paper proposes an evidence-based automation workflow using AI
+Bridge, a local multi-agent execution framework that can read environment
+files, run controlled commands, coordinate independent agent reviews through
+watchers, and produce auditable CVSS Environmental assessments. We present a
+PCI-DSS inspired case study in which AI agents replace human subjects and
+derive environmental metrics from structured evidence: asset inventory, network
+topology, firewall rules, business impact, PCI scope and vulnerability findings.
+The expected contribution is not an autonomous replacement for expert judgment,
+but a reproducible and auditable process for generating CVSS Environmental
+vectors with explicit evidence and review traces.
+\end{abstract}
+
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_related_work_and_gap}
+\input{sections/04_ai_bridge_approach}
+\input{sections/05_case_study_design}
+\input{sections/06_artifact_and_implementation}
+\input{sections/07_expected_evaluation}
+\input{sections/08_threats_to_validity}
+\input{sections/09_conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix_artifact_manifest}
+
+\end{document}

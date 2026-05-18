@@ -1,0 +1,34 @@
+\section{Case Study Design}
+\label{sec:case-study}
+
+The case-study design follows the logic of the prior PCI-DSS inspired experiment:
+compare environmental assessment under flat and segmented network conditions. The
+new study adds machine-readable evidence artifacts so that the same type of
+scenario can be assessed by deterministic scripts, language-model agents, and a
+watcher-enabled multi-agent workflow.
+
+Each case is represented by:
+\begin{itemize}[leftmargin=*]
+  \item an asset inventory;
+  \item vulnerability findings;
+  \item network topology;
+  \item firewall rules;
+  \item business-impact mappings;
+  \item PCI scope declarations; and
+  \item expected expert labels used only for evaluation.
+\end{itemize}
+
+The experimental comparison includes four conditions:
+\begin{enumerate}[leftmargin=*]
+  \item historical human-baseline findings from the prior study;
+  \item a deterministic rule-based baseline;
+  \item a language-model baseline without local tool access; and
+  \item the AI Bridge watcher workflow with local evidence access.
+\end{enumerate}
+
+The main outcomes are exact match against expert labels, environmental score
+error, correct direction of before-after change, reproducibility across repeated
+runs, and evidence coverage. Evidence coverage is defined as the proportion of
+scoring decisions that can be traced to a concrete artifact such as an asset
+record, topology entry, firewall rule, PCI scope declaration, or business-impact
+statement.

@@ -1,0 +1,492 @@
+[
+  {
+    "finding_id": "F-001",
+    "asset_id": "A-CORP-SRV",
+    "cve": "CVE-2016-0036",
+    "vulnerability_type": "SYS",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H/CR:M/IR:M/AR:H/MAV:N/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.8,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "M",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "N",
+      "MAC": "L",
+      "MPR": "L",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=A-CORP-SRV scope_before=in_scope role=corporate_service"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-001",
+    "asset_id": "A-CORP-SRV",
+    "cve": "CVE-2016-0036",
+    "vulnerability_type": "SYS",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H/CR:M/IR:M/AR:H/MAV:A/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.0,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "M",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "L",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=A-CORP-SRV scope_after=out_of_scope role=corporate_service"
+      },
+      {
+        "metric": "MAV",
+        "source": "assets.csv + firewall_rules.yaml",
+        "reason": "base AV=N but external_exposure_after=internal_only; network attack constrained to adjacent/internal segment."
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-002",
+    "asset_id": "POS-01",
+    "cve": "CVE-2016-0469",
+    "vulnerability_type": "SYS",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "base_score": 7.8,
+    "environmental_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H/CR:H/IR:H/AR:H/MAV:L/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 7.8,
+    "environmental_metrics": {
+      "CR": "H",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "L",
+      "MAC": "L",
+      "MPR": "L",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=POS-01 scope_before=in_scope role=payment_processing"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-002",
+    "asset_id": "POS-01",
+    "cve": "CVE-2016-0469",
+    "vulnerability_type": "SYS",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "base_score": 7.8,
+    "environmental_vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H/CR:H/IR:H/AR:H/MAV:L/MAC:L/MPR:L/MUI:N/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 7.8,
+    "environmental_metrics": {
+      "CR": "H",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "L",
+      "MAC": "L",
+      "MPR": "L",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=POS-01 scope_after=in_scope role=payment_processing"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-003",
+    "asset_id": "ADMIN-01",
+    "cve": "CVE-2016-3234",
+    "vulnerability_type": "APP",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H/CR:M/IR:M/AR:M/MAV:N/MAC:L/MPR:N/MUI:R/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.8,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "M",
+      "AR": "M",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "N",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "R",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=ADMIN-01 scope_before=in_scope role=administration"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-003",
+    "asset_id": "ADMIN-01",
+    "cve": "CVE-2016-3234",
+    "vulnerability_type": "APP",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H/CR:M/IR:M/AR:M/MAV:A/MAC:L/MPR:N/MUI:R/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.0,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "M",
+      "AR": "M",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "R",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=ADMIN-01 scope_after=out_of_scope role=administration"
+      },
+      {
+        "metric": "MAV",
+        "source": "assets.csv + firewall_rules.yaml",
+        "reason": "base AV=N but external_exposure_after=internal_only; network attack constrained to adjacent/internal segment."
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-004",
+    "asset_id": "WIRELESS-LEGACY-01",
+    "cve": "CVE-2016-1619",
+    "vulnerability_type": "APP",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H/CR:L/IR:L/AR:M/MAV:N/MAC:L/MPR:N/MUI:R/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 7.8,
+    "environmental_metrics": {
+      "CR": "L",
+      "IR": "L",
+      "AR": "M",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "N",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "R",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=WIRELESS-LEGACY-01 scope_before=in_scope role=legacy_wireless"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-004",
+    "asset_id": "WIRELESS-LEGACY-01",
+    "cve": "CVE-2016-1619",
+    "vulnerability_type": "APP",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+    "base_score": 8.8,
+    "environmental_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H/CR:L/IR:L/AR:M/MAV:N/MAC:L/MPR:N/MUI:R/MS:U/MC:H/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 7.8,
+    "environmental_metrics": {
+      "CR": "L",
+      "IR": "L",
+      "AR": "M",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "N",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "R",
+      "MS": "U",
+      "MC": "H",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=WIRELESS-LEGACY-01 scope_after=out_of_scope role=legacy_wireless"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-005",
+    "asset_id": "CORE-SW-01",
+    "cve": "CVE-2016-6441",
+    "vulnerability_type": "SYS",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:H",
+    "base_score": 9.6,
+    "environmental_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:H/CR:M/IR:H/AR:H/MAV:A/MAC:L/MPR:N/MUI:N/MS:C/MC:L/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 9.7,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "N",
+      "MS": "C",
+      "MC": "L",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=CORE-SW-01 scope_before=in_scope role=segmentation_enforcement"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-005",
+    "asset_id": "CORE-SW-01",
+    "cve": "CVE-2016-6441",
+    "vulnerability_type": "SYS",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:H",
+    "base_score": 9.6,
+    "environmental_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:H/CR:M/IR:H/AR:H/MAV:A/MAC:L/MPR:N/MUI:N/MS:C/MC:L/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 9.7,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "N",
+      "MS": "C",
+      "MC": "L",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=CORE-SW-01 scope_after=in_scope role=segmentation_enforcement"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-006",
+    "asset_id": "CORE-SW-01",
+    "cve": "CVE-2016-6428",
+    "vulnerability_type": "SYS",
+    "state": "before",
+    "base_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H",
+    "base_score": 8.3,
+    "environmental_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H/CR:M/IR:H/AR:H/MAV:A/MAC:L/MPR:N/MUI:N/MS:U/MC:L/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.8,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "L",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=CORE-SW-01 scope_before=in_scope role=segmentation_enforcement"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  },
+  {
+    "finding_id": "F-006",
+    "asset_id": "CORE-SW-01",
+    "cve": "CVE-2016-6428",
+    "vulnerability_type": "SYS",
+    "state": "after",
+    "base_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H",
+    "base_score": 8.3,
+    "environmental_vector": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:L/I:H/A:H/CR:M/IR:H/AR:H/MAV:A/MAC:L/MPR:N/MUI:N/MS:U/MC:L/MI:H/MA:H/E:X/RL:X/RC:X",
+    "environmental_score": 8.8,
+    "environmental_metrics": {
+      "CR": "M",
+      "IR": "H",
+      "AR": "H",
+      "E": "X",
+      "RL": "X",
+      "RC": "X",
+      "MAV": "A",
+      "MAC": "L",
+      "MPR": "N",
+      "MUI": "N",
+      "MS": "U",
+      "MC": "L",
+      "MI": "H",
+      "MA": "H"
+    },
+    "evidence": [
+      {
+        "metric": "CR/IR/AR",
+        "source": "business_impact.yaml + pci_scope.yaml + assets.csv",
+        "reason": "asset=CORE-SW-01 scope_after=in_scope role=segmentation_enforcement"
+      },
+      {
+        "metric": "ModifiedBaseDefaults",
+        "source": "vulnerabilities.csv",
+        "reason": "Unchanged modified metrics inherit base values unless local evidence overrides them."
+      }
+    ],
+    "matches_expected_requirements": true
+  }
+]

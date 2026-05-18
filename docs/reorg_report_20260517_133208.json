@@ -1,0 +1,93 @@
+{
+  "status": "reorg_complete",
+  "archive": "D:\\dev\\cvss\\_archive\\reorg_20260517_133208",
+  "moved": [
+    "moved: D:\\dev\\cvss\\cvss.zip -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\raw_archives\\cvss.zip",
+    "moved: D:\\dev\\cvss\\cvss2.zip -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\raw_archives\\cvss2.zip",
+    "moved: D:\\dev\\cvss\\ieee_article.zip -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\raw_archives\\ieee_article.zip",
+    "moved: D:\\dev\\cvss\\ieee_article (2).zip -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\raw_archives\\ieee_article (2).zip",
+    "moved: D:\\dev\\cvss\\ieee_article -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_ieee_article\\ieee_article",
+    "moved: D:\\dev\\cvss\\article\\sections\\07_expected_evaluation.tex.bak_20260504_132706 -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_tex_backups\\07_expected_evaluation.tex.bak_20260504_132706",
+    "moved: D:\\dev\\cvss\\article\\sections\\07_expected_evaluation.tex.bak_20260517_093201 -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_tex_backups\\07_expected_evaluation.tex.bak_20260517_093201",
+    "moved: D:\\dev\\cvss\\article\\sections\\07a_comparative_analysis.tex -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_tex_backups\\07a_comparative_analysis.tex",
+    "moved: D:\\dev\\cvss\\README_ARTICLE.md -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_root_docs\\README_ARTICLE.md",
+    "moved: D:\\dev\\cvss\\generate_charts.py -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_root_tools\\generate_charts.py",
+    "moved: D:\\dev\\cvss\\simple_server.py -> D:\\dev\\cvss\\_archive\\reorg_20260517_133208\\legacy_root_tools\\simple_server.py",
+    "moved: D:\\dev\\cvss\\Estimating_the_Assessment_Difficulty_of.pdf -> D:\\dev\\cvss\\research\\source_papers\\Estimating_the_Assessment_Difficulty_of.pdf"
+  ],
+  "validation_issues": [],
+  "validated_files": [
+    {
+      "file": "D:\\dev\\cvss\\article\\main.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\01_introduction.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\02_background.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\03_related_work_and_gap.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\04_ai_bridge_approach.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\05_case_study_design.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\06_artifact_and_implementation.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\07_expected_evaluation.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\08_threats_to_validity.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\09_conclusion.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\sections\\appendix_artifact_manifest.tex",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    },
+    {
+      "file": "D:\\dev\\cvss\\article\\references.bib",
+      "brace_balance": 0,
+      "bad_commands": 0,
+      "mojibake_markers": 0
+    }
+  ]
+}

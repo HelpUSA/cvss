@@ -1,0 +1,13 @@
+scope_rules:
+  - id: PCI-SCOPE-01
+    condition: processes_cardholder_data
+    result: in_scope
+  - id: PCI-SCOPE-02
+    condition: can_interact_with_cardholder_data_environment
+    result: in_scope
+  - id: PCI-SCOPE-03
+    condition: segmented_no_interaction_with_cardholder_data_environment
+    result: out_of_scope
+notes:
+  before: Flat network increases systems considered directly or indirectly in PCI-DSS scope.
+  after: Segmentation reduces scope for corporate, administrative and wireless systems, while POS and core enforcement remain critical.

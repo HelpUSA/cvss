@@ -1,0 +1,8 @@
+| Finding | Asset | CVE | Type | Before | After | Delta | MAV Before | MAV After | Effect |
+|---|---|---|---|---:|---:|---:|---|---|---|
+| F-001 | A-CORP-SRV | CVE-2016-0036 | SYS | 8.8 | 8.0 | -0,8 | N | A | downgraded_after_segmentation |
+| F-002 | POS-01 | CVE-2016-0469 | SYS | 7.8 | 7.8 | 0 | L | L | unchanged |
+| F-003 | ADMIN-01 | CVE-2016-3234 | APP | 8.8 | 8.0 | -0,8 | N | A | downgraded_after_segmentation |
+| F-004 | WIRELESS-LEGACY-01 | CVE-2016-1619 | APP | 7.8 | 7.8 | 0 | N | N | unchanged |
+| F-005 | CORE-SW-01 | CVE-2016-6441 | SYS | 9.7 | 9.7 | 0 | A | A | unchanged |
+| F-006 | CORE-SW-01 | CVE-2016-6428 | SYS | 8.8 | 8.8 | 0 | A | A | unchanged |

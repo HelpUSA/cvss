@@ -1,0 +1,29 @@
+rules:
+  before:
+    - id: FW-BEFORE-001
+      source: flat_store
+      destination: flat_corporate
+      action: allow
+      ports: ["*"]
+    - id: FW-BEFORE-002
+      source: internet
+      destination: flat_store
+      action: allow
+      ports: ["80", "443"]
+  after:
+    - id: FW-AFTER-001
+      source: admin_segment
+      destination: cardholder_data_environment
+      action: allow
+      ports: ["443", "3389"]
+      condition: mfa_vpn_required
+    - id: FW-AFTER-002
+      source: wireless_segment
+      destination: cardholder_data_environment
+      action: deny
+      ports: ["*"]
+    - id: FW-AFTER-003
+      source: corporate_segment
+      destination: cardholder_data_environment
+      action: deny
+      ports: ["*"]

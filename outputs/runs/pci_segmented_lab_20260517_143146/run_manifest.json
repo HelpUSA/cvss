@@ -1,0 +1,90 @@
+{
+  "run_id": "pci_segmented_lab_20260517_143146",
+  "case": "pci_segmented_lab",
+  "case_dir": "cases/pci_segmented_lab",
+  "generated_at_utc": "2026-05-17T19:30:29.074650+00:00",
+  "assessments": 12,
+  "findings": 6,
+  "summary": {
+    "findings": 6,
+    "downgraded": 2,
+    "unchanged": 4,
+    "upgraded": 0,
+    "mean_delta": -0.267,
+    "max_abs_delta": 0.8
+  },
+  "case_files": [
+    {
+      "path": "cases/pci_segmented_lab/assets.csv",
+      "sha256": "f348bc0c10b9894892cd4cfed79190f3b8dfc2233526afe70cc4d8f6a0377fa5",
+      "bytes": 751
+    },
+    {
+      "path": "cases/pci_segmented_lab/business_impact.yaml",
+      "sha256": "eaa6d46dd3a91c9d3cbcf090be5ee9044cd757ed5db10cb4ae494349bba5095b",
+      "bytes": 906
+    },
+    {
+      "path": "cases/pci_segmented_lab/case_description.md",
+      "sha256": "18c1168db19845fcddf3b03262f0f0d244635d6ab7df3adbc690116751f31856",
+      "bytes": 495
+    },
+    {
+      "path": "cases/pci_segmented_lab/expected_expert_labels.yaml",
+      "sha256": "a2e89a91c21c6ee9e3d8dea2580b6740ec26fb887e344f1fd90d959999578057",
+      "bytes": 473
+    },
+    {
+      "path": "cases/pci_segmented_lab/firewall_rules.yaml",
+      "sha256": "0c8d0ba4049050db629617ffdc0a4b2c8b5fe0c5c9c1c4904b21d1687a890ced",
+      "bytes": 732
+    },
+    {
+      "path": "cases/pci_segmented_lab/pci_scope.yaml",
+      "sha256": "80bf6f7ecc5d26ec8a1ad4510211cb2ba7e2aaf5eb57b766675ec44ba04d7250",
+      "bytes": 554
+    },
+    {
+      "path": "cases/pci_segmented_lab/topology.yaml",
+      "sha256": "70537fc983385d18aef91982287b9e2ba23db47e9f37c4e59237cc48b3f8aeef",
+      "bytes": 932
+    },
+    {
+      "path": "cases/pci_segmented_lab/vulnerabilities.csv",
+      "sha256": "ac225fd148bc8ccc65e69ab886bf01224c16b2a55753d0c2cd473a4e2363b00c",
+      "bytes": 968
+    }
+  ],
+  "output_files": [
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/article_table_env_effects.md",
+      "sha256": "04132c81295a6e80433d3e46505372fe29da7c18e8d3d8ad824aafe10d4e3b19",
+      "bytes": 701
+    },
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/assessments.json",
+      "sha256": "5020a785ff93a22a2989630fa1571ddae6f09595bc3b28dddfb98a9524ac7e58",
+      "bytes": 15025
+    },
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/audit_trace.jsonl",
+      "sha256": "253ceedd05e2c995de8f8d099e46eb55f8120cd4e00af98793b6fea2a21680c2",
+      "bytes": 6750
+    },
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/before_after_comparison.csv",
+      "sha256": "016de34d3f3adebf879c6af3f9e8e4a914c314c9fe28b0e6739221736baab163",
+      "bytes": 816
+    },
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/report.md",
+      "sha256": "d5da012f7da30d3fc40fb05299eb3238b60b7eefbc3b4fcf4481efc088e4755e",
+      "bytes": 7249
+    },
+    {
+      "path": "outputs/runs/pci_segmented_lab_20260517_143146/summary.csv",
+      "sha256": "ccea8222a58b4ab88219d8201c4ee6ebb70f35025dcec7035175d15d511a9234",
+      "bytes": 890
+    }
+  ]
+}

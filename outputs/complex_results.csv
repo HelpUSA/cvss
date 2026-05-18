@@ -1,0 +1,2 @@
+finding_id,asset_id,cve,base_score,environmental_score,mav,cr,ir,ar
+C-005,POS-01,CVE-2016-0469,7.8,7.8,Adjacent,High,High,High

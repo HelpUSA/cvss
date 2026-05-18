@@ -1,0 +1,9 @@
+asset_id,asset_name,cr,ir,ar,segmented,exposed_to_internet
+WEB-DMZ,Web DMZ,Medium,Medium,High,true,true
+DB-CORE,Core Database,High,High,High,false,false
+POS-01,Point of Sale,High,High,High,true,false
+ADMIN-PCI,PCI Admin,High,High,High,true,false
+BACKUP-SRV,Backup Server,Mediun,Medium,High,true,false
+IOT-GW,IoT Gateway,Low,Low,High,false,false
+CORE-SW,Core Switch,Medium,High,High,false,true
+EDGE-FW,Edge Firewall,High,High,High,true,true

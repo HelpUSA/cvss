@@ -1,0 +1,23 @@
+\section{Background}
+
+\subsection{CVSS Environmental Metrics}
+
+CVSS version 4.0 organizes vulnerability scoring into Base, Threat,
+Environmental and Supplemental metric groups~\cite{firstcvss40}. The Base
+metrics describe intrinsic properties of a vulnerability, while Environmental
+metrics are intended to adapt severity to the consumer's environment. The NVD
+provides CVSS calculators and supports CVSS v4.0, but environmental assessment
+depends on local organizational context~\cite{nvdcvss,nvdcvss40support}.
+
+This artifact initially implements CVSS v3.1 Environmental scoring because it
+is directly comparable with the previous CVSS 3.x experimental setup. The
+workflow focuses on security requirements (CR, IR, AR) and selected Modified
+Base metrics such as Modified Attack Vector (MAV). The paper positions CVSS
+v4.0 support as the next natural extension.
+
+\subsection{PCI-DSS Scope and Vulnerability Prioritization}
+
+PCI-DSS scoping separates systems that process or can interact with cardholder
+data from systems outside the cardholder data environment. In the original
+experiment, the same conceptual model was used to test whether assessors could
+correctly adapt Environmental metrics before and after segmentation.

@@ -1,0 +1,26 @@
+\section{Preliminary Evaluation Plan and Baseline Results}
+\label{sec:evaluation}
+
+The current artifact includes a clean deterministic validation run for the PCI segmented lab case. The run is stored in \path{outputs/runs/pci_segmented_lab_20260517_143146/} and is accompanied by \path{run_manifest.json}, input hashes, generated assessments, an audit trace, and a before-after comparison table. These results are treated as artifact-validation results, not as evidence that the watcher workflow outperforms human experts.
+
+The run generated 12 assessments for six findings, with one before and one after segmentation assessment per finding. All generated CR, IR, AR, and MAV labels matched the expected expert labels included in the structured case files. Two findings were downgraded after segmentation, four remained unchanged, and none were upgraded. The mean environmental-score delta was -0.267 and the maximum absolute delta was 0.8.
+
+\begin{table}[ht]
+\centering
+\caption{Clean deterministic before-after run for the PCI segmented lab case.}
+\label{tab:clean-run-effects}
+\begin{tabular}{lllrrrrl}
+\toprule
+Finding & Asset & Type & MAV & Before & After & Delta & Effect \\
+\midrule
+F-001 & A-CORP-SRV & SYS & N--A & 8.8 & 8.0 & -0.8 & downgraded \\
+F-002 & POS-01 & SYS & L--L & 7.8 & 7.8 & 0.0 & unchanged \\
+F-003 & ADMIN-01 & APP & N--A & 8.8 & 8.0 & -0.8 & downgraded \\
+F-004 & WIRELESS-LEGACY-01 & APP & N--N & 7.8 & 7.8 & 0.0 & unchanged \\
+F-005 & CORE-SW-01 & SYS & A--A & 9.7 & 9.7 & 0.0 & unchanged \\
+F-006 & CORE-SW-01 & SYS & A--A & 8.8 & 8.8 & 0.0 & unchanged \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The final evaluation will compare four conditions: historical human baseline, deterministic rule-based baseline, language-model baseline without local tool access, and AI Bridge watcher-mediated multi-agent assessment with local evidence access. The primary metrics are exact match for CR, IR, AR, and MAV; secondary metrics include environmental-score error, correct before-after direction, reproducibility across repeated runs, evidence coverage, and audit-trace completeness.

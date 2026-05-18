@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Run {
+  id          String       @id
+  caseId      String
+  generatedAt DateTime     @default(now())
+  manifest    Json
+  summaries   Assessment[]
+  comparisons Comparison[]
+  auditEvents AuditEvent[]
+}
+
+model Assessment {
+  id                          String @id
+  runId                       String
+  findingId                 String
+  assetId                   String
+  cve                        String
+  vulnerabilityType           String
+  state                     String
+  baseScore                  Float
+  environmentalScore          Float
+  cr                         String
+  ir                         String
+  ar                         String
+  mav                        String
+  matchesExpectedRequirements Boolean
+  run                        Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+  @@index([runId])
+  @@index([findingId])
+}
+
+model Comparison {
+  id                    String @id
+  runId                String
+  findingId           String
+  assetId             String
+  cve                 String
+  vulnerabilityType   String
+  environmentalBefore   Float
+  environmentalAfter    Float
+  delta               Float
+  effect             String
+  mavBefore          String
+  mavAfter           String
+  beforeMatchesExpected Boolean
+  afterMatchesExpected  Boolean
+  raw                 Json
+  run                 Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+  @@index([runId])
+  @@index([effect])
+}
+
+model AuditEvent {
+  id      String @id
+  runId   String
+  ordinal Int
+  event   Json
+  run     Run    @relation(fields: [runId], references: [id], onDelete: Cascade)
+  @@index([runId])
+}

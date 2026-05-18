@@ -1,0 +1,6 @@
+asset_id,asset_name,role,zone_before,zone_after,pci_scope_before,pci_scope_after,external_exposure_before,external_exposure_after
+A-CORP-SRV,Corporate backend server,corporate_service,flat_corporate,corporate_segment,in_scope,out_of_scope,network,internal_only
+POS-01,POS terminals,payment_processing,flat_store,cardholder_data_environment,in_scope,in_scope,network,internal_only
+ADMIN-01,Administrative workstation,administration,flat_store,admin_segment,in_scope,out_of_scope,network,internal_only
+WIRELESS-LEGACY-01,Wireless legacy customer systems,legacy_wireless,flat_store,wireless_segment,in_scope,out_of_scope,network,network
+CORE-SW-01,Core switch implementing VLAN ACLs,segmentation_enforcement,core,core,in_scope,in_scope,adjacent,adjacent

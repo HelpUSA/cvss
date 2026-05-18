@@ -1,0 +1,14 @@
+\section{Artifact and Implementation}
+
+The artifact is organized as a reproducible starter kit. The Python application
+loads structured case files, applies transparent inference rules, computes CVSS
+v3.1 Environmental scores, and writes JSON, CSV, JSONL and Markdown outputs.
+
+The AI Bridge folder contains watcher command templates and agent prompts. These
+files are intended to operationalize the case study through real AI Bridge
+execution: local file reading, command execution, chat-to-chat review, and
+evidence consolidation.
+
+The artifact produces an \texttt{audit\_trace.jsonl} file where each line links a
+metric decision to a source and a reason. This is the core mechanism that turns
+the assessment from an opaque AI output into an auditable procedure.

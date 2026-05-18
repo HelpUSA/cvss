@@ -1,0 +1,13 @@
+expected_labels:
+  F-001:before: {CR: M, IR: M, AR: H}
+  F-001:after:  {CR: M, IR: M, AR: H}
+  F-002:before: {CR: H, IR: H, AR: H}
+  F-002:after:  {CR: H, IR: H, AR: H}
+  F-003:before: {CR: M, IR: M, AR: M}
+  F-003:after:  {CR: M, IR: M, AR: M}
+  F-004:before: {CR: L, IR: L, AR: M}
+  F-004:after:  {CR: L, IR: L, AR: M}
+  F-005:before: {CR: M, IR: H, AR: H}
+  F-005:after:  {CR: M, IR: H, AR: H}
+  F-006:before: {CR: M, IR: H, AR: H}
+  F-006:after:  {CR: M, IR: H, AR: H}

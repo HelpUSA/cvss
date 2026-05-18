@@ -1,0 +1,29 @@
+network_states:
+  before:
+    description: Flat network where corporate, administrative, POS and wireless systems can interact more broadly.
+    zones:
+      - flat_corporate
+      - flat_store
+      - core
+    edges:
+      - [flat_corporate, flat_store]
+      - [flat_store, core]
+      - [core, internet]
+  after:
+    description: PCI-DSS segmented network separating cardholder data environment from administrative, corporate and wireless segments.
+    zones:
+      - corporate_segment
+      - admin_segment
+      - wireless_segment
+      - cardholder_data_environment
+      - core
+    edges:
+      - [corporate_segment, core]
+      - [admin_segment, core]
+      - [wireless_segment, internet]
+      - [cardholder_data_environment, core]
+      - [core, internet]
+segmentation_controls:
+  - control_id: ACL-CORE-01
+    asset_id: CORE-SW-01
+    description: Core switch enforces ACLs between VLANs and cardholder data environment.

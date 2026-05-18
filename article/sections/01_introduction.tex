@@ -1,0 +1,30 @@
+\section{Introduction}
+
+The Common Vulnerability Scoring System (CVSS) is widely used to communicate
+the severity of software vulnerabilities. In practice, however, organizations
+often rely on the Base score only, even though the real operational severity of
+a vulnerability depends on local deployment conditions, business criticality,
+security requirements, and mitigating controls.
+
+A previous controlled experiment on CVSS Environmental Metrics showed that
+manual assessment does not scale well with environmental complexity. In that
+study, assessors were more accurate in a flat network than in a segmented
+network, and system-level vulnerabilities were harder to assess correctly than
+application-level vulnerabilities in segmented environments~\cite{allodi2017cvssenv}.
+The study concluded that automation and data integration are necessary for
+environmental assessments to become practical at organizational scale.
+
+This paper continues that line of research. Instead of running another human
+subject experiment, we investigate whether a local multi-agent automation
+framework can perform the environmental assessment task by collecting and
+reasoning over evidence. We use AI Bridge as the execution substrate. AI Bridge
+can read local files, run controlled commands, coordinate messages through a
+watcher, relay tasks across chats or agents, and produce auditable artifacts.
+
+The main research question is:
+
+\begin{quote}
+Can tool-augmented AI agents, operating through AI Bridge, generate reproducible
+and evidence-backed CVSS Environmental assessments for segmented PCI-DSS-like
+environments?
+\end{quote}

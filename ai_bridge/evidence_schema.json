@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CVSS Environmental Evidence Record",
+  "type": "object",
+  "required": ["finding_id", "asset_id", "cve", "state", "metric", "source", "reason"],
+  "properties": {
+    "finding_id": {"type": "string"},
+    "asset_id": {"type": "string"},
+    "cve": {"type": "string"},
+    "state": {"enum": ["before", "after"]},
+    "metric": {"type": "string"},
+    "source": {"type": "string"},
+    "reason": {"type": "string"},
+    "agent_id": {"type": "string"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

@@ -1,0 +1,9 @@
+finding_id,asset_id,cve,base_score,environmental_score,mav,cr,ir,ar
+C-001,WEB-DMZ,CVE-2021-34218,7.4,6.6,Adjacent,Medium,Medium,High
+C-002,WEB-DMZ,CVE-2022-22943,9.8,9.0,Adjacent,Medium,Medium,High
+C-003,DB-CORE,CVE-2021-38089,8.5,8.5,Adjacent,High,High,High
+C-004,DB-CORE,CVE-2022-22943,9.1,9.1,Adjacent,High,High,High
+C-005,POS-01,CVE-2016-0469,7.8,7.8,Adjacent,High,High,High
+C-006,ADMIN-PCI,CVE-2016-3234,8.8,8.8,Adjacent,High,High,High
+C-007,BACKUP-SRV,CVE-2020-2575,7.5,7.5,Adjacent,Mediun,Medium,High
+C-008,IOT-GW,CVE-2021-34218,7.4,7.4,Adjacent,Low,Low,High

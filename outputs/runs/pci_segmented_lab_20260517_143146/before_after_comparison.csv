@@ -1,0 +1,7 @@
+finding_id,asset_id,cve,vulnerability_type,base_score_before,base_score_after,environmental_before,environmental_after,delta,effect,mav_before,mav_after,cr_before,ir_before,ar_before,cr_after,ir_after,ar_after,before_matches_expected,after_matches_expected
+F-001,A-CORP-SRV,CVE-2016-0036,SYS,8.8,8.8,8.8,8.0,-0.8,downgraded,N,A,M,M,H,M,M,H,True,True
+F-002,POS-01,CVE-2016-0469,SYS,7.8,7.8,7.8,7.8,0.0,unchanged,L,L,H,H,H,H,H,H,True,True
+F-003,ADMIN-01,CVE-2016-3234,APP,8.8,8.8,8.8,8.0,-0.8,downgraded,N,A,M,M,M,M,M,M,True,True
+F-004,WIRELESS-LEGACY-01,CVE-2016-1619,APP,8.8,8.8,7.8,7.8,0.0,unchanged,N,N,L,L,M,L,L,M,True,True
+F-005,CORE-SW-01,CVE-2016-6441,SYS,9.6,9.6,9.7,9.7,0.0,unchanged,A,A,M,H,H,M,H,H,True,True
+F-006,CORE-SW-01,CVE-2016-6428,SYS,8.3,8.3,8.8,8.8,0.0,unchanged,A,A,M,H,H,M,H,H,True,True

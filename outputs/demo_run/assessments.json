@@ -1,0 +1,101 @@
+[
+  {
+    "finding_id": "C-001",
+    "asset_id": "WEB-DMZ",
+    "cve": "CVE-2021-34218",
+    "base_score": 7.4,
+    "environmental_score": 6.6,
+    "mav": "Adjacent",
+    "cr": "Medium",
+    "ir": "Medium",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-002",
+    "asset_id": "WEB-DMZ",
+    "cve": "CVE-2022-22943",
+    "base_score": 9.8,
+    "environmental_score": 9.0,
+    "mav": "Adjacent",
+    "cr": "Medium",
+    "ir": "Medium",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-003",
+    "asset_id": "DB-CORE",
+    "cve": "CVE-2021-38089",
+    "base_score": 8.5,
+    "environmental_score": 8.5,
+    "mav": "Adjacent",
+    "cr": "High",
+    "ir": "High",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-004",
+    "asset_id": "DB-CORE",
+    "cve": "CVE-2022-22943",
+    "base_score": 9.1,
+    "environmental_score": 9.1,
+    "mav": "Adjacent",
+    "cr": "High",
+    "ir": "High",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-005",
+    "asset_id": "POS-01",
+    "cve": "CVE-2016-0469",
+    "base_score": 7.8,
+    "environmental_score": 7.8,
+    "mav": "Adjacent",
+    "cr": "High",
+    "ir": "High",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-006",
+    "asset_id": "ADMIN-PCI",
+    "cve": "CVE-2016-3234",
+    "base_score": 8.8,
+    "environmental_score": 8.8,
+    "mav": "Adjacent",
+    "cr": "High",
+    "ir": "High",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-007",
+    "asset_id": "BACKUP-SRV",
+    "cve": "CVE-2020-2575",
+    "base_score": 7.5,
+    "environmental_score": 7.5,
+    "mav": "Adjacent",
+    "cr": "Mediun",
+    "ir": "Medium",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-008",
+    "asset_id": "IOT-GW",
+    "cve": "CVE-2021-34218",
+    "base_score": 7.4,
+    "environmental_score": 7.4,
+    "mav": "Adjacent",
+    "cr": "Low",
+    "ir": "Low",
+    "ar": "High"
+  },
+  {
+    "finding_id": "C-009",
+    "asset_id": "CORE-SW",
+    "cve": "@\ufffdEE-2016-6441",
+    "base_score": 9.6,
+    "environmental_score": 8.8,
+    "mav": "Adjacent",
+    "cr": "Medium",
+    "ir": "High",
+    "ar": "High"
+  }
+]

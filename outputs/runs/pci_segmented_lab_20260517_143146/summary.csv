@@ -1,0 +1,13 @@
+finding_id,asset_id,cve,vulnerability_type,state,base_score,environmental_score,cr,ir,ar,mav,matches_expected_requirements
+F-001,A-CORP-SRV,CVE-2016-0036,SYS,before,8.8,8.8,M,M,H,N,True
+F-001,A-CORP-SRV,CVE-2016-0036,SYS,after,8.8,8.0,M,M,H,A,True
+F-002,POS-01,CVE-2016-0469,SYS,before,7.8,7.8,H,H,H,L,True
+F-002,POS-01,CVE-2016-0469,SYS,after,7.8,7.8,H,H,H,L,True
+F-003,ADMIN-01,CVE-2016-3234,APP,before,8.8,8.8,M,M,M,N,True
+F-003,ADMIN-01,CVE-2016-3234,APP,after,8.8,8.0,M,M,M,A,True
+F-004,WIRELESS-LEGACY-01,CVE-2016-1619,APP,before,8.8,7.8,L,L,M,N,True
+F-004,WIRELESS-LEGACY-01,CVE-2016-1619,APP,after,8.8,7.8,L,L,M,N,True
+F-005,CORE-SW-01,CVE-2016-6441,SYS,before,9.6,9.7,M,H,H,A,True
+F-005,CORE-SW-01,CVE-2016-6441,SYS,after,9.6,9.7,M,H,H,A,True
+F-006,CORE-SW-01,CVE-2016-6428,SYS,before,8.3,8.8,M,H,H,A,True
+F-006,CORE-SW-01,CVE-2016-6428,SYS,after,8.3,8.8,M,H,H,A,True

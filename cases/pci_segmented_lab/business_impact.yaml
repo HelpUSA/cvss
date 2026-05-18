@@ -1,0 +1,26 @@
+assets:
+  A-CORP-SRV:
+    confidentiality: medium
+    integrity: medium
+    availability: high
+    rationale: Corporate backend services affect business operations but do not process cardholder data after segmentation.
+  POS-01:
+    confidentiality: high
+    integrity: high
+    availability: high
+    rationale: POS processes cardholder data and business transactions.
+  ADMIN-01:
+    confidentiality: medium
+    integrity: medium
+    availability: medium
+    rationale: Administrative workstation can support operations but is outside CDE after segmentation.
+  WIRELESS-LEGACY-01:
+    confidentiality: low
+    integrity: low
+    availability: medium
+    rationale: Wireless legacy/customer systems should be isolated from CDE.
+  CORE-SW-01:
+    confidentiality: medium
+    integrity: high
+    availability: high
+    rationale: Core switch enforces segmentation and availability of critical connectivity.
