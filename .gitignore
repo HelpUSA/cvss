@@ -20,3 +20,7 @@ article/*.out
 article/*.toc
 article/*.fls
 article/*.fdb_latexmk
+
+# Local generated archives
+_archive/
+temp/
