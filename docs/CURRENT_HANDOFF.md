@@ -1,0 +1,53 @@
+# Current Handoff - CVSS
+
+Generated: 2026-05-20T10:16:09
+
+## Current state
+
+- GitHub repository: https://github.com/HelpUSA/cvss
+- Vercel project: help-us/cvss
+- Production domain: https://cvss.helpusbr.com
+- Vercel alias: https://cvss-help-us.vercel.app
+- Railway PostgreSQL is configured and seeded.
+- Vercel Production has DATABASE_URL configured.
+- Local workspace: D:/dev/cvss
+- Current git HEAD when this handoff was written: 5aaf4f3
+- Git remote: https://github.com/HelpUSA/cvss.git
+
+## What is working
+
+- Next.js dashboard builds successfully.
+- Dashboard is publicly accessible.
+- Dashboard displays CVSS Environmental Dashboard and pci_segmented_lab.
+- Repository and Vercel project are both named cvss.
+- web/.gitignore excludes .vercel and .env*.local.
+
+## Current application behavior
+
+The application currently displays the deterministic PCI segmented lab run and its before/after Environmental score effects. It reads from Railway PostgreSQL when DATABASE_URL exists and falls back to seed.json otherwise.
+
+## Article state
+
+The article tree is under article/. The manuscript has been rebuilt after related-work and evaluation updates. The current evidence should be framed as artifact validation of a deterministic baseline, not as the final watcher-mediated experiment.
+
+## Immediate next task
+
+Implement a dashboard data-source/status indicator and then add filters for comparison rows.
+
+## Operator notification rule
+
+If an agent stops for a human checkpoint, blocking error, deployment/security issue, or needs the operator to return, send an operator e-mail using D:/dev/autocode/ai-bridge/scripts/watcher/notify_operator.py before stopping.
+
+Dry-run example:
+
+text
+python scripts/watcher/notify_operator.py --dry-run --subject "CVSS checkpoint" --message "CVSS needs operator attention."
+
+
+Real send depends on AI_BRIDGE_NOTIFY_EMAIL_* environment variables.
+
+## Git status at handoff generation
+
+text
+## main...origin/main
+

@@ -1,21 +1,80 @@
-#
-# CVSS Environmental Assessment with AI Bridge
+# CVSS Environmental Assessment
 
-This repository contains a continuation-study prototype for CVSS Environmental assessment.
+Cloud prototype and research artifact for CVSS Environmental assessment with local-context evidence, before/after scoring, audit traces, and an article-ready evaluation workflow.
 
-## Canonical structure
+## Current cloud state
 
-- `article/` - active LaTeX manuscript.
-- `cases/` - structured case-study evidence.
-- `app/` - Python prototype for deterministic scoring and reporting.
-- `outputs/` - generated outputs. Final runs must use clean run directories.
-- `ai_bridge/` - watcher/agent prompts and execution notes.
-- `docs/` - project status and planning.
-- `research/source_papers/` - source papers and reference PDFs.
-- `_archive/` - legacy drafts, imported ZIPs, backups, and discarded material.
+- Public domain: https://cvss.helpusbr.com
+- Vercel project: help-us/cvss
+- GitHub repository: https://github.com/HelpUSA/cvss
+- Local workspace: D:/dev/cvss
+- Database: Railway PostgreSQL
+- Web app: Next.js under web/
+- Data layer: Prisma with DATABASE_URL in Vercel Production and local seed fallback
 
-## Scientific thesis
+## What the application does now
 
-The prior PCI-DSS inspired study showed that manual CVSS Environmental assessment becomes harder as segmentation and dependencies increase. This project evaluates whether a watcher-mediated AI Bridge workflow can make the same task more reproducible, auditable, and evidence-based.
+The current application is a visual dashboard for the deterministic PCI segmented lab run. It displays:
 
-The claim is deliberately conservative: the workflow does not replace expert judgment. It operationalizes evidence collection, scoring, review, and traceability so that expert decisions can be inspected and repeated.
+- run and case metadata;
+- core metrics for the current assessment run;
+- before/after CVSS Environmental score comparison;
+- finding-level rows with asset, CVE, vulnerability type, score delta, MAV change, and expected-label match;
+- assessment rows for before and after states;
+- audit-trace material and run manifest context.
+
+Current validated run characteristics:
+
+- case: pci_segmented_lab;
+- findings: 6;
+- assessments: 12;
+- downgraded findings: 2;
+- unchanged findings: 4;
+- upgraded findings: 0;
+- mean environmental delta: approximately -0.267.
+
+## Important URLs
+
+- Production domain: https://cvss.helpusbr.com
+- Vercel alias: https://cvss-help-us.vercel.app
+- Last generated deployment example: https://cvss-gq625yfi5-help-us.vercel.app
+
+## Repository layout
+
+text
+article/ LaTeX manuscript and sections
+app/ Python prototype and deterministic assessment logic
+cases/ Structured lab cases and input evidence
+outputs/ Generated runs, manifests, comparisons, traces and reports
+research/ Research notes and source material
+web/ Next.js dashboard, Prisma schema, seed data and frontend
+_docs/archive Historical or obsolete material when applicable
+
+
+## Local validation
+
+text
+cd D:/dev/cvss/web
+npm install
+npm run build
+
+
+## Database workflow
+
+text
+cd D:/dev/cvss/web
+npm run db:push
+npm run db:seed
+
+
+Production uses the Railway PostgreSQL connection through Vercel environment variable DATABASE_URL.
+
+## Next implementation priorities
+
+1. Add dashboard filters and finding detail pages.
+2. Add case/run history and explicit data-source indicator.
+3. Add upload/manual case creation for assets, findings and environment context.
+4. Add backend execution path for running new assessments from the UI.
+5. Add report export in CSV, JSON, Markdown and article-table formats.
+6. Add authentication before using sensitive customer evidence.
+7. Integrate the watcher/AI Bridge mediated condition for the research evaluation.

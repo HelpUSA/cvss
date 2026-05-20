@@ -1,0 +1,48 @@
+# CVSS Roadmap
+
+## Current phase
+
+The project is in cloud MVP stage. The dashboard is deployed and the deterministic PCI segmented lab run is visible online.
+
+## Phase 1 - Stabilize cloud MVP
+
+- Verify cvss.helpusbr.com after DNS/cache propagation.
+- Add visible data-source indicator: Railway PostgreSQL versus seed fallback.
+- Add a small health/status section to the dashboard.
+- Keep GitHub, Vercel and Railway names aligned with cvss.
+
+## Phase 2 - Improve dashboard usability
+
+- Add filters by asset, CVE, effect, vulnerability type and expected-match status.
+- Add finding detail pages.
+- Add charts for before/after scores, delta distribution and effect counts.
+- Add export buttons for CSV, JSON and Markdown.
+
+## Phase 3 - Add case authoring and run history
+
+- Add case list and run history.
+- Add input screens or upload flow for assets and vulnerabilities.
+- Persist cases, runs, evidence and reports in the database.
+- Add run status and execution logs.
+
+## Phase 4 - Add backend executor
+
+- Create a Railway backend service for long-running assessment jobs.
+- Keep Vercel focused on UI and server-rendered dashboard pages.
+- Add job queue or async execution flow if needed.
+
+## Phase 5 - Research evaluation
+
+- Freeze the final expert-label protocol.
+- Run final deterministic baseline.
+- Run no-tool LLM condition.
+- Run watcher/AI Bridge mediated condition.
+- Compare accuracy, reproducibility, traceability, and failure modes.
+
+## Phase 6 - Article finalization
+
+- Update methodology with final experimental design.
+- Add final results tables and figures.
+- Add limitations and threat-to-validity discussion.
+- Add cloud artifact/dashboard description.
+- Prepare submission-ready PDF.

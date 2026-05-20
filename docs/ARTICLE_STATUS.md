@@ -4,35 +4,44 @@
 
 - Manuscript: D:/dev/cvss/article/main.tex
 - PDF: D:/dev/cvss/article/main.pdf
-- Latest clean deterministic run: outputs/runs/pci_segmented_lab_20260517_143146
-- Run manifest: outputs/runs/pci_segmented_lab_20260517_143146/run_manifest.json
-- Before-after table: outputs/runs/pci_segmented_lab_20260517_143146/before_after_comparison.csv
-- Article-ready run table: outputs/runs/pci_segmented_lab_20260517_143146/article_table_env_effects.md
-
-## Validation
-
-- PDF exists: True
-- PDF size: 161282 bytes
-- Files checked: 17
-- Bad token hits: 0
-- LaTeX error markers: 2
+- Canonical article sections: D:/dev/cvss/article/sections
+- References: D:/dev/cvss/article/references.bib
+- Current cloud artifact: https://cvss.helpusbr.com
 
 ## Completed
 
-- Legacy IEEE draft, root ZIPs, obsolete backup files, and corrupted comparative section were archived.
+- Legacy IEEE draft, obsolete backups, old ZIPs and corrupted comparative material were archived.
 - Canonical article tree was rebuilt under article/.
-- Clean deterministic PCI segmented lab run was generated under outputs/runs/.
+- Related work was expanded with CVSS, NVD, SSVC, EPSS and prior environmental-scoring sources.
+- A clean deterministic PCI segmented lab run was generated under outputs/runs/.
 - Run manifest and input/output hashes were generated.
 - Section 07 was updated from the clean deterministic run.
-- Article rebuilt successfully after Section 07 update.
+- LaTeX and BibTeX issues were corrected and the article rebuilt successfully.
+- A cloud dashboard was created and deployed for the artifact.
+
+## Current artifact-validation result
+
+The current deterministic run should be described as an artifact-validation result:
+
+- case: pci_segmented_lab;
+- findings: 6;
+- assessments: 12;
+- downgraded findings: 2;
+- unchanged findings: 4;
+- upgraded findings: 0;
+- all expected label checks passed in the controlled case;
+- mean environmental delta: approximately -0.267;
+- maximum absolute delta: 0.8.
+
+## Important caution
+
+The current run is not yet the final human-vs-LLM-vs-watcher comparison. It validates the deterministic artifact and establishes a reproducible baseline.
 
 ## Next priorities
 
-1. Expand related work with current primary sources.
-2. Add explicit methodology for the no-tool LLM and watcher multi-agent conditions.
-3. Freeze expert-label protocol and run manifests for all final evaluation conditions.
+1. Add explicit methodology for the no-tool LLM and watcher multi-agent conditions.
+2. Freeze expert-label protocol and final evaluation manifests.
+3. Run and document all final evaluation conditions.
 4. Add limitations around deterministic baseline versus true multi-agent watcher condition.
-
-## Related-work update
-
-The related-work section was expanded with current primary sources for CVSS v4.0, NVD vulnerability metrics, SSVC, EPSS, environmental-aware vulnerability scoring, AutoCVS, and EvalSVA.
+5. Add a figure or short artifact description for the cloud dashboard.
+6. Prepare final submission-ready PDF after experimental results are complete.
