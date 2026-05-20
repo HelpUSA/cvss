@@ -35,7 +35,7 @@ type SummaryRow = {
   matches_expected_requirements: boolean;
 };
 
-function withMetrics(payload: any) {
+function withMetrics(payload: any, source = "unknown", sourceDetail = "Unknown data source") {
   const comparison = payload.comparison.map((row: any) => ({
     ...row,
     environmental_before: Number(row.environmental_before),
@@ -51,11 +51,11 @@ function withMetrics(payload: any) {
   const upgraded = comparison.filter((row) => row.effect === "upgraded").length;
   const unchanged = comparison.filter((row) => row.effect === "unchanged").length;
   const meanDelta = comparison.reduce((acc, row) => acc + row.delta, 0) / Math.max(comparison.length, 1);
-  return { ...payload, comparison, summary, metrics: { findings: comparison.length, assessments: summary.length, downgraded, upgraded, unchanged, meanDelta } };
+  return { ...payload, comparison, summary, source, sourceDetail, metrics: { findings: comparison.length, assessments: summary.length, downgraded, upgraded, unchanged, meanDelta } };
 }
 
 export function getSeedData() {
-  return withMetrics(seed);
+  return withMetrics(seed, "seed-fallback", "Local bundled seed.json fallback");
 }
 
 export async function getDashboardData() {
