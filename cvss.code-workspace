@@ -1,0 +1,13 @@
+﻿{
+ "folders": [
+ { "name": "cvss-root", "path": "." },
+ { "name": "web-dashboard", "path": "web" },
+ { "name": "python-prototype", "path": "app" },
+ { "name": "article", "path": "article" },
+ { "name": "docs", "path": "docs" }
+ ],
+ "settings": {
+ "typescript.tsdk": "web/node_modules/typescript/lib",
+ "editor.formatOnSave": true
+ }
+}
