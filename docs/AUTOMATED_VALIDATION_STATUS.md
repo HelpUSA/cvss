@@ -44,3 +44,9 @@ Scanned outputs/runs, curated summary, validation queue, and scenario-like folde
 
 Rebuilt validation/queues/curated_validation_queue.csv from outputs/curated_run_summary.csv and reran scripts/run_ai_validation_queue.ps1. This keeps the automated watcher IA validation artifacts synchronized with the current curated run summary.
 
+
+## Delivery verification checkpoint - 
+2026-05-28 11:34:11
+
+Delivery manifest and article PDF artifacts are present. Local web build was rechecked. Production marker status remains tracked separately as deployment freshness if public HTML lacks the latest dashboard markers.
+
