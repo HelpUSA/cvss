@@ -156,6 +156,8 @@ export function DashboardClient({ data }: { data: any }) {
         </div>
       </section>
 
+ <CuratedRunsPanel runs={curatedRuns} />
+
       <section className="panel">
         <h2>Audit and manifest context</h2>
         <div className="grid two">
