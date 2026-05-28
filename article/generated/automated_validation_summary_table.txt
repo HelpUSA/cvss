@@ -1,4 +1,11 @@
-﻿Automated watcher IA validation summary
-Curated scenarios | Automated decisions | Accepted | Flagged | Unclear | Mean confidence
-1 | 1 | 1 | 0 | 0 | 0,7
-Note: automated watcher IA validation only; independent human adjudication is future comparative work.
+﻿# Automated validation article table inputs
+
+Curated scenarios: 1
+Findings: 6
+Assessments: 12
+Automated validation decisions: 1
+Accepted decisions: 1
+Flagged decisions: 0
+Unclear decisions: 0
+
+Interpretation: automated watcher IA validation only; no completed independent human expert adjudication is claimed.

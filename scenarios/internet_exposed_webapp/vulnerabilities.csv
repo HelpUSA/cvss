@@ -1,0 +1,4 @@
+﻿finding_id,asset_id,cve,vulnerability_type,base_score,base_severity,base_vector,internet_exposed,network_segmented,pci_in_scope,firewall_restricted,compensating_controls,business_criticality,notes
+F-101,public-web,CVE-2025-1101,remote code execution,9.8,Critical,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H,yes,no,no,no,no,high,public internet exposed application
+F-102,public-api,CVE-2025-1102,authentication bypass,8.8,High,CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,yes,no,no,no,no,high,public API weak access control
+F-103,cdn-origin,CVE-2025-1103,information disclosure,6.5,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N,yes,no,no,yes,no,medium,origin partly restricted

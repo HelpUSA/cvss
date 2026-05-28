@@ -1,0 +1,4 @@
+﻿finding_id,asset_id,cve,vulnerability_type,base_score,base_severity,base_vector,internet_exposed,network_segmented,pci_in_scope,firewall_restricted,compensating_controls,business_criticality,notes
+F-401,object-bucket,CVE-2025-4401,public data exposure,7.5,High,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N,yes,no,no,no,no,high,public bucket exposure
+F-402,backup-bucket,CVE-2025-4402,weak access policy,6.5,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N,yes,no,no,no,yes,medium,partial compensating logging
+F-403,archive-store,CVE-2025-4403,metadata disclosure,5.3,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N,no,no,no,no,yes,low,archive not internet exposed

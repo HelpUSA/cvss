@@ -39,3 +39,8 @@ Added docs/RESEARCH_SEQUENCE.md, docs/INTERACTIVE_SITE_PLAN.md, and docs/PIPELIN
 
 The pilot scenario now has a standardized vulnerabilities.csv, a scenario runner, regenerated before/after comparison output, refreshed curated summary, validation queue, automated IA validation outputs, and a refreshed static dashboard generated from pipeline values. Continue by expanding curated scenarios and completing scripts/rebuild_all.ps1.
 
+
+## Curated scenario expansion checkpoint
+
+Expanded curated scenarios to include internet_exposed_webapp, internal_erp_segmented, payment_database_zone, and cloud_storage_misconfiguration in addition to the PCI segmented lab pilot. Regenerated scenario outputs, curated summary, validation queue, IA validation outputs, article inputs, and static dashboard.
+

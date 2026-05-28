@@ -1,0 +1,4 @@
+﻿finding_id,asset_id,cve,vulnerability_type,base_score,base_severity,base_vector,internet_exposed,network_segmented,pci_in_scope,firewall_restricted,compensating_controls,business_criticality,notes
+F-301,payment-db,CVE-2025-3301,privilege escalation,8.8,High,CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,no,yes,yes,yes,yes,high,PCI database segmented
+F-302,payment-replica,CVE-2025-3302,information disclosure,7.5,High,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N,no,yes,yes,yes,yes,high,replica restricted by firewall
+F-303,payment-backup,CVE-2025-3303,backup exposure,6.5,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N,no,yes,yes,yes,no,high,backup in PCI scope
