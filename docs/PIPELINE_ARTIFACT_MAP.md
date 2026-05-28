@@ -36,3 +36,8 @@ A future script, scripts/rebuild_all.ps1, should regenerate curated summaries, v
 ## Current status
 
 The project currently has a static public dashboard and committed article/reproducibility artifacts. The next scientific work is to strengthen the scoring engine and expand curated scenarios before building the full interactive website.
+
+## Environmental scoring engine checkpoint
+
+Added core/cvss_environmental_engine.py and scripts/run_engine_smoke.py as the first deterministic scoring-engine checkpoint. This stabilizes method inputs and outputs before the interactive site MVP.
+
