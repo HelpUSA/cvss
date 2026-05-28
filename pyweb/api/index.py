@@ -1,5 +1,5 @@
 ﻿from flask import Flask, Response
-app = Flask(name)
+app = Flask(__name__)
 HTML = ''
 HTML += '<!doctype html><html><head><meta charset=utf-8><meta name=viewport content=width=device-width,initial-scale=1><title>CVSS Environmental Dashboard</title>'
 HTML += '<style>body{font-family:Arial,sans-serif;margin:0;background:#0f172a;color:#e5e7eb}main{max-width:1000px;margin:0 auto;padding:32px 18px}.panel{background:#111827;border:1px solid #334155;border-radius:18px;padding:22px;margin:18px 0}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}.card{background:#0b1220;border:1px solid #1f2937;border-radius:14px;padding:16px}.metric{font-size:30px;font-weight:700}.note{color:#cbd5e1;line-height:1.55}.badge{display:inline-block;padding:5px 10px;border-radius:999px;background:#1d4ed8;color:white}</style></head><body><main>'
@@ -17,4 +17,5 @@ def dashboard():
 @app.get('/health')
 def health():
  return {'ok': True, 'runtime': 'python', 'dashboard': 'cvss'}
+
 
