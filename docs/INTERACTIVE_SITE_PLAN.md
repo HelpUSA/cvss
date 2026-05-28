@@ -49,3 +49,8 @@ Suggested files:
 ## Relationship to the article
 
 The site is a demonstrator and artifact generator. It should not be presented as a validated enterprise product in the current article. Human expert comparison remains future work.
+
+## Interactive MVP checkpoint
+
+Added app.js, styles.css, example JSON, and an interactive calculator section in index.html. The MVP calculates deterministic environmental CVSS values in the browser and exports JSON. Next checkpoint: convert exported JSON to standardized scenario input package.
+
