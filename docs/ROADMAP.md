@@ -108,3 +108,9 @@ The manuscript evaluation section now includes a curated-run engineering validat
 ## 2026-05-28 article curated-run summary update
 
 The manuscript evaluation section now includes a curated-run engineering validation summary table covering pci_segmented_lab, pci_demo_curated, and complex_curated. The text keeps the claim boundary clear: these scenarios expand deterministic engineering validation, while independent expert review and arm-level adjudication remain required before broader comparative claims.
+
+## Automated validation dashboard and deployment status - 
+2026-05-28 11:21:00
+
+Completed source-side automated watcher IA validation reporting and dashboard summary. Remaining operational task: ensure production alias serves the latest build containing the AI validation and curated validation panels.
+
