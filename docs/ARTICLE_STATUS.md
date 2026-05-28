@@ -87,3 +87,7 @@ Added scripts/summarize_curated_runs.ps1. It summarizes curated run folders into
 ## 2026-05-28 curated-run summarizer update
 
 Added scripts/summarize_curated_runs.ps1. It summarizes curated run folders into outputs/curated_run_summary.csv for manuscript tables and broader-study tracking. The first generated summary reflects the canonical pci_segmented_lab run; additional curated scenarios can be added after their evidence packages and labels are completed.
+
+## 2026-05-28 reviewer assessment form update
+
+Added docs/REVIEWER_ASSESSMENT_FORM.md for the broader-study phase. The form supports independent manual, LLM-only, and watcher-mediated assessment arms and records finding-level CVSS Environmental labels, evidence, rationale, confidence, and adjudication notes.

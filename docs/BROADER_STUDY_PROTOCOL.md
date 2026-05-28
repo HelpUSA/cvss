@@ -30,3 +30,7 @@ The current manuscript may claim reproducibility, auditability, and deterministi
 - Add a script that summarizes all curated runs into one CSV for manuscript tables.
 - Add a reviewer-form template for independent expert assessment.
 - Update the article only after the new scenarios are curated and validated.
+
+## 2026-05-28 reviewer assessment form update
+
+Added docs/REVIEWER_ASSESSMENT_FORM.md for the broader-study phase. The form supports independent manual, LLM-only, and watcher-mediated assessment arms and records finding-level CVSS Environmental labels, evidence, rationale, confidence, and adjudication notes.
