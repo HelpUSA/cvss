@@ -83,3 +83,51 @@ The final evaluation will compare four conditions: historical human baseline, de
 
 
 
+
+
+The broader engineering-validation set is summarized in Table~
+\
+ref{tab:curated-runs}. These additional scenarios are curated case packages used to exercise the deterministic pipeline and artifact summarizer. They extend engineering coverage, but they are not yet treated as independent comparative evidence because external expert review and arm-level adjudication remain future study steps.
+
+
+\
+begin{table}[htbp]
+
+\
+centering
+
+\
+caption{Curated run summary for deterministic engineering validation.}
+
+\
+label{tab:curated-runs}
+
+\
+begin{tabular}{lrrrrr}
+
+\
+hline
+Run & Findings & Assessments & Down & Same & Up 
+\
+\
+ 
+\
+hline
+pci_segmented_lab & 6 & 12 & 2 & 4 & 0 
+\
+\
+pci_demo_curated & 10 & 20 & 0 & 10 & 0 
+\
+\
+complex_curated & 10 & 20 & 0 & 10 & 0 
+\
+\
+ 
+\
+hline
+
+\
+end{tabular}
+
+\
+end{table}
