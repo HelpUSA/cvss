@@ -44,3 +44,9 @@ The pilot scenario now has a standardized vulnerabilities.csv, a scenario runner
 
 Expanded curated scenarios to include internet_exposed_webapp, internal_erp_segmented, payment_database_zone, and cloud_storage_misconfiguration in addition to the PCI segmented lab pilot. Regenerated scenario outputs, curated summary, validation queue, IA validation outputs, article inputs, and static dashboard.
 
+
+## Current phase status checkpoint - 
+2026-05-28 13:34:05
+
+Added docs/CURRENT_PHASE_STATUS.md summarizing completed research pipeline, static dashboard, interactive MVP, export converter, and the next checkpoint sequence.
+
