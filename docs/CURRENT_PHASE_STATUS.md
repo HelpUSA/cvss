@@ -75,3 +75,9 @@ Verified trace columns in generated scenario outputs and added manuscript text p
 
 Generated validation/trace/adjustment_trace_report.md and validation/trace/adjustment_trace_summary.csv. The dashboard now includes an adjustment traceability summary section.
 
+
+## Rebuild and results package verification - 
+2026-05-28 15:03:02
+
+Verified results package artifacts and reran the rebuild wrapper. Added docs/REBUILD_REPORT.md summarizing scenarios, findings, assessments, verified commands, verified outputs, and the automated-validation caveat.
+
