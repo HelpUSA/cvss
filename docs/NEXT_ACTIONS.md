@@ -34,3 +34,8 @@ Prepared a static root dashboard in index.html and vercel.json to avoid Next.js,
 
 Added docs/RESEARCH_SEQUENCE.md, docs/INTERACTIVE_SITE_PLAN.md, and docs/PIPELINE_ARTIFACT_MAP.md. The fully usable site begins after the research method, input schema, output schema, scoring engine, pilot scenario, scenario expansion, and static research dashboard are stable.
 
+
+## Scenario runner and dashboard refresh checkpoint
+
+The pilot scenario now has a standardized vulnerabilities.csv, a scenario runner, regenerated before/after comparison output, refreshed curated summary, validation queue, automated IA validation outputs, and a refreshed static dashboard generated from pipeline values. Continue by expanding curated scenarios and completing scripts/rebuild_all.ps1.
+

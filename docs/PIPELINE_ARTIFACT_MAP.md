@@ -51,3 +51,8 @@ Added scripts/run_curated_scenarios.py to execute standardized scenarios through
 
 Fixed scripts/run_curated_scenarios.py and regenerated scenario outputs, validation queue, automated IA validation outputs, and the static dashboard from the current standardized pilot scenario.
 
+
+## Rebuild script checkpoint
+
+Added scripts/rebuild_all.ps1 as the first orchestration wrapper for the scenario runner and automated watcher IA validation. The next checkpoint should fold article input generation and static dashboard generation into this single command.
+
