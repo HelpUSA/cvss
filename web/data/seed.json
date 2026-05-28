@@ -631,16 +631,18 @@
                            "reason":  "Unchanged modified metrics inherit base values unless local evidence overrides them."
                        }
                    ],
-    "curatedRuns":  {
-                        "run_id":  "pci_segmented_lab_20260517_143146",
-                        "case_id":  "pci_segmented_lab_20260517_143146",
-                        "findings":  "6",
-                        "assessments":  "12",
-                        "downgraded":  "2",
-                        "unchanged":  "4",
-                        "upgraded":  "0",
-                        "mean_delta":  "-0,267",
-                        "max_abs_delta":  "0,8",
-                        "source":  "before_after_comparison.csv"
-                    }
+    "curatedRuns":  [
+                        {
+                            "run_id":  "pci_segmented_lab_20260517_143146",
+                            "case_id":  "pci_segmented_lab_20260517_143146",
+                            "findings":  "6",
+                            "assessments":  "12",
+                            "downgraded":  "2",
+                            "unchanged":  "4",
+                            "upgraded":  "0",
+                            "mean_delta":  "-0,267",
+                            "max_abs_delta":  "0,8",
+                            "source":  "before_after_comparison.csv"
+                        }
+                    ]
 }
