@@ -1,0 +1,7 @@
+﻿finding_id,asset_id,cve,vulnerability_type,base_score,base_severity,base_vector,internet_exposed,network_segmented,pci_in_scope,firewall_restricted,compensating_controls,business_criticality,notes
+F-001,payment-api,CVE-2025-0001,remote code execution,9.8,Critical,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H,no,yes,yes,yes,yes,high,segmented PCI payment API with compensating controls
+F-002,payment-db,CVE-2025-0002,privilege escalation,8.8,High,CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,no,yes,yes,yes,yes,high,restricted database zone
+F-003,admin-vpn,CVE-2025-0003,authentication bypass,9.1,Critical,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N,no,yes,yes,yes,no,high,VPN restricted by firewall
+F-004,logging-node,CVE-2025-0004,information disclosure,6.5,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N,no,yes,no,yes,yes,medium,internal logging node
+F-005,bastion-host,CVE-2025-0005,local privilege escalation,7.8,High,CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H,no,yes,yes,yes,no,medium,bastion in restricted management segment
+F-006,public-portal,CVE-2025-0006,cross site scripting,6.1,Medium,CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N,yes,no,no,no,no,medium,public portal remains exposed

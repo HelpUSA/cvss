@@ -41,3 +41,8 @@ The project currently has a static public dashboard and committed article/reprod
 
 Added core/cvss_environmental_engine.py and scripts/run_engine_smoke.py as the first deterministic scoring-engine checkpoint. This stabilizes method inputs and outputs before the interactive site MVP.
 
+
+## Scenario runner checkpoint
+
+Added scripts/run_curated_scenarios.py to execute standardized scenarios through core/cvss_environmental_engine.py and regenerate before_after_comparison.csv plus outputs/curated_run_summary.csv. The static dashboard now reflects generated curated run summary values rather than only fixed demonstration text.
+
