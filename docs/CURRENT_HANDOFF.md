@@ -148,3 +148,9 @@ Next: verify Vercel project/alias mapping, force a production deployment that in
 
 Added scripts/summarize_expert_validation.ps1 and validation/outputs/expert_validation_summary.csv. The script reads validation/templates/expert_validation_form.csv, ignores placeholder rows, and summarizes completed independent/manual expert judgments by case_id with correct, incorrect, unclear, and agreement_rate fields. Next evidence task: fill real reviewer rows for each curated scenario before broader comparative claims.
 
+
+## CVSS validation queue - 
+2026-05-28 10:05:42
+
+Added validation/queues/curated_validation_queue.csv and per-case starter review CSVs under validation/expert_packet/reviews. All rows remain pending independent/manual review; no expert judgments were fabricated. Next: complete those review files with real reviewer judgments, then rerun scripts/summarize_expert_validation.ps1.
+
