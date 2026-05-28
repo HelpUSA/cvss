@@ -1,0 +1,24 @@
+﻿{
+    "case_description":  {
+                             "scenario":  "interactive_smoke_case",
+                             "source":  "interactive_static_mvp"
+                         },
+    "vulnerabilities":  [
+                            {
+                                "finding_id":  "interactive-001",
+                                "asset_id":  "payment-api",
+                                "cve":  "CVE-2025-0001",
+                                "vulnerability_type":  "user supplied",
+                                "base_score":  "9.8",
+                                "base_severity":  "Critical",
+                                "base_vector":  "",
+                                "internet_exposed":  "no",
+                                "network_segmented":  "yes",
+                                "pci_in_scope":  "yes",
+                                "firewall_restricted":  "yes",
+                                "compensating_controls":  "yes",
+                                "business_criticality":  "high",
+                                "notes":  "smoke test"
+                            }
+                        ]
+}
