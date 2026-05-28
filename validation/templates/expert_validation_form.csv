@@ -1,0 +1,2 @@
+﻿case_id,finding_id,assessment_id,metric,automated_value,manual_value,manual_judgment,rationale,source_artifact,reviewer,review_date
+pci_segmented_lab_20260517_143146,,,,,,correct|incorrect|unclear,,,,
