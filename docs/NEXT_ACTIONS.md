@@ -22,3 +22,9 @@ Updated:
 ## Current stop condition
 
 Core manuscript and reproducibility deliverables are complete. The only unresolved item is public production dashboard freshness.
+
+## Static root deployment reset - 
+2026-05-28 12:45:36
+
+Prepared a static root dashboard in index.html and vercel.json to avoid Next.js, npm build, Python serverless, and custom Root Directory behavior. If the old Vercel project continues to use Production Overrides, create a new clean Vercel project from repository root and move cvss.helpusbr.com after verifying the static markers.
+
