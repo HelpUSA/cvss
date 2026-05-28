@@ -71,3 +71,11 @@ Immediate dashboard handoff tasks from the previous handoff are now validated. N
 - Threats-to-validity section expanded to distinguish artifact validation from generalizable assessment claims.
 - Conclusion rewritten to state the current contribution as a traceable deterministic baseline rather than autonomous expert replacement.
 - Next remaining research work is broader comparative evaluation with more scenarios and independent expert labels.
+
+## 2026-05-28 broader-study protocol update
+
+Added docs/BROADER_STUDY_PROTOCOL.md to define the next evaluation phase: manual expert assessment, LLM-only support, and watcher-mediated workflow. This protocol preserves the current manuscript boundary: deterministic artifact validation is complete, while broader comparative claims require curated scenarios and independent expert labels.
+
+## 2026-05-28 broader-study protocol update
+
+Added docs/BROADER_STUDY_PROTOCOL.md to define the next evaluation phase: manual expert assessment, LLM-only support, and watcher-mediated workflow. This protocol preserves the current manuscript boundary: deterministic artifact validation is complete, while broader comparative claims require curated scenarios and independent expert labels.
