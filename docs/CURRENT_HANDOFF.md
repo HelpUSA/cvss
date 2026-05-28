@@ -154,3 +154,9 @@ Added scripts/summarize_expert_validation.ps1 and validation/outputs/expert_vali
 
 Added validation/queues/curated_validation_queue.csv and per-case starter review CSVs under validation/expert_packet/reviews. All rows remain pending independent/manual review; no expert judgments were fabricated. Next: complete those review files with real reviewer judgments, then rerun scripts/summarize_expert_validation.ps1.
 
+
+## CVSS automated-only validation policy - 
+2026-05-28 10:18:53
+
+Project decision: current progress must not depend on human/manual expert action. The active validation path is now automated watcher/IA validation under validation/ai_review, with scripts/run_ai_validation_queue.ps1 generating rows and reports from committed curated artifacts. Human expert review remains optional future work and can later be used for comparison, but it is not a blocker and should not be presented as completed in the current article.
+
