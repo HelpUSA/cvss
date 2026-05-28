@@ -38,3 +38,9 @@ Production domain freshness remains the main operational issue if cvss.helpusbr.
 
 Scanned outputs/runs, curated summary, validation queue, and scenario-like folders to determine the next scenario expansion path. Continue by converting any available scenario fixtures into current curated run packages, regenerating outputs/curated_run_summary.csv, rebuilding validation/queues/curated_validation_queue.csv, and rerunning scripts/run_ai_validation_queue.ps1.
 
+
+## Curated queue rebuild - 
+2026-05-28 11:23:01
+
+Rebuilt validation/queues/curated_validation_queue.csv from outputs/curated_run_summary.csv and reran scripts/run_ai_validation_queue.ps1. This keeps the automated watcher IA validation artifacts synchronized with the current curated run summary.
+
