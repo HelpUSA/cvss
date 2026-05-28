@@ -27,3 +27,9 @@ The production site should remain a clean static Vercel project from repository 
 3. Add more realistic CVSS vectors and scenario evidence files for each curated scenario.
 4. Fold converter, dashboard generation, article input generation, and PDF build into scripts/rebuild_all.ps1.
 5. Update article Results and Discussion with multi-scenario totals and interactive MVP scope.
+
+## Scenario evidence enrichment - 
+2026-05-28 13:59:31
+
+Added standardized evidence files to each curated scenario: topology.yaml, firewall_rules.yaml, business_impact.yaml, pci_scope.yaml, and expected_expert_labels.yaml. Rebuild wrapper was run to keep generated outputs synchronized.
+

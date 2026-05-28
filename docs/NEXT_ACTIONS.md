@@ -50,3 +50,9 @@ Expanded curated scenarios to include internet_exposed_webapp, internal_erp_segm
 
 Added docs/CURRENT_PHASE_STATUS.md summarizing completed research pipeline, static dashboard, interactive MVP, export converter, and the next checkpoint sequence.
 
+
+## Evidence enrichment checkpoint - 
+2026-05-28 13:59:31
+
+Scenario evidence files were generated for all current curated scenarios. Next work: improve scripts/rebuild_all.ps1 to include PDF build and then update article Results and Discussion.
+
