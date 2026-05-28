@@ -21,3 +21,9 @@ The repository, local web build, article PDF, and automated watcher IA validatio
 4. Reprobe public HTML markers.
 
 This operational gap does not change committed reproducibility artifacts.
+
+## Targeted Vercel deploy attempt - 
+2026-05-28 11:36:36
+
+Ran a targeted Vercel production deploy/alias attempt from web. Public HTML markers were reprobed afterward. If markers remain absent, the next step is deeper Vercel project binding or domain routing diagnosis.
+
