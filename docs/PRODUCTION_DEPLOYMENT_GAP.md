@@ -27,3 +27,9 @@ This operational gap does not change committed reproducibility artifacts.
 
 Ran a targeted Vercel production deploy/alias attempt from web. Public HTML markers were reprobed afterward. If markers remain absent, the next step is deeper Vercel project binding or domain routing diagnosis.
 
+
+## Targeted Vercel deploy attempt - 
+2026-05-28 11:37:05
+
+Ran a targeted Vercel production deploy/alias attempt from web. Public HTML markers were reprobed afterward. If markers remain absent, the next step is deeper Vercel project binding or domain routing diagnosis.
+
