@@ -135,3 +135,10 @@ The manuscript evaluation section now includes a curated-run engineering validat
 ## 2026-05-28 article curated-run summary update
 
 The manuscript evaluation section now includes a curated-run engineering validation summary table covering pci_segmented_lab, pci_demo_curated, and complex_curated. The text keeps the claim boundary clear: these scenarios expand deterministic engineering validation, while independent expert review and arm-level adjudication remain required before broader comparative claims.
+
+## CVSS curated dashboard status - 
+2026-05-28 09:42:00
+
+Implemented in source: server-rendered curated summary in web/src/app/page.tsx, client CuratedRunsPanel rendered from DashboardClient, seed curatedRuns stored as array, and data fallback normalized with Object.values.
+Production check: cvss.helpusbr.com currently serves the dashboard and curated run id pci_segmented_lab_20260517_143146, but curl/static HTML has not yet exposed Curated validation runs or Engineering-validation markers. Treat production alias/deployment freshness as the immediate remaining deployment issue.
+Next: verify Vercel project/alias mapping, force a production deployment that includes commit 2cfb41f or newer, then capture final HTML/DOM evidence. After that, proceed with independent expert/manual validation and LLM-only vs watcher-mediated comparison before making broader comparative claims.
