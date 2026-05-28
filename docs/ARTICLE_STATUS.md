@@ -137,3 +137,9 @@ Expanded the deterministic scenario set to
 12
  assessments. Outputs were regenerated through the scenario runner, automated watcher IA validation, generated article inputs, and static dashboard. Human expert adjudication remains future comparative work.
 
+
+## Results package finalized - 
+2026-05-28 15:03:39
+
+The manuscript support package now includes multi-scenario curated summaries, automated watcher IA validation summaries, adjustment trace summaries, rebuild report, static interactive MVP, and article PDF artifact. Remaining article work is editorial refinement, not pipeline blocking.
+

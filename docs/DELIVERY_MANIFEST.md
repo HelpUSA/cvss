@@ -20,3 +20,9 @@ Updated:
 ## Notes
 
 The active validation path is automated watcher IA validation. The article must not claim completed independent human expert adjudication. Human expert comparison remains future work. Production dashboard freshness remains an operational deploy or alias issue if the public domain does not expose the latest markers.
+
+## Results package and interactive MVP update - 
+2026-05-28 15:03:39
+
+Added/verified current deliverables: docs/REBUILD_REPORT.md, docs/results_package/, validation/trace/, static interactive dashboard, export converter, and trace-enabled before/after outputs. Production serves the interactive static MVP at cvss.helpusbr.com.
+
