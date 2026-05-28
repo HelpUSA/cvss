@@ -1,0 +1,9 @@
+﻿assets:
+ WEB-DMZ:  before: in_scope  after: in_scope
+ DB-CORE:  before: in_scope  after: in_scope
+ POS-01:  before: in_scope  after: in_scope
+ ADMIN-PCI:  before: in_scope  after: in_scope
+ BACKUP-SRV:  before: in_scope  after: in_scope
+ IOT-GW:  before: in_scope  after: in_scope
+ CORE-SW:  before: in_scope  after: in_scope
+ EDGE-FW:  before: in_scope  after: in_scope

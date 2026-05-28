@@ -1,0 +1,4 @@
+﻿rules:
+ - id: legacy-curated-default
+ description: Curated default segmentation evidence for legacy scenario compatibility.
+ action: restrict

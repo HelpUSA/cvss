@@ -1,9 +1,9 @@
-asset_id,asset_name,cr,ir,ar,segmented,exposed_to_internet
-WEB-DMZ,Web DMZ,Medium,Medium,High,true,true
-DB-CORE,Core Database,High,High,High,false,false
-POS-01,Point of Sale,High,High,High,true,false
-ADMIN-PCI,PCI Admin,High,High,High,true,false
-BACKUP-SRV,Backup Server,Mediun,Medium,High,true,false
-IOT-GW,IoT Gateway,Low,Low,High,false,false
-CORE-SW,Core Switch,Medium,High,High,false,true
-EDGE-FW,Edge Firewall,High,High,High,true,true
+﻿"asset_id","asset_name","role","zone_before","zone_after","pci_scope_before","pci_scope_after","external_exposure_before","external_exposure_after"
+"WEB-DMZ","Web DMZ","public_web_service","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"DB-CORE","Core Database","database","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"POS-01","Point of Sale","payment_processing","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"ADMIN-PCI","PCI Admin","administration","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"BACKUP-SRV","Backup Server","backup_service","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"IOT-GW","IoT Gateway","iot_gateway","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"CORE-SW","Core Switch","segmentation_enforcement","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"
+"EDGE-FW","Edge Firewall","edge_firewall","flat_enterprise","flat_enterprise","in_scope","in_scope","internal_only","internal_only"

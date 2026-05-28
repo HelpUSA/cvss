@@ -1,0 +1,1 @@
+﻿# complex curated CVSS Environmental scenario  Migrated from the legacy assets.csv and vulnerability_findings.csv format into the current deterministic case schema for engineering validation and broader-study preparation. Independent expert review is still required before comparative research claims.

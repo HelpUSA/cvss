@@ -1,0 +1,9 @@
+﻿assets:
+ WEB-DMZ:  confidentiality: Medium  integrity: Medium  availability: Medium
+ DB-CORE:  confidentiality: Medium  integrity: Medium  availability: Medium
+ POS-01:  confidentiality: Medium  integrity: Medium  availability: Medium
+ ADMIN-PCI:  confidentiality: Medium  integrity: Medium  availability: Medium
+ BACKUP-SRV:  confidentiality: Medium  integrity: Medium  availability: Medium
+ IOT-GW:  confidentiality: Medium  integrity: Medium  availability: Medium
+ CORE-SW:  confidentiality: Medium  integrity: Medium  availability: Medium
+ EDGE-FW:  confidentiality: Medium  integrity: Medium  availability: Medium

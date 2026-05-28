@@ -1,0 +1,12 @@
+﻿zones:
+ flat_enterprise: {}
+ segmented_zone: {}
+assets:
+ WEB-DMZ:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ DB-CORE:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ POS-01:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ ADMIN-PCI:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ BACKUP-SRV:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ IOT-GW:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ CORE-SW:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
+ EDGE-FW:  before_zone: flat_enterprise  after_zone: flat_enterprise  exposed_to_internet: false
