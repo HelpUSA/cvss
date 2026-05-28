@@ -30,3 +30,8 @@ Added core/cvss31.py and tests/test_cvss31_official.py with known CVSS v3.1 base
 
 core/cvss31.py now compiles and reproduces known CVSS v3.1 base score examples: 9.8, 8.8, and 6.1. This is the first real-world official CVSS compatibility checkpoint.
 
+
+## Manual CVSS v3.1 validation confirmed
+
+Manual validation with Python 3.14 passed: core/cvss31.py compiles and known base scores return 9.8, 8.8, and 6.1 with assertion OK.
+
