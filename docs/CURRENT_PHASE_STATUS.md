@@ -39,3 +39,9 @@ Added standardized evidence files to each curated scenario: topology.yaml, firew
 
 Updated scripts/rebuild_all.ps1 to include article PDF build when LaTeX tooling is available. Added article text describing multi-scenario deterministic results and the interactive demonstrator scope.
 
+
+## Interactive dashboard rebuild fix - 
+2026-05-28 14:44:05
+
+Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
+

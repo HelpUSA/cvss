@@ -38,3 +38,12 @@ Write-Output 'REBUILD_ALL_END'
 Write-Output 'ARTICLE_PDF_BUILD'
 if(Test-Path 'article/main.tex'){ Push-Location article; if(Get-Command latexmk -ErrorAction SilentlyContinue){ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex | Select-Object -Last 60 } elseif(Get-Command pdflatex -ErrorAction SilentlyContinue){ pdflatex -interaction=nonstopmode -halt-on-error main.tex | Select-Object -Last 60 }; Pop-Location }
 
+
+Write-Output 'INJECT_INTERACTIVE_MVP'
+$idx = Get-Content 'index.html' -Raw -Encoding UTF8
+if($idx -notmatch 'Interactive environmental CVSS calculator'){
+ $section = '<section class=panel><h2>Interactive environmental CVSS calculator</h2><p class=note>Enter a vulnerability context and obtain a deterministic environmental CVSS result. Exported JSON can be converted into a scenario package.</p><div class=formgrid><label>Scenario<input id=scenario></label><label>Asset<input id=asset_id></label><label>CVE<input id=cve></label><label>Base score<input id=base_score></label><label>Internet exposed<select id=internet_exposed><option value=yes>yes</option><option value=no>no</option></select></label><label>Network segmented<select id=network_segmented><option value=yes>yes</option><option value=no>no</option></select></label><label>PCI scope<select id=pci_in_scope><option value=yes>yes</option><option value=no>no</option></select></label><label>Firewall restricted<select id=firewall_restricted><option value=yes>yes</option><option value=no>no</option></select></label><label>Compensating controls<select id=compensating_controls><option value=yes>yes</option><option value=no>no</option></select></label><label>Business criticality<select id=business_criticality><option value=low>low</option><option value=medium>medium</option><option value=high>high</option></select></label></div><div class=actions><button onclick=calc()>Calculate</button><button onclick=loadExample()>Load PCI example</button><button onclick=downloadJson()>Export JSON</button><button onclick=downloadCsv()>Export CSV</button><button onclick=copyPipelineJson()>Copy pipeline JSON</button></div><div id=result class=panel></div></section>'
+ $idx = $idx.Replace('</style>','</style><link rel=stylesheet href=styles.css><script defer src=app.js></script>')
+ $idx = $idx.Replace('</main>', $section + '</main>')
+ Set-Content 'index.html' -Value $idx -Encoding UTF8
+}
