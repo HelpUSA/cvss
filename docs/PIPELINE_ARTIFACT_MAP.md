@@ -56,3 +56,8 @@ Fixed scripts/run_curated_scenarios.py and regenerated scenario outputs, validat
 
 Added scripts/rebuild_all.ps1 as the first orchestration wrapper for the scenario runner and automated watcher IA validation. The next checkpoint should fold article input generation and static dashboard generation into this single command.
 
+
+## Full rebuild script expansion
+
+Expanded scripts/rebuild_all.ps1 so it now regenerates scenario outputs, validation queue, automated IA validation, article input summaries, and the static dashboard in one command.
+
