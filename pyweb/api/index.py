@@ -17,3 +17,4 @@ def dashboard():
 @app.get('/health')
 def health():
  return {'ok': True, 'runtime': 'python', 'dashboard': 'cvss'}
+
