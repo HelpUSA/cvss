@@ -50,3 +50,9 @@ Rebuilt validation/queues/curated_validation_queue.csv from outputs/curated_run_
 
 Delivery manifest and article PDF artifacts are present. Local web build was rechecked. Production marker status remains tracked separately as deployment freshness if public HTML lacks the latest dashboard markers.
 
+
+## Current stop condition - 
+2026-05-28 11:41:00
+
+Core deliverables are complete and committed. Remaining issue is production domain freshness only. Next productive work should focus either on Vercel alias/domain debugging or expanding curated scenarios, not on human validation dependency.
+

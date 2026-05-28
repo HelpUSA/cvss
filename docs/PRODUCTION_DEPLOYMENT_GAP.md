@@ -33,3 +33,9 @@ Ran a targeted Vercel production deploy/alias attempt from web. Public HTML mark
 
 Ran a targeted Vercel production deploy/alias attempt from web. Public HTML markers were reprobed afterward. If markers remain absent, the next step is deeper Vercel project binding or domain routing diagnosis.
 
+
+## Vercel diagnostic note - 
+2026-05-28 11:41:00
+
+Repeated Vercel CLI diagnostics sometimes returned empty stdout through the watcher bridge. Public HTML still lacks the newest automated watcher IA validation markers while the repository source, local build, article PDF, and validation artifacts are complete. Treat this as an operational domain/deployment issue for a separate deployment debugging pass.
+
