@@ -28,3 +28,9 @@ Core manuscript and reproducibility deliverables are complete. The only unresolv
 
 Prepared a static root dashboard in index.html and vercel.json to avoid Next.js, npm build, Python serverless, and custom Root Directory behavior. If the old Vercel project continues to use Production Overrides, create a new clean Vercel project from repository root and move cvss.helpusbr.com after verifying the static markers.
 
+
+## Research sequence and usable site planning - 
+2026-05-28 13:08:00
+
+Added docs/RESEARCH_SEQUENCE.md, docs/INTERACTIVE_SITE_PLAN.md, and docs/PIPELINE_ARTIFACT_MAP.md. The fully usable site begins after the research method, input schema, output schema, scoring engine, pilot scenario, scenario expansion, and static research dashboard are stable.
+
