@@ -63,3 +63,15 @@ Production at https://cvss.helpusbr.com was visually confirmed to serve the clea
 
 The deterministic engine now emits per-assessment adjustment traces, and generated comparison CSVs include trace_count, trace_total_adjustment, and trace_json columns for auditability.
 
+
+## Traceability article update - 
+2026-05-28 15:00:01
+
+Verified trace columns in generated scenario outputs and added manuscript text placeholders describing deterministic adjustment traceability.
+
+
+## Trace report checkpoint - 
+2026-05-28 15:01:00
+
+Generated validation/trace/adjustment_trace_report.md and validation/trace/adjustment_trace_summary.csv. The dashboard now includes an adjustment traceability summary section.
+

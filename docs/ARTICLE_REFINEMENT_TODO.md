@@ -21,3 +21,15 @@
 - Describe pipeline output schema.
 - Describe rebuild_all.ps1 orchestration.
 - Describe public dashboard and export-to-scenario workflow.
+
+## Traceability update - 
+2026-05-28 15:00:01
+
+Methods and Expected Evaluation should now reference trace_count, trace_total_adjustment, and trace_json in before_after_comparison.csv. The article should describe this as prototype deterministic adjustment traceability.
+
+
+## Trace report artifact - 
+2026-05-28 15:01:00
+
+Use validation/trace/adjustment_trace_summary.csv and validation/trace/adjustment_trace_report.md as article-supporting traceability artifacts.
+
