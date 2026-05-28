@@ -51,3 +51,9 @@ Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the in
 
 Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
 
+
+## Production interactive MVP verified - 
+2026-05-28 14:58:03
+
+Production at https://cvss.helpusbr.com was visually confirmed to serve the clean static dashboard with the interactive environmental CVSS calculator, Export CSV, and Copy pipeline JSON controls. The clean static Vercel path is now the active production path.
+

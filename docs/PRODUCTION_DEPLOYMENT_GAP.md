@@ -39,3 +39,9 @@ Ran a targeted Vercel production deploy/alias attempt from web. Public HTML mark
 
 Repeated Vercel CLI diagnostics sometimes returned empty stdout through the watcher bridge. Public HTML still lacks the newest automated watcher IA validation markers while the repository source, local build, article PDF, and validation artifacts are complete. Treat this as an operational domain/deployment issue for a separate deployment debugging pass.
 
+
+## Resolved - 
+2026-05-28 14:58:03
+
+The prior production deployment gap is resolved. Repository was made public, a deployment trigger commit was pushed, the static dashboard rebuild was fixed to preserve the interactive calculator, and production now serves the interactive MVP.
+

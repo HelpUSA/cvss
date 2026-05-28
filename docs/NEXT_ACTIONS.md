@@ -56,3 +56,9 @@ Added docs/CURRENT_PHASE_STATUS.md summarizing completed research pipeline, stat
 
 Scenario evidence files were generated for all current curated scenarios. Next work: improve scripts/rebuild_all.ps1 to include PDF build and then update article Results and Discussion.
 
+
+## Production success checkpoint - 
+2026-05-28 14:58:03
+
+The public site now serves the interactive static MVP. Next work continues on research depth: richer scenario evidence, stronger engine traceability, full rebuild orchestration, article Results/Discussion refinement, and export-to-scenario workflow hardening.
+
