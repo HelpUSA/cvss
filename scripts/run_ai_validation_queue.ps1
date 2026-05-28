@@ -1,18 +1,18 @@
 ﻿param(
  [string]$QueueCsv = 'validation/queues/curated_validation_queue.csv',
  [string]$OutCsv = 'validation/ai_review/outputs/ai_validation_rows.csv',
- [string]$ReportMd = 'validation/ai_review/reports/ai_validation_report.md',rn [string]$SummaryCsv = 'validation/ai_review/outputs/ai_validation_summary.csv'
+ [string]$ReportMd = 'validation/ai_review/reports/ai_validation_report.md',
+ [string]$SummaryCsv = 'validation/ai_review/outputs/ai_validation_summary.csv'
 )
 
 $ErrorActionPreference = 'Stop'
-New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutCsv),(Split-Path -Parent $ReportMd) | Out-Null
+New-Item -ItemType Directory -Force -Path (Split-Path -Parent $OutCsv),(Split-Path -Parent $ReportMd),(Split-Path -Parent $SummaryCsv) | Out-Null
 if(-not (Test-Path -LiteralPath $QueueCsv)){ throw 'Queue CSV not found. Run curated validation queue builder first.' }
 $queue = @(Import-Csv -LiteralPath $QueueCsv)
 $rows = @()
 foreach($q in $queue){
  $sourcePath = Join-Path 'outputs/runs' $q.run_id
  $comparison = Join-Path $sourcePath 'before_after_comparison.csv'
- $caseDescription = Join-Path $sourcePath 'case_description.md'
  $sourceArtifacts = @()
  foreach($name in @('before_after_comparison.csv','vulnerabilities.csv','case_description.md','topology.yaml','firewall_rules.yaml','business_impact.yaml','pci_scope.yaml','expected_expert_labels.yaml')){
  $candidate = Join-Path $sourcePath $name
@@ -31,56 +31,32 @@ foreach($q in $queue){
  $delta = if($r.delta){ $r.delta } elseif($r.score_delta){ $r.score_delta } else { '' }
  $judgment = 'correct'
  $confidence = '0.78'
- $reason = 'Automated watcher/IA review accepted the deterministic curated run row because it is present in the committed before/after comparison artifact and linked scenario evidence package. This is not human expert adjudication.'
- if($r.matches_expected_requirements -and ($r.matches_expected_requirements -match 'false|0|no')){ $judgment = 'incorrect'; $confidence = '0.62'; $reason = 'Automated watcher/IA review flagged mismatch against expected requirements marker in the comparison artifact.' }
- elseif($r.matchesExpectedRequirements -and ($r.matchesExpectedRequirements -match 'false|0|no')){ $judgment = 'incorrect'; $confidence = '0.62'; $reason = 'Automated watcher/IA review flagged mismatch against expected requirements marker in the comparison artifact.' }
- $rows += [pscustomobject]@{
- case_id = $q.case_id
- run_id = $q.run_id
- finding_id = $findingId
- assessment_id = $decisionId
- metric = 'environmental_score_or_curated_decision'
- automated_value = $autoValue
- baseline_value = $baseValue
- delta = $delta
- ai_value = $autoValue
- ai_judgment = $judgment
- confidence = $confidence
- needs_human_review = 'future_work_optional'
- rationale = $reason
- source_artifact = $evidence
- reviewer = 'watcher_ai'
- review_date = (Get-Date -Format 'yyyy-MM-dd')
- }
+ $reason = 'Automated watcher IA review accepted the deterministic curated run row because it is present in the committed before and after comparison artifact and linked scenario evidence package. This is not human expert adjudication.'
+ if($r.matches_expected_requirements -and ($r.matches_expected_requirements -match 'false|0|no')){ $judgment = 'incorrect'; $confidence = '0.62'; $reason = 'Automated watcher IA review flagged mismatch against expected requirements marker in the comparison artifact.' }
+ elseif($r.matchesExpectedRequirements -and ($r.matchesExpectedRequirements -match 'false|0|no')){ $judgment = 'incorrect'; $confidence = '0.62'; $reason = 'Automated watcher IA review flagged mismatch against expected requirements marker in the comparison artifact.' }
+ $rows += [pscustomobject]@{ case_id=$q.case_id; run_id=$q.run_id; finding_id=$findingId; assessment_id=$decisionId; metric='environmental_score_or_curated_decision'; automated_value=$autoValue; baseline_value=$baseValue; delta=$delta; ai_value=$autoValue; ai_judgment=$judgment; confidence=$confidence; needs_human_review='future_work_optional'; rationale=$reason; source_artifact=$evidence; reviewer='watcher_ai'; review_date=(Get-Date -Format 'yyyy-MM-dd') }
  }
  } else {
- $rows += [pscustomobject]@{
- case_id = $q.case_id
- run_id = $q.run_id
- finding_id = ''
- assessment_id = 'summary_level'
- metric = 'curated_run_summary'
- automated_value = $q.mean_delta
- baseline_value = ''
- delta = $q.mean_delta
- ai_value = $q.mean_delta
- ai_judgment = 'correct'
- confidence = '0.70'
- needs_human_review = 'future_work_optional'
- rationale = 'Automated watcher/IA review accepted the curated run summary because detailed comparison rows were not found, but the committed curated summary provides deterministic scenario-level evidence.'
- source_artifact = $q.source
- reviewer = 'watcher_ai'
- review_date = (Get-Date -Format 'yyyy-MM-dd')
- }
+ $rows += [pscustomobject]@{ case_id=$q.case_id; run_id=$q.run_id; finding_id=''; assessment_id='summary_level'; metric='curated_run_summary'; automated_value=$q.mean_delta; baseline_value=''; delta=$q.mean_delta; ai_value=$q.mean_delta; ai_judgment='correct'; confidence='0.70'; needs_human_review='future_work_optional'; rationale='Automated watcher IA review accepted the curated run summary because detailed comparison rows were not found, but the committed curated summary provides deterministic scenario level evidence.'; source_artifact=$q.source; reviewer='watcher_ai'; review_date=(Get-Date -Format 'yyyy-MM-dd') }
  }
 }
-$rows | Export-Csv -LiteralPath $OutCsv -NoTypeInformation -Encoding UTF8rn$byCase = $rows | Group-Object case_id | ForEach-Object { $items=@($.Group); $ok=@($items | Where-Object { $.ai_judgment -eq 'correct' }).Count; $bad=@($items | Where-Object { $.ai_judgment -eq 'incorrect' }).Count; $unc=@($items | Where-Object { $.ai_judgment -eq 'unclear' }).Count; $avg=0; if($items.Count){ $avg=[math]::Round((($items | ForEach-Object { [double]$.confidence } | Measure-Object -Average).Average),4) }; [pscustomobject]@{ case_id=$.Name; decisions=$items.Count; correct=$ok; incorrect=$bad; unclear=$unc; agreement_rate=$(if($items.Count){ [math]::Round(($ok/$items.Count),4) } else { 0 }); mean_confidence=$avg; low_confidence_count=@($items | Where-Object { [double]$.confidence -lt 0.70 }).Count } }rn$byCase | Export-Csv -LiteralPath $SummaryCsv -NoTypeInformation -Encoding UTF8
+$rows | Export-Csv -LiteralPath $OutCsv -NoTypeInformation -Encoding UTF8
+$byCase = $rows | Group-Object case_id | ForEach-Object {
+ $items=@($.Group)
+ $ok=@($items | Where-Object { $.ai_judgment -eq 'correct' }).Count
+ $bad=@($items | Where-Object { $.ai_judgment -eq 'incorrect' }).Count
+ $unc=@($items | Where-Object { $.ai_judgment -eq 'unclear' }).Count
+ $avg=0
+ if($items.Count){ $avg=[math]::Round((($items | ForEach-Object { [double]$.confidence } | Measure-Object -Average).Average),4) }
+ [pscustomobject]@{ case_id=$.Name; decisions=$items.Count; correct=$ok; incorrect=$bad; unclear=$unc; agreement_rate=$(if($items.Count){ [math]::Round(($ok/$items.Count),4) } else { 0 }); mean_confidence=$avg; low_confidence_count=@($items | Where-Object { [double]$.confidence -lt 0.70 }).Count }
+}
+$byCase | Export-Csv -LiteralPath $SummaryCsv -NoTypeInformation -Encoding UTF8
 $total = @($rows).Count
 $correct = @($rows | Where-Object { $.ai_judgment -eq 'correct' }).Count
 $incorrect = @($rows | Where-Object { $.ai_judgment -eq 'incorrect' }).Count
 $unclear = @($rows | Where-Object { $.ai_judgment -eq 'unclear' }).Count
 $rate = if($total){ [math]::Round(($correct / $total), 4) } else { 0 }
-$report = @('# Automated watcher/IA validation report','','Generated: ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'),'','This report is fully automated and does not claim independent human expert adjudication.','','## Summary','','- Total decisions reviewed: ' + $total,'- Correct/accepted by watcher-IA: ' + $correct,'- Incorrect/flagged by watcher-IA: ' + $incorrect,'- Unclear: ' + $unclear,'- Automated agreement rate: ' + $rate,rn'- Summary CSV: ' + $SummaryCsv,rn'- Detailed rows CSV: ' + $OutCsv,'','## Future work','','Independent human expert review can be performed later as a comparative study, but it is not a dependency for the current project.')
+$report = @('# Automated watcher IA validation report','','Generated: ' + (Get-Date -Format 'yyyy-MM-dd HH:mm:ss'),'','This report is fully automated and does not claim independent human expert adjudication.','','## Summary','','- Total decisions reviewed: ' + $total,'- Correct or accepted by watcher IA: ' + $correct,'- Incorrect or flagged by watcher IA: ' + $incorrect,'- Unclear: ' + $unclear,'- Automated agreement rate: ' + $rate,'- Summary CSV: ' + $SummaryCsv,'- Detailed rows CSV: ' + $OutCsv,'','## Future work','','Independent human expert review can be performed later as a comparative study, but it is not a dependency for the current project.')
 $report | Set-Content -LiteralPath $ReportMd -Encoding UTF8
 Write-Output ('rows=' + $total)
 Write-Output ('correct=' + $correct)
@@ -88,5 +64,5 @@ Write-Output ('incorrect=' + $incorrect)
 Write-Output ('unclear=' + $unclear)
 Write-Output ('agreement_rate=' + $rate)
 Write-Output ('wrote_rows=' + $OutCsv)
-Write-Output ('wrote_summary=' + $SummaryCsv)rnWrite-Output ('wrote_report=' + $ReportMd)
-
+Write-Output ('wrote_summary=' + $SummaryCsv)
+Write-Output ('wrote_report=' + $ReportMd)
