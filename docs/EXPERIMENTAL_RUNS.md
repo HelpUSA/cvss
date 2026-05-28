@@ -59,3 +59,11 @@ Next engineering task for the broader-study phase: add a small case migration or
 The canonical runnable case remains pci_segmented_lab because it includes the complete current schema required by app/run_demo.py, including vulnerabilities.csv and the environmental evidence YAML files. The older pci_demo and complex folders contain legacy vulnerability_findings.csv files and are not directly runnable with the current deterministic runner without schema migration.
 
 Next engineering task for the broader-study phase: add a small case migration or compatibility loader that accepts legacy vulnerability_findings.csv inputs, or convert pci_demo and complex to the current case schema before using them as additional experimental scenarios.
+
+## 2026-05-28 legacy case loader update
+
+The deterministic runner now accepts both current vulnerabilities.csv case folders and legacy vulnerability_findings.csv case folders. Validation was run against pci_segmented_lab, pci_demo, and complex using temporary outputs under temp. The legacy folders are now usable as compatibility smoke scenarios, while broader-study claims still require curated evidence, independent labels, and explicit experimental design.
+
+## 2026-05-28 legacy case loader update
+
+The deterministic runner now accepts both current vulnerabilities.csv case folders and legacy vulnerability_findings.csv case folders. Validation was run against pci_segmented_lab, pci_demo, and complex using temporary outputs under temp. The legacy folders are now usable as compatibility smoke scenarios, while broader-study claims still require curated evidence, independent labels, and explicit experimental design.
