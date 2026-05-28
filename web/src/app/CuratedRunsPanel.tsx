@@ -18,7 +18,7 @@ export function CuratedRunsPanel({ runs }: { runs?: Run[] }) {
           <h2 className="text-lg font-semibold">Curated validation runs</h2>
           <p className="text-sm text-slate-600">Engineering-validation scenarios generated from deterministic run artifacts.</p>
         </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">{runs.length} runs</span>
+        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">{normalizedRuns.length} runs</span>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm">
@@ -51,5 +51,6 @@ export function CuratedRunsPanel({ runs }: { runs?: Run[] }) {
     </section>
   );
 }
+
 
 
