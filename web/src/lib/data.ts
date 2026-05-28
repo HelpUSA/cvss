@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+﻿import { PrismaClient } from "@prisma/client";
 import seed from "../../data/seed.json";
 
 const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
@@ -51,7 +51,7 @@ function withMetrics(payload: any, source = "unknown", sourceDetail = "Unknown d
   const upgraded = comparison.filter((row) => row.effect === "upgraded").length;
   const unchanged = comparison.filter((row) => row.effect === "unchanged").length;
   const meanDelta = comparison.reduce((acc, row) => acc + row.delta, 0) / Math.max(comparison.length, 1);
-  return { ...payload, comparison, summary, source, sourceDetail, metrics: { findings: comparison.length, assessments: summary.length, downgraded, upgraded, unchanged, meanDelta } };
+  return { ...payload, comparison, summary, curatedRuns: payload.curatedRuns ?? [], source, sourceDetail, metrics: { findings: comparison.length, assessments: summary.length, downgraded, upgraded, unchanged, meanDelta } };
 }
 
 export function getSeedData() {
@@ -122,3 +122,4 @@ export async function getDashboardData() {
     return { ...getSeedData(), dataSource: "seed-fallback" };
   }
 }
+
