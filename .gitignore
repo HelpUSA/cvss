@@ -24,3 +24,5 @@ article/*.fdb_latexmk
 # Local generated archives
 _archive/
 temp/
+.vercel
+.env*.local
