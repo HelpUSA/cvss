@@ -142,3 +142,9 @@ The manuscript evaluation section now includes a curated-run engineering validat
 Implemented in source: server-rendered curated summary in web/src/app/page.tsx, client CuratedRunsPanel rendered from DashboardClient, seed curatedRuns stored as array, and data fallback normalized with Object.values.
 Production check: cvss.helpusbr.com currently serves the dashboard and curated run id pci_segmented_lab_20260517_143146, but curl/static HTML has not yet exposed Curated validation runs or Engineering-validation markers. Treat production alias/deployment freshness as the immediate remaining deployment issue.
 Next: verify Vercel project/alias mapping, force a production deployment that includes commit 2cfb41f or newer, then capture final HTML/DOM evidence. After that, proceed with independent expert/manual validation and LLM-only vs watcher-mediated comparison before making broader comparative claims.
+
+## CVSS expert validation summarizer - 
+2026-05-28 10:02:00
+
+Added scripts/summarize_expert_validation.ps1 and validation/outputs/expert_validation_summary.csv. The script reads validation/templates/expert_validation_form.csv, ignores placeholder rows, and summarizes completed independent/manual expert judgments by case_id with correct, incorrect, unclear, and agreement_rate fields. Next evidence task: fill real reviewer rows for each curated scenario before broader comparative claims.
+
