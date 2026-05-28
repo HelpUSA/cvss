@@ -1,0 +1,1 @@
+﻿finding_id,asset_id,cve,vulnerability_type,base_score,base_severity,base_vector,internet_exposed,network_segmented,pci_in_scope,firewall_restricted,compensating_controls,business_criticality,notes

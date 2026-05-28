@@ -39,3 +39,8 @@ The interactive site must not define the scientific method. It should expose the
 ## Current deployment decision
 
 The public site is intentionally static at repository root. This avoids the previous Vercel/Next.js/Production Overrides failure mode and keeps public reproducibility stable.
+
+## Schema checkpoint
+
+Added docs/schemas/SCENARIO_INPUT_SCHEMA.md and docs/schemas/PIPELINE_OUTPUT_SCHEMA.md to lock input and output expectations before expanding scenarios or building the interactive site MVP.
+
