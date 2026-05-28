@@ -19,3 +19,9 @@ Inspect current engine and add an official-CVSS-compatible module with tests aga
 ## Current warning
 
 The current public MVP is useful as a demonstrator, but definitive real-world use requires official scoring compatibility, real CVE evidence, and stronger validation.
+
+## CVSS v3.1 base-score checkpoint - 
+2026-05-28 15:51:00
+
+Added core/cvss31.py and tests/test_cvss31_official.py with known CVSS v3.1 base-score examples. Next task: integrate official_cvss output beside the contextual environmental layer without mixing semantics.
+
