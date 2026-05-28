@@ -25,3 +25,8 @@ The current public MVP is useful as a demonstrator, but definitive real-world us
 
 Added core/cvss31.py and tests/test_cvss31_official.py with known CVSS v3.1 base-score examples. Next task: integrate official_cvss output beside the contextual environmental layer without mixing semantics.
 
+
+## CVSS v3.1 official base-score core verified
+
+core/cvss31.py now compiles and reproduces known CVSS v3.1 base score examples: 9.8, 8.8, and 6.1. This is the first real-world official CVSS compatibility checkpoint.
+
