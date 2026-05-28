@@ -51,3 +51,17 @@ Real send depends on AI_BRIDGE_NOTIFY_EMAIL_* environment variables.
 text
 ## main...origin/main
 
+
+## 2026-05-27 dashboard validation update
+
+Validated by watcher on 
+2026-05-27 23:43:00
+:
+
+- Local npm run build passed in web with Prisma client generation and Next.js production build.
+- Production domain https://cvss.helpusbr.com responded and contained dashboard markers.
+- Vercel alias https://cvss-help-us.vercel.app responded and contained dashboard markers.
+- Data-source indicator is present in the dashboard: Data source, data.source, and data.sourceDetail.
+- Comparison-row filters are present and active: asset, CVE, effect, vulnerability type, expected-label match, and text query.
+
+Immediate dashboard handoff tasks from the previous handoff are now validated. Next focus shifts to article, manuscript, and experiment formalization.

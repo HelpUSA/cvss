@@ -45,3 +45,17 @@ The current run is not yet the final human-vs-LLM-vs-watcher comparison. It vali
 4. Add limitations around deterministic baseline versus true multi-agent watcher condition.
 5. Add a figure or short artifact description for the cloud dashboard.
 6. Prepare final submission-ready PDF after experimental results are complete.
+
+## 2026-05-27 dashboard validation update
+
+Validated by watcher on 
+2026-05-27 23:43:00
+:
+
+- Local npm run build passed in web with Prisma client generation and Next.js production build.
+- Production domain https://cvss.helpusbr.com responded and contained dashboard markers.
+- Vercel alias https://cvss-help-us.vercel.app responded and contained dashboard markers.
+- Data-source indicator is present in the dashboard: Data source, data.source, and data.sourceDetail.
+- Comparison-row filters are present and active: asset, CVE, effect, vulnerability type, expected-label match, and text query.
+
+Immediate dashboard handoff tasks from the previous handoff are now validated. Next focus shifts to article, manuscript, and experiment formalization.

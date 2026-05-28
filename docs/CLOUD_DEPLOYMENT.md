@@ -34,3 +34,17 @@ curl -L https://cvss.helpusbr.com | findstr /C:"CVSS Environmental Dashboard" /C
 ## Notes
 
 The old Vercel alias https://web-help-us.vercel.app may continue to respond because it was the previous project production URL. The canonical operator-facing URL is now https://cvss.helpusbr.com.
+
+## 2026-05-27 continuation update
+
+- Dashboard source/status indicator validated locally and in production.
+- Comparison filters validated locally and in production.
+- Article evaluation section reframed from preliminary evaluation plan to artifact validation and baseline results.
+- Current next work: finalize manuscript framing, verify generated tables and figures from pci_segmented_lab outputs, rebuild article, then commit and push validated changes.
+
+## 2026-05-27 continuation update
+
+- Dashboard source/status indicator validated locally and in production.
+- Comparison filters validated locally and in production.
+- Article evaluation section reframed from preliminary evaluation plan to artifact validation and baseline results.
+- Current next work: finalize manuscript framing, verify generated tables and figures from pci_segmented_lab outputs, rebuild article, then commit and push validated changes.

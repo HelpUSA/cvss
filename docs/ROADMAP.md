@@ -46,3 +46,17 @@ The project is in cloud MVP stage. The dashboard is deployed and the determinist
 - Add limitations and threat-to-validity discussion.
 - Add cloud artifact/dashboard description.
 - Prepare submission-ready PDF.
+
+## 2026-05-27 continuation update
+
+- Dashboard source/status indicator validated locally and in production.
+- Comparison filters validated locally and in production.
+- Article evaluation section reframed from preliminary evaluation plan to artifact validation and baseline results.
+- Current next work: finalize manuscript framing, verify generated tables and figures from pci_segmented_lab outputs, rebuild article, then commit and push validated changes.
+
+## 2026-05-27 continuation update
+
+- Dashboard source/status indicator validated locally and in production.
+- Comparison filters validated locally and in production.
+- Article evaluation section reframed from preliminary evaluation plan to artifact validation and baseline results.
+- Current next work: finalize manuscript framing, verify generated tables and figures from pci_segmented_lab outputs, rebuild article, then commit and push validated changes.
