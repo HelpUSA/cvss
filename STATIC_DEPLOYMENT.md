@@ -12,3 +12,8 @@ Expected public markers: CVSS Environmental Dashboard; Automated watcher IA vali
 
 Removed root vercel.json because the clean static Vercel deployment should rely only on index.html with Framework Preset Other and no build commands. This avoids invalid vercel.json validation and avoids Next.js/npm detection.
 
+
+## Multi-scenario dashboard checkpoint
+
+The static dashboard now summarizes generated values from multiple curated scenarios rather than only a single deploy marker. It remains intentionally static to preserve the clean Vercel deployment path.
+

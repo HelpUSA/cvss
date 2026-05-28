@@ -125,3 +125,15 @@ Automated watcher IA validation outputs were not found during this run.
 
 Built article/main.pdf from article/main.tex with MiKTeX tooling available locally. Current article evidence includes automated watcher IA validation artifacts and generated article table inputs. Human expert adjudication remains future comparative work and is not claimed as completed validation.
 
+
+## Curated scenario expansion results - 
+2026-05-28 13:16:02
+
+Expanded the deterministic scenario set to 
+1
+ curated scenarios with 
+6
+ findings and 
+12
+ assessments. Outputs were regenerated through the scenario runner, automated watcher IA validation, generated article inputs, and static dashboard. Human expert adjudication remains future comparative work.
+
