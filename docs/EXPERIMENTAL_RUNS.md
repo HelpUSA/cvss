@@ -47,3 +47,9 @@ Completed commits:
 - afbf8e8 Harden CVSS manuscript validity framing
 
 Remaining research work is no longer dashboard implementation; it is the next study phase: add more scenarios, collect or encode independent expert labels, and compare manual assessment, LLM-only support, and watcher-mediated evidence collection.
+
+## 2026-05-27 additional case compatibility check
+
+The canonical runnable case remains pci_segmented_lab because it includes the complete current schema required by app/run_demo.py, including vulnerabilities.csv and the environmental evidence YAML files. The older pci_demo and complex folders contain legacy vulnerability_findings.csv files and are not directly runnable with the current deterministic runner without schema migration.
+
+Next engineering task for the broader-study phase: add a small case migration or compatibility loader that accepts legacy vulnerability_findings.csv inputs, or convert pci_demo and complex to the current case schema before using them as additional experimental scenarios.
