@@ -2,7 +2,7 @@
 from pathlib import Path
 from core.cvss_environmental_engine import calculate
 
-ROOT=Path(file).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[1]
 SCENARIOS=ROOT/'scenarios'
 RUNS=ROOT/'outputs'/'runs'
 SUMMARY=ROOT/'outputs'/'curated_run_summary.csv'
@@ -40,3 +40,4 @@ for scenario in sorted([p for p in SCENARIOS.iterdir() if p.is_dir() and p.name!
 write_csv(SUMMARY, summary, ['case_id','run_id','findings','assessments','downgraded','unchanged','upgraded','mean_delta','source'])
 print('scenarios=',len(summary))
 print('wrote=',SUMMARY)
+

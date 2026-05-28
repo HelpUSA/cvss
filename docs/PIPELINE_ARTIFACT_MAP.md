@@ -46,3 +46,8 @@ Added core/cvss_environmental_engine.py and scripts/run_engine_smoke.py as the f
 
 Added scripts/run_curated_scenarios.py to execute standardized scenarios through core/cvss_environmental_engine.py and regenerate before_after_comparison.csv plus outputs/curated_run_summary.csv. The static dashboard now reflects generated curated run summary values rather than only fixed demonstration text.
 
+
+## Scenario runner checkpoint finalized
+
+Fixed scripts/run_curated_scenarios.py and regenerated scenario outputs, validation queue, automated IA validation outputs, and the static dashboard from the current standardized pilot scenario.
+
