@@ -1,13 +1,1 @@
-\section{Threats to Validity}
-
-The main construct validity risk is that structured case files may simplify real
-enterprise environments. This is mitigated by explicitly representing topology,
-scope, firewall rules, business impact and vulnerability metadata.
-
-The main internal validity risk is that rule-based inference may encode the
-expert judgment instead of discovering it. For this reason, the multi-agent
-version should be executed separately and compared to the expert label file.
-
-The main external validity risk is that one PCI-DSS-inspired case may not
-represent other regulated environments. The artifact is therefore designed to
-allow additional case folders.
+\section{Threats to Validity} \label{sec:threats}  The current evaluation is intentionally limited to artifact validation. The PCI segmented lab contains six findings and one controlled network-segmentation scenario, so the results should not be generalized to all enterprise networks, vulnerability classes, or CVSS Environmental assessment practices. The baseline demonstrates that the prototype can reproduce expected labels and generate auditable before-after artifacts; it does not establish superiority over human assessors.  Construct validity is limited by the mapping from local evidence to CVSS Environmental requirements. The case files encode expected confidentiality, integrity, availability, and modified attack-vector labels, and the evaluation checks consistency with those labels. If the case evidence is incomplete or biased, the resulting agreement can overstate assessment quality.  Internal validity is strengthened by deterministic inputs, run manifests, hashes, audit traces, and generated comparison tables, but the pipeline remains a software artifact that can contain implementation bugs. For this reason, the dashboard, manuscript table, and run outputs are treated as mutually checking views of the same baseline rather than as independent evidence sources.  External validity remains future work. Broader experiments should add additional cases, independent expert review, and a comparison among manual assessment, LLM-only assistance, and watcher-mediated evidence collection before making claims about operational accuracy or efficiency.

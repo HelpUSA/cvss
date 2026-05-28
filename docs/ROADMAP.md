@@ -60,3 +60,15 @@ The project is in cloud MVP stage. The dashboard is deployed and the determinist
 - Comparison filters validated locally and in production.
 - Article evaluation section reframed from preliminary evaluation plan to artifact validation and baseline results.
 - Current next work: finalize manuscript framing, verify generated tables and figures from pci_segmented_lab outputs, rebuild article, then commit and push validated changes.
+
+## 2026-05-27 manuscript hardening update
+
+- Threats-to-validity section expanded to distinguish artifact validation from generalizable assessment claims.
+- Conclusion rewritten to state the current contribution as a traceable deterministic baseline rather than autonomous expert replacement.
+- Next remaining research work is broader comparative evaluation with more scenarios and independent expert labels.
+
+## 2026-05-27 manuscript hardening update
+
+- Threats-to-validity section expanded to distinguish artifact validation from generalizable assessment claims.
+- Conclusion rewritten to state the current contribution as a traceable deterministic baseline rather than autonomous expert replacement.
+- Next remaining research work is broader comparative evaluation with more scenarios and independent expert labels.

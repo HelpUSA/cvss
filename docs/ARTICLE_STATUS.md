@@ -59,3 +59,15 @@ Validated by watcher on
 - Comparison-row filters are present and active: asset, CVE, effect, vulnerability type, expected-label match, and text query.
 
 Immediate dashboard handoff tasks from the previous handoff are now validated. Next focus shifts to article, manuscript, and experiment formalization.
+
+## 2026-05-27 manuscript hardening update
+
+- Threats-to-validity section expanded to distinguish artifact validation from generalizable assessment claims.
+- Conclusion rewritten to state the current contribution as a traceable deterministic baseline rather than autonomous expert replacement.
+- Next remaining research work is broader comparative evaluation with more scenarios and independent expert labels.
+
+## 2026-05-27 manuscript hardening update
+
+- Threats-to-validity section expanded to distinguish artifact validation from generalizable assessment claims.
+- Conclusion rewritten to state the current contribution as a traceable deterministic baseline rather than autonomous expert replacement.
+- Next remaining research work is broader comparative evaluation with more scenarios and independent expert labels.

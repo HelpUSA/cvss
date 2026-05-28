@@ -1,12 +1,1 @@
-\section{Conclusion}
-
-This paper proposes a continuation of prior empirical work on the difficulty of
-CVSS Environmental assessment. The central claim is that the next step is not
-another purely manual study, but an evidence-based automation workflow that
-allows AI agents to collect, interpret, justify and audit environmental metric
-decisions.
-
-AI Bridge provides the operational substrate for this workflow: local file access,
-controlled command execution, watcher-mediated agent coordination, and artifact
-generation. The initial case study and Overleaf template included in this package
-provide the starting point for a full paper and reproducible research artifact.
+\section{Conclusion} \label{sec:conclusion}  This work presents a reproducible AI Bridge artifact for CVSS Environmental assessment using local-context evidence, deterministic case files, run manifests, audit traces, and a cloud dashboard. In the PCI segmented lab baseline, the artifact generated 12 before-after assessments for six findings, matched the expected Environmental labels encoded in the case files, and summarized the effect of segmentation as two downgraded findings and four unchanged findings.  The main contribution at this stage is not a claim of autonomous expert replacement. Instead, the project establishes a traceable baseline for how local evidence can be converted into auditable CVSS Environmental assessments and manuscript-ready artifacts. The dashboard and paper now expose the same validated run, making the artifact easier to inspect, reproduce, and extend.  The next step is a broader evaluation that separates deterministic artifact validation from comparative assessment. Future work should add more scenarios, independent expert labels, and a controlled comparison between manual assessment, LLM-only support, and watcher-mediated evidence collection.
