@@ -178,3 +178,9 @@ Enhanced scripts/run_ai_validation_queue.ps1 to emit validation/ai_review/output
 
 Added docs/AUTOMATED_VALIDATION_WORKFLOW.md and validation/ai_review/ARTIFACT_MANIFEST.md to document the active no-human-dependency watcher IA validation workflow, its inputs, outputs, command, interpretation, and future human comparison boundary.
 
+
+## CVSS production dashboard deployment attempt - 
+2026-05-28 11:17:28
+
+Attempted production deployment for the automated watcher IA validation dashboard panel. Source and local build include the AI validation summary panel. Production markers were checked after deploy/alias operation; if markers remain false, continue with Vercel alias/project mapping diagnosis.
+
