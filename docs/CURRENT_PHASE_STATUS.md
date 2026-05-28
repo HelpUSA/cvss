@@ -81,3 +81,39 @@ Generated validation/trace/adjustment_trace_report.md and validation/trace/adjus
 
 Verified results package artifacts and reran the rebuild wrapper. Added docs/REBUILD_REPORT.md summarizing scenarios, findings, assessments, verified commands, verified outputs, and the automated-validation caveat.
 
+
+## Editorial and test checkpoint - 
+2026-05-28 15:06:30
+
+Added synthetic curated scenario policy, inserted synthetic-scenario language into article sections, added initial regression tests, and created docs/TEST_REPORT.md.
+
+
+## Site report export checkpoint - 
+2026-05-28 15:10:49
+
+Added browser-side Markdown report export to the interactive MVP and documented it in docs/SITE_REPORT_EXPORT.md.
+
+
+## Site report export checkpoint - 
+2026-05-28 15:10:49
+
+Added browser-side Markdown report export to the interactive MVP and documented it in docs/SITE_REPORT_EXPORT.md.
+
+
+## Editorial submission package checkpoint - 
+2026-05-28 15:28:35
+
+Created article language audit, generated scenario and traceability result tables, and assembled docs/submission_package with manuscript PDF and core reproducibility summaries.
+
+
+## Prototype scoring policy checkpoint - 
+2026-05-28 15:29:30
+
+Added docs/PROTOTYPE_SCORING_POLICY.md and manuscript language clarifying that the deterministic adjustment constants are a prototype scoring policy, not an official FIRST CVSS environmental formula implementation.
+
+
+## Final readiness checklist - 
+2026-05-28 15:30:06
+
+Added docs/FINAL_READINESS_CHECKLIST.md summarizing ready artifacts, evidence boundaries, and the remaining strategic decision: submit as prototype methodology or implement official CVSS environmental formula comparison first.
+

@@ -62,3 +62,41 @@ Scenario evidence files were generated for all current curated scenarios. Next w
 
 The public site now serves the interactive static MVP. Next work continues on research depth: richer scenario evidence, stronger engine traceability, full rebuild orchestration, article Results/Discussion refinement, and export-to-scenario workflow hardening.
 
+
+## Next editorial checkpoint - 
+2026-05-28 15:06:30
+
+Next work: refine manuscript prose into a submission-ready narrative, optionally replace synthetic placeholder CVEs with real cited CVEs, and add exportable site reports.
+
+
+## Interactive MVP deployment checkpoint
+
+Verified the interactive export converter, reran the rebuild wrapper, and attempted a static production deployment. The site now includes the static interactive environmental CVSS calculator and export/conversion path.
+
+
+## Interactive MVP deployment checkpoint
+
+Verified the interactive export converter, reran the rebuild wrapper, and attempted a static production deployment. The site now includes the static interactive environmental CVSS calculator and export/conversion path.
+
+
+## Interactive MVP deployment checkpoint
+
+Verified the interactive export converter, reran the rebuild wrapper, and attempted a static production deployment. The site now includes the static interactive environmental CVSS calculator and export/conversion path.
+
+
+## Interactive MVP deployment checkpoint
+
+Verified the interactive export converter, reran the rebuild wrapper, and attempted a static production deployment. The site now includes the static interactive environmental CVSS calculator and export/conversion path.
+
+
+## Submission package checkpoint - 
+2026-05-28 15:28:35
+
+Next work: inspect article PDF narrative quality, decide whether to keep synthetic CVEs or replace them with real cited CVEs, and strengthen the official-CVSS-vs-prototype-policy explanation.
+
+
+## Remaining research branch - 
+2026-05-28 15:29:30
+
+Optional future branch: implement official CVSS environmental formula support and compare it with the prototype scoring policy. Current submission package can proceed as a prototype methodology article if language remains explicit.
+
