@@ -57,3 +57,9 @@ Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the in
 
 Production at https://cvss.helpusbr.com was visually confirmed to serve the clean static dashboard with the interactive environmental CVSS calculator, Export CSV, and Copy pipeline JSON controls. The clean static Vercel path is now the active production path.
 
+
+## Engine trace output checkpoint - 
+2026-05-28 14:59:01
+
+The deterministic engine now emits per-assessment adjustment traces, and generated comparison CSVs include trace_count, trace_total_adjustment, and trace_json columns for auditability.
+

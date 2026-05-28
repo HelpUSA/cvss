@@ -1,4 +1,4 @@
-﻿import csv
+﻿import csv, json
 from pathlib import Path
 from core.cvss_environmental_engine import calculate
 
@@ -26,11 +26,13 @@ for scenario in sorted([p for p in SCENARIOS.iterdir() if p.is_dir() and p.name!
  for v in vulns:
  r=dict(v)
  calc=calculate(v)
+ trace = calc.pop('adjustment_trace', [])
  r.update(calc)
+ r['trace_json'] = json.dumps(trace, ensure_ascii=False)
  r['case_id']=scenario.name
  r['run_id']=run_id
  rows.append(r)
- fields=['case_id','run_id','finding_id','asset_id','cve','vulnerability_type','base_score','base_severity','base_vector','environmental_score','environmental_severity','delta','decision','rationale','internet_exposed','network_segmented','pci_in_scope','firewall_restricted','compensating_controls','business_criticality','notes']
+ fields=['case_id','run_id','finding_id','asset_id','cve','vulnerability_type','base_score','base_severity','base_vector','environmental_score','environmental_severity','delta','decision','rationale','trace_count','trace_total_adjustment','trace_json','internet_exposed','network_segmented','pci_in_scope','firewall_restricted','compensating_controls','business_criticality','notes']
  write_csv(outdir/'before_after_comparison.csv', rows, fields)
  downgraded=sum(1 for r in rows if r['decision']=='downgraded')
  upgraded=sum(1 for r in rows if r['decision']=='upgraded')
@@ -40,4 +42,5 @@ for scenario in sorted([p for p in SCENARIOS.iterdir() if p.is_dir() and p.name!
 write_csv(SUMMARY, summary, ['case_id','run_id','findings','assessments','downgraded','unchanged','upgraded','mean_delta','source'])
 print('scenarios=',len(summary))
 print('wrote=',SUMMARY)
+
 

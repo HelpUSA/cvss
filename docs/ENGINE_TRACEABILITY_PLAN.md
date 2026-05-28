@@ -19,3 +19,9 @@ Extend before_after_comparison.csv with adjustment trace columns or a companion 
 ## Research caution
 
 Adjustment constants are deterministic research parameters. They should be described as a prototype scoring policy, not as official FIRST CVSS environmental metric implementation unless the full official formula is implemented and cited.
+
+## Traceability implementation checkpoint - 
+2026-05-28 14:59:01
+
+Implemented adjustment trace output in core/cvss_environmental_engine.py and propagated trace_count, trace_total_adjustment, and trace_json into before_after_comparison.csv through scripts/run_curated_scenarios.py.
+
