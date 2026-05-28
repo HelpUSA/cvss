@@ -45,3 +45,9 @@ Updated scripts/rebuild_all.ps1 to include article PDF build when LaTeX tooling 
 
 Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
 
+
+## Interactive dashboard rebuild fix - 
+2026-05-28 14:44:31
+
+Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
+
