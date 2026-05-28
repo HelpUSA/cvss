@@ -35,3 +35,8 @@ core/cvss31.py now compiles and reproduces known CVSS v3.1 base score examples: 
 
 Manual validation with Python 3.14 passed: core/cvss31.py compiles and known base scores return 9.8, 8.8, and 6.1 with assertion OK.
 
+
+## Official/contextual integration started
+
+Created OFFICIAL_CONTEXTUAL_INTEGRATION.md. Next implementation is a wrapper that emits official_cvss and contextual_environmental as separate objects for practical real-world scoring.
+
