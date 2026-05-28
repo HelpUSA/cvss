@@ -157,6 +157,30 @@ export function DashboardClient({ data }: { data: any }) {
       </section>
 
  <CuratedRunsPanel runs={curatedRuns} />
+ <section>
+ <h2>Automated watcher IA validation</h2>
+ <p>Evidence-linked automated validation from committed curated artifacts. Human adjudication is future comparative work.</p>
+ <div>Decisions: 
+1
+</div>
+ <div>Accepted: 
+1
+</div>
+ <div>Flagged: 
+0
+</div>
+ <div>Unclear: 
+0
+</div>
+ <div>Agreement: 
+100
+%</div>
+ <div>Mean confidence: 
+0,7
+</div>
+ <p>Automated watcher IA validation only; not completed independent human expert validation.</p>
+ </section>
+
 
       <section className="panel">
         <h2>Audit and manifest context</h2>
@@ -168,6 +192,7 @@ export function DashboardClient({ data }: { data: any }) {
     </main>
   );
 }
+
 
 
 
