@@ -34,3 +34,7 @@ $html=@('<!doctype html>','<html><head><meta charset=utf-8><meta name=viewport c
 $html | Set-Content 'index.html' -Encoding UTF8
 
 Write-Output 'REBUILD_ALL_END'
+
+Write-Output 'ARTICLE_PDF_BUILD'
+if(Test-Path 'article/main.tex'){ Push-Location article; if(Get-Command latexmk -ErrorAction SilentlyContinue){ latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex | Select-Object -Last 60 } elseif(Get-Command pdflatex -ErrorAction SilentlyContinue){ pdflatex -interaction=nonstopmode -halt-on-error main.tex | Select-Object -Last 60 }; Pop-Location }
+

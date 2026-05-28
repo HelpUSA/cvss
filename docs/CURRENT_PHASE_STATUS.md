@@ -33,3 +33,9 @@ The production site should remain a clean static Vercel project from repository 
 
 Added standardized evidence files to each curated scenario: topology.yaml, firewall_rules.yaml, business_impact.yaml, pci_scope.yaml, and expected_expert_labels.yaml. Rebuild wrapper was run to keep generated outputs synchronized.
 
+
+## Article results and rebuild wrapper checkpoint - 
+2026-05-28 14:00:31
+
+Updated scripts/rebuild_all.ps1 to include article PDF build when LaTeX tooling is available. Added article text describing multi-scenario deterministic results and the interactive demonstrator scope.
+
