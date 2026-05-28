@@ -1,0 +1,2 @@
+﻿"case_id","run_id","validation_status","findings","assessments","downgraded","unchanged","upgraded","mean_delta","source","reviewer","review_file"
+"pci_segmented_lab_20260517_143146","pci_segmented_lab_20260517_143146","pending_automated_watcher_ia_review","6","12","2","4","0","-0,267","before_after_comparison.csv","watcher_ai","validation/ai_review/outputs/pci_segmented_lab_20260517_143146.csv"
