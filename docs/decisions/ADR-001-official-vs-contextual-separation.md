@@ -1,11 +1,26 @@
+---
+status: accepted
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - adr
+  - decision
+  - official-cvss
+  - contextual
+aliases:
+  - "ADR-001"
+  - "Official vs Contextual Separation"
+related_files:
+  - docs/real_world/OFFICIAL_CONTEXTUAL_INTEGRATION.md
+  - docs/real_world/OFFICIAL_CVSS_INTEGRATION_DESIGN.md
+  - core/cvss31.py
+  - core/cvss_environmental_engine.py
+  - core/cvss_real_world.py
+---
+
 # ADR-001 Official CVSS vs Contextual Separation
 
-## Status
-
-- status: accepted
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/real_world/OFFICIAL_CONTEXTUAL_INTEGRATION.md, core/cvss31.py, core/cvss_environmental_engine.py, core/cvss_real_world.py
 
 ## Context
 

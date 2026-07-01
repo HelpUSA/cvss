@@ -1,11 +1,22 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - wrapper
+  - implementation
+aliases:
+  - "CVSS Real World Wrapper"
+  - "assess_finding"
+related_files:
+  - core/cvss_real_world.py
+  - core/cvss31.py
+  - core/cvss_environmental_engine.py
+---
+
 # Real World Wrapper
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: core/cvss_real_world.py, core/cvss31.py, core/cvss_environmental_engine.py
 
 ## Code
 

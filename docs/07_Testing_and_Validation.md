@@ -1,11 +1,23 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - testing
+  - validation
+aliases:
+  - "CVSS Tests"
+  - "Validation"
+related_files:
+  - core/cvss31.py
+  - core/cvss_environmental_engine.py
+  - core/cvss_real_world.py
+  - docs/TEST_REPORT.md
+---
+
 # Testing and Validation
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: core/cvss31.py, core/cvss_environmental_engine.py, core/cvss_real_world.py, docs/TEST_REPORT.md
 
 ## Current validations
 

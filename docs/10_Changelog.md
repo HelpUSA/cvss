@@ -1,11 +1,19 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - changelog
+aliases:
+  - "CVSS Changelog"
+related_files:
+  - docs/README.md
+  - docs/00_Index.md
+---
+
 # Changelog
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/README.md, docs/00_Index.md, git log
 
 ## 2026-07-01
 

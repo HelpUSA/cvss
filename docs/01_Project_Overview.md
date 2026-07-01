@@ -1,11 +1,22 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - overview
+  - documentation
+aliases:
+  - "CVSS Project Overview"
+related_files:
+  - docs/README.md
+  - docs/00_Index.md
+  - docs/CURRENT_HANDOFF.md
+  - docs/real_world/REAL_WORLD_PHASE_STATUS.md
+---
+
 # Project Overview
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/README.md, docs/00_Index.md, docs/CURRENT_HANDOFF.md, docs/real_world/REAL_WORLD_PHASE_STATUS.md
 
 ## Purpose
 

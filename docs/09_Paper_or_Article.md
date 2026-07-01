@@ -1,11 +1,23 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - research
+  - article
+aliases:
+  - "CVSS Article"
+  - "Paper"
+related_files:
+  - docs/ARTICLE_PLAN_PT.md
+  - docs/ARTICLE_STATUS.md
+  - docs/ARTICLE_REBOOT_PLAN.md
+  - docs/ARTICLE_REFINEMENT_TODO.md
+---
+
 # Paper or Article
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/ARTICLE_PLAN_PT.md, docs/ARTICLE_STATUS.md, docs/ARTICLE_REBOOT_PLAN.md, docs/ARTICLE_REFINEMENT_TODO.md
 
 ## Article premise
 

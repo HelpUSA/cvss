@@ -1,11 +1,23 @@
+---
+status: planned
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - dashboard
+  - exports
+aliases:
+  - "CVSS Dashboard"
+  - "CVSS Exports"
+related_files:
+  - docs/CLOUD_DASHBOARD_PLAN.md
+  - docs/INTERACTIVE_SITE_PLAN.md
+  - docs/INTERACTIVE_EXPORT_FORMAT.md
+  - docs/SITE_REPORT_EXPORT.md
+---
+
 # Dashboard and Exports
 
-## Status
-
-- status: planned
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/CLOUD_DASHBOARD_PLAN.md, docs/INTERACTIVE_SITE_PLAN.md, docs/INTERACTIVE_EXPORT_FORMAT.md, docs/SITE_REPORT_EXPORT.md
 
 ## Dashboard labels
 

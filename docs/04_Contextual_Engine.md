@@ -1,11 +1,21 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - contextual
+  - implementation
+aliases:
+  - "Environmental Engine"
+  - "Contextual Prioritization Engine"
+related_files:
+  - core/cvss_environmental_engine.py
+  - docs/real_world/OFFICIAL_CONTEXTUAL_INTEGRATION.md
+---
+
 # Contextual Engine
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: core/cvss_environmental_engine.py, docs/real_world/OFFICIAL_CONTEXTUAL_INTEGRATION.md
 
 ## Code
 

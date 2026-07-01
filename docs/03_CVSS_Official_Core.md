@@ -1,11 +1,21 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - official-cvss
+  - implementation
+aliases:
+  - "Official CVSS Core"
+  - "CVSS v3.1 Core"
+related_files:
+  - core/cvss31.py
+  - docs/real_world/CVSS31_CORE_COMPATIBILITY.md
+---
+
 # CVSS Official Core
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: core/cvss31.py, docs/real_world/CVSS31_CORE_COMPATIBILITY.md
 
 ## Code
 

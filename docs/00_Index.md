@@ -1,11 +1,24 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - documentation
+  - obsidian
+  - index
+aliases:
+  - "CVSS Index"
+  - "Vault Index"
+related_files:
+  - docs/README.md
+  - docs/99_Obsidian_Conventions.md
+  - docs/CURRENT_HANDOFF.md
+  - docs/real_world/REAL_WORLD_PHASE_STATUS.md
+---
+
 # CVSS Obsidian Index
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: docs/README.md, docs/CURRENT_HANDOFF.md, docs/real_world/REAL_WORLD_PHASE_STATUS.md
 
 ## Main notes to create or maintain
 
@@ -42,3 +55,7 @@
 ## Decisions
 
 - [[decisions/ADR-001-official-vs-contextual-separation]]
+
+## Vault conventions
+
+- [[99_Obsidian_Conventions]]

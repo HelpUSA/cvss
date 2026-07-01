@@ -1,11 +1,21 @@
+---
+status: active
+last_updated: 2026-07-01
+owner: "Wagner / CVSS project"
+tags:
+  - cvss
+  - data-model
+  - exports
+aliases:
+  - "CVSS Data Model"
+related_files:
+  - core/cvss_real_world.py
+  - docs/schemas/PIPELINE_OUTPUT_SCHEMA.md
+  - docs/schemas/SCENARIO_INPUT_SCHEMA.md
+---
+
 # Data Model
 
-## Status
-
-- status: active
-- last_updated: 2026-07-01
-- owner: Wagner / CVSS project
-- related_files: core/cvss_real_world.py, docs/schemas/PIPELINE_OUTPUT_SCHEMA.md, docs/schemas/SCENARIO_INPUT_SCHEMA.md
 
 ## Input
 
