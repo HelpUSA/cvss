@@ -49,10 +49,14 @@ Observed result:
 - contextual decision: upgraded
 - top-level keys: ``official_cvss``, ``contextual_environmental``, ``evidence`
 
-## Next implementation tasks
+## Current implementation status
 
-- Add a permanent test for ``assess_finding``.
-- Integrate wrapper output into CSV and JSON exports.
-- Update dashboard labels to show Official CVSS and Contextual Prioritization separately.
+Completed integration work covers:
+
+- Permanent wrapper contract testing in ``tests/test_real_world_wrapper.py``.
+- CSV, JSON, Markdown, and audit-trace export layers in ``tests/test_reporting_outputs.py``.
+- AI Bridge orchestrator output layers in ``tests/test_ai_bridge_orchestrator.py``.
+- Rule-engine official/contextual row layers in ``tests/test_rule_engine_layers.py``.
+- Dashboard/export language documented in [[08_Dashboard_and_Exports]].
 
 See [[06_Data_Model]], [[07_Testing_and_Validation]], and [[08_Dashboard_and_Exports]].

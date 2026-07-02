@@ -1,4 +1,4 @@
-﻿# Official and contextual CVSS integration plan
+# Official and contextual CVSS integration plan
 
 ## Principle
 
@@ -10,6 +10,10 @@ Official CVSS output and contextual operational prioritization must remain separ
 - contextual_environmental: contextual_score, contextual_severity, decision, delta_from_official_base, trace.
 - evidence: CVE, source URLs, asset, environment, business context, control context.
 
-## Next implementation
+## Implementation status
 
-Add a wrapper that accepts a finding row with cvss_vector and contextual fields, emits both official_cvss and contextual_environmental, and preserves traceability.
+The split contract is implemented across the wrapper, rule engine, AI Bridge orchestrator, and reporting export layers. Producers should preserve the same separation:
+
+- official_cvss for vector-derived CVSS fields.
+- contextual_environmental for environment-aware prioritization.
+- evidence for traceability and context.
