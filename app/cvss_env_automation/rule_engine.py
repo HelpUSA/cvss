@@ -31,6 +31,26 @@ def _scope_for_state(asset: Dict[str, str], state: str) -> str:
     return asset.get(f"pci_scope_{state}", asset.get("pci_scope", "unknown")).strip().lower()
 
 
+def _severity_from_score(score: float) -> str:
+    if score >= 9.0:
+        return "Critical"
+    if score >= 7.0:
+        return "High"
+    if score >= 4.0:
+        return "Medium"
+    if score > 0.0:
+        return "Low"
+    return "None"
+
+
+def _contextual_decision(delta_from_official_base: float) -> str:
+    if delta_from_official_base > 0:
+        return "upgraded"
+    if delta_from_official_base < 0:
+        return "lowered"
+    return "unchanged"
+
+
 def infer_environmental_metrics(case: Dict[str, Any], vuln: Dict[str, str], state: str) -> Tuple[Dict[str, str], List[Dict[str, str]]]:
     assets = _asset_by_id(case)
     asset = assets[vuln["asset_id"]]
@@ -107,6 +127,7 @@ def assess_case(case: Dict[str, Any]) -> List[Dict[str, Any]]:
             env, evidence = infer_environmental_metrics(case, vuln, state)
             escore = environmental_score(base, env)
             evector = build_environmental_vector(vuln["base_vector"], env)
+            delta_from_official_base = round(escore - bscore, 1)
             key = f"{vuln['finding_id']}:{state}"
             exp = expected.get(key, {})
             matches_expected = None
@@ -121,9 +142,21 @@ def assess_case(case: Dict[str, Any]) -> List[Dict[str, Any]]:
                 "state": state,
                 "base_vector": vuln["base_vector"],
                 "base_score": bscore,
+                "official_cvss": {
+                    "base_vector": vuln["base_vector"],
+                    "base_score": bscore,
+                    "base_severity": _severity_from_score(bscore),
+                },
                 "environmental_vector": evector,
                 "environmental_score": escore,
                 "environmental_metrics": env,
+                "contextual_environmental": {
+                    "contextual_vector": evector,
+                    "contextual_score": escore,
+                    "contextual_severity": _severity_from_score(escore),
+                    "decision": _contextual_decision(delta_from_official_base),
+                    "delta_from_official_base": delta_from_official_base,
+                },
                 "evidence": evidence,
                 "matches_expected_requirements": matches_expected,
             })
