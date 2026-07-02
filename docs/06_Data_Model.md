@@ -26,7 +26,7 @@ The wrapper expects a row-like object with an official CVSS vector:
 
 Contextual fields may include:
 
-- `minternet_exposed``
+- ``internet_exposed``
 - ``network_segmented``
 - ``firewall_restricted``
 - ``compensating_controls``

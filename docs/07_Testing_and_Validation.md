@@ -48,8 +48,13 @@ Observed wrapper smoke:
 - ``evidence`` present
 - contextual score can differ from the official score without overwriting it
 
-## Next test
+## Permanent contract tests
 
-Add a permanent test for ``assess_finding(row)``, preferably ``tests/test_real_world_wrapper.py``.
+Current permanent tests cover:
+
+- ``tests/test_real_world_wrapper.py`` for the official/contextual wrapper contract.
+- ``tests/test_reporting_outputs.py`` for JSON, CSV, Markdown, and audit-trace exports.
+- ``tests/test_ai_bridge_orchestrator.py`` for AI Bridge orchestrator output rows.
+- ``tests/test_rule_engine_layers.py`` for rule-engine official/contextual row layers.
 
 See [[05_Real_World_Wrapper]] and [[real_world/REAL_WORLD_VALIDATION_PROTOCOL]].

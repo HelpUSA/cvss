@@ -1,5 +1,5 @@
 ---
-status: planned
+status: active
 last_updated: 2026-07-01
 owner: "Wagner / CVSS project"
 tags:
@@ -30,14 +30,18 @@ Do not display the contextual score as official CVSS.
 
 ## Exports
 
-CSV and JSON exports should emit separate field families:
+CSV and JSON exports emit separate field families:
 
-- ```official_cvss_*``
+- ``official_cvss_*``
 - ``contextual_*``
 - ``evidence_*``
 
-## Pipeline task
+## Pipeline status
 
-Integrate ``assess_finding()`` into the current pipeline/exporter without changing the official CVSS calculator.
+The current producers and exporter emit the split contract without changing the official CVSS calculator:
+
+- ``app/cvss_env_automation/rule_engine.py``
+- ``app/ai_bridge_orchestrator.py``
+- ``app/cvss_env_automation/reporting.py``
 
 See [[06_Data_Model]] and [[09_Paper_or_Article]].
