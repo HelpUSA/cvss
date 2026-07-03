@@ -1,4 +1,4 @@
-﻿# Static root deployment path
+# Static root deployment path
 
 This is the clean deployment path for the public CVSS dashboard.
 
@@ -6,7 +6,7 @@ The existing Vercel project accumulated Next.js production overrides and continu
 
 Clean Vercel settings: Framework Preset Other, Root Directory ./, Build Command empty, Install Command empty, Output Directory empty.
 
-Expected public markers: CVSS Environmental Dashboard; Automated watcher IA validation; Curated validation runs; pci_segmented_lab_20260517_143146.
+Expected public markers: Official CVSS + Contextual Prioritization Dashboard; official_cvss; contextual_environmental; evidence; Automated watcher IA validation; Curated validation runs; pci_segmented_lab_20260517_143146.
 
 ## Vercel JSON reset
 
@@ -16,4 +16,6 @@ Removed root vercel.json because the clean static Vercel deployment should rely 
 ## Multi-scenario dashboard checkpoint
 
 The static dashboard now summarizes generated values from multiple curated scenarios rather than only a single deploy marker. It remains intentionally static to preserve the clean Vercel deployment path.
+
+The dashboard contract now keeps official CVSS scoring separate from contextual prioritization. Static deploy checks should look for `official_cvss`, `contextual_environmental`, and `evidence`; contextual prioritization must not be presented as official CVSS.
 
