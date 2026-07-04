@@ -1,80 +1,62 @@
-# CVSS Environmental Assessment
+# Official CVSS + Contextual Prioritization Dashboard
 
-Cloud prototype and research artifact for CVSS Environmental assessment with local-context evidence, before/after scoring, audit traces, and an article-ready evaluation workflow.
+Cloud prototype and research artifact for separating official CVSS v3.1 scoring from contextual operational prioritization.
 
-## Current cloud state
+The public static dashboard is available at:
 
-- Public domain: https://cvss.helpusbr.com
-- Vercel project: help-us/cvss
-- GitHub repository: https://github.com/HelpUSA/cvss
-- Local workspace: D:/dev/cvss
-- Database: Railway PostgreSQL
-- Web app: Next.js under web/
-- Data layer: Prisma with DATABASE_URL in Vercel Production and local seed fallback
+- https://cvss.helpusbr.com
 
-## What the application does now
+## Contract
 
-The current application is a visual dashboard for the deterministic PCI segmented lab run. It displays:
+The project keeps two layers separate:
 
-- run and case metadata;
-- core metrics for the current assessment run;
-- before/after CVSS Environmental score comparison;
-- finding-level rows with asset, CVE, vulnerability type, score delta, MAV change, and expected-label match;
-- assessment rows for before and after states;
-- audit-trace material and run manifest context.
+- official_cvss: the official CVSS v3.1 base score and base severity.
+- contextual_environmental: operational/contextual prioritization derived from local evidence. This is not official CVSS.
+- evidence: scenario, asset, vulnerability, and local-context details used to explain the contextual prioritization result.
 
-Current validated run characteristics:
+Legacy flat fields may still exist in the static UI for MVP compatibility, but exports should expose the layered contract above.
 
-- case: pci_segmented_lab;
-- findings: 6;
-- assessments: 12;
-- downgraded findings: 2;
-- unchanged findings: 4;
-- upgraded findings: 0;
-- mean environmental delta: approximately -0.267.
+## Static dashboard
 
-## Important URLs
+The static site is intentionally simple:
 
-- Production domain: https://cvss.helpusbr.com
-- Vercel alias: https://cvss-help-us.vercel.app
-- Last generated deployment example: https://cvss-gq625yfi5-help-us.vercel.app
+- index.html provides the dashboard shell and contract caveat.
+- app.js computes the example output and exports JSON, CSV, Markdown, and pipeline JSON.
+- STATIC_DEPLOYMENT.md documents static deployment markers and validation checks.
 
-## Repository layout
+Expected public markers include:
 
-text
-article/ LaTeX manuscript and sections
-app/ Python prototype and deterministic assessment logic
-cases/ Structured lab cases and input evidence
-outputs/ Generated runs, manifests, comparisons, traces and reports
-research/ Research notes and source material
-web/ Next.js dashboard, Prisma schema, seed data and frontend
-_docs/archive Historical or obsolete material when applicable
-
+- Official CVSS + Contextual Prioritization Dashboard
+- official_cvss
+- contextual_environmental
+- evidence
+- a caveat that contextual prioritization is not official CVSS
 
 ## Local validation
 
-text
-cd D:/dev/cvss/web
-npm install
-npm run build
+Run:
+
+bash
+python -m pytest -q
+node --check app.js
 
 
-## Database workflow
+The current validated branch is real-world-cvss.
 
-text
-cd D:/dev/cvss/web
-npm run db:push
-npm run db:seed
+## Deployment
+
+The Vercel project is cvss under the help-us team. Production is aliased to:
+
+- https://cvss.helpusbr.com
+
+A production deploy from this static repository can be performed with:
+
+bash
+vercel --prod --yes
 
 
-Production uses the Railway PostgreSQL connection through Vercel environment variable DATABASE_URL.
+After deployment, validate that the production HTML and /app.js contain the layered contract markers and do not serve unrelated or older project content.
 
-## Next implementation priorities
+## Research prototype notes
 
-1. Add dashboard filters and finding detail pages.
-2. Add case/run history and explicit data-source indicator.
-3. Add upload/manual case creation for assets, findings and environment context.
-4. Add backend execution path for running new assessments from the UI.
-5. Add report export in CSV, JSON, Markdown and article-table formats.
-6. Add authentication before using sensitive customer evidence.
-7. Integrate the watcher/AI Bridge mediated condition for the research evaluation.
+Some internal Python modules, article files, and agent prompts still refer to CVSS Environmental assessment because they document the underlying research prototype. The public dashboard contract, however, must clearly distinguish official CVSS output from contextual prioritization.
