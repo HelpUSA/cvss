@@ -1,4 +1,4 @@
-﻿type Run = {
+export type Run = {
   run_id: string;
   findings: number;
   assessments: number;

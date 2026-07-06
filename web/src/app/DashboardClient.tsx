@@ -1,7 +1,7 @@
-﻿"use client";
+"use client";
 
 import { useMemo, useState } from "react";
-import { CuratedRunsPanel } from "./CuratedRunsPanel";
+import { CuratedRunsPanel, type Run as CuratedRun } from "./CuratedRunsPanel";
 
 type AnyRow = Record<string, any>;
 
@@ -28,7 +28,7 @@ export function DashboardClient({ data }: { data: any }) {
 
   const comparison: AnyRow[] = data.comparison ?? [];
   const assessments: AnyRow[] = data.assessments ?? [];
-  const curatedRuns: AnyRow[] = data.curatedRuns ?? [];
+  const curatedRuns: CuratedRun[] = data.curatedRuns ?? [];
   const manifest = data.manifest as any;
 
   const options = useMemo(() => ({

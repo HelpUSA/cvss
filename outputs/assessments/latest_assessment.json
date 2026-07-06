@@ -1,0 +1,22 @@
+{
+  "asset": {
+    "business_criticality": "medium",
+    "data_sensitivity": "internal",
+    "environment": "development",
+    "id": "local-repository",
+    "internet_exposed": false,
+    "name": "Local Repository",
+    "owner": "engineering"
+  },
+  "findings": [],
+  "scanner": "trivy",
+  "schema": "helpus.cvss.real_assessment",
+  "schema_version": 1,
+  "summary": {
+    "critical": 0,
+    "finding_count": 0,
+    "high": 0,
+    "low": 0,
+    "medium": 0
+  }
+}
