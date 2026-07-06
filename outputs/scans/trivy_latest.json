@@ -3,16 +3,16 @@
   "Trivy": {
     "Version": "0.72.0"
   },
-  "ReportID": "019f38ed-e2e2-75c0-85c9-970ea6310cce",
-  "CreatedAt": "2026-07-06T16:35:42.050377-03:00",
-  "ArtifactID": "sha256:60b1d3fe84c1a252aec95f779da884065bb12f2eb4ea4eaf3c6bf7abeb5a6c03",
+  "ReportID": "019f392f-9966-785b-8f5a-06b50d2066cb",
+  "CreatedAt": "2026-07-06T17:47:28.6145476-03:00",
+  "ArtifactID": "sha256:859e242671ffe9839d4ae04659726058aea1be909f659d4c3533bb853ded9611",
   "ArtifactName": ".",
   "ArtifactType": "repository",
   "Metadata": {
     "RepoURL": "https://github.com/HelpUSA/cvss.git",
     "Branch": "real-world-cvss",
-    "Commit": "2ac077b11456d07caea7a409e908e63627db0fff",
-    "CommitMsg": "Fix web dependency vulnerabilities and add zero-findings baseline",
+    "Commit": "cb544393f891f44ed56a5dc091539f012ac51276",
+    "CommitMsg": "Optimize Trivy runner for automated scans",
     "Author": "Wagner Medeiros dos Santos \u003cwagner.redes@gmail.com\u003e",
     "Committer": "Wagner Medeiros dos Santos \u003cwagner.redes@gmail.com\u003e"
   },
