@@ -1,0 +1,16 @@
+assets:
+ - id: local-repository
+ name: Local Repository
+ environment: development
+ internet_exposed: false
+ business_criticality: medium
+ data_sensitivity: internal
+ owner: engineering
+
+ - id: api-production-01
+ name: API Production
+ environment: production
+ internet_exposed: true
+ business_criticality: high
+ data_sensitivity: pii
+ owner: engineering

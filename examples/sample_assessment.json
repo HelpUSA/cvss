@@ -1,0 +1,124 @@
+{
+  "asset": {
+    "business_criticality": "high",
+    "data_sensitivity": "pii",
+    "environment": "production",
+    "id": "local-repository",
+    "internet_exposed": true,
+    "name": "Local Repository",
+    "owner": "engineering"
+  },
+  "findings": [
+    {
+      "asset": {
+        "business_criticality": "high",
+        "data_sensitivity": "pii",
+        "environment": "production",
+        "id": "local-repository",
+        "internet_exposed": true,
+        "name": "Local Repository",
+        "owner": "engineering"
+      },
+      "contextual_environmental": {
+        "decision": "immediate_action",
+        "delta_from_official_base": 2.5,
+        "method": "mvp_static_context_heuristic_v1",
+        "not_official_cvss": true,
+        "rationale": [
+          "asset is internet exposed",
+          "asset is production",
+          "business criticality is high",
+          "asset may process sensitive data"
+        ],
+        "score": 10.0,
+        "severity": "Critical"
+      },
+      "evidence": {
+        "description": "Sample fixture used to validate the real assessment importer.",
+        "raw_severity": "HIGH",
+        "scanner": "trivy",
+        "source_file": "examples\\trivy.sample.json",
+        "target": "requirements.txt",
+        "type": "pip"
+      },
+      "id": "local-repository:CVE-2024-0001:1",
+      "official_cvss": {
+        "base_score": 7.5,
+        "base_severity": "High",
+        "source": "nvd",
+        "vector": null
+      },
+      "vulnerability": {
+        "fixed_version": "1.0.1",
+        "id": "CVE-2024-0001",
+        "installed_version": "1.0.0",
+        "package": "samplelib",
+        "primary_url": null,
+        "references": [],
+        "severity": "HIGH",
+        "title": "Sample high severity vulnerability"
+      }
+    },
+    {
+      "asset": {
+        "business_criticality": "high",
+        "data_sensitivity": "pii",
+        "environment": "production",
+        "id": "local-repository",
+        "internet_exposed": true,
+        "name": "Local Repository",
+        "owner": "engineering"
+      },
+      "contextual_environmental": {
+        "decision": "prioritize_next_patch_window",
+        "delta_from_official_base": 2.8,
+        "method": "mvp_static_context_heuristic_v1",
+        "not_official_cvss": true,
+        "rationale": [
+          "asset is internet exposed",
+          "asset is production",
+          "business criticality is high",
+          "asset may process sensitive data",
+          "scanner did not provide a fixed version"
+        ],
+        "score": 7.8,
+        "severity": "High"
+      },
+      "evidence": {
+        "description": "Sample fixture with severity fallback.",
+        "raw_severity": "MEDIUM",
+        "scanner": "trivy",
+        "source_file": "examples\\trivy.sample.json",
+        "target": "requirements.txt",
+        "type": "pip"
+      },
+      "id": "local-repository:CVE-2024-0002:2",
+      "official_cvss": {
+        "base_score": 5.0,
+        "base_severity": "Medium",
+        "source": "trivy_severity_fallback",
+        "vector": null
+      },
+      "vulnerability": {
+        "fixed_version": null,
+        "id": "CVE-2024-0002",
+        "installed_version": "2.0.0",
+        "package": "sampletool",
+        "primary_url": null,
+        "references": [],
+        "severity": "MEDIUM",
+        "title": "Sample medium vulnerability without fixed version"
+      }
+    }
+  ],
+  "scanner": "trivy",
+  "schema": "helpus.cvss.real_assessment",
+  "schema_version": 1,
+  "summary": {
+    "critical": 1,
+    "finding_count": 2,
+    "high": 1,
+    "low": 0,
+    "medium": 0
+  }
+}
