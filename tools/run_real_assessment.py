@@ -1,5 +1,7 @@
 import argparse
 import json
+import os
+import shutil
 import subprocess
 from pathlib import Path
 
@@ -168,10 +170,44 @@ def normalize(raw, asset, source_file):
         "findings": findings,
     }
 
-def run_trivy(target, output_path):
+def split_csv(value):
+    if not value:
+        return []
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def locate_trivy():
+    found = shutil.which("trivy")
+    if found:
+        return found
+
+    roots = [
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft" / "WinGet" / "Packages",
+        Path(os.environ.get("USERPROFILE", "")) / "AppData" / "Local" / "Microsoft" / "WinGet" / "Packages",
+        Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft" / "WindowsApps",
+    ]
+    for root in roots:
+        if root.exists():
+            candidates = sorted(root.rglob("trivy.exe"))
+            if candidates:
+                return str(candidates[0])
+
+    raise SystemExit("trivy not found. Install Trivy or add it to PATH.")
+
+
+def run_trivy(target, output_path, scanners="vuln", skip_dirs=None, skip_files=None):
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(["trivy", "fs", "--format", "json", "--output", str(output_path), target], check=True)
+    cmd = [locate_trivy(), "fs", "--format", "json", "--output", str(output_path)]
+    if scanners:
+        cmd.extend(["--scanners", scanners])
+    for skip_dir in skip_dirs or []:
+        cmd.extend(["--skip-dirs", skip_dir])
+    for skip_file in skip_files or []:
+        cmd.extend(["--skip-files", skip_file])
+    cmd.append(target)
+    subprocess.run(cmd, check=True)
     return output_path
+
 
 def build_asset(args):
     return {
@@ -191,6 +227,9 @@ def main():
     parser.add_argument("--input")
     parser.add_argument("--output", default="outputs/assessments/latest_assessment.json")
     parser.add_argument("--raw-output", default="outputs/scans/trivy_latest.json")
+    parser.add_argument("--trivy-scanners", default="vuln")
+    parser.add_argument("--trivy-skip-dirs", default=".git,.venv,web/.next,web/node_modules")
+    parser.add_argument("--trivy-skip-files", default="")
     parser.add_argument("--asset-id", default="local-repository")
     parser.add_argument("--asset-name", default="Local Repository")
     parser.add_argument("--environment", default="development")
@@ -204,7 +243,7 @@ def main():
     if args.input:
         input_path = Path(args.input)
     else:
-        input_path = run_trivy(args.target, Path(args.raw_output))
+        input_path = run_trivy(args.target, Path(args.raw_output), args.trivy_scanners, split_csv(args.trivy_skip_dirs), split_csv(args.trivy_skip_files))
 
     raw = json.loads(input_path.read_text(encoding="utf-8"))
     assessment = normalize(raw, asset, str(input_path))
