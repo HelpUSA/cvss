@@ -1,5 +1,7 @@
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+
 WORKFLOW = Path(".github/workflows/real-pipeline.yml")
 
 
@@ -38,3 +40,8 @@ def test_real_pipeline_workflow_uses_current_setup_actions():
     assert "actions/checkout@v4" in payload
     assert "actions/setup-python@v5" in payload
     assert "actions/setup-node@v4" in payload
+
+def test_ci_workflow_does_not_export_local_evidence_bundles():
+    workflow = (ROOT  / ".github" / "workflows" / "real-pipeline.yml").read_text(encoding="utf-8")
+    assert "--export-evidence" not in workflow
+    assert "outputs/evidence" not in workflow
