@@ -139,3 +139,26 @@ def test_export_evidence_skips_missing_optional_report(tmp_path):
 
     assert "assessment_report" not in manifest["files"]
     assert not (out / report.name).exists()
+
+def test_load_json_rejects_non_object_payload(tmp_path):
+    module = load_module()
+    payload = tmp_path / "payload.json"
+    payload.write_text("[]\n", encoding="utf-8")
+
+    try:
+        module.load_json(payload)
+    except SystemExit as exc:
+        assert "expected JSON object" in str(exc)
+    else:
+        raise AssertionError("expected non-object JSON payload to stop export")
+
+
+def test_finding_count_requires_integer_value():
+    module = load_module()
+
+    try:
+        module.finding_count({"summary": {"finding_count": "0"}})
+    except SystemExit as exc:
+        assert "finding_count must be an integer" in str(exc)
+    else:
+        raise AssertionError("expected non-integer finding_count to stop export")
