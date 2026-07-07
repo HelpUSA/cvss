@@ -125,3 +125,12 @@ python -m pytest tests/test_ci_workflow_contract.py -q
 ```
 
 This test protects the workflow from accidentally dropping the `real-world-cvss` branch gate, dependency install steps, or the consolidated validator command.
+## Manual evidence refresh checklist
+
+Reviewer-facing evidence refresh steps are maintained in:
+
+```text
+docs/checklists/real-evidence-refresh.md
+```
+
+Use that checklist before committing refreshed Trivy evidence or dashboard baseline changes.
