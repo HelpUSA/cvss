@@ -26,3 +26,4 @@ _archive/
 temp/
 .vercel
 .env*.local
+outputs/evidence/
