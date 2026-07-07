@@ -50,3 +50,37 @@ def test_build_steps_pass_allow_findings_to_export():
         "scripts/export_real_evidence.py",
         "--allow-findings",
     ] in steps
+
+def test_build_steps_do_not_export_evidence_by_default():
+    module = load_module()
+    args = argparse.Namespace(
+        run_scan=False,
+        allow_findings=False,
+        skip_refresh=True,
+        skip_build=True,
+        export_evidence=False,
+    )
+    steps = module.build_steps(args)
+    assert [module.sys.executable, "scripts/export_real_evidence.py"] not in steps
+    assert [
+        module.sys.executable,
+        "scripts/export_real_evidence.py",
+        "--allow-findings",
+    ] not in steps
+
+def test_export_evidence_step_runs_after_build_when_build_is_enabled():
+    module = load_module()
+    args = argparse.Namespace(
+        run_scan=False,
+        allow_findings=False,
+        skip_refresh=True,
+        skip_build=False,
+        export_evidence=True,
+    )
+    steps = module.build_steps(args)
+    build_step = [module.npm_command(), "run", "build", "--prefix", "web"]
+    export_step = [module.sys.executable, "scripts/export_real_evidence.py"]
+    assert build_step in steps
+    assert export_step in steps
+    assert steps.index(build_step) < steps.index(export_step)
+    assert steps[-1] == export_step
