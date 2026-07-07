@@ -115,3 +115,8 @@ python scripts/validate_real_pipeline.py --export-evidence
 ```
 
 Confirm `outputs/evidence/latest/manifest.json` exists and reports the expected `finding_count`. The `outputs/evidence/` directory is intentionally ignored by Git.
+## Review before sharing an evidence bundle
+
+- Confirm `outputs/evidence/latest/manifest.json` exists.
+- Confirm the manifest `finding_count` matches the refreshed baseline expectation.
+- Confirm the bundle was produced locally with `--export-evidence`, not by the default CI gate.
