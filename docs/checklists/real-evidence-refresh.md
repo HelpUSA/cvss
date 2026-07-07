@@ -96,3 +96,12 @@ Before merge or deployment, verify:
   }
 }
 ```
+## Export review bundle
+
+After the consolidated gate passes, export a review bundle for audit or handoff:
+
+```powershell
+python scripts/export_real_evidence.py --output-dir outputs/evidence/latest
+```
+
+Review `outputs/evidence/latest/manifest.json` before attaching or archiving the bundle.

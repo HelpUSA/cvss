@@ -134,3 +134,14 @@ docs/checklists/real-evidence-refresh.md
 ```
 
 Use that checklist before committing refreshed Trivy evidence or dashboard baseline changes.
+## Evidence export bundle
+
+After a clean refresh, export a reviewable evidence bundle with:
+
+```powershell
+python scripts/export_real_evidence.py --output-dir outputs/evidence/latest
+```
+
+The export helper copies the raw scan, normalized assessment, dashboard baseline, and assessment report when present. It also writes `manifest.json` with the source paths and finding count.
+
+By default, the helper refuses non-zero finding evidence. Use `--allow-findings` only for investigation branches.
