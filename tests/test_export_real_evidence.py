@@ -100,3 +100,42 @@ def test_export_evidence_refuses_mismatched_dashboard_count():
 
         with pytest.raises(SystemExit, match="finding counts differ"):
             module.export_evidence(out, scan, assessment, dashboard)
+
+def test_export_evidence_refuses_mismatched_assessment_and_dashboard_counts(tmp_path):
+    module = load_module()
+    scan = tmp_path / "trivy.json"
+    assessment = tmp_path / "assessment.json"
+    dashboard = tmp_path / "dashboard.json"
+    out = tmp_path / "out"
+
+    write_json(scan, {"Results": []})
+    write_json(assessment, {"summary": {"finding_count": 0}})
+    write_json(dashboard, {"summary": {"finding_count": 1}})
+
+    try:
+        module.export_evidence(out, scan, assessment, dashboard)
+    except SystemExit as exc:
+        assert "finding counts differ" in str(exc)
+    else:
+        raise AssertionError("expected mismatched finding counts to stop export")
+
+    assert not (out / "manifest.json").exists()
+
+
+def test_export_evidence_skips_missing_optional_report(tmp_path):
+    module = load_module()
+    scan = tmp_path / "trivy.json"
+    assessment = tmp_path / "assessment.json"
+    dashboard = tmp_path / "dashboard.json"
+    report = tmp_path / "missing-report.md"
+    out = tmp_path / "out"
+
+    write_json(scan, {"Results": []})
+    write_json(assessment, {"summary": {"finding_count": 0}})
+    write_json(dashboard, {"summary": {"finding_count": 0}})
+
+    manifest_path = module.export_evidence(out, scan, assessment, dashboard, report)
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    assert "assessment_report" not in manifest["files"]
+    assert not (out / report.name).exists()
