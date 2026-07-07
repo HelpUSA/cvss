@@ -1,0 +1,52 @@
+import argparse
+import importlib.util
+from pathlib import Path
+
+
+MODULE_PATH = Path.cwd() / "scripts" / "validate_real_pipeline.py"
+
+
+def load_module():
+    spec = importlib.util.spec_from_file_location(
+        "validate_real_pipeline_for_export_test", MODULE_PATH
+    )
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_export_evidence_option_is_available():
+    module = load_module()
+    args = module.parse_args(["--export-evidence"])
+    assert args.export_evidence is True
+
+
+def test_build_steps_include_export_after_validation_when_requested():
+    module = load_module()
+    args = argparse.Namespace(
+        run_scan=False,
+        allow_findings=False,
+        skip_refresh=True,
+        skip_build=True,
+        export_evidence=True,
+    )
+    steps = module.build_steps(args)
+    assert [module.sys.executable, "scripts/export_real_evidence.py"] in steps
+
+
+def test_build_steps_pass_allow_findings_to_export():
+    module = load_module()
+    args = argparse.Namespace(
+        run_scan=False,
+        allow_findings=True,
+        skip_refresh=True,
+        skip_build=True,
+        export_evidence=True,
+    )
+    steps = module.build_steps(args)
+    assert [
+        module.sys.executable,
+        "scripts/export_real_evidence.py",
+        "--allow-findings",
+    ] in steps

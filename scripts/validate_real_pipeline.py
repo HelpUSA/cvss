@@ -42,6 +42,11 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
         action="store_true",
         help="Skip the Next.js production build.",
     )
+    parser.add_argument(
+        "--export-evidence",
+        action="store_true",
+        help="Export a reviewable local evidence bundle after validation passes.",
+    )
     return parser.parse_args(argv)
 
 
@@ -54,6 +59,7 @@ def build_steps(args: argparse.Namespace) -> list[list[str]]:
             "tools/run_real_assessment.py",
             "scripts/refresh_real_baseline.py",
             "scripts/validate_real_pipeline.py",
+            "scripts/export_real_evidence.py",
         ]
     ]
 
@@ -75,6 +81,12 @@ def build_steps(args: argparse.Namespace) -> list[list[str]]:
 
     if not args.skip_build:
         steps.append([npm_command(), "run", "build", "--prefix", "web"])
+
+    if getattr(args, "export_evidence", False):
+        export = [sys.executable, "scripts/export_real_evidence.py"]
+        if args.allow_findings:
+            export.append("--allow-findings")
+        steps.append(export)
 
     return steps
 

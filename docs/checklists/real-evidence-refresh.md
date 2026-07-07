@@ -105,3 +105,13 @@ python scripts/export_real_evidence.py --output-dir outputs/evidence/latest
 ```
 
 Review `outputs/evidence/latest/manifest.json` before attaching or archiving the bundle.
+
+## Gate-driven export
+
+When the reviewer needs a fresh local bundle and a full validation pass, use:
+
+```powershell
+python scripts/validate_real_pipeline.py --export-evidence
+```
+
+Confirm `outputs/evidence/latest/manifest.json` exists and reports the expected `finding_count`. The `outputs/evidence/` directory is intentionally ignored by Git.

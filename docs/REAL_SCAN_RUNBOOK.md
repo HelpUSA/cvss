@@ -145,3 +145,13 @@ python scripts/export_real_evidence.py --output-dir outputs/evidence/latest
 The export helper copies the raw scan, normalized assessment, dashboard baseline, and assessment report when present. It also writes `manifest.json` with the source paths and finding count.
 
 By default, the helper refuses non-zero finding evidence. Use `--allow-findings` only for investigation branches.
+
+## Optional evidence export through the validation gate
+
+To validate the full local pipeline and export a reviewable evidence bundle in one command, run:
+
+```powershell
+python scripts/validate_real_pipeline.py --export-evidence
+```
+
+The export is written to `outputs/evidence/latest/` and is ignored by Git. Use `--allow-findings` with this option only on investigation branches where non-zero findings are intentionally being reviewed.
