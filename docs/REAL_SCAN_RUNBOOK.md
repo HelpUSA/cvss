@@ -85,3 +85,21 @@ The normalized assessment should report:
 3. Re-run the real assessment.
 4. Keep scanner evidence and contextual prioritization separate.
 5. Commit the refreshed `outputs/assessments/latest_assessment.json` and `web/data/real_assessment.json` only after validation passes.
+
+## Full local validation gate
+
+After changing the real scan pipeline, run the consolidated validator:
+
+```powershell
+python scripts/validate_real_pipeline.py
+```
+
+The validator compiles the Python tooling, refreshes `web/data/real_assessment.json`, runs the Python test suite, checks `app.js`, verifies whitespace with `git diff --check`, and builds the web dashboard.
+
+For a fresh Trivy scan before refreshing the dashboard baseline:
+
+```powershell
+python scripts/validate_real_pipeline.py --run-scan
+```
+
+By default, the refresh step refuses to publish a non-zero finding baseline. Use `--allow-findings` only for investigation branches where exposing current findings in the dashboard is intentional.
