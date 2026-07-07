@@ -199,3 +199,42 @@ def test_parse_args_accepts_custom_evidence_inputs():
     assert args.dashboard == "custom/dashboard.json"
     assert args.report == "custom/report.md"
     assert args.allow_findings is True
+
+def test_export_manifest_records_contract_metadata_and_summaries():
+    module = load_module()
+    with tempfile.TemporaryDirectory() as temp:
+        temp_path = Path(temp)
+        scan = temp_path / "scan.json"
+        assessment = temp_path / "assessment.json"
+        dashboard = temp_path / "dashboard.json"
+        out = temp_path / "bundle"
+
+        scan_summary = {"ImageID": "local-image", "RepoTags": ["local:test"]}
+        assessment_summary = {"finding_count": 0, "max_severity": "NONE"}
+
+        write_json(scan, {"Metadata": scan_summary})
+        write_json(assessment, {"summary": assessment_summary})
+        write_json(dashboard, {"summary": {"finding_count": 0}})
+
+        manifest_path = module.export_evidence(out, scan, assessment, dashboard, None)
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+        assert manifest["schema"] == "helpus.cvss.real_evidence_export"
+        assert manifest["schema_version"] == 1
+        assert manifest["generated_at"].endswith("+00:00")
+        assert manifest["finding_count"] == 0
+        assert manifest["files"] == {
+            "assessment": "assessment.json",
+            "dashboard_baseline": "dashboard.json",
+            "scan": "scan.json",
+        }
+        assert set(manifest["source_paths"]) == {
+            "assessment",
+            "dashboard_baseline",
+            "scan",
+        }
+        assert manifest["source_paths"]["scan"].endswith("scan.json")
+        assert manifest["source_paths"]["assessment"].endswith("assessment.json")
+        assert manifest["source_paths"]["dashboard_baseline"].endswith("dashboard.json")
+        assert manifest["scan_summary"] == scan_summary
+        assert manifest["assessment_summary"] == assessment_summary
