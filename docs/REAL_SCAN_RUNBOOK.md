@@ -115,3 +115,13 @@ python scripts/validate_real_pipeline.py
 ```
 
 The CI job intentionally does not run a fresh Trivy scan by default. It validates the committed zero-findings baseline and the dashboard build path. Use the local `--run-scan` mode when you need to refresh scan evidence before committing.
+
+## CI workflow contract test
+
+The CI workflow contract is covered by:
+
+```powershell
+python -m pytest tests/test_ci_workflow_contract.py -q
+```
+
+This test protects the workflow from accidentally dropping the `real-world-cvss` branch gate, dependency install steps, or the consolidated validator command.
