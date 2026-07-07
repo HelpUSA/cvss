@@ -1,0 +1,38 @@
+name: Real Pipeline Gate
+
+on:
+  push:
+    branches:
+      - real-world-cvss
+  pull_request:
+    branches:
+      - real-world-cvss
+
+jobs:
+  validate-real-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip pytest
+
+      - name: Install web dependencies
+        run: npm ci --prefix web
+
+      - name: Validate real pipeline
+        run: python scripts/validate_real_pipeline.py

@@ -103,3 +103,15 @@ python scripts/validate_real_pipeline.py --run-scan
 ```
 
 By default, the refresh step refuses to publish a non-zero finding baseline. Use `--allow-findings` only for investigation branches where exposing current findings in the dashboard is intentional.
+
+## CI validation gate
+
+The repository includes `.github/workflows/real-pipeline.yml` to run the real pipeline gate on pushes and pull requests targeting `real-world-cvss`.
+
+The workflow installs Python and Node dependencies, then runs:
+
+```powershell
+python scripts/validate_real_pipeline.py
+```
+
+The CI job intentionally does not run a fresh Trivy scan by default. It validates the committed zero-findings baseline and the dashboard build path. Use the local `--run-scan` mode when you need to refresh scan evidence before committing.
