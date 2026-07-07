@@ -162,3 +162,40 @@ def test_finding_count_requires_integer_value():
         assert "finding_count must be an integer" in str(exc)
     else:
         raise AssertionError("expected non-integer finding_count to stop export")
+
+def test_parse_args_uses_stable_default_paths():
+    module = load_module()
+
+    args = module.parse_args([])
+
+    assert args.output_dir == "outputs/evidence/latest"
+    assert args.scan == "outputs/scans/trivy_latest.json"
+    assert args.assessment == "outputs/assessments/latest_assessment.json"
+    assert args.dashboard == "web/data/real_assessment.json"
+    assert args.report == "outputs/assessments/latest_assessment_report.md"
+    assert args.allow_findings is False
+
+
+def test_parse_args_accepts_custom_evidence_inputs():
+    module = load_module()
+
+    args = module.parse_args([
+        "--output-dir",
+        "custom/evidence",
+        "--scan",
+        "custom/scan.json",
+        "--assessment",
+        "custom/assessment.json",
+        "--dashboard",
+        "custom/dashboard.json",
+        "--report",
+        "custom/report.md",
+        "--allow-findings",
+    ])
+
+    assert args.output_dir == "custom/evidence"
+    assert args.scan == "custom/scan.json"
+    assert args.assessment == "custom/assessment.json"
+    assert args.dashboard == "custom/dashboard.json"
+    assert args.report == "custom/report.md"
+    assert args.allow_findings is True
