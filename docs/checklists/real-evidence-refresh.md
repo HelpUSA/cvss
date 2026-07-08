@@ -120,3 +120,4 @@ Confirm `outputs/evidence/latest/manifest.json` exists and reports the expected 
 - Confirm `outputs/evidence/latest/manifest.json` exists.
 - Confirm the manifest `finding_count` matches the refreshed baseline expectation.
 - Confirm the bundle was produced locally with `--export-evidence`, not by the default CI gate.
+- [ ] Review `outputs/evidence/latest/manifest.json`: confirm `schema`, `schema_version`, UTC `generated_at`, copied `files`, `source_paths`, `scan_summary`, and `assessment_summary`.
