@@ -59,3 +59,7 @@ related_files:
 ## Vault conventions
 
 - [[99_Obsidian_Conventions]]
+
+## Deployment
+
+- [Public deployment verification](DEPLOYMENT_VERIFICATION.md)
