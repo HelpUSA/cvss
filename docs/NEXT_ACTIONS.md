@@ -314,3 +314,18 @@ Next actions:
 7. Verify all responses are locked before opening the answer key.
 8. Execute agreement analysis and structured adjudication.
 <!-- END CVSS40_PHASE12_REVIEWER_OPERATIONS_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE13_RESPONSE_LOCKING_NEXT_20260713 -->
+## CVSS v4.0 Phase 13 response-locking workflow ready
+
+Next actions:
+
+1. Recruit and qualify the independent reviewers.
+2. Send each reviewer only the assigned local ZIP package.
+3. Place returned CSV files in the local incoming directory.
+4. Validate each response without opening the answer key.
+5. Preserve and cryptographically lock accepted responses.
+6. Confirm one locked response for every planned reviewer.
+7. Verify all response hashes and validation reports.
+8. Open the answer key only after all independent responses are locked.
+<!-- END CVSS40_PHASE13_RESPONSE_LOCKING_NEXT_20260713 -->

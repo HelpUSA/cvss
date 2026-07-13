@@ -199,3 +199,11 @@ related_files:
 - [Collection runbook](../article/expert_review/COLLECTION_RUNBOOK.md)
 - [Phase 12 manifest](../validation/article/phase12_reviewer_operations_manifest.json)
 <!-- END CVSS40_PHASE12_REVIEWER_OPERATIONS_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE13_RESPONSE_LOCKING_INDEX_20260713 -->
+## CVSS v4.0 Phase 13 Response Locking
+
+- [Phase 13 report](ARTICLE_PHASE13_RESPONSE_LOCKING_CVSS40.md)
+- [Response-locking runbook](../article/expert_review/RESPONSE_LOCKING_RUNBOOK.md)
+- [Phase 13 manifest](../validation/article/phase13_response_locking_manifest.json)
+<!-- END CVSS40_PHASE13_RESPONSE_LOCKING_INDEX_20260713 -->

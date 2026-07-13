@@ -1,0 +1,34 @@
+{
+  "answer_key_content_versioned": false,
+  "answer_key_required_for_intake": false,
+  "claim_boundaries": [
+    "No reviewer response has been collected",
+    "No reviewer response has been locked",
+    "No agreement result has been calculated",
+    "The adjudication answer key remains local",
+    "Response content remains unversioned",
+    "The intake process does not require the answer key"
+  ],
+  "collected_response_count": 0,
+  "generated_utc": "2026-07-13T22:58:42.222367+00:00",
+  "local_only_paths": [
+    "article/expert_review/reviewer_responses/",
+    "article/expert_review/private/",
+    "article/expert_review/adjudication_answer_key.csv"
+  ],
+  "lock_policy": "one active cryptographically locked response per reviewer",
+  "locked_response_count": 0,
+  "phase": 13,
+  "planned_assessment_count": 90,
+  "planned_reviewer_count": 3,
+  "public_artifacts": [
+    "article/expert_review/RESPONSE_LOCKING_RUNBOOK.md",
+    "tools/intake_and_lock_expert_reviewer_response.py",
+    "tools/validate_article_phase13_response_locking.py",
+    "docs/ARTICLE_PHASE13_RESPONSE_LOCKING_CVSS40.md"
+  ],
+  "response_content_versioned": false,
+  "response_hashes_versioned": false,
+  "scenario_count": 30,
+  "status": "ready-no-responses-collected"
+}
