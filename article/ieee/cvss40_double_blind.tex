@@ -1,0 +1,223 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+
+\title{Operationalizing CVSS v4.0 Environmental Metrics with
+AI-Assisted Evidence Collection and Traceability}
+
+\author{
+\IEEEauthorblockN{Anonymous Author(s)}
+\IEEEauthorblockA{Affiliation withheld for double-blind review}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+CVSS v4.0 defines Environmental metrics that adapt vulnerability assessment to a consumer organization's deployment context. This paper presents an AI/watcher-assisted workflow for collecting, structuring, and tracing evidence used to support Environmental metric assessment. The workflow preserves official CVSS semantics and treats its outputs as evidence-backed candidate recommendations requiring human review. The evaluation uses 30 scenarios, including 12 NVD records carrying CVSS v4.0 data and 18 curated synthetic scenarios. Generated artifacts achieved 100.00 percent evidence coverage and 100.00 percent trace completeness. Operational priority changed in 22 of 30 scenarios. These results demonstrate workflow execution and traceability, not predictive superiority or production effectiveness.
+\end{abstract}
+
+\begin{IEEEkeywords}
+CVSS v4.0, Environmental metrics, vulnerability prioritization,
+artificial intelligence, traceability, reproducibility, human review
+\end{IEEEkeywords}
+
+\section{Introduction}
+
+The Common Vulnerability Scoring System is widely used to communicate
+vulnerability severity. Operational remediation decisions, however, frequently
+require more than a Base score because asset criticality, deployment context,
+exposure, and compensating controls can change remediation urgency.
+
+CVSS v4.0 distinguishes Base, Threat, Environmental, and Supplemental metric
+groups \cite{first_cvss40,first_spec}. Environmental metrics allow consumer
+organizations to represent local context \cite{first_user_guide,first_impl}.
+Selecting these values consistently requires evidence, uncertainty handling,
+and reviewable decision records.
+
+This paper presents an AI/watcher-assisted workflow that structures evidence,
+suggests candidate Environmental values, flags uncertainty, requires human
+review, and exports reproducible trace artifacts. The contribution is a method
+and prototype workflow, not a new scoring standard.
+
+\section{Background}
+
+The workflow preserves CVSS-B, CVSS-BT, CVSS-BE, and CVSS-BTE labeling.
+Base information remains separate from consumer-side Environmental assessment.
+Threat information is treated as time-sensitive evidence requiring independent
+review. Supplemental information remains contextual.
+
+Environmental assessment includes Security Requirements and Modified Base
+metrics. Their selection depends on asset importance, architecture, exposure,
+privileges, and compensating controls. The proposed workflow assists evidence
+organization and analyst review rather than autonomous scoring.
+
+\section{Problem Statement}
+
+Environmental assessment can be difficult because relevant evidence is often
+incomplete or distributed across multiple systems. This can reduce
+reproducibility, create inconsistent assessments across similar assets, and
+cause remediation decisions to over-rely on Base severity.
+
+\section{Proposed Workflow}
+
+The workflow performs eight activities:
+
+\begin{enumerate}
+\item ingest vulnerability and Base CVSS information;
+\item collect consumer-side environmental evidence;
+\item structure evidence into scenario fields;
+\item suggest candidate Environmental metric values;
+\item attach evidence and rationale;
+\item flag uncertainty and missing evidence;
+\item require explicit human review; and
+\item export CSV, JSON, report, and table artifacts.
+\end{enumerate}
+
+The workflow does not modify the CVSS v4.0 formula. Its outputs are
+human-reviewable candidate recommendations, not autonomous official scores.
+
+\section{Prototype Architecture}
+
+The prototype contains a scenario dataset, validators, per-scenario trace JSON,
+generated tables, and manuscript artifacts. Each scenario stores Base
+information separately from curated Environmental context, candidate metric
+values, evidence, uncertainty flags, review status, and operational priority.
+
+\section{Evaluation Design}
+
+The evaluation uses 30 scenarios. 12 scenarios use
+NVD vulnerability records carrying CVSS v4.0 information
+\cite{nvd_cve_2026_4251,nvd_cve_2026_4252,nvd_cve_2026_4270,nvd_cve_2026_28490,nvd_cve_2026_28498,nvd_cve_2026_29510,nvd_cve_2026_29513,nvd_cve_2026_29520,nvd_cve_2026_29521,nvd_cve_2026_3644,nvd_cve_2026_4224,nvd_cve_2026_4253}. The remaining 18 scenarios are explicitly
+marked as curated synthetic cases.
+
+The Environmental contexts attached to the records are curated for workflow
+evaluation. A real CVE record does not imply that its local deployment context
+was obtained from NVD.
+
+The evaluation measures workflow properties rather than predictive superiority:
+evidence coverage, trace completeness, uncertainty coverage, review status,
+and operational priority transitions.
+
+\begin{table}[t]
+\caption{Dataset and Workflow Summary}
+\label{tab:summary}
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Measure & Value \\
+\midrule
+Scenarios & 30 \\
+NVD/CVSS v4.0 records & 12 \\
+Curated synthetic scenarios & 18 \\
+Evidence coverage & 100.00\% \\
+Trace completeness & 100.00\% \\
+Rows requiring review & 30 \\
+Priority shifts & 22 (73.33\%) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Results}
+
+All 30 scenarios contain evidence summaries and trace artifacts.
+Every scenario requires human review. Uncertainty flags are present in
+100.00 percent of records.
+
+Operational priority changed in 22 of 30 scenarios
+(73.33 percent). The average category delta was 0.2, with
+a maximum upward delta of 2.0 and a maximum downward delta of
+-3.0.
+
+The priority delta is an operational category transition. It is not an official
+CVSS Environmental score difference and must not be interpreted as a
+modification of the CVSS formula.
+
+\begin{table}[t]
+\caption{Operational Priority Transitions}
+\label{tab:transitions}
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{@{}lll@{}}
+\toprule
+Base priority & Environmental-aware priority & Count \\
+\midrule
+critical & critical & 3 \\
+high & critical & 4 \\
+high & defer & 1 \\
+high & high & 2 \\
+high & medium & 2 \\
+low & defer & 2 \\
+low & high & 1 \\
+low & low & 1 \\
+low & medium & 1 \\
+medium & critical & 2 \\
+medium & defer & 1 \\
+medium & high & 6 \\
+medium & low & 2 \\
+medium & medium & 2 \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{table}[t]
+\caption{CVSS-B Severity Distribution}
+\label{tab:severity}
+\centering
+\small
+\begin{tabular}{@{}lr@{}}
+\toprule
+Severity & Count \\
+\midrule
+CRITICAL & 3 \\
+HIGH & 9 \\
+LOW & 5 \\
+MEDIUM & 13 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Discussion}
+
+The results support the feasibility of structuring Environmental assessment
+around evidence, uncertainty, traceability, and reviewability. The hybrid
+dataset includes NVD records carrying CVSS v4.0 information \cite{nvd_api},
+but the attached consumer contexts remain curated.
+
+The results demonstrate artifact completeness and workflow execution. They do
+not establish production effectiveness, scoring correctness, or predictive
+superiority.
+
+\section{Limitations and Threats to Validity}
+
+The dataset is curated and partially synthetic. The consumer Environmental
+contexts do not represent measured production deployments.
+
+The evaluation does not measure exploit likelihood, remediation outcomes,
+analyst time savings, or predictive superiority. Independent expert
+adjudication has not yet been completed. The NVD sample is time-bounded and
+must not be interpreted as representative of all CVSS v4.0 records.
+
+\section{Conclusion}
+
+This paper presents an AI/watcher-assisted workflow for supporting CVSS v4.0
+Environmental metric assessment through evidence collection, traceability,
+uncertainty flags, and explicit human review. The method preserves official
+CVSS semantics and does not modify the standard.
+
+Future work should add expert adjudication, peer-reviewed comparative
+baselines, inter-rater agreement analysis, and production-like evaluation.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}

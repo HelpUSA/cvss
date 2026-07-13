@@ -142,3 +142,13 @@ related_files:
 - [Polished manuscript](../article/generated/cvss40_ieee_manuscript_polished.md)
 - [Double-blind manuscript](../article/generated/cvss40_ieee_manuscript_double_blind.md)
 <!-- END CVSS40_PHASE8_POLISH_REFERENCES_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE9_IEEE_LATEX_COMPILE_INDEX_20260713 -->
+## CVSS v4.0 Phase 9 IEEE LaTeX
+
+- [IEEE LaTeX readiness](ARTICLE_IEEE_LATEX_READINESS_CVSS40.md)
+- [Compilation report](ARTICLE_IEEE_LATEX_COMPILE_REPORT_CVSS40.md)
+- [Double-blind LaTeX source](../article/ieee/cvss40_double_blind.tex)
+- [BibTeX references](../article/ieee/references.bib)
+- [Compiled PDF](../article/ieee/cvss40_double_blind.pdf)
+<!-- END CVSS40_PHASE9_IEEE_LATEX_COMPILE_INDEX_20260713 -->
