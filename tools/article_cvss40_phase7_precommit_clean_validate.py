@@ -156,5 +156,3 @@ run("git diff --stat final", ["git", "diff", "--stat"], fail=True)
 run("git diff --check final", ["git", "diff", "--check"], fail=True)
 
 print("CVSS40_PHASE7_PRECOMMIT_CLEAN_VALIDATE_END", flush=True)
-
-

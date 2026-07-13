@@ -133,3 +133,12 @@ related_files:
 - [Integrated IEEE manuscript draft](../article/generated/cvss40_ieee_manuscript_draft.md)
 - [Commit checklist](ARTICLE_COMMIT_CHECKLIST_CVSS40.md)
 <!-- END CVSS40_PHASE6_MANUSCRIPT_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE8_POLISH_REFERENCES_INDEX_20260713 -->
+## CVSS v4.0 Phase 8 Polish and References
+
+- [Submission readiness](ARTICLE_SUBMISSION_READINESS_CVSS40.md)
+- [References](ARTICLE_REFERENCES_CVSS40.md)
+- [Polished manuscript](../article/generated/cvss40_ieee_manuscript_polished.md)
+- [Double-blind manuscript](../article/generated/cvss40_ieee_manuscript_double_blind.md)
+<!-- END CVSS40_PHASE8_POLISH_REFERENCES_INDEX_20260713 -->

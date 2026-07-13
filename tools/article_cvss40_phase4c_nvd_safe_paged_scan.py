@@ -545,4 +545,3 @@ for label, cmd in [
         print(cp.stderr[-8000:], flush=True)
 
 print("CVSS40_PHASE4C_NVD_SAFE_PAGED_SCAN_END", flush=True)
-

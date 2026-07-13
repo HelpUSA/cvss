@@ -226,3 +226,15 @@ Next actions:
 4. Run full validation one more time.
 5. Commit the article docs, dataset, generated tables, trace artifacts, and validation scripts.
 <!-- END CVSS40_PHASE6_MANUSCRIPT_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE8_POLISH_REFERENCES_NEXT_20260713 -->
+## CVSS v4.0 Phase 8 polish/references completed
+
+Next actions:
+
+1. Review `article/generated/cvss40_ieee_manuscript_polished.md`.
+2. Review `article/generated/cvss40_ieee_manuscript_double_blind.md`.
+3. Review `docs/ARTICLE_REFERENCES_CVSS40.md`.
+4. Convert the double-blind manuscript into the IEEE template when ready.
+5. Commit Phase 8 polish artifacts after validation.
+<!-- END CVSS40_PHASE8_POLISH_REFERENCES_NEXT_20260713 -->
