@@ -252,3 +252,18 @@ Next actions:
 4. Expand the experimental protocol and analysis.
 5. Target a substantive 5--6 page manuscript.
 <!-- END CVSS40_PHASE9_IEEE_LATEX_COMPILE_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE10_ACADEMIC_EXPANSION_NEXT_20260713 -->
+## CVSS v4.0 Phase 10 academic expansion completed
+
+The expanded double-blind IEEE manuscript compiled successfully with
+6 pages.
+
+Next actions:
+
+1. Design the independent expert-review protocol.
+2. Create reviewer forms and blinded scenario packets.
+3. Define agreement and review-effort measures.
+4. Select the target conference or journal.
+5. Perform final language and submission-format review.
+<!-- END CVSS40_PHASE10_ACADEMIC_EXPANSION_NEXT_20260713 -->

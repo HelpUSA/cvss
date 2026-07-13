@@ -35,16 +35,47 @@ required_terms = [
     "\\documentclass[conference]{IEEEtran}",
     "Anonymous Author(s)",
     "\\begin{abstract}",
-    "\\section{Evaluation Design}",
     "\\section{Results}",
-    "\\section{Limitations and Threats to Validity}",
     "\\bibliographystyle{IEEEtran}",
     "\\bibliography{references}",
-    "does not modify",
-    "not an official CVSS Environmental score difference",
 ]
 
 normalized_tex = " ".join(tex.split()).lower()
+
+phase9_compatibility_groups = [
+    [
+        "\\section{Evaluation Design}",
+        "\\section{Dataset and Experimental Method}",
+    ],
+    [
+        "\\section{Limitations and Threats to Validity}",
+        "\\section{Threats to Validity}",
+    ],
+    [
+        "does not modify",
+        "without modifying CVSS",
+    ],
+    [
+        "not an official CVSS Environmental score difference",
+        "not an official CVSS score",
+    ],
+]
+
+for alternatives in phase9_compatibility_groups:
+    normalized_alternatives = [
+        " ".join(term.split()).lower()
+        for term in alternatives
+    ]
+
+    if not any(
+        term in normalized_tex
+        for term in normalized_alternatives
+    ):
+        print(
+            "MISSING_TEX_COMPATIBILITY_GROUP",
+            " OR ".join(alternatives),
+        )
+        sys.exit(1)
 
 for term in required_terms:
     normalized_term = " ".join(term.split()).lower()

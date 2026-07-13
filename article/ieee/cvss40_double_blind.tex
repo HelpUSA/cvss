@@ -4,6 +4,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{array}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
@@ -17,93 +18,343 @@ AI-Assisted Evidence Collection and Traceability}
 }
 
 \begin{document}
+
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 defines Environmental metrics that adapt vulnerability assessment to a consumer organization's deployment context. This paper presents an AI/watcher-assisted workflow for collecting, structuring, and tracing evidence used to support Environmental metric assessment. The workflow preserves official CVSS semantics and treats its outputs as evidence-backed candidate recommendations requiring human review. The evaluation uses 30 scenarios, including 12 NVD records carrying CVSS v4.0 data and 18 curated synthetic scenarios. Generated artifacts achieved 100.00 percent evidence coverage and 100.00 percent trace completeness. Operational priority changed in 22 of 30 scenarios. These results demonstrate workflow execution and traceability, not predictive superiority or production effectiveness.
+CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an AI/watcher-assisted workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, proposes candidate Environmental values, records uncertainty, enforces a review gate, and exports reproducible artifacts. We evaluate the workflow with a hybrid dataset of 30 scenarios, comprising 12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases. The artifacts achieved 100.00 percent evidence coverage and 100.00 percent trace completeness. Operational priority changed in 22 of 30 scenarios. The evaluation demonstrates workflow completeness, context sensitivity, and traceability; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
 \end{abstract}
 
 \begin{IEEEkeywords}
 CVSS v4.0, Environmental metrics, vulnerability prioritization,
-artificial intelligence, traceability, reproducibility, human review
+artificial intelligence, human-in-the-loop, traceability,
+reproducibility, uncertainty
 \end{IEEEkeywords}
 
 \section{Introduction}
 
-The Common Vulnerability Scoring System is widely used to communicate
-vulnerability severity. Operational remediation decisions, however, frequently
-require more than a Base score because asset criticality, deployment context,
-exposure, and compensating controls can change remediation urgency.
+Vulnerability management teams routinely face more findings than they can
+remediate immediately. A severity score is therefore an important input, but it
+does not by itself encode every factor that affects an organization's
+remediation decision. The same vulnerability may affect an isolated
+development workstation, a public identity service, a safety-relevant
+operational technology component, or a redundant internal service. These
+deployments can require different treatment even when the vulnerability's
+intrinsic technical characteristics are unchanged.
 
-CVSS v4.0 distinguishes Base, Threat, Environmental, and Supplemental metric
-groups \cite{first_cvss40,first_spec}. Environmental metrics allow consumer
-organizations to represent local context \cite{first_user_guide,first_impl}.
-Selecting these values consistently requires evidence, uncertainty handling,
-and reviewable decision records.
+CVSS v4.0 explicitly separates Base, Threat, Environmental, and Supplemental
+metric groups \cite{first_cvss40,first_spec}. Base metrics communicate
+characteristics intrinsic to the vulnerability, whereas Environmental metrics
+allow a consumer organization to represent local security requirements and
+modified conditions \cite{first_user_guide,first_implementation}. This
+separation creates an opportunity for context-aware assessment, but also an
+operational burden: analysts must locate evidence, interpret incomplete
+information, document assumptions, and preserve the reasoning behind each
+metric choice.
 
-This paper presents an AI/watcher-assisted workflow that structures evidence,
-suggests candidate Environmental values, flags uncertainty, requires human
-review, and exports reproducible trace artifacts. The contribution is a method
-and prototype workflow, not a new scoring standard.
+This paper investigates whether an AI/watcher workflow can assist that process
+without modifying CVSS or displacing human judgment. The watcher is defined as
+an evidence-processing component rather than an autonomous scoring authority.
+It collects candidate evidence, normalizes it into a scenario record, proposes
+reviewable metric values, identifies uncertainty, and exports trace artifacts.
+A human analyst remains responsible for accepting, changing, or rejecting each
+recommendation.
 
-\section{Background}
-
-The workflow preserves CVSS-B, CVSS-BT, CVSS-BE, and CVSS-BTE labeling.
-Base information remains separate from consumer-side Environmental assessment.
-Threat information is treated as time-sensitive evidence requiring independent
-review. Supplemental information remains contextual.
-
-Environmental assessment includes Security Requirements and Modified Base
-metrics. Their selection depends on asset importance, architecture, exposure,
-privileges, and compensating controls. The proposed workflow assists evidence
-organization and analyst review rather than autonomous scoring.
-
-\section{Problem Statement}
-
-Environmental assessment can be difficult because relevant evidence is often
-incomplete or distributed across multiple systems. This can reduce
-reproducibility, create inconsistent assessments across similar assets, and
-cause remediation decisions to over-rely on Base severity.
-
-\section{Proposed Workflow}
-
-The workflow performs eight activities:
+The work makes four contributions:
 
 \begin{enumerate}
-\item ingest vulnerability and Base CVSS information;
-\item collect consumer-side environmental evidence;
-\item structure evidence into scenario fields;
-\item suggest candidate Environmental metric values;
-\item attach evidence and rationale;
-\item flag uncertainty and missing evidence;
-\item require explicit human review; and
-\item export CSV, JSON, report, and table artifacts.
+\item a human-in-the-loop workflow for operationalizing CVSS v4.0
+Environmental assessment;
+\item a trace model linking evidence, candidate metrics, uncertainty, and
+review state;
+\item a hybrid evaluation dataset containing real CVSS v4.0 vulnerability
+records and controlled synthetic scenarios; and
+\item a reproducible artifact package with validators, tables, JSON traces,
+manuscript sources, and compilation outputs.
 \end{enumerate}
 
-The workflow does not modify the CVSS v4.0 formula. Its outputs are
-human-reviewable candidate recommendations, not autonomous official scores.
+The evaluation is deliberately descriptive. It measures artifact completeness,
+traceability, and context-sensitive operational transitions. It does not claim
+that the watcher predicts exploitation, produces an authoritative risk score,
+or improves remediation outcomes in production.
 
-\section{Prototype Architecture}
+\section{Background and Related Work}
 
-The prototype contains a scenario dataset, validators, per-scenario trace JSON,
-generated tables, and manuscript artifacts. Each scenario stores Base
-information separately from curated Environmental context, candidate metric
-values, evidence, uncertainty flags, review status, and operational priority.
+\subsection{Severity and Environmental Context}
 
-\section{Evaluation Design}
+CVSS is an open framework for communicating vulnerability characteristics and
+severity. CVSS v4.0 retains a Base metric group while distinguishing Threat,
+Environmental, and Supplemental information
+\cite{first_spec,first_user_guide}. Environmental assessment includes Security
+Requirements and Modified Base metrics, allowing the consumer to represent
+conditions that differ from the vulnerable system's default assumptions.
 
-The evaluation uses 30 scenarios. 12 scenarios use
-NVD vulnerability records carrying CVSS v4.0 information
-\cite{nvd_cve_2026_4251,nvd_cve_2026_4252,nvd_cve_2026_4270,nvd_cve_2026_28490,nvd_cve_2026_28498,nvd_cve_2026_29510,nvd_cve_2026_29513,nvd_cve_2026_29520,nvd_cve_2026_29521,nvd_cve_2026_3644,nvd_cve_2026_4224,nvd_cve_2026_4253}. The remaining 18 scenarios are explicitly
-marked as curated synthetic cases.
+The need for contextualization predates CVSS v4.0. Fruhwirth and Mannisto
+examined the use of context information to improve CVSS-based prioritization
+and response \cite{fruhwirth2009}. Later context-aware approaches, including
+CAVP, combined vulnerability attributes with additional operational signals to
+support prioritization \cite{jung2022cavp}. These approaches motivate
+automation, but they also show that context must be represented explicitly
+rather than inferred solely from a Base score.
 
-The Environmental contexts attached to the records are curated for workflow
-evaluation. A real CVE record does not imply that its local deployment context
-was obtained from NVD.
+Howland argues that CVSS has often been used outside its intended role,
+particularly when technical severity is treated as a complete vulnerability
+management decision \cite{howland2023}. The present work addresses that concern
+by retaining Base severity as a separate field and labeling the prototype's
+priority output as an operational category rather than an official CVSS score.
 
-The evaluation measures workflow properties rather than predictive superiority:
-evidence coverage, trace completeness, uncertainty coverage, review status,
-and operational priority transitions.
+\subsection{Stakeholder-Specific Prioritization}
+
+The Stakeholder-Specific Vulnerability Categorization framework models
+prioritization as a decision process that depends on the stakeholder and its
+objectives \cite{spring2021ssvc}. SSVC uses decision trees and explicitly
+rejects a single universal ordering for every vulnerability management
+community. This perspective is compatible with CVSS Environmental assessment:
+both require consumer-specific information that cannot be obtained from the
+vulnerability record alone.
+
+The workflow proposed here does not implement an SSVC decision tree. Instead,
+it adopts two related principles. First, the evidence record must identify the
+consumer context. Second, the decision artifact must remain inspectable so that
+an analyst can understand which local facts changed the recommendation.
+
+\subsection{Threat and Exploit Prediction}
+
+EPSS addresses a different question from CVSS severity. It estimates the
+probability that exploitation activity will be observed for a vulnerability
+within a future time window. Research underlying EPSS demonstrates the value
+of data-driven exploit prediction for allocating remediation effort
+\cite{jacobs2020remediation,jacobs2021epss,jacobs2023epss}.
+
+Threat probability and Environmental impact are complementary rather than
+interchangeable. An exploit prediction model can inform the urgency associated
+with attacker activity, while Environmental metrics express consumer-side
+requirements and modified deployment conditions. The proposed watcher keeps
+those concepts separate and treats time-sensitive threat evidence as an input
+requiring freshness checks.
+
+\subsection{Enterprise Patch and Risk Decisions}
+
+NIST SP 800-40 Rev. 4 frames enterprise patch management as a lifecycle that
+includes identification, prioritization, acquisition, installation, and
+verification \cite{nist80040r4}. The guidance also emphasizes coordination
+between mission owners and technology management. This reinforces the need for
+artifacts that communicate why a vulnerability was prioritized, not merely the
+numeric value attached to it.
+
+Recent empirical comparison of CVSS, SSVC, EPSS, and other scoring systems
+shows that different systems can rank the same vulnerabilities differently
+because they have different purposes and underlying signals
+\cite{koscinski2025}. The implication for this work is not that one system must
+replace the others. Instead, a defensible workflow should expose the signal
+being used, the decision boundary, and the evidence supporting the result.
+
+\subsection{Research Gap}
+
+Prior work establishes the value of contextual information, stakeholder
+decisions, exploit prediction, and enterprise prioritization. A remaining
+operational gap is the reproducible transformation of distributed local
+evidence into candidate CVSS v4.0 Environmental values. The contribution of
+this work is therefore the traceable workflow around Environmental assessment:
+evidence acquisition, normalization, recommendation, uncertainty signaling,
+human review, and reproducible export.
+
+\section{Research Questions and Design Goals}
+
+The evaluation addresses three research questions.
+
+\begin{description}
+\item[RQ1:] Can the workflow produce complete evidence and trace artifacts for
+each evaluated scenario?
+\item[RQ2:] Does consumer-side context produce observable changes in an
+operational priority view relative to a Base-only view?
+\item[RQ3:] Can uncertainty and human-review requirements be represented
+explicitly enough to prevent watcher output from being presented as an
+autonomous official score?
+\end{description}
+
+Table~\ref{tab:rq} maps each research question to its descriptive measure and
+interpretation boundary.
+
+\begin{table*}[t]
+\caption{Research Questions, Measures, and Interpretation Boundaries}
+\label{tab:rq}
+\centering
+\small
+\begin{tabular}{@{}p{0.08\textwidth}p{0.31\textwidth}
+p{0.25\textwidth}p{0.28\textwidth}@{}}
+\toprule
+RQ & Question focus & Measures & Boundary \\
+\midrule
+RQ1 & Artifact completeness and reproducibility &
+Evidence coverage; trace completeness; validator status &
+Completeness does not prove metric correctness. \\
+RQ2 & Sensitivity to curated consumer context &
+Priority transition count; transition distribution; category delta &
+The category delta is not an official CVSS score delta. \\
+RQ3 & Reviewability and uncertainty governance &
+Uncertainty fields; review-required state; claim-boundary checks &
+Review state does not constitute independent expert adjudication. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+The design goals derived from these questions are separation of concerns,
+provenance, conservative uncertainty handling, deterministic exports,
+idempotent validation, and explicit human authority.
+
+\section{AI/Watcher Architecture}
+
+Figure~\ref{fig:architecture} summarizes the architecture. The workflow is
+organized into six logical layers.
+
+\begin{figure*}[t]
+\centering
+\fbox{
+\parbox{0.96\textwidth}{
+\centering
+\textbf{Source adapters}
+$\rightarrow$
+\textbf{Evidence normalization}
+$\rightarrow$
+\textbf{Scenario context model}
+$\rightarrow$
+\textbf{Candidate Environmental metrics}
+$\rightarrow$
+\textbf{Human review gate}
+$\rightarrow$
+\textbf{Trace and report export}
+
+\vspace{2mm}
+
+NVD/CVSS data, asset context, exposure observations, control evidence, and
+security requirements are stored separately with source metadata. The watcher
+proposes values and uncertainty flags. A reviewer accepts, changes, or rejects
+the proposal before the decision artifact is treated as reviewed.
+}}
+\caption{Logical architecture of the AI/watcher-assisted assessment workflow.}
+\label{fig:architecture}
+\end{figure*}
+
+\subsection{Source Adapters}
+
+Source adapters ingest vulnerability records and consumer-side evidence.
+Vulnerability identifiers, Base vectors, Base scores, severity labels, source
+URLs, and retrieval metadata remain distinct from local asset observations.
+This separation prevents curated deployment context from being represented as
+if it originated in NVD.
+
+Consumer-side inputs may include asset role, exposure, privileges, security
+controls, redundancy, confidentiality needs, integrity needs, availability
+needs, and operational constraints. The prototype stores concise evidence
+summaries rather than claiming direct integration with a production CMDB,
+scanner, ticketing platform, or threat-intelligence system.
+
+\subsection{Evidence Normalization}
+
+The normalization layer converts heterogeneous observations into a stable
+scenario schema. Each record contains identifiers, official Base information,
+environmental context, candidate modified metrics, evidence summaries,
+uncertainty flags, review state, and trace references. Required-field
+validators detect omissions before article tables or reports are generated.
+
+Normalization is important because an AI recommendation without a stable
+evidence model is difficult to review or reproduce. The watcher must therefore
+produce structured fields in addition to narrative text.
+
+\subsection{Candidate Recommendation Layer}
+
+The recommendation layer maps the normalized context to candidate
+Environmental values. The candidate status is essential: the output is not
+declared to be an authoritative score. The rationale field explains which
+evidence supports each recommendation, while uncertainty fields identify
+assumptions, stale observations, missing data, or conflicts.
+
+The current prototype evaluates the workflow artifact rather than the semantic
+accuracy of a learned model. Candidate values are therefore generated from
+controlled scenario logic and curated evidence. No claim is made that a
+general-purpose language model independently discovered the correct metric
+values.
+
+\subsection{Human Review Gate}
+
+Every scenario requires review. The reviewer can accept, modify, reject, or
+defer a recommendation. The workflow's governance model requires the final
+record to retain the original candidate, the reviewer state, and the evidence
+available at assessment time.
+
+This gate limits automation bias by making uncertainty and provenance visible.
+It also supports later comparison between watcher recommendations and expert
+assessments, which is planned as future work.
+
+\subsection{Trace and Export Layer}
+
+Each scenario produces a trace artifact containing source metadata, evidence,
+candidate decisions, uncertainty, and review state. Dataset-level scripts
+generate CSV, JSON, Markdown, LaTeX, validation metrics, and summary tables.
+The exported artifacts provide a reproducible snapshot of the workflow state.
+
+\section{Dataset and Experimental Method}
+
+\subsection{Unit of Analysis}
+
+The unit of analysis is an environmental assessment scenario. A scenario
+combines a vulnerability severity baseline with a consumer deployment context
+and a candidate Environmental assessment. Scenarios are evaluated as workflow
+records rather than independent observations of production risk.
+
+\subsection{Hybrid Dataset}
+
+The dataset contains 30 scenarios. 12 scenarios use
+real NVD records carrying CVSS v4.0 Base information
+\cite{nvd_cve_2026_4251,nvd_cve_2026_4252,nvd_cve_2026_4270,nvd_cve_2026_28490,nvd_cve_2026_28498,nvd_cve_2026_29510,nvd_cve_2026_29513,nvd_cve_2026_29520,nvd_cve_2026_29521,nvd_cve_2026_3644,nvd_cve_2026_4224,nvd_cve_2026_4253}. The remaining 18 scenarios are curated
+synthetic cases designed to exercise contextual differences.
+
+The hybrid design provides two kinds of control. Real NVD records preserve
+authentic vulnerability identifiers, Base vectors, and source metadata.
+Synthetic cases allow deliberate variation of context without implying that
+the scenario corresponds to an observed production deployment.
+
+The Environmental context associated with the NVD rows is curated locally.
+NVD supplies vulnerability information, not the consumer organization's asset
+criticality, compensating controls, or mission requirements. The manuscript
+and dataset label this boundary explicitly.
+
+\subsection{Scenario Construction}
+
+Scenario construction follows four steps. First, the pipeline selects or
+creates a Base vulnerability record. Second, it assigns a consumer context
+template describing asset role, exposure, and security requirements. Third, it
+generates candidate modified metrics and a rationale. Fourth, it exports an
+uncertainty flag and review-required state.
+
+The synthetic scenarios are not intended to simulate the statistical
+distribution of enterprise assets. They are controlled test cases for the
+workflow schema and validators. Similarly, the NVD sample is time-bounded and
+is not claimed to represent the population of CVSS v4.0 vulnerabilities.
+
+\subsection{Measures}
+
+Evidence coverage is the percentage of scenarios containing the required
+evidence representation. Trace completeness is the percentage containing the
+required per-scenario trace structure. Review coverage reports the presence of
+a human-review state. Uncertainty coverage reports whether uncertainty is
+represented explicitly.
+
+Context sensitivity is measured by comparing the Base-only operational
+priority with the Environmental-aware operational priority. The priority
+categories are prototype workflow labels. Their numeric difference is a custom
+category delta and is not part of the CVSS specification.
+
+\subsection{Validation Procedure}
+
+Validation is automated at multiple levels. Schema checks verify required
+fields and permitted source labels. Documentation checks verify claim
+boundaries. Result validators compare generated summaries with dataset-level
+metrics. LaTeX validation checks required sections, double-blind controls,
+bibliography keys, and forbidden claims. The PDF build uses
+\texttt{pdflatex}, \texttt{bibtex}, and repeated \texttt{pdflatex} passes to
+resolve citations.
 
 \begin{table}[t]
 \caption{Dataset and Workflow Summary}
@@ -119,26 +370,39 @@ NVD/CVSS v4.0 records & 12 \\
 Curated synthetic scenarios & 18 \\
 Evidence coverage & 100.00\% \\
 Trace completeness & 100.00\% \\
-Rows requiring review & 30 \\
-Priority shifts & 22 (73.33\%) \\
+Explicit uncertainty fields & 30/30 \\
+Human review required & 30/30 \\
+Operational priority shifts & 22/30 (73.33\%) \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 \section{Results}
 
-All 30 scenarios contain evidence summaries and trace artifacts.
-Every scenario requires human review. Uncertainty flags are present in
-100.00 percent of records.
+\subsection{Artifact Completeness}
 
-Operational priority changed in 22 of 30 scenarios
-(73.33 percent). The average category delta was 0.2, with
-a maximum upward delta of 2.0 and a maximum downward delta of
--3.0.
+All 30 scenarios contain evidence summaries and trace
+artifacts. Evidence coverage was 100.00 percent and trace
+completeness was 100.00 percent. All scenarios include an explicit
+review requirement, and uncertainty is represented in the scenario records.
 
-The priority delta is an operational category transition. It is not an official
-CVSS Environmental score difference and must not be interpreted as a
-modification of the CVSS formula.
+These findings answer RQ1 at the workflow level: the prototype can generate
+the required artifacts consistently for the evaluated dataset. They do not
+establish that every candidate metric is semantically correct.
+
+\subsection{Context-Sensitive Priority Transitions}
+
+Operational priority changed in 22 of 30
+scenarios (73.33 percent), while 8 scenarios retained
+the same category. The average category delta was 0.2. The
+observed range was -3.0 to 2.0.
+
+Table~\ref{tab:transitions} shows the transition distribution. Both upward and
+downward transitions are meaningful in the workflow. An upward transition can
+represent high local security requirements or more adverse deployment
+conditions. A downward transition can represent isolation, reduced
+requirements, or effective compensating conditions. Neither transition
+changes the official Base record.
 
 \begin{table}[t]
 \caption{Operational Priority Transitions}
@@ -169,6 +433,17 @@ medium & medium & 2 \\
 }
 \end{table}
 
+The result supports RQ2 by showing that explicit consumer context can alter the
+prototype's operational ordering. Because contexts were curated, the result is
+a demonstration of sensitivity rather than evidence of real-world outcome
+improvement.
+
+\subsection{Severity Distribution}
+
+Table~\ref{tab:severity} reports the Base severity distribution. This
+distribution is retained separately from operational transitions so that a
+reader can distinguish vulnerability severity from consumer prioritization.
+
 \begin{table}[t]
 \caption{CVSS-B Severity Distribution}
 \label{tab:severity}
@@ -186,36 +461,153 @@ MEDIUM & 13 \\
 \end{tabular}
 \end{table}
 
+\subsection{Reviewability}
+
+The workflow preserves evidence, uncertainty, and review state instead of
+exporting only a final category. This supports RQ3 because an analyst can
+inspect the recommendation and its assumptions. However, the current review
+field indicates that review is required; it does not represent completed
+independent adjudication by multiple experts.
+
 \section{Discussion}
 
-The results support the feasibility of structuring Environmental assessment
-around evidence, uncertainty, traceability, and reviewability. The hybrid
-dataset includes NVD records carrying CVSS v4.0 information \cite{nvd_api},
-but the attached consumer contexts remain curated.
+\subsection{Completeness Versus Correctness}
 
-The results demonstrate artifact completeness and workflow execution. They do
-not establish production effectiveness, scoring correctness, or predictive
-superiority.
+The strongest result is artifact completeness. Every scenario passed evidence
+and trace validation. This is necessary for reproducibility, but it is not
+sufficient for correctness. A completely documented recommendation can still
+contain an incorrect metric interpretation. Future expert evaluation must
+therefore assess semantic agreement separately from schema completeness.
 
-\section{Limitations and Threats to Validity}
+This distinction is particularly important for AI-assisted workflows.
+Fluent narrative is not evidence of correctness. The architecture requires
+structured sources, uncertainty fields, and a review gate to reduce the risk
+that generated explanations are mistaken for authoritative decisions.
 
-The dataset is curated and partially synthetic. The consumer Environmental
-contexts do not represent measured production deployments.
+\subsection{Relationship to Other Prioritization Signals}
 
-The evaluation does not measure exploit likelihood, remediation outcomes,
-analyst time savings, or predictive superiority. Independent expert
-adjudication has not yet been completed. The NVD sample is time-bounded and
-must not be interpreted as representative of all CVSS v4.0 records.
+The workflow complements rather than replaces exploit prediction and
+stakeholder decision models. EPSS can contribute time-sensitive threat
+probability. SSVC can contribute stakeholder-specific decision logic. Asset
+management can contribute exposure and mission context. CVSS Environmental
+metrics provide a standardized location for selected consumer-side conditions.
+
+A practical implementation could ingest those signals while preserving their
+distinct meanings. Combining them into an unlabeled composite number would
+reduce interpretability. The proposed artifact instead records the evidence
+source and the role it played in the recommendation.
+
+\subsection{Operational Use}
+
+An organization could deploy the workflow between vulnerability ingestion and
+ticket creation. New CVE data would initialize the Base record. Asset and
+control evidence would populate the context model. The watcher would prepare a
+candidate assessment and route it to an analyst. After review, the approved
+record could inform remediation queues and service-level decisions.
+
+The current prototype does not implement this production integration. Its
+value is the validated data contract and trace package needed before such an
+integration can be evaluated safely.
+
+\subsection{Governance and Automation Boundaries}
+
+The watcher must not silently overwrite official Base information, convert
+missing data into confident values, or treat a recommendation as reviewed.
+Sources should carry retrieval timestamps and provenance. Time-sensitive
+evidence should expire or be flagged for refresh. Conflicting observations
+should increase uncertainty rather than be resolved invisibly.
+
+Human authority should also be represented as data. A production version
+would record reviewer identity or role, timestamp, decision, changes, and
+rationale. Double-blind research artifacts omit personal identifiers, but the
+workflow design retains the concept of accountable review.
+
+\section{Threats to Validity}
+
+\subsection{Construct Validity}
+
+Evidence coverage and trace completeness measure the presence of artifacts,
+not their truth. Operational priority is a prototype category and is not an
+official CVSS score. The evaluation therefore avoids interpreting the category
+delta as a measurement of risk reduction.
+
+\subsection{Internal Validity}
+
+Scenario logic and context assignment were curated by the project. This may
+introduce confirmation bias because the same development process created the
+workflow and the evaluation cases. Independent expert adjudication is required
+to test whether analysts agree with the candidate metrics.
+
+\subsection{External Validity}
+
+The dataset contains only 30 scenarios. The NVD sample is
+time-bounded, and the synthetic cases do not represent an empirical enterprise
+asset distribution. Results should not be generalized to all organizations,
+industries, or vulnerability classes.
+
+\subsection{Conclusion Validity}
+
+The evaluation is descriptive and does not perform hypothesis testing.
+It does not compare remediation time, exploit outcomes, analyst workload, or
+prediction accuracy against a control group. The reported percentages describe
+the current artifact package only.
+
+\section{Reproducibility}
+
+The repository contains the scenario CSV, metrics JSON, trace artifacts,
+generation scripts, validators, Markdown manuscript, LaTeX manuscript,
+bibliography, compiled PDF, and a SHA-256 manifest. Generated tables are
+derived from the dataset rather than copied manually.
+
+Reproduction requires running the validators and the LaTeX build sequence.
+The compilation report records page count, bibliography status, and warnings.
+The double-blind manuscript omits author and affiliation information.
+
+The artifact package also retains explicit claim boundaries: NVD records are
+real vulnerability records, their consumer contexts are curated, the priority
+delta is custom, all recommendations require human review, and no production
+validation is claimed.
+
+\section{Operational Adoption Path}
+
+A staged adoption process can reduce risk. In the first stage, the watcher runs
+in observation mode and produces recommendations that do not affect
+remediation queues. Analysts compare the evidence package with their normal
+assessment. In the second stage, accepted recommendations may pre-populate
+tickets while analysts remain responsible for approval. In the third stage,
+organizations can measure review time, disagreement rates, stale-evidence
+frequency, and decision consistency.
+
+Expert evaluation should use multiple reviewers and a blinded scenario set.
+Agreement can be measured per Environmental metric and per final operational
+category. Review effort should be recorded independently of agreement so that
+automation does not appear beneficial merely because it encourages rapid
+acceptance.
+
+A production study should also monitor reversals. When new threat or asset
+evidence arrives, the workflow should generate a new trace version rather than
+overwrite the previous assessment. This would allow researchers to examine
+whether recommendations change for defensible reasons and whether uncertainty
+flags predict later revisions.
 
 \section{Conclusion}
 
-This paper presents an AI/watcher-assisted workflow for supporting CVSS v4.0
-Environmental metric assessment through evidence collection, traceability,
-uncertainty flags, and explicit human review. The method preserves official
-CVSS semantics and does not modify the standard.
+This paper presents an AI/watcher-assisted workflow for operationalizing CVSS
+v4.0 Environmental metric assessment. The method separates official Base
+information from curated consumer context, records evidence and uncertainty,
+proposes candidate values, requires human review, and exports reproducible
+trace artifacts.
 
-Future work should add expert adjudication, peer-reviewed comparative
-baselines, inter-rater agreement analysis, and production-like evaluation.
+Across 30 evaluated scenarios, the workflow achieved complete
+evidence and trace coverage and produced operational priority changes in
+22 cases. These results demonstrate reproducible execution and
+context sensitivity. They do not prove scoring correctness, predictive
+superiority, or production effectiveness.
+
+Future work should conduct independent expert adjudication, measure inter-rater
+agreement and review effort, integrate production-like asset and control
+sources, and compare decisions with complementary approaches such as EPSS and
+SSVC.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

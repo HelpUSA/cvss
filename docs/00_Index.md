@@ -152,3 +152,15 @@ related_files:
 - [BibTeX references](../article/ieee/references.bib)
 - [Compiled PDF](../article/ieee/cvss40_double_blind.pdf)
 <!-- END CVSS40_PHASE9_IEEE_LATEX_COMPILE_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE10_ACADEMIC_EXPANSION_INDEX_20260713 -->
+## CVSS v4.0 Phase 10 Academic Expansion
+
+- [Phase 10 report](ARTICLE_PHASE10_ACADEMIC_EXPANSION_CVSS40.md)
+- [IEEE readiness](ARTICLE_IEEE_LATEX_READINESS_CVSS40.md)
+- [Expanded LaTeX manuscript](../article/ieee/cvss40_double_blind.tex)
+- [Expanded bibliography](../article/ieee/references.bib)
+- [Related-work notes](../article/ieee/RELATED_WORK_NOTES.md)
+- [Compiled PDF](../article/ieee/cvss40_double_blind.pdf)
+- [Reproducibility manifest](../validation/article/phase10_reproducibility_manifest.json)
+<!-- END CVSS40_PHASE10_ACADEMIC_EXPANSION_INDEX_20260713 -->

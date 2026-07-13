@@ -1,0 +1,55 @@
+{
+  "claim_boundaries": [
+    "No autonomous official CVSS scoring claim",
+    "No production validation claim",
+    "No predictive superiority claim",
+    "NVD rows use curated consumer Environmental contexts",
+    "Priority delta is an operational category delta",
+    "Human review remains required"
+  ],
+  "evidence_coverage_pct": 100.0,
+  "figure_count": 1,
+  "files": {
+    "article/ieee/RELATED_WORK_NOTES.md": {
+      "sha256": "159fe6833de01a3cf66f7d043d4e381c1e36ce9e8bf04a728af08b661b09bc0a",
+      "size_bytes": 1645
+    },
+    "article/ieee/cvss40_double_blind.pdf": {
+      "sha256": "2337a417f1366f8807a3db2b9b971a87d242ed5f162b8b04575f7de1ee3b165c",
+      "size_bytes": 151250
+    },
+    "article/ieee/cvss40_double_blind.tex": {
+      "sha256": "602162525eb9b4802cda3f262e1098b8475ee56a9ba38f2366d5533e98095d1c",
+      "size_bytes": 27647
+    },
+    "article/ieee/references.bib": {
+      "sha256": "8c00ab40f9e00941c0b385bb6b40b499cf2d897d2edf725b8f7e08a9270c0247",
+      "size_bytes": 7928
+    },
+    "data/article/cvss40_environmental_scenarios.csv": {
+      "sha256": "2be3e7115b8b4a7910909793ea9fda96c7775b4375d89b62d12da95b2156ff44",
+      "size_bytes": 51494
+    },
+    "tools/validate_article_phase10_expansion.py": {
+      "sha256": "029d9f3c77425ea8b3696d2188ea58da467edb3e9039c821c7ba9afe1d6cbee0",
+      "size_bytes": 4465
+    },
+    "validation/article/cvss40_scenario_metrics.json": {
+      "sha256": "27f5e904e86ac605feb7719b38df4a20d7a60fa1793cc4374a889fbc55863437",
+      "size_bytes": 543
+    }
+  },
+  "generated_utc": "2026-07-13T22:17:49.605488+00:00",
+  "nvd_cvss_v4_rows": 12,
+  "pdf_page_count": 6,
+  "pdf_page_size": "612 x 792 pts (letter)",
+  "pdf_size_bytes": 151250,
+  "phase": 10,
+  "priority_shift_count": 22,
+  "priority_shift_pct": 73.33,
+  "scenario_count": 30,
+  "synthetic_rows": 18,
+  "table_count": 4,
+  "trace_completeness_pct": 100.0,
+  "undefined_references": false
+}

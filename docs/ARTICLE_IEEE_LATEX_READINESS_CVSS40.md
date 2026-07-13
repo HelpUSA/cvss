@@ -1,42 +1,45 @@
 ---
-status: compiled
+status: academically-expanded
 last_updated: 2026-07-13
 owner: "Wagner / CVSS project"
-tags: [cvss-v4, ieee, latex, double-blind, submission]
+tags: [cvss-v4, ieee, latex, phase10, double-blind]
 ---
 
 # CVSS v4.0 IEEE LaTeX readiness
 
-## Artifacts
-
-- `article/ieee/cvss40_double_blind.tex`
-- `article/ieee/references.bib`
-- `article/ieee/cvss40_double_blind.pdf`
-- `article/ieee/README.md`
-- `docs/ARTICLE_IEEE_LATEX_COMPILE_REPORT_CVSS40.md`
-
 ## Compilation
 
 - Status: passed
-- Page count: 3
+- Page count: 6
 - Page size: 612 x 792 pts (letter)
-- PDF size: 76617 bytes
+- PDF size: 151250 bytes
 - Undefined citations: none
 - Structural validation: passed
+
+## Content readiness
+
+- Related work: expanded
+- Research questions: added
+- Architecture: expanded
+- Experimental method: expanded
+- Results: expanded
+- Threats to validity: expanded
+- Reproducibility: added
+- Operational adoption path: added
 
 ## Dataset
 
 - Scenarios: 30
 - NVD/CVSS v4.0 rows: 12
 - Synthetic curated rows: 18
-- Evidence coverage: 100%
-- Trace completeness: 100%
+- Evidence coverage: 100.00%
+- Trace completeness: 100.00%
 - Priority shifts: 22/30
 
-## Remaining work
+## Remaining research work
 
-1. Expand peer-reviewed related work.
-2. Add detailed system architecture.
-3. Expand the experimental protocol and analysis.
-4. Add expert-review methodology or retain it as future work.
-5. Verify conference page limits and anonymization rules.
+1. Independent expert adjudication.
+2. Inter-rater agreement measurement.
+3. Analyst-effort measurement.
+4. Production-like evidence integration.
+5. Conference-specific formatting and anonymization review.
