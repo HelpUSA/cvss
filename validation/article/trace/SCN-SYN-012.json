@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-SYN-012",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": "",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:P/AC:H/AT:P/PR:H/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+  "cvss_b_score": "2.1",
+  "cvss_b_severity": "LOW",
+  "environmental_evidence": {
+    "asset_class": "database_server",
+    "deployment_context": "Backend database storing regulated business records.",
+    "internet_exposure": "internal",
+    "privilege_context": "Access limited to application service accounts and database administrators.",
+    "compensating_controls": "Network isolation, backups, encryption at rest, privileged access logging.",
+    "evidence_links": "local://curated-scenario/SCN-SYN-012; docs/ARTICLE_DATASET_SCHEMA.md; docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+    "evidence_summary": "Curated local environment profile for database_server; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because regulated records may be stored.",
+    "integrity_requirement": "IR:H - integrity is high because records are authoritative.",
+    "availability_requirement": "AR:H - availability is high because dependent business processes may stop.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review internal exposure, service account privileges, backups, and isolation.",
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "low",
+    "environmental_priority": "medium",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

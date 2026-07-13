@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "2026-07-13T16:22:39.592917+00:00",
+  "scenario_count": 30,
+  "source_counts": {
+    "nvd_cvss_v4_with_curated_environment": 12,
+    "curated_synthetic_no_cve": 18
+  },
+  "nvd_cvss_v4_rows": 12,
+  "synthetic_rows": 18,
+  "evidence_coverage_pct": 100.0,
+  "trace_completeness_pct": 100.0,
+  "uncertainty_rate_pct": 100.0,
+  "review_counts": {
+    "required": 30
+  },
+  "priority_shift_count": 22,
+  "priority_shift_pct": 73.33,
+  "average_priority_delta": 0.2,
+  "max_priority_delta": 2.0,
+  "min_priority_delta": -3.0
+}

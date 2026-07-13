@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-007",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-29513",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "5.1",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "ot_monitoring_gateway",
+    "deployment_context": "Operational technology monitoring gateway connected to industrial telemetry.",
+    "internet_exposure": "internal",
+    "privilege_context": "Restricted operator and service accounts.",
+    "compensating_controls": "Network segmentation, allow-listing, monitoring, maintenance window constraints.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-29513; https://web.archive.org/web/20250820105319/http://hereta.com/; https://www.vulncheck.com/advisories/hereta-eth-imc408m-stored-xss-via-device-location",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: ot_monitoring_gateway."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:M - confidentiality is medium because operational telemetry may be sensitive.",
+    "integrity_requirement": "IR:H - integrity is high because telemetry may influence operational decisions.",
+    "availability_requirement": "AR:H - availability is high because monitoring loss may affect operations.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review OT segmentation, safety dependency, and maintenance constraints.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "medium",
+    "environmental_priority": "medium",
+    "priority_delta": "0"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

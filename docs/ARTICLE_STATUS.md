@@ -143,3 +143,19 @@ Expanded the deterministic scenario set to
 
 The manuscript support package now includes multi-scenario curated summaries, automated watcher IA validation summaries, adjustment trace summaries, rebuild report, static interactive MVP, and article PDF artifact. Remaining article work is editorial refinement, not pipeline blocking.
 
+
+<!-- BEGIN CVSS40_AI_WATCHER_PIVOT_20260709 -->
+## Strategic direction: CVSS v4.0 AI/watcher Environmental metric assessment
+
+Date: 2026-07-09
+
+The article should be repositioned around CVSS v4.0 Environmental metric assessment assisted by AI/watcher. CVSS v4.0 already includes official Base, Threat, Environmental, and Supplemental metric groups, so the project must not claim to add or modify official Environmental metrics.
+
+The defensible contribution is an operational evidence layer: the watcher helps analysts collect environmental evidence, suggest candidate Environmental metric choices, link suggestions to evidence, record uncertainty, flag human-review needs, and generate reproducible trace artifacts.
+
+Safe thesis:
+
+> Although CVSS v4.0 defines Environmental metrics for adapting vulnerability severity to a consumer's environment, selecting those metrics remains a difficult and evidence-intensive task for human analysts. This paper proposes an AI-assisted watcher workflow that collects, structures, and traces environmental evidence to support reproducible CVSS v4.0 Environmental metric assessment without modifying the official CVSS standard.
+
+Target paper posture: English IEEE-style method/prototype paper, double-blind, 5 to 8 pages, using ICITEICS-2026 requirements as a model but preparing for a later conference.
+<!-- END CVSS40_AI_WATCHER_PIVOT_20260709 -->

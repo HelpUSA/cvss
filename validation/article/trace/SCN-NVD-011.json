@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-011",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-4224",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "6.0",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "identity_provider",
+    "deployment_context": "Identity and access management component used by multiple internal systems.",
+    "internet_exposure": "restricted",
+    "privilege_context": "Authentication boundary component with privileged integration tokens.",
+    "compensating_controls": "MFA, conditional access, monitoring, secrets rotation, incident response playbooks.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-4224; https://github.com/python/cpython/commit/196edfb06a7458377d4d0f4b3cd41724c1f3bd4a; https://github.com/python/cpython/commit/642865ddf4b232da1f3b1f7abcfa3254c4bfe785; https://github.com/python/cpython/commit/af856a7177326ac25d9f66cc6dd28b554d914fee",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: identity_provider."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because identity data and tokens may be affected.",
+    "integrity_requirement": "IR:H - integrity is high because identity compromise may affect trust decisions.",
+    "availability_requirement": "AR:H - availability is high because authentication outage affects many services.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review identity blast radius, token exposure, and compensating controls.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "medium",
+    "environmental_priority": "high",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-003",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-4270",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "6.8",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "identity_provider",
+    "deployment_context": "Identity and access management component used by multiple internal systems.",
+    "internet_exposure": "restricted",
+    "privilege_context": "Authentication boundary component with privileged integration tokens.",
+    "compensating_controls": "MFA, conditional access, monitoring, secrets rotation, incident response playbooks.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-4270; https://aws.amazon.com/security/security-bulletins/2026-007-AWS/; https://pypi.org/project/awslabs.aws-api-mcp-server/1.3.9/",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: identity_provider."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because identity data and tokens may be affected.",
+    "integrity_requirement": "IR:H - integrity is high because identity compromise may affect trust decisions.",
+    "availability_requirement": "AR:H - availability is high because authentication outage affects many services.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review identity blast radius, token exposure, and compensating controls.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "medium",
+    "environmental_priority": "high",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

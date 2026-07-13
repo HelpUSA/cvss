@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-SYN-007",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": "",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+  "cvss_b_score": "9.3",
+  "cvss_b_severity": "CRITICAL",
+  "environmental_evidence": {
+    "asset_class": "ot_monitoring_gateway",
+    "deployment_context": "Operational technology monitoring gateway connected to industrial telemetry.",
+    "internet_exposure": "internal",
+    "privilege_context": "Restricted operator and service accounts.",
+    "compensating_controls": "Network segmentation, allow-listing, monitoring, maintenance window constraints.",
+    "evidence_links": "local://curated-scenario/SCN-SYN-007; docs/ARTICLE_DATASET_SCHEMA.md; docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+    "evidence_summary": "Curated local environment profile for ot_monitoring_gateway; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:M - confidentiality is medium because operational telemetry may be sensitive.",
+    "integrity_requirement": "IR:H - integrity is high because telemetry may influence operational decisions.",
+    "availability_requirement": "AR:H - availability is high because monitoring loss may affect operations.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review OT segmentation, safety dependency, and maintenance constraints.",
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "critical",
+    "environmental_priority": "critical",
+    "priority_delta": "0"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

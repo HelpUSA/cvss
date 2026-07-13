@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-002",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-4252",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "8.9",
+  "cvss_b_severity": "HIGH",
+  "environmental_evidence": {
+    "asset_class": "internal_admin_console",
+    "deployment_context": "Internal administrative interface restricted to VPN and privileged operators.",
+    "internet_exposure": "restricted",
+    "privilege_context": "Administrative role required after VPN authentication.",
+    "compensating_controls": "VPN, MFA, network segmentation, privileged access monitoring.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-4252; https://github.com/digitalandrew/tenda_ac8_v5/blob/main/poc_ipv6_auth_bypass.py; https://vuldb.com/?ctiid.351210; https://vuldb.com/?id.351210",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: internal_admin_console."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:M - confidentiality depends on administrative data visible through the console.",
+    "integrity_requirement": "IR:H - integrity is high because admin actions may alter production configuration.",
+    "availability_requirement": "AR:M - availability is medium due to operational dependency.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review restricted network path, MFA, privileges, and segmentation.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "high",
+    "environmental_priority": "medium",
+    "priority_delta": "-1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

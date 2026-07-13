@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-008",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-29520",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "5.1",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "public_api_gateway",
+    "deployment_context": "Public API gateway serving partner integrations and mobile clients.",
+    "internet_exposure": "public",
+    "privilege_context": "API tokens and service-to-service credentials are used.",
+    "compensating_controls": "API gateway policies, rate limiting, logging, schema validation, token rotation.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-29520; https://web.archive.org/web/20250820105319/http://hereta.com/; https://www.vulncheck.com/advisories/hereta-eth-imc408m-reflected-xss-via-ping-ipaddr-parameter",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: public_api_gateway."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because API traffic may expose sensitive data.",
+    "integrity_requirement": "IR:H - integrity is high because API actions may change business records.",
+    "availability_requirement": "AR:H - availability is high because partners and clients depend on the API.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review public exposure, token scope, rate limiting, and API controls.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "medium",
+    "environmental_priority": "high",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

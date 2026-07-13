@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-005",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-28498",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "8.2",
+  "cvss_b_severity": "HIGH",
+  "environmental_evidence": {
+    "asset_class": "developer_workstation",
+    "deployment_context": "Developer endpoint with access to source code, build tools, and internal repositories.",
+    "internet_exposure": "restricted",
+    "privilege_context": "Standard developer user with access to internal repositories and CI credentials.",
+    "compensating_controls": "EDR, device management, least privilege, repository access controls.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-28498; https://github.com/authlib/authlib/commit/b9bb2b25bf8b7e01512d847a95c1749646eaa72b; https://github.com/authlib/authlib/releases/tag/v1.6.9; https://github.com/authlib/authlib/security/advisories/GHSA-m344-f55w-2m6j",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: developer_workstation."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:M - confidentiality is medium due to source code and secrets exposure risk.",
+    "integrity_requirement": "IR:H - integrity is high because code or pipeline changes may affect production.",
+    "availability_requirement": "AR:L - availability impact is usually limited to one endpoint.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review endpoint controls, credentials, repository access, and user interaction.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "high",
+    "environmental_priority": "high",
+    "priority_delta": "0"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

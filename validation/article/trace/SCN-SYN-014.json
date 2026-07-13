@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-SYN-014",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": "",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:L/SC:H/SI:H/SA:L",
+  "cvss_b_score": "8.7",
+  "cvss_b_severity": "HIGH",
+  "environmental_evidence": {
+    "asset_class": "isolated_lab_system",
+    "deployment_context": "Non-production lab system isolated from production networks.",
+    "internet_exposure": "isolated",
+    "privilege_context": "Local lab accounts only, no production credentials.",
+    "compensating_controls": "Network isolation, no production data, rebuildable images.",
+    "evidence_links": "local://curated-scenario/SCN-SYN-014; docs/ARTICLE_DATASET_SCHEMA.md; docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+    "evidence_summary": "Curated local environment profile for isolated_lab_system; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:L - confidentiality is low because no production data is expected.",
+    "integrity_requirement": "IR:L - integrity is low because lab state is disposable.",
+    "availability_requirement": "AR:L - availability is low because outage has limited operational effect.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review isolation, lack of production data, and rebuildability.",
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "high",
+    "environmental_priority": "defer",
+    "priority_delta": "-3"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

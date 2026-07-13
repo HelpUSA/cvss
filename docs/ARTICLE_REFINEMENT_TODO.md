@@ -33,3 +33,19 @@ Methods and Expected Evaluation should now reference trace_count, trace_total_ad
 
 Use validation/trace/adjustment_trace_summary.csv and validation/trace/adjustment_trace_report.md as article-supporting traceability artifacts.
 
+
+<!-- BEGIN CVSS40_AI_WATCHER_TODO_20260709 -->
+## CVSS v4.0 AI/watcher revision tasks
+
+- Rewrite title and abstract around CVSS v4.0 Environmental metric assessment.
+- Add background on CVSS v4.0 Base, Threat, Environmental, and Supplemental groups.
+- Explain that the prototype does not modify official CVSS semantics or formulas.
+- Define the human difficulty of Environmental metric selection: context, evidence, judgment, consistency, and auditability.
+- Describe AI/watcher as analyst assistance, not autonomous scoring.
+- Build a 30 to 50 scenario evaluation dataset.
+- Add fields for evidence links, uncertainty, human-review status, candidate Environmental metric choices, and priority deltas.
+- Generate trace artifacts: manifest, adjustment trace summary/report, and before/after comparison.
+- Add result metrics: evidence coverage, trace completeness, uncertainty flags, priority shifts, average/max delta.
+- Add limitations: no production validation, no human expert adjudication yet, no predictive superiority claim.
+- Prepare a double-blind IEEE manuscript for a later conference.
+<!-- END CVSS40_AI_WATCHER_TODO_20260709 -->

@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-SYN-008",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": "",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:L/SC:H/SI:H/SA:L",
+  "cvss_b_score": "8.7",
+  "cvss_b_severity": "HIGH",
+  "environmental_evidence": {
+    "asset_class": "public_api_gateway",
+    "deployment_context": "Public API gateway serving partner integrations and mobile clients.",
+    "internet_exposure": "public",
+    "privilege_context": "API tokens and service-to-service credentials are used.",
+    "compensating_controls": "API gateway policies, rate limiting, logging, schema validation, token rotation.",
+    "evidence_links": "local://curated-scenario/SCN-SYN-008; docs/ARTICLE_DATASET_SCHEMA.md; docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+    "evidence_summary": "Curated local environment profile for public_api_gateway; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because API traffic may expose sensitive data.",
+    "integrity_requirement": "IR:H - integrity is high because API actions may change business records.",
+    "availability_requirement": "AR:H - availability is high because partners and clients depend on the API.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review public exposure, token scope, rate limiting, and API controls.",
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "high",
+    "environmental_priority": "critical",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

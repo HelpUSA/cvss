@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-SYN-005",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": "",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+  "cvss_b_score": "4.8",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "developer_workstation",
+    "deployment_context": "Developer endpoint with access to source code, build tools, and internal repositories.",
+    "internet_exposure": "restricted",
+    "privilege_context": "Standard developer user with access to internal repositories and CI credentials.",
+    "compensating_controls": "EDR, device management, least privilege, repository access controls.",
+    "evidence_links": "local://curated-scenario/SCN-SYN-005; docs/ARTICLE_DATASET_SCHEMA.md; docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+    "evidence_summary": "Curated local environment profile for developer_workstation; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:M - confidentiality is medium due to source code and secrets exposure risk.",
+    "integrity_requirement": "IR:H - integrity is high because code or pipeline changes may affect production.",
+    "availability_requirement": "AR:L - availability impact is usually limited to one endpoint.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review endpoint controls, credentials, repository access, and user interaction.",
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "medium",
+    "environmental_priority": "medium",
+    "priority_delta": "0"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}

@@ -1,0 +1,32 @@
+{
+  "scenario_id": "SCN-NVD-012",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-4253",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "2.0",
+  "cvss_b_severity": "LOW",
+  "environmental_evidence": {
+    "asset_class": "database_server",
+    "deployment_context": "Backend database storing regulated business records.",
+    "internet_exposure": "internal",
+    "privilege_context": "Access limited to application service accounts and database administrators.",
+    "compensating_controls": "Network isolation, backups, encryption at rest, privileged access logging.",
+    "evidence_links": "https://nvd.nist.gov/vuln/detail/CVE-2026-4253; https://github.com/digitalandrew/tenda_ac8_v5/blob/main/poc_cmdi_config_upload.py; https://vuldb.com/?ctiid.351211; https://vuldb.com/?id.351211",
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: database_server."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "CR:H - confidentiality is high because regulated records may be stored.",
+    "integrity_requirement": "IR:H - integrity is high because records are authoritative.",
+    "availability_requirement": "AR:H - availability is high because dependent business processes may stop.",
+    "candidate_modified_metrics": "Candidate Modified Base metrics should review internal exposure, service account privileges, backups, and isolation.",
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative",
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "low",
+    "environmental_priority": "medium",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score."
+}
