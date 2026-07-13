@@ -1,2 +1,8 @@
 adjudication_answer_key.csv
 reviewer_*_responses.csv
+reviewer_packages/
+reviewer_responses/
+private/
+reviewer_contact_registry.csv
+reviewer_qualification_responses.csv
+reviewer_consent_records/

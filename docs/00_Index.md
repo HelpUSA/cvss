@@ -187,3 +187,15 @@ related_files:
 - [Machine-readable audit](../validation/article/phase11_blinding_audit.json)
 - [Answer-key commitment](../article/expert_review/adjudication_answer_key.commitment.json)
 <!-- END CVSS40_PHASE11_BLINDING_AUDIT_INDEX_20260713 -->
+<!-- BEGIN CVSS40_PHASE12_REVIEWER_OPERATIONS_INDEX_20260713 -->
+## CVSS v4.0 Phase 12 Reviewer Operations
+
+- [Phase 12 report](ARTICLE_PHASE12_REVIEWER_OPERATIONS_CVSS40.md)
+- [Recruitment invitation](../article/expert_review/RECRUITMENT_INVITATION_TEMPLATE.md)
+- [Reviewer eligibility form](../article/expert_review/REVIEWER_ELIGIBILITY_FORM.md)
+- [Participation agreement](../article/expert_review/PARTICIPATION_AND_CONFIDENTIALITY_AGREEMENT.md)
+- [Reviewer session checklist](../article/expert_review/REVIEW_SESSION_CHECKLIST.md)
+- [Response-intake rules](../article/expert_review/RESPONSE_INTAKE_RULES.md)
+- [Collection runbook](../article/expert_review/COLLECTION_RUNBOOK.md)
+- [Phase 12 manifest](../validation/article/phase12_reviewer_operations_manifest.json)
+<!-- END CVSS40_PHASE12_REVIEWER_OPERATIONS_INDEX_20260713 -->

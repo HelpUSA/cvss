@@ -297,3 +297,20 @@ Requirements:
 3. Preserve original reviewer files before adjudication.
 4. Verify the revealed key against its committed SHA-256 value.
 <!-- END CVSS40_PHASE11_PROTECTED_ANSWER_KEY_NEXT_20260713 -->
+<!-- BEGIN CVSS40_PHASE12_REVIEWER_OPERATIONS_NEXT_20260713 -->
+## CVSS v4.0 Phase 12 reviewer operations completed
+
+The local operational package contains 3 reviewer
+kits for 30 scenarios each.
+
+Next actions:
+
+1. Identify qualified independent reviewers.
+2. Complete private qualification and conflict screening.
+3. Record participation agreement acceptance.
+4. Send only the assigned reviewer ZIP.
+5. Collect and preserve original response CSV files.
+6. Validate and cryptographically lock accepted responses.
+7. Verify all responses are locked before opening the answer key.
+8. Execute agreement analysis and structured adjudication.
+<!-- END CVSS40_PHASE12_REVIEWER_OPERATIONS_NEXT_20260713 -->

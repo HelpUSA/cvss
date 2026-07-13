@@ -1,0 +1,72 @@
+{
+  "answer_key_commitment_verified": true,
+  "answer_key_commitment_versioned": true,
+  "answer_key_content_versioned": false,
+  "answer_key_sha256": "9fcb5b86586c1afc0640accd73726868083448b0e20ba4f9bb940916a9cfaa42",
+  "claim_boundaries": [
+    "No reviewer has been recruited by this generation step",
+    "No reviewer response has been collected",
+    "Reviewer contact information remains local",
+    "Reviewer responses remain local",
+    "The adjudication answer key remains local",
+    "Only the answer-key commitment is versioned",
+    "Package generation does not establish reviewer independence"
+  ],
+  "generated_utc": "2026-07-13T22:43:42.837625+00:00",
+  "local_only_paths": [
+    "article/expert_review/reviewer_packages/",
+    "article/expert_review/reviewer_responses/",
+    "article/expert_review/private/",
+    "article/expert_review/adjudication_answer_key.csv"
+  ],
+  "package_count": 3,
+  "packages": [
+    {
+      "directory": "article/expert_review/reviewer_packages/R01",
+      "packet_version": "A",
+      "response_template_sha256": "a9a5117446fd2d11fa0b2cc022024ed429efde069b4559488bc6dff5473663dd",
+      "reviewer_code": "R01",
+      "scenario_count": 30,
+      "scenarios_sha256": "dee6cff934edbbb59a7c6a7a667269f262640ee8fa3858ad25b9aa854b70b5d8",
+      "zip_file": "article/expert_review/reviewer_packages/R01_packet_A.zip",
+      "zip_sha256": "0c564f2e14ac39cdf6d76f531f0bd04cb3b3750227d068312eaaa9c8a5bcbce6",
+      "zip_size_bytes": 8259
+    },
+    {
+      "directory": "article/expert_review/reviewer_packages/R02",
+      "packet_version": "B",
+      "response_template_sha256": "cc51bbab4dcdd5438330a57abf62c12610247cebd222edff91792c98c9896cfe",
+      "reviewer_code": "R02",
+      "scenario_count": 30,
+      "scenarios_sha256": "b21583c503dccd00195f84577fc54577050234f3d08111b5f06d5654dc6209bd",
+      "zip_file": "article/expert_review/reviewer_packages/R02_packet_B.zip",
+      "zip_sha256": "8aa5cf35eeaf96390e7b6641a1d44a063e7c16c7f40d77d5ee1f745373128315",
+      "zip_size_bytes": 8234
+    },
+    {
+      "directory": "article/expert_review/reviewer_packages/R03",
+      "packet_version": "A",
+      "response_template_sha256": "7fa6e842dacb06a3f486d500ad23d897b53fdcf664c9d06c55a4146a76098ba7",
+      "reviewer_code": "R03",
+      "scenario_count": 30,
+      "scenarios_sha256": "dee6cff934edbbb59a7c6a7a667269f262640ee8fa3858ad25b9aa854b70b5d8",
+      "zip_file": "article/expert_review/reviewer_packages/R03_packet_A.zip",
+      "zip_sha256": "5a1a88d874718cfba44685c3319ed7f689f4e134fe542b818bc686a4e1afd000",
+      "zip_size_bytes": 8256
+    }
+  ],
+  "phase": 12,
+  "planned_assessments": 90,
+  "public_operational_artifacts": [
+    "article/expert_review/RECRUITMENT_INVITATION_TEMPLATE.md",
+    "article/expert_review/REVIEWER_ELIGIBILITY_FORM.md",
+    "article/expert_review/PARTICIPATION_AND_CONFIDENTIALITY_AGREEMENT.md",
+    "article/expert_review/REVIEW_SESSION_CHECKLIST.md",
+    "article/expert_review/RESPONSE_INTAKE_RULES.md",
+    "article/expert_review/COLLECTION_RUNBOOK.md",
+    "tools/validate_expert_reviewer_response.py",
+    "tools/validate_article_phase12_reviewer_operations.py"
+  ],
+  "scenario_count": 30,
+  "target_reviewers": 3
+}
