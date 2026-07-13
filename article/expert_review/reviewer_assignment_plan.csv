@@ -1,0 +1,4 @@
+reviewer_code,packet_version,scenario_count,status,assigned_utc,completed_utc,response_file
+R01,A,30,not_started,,,reviewer_R01_responses.csv
+R02,B,30,not_started,,,reviewer_R02_responses.csv
+R03,A,30,not_started,,,reviewer_R03_responses.csv

@@ -1,0 +1,38 @@
+{
+  "answer_key_commitment": "article/expert_review/adjudication_answer_key.commitment.json",
+  "answer_key_id_set_matches": true,
+  "files": {
+    "article/expert_review/blinded_scenarios_master.csv": {
+      "field_count": 17,
+      "row_count": 30,
+      "sha256": "e291c3cacf2ca933e14d2134dcb2eecd7118889ae91b1797d904c7da4c5c5ac3",
+      "size_bytes": 30812
+    },
+    "article/expert_review/review_packet_A.csv": {
+      "field_count": 19,
+      "row_count": 30,
+      "sha256": "dee6cff934edbbb59a7c6a7a667269f262640ee8fa3858ad25b9aa854b70b5d8",
+      "size_bytes": 30987
+    },
+    "article/expert_review/review_packet_B.csv": {
+      "field_count": 19,
+      "row_count": 30,
+      "sha256": "b21583c503dccd00195f84577fc54577050234f3d08111b5f06d5654dc6209bd",
+      "size_bytes": 30987
+    }
+  },
+  "forbidden_header_count": 0,
+  "generated_utc": "2026-07-13T22:35:04.593310+00:00",
+  "packet_id_sets_match": true,
+  "phase": 11,
+  "protected_answer_key_rows": 30,
+  "protected_answer_key_sha256": "9fcb5b86586c1afc0640accd73726868083448b0e20ba4f9bb940916a9cfaa42",
+  "protected_cve_identifier_count": 12,
+  "redacted_identifier_occurrences": 0,
+  "redacted_url_occurrences": 129,
+  "reviewer_visible_cve_identifier_count": 0,
+  "reviewer_visible_url_count": 0,
+  "scenario_count": 30,
+  "status": "passed",
+  "visible_file_count": 3
+}

@@ -1,0 +1,25 @@
+{
+  "field_count": 13,
+  "field_names": [
+    "review_scenario_id",
+    "original_scenario_id",
+    "cve_id",
+    "scenario_source",
+    "candidate_modified_metrics",
+    "watcher_recommendation",
+    "uncertainty_flags",
+    "review_required",
+    "human_review_status",
+    "base_priority",
+    "environmental_priority",
+    "priority_delta",
+    "last_modified"
+  ],
+  "generated_utc": "2026-07-13T22:35:04.593310+00:00",
+  "phase": 11,
+  "protected_cve_identifier_count": 12,
+  "publication_status": "answer-key content excluded; cryptographic commitment versioned",
+  "row_count": 30,
+  "scenario_id_set_sha256": "15d0bcd81e800ce255de8cc004532e3c376f745e6eed4addbc9d83510ab171f9",
+  "sha256": "9fcb5b86586c1afc0640accd73726868083448b0e20ba4f9bb940916a9cfaa42"
+}

@@ -164,3 +164,26 @@ related_files:
 - [Compiled PDF](../article/ieee/cvss40_double_blind.pdf)
 - [Reproducibility manifest](../validation/article/phase10_reproducibility_manifest.json)
 <!-- END CVSS40_PHASE10_ACADEMIC_EXPANSION_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE11_EXPERT_REVIEW_INDEX_20260713 -->
+## CVSS v4.0 Phase 11 Expert Review
+
+- [Phase 11 report](ARTICLE_PHASE11_EXPERT_REVIEW_PROTOCOL_CVSS40.md)
+- [Review protocol](../article/expert_review/PROTOCOL.md)
+- [Reviewer instructions](../article/expert_review/REVIEWER_INSTRUCTIONS.md)
+- [Codebook](../article/expert_review/CODEBOOK.md)
+- [Analysis plan](../article/expert_review/ANALYSIS_PLAN.md)
+- [Ethics checklist](../article/expert_review/ETHICS_AND_DATA_HANDLING.md)
+- [Blinded packet A](../article/expert_review/review_packet_A.csv)
+- [Blinded packet B](../article/expert_review/review_packet_B.csv)
+- [Response template](../article/expert_review/reviewer_response_template.csv)
+- [Phase 11 manifest](../validation/article/phase11_expert_review_manifest.json)
+<!-- END CVSS40_PHASE11_EXPERT_REVIEW_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE11_BLINDING_AUDIT_INDEX_20260713 -->
+## CVSS v4.0 Phase 11 Blinding Audit
+
+- [Blinding audit report](ARTICLE_PHASE11_BLINDING_AUDIT_CVSS40.md)
+- [Machine-readable audit](../validation/article/phase11_blinding_audit.json)
+- [Answer-key commitment](../article/expert_review/adjudication_answer_key.commitment.json)
+<!-- END CVSS40_PHASE11_BLINDING_AUDIT_INDEX_20260713 -->

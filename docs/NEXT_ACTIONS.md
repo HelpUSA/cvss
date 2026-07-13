@@ -267,3 +267,33 @@ Next actions:
 4. Select the target conference or journal.
 5. Perform final language and submission-format review.
 <!-- END CVSS40_PHASE10_ACADEMIC_EXPANSION_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE11_EXPERT_REVIEW_NEXT_20260713 -->
+## CVSS v4.0 Phase 11 expert-review protocol completed
+
+The blinded expert-review protocol contains 30 scenarios,
+3 planned reviewers, and
+90 planned assessments.
+
+Next actions:
+
+1. Identify and invite qualified independent reviewers.
+2. Assign pseudonymous reviewer codes.
+3. Distribute packet A or B without the answer key.
+4. Collect locked independent responses.
+5. Execute the agreement and review-effort analysis.
+6. Conduct structured adjudication.
+<!-- END CVSS40_PHASE11_EXPERT_REVIEW_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE11_PROTECTED_ANSWER_KEY_NEXT_20260713 -->
+## CVSS v4.0 Phase 11 protected answer key
+
+The adjudication answer key remains local and excluded from Git.
+
+Requirements:
+
+1. Do not distribute the answer-key CSV to reviewers.
+2. Lock independent responses before opening the answer key.
+3. Preserve original reviewer files before adjudication.
+4. Verify the revealed key against its committed SHA-256 value.
+<!-- END CVSS40_PHASE11_PROTECTED_ANSWER_KEY_NEXT_20260713 -->

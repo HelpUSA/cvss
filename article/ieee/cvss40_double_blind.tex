@@ -568,6 +568,51 @@ real vulnerability records, their consumer contexts are curated, the priority
 delta is custom, all recommendations require human review, and no production
 validation is claimed.
 
+\section{Planned Independent Expert Evaluation}
+
+The next evaluation stage will compare watcher-generated candidate assessments
+with independent specialist judgments. This stage is designed to test semantic
+agreement and review effort, which are not established by the artifact
+completeness results reported in this paper.
+
+\subsection{Blinded Review Design}
+
+Each reviewer receives a counterbalanced packet containing the Base vector,
+Base score, Base severity, consumer deployment context, security requirements,
+controls, and evidence. CVE identifiers, source URLs, watcher recommendations,
+priority deltas, and rationales are withheld during the independent review.
+
+Two deterministic packet orders reduce the likelihood that fatigue or learning
+effects are confounded with a single presentation sequence. Reviewers record
+Security Requirements, Modified Base metrics, an Environmental vector,
+operational priority, confidence, evidence sufficiency, missing evidence,
+ambiguity, and review duration.
+
+\subsection{Agreement Measures}
+
+The analysis plan reports raw metric-level agreement in addition to
+chance-corrected measures. Fleiss' kappa or Krippendorff's alpha can be used for
+multi-reviewer categorical agreement, depending on missing responses. Ordered
+priority categories can be analyzed using weighted agreement. Review time,
+confidence, evidence sufficiency, defer rates, and watcher override rates are
+reported separately.
+
+The operational priority remains a prototype category and is not an official
+CVSS score. Agreement with the watcher is not treated as proof that either the
+watcher or a reviewer is correct.
+
+\subsection{Adjudication}
+
+After independent responses are locked, disagreements are reviewed in a
+structured adjudication stage. The adjudication record distinguishes
+insufficient evidence, ambiguity, reviewer interpretation differences,
+data-entry errors, watcher errors, specification interpretation issues, and
+operational-priority framework issues.
+
+This planned evaluation strengthens the human-in-the-loop design by measuring
+where automation assists analysts and where it requires correction. No expert
+agreement results are claimed in the present study.
+
 \section{Operational Adoption Path}
 
 A staged adoption process can reduce risk. In the first stage, the watcher runs

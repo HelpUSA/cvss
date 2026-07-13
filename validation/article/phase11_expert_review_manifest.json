@@ -1,0 +1,136 @@
+{
+  "answer_field_count": 13,
+  "answer_key_publication": {
+    "commitment_file": "article/expert_review/adjudication_answer_key.commitment.json",
+    "commitment_versioned": true,
+    "content_versioned": false,
+    "sha256": "9fcb5b86586c1afc0640accd73726868083448b0e20ba4f9bb940916a9cfaa42"
+  },
+  "blinded_fields": [
+    "review_scenario_id",
+    "record_origin",
+    "cvss_base_vector",
+    "cvss_base_score",
+    "cvss_base_severity",
+    "asset_class",
+    "availability_requirement",
+    "compensating_controls",
+    "confidentiality_requirement",
+    "deployment_context",
+    "evidence_links",
+    "evidence_summary",
+    "integrity_requirement",
+    "internet_exposure",
+    "privilege_context",
+    "supplemental_context",
+    "threat_context"
+  ],
+  "blinding_audit": {
+    "audit_file": "validation/article/phase11_blinding_audit.json",
+    "packet_id_sets_match": true,
+    "protected_cve_identifier_count": 12,
+    "reviewer_visible_cve_identifier_count": 0,
+    "reviewer_visible_url_count": 0,
+    "status": "passed"
+  },
+  "claim_boundaries": [
+    "Protocol only; no expert results have been collected",
+    "Agreement does not establish absolute ground truth",
+    "Priority category is not an official CVSS score",
+    "Reviewers do not see watcher recommendations",
+    "NVD consumer contexts remain curated",
+    "No production effectiveness claim"
+  ],
+  "context_field_count": 12,
+  "files": {
+    "article/expert_review/ANALYSIS_PLAN.md": {
+      "sha256": "000758a90fb3adb7d85d5687ff2c6f4d0a3caa0afb4bb9985c9071c38de78e82",
+      "size_bytes": 2091
+    },
+    "article/expert_review/CODEBOOK.md": {
+      "sha256": "f1fa8459d10daaa0a936aff300190730262be19347914908b083687669cd0388",
+      "size_bytes": 1315
+    },
+    "article/expert_review/ETHICS_AND_DATA_HANDLING.md": {
+      "sha256": "19cfe3d73fc55370d8be0131fce414c2c8330b44c69224c94f449a9aafd325a9",
+      "size_bytes": 788
+    },
+    "article/expert_review/PROTOCOL.md": {
+      "sha256": "1a6d56975e71fe2398adf94bfb01411deeaee6865083c3eb352394da429036ca",
+      "size_bytes": 2855
+    },
+    "article/expert_review/REVIEWER_INSTRUCTIONS.md": {
+      "sha256": "65bb2b613b5b5eae242892d9012f4b25a52a1115f7b84cb7f143ff07f9fa2650",
+      "size_bytes": 1152
+    },
+    "article/expert_review/adjudication_answer_key.csv": {
+      "sha256": "9fcb5b86586c1afc0640accd73726868083448b0e20ba4f9bb940916a9cfaa42",
+      "size_bytes": 12602
+    },
+    "article/expert_review/blinded_scenarios_master.csv": {
+      "sha256": "e291c3cacf2ca933e14d2134dcb2eecd7118889ae91b1797d904c7da4c5c5ac3",
+      "size_bytes": 30812
+    },
+    "article/expert_review/review_packet_A.csv": {
+      "sha256": "dee6cff934edbbb59a7c6a7a667269f262640ee8fa3858ad25b9aa854b70b5d8",
+      "size_bytes": 30987
+    },
+    "article/expert_review/review_packet_B.csv": {
+      "sha256": "b21583c503dccd00195f84577fc54577050234f3d08111b5f06d5654dc6209bd",
+      "size_bytes": 30987
+    },
+    "article/expert_review/reviewer_assignment_plan.csv": {
+      "sha256": "5d77717e94d0b0d53d681c856ec610ae1b5eb945296a41a184ed0e5891265197",
+      "size_bytes": 246
+    },
+    "article/expert_review/reviewer_response_template.csv": {
+      "sha256": "d08f8a7a722d6bcda6229cc226bb9f6389581f8ae0db0b2789e787d6b2d4743d",
+      "size_bytes": 1818
+    },
+    "article/ieee/cvss40_double_blind.pdf": {
+      "sha256": "f0fb071c253dd39682d5db676be08755aedc319d9507fa98809a7bf0a0be3947",
+      "size_bytes": 156030
+    },
+    "article/ieee/cvss40_double_blind.tex": {
+      "sha256": "631201654ce9b195c1ff65cbaaa5a981c870e4f90d395be652c2202b623147b0",
+      "size_bytes": 29842
+    },
+    "article/ieee/references.bib": {
+      "sha256": "8c00ab40f9e00941c0b385bb6b40b499cf2d897d2edf725b8f7e08a9270c0247",
+      "size_bytes": 7928
+    },
+    "tools/validate_article_phase11_expert_review.py": {
+      "sha256": "a493d0e27337ee269cc4484a2579fbbaa62a5cc8d49775243548ab835040df8d",
+      "size_bytes": 4353
+    }
+  },
+  "generated_utc": "2026-07-13T22:35:04.593310+00:00",
+  "packet_versions": [
+    "A",
+    "B"
+  ],
+  "pdf_page_count": 7,
+  "pdf_page_size": "612 x 792 pts (letter)",
+  "pdf_size_bytes": 156030,
+  "phase": 11,
+  "planned_assessments": 90,
+  "protected_answer_fields": [
+    "review_scenario_id",
+    "original_scenario_id",
+    "cve_id",
+    "scenario_source",
+    "candidate_modified_metrics",
+    "watcher_recommendation",
+    "uncertainty_flags",
+    "review_required",
+    "human_review_status",
+    "base_priority",
+    "environmental_priority",
+    "priority_delta",
+    "last_modified"
+  ],
+  "randomization_seed": 20260713,
+  "scenario_count": 30,
+  "target_reviewers": 3,
+  "undefined_references": false
+}
