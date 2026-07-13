@@ -207,3 +207,11 @@ related_files:
 - [Response-locking runbook](../article/expert_review/RESPONSE_LOCKING_RUNBOOK.md)
 - [Phase 13 manifest](../validation/article/phase13_response_locking_manifest.json)
 <!-- END CVSS40_PHASE13_RESPONSE_LOCKING_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE14_PREANALYSIS_GATE_INDEX_20260713 -->
+## CVSS v4.0 Phase 14 Pre-analysis Gate
+
+- [Phase 14 report](ARTICLE_PHASE14_PREANALYSIS_GATE_CVSS40.md)
+- [Pre-analysis readiness runbook](../article/expert_review/PREANALYSIS_READINESS_RUNBOOK.md)
+- [Phase 14 manifest](../validation/article/phase14_preanalysis_gate_manifest.json)
+<!-- END CVSS40_PHASE14_PREANALYSIS_GATE_INDEX_20260713 -->

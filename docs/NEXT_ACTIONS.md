@@ -329,3 +329,22 @@ Next actions:
 7. Verify all response hashes and validation reports.
 8. Open the answer key only after all independent responses are locked.
 <!-- END CVSS40_PHASE13_RESPONSE_LOCKING_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE14_PREANALYSIS_GATE_NEXT_20260713 -->
+## CVSS v4.0 Phase 14 pre-analysis gate ready
+
+The analysis gate is installed and currently awaits the independent reviewer
+responses.
+
+Next actions:
+
+1. Recruit and qualify the three planned reviewers.
+2. Distribute only the assigned local reviewer packages.
+3. Receive each original response CSV.
+4. Validate and cryptographically lock each accepted response.
+5. Run the Phase 14 readiness check after every lock.
+6. Confirm that all three reviewers have exactly one valid lock.
+7. Review the private readiness report.
+8. Create the local analysis release token.
+9. Only then begin agreement analysis and adjudication.
+<!-- END CVSS40_PHASE14_PREANALYSIS_GATE_NEXT_20260713 -->

@@ -1,0 +1,42 @@
+{
+  "all_reviewers_required": true,
+  "analysis_allowed_without_release_token": false,
+  "answer_key_commitment_verification_required": true,
+  "answer_key_content_parsed_by_gate": false,
+  "answer_key_content_versioned": false,
+  "claim_boundaries": [
+    "No reviewer response has been collected by this phase",
+    "No reviewer response has been fabricated",
+    "No agreement statistic has been calculated",
+    "The answer key has not been semantically opened",
+    "The public manifest contains no response hashes",
+    "Analysis remains blocked until all reviewer responses are locked",
+    "A local analysis release token is mandatory"
+  ],
+  "generated_utc": "2026-07-13T23:19:52.410829+00:00",
+  "local_only_paths": [
+    "article/expert_review/reviewer_responses/",
+    "article/expert_review/private/",
+    "article/expert_review/adjudication_answer_key.csv"
+  ],
+  "locked_hash_verification_required": true,
+  "one_active_lock_per_reviewer": true,
+  "original_hash_verification_required": true,
+  "phase": 14,
+  "planned_assessment_count": 90,
+  "planned_reviewer_count": 3,
+  "public_artifacts": [
+    "article/expert_review/PREANALYSIS_READINESS_RUNBOOK.md",
+    "tools/check_expert_review_preanalysis_readiness.py",
+    "tools/validate_article_phase14_preanalysis_gate.py",
+    "docs/ARTICLE_PHASE14_PREANALYSIS_GATE_CVSS40.md"
+  ],
+  "public_locked_response_count": 0,
+  "release_token_versioned": false,
+  "required_locked_response_count": 3,
+  "response_content_versioned": false,
+  "response_hashes_versioned": false,
+  "scenario_count": 30,
+  "status": "gate-ready-awaiting-independent-responses",
+  "strict_revalidation_required": true
+}
