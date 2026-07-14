@@ -2,9 +2,9 @@
 
 ## Fase 0 — Fechamento da base
 
-Estado: em fechamento.
+Estado: encerrada em 14 de julho de 2026.
 
-Entregáveis: documentação coerente, inventário real/parcial/demo/ausente, testes atuais, build Next.js, verificações JavaScript/TypeScript, estado de FastAPI/Prisma/PostgreSQL/watcher, riscos e Git limpo.
+Entregáveis: documentação coerente, inventário real/parcial/demo/ausente, arquitetura canônica com Next.js na interface web, Prisma com PostgreSQL na persistência e Python restrito à engine CVSS, watcher e processamento interno suportado, além de compilação, 52 testes, JavaScript, TypeScript, build, pipeline real, auditoria das 102 notas, riscos e Git limpo.
 
 ## Fase 1 — Fundação multiusuário
 

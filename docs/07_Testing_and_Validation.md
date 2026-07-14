@@ -67,12 +67,11 @@ Autenticação, isolamento organizacional, importações, fila, watcher, decisõ
 
 ### Bloqueio remanescente da Fase 0
 
-A compilação completa de `app/` encontrou erros sintáticos em:
+A compilação completa de `app/` foi aprovada após a retirada dos protótipos web Python antigos. Evidências:
 
-- `app/web/dashboard.py`;
-- `app/web/fastapi_server.py`.
+- os dois protótipos web Python antigos foram retirados da árvore executável após auditoria confirmar ausência de imports, entrypoints, testes, CI, Docker e scripts dependentes.
 
-Os testes automatizados existentes não importam esses dois módulos e, por isso, os 52 testes podem passar mesmo com os protótipos inválidos.
+A bateria final confirmou 52 testes aprovados, além da compilação integral da árvore Python aplicável.
 
 O estado correto é:
 

@@ -64,3 +64,7 @@ Responsável por consumir achados, ativos, contexto e evidências; calcular CVSS
 ## Notas relacionadas
 
 [[00_Index]] · [[WEB_APPLICATION]] · [[AUTH_RBAC]] · [[DATABASE]] · [[WATCHER]] · [[decisions/ADR-001-official-vs-contextual-separation]]
+
+## Decisão arquitetural da Fase 0
+
+A interface web canônica é a aplicação Next.js em `web/`. A persistência canônica usa Prisma com PostgreSQL. Python permanece restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado. Não existe dashboard Python nem servidor FastAPI público paralelo. Os protótipos web Python anteriores foram retirados da árvore executável após auditoria confirmar ausência de dependências operacionais. O histórico permanece recuperável pelo Git a partir do commit `59c23c6`.

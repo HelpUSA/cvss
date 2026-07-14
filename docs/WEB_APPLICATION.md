@@ -36,3 +36,7 @@ SARIF, CycloneDX, SPDX e conectores ficam para uma fase posterior.
 ## Dependências
 
 [[AUTH_RBAC]] · [[DATABASE]] · [[WATCHER]] · [[ARCHITECTURE]] · [[08_Dashboard_and_Exports]]
+
+## Superfície web canônica
+
+A única interface web suportada é a aplicação Next.js em `web/`. Prisma com PostgreSQL define a camada de persistência. Dashboards ou servidores web Python paralelos não fazem parte da arquitetura suportada e exigiriam uma decisão arquitetural explícita, contratos, testes e integração operacional documentados.

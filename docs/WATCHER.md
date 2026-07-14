@@ -40,3 +40,7 @@ O watcher propõe. Ele nunca altera automaticamente o ambiente, aceita risco, fe
 ## Dependências
 
 [[ARCHITECTURE]] · [[DATABASE]] · [[AUTH_RBAC]] · [[04_Contextual_Engine]] · [[07_Testing_and_Validation]]
+
+## Limite arquitetural do Python
+
+Python é suportado na engine CVSS, no watcher e em processamento interno controlado. A camada web pública pertence ao Next.js, e a persistência pertence ao Prisma com PostgreSQL. Qualquer API interna em Python precisa ser explicitamente suportada, testada e documentada; ela não substitui a interface web canônica.

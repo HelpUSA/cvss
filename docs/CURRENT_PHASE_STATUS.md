@@ -63,7 +63,7 @@ Também passaram:
 - validador do pipeline real;
 - `git diff --check`.
 
-A Fase 0 permanece aberta porque `python -m compileall app` encontrou erros sintáticos nos protótipos `app/web/dashboard.py` e `app/web/fastapi_server.py`. Eles continuam classificados como componentes parciais e não operacionais.
+A Fase 0 foi encerrada em 14 de julho de 2026 após a retirada dos protótipos web Python isolados e a aprovação da compilação Python, dos 52 testes, da verificação JavaScript, do TypeScript, do Prisma, do build Next.js, do pipeline real, da auditoria das 102 notas Obsidian e do `git diff --check`.
 
-A correção desses protótipos pertence à atividade 2 de [[NEXT_ACTIONS]] e não foi incluída no commit documental.
+A linha de base encerrada preserva Next.js como interface web canônica, Prisma com PostgreSQL como persistência canônica e Python restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
 <!-- verified-validation-2026-07-14:end -->

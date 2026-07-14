@@ -99,12 +99,11 @@ A auditoria operacional da documentação foi executada sobre 102 notas Markdown
 
 ### Falha técnica identificada
 
-`python -m compileall app` não foi aprovado porque dois protótipos Python antigos possuem erros sintáticos:
+`python -m compileall app` foi aprovado após a retirada dos dois protótipos web Python antigos, cuja auditoria confirmou isolamento operacional e incompatibilidade com a arquitetura canônica.
 
-- `app/web/dashboard.py`: aspas escapadas incorretamente na chamada de `st.spinner`, além de texto com codificação corrompida.
-- `app/web/fastapi_server.py`: importações e configuração de CORS malformadas, incluindo `From`, `exports`, `CARS middleware` e símbolos FastAPI incorretos.
+- os dois protótipos web Python antigos apresentavam erros sintáticos, caminhos locais absolutos, dependências inválidas e contratos incompatíveis com a arquitetura oficial; foram retirados da árvore executável após confirmação de isolamento.
 
-Esses arquivos não foram corrigidos nesta atualização porque o escopo é documental. A falha confirma que a camada FastAPI/Streamlit deve permanecer classificada como **parcial e não operacional** até a conclusão da atividade 2 de [[NEXT_ACTIONS]].
+A decisão arquitetural foi retirar esses protótipos da árvore executável, preservando o histórico exclusivamente pelo Git. A camada web suportada permanece em Next.js, com Prisma e PostgreSQL para persistência; Python fica restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
 
 ### Decisão de fechamento
 

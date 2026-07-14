@@ -2,9 +2,9 @@
 
 Estas são as 12 atividades oficiais, em ordem. Uma atividade posterior não deve antecipar alegações de conclusão das anteriores.
 
-1. **Concluir a auditoria completa da documentação.** Registrar arquivos lidos e alterados, contradições corrigidas, classificação de funcionalidades como real, parcial, demo ou ausente, pausa do artigo aguardando três revisores, validadores executados, commit, push e estado Git final limpo.
-2. **Fechar formalmente a Fase 0.** Executar `pytest`, build Next.js, verificações JavaScript/TypeScript e registrar o estado real de FastAPI, Prisma/PostgreSQL e watcher, incluindo matriz funcional/parcial/ausente e riscos técnicos.
-3. **Definir a arquitetura operacional.** Fechar responsabilidades e comunicação entre Next.js, API/FastAPI, PostgreSQL com Prisma, fila de análise e worker Python.
+1. **Preservar a auditoria documental como gate contínuo.** Manter as 102 notas coerentes, sem wikilinks quebrados ou ambíguos, sem links Markdown internos `.md` e com registro reproduzível das validações, commits e estado final do Git.
+2. **Preservar a linha de base da Fase 0.** Manter compilação Python, 52 testes, JavaScript, TypeScript, Prisma, build Next.js, pipeline real, auditoria das 102 notas e Git limpo como gates obrigatórios.
+3. **Evoluir a arquitetura operacional canônica.** Manter Next.js como interface web, Prisma com PostgreSQL como persistência e Python restrito à engine CVSS, ao watcher e ao processamento interno suportado; qualquer API interna Python exige decisão arquitetural, contratos, testes e documentação.
 4. **Implementar autenticação e RBAC no backend.** Incluir login, logout, sessões, recuperação, rotas protegidas, bootstrap do administrador, papéis `ADMIN`, `OPERATOR` e `REVIEWER` e isolamento por organização.
 5. **Expandir o modelo de dados.** Incluir usuários, organizações, membros, papéis, ambientes, ativos, componentes, vulnerabilidades, achados, evidências, importações, execuções do watcher, decisões, tratamentos, ações e auditoria, com migrations, seed e testes.
 6. **Substituir a página única/demo por uma aplicação pública, autenticada e administrativa.**
@@ -17,8 +17,8 @@ Estas são as 12 atividades oficiais, em ordem. Uma atividade posterior não dev
 
 ## Prioridades imediatas
 
-- Finalizar e versionar a documentação.
-- Fechar a Fase 0.
+- Manter a documentação versionada, coerente e auditável.
+- Preservar os gates aprovados da linha de base da Fase 0.
 - Implementar autenticação/RBAC e o modelo básico de usuários, organizações e ambientes.
 
 ## Primeiro marco demonstrável
