@@ -1,0 +1,39 @@
+{
+  "all_reviewers_required": true,
+  "analysis_results_versioned": false,
+  "answer_key_access_before_release": false,
+  "answer_key_commitment_required": true,
+  "answer_key_content_versioned": false,
+  "claim_boundaries": [
+    "No reviewer response has been fabricated",
+    "No analysis runs without a local release token",
+    "The answer key is not semantically opened before release",
+    "No reviewer result is claimed publicly",
+    "Private hashes and results remain unversioned"
+  ],
+  "generated_utc": "2026-07-14T00:08:23.695075+00:00",
+  "local_only_paths": [
+    "article/expert_review/private/analysis/",
+    "article/expert_review/private/preanalysis/",
+    "article/expert_review/reviewer_responses/",
+    "article/expert_review/adjudication_answer_key.csv"
+  ],
+  "phase": 15,
+  "planned_assessment_count": 90,
+  "planned_reviewer_count": 3,
+  "public_artifacts": [
+    "article/expert_review/POSTRELEASE_ANALYSIS_RUNBOOK.md",
+    "tools/run_expert_review_gated_analysis.py",
+    "tools/validate_article_phase15_gated_analysis.py",
+    "docs/ARTICLE_PHASE15_GATED_ANALYSIS_CVSS40.md"
+  ],
+  "public_result_claim_count": 0,
+  "release_token_required": true,
+  "release_token_versioned": false,
+  "response_content_versioned": false,
+  "response_hashes_versioned": false,
+  "response_set_commitment_required": true,
+  "scenario_count": 30,
+  "status": "analysis-engine-ready-awaiting-release",
+  "strict_response_revalidation_required": true
+}

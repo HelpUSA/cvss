@@ -215,3 +215,11 @@ related_files:
 - [Pre-analysis readiness runbook](../article/expert_review/PREANALYSIS_READINESS_RUNBOOK.md)
 - [Phase 14 manifest](../validation/article/phase14_preanalysis_gate_manifest.json)
 <!-- END CVSS40_PHASE14_PREANALYSIS_GATE_INDEX_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE15_GATED_ANALYSIS_INDEX_20260713 -->
+## CVSS v4.0 Phase 15 Gated Analysis
+
+- [Phase 15 report](ARTICLE_PHASE15_GATED_ANALYSIS_CVSS40.md)
+- [Post-release analysis runbook](../article/expert_review/POSTRELEASE_ANALYSIS_RUNBOOK.md)
+- [Phase 15 manifest](../validation/article/phase15_gated_analysis_manifest.json)
+<!-- END CVSS40_PHASE15_GATED_ANALYSIS_INDEX_20260713 -->

@@ -348,3 +348,21 @@ Next actions:
 8. Create the local analysis release token.
 9. Only then begin agreement analysis and adjudication.
 <!-- END CVSS40_PHASE14_PREANALYSIS_GATE_NEXT_20260713 -->
+
+<!-- BEGIN CVSS40_PHASE15_GATED_ANALYSIS_NEXT_20260713 -->
+## CVSS v4.0 Phase 15 gated analysis engine ready
+
+The analysis engine is installed but remains blocked by the Phase 14 gate.
+
+Next actions:
+
+1. Recruit and qualify three independent reviewers.
+2. Collect the three original response files.
+3. Validate and lock every accepted response.
+4. Run the Phase 14 readiness check.
+5. Create the local analysis-release token.
+6. Validate the release with the Phase 15 tool.
+7. Run the private analysis.
+8. Review disagreement and agreement outputs.
+9. Conduct structured adjudication.
+<!-- END CVSS40_PHASE15_GATED_ANALYSIS_NEXT_20260713 -->
