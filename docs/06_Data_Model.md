@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -16,41 +16,27 @@ related_files:
 
 # Data Model
 
+## Estado atual
 
-## Input
+O modelo científico e os formatos de saída existentes suportam protótipos e demonstrações. No produto web, o schema Prisma ainda cobre somente uma base pequena e precisa ser ampliado.
 
-The wrapper expects a row-like object with an official CVSS vector:
+## Domínio operacional
 
-- ``cvss_vector``
-- or ``vector``
+O domínio-alvo está descrito em [[DATABASE]] e inclui identidade, organizações, ambientes, ativos, vulnerabilidades, evidências, importações, execuções, propostas, decisões, tratamentos, ações e auditoria.
 
-Contextual fields may include:
+## Regras
 
-- ``internet_exposed``
-- ``network_segmented``
-- ``firewall_restricted``
-- ``compensating_controls``
-- ``pci_in_scope``
-- ``business_criticality``
-- ``asset_id``
-- ``cve``
-- ``source_url``
-- ``environment``
+- preservar vetores e resultados oficiais;
+- versionar análises contextuais;
+- não sobrescrever decisões anteriores;
+- registrar evidências usadas;
+- isolar dados por organização;
+- manter idempotência de importações e jobs.
 
-## Output
+## Formatos científicos e de integração
 
-The wrapper output must remain split:
+Os schemas e formatos históricos permanecem válidos como referências do motor e do artigo, mas não substituem migrations e entidades operacionais.
 
-- `official_cvss` for official vector-derived results.
-- `contextual_environmental` for contextual prioritization.
-- `evidence` for asset scope, business, and source context.
+## Notas relacionadas
 
-## Export naming
-
-Use prefixes to prevent confusion:
-
-- `official_cvss_*`
-- `contextual_*`
-- `evidence_*`
-
-See [[08_Dashboard_and_Exports]] and [[02_Architecture]].
+[[DATABASE]] · [[ARCHITECTURE]] · [[WATCHER]] · [[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION]]

@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -18,30 +18,22 @@ related_files:
 
 # Dashboard and Exports
 
+## Estado atual
 
-## Dashboard labels
+O dashboard estático, a página única e as exportações existentes são demonstrações úteis. Eles não oferecem autenticação, isolamento organizacional, workflow de tratamento ou operação multiusuário completa.
 
-Dashboard labels must show two concepts separately:
+## Direção
 
-- Official CVSS
-- Contextual Prioritization
+A experiência será incorporada à [[WEB_APPLICATION]] com áreas pública, autenticada e administrativa. Exportações devem respeitar autorização, organização, ambiente, filtros e trilha de auditoria.
 
-Do not display the contextual score as official CVSS.
+## Primeiro marco
 
-## Exports
+Após login, o operador cria um ambiente, importa CSV/JSON e visualiza ativos e vulnerabilidades.
 
-CSV and JSON exports emit separate field families:
+## Evolução posterior
 
-- ``official_cvss_*``
-- ``contextual_*``
-- ``evidence_*``
+Relatórios por ambiente, ativo, vulnerabilidade, prioridade, tratamento, período e execução do watcher.
 
-## Pipeline status
+## Notas relacionadas
 
-The current producers and exporter emit the split contract without changing the official CVSS calculator:
-
-- ``app/cvss_env_automation/rule_engine.py``
-- ``app/ai_bridge_orchestrator.py``
-- ``app/cvss_env_automation/reporting.py``
-
-See [[06_Data_Model]] and [[09_Paper_or_Article]].
+[[WEB_APPLICATION]] · [[AUTH_RBAC]] · [[DATABASE]] · [[WATCHER]] · [[DEPLOYMENT_VERIFICATION]]

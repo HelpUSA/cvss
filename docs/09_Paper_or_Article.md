@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -18,73 +18,25 @@ related_files:
 
 # Paper or Article
 
+## Estado atual
 
-## Article premise
+O trabalho científico está pausado aguardando respostas de três revisores independentes.
 
-The article should describe a practical prototype for vulnerability prioritization that preserves official CVSS v3.1 while explicitly separating contexual operational prioritization.
+Existem 30 cenários, pacotes de revisão cegos, compromisso criptográfico da chave, gate de pré-análise e motor estatístico da Fase 15. Não existem respostas humanas recebidas e bloqueadas nesta etapa; por isso, não há concordância, validação externa ou resultado estatístico real a declarar.
 
-## Method boundary
+## Regras de integridade
 
-When writing the article, use language such as:
+- Não fabricar respostas ou resultados.
+- Não inferir concordância antes da análise autorizada.
+- Não abrir a chave de adjudicação antes do token de liberação.
+- Não acessar nem alterar submissões, respostas ou artefatos privados.
+- Preservar o protocolo e os artefatos históricos.
+- Manter a camada contextual claramente separada do CVSS oficial.
 
-- `official CVSS v3.1 base score`
-- `contextual prioritization`
-- `real-world environmental layer`
+## Relação com o produto
 
-as separate concepts.
+O desenvolvimento do produto operacional pode continuar sem modificar o protocolo científico. O portal de revisores será construído somente depois do primeiro fluxo operacional, mantendo cegamento, atribuição individual, submissão final e bloqueio.
 
-Avoid language that implies the contextual score is an official CVSS score.
+## Notas relacionadas
 
-## Evidence to include
-
-- official CVSS v3.1 validation
-- separate contextual layer design
-- export field separation
-- wrapper smoke results
-- traceable evidence for adjustments
-
-See [[ARTICLE_PLAN_PT]], [[ARTICLE_STATUS]], and [[decisions/ADR-001-official-vs-contextual-separation]].
-
-<!-- BEGIN CVSS40_AI_WATCHER_DIRECTION_20260709 -->
-## Strategic direction: CVSS v4.0 AI/watcher Environmental metric assessment
-
-Date: 2026-07-09
-
-The article should be repositioned around CVSS v4.0 Environmental metric assessment assisted by AI/watcher. CVSS v4.0 already includes official Base, Threat, Environmental, and Supplemental metric groups, so the project must not claim to add or modify official Environmental metrics.
-
-The defensible contribution is an operational evidence layer: the watcher helps analysts collect environmental evidence, suggest candidate Environmental metric choices, link suggestions to evidence, record uncertainty, flag human-review needs, and generate reproducible trace artifacts.
-
-Safe thesis:
-
-> Although CVSS v4.0 defines Environmental metrics for adapting vulnerability severity to a consumer's environment, selecting those metrics remains a difficult and evidence-intensive task for human analysts. This paper proposes an AI-assisted watcher workflow that collects, structures, and traces environmental evidence to support reproducible CVSS v4.0 Environmental metric assessment without modifying the official CVSS standard.
-
-Target paper posture: English IEEE-style method/prototype paper, double-blind, 5 to 8 pages, using ICITEICS-2026 requirements as a model but preparing for a later conference.
-<!-- END CVSS40_AI_WATCHER_DIRECTION_20260709 -->
-
-<!-- BEGIN CVSS40_AI_WATCHER_ROUTINE_20260709 -->
-## Current article routine
-
-The article now follows the CVSS v4.0 AI/watcher Environmental metric assessment routine:
-
-- Read and cite official FIRST CVSS v4.0 documentation.
-- Preserve official CVSS v4.0 semantics and formula.
-- Treat AI/watcher output as evidence-backed recommendations requiring explicit review status.
-- Build 30 to 50 curated vulnerability scenarios.
-- Evaluate evidence coverage, trace completeness, uncertainty, human review status, and priority shifts.
-- Prepare an English IEEE-style, double-blind 5 to 8 page method/prototype paper for a future conference.
-<!-- END CVSS40_AI_WATCHER_ROUTINE_20260709 -->
-
-<!-- BEGIN CVSS40_PHASE5_EVALUATION_RESULTS_20260713 -->
-## Evaluation and Results status
-
-The article now has generated Evaluation, Results, Discussion, and Limitations draft material based on the current scenario dataset.
-
-Current dataset framing:
-
-- Hybrid scenario dataset.
-- Real NVD/CVSS v4.0 rows are used where available.
-- Local Environmental context remains curated for workflow evaluation.
-- Synthetic rows remain explicitly marked.
-- Watcher outputs remain evidence-backed candidate recommendations requiring human review.
-- The evaluation supports traceability/reproducibility claims, not production effectiveness or predictive superiority.
-<!-- END CVSS40_PHASE5_EVALUATION_RESULTS_20260713 -->
+[[ARTICLE_STATUS]] · [[ARTICLE_PHASE14_PREANALYSIS_GATE_CVSS40]] · [[ARTICLE_PHASE15_GATED_ANALYSIS_CVSS40]] · [[ARTICLE_CLAIM_GUARDRAILS_CVSS40]] · [[CURRENT_PHASE_STATUS]]

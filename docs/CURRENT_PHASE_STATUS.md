@@ -1,119 +1,69 @@
-﻿# CVSS current phase status
+# CVSS current phase status
 
-Updated: 
-2026-05-28 13:34:05
+Atualizado em 2026-07-14.
 
-## Completed in current phase
+## Síntese
 
-- Research sequence and interactive-site order documented.
-- Scenario input and pipeline output schemas documented.
-- Deterministic environmental scoring engine checkpoint added.
-- Pilot and additional curated scenarios added.
-- Scenario runner generates before/after comparison and curated summary outputs.
-- Automated watcher IA validation queue and outputs regenerated.
-- Static dashboard refreshed from generated curated scenario values.
-- Static interactive CVSS calculator MVP added to index.html.
-- JSON, CSV, and pipeline JSON export path added for the interactive MVP.
-- scripts/convert_interactive_export.py converts pipeline JSON into scenario package structure.
+A pesquisa científica está preservada e pausada no ponto correto: existem 30 cenários, pacotes cegos para três revisores, compromisso criptográfico da chave, gate de pré-análise e motor estatístico da Fase 15. Ainda não existem respostas humanas recebidas e bloqueadas. Portanto, não há resultado de concordância, validação por especialistas ou conclusão estatística a declarar.
 
-## Current public deployment model
+O foco ativo passou a ser transformar os protótipos existentes em uma aplicação operacional multiusuário. A Fase 0 está em fechamento documental e técnico; ela somente poderá ser considerada encerrada após a execução e o registro das validações atuais.
 
-The production site should remain a clean static Vercel project from repository root. Do not return to the old Next.js project or npm build path.
+## Matriz de realidade
 
-## Next checkpoint
+| Área | Classificação | Estado verificável |
+|---|---|---|
+| Cálculo CVSS oficial v3.1 | Real | Implementação Python e testes existentes no repositório. |
+| Priorização contextual separada | Real | Motor, regras, rastros e wrapper real-world existem; não equivalem a CVSS oficial. |
+| Cenários científicos | Real | Conjunto de 30 cenários e artefatos de protocolo preservados. |
+| Gate de pré-análise e motor da Fase 15 | Real | Implementados com bloqueio para impedir análise antes da liberação correta. |
+| Dashboard estático e exportações | Demo funcional | Úteis para demonstração, mas não constituem o produto multiusuário. |
+| Next.js, Prisma e PostgreSQL | Parcial | Há dashboard e modelos básicos `Run`, `Assessment`, `Comparison` e `AuditEvent`; o domínio operacional ainda não está completo. |
+| FastAPI | Protótipo parcial | Existe servidor/protótipo Python; contrato operacional e integração definitiva ainda precisam ser fechados. |
+| Watcher | Protótipo parcial | O motor propõe análises em fluxo demonstrativo; não existe ainda ciclo operacional persistido, versionado e multiusuário. |
+| Autenticação, sessões e recuperação | Ausente | Não há fluxo operacional confirmado de login, logout, sessão, recuperação ou bootstrap administrativo. |
+| RBAC e isolamento organizacional | Ausente | Papéis `ADMIN`, `OPERATOR` e `REVIEWER` e isolamento por organização ainda não estão implementados. |
+| Importação real CSV/JSON | Ausente | Não existe ainda o primeiro fluxo operacional de validar, pré-visualizar e importar ativos e vulnerabilidades. |
+| Tratamentos e aprovação humana | Ausente | Correção, mitigação, aceite/rejeição, responsável, prazo e evidência de conclusão ainda não formam um fluxo persistido. |
+| Relatórios operacionais e auditoria completa | Ausente | A estrutura atual não cobre todas as consultas, decisões e execuções do watcher. |
+| Portal de revisores | Ausente no produto | O protocolo científico existe, mas o portal somente será construído depois do fluxo operacional principal. |
+| Produção pública atual | Não verificada | Configuração e domínio precisam ser confirmados; documentação antiga não deve ser tratada como prova de deploy atual. |
 
-1. Verify the clean Vercel static project autodeploys commit 6d6f44a or newer.
-2. If production does not show the interactive MVP, redeploy the clean static project from Vercel UI, not the old Next.js project.
-3. Add more realistic CVSS vectors and scenario evidence files for each curated scenario.
-4. Fold converter, dashboard generation, article input generation, and PDF build into scripts/rebuild_all.ps1.
-5. Update article Results and Discussion with multi-scenario totals and interactive MVP scope.
+## Prioridades imediatas
 
-## Scenario evidence enrichment - 
-2026-05-28 13:59:31
+1. Finalizar e versionar esta auditoria documental.
+2. Fechar formalmente a Fase 0 com testes e builds atuais.
+3. Implementar autenticação/RBAC e o modelo básico de usuários, organizações e ambientes.
 
-Added standardized evidence files to each curated scenario: topology.yaml, firewall_rules.yaml, business_impact.yaml, pci_scope.yaml, and expected_expert_labels.yaml. Rebuild wrapper was run to keep generated outputs synchronized.
+## Primeiro marco demonstrável
 
+Um operador autenticado cria um ambiente, importa dados reais em CSV ou JSON e visualiza os ativos e vulnerabilidades encontrados.
 
-## Article results and rebuild wrapper checkpoint - 
-2026-05-28 14:00:31
+## Restrições científicas
 
-Updated scripts/rebuild_all.ps1 to include article PDF build when LaTeX tooling is available. Added article text describing multi-scenario deterministic results and the interactive demonstrator scope.
+- Não fabricar respostas, resultados, concordância ou validação de especialistas.
+- Não abrir nem alterar a chave de adjudicação antes do token de liberação.
+- Não acessar ou modificar respostas, submissões ou artefatos privados dos revisores.
+- Manter o artigo e a estatística pausados até a entrega e o bloqueio das respostas dos três revisores independentes.
 
+## Notas relacionadas
 
-## Interactive dashboard rebuild fix - 
-2026-05-28 14:44:05
+[[00_Index]] · [[NEXT_ACTIONS]] · [[ROADMAP]] · [[ARCHITECTURE]] · [[ARTICLE_STATUS]]
 
-Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
+<!-- verified-validation-2026-07-14:start -->
+## Verified validation status — 2026-07-14
 
+A auditoria documental passou com 102 notas, nenhum wikilink quebrado ou ambíguo, nenhum link Markdown interno para notas `.md`, MOC completo e exatamente 12 próximas atividades.
 
-## Interactive dashboard rebuild fix - 
-2026-05-28 14:44:31
+Também passaram:
 
-Fixed scripts/rebuild_all.ps1 so the generated static dashboard preserves the interactive environmental CVSS calculator section after rebuild. This prevents generated index.html from regressing to the non-interactive dashboard.
+- 52 testes Pytest;
+- verificação de sintaxe de `app.js`;
+- verificação TypeScript sem emissão;
+- build de produção do Next.js;
+- validador do pipeline real;
+- `git diff --check`.
 
+A Fase 0 permanece aberta porque `python -m compileall app` encontrou erros sintáticos nos protótipos `app/web/dashboard.py` e `app/web/fastapi_server.py`. Eles continuam classificados como componentes parciais e não operacionais.
 
-## Production interactive MVP verified - 
-2026-05-28 14:58:03
-
-Production at https://cvss.helpusbr.com was visually confirmed to serve the clean static dashboard with the interactive environmental CVSS calculator, Export CSV, and Copy pipeline JSON controls. The clean static Vercel path is now the active production path.
-
-
-## Engine trace output checkpoint - 
-2026-05-28 14:59:01
-
-The deterministic engine now emits per-assessment adjustment traces, and generated comparison CSVs include trace_count, trace_total_adjustment, and trace_json columns for auditability.
-
-
-## Traceability article update - 
-2026-05-28 15:00:01
-
-Verified trace columns in generated scenario outputs and added manuscript text placeholders describing deterministic adjustment traceability.
-
-
-## Trace report checkpoint - 
-2026-05-28 15:01:00
-
-Generated validation/trace/adjustment_trace_report.md and validation/trace/adjustment_trace_summary.csv. The dashboard now includes an adjustment traceability summary section.
-
-
-## Rebuild and results package verification - 
-2026-05-28 15:03:02
-
-Verified results package artifacts and reran the rebuild wrapper. Added docs/REBUILD_REPORT.md summarizing scenarios, findings, assessments, verified commands, verified outputs, and the automated-validation caveat.
-
-
-## Editorial and test checkpoint - 
-2026-05-28 15:06:30
-
-Added synthetic curated scenario policy, inserted synthetic-scenario language into article sections, added initial regression tests, and created docs/TEST_REPORT.md.
-
-
-## Site report export checkpoint - 
-2026-05-28 15:10:49
-
-Added browser-side Markdown report export to the interactive MVP and documented it in docs/SITE_REPORT_EXPORT.md.
-
-
-## Site report export checkpoint - 
-2026-05-28 15:10:49
-
-Added browser-side Markdown report export to the interactive MVP and documented it in docs/SITE_REPORT_EXPORT.md.
-
-
-## Editorial submission package checkpoint - 
-2026-05-28 15:28:35
-
-Created article language audit, generated scenario and traceability result tables, and assembled docs/submission_package with manuscript PDF and core reproducibility summaries.
-
-
-## Prototype scoring policy checkpoint - 
-2026-05-28 15:29:30
-
-Added docs/PROTOTYPE_SCORING_POLICY.md and manuscript language clarifying that the deterministic adjustment constants are a prototype scoring policy, not an official FIRST CVSS environmental formula implementation.
-
-
-## Final readiness checklist - 
-2026-05-28 15:30:06
-
-Added docs/FINAL_READINESS_CHECKLIST.md summarizing ready artifacts, evidence boundaries, and the remaining strategic decision: submit as prototype methodology or implement official CVSS environmental formula comparison first.
-
+A correção desses protótipos pertence à atividade 2 de [[NEXT_ACTIONS]] e não foi incluída no commit documental.
+<!-- verified-validation-2026-07-14:end -->

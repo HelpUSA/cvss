@@ -18,7 +18,7 @@ related_files:
 ## 2026-07-01
 
 
-- Created Obsidian-style documentation hub with [[00_Index]] and [[README]].
+- Created Obsidian-style documentation hub with [[00_Index]] and [[00_Index]].
 - Added the [[decisions/ADR-001-official-vs-contextual-separation]] decision record.
 - Added atomic notes for project overview, architecture, official CVSS core, contextual engine, real-world wrapper, data model, testing, dashboard/exports, and article writing.
 - Repaired indentation in ``core/cvss_environmental_engine.py`` after it was found during validation.

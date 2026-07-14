@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -19,15 +19,17 @@ related_files:
 
 # CVSS Documentation Hub
 
+A navegação principal está em [[00_Index]].
 
-## Core rule
+## Fontes operacionais
 
-official_cvss must be calculated only from the official CVSS v3.1 vector.
+- [[CURRENT_PHASE_STATUS]]
+- [[NEXT_ACTIONS]]
+- [[ROADMAP]]
+- [[ARCHITECTURE]]
 
-contextual_environmental may use real-world evidence such as exposure, segmentation, compensating controls, PCI scope, and business criticality, but it must never be labeled as official CVSS.
+## Regra central
 
-See [[decisions/ADR-001-official-vs-contextual-separation]] and [[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION]].
+`official_cvss` deriva somente do vetor CVSS oficial. A camada contextual pode usar evidências operacionais, mas nunca deve ser apresentada como CVSS oficial.
 
-## Obsidian compatibility
-
-This documentation hub uses Obsidian-compatible Markdown properties and wiki links. See [[99_Obsidian_Conventions]].
+Consulte [[decisions/ADR-001-official-vs-contextual-separation]] e [[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION]].

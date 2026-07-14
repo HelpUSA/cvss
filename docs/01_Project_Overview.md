@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -17,23 +17,28 @@ related_files:
 
 # Project Overview
 
+## Propósito
 
-## Purpose
+Construir uma aplicação operacional para gestão e priorização de vulnerabilidades, preservando o cálculo CVSS oficial e adicionando uma camada contextual explicável e auditável.
 
-This project builds an application, article, and prototype for practical vulnerability assessment using official CVSS v3.1 plus a separate contextual operational layer.
+## Frentes do projeto
 
-The project must support research, implementation, validation, dashboarding, and exportable evidence.
+- núcleo CVSS oficial;
+- motor contextual e wrapper real-world;
+- aplicação web multiusuário;
+- importação e inventário;
+- watcher e tratamentos;
+- relatórios e auditoria;
+- protocolo e artigo científico preservados.
 
-## Scope
+## Limite não negociável
 
-The scope is real-world vulnerability prioritization.
+`official_cvss` é calculado somente a partir do vetor oficial. `contextual_environmental` é uma camada de priorização e não deve ser apresentada como CVSS oficial.
 
-The system should keep the official CVSS calculation intact while adding contextual information such as asset exposure, segmentation, compensating controls, PCI scope, exploitability evidence, and business criticality.
+## Estado
 
-## Non-negotiable boundary
+Consulte [[CURRENT_PHASE_STATUS]] para a matriz real/parcial/demo/ausente e [[NEXT_ACTIONS]] para a ordem oficial de execução.
 
-``official_cvss` is not a business-risk score. It is the result of the official CVSS vector calculation only.
+## Notas relacionadas
 
-``contextual_environmental` is a prioritization layer. It may use environmental and operational evidence, but it must not be labeled as official CVSS.
-
-See [[decisions/ADR-001-official-vs-contextual-separation]], [[02_Architecture]], and [[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION]].
+[[00_Index]] · [[ARCHITECTURE]] · [[ROADMAP]] · [[decisions/ADR-001-official-vs-contextual-separation]]

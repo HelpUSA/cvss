@@ -1,42 +1,66 @@
-# CVSS Environmental Assessment Architecture
+# CVSS operational architecture
 
-## Purpose
+## Princípios
 
-The system supports research and operational experimentation around CVSS Environmental scoring. It combines structured local context, deterministic rule-based assessment, audit traces, article-ready outputs, and a cloud dashboard.
+1. O cálculo CVSS oficial permanece separado da priorização contextual.
+2. Toda proposta do watcher é explicável, persistida, versionada e sujeita a decisão humana.
+3. A organização é a fronteira de isolamento de dados.
+4. O PostgreSQL é a fonte operacional de verdade.
+5. Protótipos atuais não devem ser descritos como produto completo.
 
-## Components
+## Componentes-alvo
 
-### 1. Case inputs
+### Next.js
 
-Structured case data lives under cases/. The current canonical case is pci_segmented_lab.
+Responsável pela interface pública, autenticada e administrativa, rotas de aplicação, validação de entrada, autorização no limite web e apresentação de inventário, análises, tratamentos, relatórios e auditoria.
 
-Typical inputs include assets, vulnerabilities, expected labels, and local context relevant to Environmental metrics.
+### PostgreSQL e Prisma
 
-### 2. Prototype engine
+Responsáveis por identidade, organizações, ambientes, domínio de vulnerabilidades, importações, execuções, propostas, decisões, tratamentos e auditoria. O schema atual é apenas uma base parcial.
 
-The Python prototype under app/ loads case data, applies deterministic assessment logic, computes Environmental labels and scores, and emits run artifacts.
+### FastAPI
 
-### 3. Output artifacts
+Responsável pelo contrato de cálculo e análise Python. Deve expor operações tipadas, idempotentes e observáveis, sem assumir o controle da autorização organizacional.
 
-Generated outputs live under outputs/runs/. A clean run includes summary.csv, before_after_comparison.csv, audit_trace.jsonl, report.md, run_manifest.json, and article_table_env_effects.md.
+### Fila de análise
 
-### 4. Database
+Responsável por desacoplar solicitações web do processamento Python, controlar tentativas, estados, idempotência, cancelamento e reprocessamento.
 
-The web dashboard uses Prisma with PostgreSQL. Railway PostgreSQL is the production database. The web app falls back to web/data/seed.json if DATABASE_URL is not present.
+### Worker Python / watcher
 
-### 5. Web dashboard
+Responsável por consumir achados, ativos, contexto e evidências; calcular CVSS original e camada contextual; produzir prioridade, justificativa, confiança, incerteza e tratamento proposto; persistir o resultado por meio do contrato operacional.
 
-The Next.js app under web/ displays run metrics, comparisons, assessments, manifest context, and audit-trace material. Production is deployed on Vercel.
+## Fluxo proposto
 
-### 6. Research article
+1. O usuário autenticado atua dentro de uma organização e ambiente autorizados.
+2. A aplicação valida e persiste a importação.
+3. Um job de análise é criado no banco e enviado à fila.
+4. O worker carrega somente os dados autorizados do job.
+5. O motor Python calcula e devolve um resultado versionado.
+6. A aplicação apresenta a proposta.
+7. Um humano aprova, rejeita ou ajusta com justificativa.
+8. Toda mudança gera evento de auditoria.
+9. Nova evidência pode iniciar reprocessamento sem sobrescrever o histórico.
 
-The LaTeX article under article/ uses the deterministic run output as artifact-validation evidence. The article should not overstate the current deterministic run as a full multi-agent or human-comparative result.
+## Estado atual
 
-## Future target architecture
+- Next.js: parcial, com dashboard/página única.
+- Prisma/PostgreSQL: parcial, com modelos básicos.
+- FastAPI: protótipo.
+- Fila durável: ausente.
+- Worker operacional persistido: ausente.
+- Autenticação e RBAC: ausentes.
+- Fluxo ponta a ponta multiusuário: ausente.
 
-The next production-grade architecture should split responsibilities:
+## Decisões pendentes da Fase 0/1
 
-- Vercel: frontend, dashboard, lightweight server-rendered pages;
-- Railway: PostgreSQL and backend executor service;
-- AI Bridge/watcher: mediated evidence analysis and multi-agent experimental condition;
-- object/file storage: uploaded evidence and generated reports when needed.
+- Contrato entre Next.js e FastAPI.
+- Tecnologia da fila.
+- Estratégia de idempotência e versionamento.
+- Limites transacionais entre importação, job e resultado.
+- Política de retenção e auditoria.
+- Estratégia de deploy dos componentes.
+
+## Notas relacionadas
+
+[[00_Index]] · [[WEB_APPLICATION]] · [[AUTH_RBAC]] · [[DATABASE]] · [[WATCHER]] · [[decisions/ADR-001-official-vs-contextual-separation]]

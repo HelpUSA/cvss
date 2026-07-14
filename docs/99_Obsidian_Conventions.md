@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -17,45 +17,34 @@ related_files:
 
 # Obsidian Conventions
 
-## Purpose
+## Escopo
 
-This note defines how the `docs/` folder should be maintained as an Obsidian-compatible Markdown vault.
+A pasta `docs/` é mantida como vault Obsidian e documentação versionada do projeto.
 
-## Note format
+## Formato
 
-Each maintained note should use:
+- Preserve o frontmatter existente.
+- Use frontmatter em novas notas mantidas quando isso seguir o padrão das notas vizinhas.
+- Não crie propriedades ou tags redundantes.
+- Use um único H1 por nota.
+- Prefira seções curtas e links para a fonte de verdade.
 
-- YAML frontmatter at the top.
-- One H1 title.
-- Short sections.
-- Internal links in Obsidian style, such as [[02_Architecture]].
-- Relative code paths for implementation references, such as `../core/cvss_real_world.py`.
+## Links internos
 
-## Required properties
+Use wikilinks, por exemplo `[[ARCHITECTURE]]` ou `[[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION|Integração oficial/contextual]]`.
 
-Use these properties when practical:
+Links Markdown permanecem adequados para URLs externas e arquivos fora do vault. Não use link Markdown para outra nota quando um wikilink resolver o mesmo destino.
 
-- `status`
-- `last_updated`
-- `owner`
-- `tags`
-- `aliases`
-- `related_files`
+## Fonte de verdade
 
-## Linking policy
+- Estado: [[CURRENT_PHASE_STATUS]]
+- Ordem de trabalho: [[NEXT_ACTIONS]]
+- Roadmap: [[ROADMAP]]
+- Arquitetura: [[ARCHITECTURE]]
+- Navegação: [[00_Index]]
 
-Prefer linking to an existing note instead of duplicating long content.
+Notas históricas devem apontar para essas fontes quando sua orientação estiver supersedida.
 
-Use existing legacy notes as source references, especially:
+## Terminologia
 
-- [[CURRENT_HANDOFF]]
-- [[ARCHITECTURE]]
-- [[TEST_REPORT]]
-- [[real_world/OFFICIAL_CONTEXTUAL_INTEGRATION]]
-- [[real_world/REAL_WORLD_PHASE_STATUS]]
-
-## CVSS terminology rule
-
-Never label contextual prioritization as official CVSS.
-
-Use [[decisions/ADR-001-official-vs-contextual-separation]] as the controlling decision record.
+Nunca rotule priorização contextual como CVSS oficial. A decisão controladora é [[decisions/ADR-001-official-vs-contextual-separation]].

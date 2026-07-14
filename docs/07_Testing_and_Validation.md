@@ -1,6 +1,6 @@
 ---
 status: active
-last_updated: 2026-07-01
+last_updated: 2026-07-14
 owner: "Wagner / CVSS project"
 tags:
   - cvss
@@ -18,43 +18,67 @@ related_files:
 
 # Testing and Validation
 
+## Objetivo atual
 
-## Current validations
+Fechar a Fase 0 com evidência reproduzível, separando teste aprovado, comando indisponível e funcionalidade ainda ausente.
 
-Compilation validation passed for:
+## Matriz mínima
 
-- ``core/cvss31.py``
-- ``core/cvss_environmental_engine.py``
-- ``core/cvss_real_world.py``
+- Python: `python -m pytest -q`.
+- Sintaxe JavaScript: `node --check app.js`.
+- TypeScript: `npx tsc --noEmit` no diretório `web`, quando suportado pelo projeto.
+- Next.js: `npm run build` no diretório `web`.
+- Python adicional: compilação/importação dos módulos relevantes.
+- Documentação: links Obsidian resolvidos, nomes consistentes e `git diff --check`.
 
-Official core has been manually checked against examples returning 9.8, 8.8, and 6.1.
+O projeto não possui atualmente um script `npm run lint` confirmado; a ausência do comando deve ser registrada como comando indisponível, não como falha funcional.
 
-## Real-world wrapper smoke
+## Critérios
 
-The wrapper smoke used this vector:
+- Não registrar “passou” sem saída real do comando.
+- Registrar versão, comando, código de saída e falha relevante.
+- Distinguir teste de protótipo de teste de fluxo operacional.
+- Não usar dados ou respostas privadas dos revisores.
 
+## Cobertura futura
 
-``CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H``
+Autenticação, isolamento organizacional, importações, fila, watcher, decisões, tratamentos, relatórios, uploads, segurança e E2E.
 
-Expected official output:
+## Notas relacionadas
 
-- base score: 9.8
-- severity: Critical
+[[00_Index]] · [[TEST_REPORT]] · [[CURRENT_PHASE_STATUS]] · [[DEPLOYMENT_VERIFICATION]]
 
-Observed wrapper smoke:
+<!-- verified-validation-2026-07-14:start -->
+## Validation snapshot — 2026-07-14
 
-- ``official_cvss`` present
-- ``contextual_environmental`` present
-- ``evidence`` present
-- contextual score can differ from the official score without overwriting it
+| Verificação | Resultado |
+|---|---|
+| Auditoria de 102 notas Markdown | Aprovada |
+| Wikilinks quebrados ou ambíguos | 0 |
+| Links Markdown internos para `.md` | 0 |
+| Próximas atividades ordenadas | 12 de 12 |
+| Pytest | 52 testes aprovados |
+| JavaScript `app.js` | Aprovado |
+| TypeScript `--noEmit` | Aprovado |
+| Build Next.js | Aprovado |
+| Validador do pipeline real | Aprovado |
+| `git diff --check` | Aprovado |
+| `python -m compileall app` | Reprovado em dois protótipos antigos |
 
-## Permanent contract tests
+### Bloqueio remanescente da Fase 0
 
-Current permanent tests cover:
+A compilação completa de `app/` encontrou erros sintáticos em:
 
-- ``tests/test_real_world_wrapper.py`` for the official/contextual wrapper contract.
-- ``tests/test_reporting_outputs.py`` for JSON, CSV, Markdown, and audit-trace exports.
-- ``tests/test_ai_bridge_orchestrator.py`` for AI Bridge orchestrator output rows.
-- ``tests/test_rule_engine_layers.py`` for rule-engine official/contextual row layers.
+- `app/web/dashboard.py`;
+- `app/web/fastapi_server.py`.
 
-See [[05_Real_World_Wrapper]] and [[real_world/REAL_WORLD_VALIDATION_PROTOCOL]].
+Os testes automatizados existentes não importam esses dois módulos e, por isso, os 52 testes podem passar mesmo com os protótipos inválidos.
+
+O estado correto é:
+
+- engine e pipeline testados: funcionais;
+- Next.js e TypeScript: compiláveis;
+- FastAPI e Streamlit em `app/web`: parciais e não operacionais;
+- autenticação, RBAC e fluxo multiusuário: ausentes;
+- Fase 0: ainda aberta até a resolução desses dois módulos.
+<!-- verified-validation-2026-07-14:end -->
