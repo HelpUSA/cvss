@@ -30,10 +30,10 @@ MIGRATION_LOCK = (
     / "migration_lock.toml"
 )
 
-BASE_SCHEMA_LENGTH = 1869
+BASE_SCHEMA_LENGTH = 1801
 
 EXPECTED_BASE_SCHEMA_HASH = (
-    "b7dc53f68607cce175c69137f09eea1e70c7a8cd5f16b26c212cb1cc2c409195"
+    "70412e77285c003eea6fab3a8fb0bdc7b848d0e2ae6b02184cfcc472ba1072fc"
 )
 
 EXPECTED_PACKAGES = {
@@ -92,7 +92,19 @@ def normalize_statement(
     ).strip()
 
 
-schema_bytes = SCHEMA_PATH.read_bytes()
+def normalize_schema_bytes(
+    data: bytes,
+) -> bytes:
+    return (
+        data
+        .replace(b"\r\n", b"\n")
+        .replace(b"\r", b"\n")
+    )
+
+
+schema_bytes = normalize_schema_bytes(
+    SCHEMA_PATH.read_bytes()
+)
 
 if len(schema_bytes) <= BASE_SCHEMA_LENGTH:
     fail("schema was not extended")
@@ -505,6 +517,8 @@ print("AUTH1A_SCHEMA_VALIDATION_OK=True")
 print("AUTH1A_MIGRATION_SQL_VALID=True")
 print("AUTH1A_MIGRATION_ADDITIVE_ONLY=True")
 print("LEGACY_SCHEMA_PREFIX_UNCHANGED=True")
+print("SCHEMA_LINE_ENDINGS_NORMALIZED=True")
+print("VALIDATOR_PLATFORM_INDEPENDENT=True")
 print("LEGACY_MODELS_REFERENCED_BY_SQL=False")
 print("DESTRUCTIVE_SQL_DETECTED=False")
 
