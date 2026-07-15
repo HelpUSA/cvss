@@ -7,27 +7,34 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "db:push": "prisma db push",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "auth:spike": "tsx scripts/auth1a-spike.ts",
+    "validate:auth1a-foundation": "tsx scripts/auth1a-spike.ts && prisma validate && tsc --noEmit --incremental false --pretty false"
   },
   "dependencies": {
-    "@next-auth/prisma-adapter": "^1.0.7",
+    "@better-auth/prisma-adapter": "1.6.23",
+    "@node-rs/argon2": "2.0.2",
     "@prisma/client": "6.19.0",
-    "next": "latest",
-    "next-auth": "^4.24.14",
-    "react": "latest",
-    "react-dom": "latest"
+    "better-auth": "1.6.23",
+    "next": "15.5.18",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
+    "@types/node": "25.9.0",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
     "prisma": "6.19.0",
-    "tsx": "latest",
-    "typescript": "latest"
+    "tsx": "4.22.1",
+    "typescript": "6.0.3"
   },
   "overrides": {
     "effect": "3.20.0",
     "postcss": "8.5.10",
     "uuid": "11.1.1"
-  }
+  },
+  "engines": {
+    "node": "22.x"
+  },
+  "packageManager": "npm@11.6.2"
 }
