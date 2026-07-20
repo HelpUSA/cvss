@@ -15,6 +15,7 @@ export async function getTenantOverview(
       where: {
         organizationId:
           context.organization.id,
+
         status: "ACTIVE",
       },
     }),
@@ -26,6 +27,7 @@ export async function getTenantOverview(
         project: {
           organizationId:
             context.organization.id,
+
           status: "ACTIVE",
         },
       },
@@ -35,6 +37,7 @@ export async function getTenantOverview(
       where: {
         organizationId:
           context.organization.id,
+
         status: "ACTIVE",
       },
     }),
@@ -54,6 +57,7 @@ export async function listTenantProjects(
     where: {
       organizationId:
         context.organization.id,
+
       status: "ACTIVE",
     },
 
@@ -92,6 +96,7 @@ export async function listTenantEnvironments(
       project: {
         organizationId:
           context.organization.id,
+
         status: "ACTIVE",
       },
     },
@@ -120,6 +125,47 @@ export async function listTenantEnvironments(
       },
       {
         name: "asc",
+      },
+      {
+        id: "asc",
+      },
+    ],
+  });
+}
+
+export async function listTenantMemberships(
+  context: OrganizationContext,
+) {
+  return prisma.membership.findMany({
+    where: {
+      organizationId:
+        context.organization.id,
+    },
+
+    select: {
+      id: true,
+      role: true,
+      status: true,
+      createdAt: true,
+      suspendedAt: true,
+      revokedAt: true,
+
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          status: true,
+        },
+      },
+    },
+
+    orderBy: [
+      {
+        role: "asc",
+      },
+      {
+        createdAt: "asc",
       },
       {
         id: "asc",

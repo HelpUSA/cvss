@@ -14,30 +14,40 @@ aliases:
 
 # Authentication and RBAC
 
-## Estado atual
+## Estado implementado
 
-A fundação de autenticação e autorização organizacional está
-operacional em nível local.
+### Auth-1A
 
-Auth-1A entregou o schema aditivo de identidade e tenant.
+Schema aditivo para identidade, sessões, organizações, memberships,
+projetos, ambientes, convites, recuperação e auditoria de segurança.
 
-Auth-1B conectou Better Auth ao Prisma/PostgreSQL e implementou login,
+### Auth-1B
+
+Better Auth com Prisma/PostgreSQL, credenciais locais, Argon2id, login,
 logout, sessões persistidas, bloqueio de contas inativas e bootstrap
-explícito do primeiro administrador da plataforma.
+explícito de PLATFORM_ADMIN.
 
-Auth-1C implementa:
+### Auth-1C
 
-- seleção de organização autorizada;
-- resolução de membership no servidor;
-- exigência de usuário, organização e membership ativos;
-- matriz explícita de permissões;
-- rotas organizacionais protegidas;
-- consultas de projetos e ambientes limitadas ao tenant;
-- endpoint de contexto organizacional;
-- negação sem revelar se outro tenant existe;
-- ausência de bypass implícito para PLATFORM_ADMIN.
+Contexto organizacional resolvido no servidor, membership e organização
+ativas, papéis explícitos, consultas limitadas ao tenant e ausência de
+bypass implícito para PLATFORM_ADMIN.
 
-## Papéis e permissões
+### Auth-1D
+
+- criação de organização por PLATFORM_ADMIN;
+- primeira membership ADMIN criada na mesma transação;
+- criação de membership para usuário ativo existente;
+- alteração de papel e status;
+- proteção do último ADMIN ativo;
+- criação tenant-scoped de projetos e ambientes;
+- validação de que o projeto pertence ao tenant;
+- auditoria de todas as mutações;
+- proteção same-origin;
+- transações Serializable com repetição de conflitos;
+- interfaces administrativas.
+
+## Matriz de papéis
 
 ### ADMIN
 
@@ -63,40 +73,38 @@ Auth-1C implementa:
 
 ### REVIEWER
 
-Permanece reservado sem acesso operacional durante Auth-1.
+Permanece reservado, sem acesso operacional durante Auth-1.
 
 ### PLATFORM_ADMIN
 
-É uma capacidade global separada de MembershipRole.
+Capacidade global separada de MembershipRole.
 
-Não recebe acesso implícito aos dados de nenhuma organização. Para
-entrar em um tenant, precisa possuir uma membership operacional ativa.
+Pode criar uma organização e torna-se o primeiro ADMIN dela, mas não
+recebe acesso implícito a qualquer organização existente.
 
-## Regras de isolamento
+## Invariantes
 
-- organizationId e role recebidos do cliente nunca são confiáveis;
-- o cliente fornece somente o slug da rota;
-- o servidor resolve slug, usuário e membership;
-- toda consulta organizacional usa o ID retornado por essa resolução;
-- memberships suspensas ou revogadas são negadas;
-- organizações suspensas ou arquivadas são negadas;
-- acesso inexistente e não autorizado usa a mesma resposta externa.
+- o último ADMIN ativo não pode ser rebaixado;
+- o último ADMIN ativo não pode ser suspenso;
+- o último ADMIN ativo não pode ser revogado;
+- mutations do invariante usam transação Serializable;
+- conflitos de concorrência são repetidos de forma limitada;
+- organizationId e role fornecidos pelo cliente não são confiáveis;
+- projectId fornecido pelo cliente precisa ser validado dentro do tenant;
+- toda mutação gera SecurityAuditEvent.
 
-## Limites atuais
+## Limites restantes
 
-Ainda faltam:
-
-- mutações administrativas de memberships;
-- criação operacional de projetos e ambientes;
-- transação serializada do último ADMIN;
-- convites e aceitação;
-- recuperação de acesso com entrega;
-- importação tenant-scoped;
-- testes de integração com PostgreSQL descartável;
-- testes E2E com usuários de tenants diferentes.
+- convites e aceitação por token;
+- entrega de recuperação de acesso;
+- testes com PostgreSQL descartável;
+- testes concorrentes reais;
+- testes E2E entre usuários de tenants diferentes;
+- ciclo de vida de arquivamento de projetos, ambientes e organizações.
 
 ## Notas relacionadas
 
 [[ARCHITECTURE]] · [[DATABASE]] · [[WEB_APPLICATION]] ·
 [[auth/AUTH1B_OPERATIONAL_AUTH]] ·
-[[auth/AUTH1C_TENANT_AUTHORIZATION]]
+[[auth/AUTH1C_TENANT_AUTHORIZATION]] ·
+[[auth/AUTH1D_TENANT_ADMINISTRATION]]

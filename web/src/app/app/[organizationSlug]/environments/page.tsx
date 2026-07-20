@@ -1,9 +1,16 @@
 import {
+  hasTenantPermission,
+} from "@/lib/authorization";
+import {
   requireOrganizationContext,
 } from "@/lib/organization-context";
 import {
   listTenantEnvironments,
+  listTenantProjects,
 } from "@/lib/tenant-data";
+import {
+  EnvironmentCreateForm,
+} from "./EnvironmentCreateForm";
 
 type TenantEnvironmentsParams = Promise<{
   organizationSlug: string;
@@ -24,8 +31,24 @@ export default async function TenantEnvironmentsPage({
       permission: "environment:read",
     });
 
-  const environments =
-    await listTenantEnvironments(context);
+  const [
+    environments,
+    projects,
+  ] = await Promise.all([
+    listTenantEnvironments(
+      context,
+    ),
+
+    listTenantProjects(
+      context,
+    ),
+  ]);
+
+  const canManage =
+    hasTenantPermission(
+      context.membership.role,
+      "environment:manage",
+    );
 
   return (
     <>
@@ -40,11 +63,40 @@ export default async function TenantEnvironmentsPage({
         </h1>
 
         <p>
-          Cada ambiente é filtrado por um
-          projeto pertencente à organização
-          autorizada.
+          Cada ambiente é verificado contra
+          um projeto ativo que pertence à
+          organização autorizada.
         </p>
       </section>
+
+      {canManage &&
+      projects.length > 0 ? (
+        <EnvironmentCreateForm
+          organizationSlug={
+            context.organization.slug
+          }
+          projects={projects.map(
+            (project) => ({
+              id: project.id,
+              name: project.name,
+            }),
+          )}
+        />
+      ) : null}
+
+      {canManage &&
+      projects.length === 0 ? (
+        <section className="tenant-empty-state">
+          <h2>
+            Crie um projeto primeiro.
+          </h2>
+
+          <p>
+            Um ambiente sempre pertence a um
+            projeto ativo do mesmo tenant.
+          </p>
+        </section>
+      ) : null}
 
       {environments.length > 0 ? (
         <section className="tenant-list">
@@ -98,19 +150,7 @@ export default async function TenantEnvironmentsPage({
             ),
           )}
         </section>
-      ) : (
-        <section className="tenant-empty-state">
-          <h2>
-            Nenhum ambiente ativo.
-          </h2>
-
-          <p>
-            A criação de ambientes será
-            conectada posteriormente com
-            autorização por ação.
-          </p>
-        </section>
-      )}
+      ) : null}
     </>
   );
 }

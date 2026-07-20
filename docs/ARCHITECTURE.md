@@ -105,3 +105,27 @@ from tenant memberships.
 Unknown organizations and organizations outside the user boundary use
 the same external not-found behavior to reduce tenant enumeration.
 <!-- auth1c-architecture-2026-07-20:end -->
+
+<!-- auth1d-architecture-2026-07-20:start -->
+## Tenant mutation architecture — Auth-1D
+
+Tenant mutations use three independent boundaries:
+
+1. Better Auth validates the server-side session.
+2. The organization context validates ACTIVE membership, ACTIVE
+   organization and the route permission.
+3. The mutation transaction revalidates resource ownership and
+   invariants before writing.
+
+Administrative transactions use Serializable isolation with bounded
+retry for transaction conflicts.
+
+The last-active-ADMIN invariant is evaluated inside the same transaction
+that updates the membership.
+
+Client-provided project IDs are accepted only after the project is
+confirmed as ACTIVE and owned by the resolved organization.
+
+Every successful administrative mutation appends a separate
+SecurityAuditEvent without secrets.
+<!-- auth1d-architecture-2026-07-20:end -->

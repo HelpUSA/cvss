@@ -2,52 +2,55 @@
 
 ## Estado entregue
 
-A Fase 0 está encerrada e a Fase 1 está em execução.
+A Fase 0 está encerrada.
 
-Auth-1A entregou o schema aditivo de identidade e tenant.
+A Fase 1 possui agora quatro marcos locais:
 
-Auth-1B entregou autenticação operacional com Better Auth, Prisma,
-Argon2id, login, logout, sessão persistida, área protegida e bootstrap
-explícito do primeiro administrador da plataforma.
+- Auth-1A: schema aditivo de identidade e tenant;
+- Auth-1B: autenticação e sessões operacionais;
+- Auth-1C: contexto organizacional e leitura tenant-scoped;
+- Auth-1D: administração de organizações, memberships, projetos e
+  ambientes com auditoria e invariantes.
 
-Auth-1C entrega o primeiro limite organizacional operacional:
+## Capacidades Auth-1D
 
-- organização ativa resolvida por slug no servidor;
-- membership ativa obrigatória;
-- papéis e permissões explícitos;
-- PLATFORM_ADMIN sem acesso implícito aos tenants;
-- consultas de projetos e ambientes limitadas à organização;
-- páginas e endpoint protegidos;
-- negação uniforme para tenants inexistentes ou não autorizados.
+- PLATFORM_ADMIN cria organização;
+- a criação inclui a primeira membership ADMIN;
+- ADMIN adiciona usuários ativos existentes ao tenant;
+- ADMIN altera papel e status de memberships;
+- o último ADMIN ativo é protegido em transação Serializable;
+- ADMIN e OPERATOR criam projetos e ambientes;
+- ambientes validam o projeto dentro da organização;
+- todas as mutações registram SecurityAuditEvent;
+- as rotas exigem sessão, permissão, same-origin e JSON limitado.
 
 ## Próxima atividade
 
-Implementar Auth-1D e o fechamento da Fase 1:
+Fechar a Fase 1 com Auth-1E:
 
-- criação e gestão de organizações;
-- criação, convite, suspensão e revogação de memberships;
-- criação de projetos e ambientes;
-- invariantes transacionais do último ADMIN;
-- auditoria de todas as mutações;
-- testes em PostgreSQL descartável;
-- testes concorrentes;
-- testes E2E entre tenants;
-- recuperação de acesso.
+- convites;
+- aceitação de convites;
+- recuperação de acesso;
+- revogação operacional de sessões;
+- PostgreSQL descartável;
+- testes concorrentes reais;
+- testes E2E cross-tenant;
+- documentação final da Fase 1.
 
-Depois, iniciar a Fase 2 com o domínio de importação CSV/JSON.
+Depois, iniciar a Fase 2 com importação CSV/JSON tenant-scoped.
 
 ## Restrições
 
-- Não confiar em organizationId ou role enviados pelo cliente.
-- Não conceder bypass de tenant ao PLATFORM_ADMIN.
-- Não usar consultas globais em fluxos autenticados.
-- Não aplicar migrations de produção sem validação específica.
-- Não executar bootstrap automaticamente.
-- Não fabricar respostas ou resultados científicos.
-- Não acessar artefatos privados dos revisores.
-- O watcher apenas propõe mudanças.
+- não confiar em organizationId, projectId ou role sem resolução;
+- não conceder bypass de tenant ao PLATFORM_ADMIN;
+- não remover o último ADMIN ativo;
+- não executar migrations de produção sem validação específica;
+- não executar bootstrap automaticamente;
+- não fabricar resultados científicos;
+- não acessar artefatos privados dos revisores;
+- o watcher apenas propõe mudanças.
 
 ## Notas relacionadas
 
 [[CURRENT_PHASE_STATUS]] · [[ROADMAP]] · [[ARCHITECTURE]] ·
-[[AUTH_RBAC]] · [[auth/AUTH1C_TENANT_AUTHORIZATION]]
+[[AUTH_RBAC]] · [[auth/AUTH1D_TENANT_ADMINISTRATION]]

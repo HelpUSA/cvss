@@ -77,3 +77,25 @@ Remaining before closing Fase 1:
 - password recovery delivery;
 - PostgreSQL integration and cross-tenant E2E tests.
 <!-- auth1c-roadmap-2026-07-20:end -->
+
+<!-- auth1d-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1D
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C tenant authorization boundary;
+- Auth-1D organization, membership, project and environment mutations;
+- append-only security audit for administrative mutations;
+- protection of the last active tenant administrator.
+
+Remaining before closing Fase 1:
+
+- invitation creation and acceptance flow;
+- password recovery delivery;
+- explicit session revocation operations;
+- disposable PostgreSQL integration tests;
+- real concurrent last-ADMIN tests;
+- cross-tenant E2E tests.
+<!-- auth1d-roadmap-2026-07-20:end -->

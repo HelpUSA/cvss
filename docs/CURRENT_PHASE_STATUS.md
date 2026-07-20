@@ -111,3 +111,30 @@ This does not yet complete the whole RBAC milestone. Administrative
 mutations, the last-active-ADMIN invariant, invitations, password
 recovery delivery and cross-tenant integration/E2E tests remain pending.
 <!-- auth1c-tenant-authorization-2026-07-20:end -->
+
+<!-- auth1d-tenant-administration-2026-07-20:start -->
+## Auth-1D tenant administration update — 2026-07-20
+
+Auth-1D adds locally validated organization and tenant administration:
+
+- organization creation restricted to ACTIVE PLATFORM_ADMIN;
+- first ACTIVE ADMIN membership created transactionally;
+- membership creation for existing ACTIVE users;
+- membership role and status changes;
+- last-active-ADMIN protection;
+- Serializable transactions with bounded P2034 retry;
+- tenant-scoped project creation;
+- tenant-scoped environment creation with project ownership validation;
+- same-origin mutation protection;
+- SecurityAuditEvent for every successful mutation;
+- administrative user interfaces;
+- Auth-1B, Auth-1C and Auth-1D contract validation;
+- production Next.js build.
+
+The schema remains unchanged and no migration, bootstrap, push or deploy
+was executed.
+
+Fase 1 still requires invitation acceptance, recovery delivery,
+disposable PostgreSQL integration, real concurrency tests and
+cross-tenant E2E validation.
+<!-- auth1d-tenant-administration-2026-07-20:end -->

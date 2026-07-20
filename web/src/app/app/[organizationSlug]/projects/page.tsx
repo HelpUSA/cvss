@@ -1,9 +1,15 @@
 import {
+  hasTenantPermission,
+} from "@/lib/authorization";
+import {
   requireOrganizationContext,
 } from "@/lib/organization-context";
 import {
   listTenantProjects,
 } from "@/lib/tenant-data";
+import {
+  ProjectCreateForm,
+} from "./ProjectCreateForm";
 
 type TenantProjectsParams = Promise<{
   organizationSlug: string;
@@ -25,7 +31,15 @@ export default async function TenantProjectsPage({
     });
 
   const projects =
-    await listTenantProjects(context);
+    await listTenantProjects(
+      context,
+    );
+
+  const canManage =
+    hasTenantPermission(
+      context.membership.role,
+      "project:manage",
+    );
 
   return (
     <>
@@ -40,11 +54,19 @@ export default async function TenantProjectsPage({
         </h1>
 
         <p>
-          A consulta usa exclusivamente o
-          identificador da organização
-          resolvido no servidor.
+          A consulta e a mutação usam
+          exclusivamente o identificador da
+          organização resolvido no servidor.
         </p>
       </section>
+
+      {canManage ? (
+        <ProjectCreateForm
+          organizationSlug={
+            context.organization.slug
+          }
+        />
+      ) : null}
 
       {projects.length > 0 ? (
         <section className="tenant-list">
@@ -89,9 +111,9 @@ export default async function TenantProjectsPage({
           </h2>
 
           <p>
-            A criação de projetos será
-            conectada em uma etapa posterior
-            com permissão explícita.
+            Administradores e operadores
+            podem criar o primeiro projeto
+            usando o formulário acima.
           </p>
         </section>
       )}

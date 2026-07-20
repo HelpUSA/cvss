@@ -4,6 +4,7 @@ import {
 import {
   listAccessibleOrganizations,
 } from "@/lib/organization-context";
+import { prisma } from "@/lib/prisma";
 import {
   requireActiveSession,
 } from "@/lib/session";
@@ -12,10 +13,28 @@ export default async function OperationalHomePage() {
   const currentSession =
     await requireActiveSession();
 
-  const organizations =
-    await listAccessibleOrganizations(
+  const [
+    organizations,
+    authoritativeUser,
+  ] = await Promise.all([
+    listAccessibleOrganizations(
       currentSession.user.id,
-    );
+    ),
+
+    prisma.user.findUnique({
+      where: {
+        id: currentSession.user.id,
+      },
+
+      select: {
+        platformRole: true,
+      },
+    }),
+  ]);
+
+  const canCreateOrganization =
+    authoritativeUser?.platformRole ===
+      "PLATFORM_ADMIN";
 
   return (
     <>
@@ -35,6 +54,17 @@ export default async function OperationalHomePage() {
           navegador não são considerados
           confiáveis.
         </p>
+
+        {canCreateOrganization ? (
+          <a
+            className="button button--primary"
+            href={
+              "/app/admin/organizations/new"
+            }
+          >
+            Criar organização
+          </a>
+        ) : null}
       </section>
 
       {organizations.length > 0 ? (
@@ -92,8 +122,8 @@ export default async function OperationalHomePage() {
           <p>
             Contas de plataforma não recebem
             acesso implícito às organizações.
-            Um administrador do tenant precisa
-            criar ou reativar a membership.
+            Uma membership precisa existir
+            para acessar dados do tenant.
           </p>
         </section>
       )}
@@ -101,20 +131,20 @@ export default async function OperationalHomePage() {
       <section className="operational-boundary">
         <div>
           <span className="section-kicker">
-            Auth-1C
+            Auth-1D
           </span>
 
           <h2>
-            Autenticação e autorização
-            permanecem separadas.
+            Administração com autorização,
+            auditoria e invariantes.
           </h2>
         </div>
 
         <p>
-          A sessão identifica o usuário.
-          A membership ativa determina quais
-          organizações e operações podem ser
-          acessadas.
+          As mutações validam a sessão, a
+          organização, a membership, a
+          permissão e a origem da requisição
+          antes de alterar o banco.
         </p>
       </section>
     </>

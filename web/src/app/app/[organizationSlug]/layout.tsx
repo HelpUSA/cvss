@@ -3,6 +3,7 @@ import type {
 } from "react";
 
 import {
+  hasTenantPermission,
   roleLabel,
 } from "@/lib/authorization";
 import {
@@ -32,6 +33,12 @@ export default async function TenantLayout({
 
   const basePath =
     `/app/${context.organization.slug}`;
+
+  const canReadMemberships =
+    hasTenantPermission(
+      context.membership.role,
+      "membership:read",
+    );
 
   return (
     <div className="tenant-shell">
@@ -85,6 +92,14 @@ export default async function TenantLayout({
           >
             Ambientes
           </a>
+
+          {canReadMemberships ? (
+            <a
+              href={`${basePath}/members`}
+            >
+              Membros
+            </a>
+          ) : null}
         </nav>
 
         <div className="tenant-boundary-note">
@@ -93,7 +108,7 @@ export default async function TenantLayout({
           </strong>
 
           <p>
-            Todas as consultas desta área
+            Todas as consultas e mutações
             recebem o ID da organização
             resolvido pela membership no
             servidor.
