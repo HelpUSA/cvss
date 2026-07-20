@@ -83,3 +83,25 @@ status again.
 Tenant authorization remains an application responsibility and is not
 implicitly granted by authentication or by the PLATFORM_ADMIN role.
 <!-- auth1b-architecture-2026-07-20:end -->
+
+<!-- auth1c-architecture-2026-07-20:start -->
+## Tenant authorization architecture — Auth-1C
+
+Authenticated tenant routes use a server-resolved organization context.
+
+The route slug is normalized and matched together with:
+
+- the authenticated user ID;
+- ACTIVE membership status;
+- ACTIVE organization status;
+- an explicit permission required by the route.
+
+The authoritative organization ID produced by that resolution is the
+only organization identifier accepted by downstream tenant queries.
+
+PLATFORM_ADMIN is not an authorization bypass. It remains independent
+from tenant memberships.
+
+Unknown organizations and organizations outside the user boundary use
+the same external not-found behavior to reduce tenant enumeration.
+<!-- auth1c-architecture-2026-07-20:end -->

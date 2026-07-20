@@ -1,103 +1,120 @@
-export default function OperationalHomePage() {
+import {
+  roleLabel,
+} from "@/lib/authorization";
+import {
+  listAccessibleOrganizations,
+} from "@/lib/organization-context";
+import {
+  requireActiveSession,
+} from "@/lib/session";
+
+export default async function OperationalHomePage() {
+  const currentSession =
+    await requireActiveSession();
+
+  const organizations =
+    await listAccessibleOrganizations(
+      currentSession.user.id,
+    );
+
   return (
     <>
       <section className="operational-hero">
         <span className="section-kicker">
-          Auth-1B operacional
+          Contexto organizacional
         </span>
 
         <h1>
-          Fundação autenticada pronta para
-          os fluxos multiusuário.
+          Escolha uma organização autorizada.
         </h1>
 
         <p>
-          Login, logout, sessão persistida,
-          bloqueio de contas inativas e
-          proteção autoritativa no servidor
-          estão conectados ao schema
-          PostgreSQL existente.
+          A organização é resolvida no
+          servidor a partir da sua membership
+          ativa. IDs e papéis enviados pelo
+          navegador não são considerados
+          confiáveis.
         </p>
       </section>
 
-      <section
-        className="operational-grid"
-        aria-label={
-          "Estado da fundação operacional"
-        }
-      >
-        <article className="operational-card">
-          <span>01</span>
-          <h2>Identidade</h2>
+      {organizations.length > 0 ? (
+        <section
+          className="organization-grid"
+          aria-label={
+            "Organizações disponíveis"
+          }
+        >
+          {organizations.map((entry) => (
+            <a
+              className="organization-card"
+              href={`/app/${entry.organization.slug}`}
+              key={entry.membership.id}
+            >
+              <span className="organization-card__mark">
+                {entry.organization.name
+                  .slice(0, 1)
+                  .toUpperCase()}
+              </span>
+
+              <div>
+                <span className="section-kicker">
+                  {roleLabel(
+                    entry.membership.role,
+                  )}
+                </span>
+
+                <h2>
+                  {entry.organization.name}
+                </h2>
+
+                <code>
+                  {entry.organization.slug}
+                </code>
+              </div>
+
+              <strong>
+                Acessar organização →
+              </strong>
+            </a>
+          ))}
+        </section>
+      ) : (
+        <section className="tenant-empty-state">
+          <span className="section-kicker">
+            Nenhum tenant disponível
+          </span>
+
+          <h2>
+            Sua conta não possui uma
+            membership operacional ativa.
+          </h2>
 
           <p>
-            Better Auth utiliza os modelos
-            de identidade adicionados pela
-            Auth-1A.
+            Contas de plataforma não recebem
+            acesso implícito às organizações.
+            Um administrador do tenant precisa
+            criar ou reativar a membership.
           </p>
-
-          <strong>Operacional</strong>
-        </article>
-
-        <article className="operational-card">
-          <span>02</span>
-          <h2>Sessão</h2>
-
-          <p>
-            A sessão é recusada quando a
-            conta está suspensa ou
-            desabilitada.
-          </p>
-
-          <strong>Fail closed</strong>
-        </article>
-
-        <article className="operational-card">
-          <span>03</span>
-          <h2>Provisionamento</h2>
-
-          <p>
-            O primeiro administrador depende
-            de comando explícito e variáveis
-            de ambiente.
-          </p>
-
-          <strong>
-            Sem registro público
-          </strong>
-        </article>
-
-        <article className="operational-card">
-          <span>04</span>
-          <h2>Próxima fronteira</h2>
-
-          <p>
-            Organizações, memberships,
-            papéis e ambientes serão
-            conectados na Auth-1C.
-          </p>
-
-          <strong>Auth-1C</strong>
-        </article>
-      </section>
+        </section>
+      )}
 
       <section className="operational-boundary">
         <div>
           <span className="section-kicker">
-            Limite atual
+            Auth-1C
           </span>
 
           <h2>
-            Autenticação não equivale a
-            autorização por tenant.
+            Autenticação e autorização
+            permanecem separadas.
           </h2>
         </div>
 
         <p>
-          A Auth-1B comprova identidade e
-          estado da conta. RBAC, seleção
-          organizacional e isolamento de
-          dados continuam pendentes.
+          A sessão identifica o usuário.
+          A membership ativa determina quais
+          organizações e operações podem ser
+          acessadas.
         </p>
       </section>
     </>

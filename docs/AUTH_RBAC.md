@@ -5,7 +5,9 @@ owner: "Wagner / CVSS project"
 tags:
   - cvss
   - authentication
+  - authorization
   - rbac
+  - multi-tenant
 aliases:
   - "CVSS Authentication and RBAC"
 ---
@@ -14,57 +16,87 @@ aliases:
 
 ## Estado atual
 
-A fundação de autenticação está parcialmente operacional.
+A fundação de autenticação e autorização organizacional está
+operacional em nível local.
 
-Auth-1A entregou o schema aditivo de usuários, sessões, contas,
-organizações, memberships, projetos, ambientes, convites,
-recuperação e auditoria de segurança.
+Auth-1A entregou o schema aditivo de identidade e tenant.
 
-Auth-1B conecta Better Auth ao Prisma/PostgreSQL e implementa login,
-logout, sessão persistida, rota de autenticação, tela de acesso,
-área protegida, bloqueio de contas inativas e bootstrap explícito
-do primeiro `PLATFORM_ADMIN`.
+Auth-1B conectou Better Auth ao Prisma/PostgreSQL e implementou login,
+logout, sessões persistidas, bloqueio de contas inativas e bootstrap
+explícito do primeiro administrador da plataforma.
 
-## Controles implementados
+Auth-1C implementa:
 
-- login por e-mail e senha;
-- logout;
-- sessão persistida no PostgreSQL;
-- Argon2id personalizado;
-- registro público desabilitado;
-- página pública separada da área autenticada;
-- validação autoritativa da sessão no servidor;
-- middleware usado apenas para redirecionamento otimista;
-- bloqueio de sessão para usuários suspensos ou desabilitados;
-- bootstrap administrativo idempotente sem exposição de segredo.
+- seleção de organização autorizada;
+- resolução de membership no servidor;
+- exigência de usuário, organização e membership ativos;
+- matriz explícita de permissões;
+- rotas organizacionais protegidas;
+- consultas de projetos e ambientes limitadas ao tenant;
+- endpoint de contexto organizacional;
+- negação sem revelar se outro tenant existe;
+- ausência de bypass implícito para PLATFORM_ADMIN.
+
+## Papéis e permissões
+
+### ADMIN
+
+- leitura da organização;
+- leitura e gestão de memberships;
+- leitura e gestão de projetos;
+- leitura e gestão de ambientes;
+- execução de análises;
+- revisão de decisões.
+
+### OPERATOR
+
+- leitura da organização;
+- leitura e gestão de projetos;
+- leitura e gestão de ambientes;
+- execução de análises.
+
+### VIEWER
+
+- leitura da organização;
+- leitura de projetos;
+- leitura de ambientes.
+
+### REVIEWER
+
+Permanece reservado sem acesso operacional durante Auth-1.
+
+### PLATFORM_ADMIN
+
+É uma capacidade global separada de MembershipRole.
+
+Não recebe acesso implícito aos dados de nenhuma organização. Para
+entrar em um tenant, precisa possuir uma membership operacional ativa.
+
+## Regras de isolamento
+
+- organizationId e role recebidos do cliente nunca são confiáveis;
+- o cliente fornece somente o slug da rota;
+- o servidor resolve slug, usuário e membership;
+- toda consulta organizacional usa o ID retornado por essa resolução;
+- memberships suspensas ou revogadas são negadas;
+- organizações suspensas ou arquivadas são negadas;
+- acesso inexistente e não autorizado usa a mesma resposta externa.
 
 ## Limites atuais
 
-A autenticação operacional não conclui o RBAC.
-
 Ainda faltam:
 
-- seleção de organização;
-- resolução de membership ativa;
-- autorização por ação e recurso;
-- isolamento organizacional das consultas;
-- proteção contra IDOR entre tenants;
-- administração de membros, projetos e ambientes;
-- invariantes transacionais do último ADMIN;
-- recuperação de acesso com entrega de token.
+- mutações administrativas de memberships;
+- criação operacional de projetos e ambientes;
+- transação serializada do último ADMIN;
+- convites e aceitação;
+- recuperação de acesso com entrega;
+- importação tenant-scoped;
+- testes de integração com PostgreSQL descartável;
+- testes E2E com usuários de tenants diferentes.
 
-## Papéis previstos
+## Notas relacionadas
 
-- `ADMIN`
-- `OPERATOR`
-- `REVIEWER`
-- `VIEWER`
-- `PLATFORM_ADMIN`
-
-`PLATFORM_ADMIN` é uma capacidade global separada das memberships e
-não concede acesso implícito ao conteúdo das organizações.
-
-## Dependências
-
-[[DATABASE]] · [[WEB_APPLICATION]] · [[ARCHITECTURE]] ·
-[[07_Testing_and_Validation]] · [[auth/AUTH1B_OPERATIONAL_AUTH]]
+[[ARCHITECTURE]] · [[DATABASE]] · [[WEB_APPLICATION]] ·
+[[auth/AUTH1B_OPERATIONAL_AUTH]] ·
+[[auth/AUTH1C_TENANT_AUTHORIZATION]]

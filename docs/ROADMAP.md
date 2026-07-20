@@ -57,3 +57,23 @@ Next:
 
 - Auth-1C organization context, memberships, RBAC and tenant isolation.
 <!-- auth1b-roadmap-2026-07-20:end -->
+
+<!-- auth1c-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1C
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C active organization context, role matrix and tenant-scoped
+  read boundaries.
+
+Remaining before closing Fase 1:
+
+- organization and membership administration;
+- invitations;
+- project and environment mutations;
+- last-active-ADMIN transaction;
+- password recovery delivery;
+- PostgreSQL integration and cross-tenant E2E tests.
+<!-- auth1c-roadmap-2026-07-20:end -->

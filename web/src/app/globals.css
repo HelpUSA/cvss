@@ -2077,3 +2077,396 @@ tbody tr:last-child td {
 }
 
 /* auth1b-operational:end */
+/* auth1c-tenant-authorization:start */
+
+.organization-grid {
+  display: grid;
+  margin-top: 3rem;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.organization-card {
+  display: grid;
+  min-height: 230px;
+  padding: 1.5rem;
+  grid-template-columns:
+    auto minmax(0, 1fr);
+  align-items: start;
+  gap: 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.organization-card:hover {
+  transform: translateY(-3px);
+  border-color:
+    rgba(89, 215, 255, 0.4);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(89, 215, 255, 0.08),
+      var(--surface)
+    );
+}
+
+.organization-card__mark,
+.tenant-identity__mark {
+  display: grid;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border:
+    1px solid
+    rgba(89, 215, 255, 0.34);
+  border-radius: 16px;
+  background: var(--primary-soft);
+  color: var(--primary);
+  font-size: 1.15rem;
+  font-weight: 900;
+}
+
+.organization-card h2 {
+  margin: 0.45rem 0 0.35rem;
+  font-size: 1.45rem;
+}
+
+.organization-card code {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.organization-card > strong {
+  grid-column: 1 / -1;
+  align-self: end;
+  color: var(--primary);
+  font-size: 0.78rem;
+}
+
+.tenant-empty-state {
+  margin-top: 3rem;
+  padding: 2.5rem;
+  border:
+    1px dashed
+    var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.025);
+  text-align: center;
+}
+
+.tenant-empty-state h1,
+.tenant-empty-state h2 {
+  max-width: 760px;
+  margin: 0.65rem auto;
+}
+
+.tenant-empty-state p {
+  max-width: 680px;
+  margin: 0 auto 1.4rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.tenant-shell {
+  display: grid;
+  grid-template-columns:
+    270px minmax(0, 1fr);
+  gap: 2rem;
+}
+
+.tenant-sidebar {
+  position: sticky;
+  top: 105px;
+  display: flex;
+  height:
+    calc(100vh - 135px);
+  min-height: 580px;
+  flex-direction: column;
+  padding: 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.tenant-back-link {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+}
+
+.tenant-back-link:hover {
+  color: var(--primary);
+}
+
+.tenant-identity {
+  display: flex;
+  margin-top: 1.4rem;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.tenant-identity > div {
+  display: grid;
+  min-width: 0;
+}
+
+.tenant-identity strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tenant-identity span {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+}
+
+.tenant-nav {
+  display: grid;
+  margin-top: 1.5rem;
+  gap: 0.35rem;
+}
+
+.tenant-nav a {
+  padding: 0.75rem 0.85rem;
+  border-radius: 12px;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+  font-weight: 750;
+}
+
+.tenant-nav a:hover {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.tenant-boundary-note {
+  margin-top: auto;
+  padding: 0.9rem;
+  border:
+    1px solid
+    rgba(72, 223, 155, 0.18);
+  border-radius: 13px;
+  background: var(--positive-soft);
+}
+
+.tenant-boundary-note strong {
+  color: var(--positive);
+  font-size: 0.76rem;
+}
+
+.tenant-boundary-note p {
+  margin: 0.45rem 0 0;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.tenant-content {
+  min-width: 0;
+}
+
+.tenant-hero,
+.tenant-page-heading {
+  max-width: 900px;
+}
+
+.tenant-hero h1,
+.tenant-page-heading h1 {
+  margin: 0.75rem 0;
+  font-size:
+    clamp(2.8rem, 5vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.tenant-hero p,
+.tenant-page-heading p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.tenant-metric-grid {
+  display: grid;
+  margin-top: 2.5rem;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.tenant-metric {
+  display: grid;
+  min-height: 180px;
+  padding: 1.25rem;
+  align-content: space-between;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.tenant-metric span,
+.tenant-metric small {
+  color: var(--text-muted);
+}
+
+.tenant-metric span {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tenant-metric strong {
+  font-size: 3rem;
+  letter-spacing: -0.055em;
+}
+
+.tenant-metric small {
+  font-size: 0.72rem;
+}
+
+.tenant-next-steps {
+  display: grid;
+  margin-top: 1rem;
+  padding: 1.7rem;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(280px, 0.7fr);
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(89, 215, 255, 0.08),
+      var(--surface)
+    );
+}
+
+.tenant-next-steps h2 {
+  margin: 0.55rem 0 0;
+}
+
+.tenant-next-steps p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.tenant-list {
+  display: grid;
+  margin-top: 2.5rem;
+  gap: 0.8rem;
+}
+
+.tenant-list-card {
+  display: grid;
+  padding: 1.25rem;
+  grid-template-columns:
+    minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.tenant-list-card h2 {
+  margin: 0.45rem 0 0.25rem;
+}
+
+.tenant-list-card code {
+  color: var(--text-muted);
+  font-size: 0.72rem;
+}
+
+.tenant-list-card dl {
+  display: flex;
+  margin: 0;
+  gap: 2rem;
+}
+
+.tenant-list-card dl div {
+  display: grid;
+  min-width: 90px;
+  gap: 0.25rem;
+}
+
+.tenant-list-card dt {
+  color: var(--text-muted);
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.tenant-list-card dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 750;
+}
+
+@media (max-width: 1000px) {
+  .tenant-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-sidebar {
+    position: static;
+    height: auto;
+    min-height: 0;
+  }
+
+  .tenant-nav {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .tenant-boundary-note {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .organization-grid,
+  .tenant-metric-grid,
+  .tenant-next-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-list-card {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-list-card dl {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 560px) {
+  .tenant-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-list-card dl {
+    display: grid;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* auth1c-tenant-authorization:end */

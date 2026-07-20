@@ -88,3 +88,26 @@ The locally validated implementation now includes:
 RBAC, active organization resolution and tenant isolation remain
 pending for Auth-1C.
 <!-- auth1b-operational-2026-07-20:end -->
+
+<!-- auth1c-tenant-authorization-2026-07-20:start -->
+## Auth-1C tenant authorization update — 2026-07-20
+
+Auth-1C establishes the first operational organization boundary.
+
+Locally validated capabilities:
+
+- server-resolved organization slug;
+- ACTIVE membership requirement;
+- ACTIVE organization requirement;
+- explicit ADMIN, OPERATOR, REVIEWER and VIEWER permission matrix;
+- PLATFORM_ADMIN without implicit tenant access;
+- protected organization routes;
+- tenant-scoped project and environment reads;
+- not-found behavior shared by unknown and unauthorized tenants;
+- automated Auth-1C contract;
+- production Next.js build.
+
+This does not yet complete the whole RBAC milestone. Administrative
+mutations, the last-active-ADMIN invariant, invitations, password
+recovery delivery and cross-tenant integration/E2E tests remain pending.
+<!-- auth1c-tenant-authorization-2026-07-20:end -->
