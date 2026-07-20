@@ -67,3 +67,24 @@ A Fase 0 foi encerrada em 14 de julho de 2026 após a retirada dos protótipos w
 
 A linha de base encerrada preserva Next.js como interface web canônica, Prisma com PostgreSQL como persistência canônica e Python restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
 <!-- verified-validation-2026-07-14:end -->
+
+<!-- auth1b-operational-2026-07-20:start -->
+## Auth-1B operational update — 2026-07-20
+
+Auth-1B supersedes the earlier matrix entries that described
+authentication as absent.
+
+The locally validated implementation now includes:
+
+- Better Auth with Prisma/PostgreSQL;
+- Argon2id credential hashing;
+- login and logout;
+- persistent sessions;
+- disabled public registration;
+- protected `/app` area;
+- authoritative server-side account validation;
+- explicit PLATFORM_ADMIN bootstrap.
+
+RBAC, active organization resolution and tenant isolation remain
+pending for Auth-1C.
+<!-- auth1b-operational-2026-07-20:end -->

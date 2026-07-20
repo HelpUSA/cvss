@@ -43,3 +43,17 @@ Um operador autenticado cria um ambiente, importa CSV/JSON e visualiza ativos e 
 ## Notas relacionadas
 
 [[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[NEXT_ACTIONS]] · [[ARCHITECTURE]] · [[DEPLOYMENT_VERIFICATION]]
+
+<!-- auth1b-roadmap-2026-07-20:start -->
+## Fase 1 progress update — 2026-07-20
+
+Delivered:
+
+- Auth-1A schema and cryptographic foundation;
+- Auth-1B operational login, logout, sessions, protected application
+  area and explicit platform-administrator bootstrap.
+
+Next:
+
+- Auth-1C organization context, memberships, RBAC and tenant isolation.
+<!-- auth1b-roadmap-2026-07-20:end -->

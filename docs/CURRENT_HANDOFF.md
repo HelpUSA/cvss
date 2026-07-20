@@ -1,34 +1,47 @@
 # Current handoff
 
-## Estado entregue pela documentação
+## Estado entregue
 
-A fonte atual de verdade está em [[CURRENT_PHASE_STATUS]], [[NEXT_ACTIONS]], [[ROADMAP]] e [[ARCHITECTURE]].
+A Fase 0 está encerrada e a Fase 1 está ativa.
 
-O projeto possui motor CVSS/contextual, wrapper real-world, cenários científicos e protótipos de interface/API/banco. Ainda não possui o fluxo operacional multiusuário descrito no roadmap.
+Auth-1A entregou o schema aditivo de identidade e tenant.
+
+Auth-1B entrega autenticação operacional com Better Auth, Prisma,
+Argon2id, login, logout, sessão persistida, rota de autenticação,
+página protegida, bloqueio de usuários inativos e bootstrap
+explícito do primeiro administrador da plataforma.
 
 ## Próxima atividade
 
-Fechar formalmente a Fase 0 executando e registrando:
+Implementar Auth-1C:
 
-- testes Python;
-- build Next.js;
-- verificação JavaScript;
-- verificação TypeScript;
-- inspeção do estado real de FastAPI, Prisma/PostgreSQL e watcher;
-- riscos técnicos e comandos indisponíveis.
+- resolução segura da organização ativa;
+- memberships ativas;
+- RBAC por ação e recurso;
+- navegação por organização, projeto e ambiente;
+- proteção contra IDOR entre tenants;
+- invariantes do último ADMIN;
+- testes de isolamento organizacional;
+- remoção de consultas globais do domínio operacional.
 
 ## Restrições
 
-- Não declarar o artigo concluído.
-- Não fabricar respostas ou resultados dos três revisores.
-- Não acessar artefatos privados de resposta, adjudicação ou identidade.
-- Não declarar produção pública sem nova verificação.
-- Não executar o watcher como agente autônomo de mudança; ele apenas propõe.
+- Não declarar a autenticação como RBAC completo.
+- Não conceder acesso de tenant implicitamente ao `PLATFORM_ADMIN`.
+- Não confiar em IDs de organização ou papéis enviados pelo cliente.
+- Não aplicar migrations de produção sem validação específica.
+- Não executar bootstrap automaticamente durante build ou deploy.
+- Não fabricar respostas ou resultados dos revisores.
+- Não acessar artefatos privados de resposta ou adjudicação.
+- O watcher apenas propõe mudanças.
 
-## Marco seguinte
+## Estado científico
 
-Depois da Fase 0, implementar autenticação/RBAC e o modelo básico de usuários, organizações e ambientes.
+A pesquisa permanece pausada corretamente. Não existem três respostas
+humanas independentes recebidas e bloqueadas.
 
 ## Notas relacionadas
 
-[[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[NEXT_ACTIONS]] · [[TEST_REPORT]]
+[[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[NEXT_ACTIONS]] ·
+[[ROADMAP]] · [[ARCHITECTURE]] · [[AUTH_RBAC]] ·
+[[auth/AUTH1B_OPERATIONAL_AUTH]]

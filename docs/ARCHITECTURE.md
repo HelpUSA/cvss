@@ -68,3 +68,18 @@ Responsável por consumir achados, ativos, contexto e evidências; calcular CVSS
 ## Decisão arquitetural da Fase 0
 
 A interface web canônica é a aplicação Next.js em `web/`. A persistência canônica usa Prisma com PostgreSQL. Python permanece restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado. Não existe dashboard Python nem servidor FastAPI público paralelo. Os protótipos web Python anteriores foram retirados da árvore executável após auditoria confirmar ausência de dependências operacionais. O histórico permanece recuperável pelo Git a partir do commit `59c23c6`.
+
+<!-- auth1b-architecture-2026-07-20:start -->
+## Authentication architecture update — 2026-07-20
+
+Better Auth is the operational authentication boundary for the Next.js
+application. It uses the Prisma PostgreSQL adapter and the Auth-1A core
+identity tables.
+
+Middleware performs only an optimistic cookie-presence redirect.
+Protected server components validate the session and authoritative user
+status again.
+
+Tenant authorization remains an application responsibility and is not
+implicitly granted by authentication or by the PLATFORM_ADMIN role.
+<!-- auth1b-architecture-2026-07-20:end -->
