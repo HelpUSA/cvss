@@ -506,8 +506,8 @@ async function testInvitationLifecycle(): Promise<{
     });
 
   expect(
-    accepted.organization.id ===
-      organization.id,
+    accepted.organization.slug === organization.slug &&
+      accepted.organization.name === organization.name,
     "Invitation resolved the wrong organization.",
   );
 
