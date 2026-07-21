@@ -54,3 +54,25 @@ Depois, iniciar a Fase 2 com importação CSV/JSON tenant-scoped.
 
 [[CURRENT_PHASE_STATUS]] · [[ROADMAP]] · [[ARCHITECTURE]] ·
 [[AUTH_RBAC]] · [[auth/AUTH1D_TENANT_ADMINISTRATION]]
+
+<!-- auth1e-handoff-2026-07-20:start -->
+## Auth-1E handoff
+
+Auth-1E adds password reset, tenant invitations and self-service session
+revocation without changing the Prisma schema.
+
+Before production activation, configure:
+
+- RESEND_API_KEY;
+- AUTH_EMAIL_FROM;
+- AUTH_PUBLIC_BASE_URL.
+
+The next validation milestone is Auth-1F:
+
+- start Docker Desktop or provision another disposable PostgreSQL;
+- apply the existing schema only to the disposable database;
+- execute real token, invitation and concurrency integration tests;
+- execute cross-tenant E2E tests;
+- validate email delivery in a controlled provider account;
+- prepare production migration and deployment procedures.
+<!-- auth1e-handoff-2026-07-20:end -->

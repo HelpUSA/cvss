@@ -23,7 +23,8 @@ export default async function OperationalHomePage() {
 
     prisma.user.findUnique({
       where: {
-        id: currentSession.user.id,
+        id:
+          currentSession.user.id,
       },
 
       select: {
@@ -55,16 +56,25 @@ export default async function OperationalHomePage() {
           confiáveis.
         </p>
 
-        {canCreateOrganization ? (
+        <div className="operational-actions">
+          {canCreateOrganization ? (
+            <a
+              className="button button--primary"
+              href={
+                "/app/admin/organizations/new"
+              }
+            >
+              Criar organização
+            </a>
+          ) : null}
+
           <a
-            className="button button--primary"
-            href={
-              "/app/admin/organizations/new"
-            }
+            className="button button--secondary"
+            href="/app/security/sessions"
           >
-            Criar organização
+            Gerenciar sessões
           </a>
-        ) : null}
+        </div>
       </section>
 
       {organizations.length > 0 ? (
@@ -131,20 +141,20 @@ export default async function OperationalHomePage() {
       <section className="operational-boundary">
         <div>
           <span className="section-kicker">
-            Auth-1D
+            Auth-1E
           </span>
 
           <h2>
-            Administração com autorização,
-            auditoria e invariantes.
+            Ciclo de conta com tokens,
+            convites e revogação.
           </h2>
         </div>
 
         <p>
-          As mutações validam a sessão, a
-          organização, a membership, a
-          permissão e a origem da requisição
-          antes de alterar o banco.
+          Senhas redefinidas revogam sessões,
+          convites são vinculados ao e-mail
+          autenticado e tokens nunca são
+          armazenados em texto aberto.
         </p>
       </section>
     </>

@@ -108,3 +108,20 @@ recebe acesso implícito a qualquer organização existente.
 [[auth/AUTH1B_OPERATIONAL_AUTH]] ·
 [[auth/AUTH1C_TENANT_AUTHORIZATION]] ·
 [[auth/AUTH1D_TENANT_ADMINISTRATION]]
+
+<!-- auth1e-rbac-2026-07-20:start -->
+## Auth-1E account lifecycle
+
+ADMIN may create and revoke tenant invitations through the existing
+membership:manage permission.
+
+Invitation acceptance does not trust a userId or email supplied by the
+browser. The server obtains both from the active session and requires the
+session email to match the invitation.
+
+Every user may manage only sessions belonging to their own authoritative
+user ID.
+
+Password reset is public but does not reveal whether an eligible account
+exists. Successful reset revokes all user sessions.
+<!-- auth1e-rbac-2026-07-20:end -->

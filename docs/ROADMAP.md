@@ -99,3 +99,24 @@ Remaining before closing Fase 1:
 - real concurrent last-ADMIN tests;
 - cross-tenant E2E tests.
 <!-- auth1d-roadmap-2026-07-20:end -->
+
+<!-- auth1e-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1E
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C tenant authorization;
+- Auth-1D tenant administration and invariants;
+- Auth-1E password reset, invitations and session revocation.
+
+Remaining before production closure of Fase 1:
+
+- provider credentials and verified sender domain;
+- disposable PostgreSQL integration tests;
+- real concurrent last-ADMIN and token-consumption tests;
+- cross-tenant E2E tests;
+- deployment migration rehearsal;
+- production deployment and acceptance.
+<!-- auth1e-roadmap-2026-07-20:end -->

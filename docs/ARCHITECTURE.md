@@ -129,3 +129,24 @@ confirmed as ACTIVE and owned by the resolved organization.
 Every successful administrative mutation appends a separate
 SecurityAuditEvent without secrets.
 <!-- auth1d-architecture-2026-07-20:end -->
+
+<!-- auth1e-architecture-2026-07-20:start -->
+## Account lifecycle architecture — Auth-1E
+
+Password reset and invitation links use 256-bit opaque tokens.
+
+Only SHA-256 token hashes are stored in PostgreSQL. Raw tokens exist only
+while constructing the outbound link and are never included in logs,
+responses or audit metadata.
+
+Password reset confirmation revalidates the token inside a Serializable
+transaction, updates the credential password with Argon2id, consumes the
+token and deletes all sessions.
+
+Invitation acceptance requires the authenticated user's normalized email
+to match the invitation email exactly. The transaction creates or
+reactivates the tenant membership and consumes the invitation.
+
+Transactional email is delivered through the Resend HTTPS API using an
+idempotency key derived from the database record identifier.
+<!-- auth1e-architecture-2026-07-20:end -->

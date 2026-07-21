@@ -138,3 +138,27 @@ Fase 1 still requires invitation acceptance, recovery delivery,
 disposable PostgreSQL integration, real concurrency tests and
 cross-tenant E2E validation.
 <!-- auth1d-tenant-administration-2026-07-20:end -->
+
+<!-- auth1e-phase-2026-07-20:start -->
+## Auth-1E account lifecycle update — 2026-07-20
+
+Delivered locally:
+
+- password reset request without account enumeration;
+- SHA-256 storage of opaque token hashes;
+- Argon2id password replacement;
+- reset token expiration, single use and revocation;
+- automatic revocation of all sessions after reset;
+- invitation creation, delivery, revocation and acceptance;
+- exact invitation email matching against the active session;
+- controlled membership creation or reactivation;
+- user session listing without token exposure;
+- individual, other-session and all-session revocation;
+- SecurityAuditEvent coverage;
+- Resend email adapter with idempotency;
+- Auth-1B through Auth-1E contracts;
+- Next.js production build and Python pipeline.
+
+The Prisma schema remains unchanged. No migration, database push,
+bootstrap, push or deploy was executed.
+<!-- auth1e-phase-2026-07-20:end -->

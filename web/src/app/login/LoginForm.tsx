@@ -162,6 +162,12 @@ export function LoginForm({
           ? "Autenticando..."
           : "Entrar"}
       </button>
-    </form>
+            <a
+          className="login-help-link"
+          href="/forgot-password"
+        >
+          Esqueci minha senha
+        </a>
+</form>
   );
 }

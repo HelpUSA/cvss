@@ -2,8 +2,14 @@ import {
   requireOrganizationContext,
 } from "@/lib/organization-context";
 import {
+  listOrganizationInvitations,
+} from "@/lib/invitation-lifecycle";
+import {
   listTenantMemberships,
 } from "@/lib/tenant-data";
+import {
+  InvitationsPanel,
+} from "./InvitationsPanel";
 import {
   MemberCreateForm,
 } from "./MemberCreateForm";
@@ -30,10 +36,18 @@ export default async function MembersPage({
       permission: "membership:read",
     });
 
-  const memberships =
-    await listTenantMemberships(
+  const [
+    memberships,
+    invitations,
+  ] = await Promise.all([
+    listTenantMemberships(
       context,
-    );
+    ),
+
+    listOrganizationInvitations(
+      context,
+    ),
+  ]);
 
   return (
     <>
@@ -56,11 +70,52 @@ export default async function MembersPage({
         </p>
       </section>
 
-      <MemberCreateForm
+      <InvitationsPanel
         organizationSlug={
           context.organization.slug
         }
+        initialInvitations={
+          invitations.map(
+            (invitation) => ({
+              id:
+                invitation.id,
+
+              email:
+                invitation.email,
+
+              role:
+                invitation.role,
+
+              expiresAt:
+                invitation.expiresAt
+                  .toISOString(),
+
+              createdAt:
+                invitation.createdAt
+                  .toISOString(),
+
+              createdByName:
+                invitation.createdBy.name,
+            }),
+          )
+        }
       />
+
+      <section className="direct-membership-section">
+        <span className="section-kicker">
+          Usuários já provisionados
+        </span>
+
+        <h2>
+          Adicionar sem convite
+        </h2>
+
+        <MemberCreateForm
+          organizationSlug={
+            context.organization.slug
+          }
+        />
+      </section>
 
       <section className="membership-list">
         {memberships.map(

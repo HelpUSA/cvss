@@ -2591,3 +2591,130 @@ tbody tr:last-child td {
 }
 
 /* auth1d-tenant-administration:end */
+/* auth1e-account-lifecycle:start */
+
+.login-help-link {
+  display: inline-flex;
+  justify-content: center;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.operational-actions,
+.session-actions {
+  display: flex;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.auth-lifecycle-page,
+.security-sessions-page {
+  width: min(820px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.auth-lifecycle-page h1,
+.security-sessions-page h1 {
+  margin: 0.75rem 0;
+  font-size:
+    clamp(2.8rem, 6vw, 5rem);
+  letter-spacing: -0.055em;
+}
+
+.auth-lifecycle-page > p,
+.security-sessions-page > p {
+  color: var(--text-soft);
+  line-height: 1.75;
+}
+
+.auth-lifecycle-form,
+.invitation-panel {
+  display: grid;
+  margin-top: 2rem;
+  padding: 1.4rem;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.invitation-panel {
+  margin-bottom: 2rem;
+}
+
+.invitation-panel h2,
+.direct-membership-section h2 {
+  margin: 0.45rem 0;
+}
+
+.invitation-panel > div > p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.invitation-list,
+.session-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.invitation-card,
+.session-card {
+  display: grid;
+  padding: 1rem;
+  grid-template-columns:
+    minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.invitation-card > div,
+.session-card > div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.invitation-card span,
+.session-card span {
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.invitation-card small,
+.session-card small,
+.tenant-muted-copy {
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  line-height: 1.5;
+}
+
+.direct-membership-section {
+  margin-top: 2.5rem;
+}
+
+.session-list {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 700px) {
+  .invitation-card,
+  .session-card {
+    grid-template-columns: 1fr;
+  }
+
+  .operational-actions,
+  .session-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+/* auth1e-account-lifecycle:end */
