@@ -120,3 +120,25 @@ Remaining before production closure of Fase 1:
 - deployment migration rehearsal;
 - production deployment and acceptance.
 <!-- auth1e-roadmap-2026-07-20:end -->
+
+<!-- auth1f-online-roadmap-2026-07-21:start -->
+## Phase 1 progress — Auth-1F Online
+
+Online validation architecture:
+
+- GitHub branch and Pull Request;
+- GitHub Actions validation;
+- Railway disposable PostgreSQL;
+- Vercel Preview Deployment.
+
+Auth-1F does not use local infrastructure and does not alter production.
+
+Remaining after Auth-1F approval:
+
+- browser-driven cross-tenant E2E;
+- real Better Auth cookie tests;
+- controlled email-provider sandbox;
+- Edge Runtime compatibility review;
+- production-like migration rehearsal;
+- production deployment and acceptance.
+<!-- auth1f-online-roadmap-2026-07-21:end -->

@@ -150,3 +150,19 @@ reactivates the tenant membership and consumes the invitation.
 Transactional email is delivered through the Resend HTTPS API using an
 idempotency key derived from the database record identifier.
 <!-- auth1e-architecture-2026-07-20:end -->
+
+<!-- auth1f-online-architecture-2026-07-21:start -->
+## Online PostgreSQL validation — Auth-1F
+
+Auth-1F executes exclusively through GitHub Actions, Railway and Vercel.
+
+GitHub Actions creates a temporary Railway environment and provisions a new
+PostgreSQL service. The existing Prisma schema is applied only to that
+disposable database. The environment is deleted after validation.
+
+Vercel remains responsible for the branch Preview Deployment. The workflow
+waits for the Vercel check before declaring the online milestone successful.
+
+No local database, Docker engine or application server participates in the
+Auth-1F validation.
+<!-- auth1f-online-architecture-2026-07-21:end -->

@@ -14,7 +14,8 @@
     "validate:auth1b": "prisma validate && prisma generate && tsx scripts/auth1b-contract.ts && tsc --noEmit --incremental false --pretty false",
     "validate:auth1c": "prisma validate && prisma generate && tsx scripts/auth1c-contract.ts && tsc --noEmit --incremental false --pretty false",
     "validate:auth1d": "prisma validate && prisma generate && tsx scripts/auth1d-contract.ts && tsc --noEmit --incremental false --pretty false",
-    "validate:auth1e": "prisma validate && prisma generate && tsx scripts/auth1e-contract.ts && tsc --noEmit --incremental false --pretty false"
+    "validate:auth1e": "prisma validate && prisma generate && tsx scripts/auth1e-contract.ts && tsc --noEmit --incremental false --pretty false",
+    "test:auth1f:integration": "tsx scripts/auth1f-integration.ts"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "1.6.23",

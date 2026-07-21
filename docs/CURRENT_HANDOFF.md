@@ -76,3 +76,21 @@ The next validation milestone is Auth-1F:
 - validate email delivery in a controlled provider account;
 - prepare production migration and deployment procedures.
 <!-- auth1e-handoff-2026-07-20:end -->
+
+<!-- auth1f-online-handoff-2026-07-21:start -->
+## Auth-1F Online handoff
+
+Auth-1F is executed through a Pull Request targeting `real-world-cvss`.
+
+Online responsibilities:
+
+- GitHub stores the branch, Pull Request and workflow result;
+- Railway provides an isolated temporary PostgreSQL;
+- Vercel produces the Preview Deployment;
+- GitHub Actions runs integration, regressions, build and Python tests.
+
+The temporary Railway environment must be absent after each completed run.
+The workflow includes unconditional and PR-close cleanup procedures.
+
+The next milestone after approval is browser-driven Auth-1G E2E.
+<!-- auth1f-online-handoff-2026-07-21:end -->

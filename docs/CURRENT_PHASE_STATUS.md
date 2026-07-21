@@ -162,3 +162,23 @@ Delivered locally:
 The Prisma schema remains unchanged. No migration, database push,
 bootstrap, push or deploy was executed.
 <!-- auth1e-phase-2026-07-20:end -->
+
+<!-- auth1f-online-phase-2026-07-21:start -->
+## Auth-1F Online — 2026-07-21
+
+Prepared:
+
+- GitHub Actions orchestration;
+- isolated Railway environment creation;
+- temporary Railway PostgreSQL creation;
+- disposable schema application;
+- real password reset integration;
+- real invitation integration;
+- real session revocation integration;
+- concurrent token-consumption tests;
+- cross-tenant authorization test;
+- Vercel Preview verification;
+- automatic Railway cleanup.
+
+The local computer is used only as a Git client and file editor.
+<!-- auth1f-online-phase-2026-07-21:end -->
