@@ -169,16 +169,20 @@ bootstrap, push or deploy was executed.
 Prepared:
 
 - GitHub Actions orchestration;
-- isolated Railway environment creation;
-- temporary Railway PostgreSQL creation;
-- disposable schema application;
+- disposable PostgreSQL 16 service container;
+- PostgreSQL client and health check;
+- disposable Prisma schema application;
 - real password reset integration;
 - real invitation integration;
 - real session revocation integration;
 - concurrent token-consumption tests;
 - cross-tenant authorization test;
-- Vercel Preview verification;
-- automatic Railway cleanup.
+- Auth-1B through Auth-1E regressions;
+- Next.js production build;
+- Python pipeline;
+- Vercel Preview verification through Pull Request checks.
+
+Railway production is not accessed or changed.
 
 The local computer is used only as a Git client and file editor.
 <!-- auth1f-online-phase-2026-07-21:end -->

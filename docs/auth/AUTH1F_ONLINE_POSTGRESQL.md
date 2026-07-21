@@ -1,39 +1,44 @@
 # Auth-1F Online PostgreSQL Integration
 
-- Execution environment: GitHub Actions
-- Database environment: temporary Railway environment
+Auth-1F validates the account lifecycle against a real PostgreSQL instance
+created exclusively for the GitHub Actions job.
+
+## Execution architecture
+
+- Source and Pull Request: GitHub
+- Integration runner: GitHub-hosted Ubuntu
+- Database: PostgreSQL 16 Alpine service container
 - Application preview: Vercel Preview Deployment
+- Production hosting: Railway remains unchanged
 - Local Docker: not used
 - Local PostgreSQL: not used
-- Persistent database mutation: none
-- Production deployment: none
+- Railway PostgreSQL: not accessed
 
-## Flow
+## Disposable database lifecycle
 
-For every Pull Request targeting `real-world-cvss`:
+The `PostgreSQL integration` job declares a PostgreSQL service container.
 
-1. GitHub Actions creates an isolated Railway environment.
-2. A new Railway PostgreSQL service is added to that environment.
-3. The public disposable database URL is masked in the runner logs.
-4. The current Prisma schema is applied only to that temporary database.
-5. Auth-1F integration tests execute against PostgreSQL.
-6. Auth-1B through Auth-1E regressions execute.
-7. TypeScript, Next.js build and Python validation execute.
-8. The workflow waits for the Vercel Preview check.
-9. The Railway environment is deleted in an unconditional cleanup step.
+GitHub Actions:
 
-A fallback cleanup job removes orphan environments when the Pull Request is
-closed or merged.
+1. creates the PostgreSQL service;
+2. waits for its health check;
+3. exposes it only to the hosted runner;
+4. applies the current Prisma schema;
+5. executes integration and concurrency tests;
+6. destroys the service with the hosted runner.
+
+The CI credentials exist only inside the workflow definition and provide no
+access to Railway or another persistent database.
 
 ## Integration coverage
 
-The suite validates:
+The Auth-1F suite validates:
 
-- password reset against real PostgreSQL;
+- password reset against PostgreSQL;
 - Argon2id credential persistence;
-- reset token single use;
+- reset-token single use;
 - concurrent reset-token consumption;
-- revocation of all sessions after reset;
+- revocation of sessions after password reset;
 - invitation acceptance;
 - invitation email binding;
 - invitation single use;
@@ -42,32 +47,37 @@ The suite validates:
 - individual session revocation;
 - other-session revocation;
 - all-session revocation;
-- session token non-exposure;
+- session-token non-exposure;
 - cross-tenant authorization denial.
 
-## Required GitHub configuration
+## Regression coverage
 
-Secret:
+The workflow also executes:
 
-- `RAILWAY_API_TOKEN`
+- Auth-1B contract;
+- Auth-1C contract;
+- Auth-1D contract;
+- Auth-1E contract;
+- TypeScript validation;
+- Next.js production build;
+- real Python pipeline and tests.
 
-Variables:
+## Vercel
 
-- `RAILWAY_PROJECT_ID`
-- `RAILWAY_BASE_ENVIRONMENT`
+Vercel remains responsible for the Pull Request Preview Deployment.
 
-The preparation script configures these items before writing the Auth-1F
-branch.
+All checks returned for the current Pull Request head are monitored before
+Auth-1F is considered complete.
 
-## Safety boundaries
+## Railway safety boundary
 
-The workflow does not:
+Auth-1F does not:
 
-- use a local Docker engine;
-- connect to a local PostgreSQL server;
-- use production DATABASE_URL;
-- use staging DATABASE_URL;
-- create migration files;
-- merge the Pull Request;
-- deploy production;
-- send transactional email.
+- read Railway database credentials;
+- use `RAILWAY_API_TOKEN`;
+- link to a Railway project;
+- create Railway environments;
+- create Railway services;
+- connect to Railway production;
+- copy the Railway production environment;
+- deploy to Railway.

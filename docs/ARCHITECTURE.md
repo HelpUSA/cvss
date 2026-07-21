@@ -154,15 +154,18 @@ idempotency key derived from the database record identifier.
 <!-- auth1f-online-architecture-2026-07-21:start -->
 ## Online PostgreSQL validation — Auth-1F
 
-Auth-1F executes exclusively through GitHub Actions, Railway and Vercel.
+Auth-1F executes its database integration in GitHub Actions.
 
-GitHub Actions creates a temporary Railway environment and provisions a new
-PostgreSQL service. The existing Prisma schema is applied only to that
-disposable database. The environment is deleted after validation.
+The GitHub-hosted Ubuntu job creates a disposable PostgreSQL 16 service
+container, applies the current Prisma schema and executes the account
+lifecycle, concurrency, session and tenant-isolation tests.
 
-Vercel remains responsible for the branch Preview Deployment. The workflow
-waits for the Vercel check before declaring the online milestone successful.
+The service database exists only for the workflow job. It does not use
+Railway credentials and cannot access Railway production databases.
 
-No local database, Docker engine or application server participates in the
-Auth-1F validation.
+Vercel remains responsible for the branch Preview Deployment. Railway
+remains the production hosting platform and is not mutated by Auth-1F.
+
+No local database, local Docker engine or local application server
+participates in the validation.
 <!-- auth1f-online-architecture-2026-07-21:end -->

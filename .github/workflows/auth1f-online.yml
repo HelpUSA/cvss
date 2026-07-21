@@ -8,38 +8,53 @@ on:
       - opened
       - synchronize
       - reopened
-      - closed
 
   workflow_dispatch:
 
 permissions:
   contents: read
-  checks: read
-  deployments: read
-  pull-requests: write
 
 concurrency:
   group: auth1f-online-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
-env:
-  RAILWAY_PROJECT_ID: ${{ vars.RAILWAY_PROJECT_ID }}
-  RAILWAY_BASE_ENVIRONMENT: ${{ vars.RAILWAY_BASE_ENVIRONMENT }}
-
 jobs:
   integration:
-    name: Railway PostgreSQL integration
-    if: >-
-      github.event_name == 'workflow_dispatch' ||
-      github.event.action != 'closed'
-
+    name: PostgreSQL integration
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
+    services:
+      postgres:
+        image: postgres:16-alpine
+
+        env:
+          POSTGRES_USER: auth1f
+          POSTGRES_PASSWORD: auth1f-ci-password
+          POSTGRES_DB: cvss_auth1f
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U auth1f -d cvss_auth1f"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
     env:
-      RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-      TARGET_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
-      PR_NUMBER: ${{ github.event.pull_request.number || 'manual' }}
+      DATABASE_URL: "postgresql://auth1f:auth1f-ci-password@127.0.0.1:5432/cvss_auth1f?schema=public"
+
+      BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
+      BETTER_AUTH_URL: http://localhost:3000
+      AUTH_PUBLIC_BASE_URL: http://localhost:3000
+      AUTH_TRUSTED_ORIGINS: http://localhost:3000
+
+      NEXT_TELEMETRY_DISABLED: "1"
+      CI: "1"
+
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUTF8: "1"
 
     steps:
       - name: Checkout PR head
@@ -59,229 +74,85 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-          cache: pip
 
-      - name: Validate online credentials
+      - name: Install PostgreSQL client
         shell: bash
         run: |
           set -euo pipefail
 
-          test -n "${RAILWAY_API_TOKEN:-}" || {
-            echo "RAILWAY_API_TOKEN is missing."
-            exit 1
-          }
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
 
-          test -n "${RAILWAY_PROJECT_ID:-}" || {
-            echo "RAILWAY_PROJECT_ID is missing."
-            exit 1
-          }
-
-          test -n "${RAILWAY_BASE_ENVIRONMENT:-}" || {
-            echo "RAILWAY_BASE_ENVIRONMENT is missing."
-            exit 1
-          }
-
-      - name: Install project dependencies
+      - name: Install Node.js dependencies
         working-directory: web
         shell: bash
         run: npm ci
 
-      - name: Install Railway CLI
-        shell: bash
-        run: npm install --global @railway/cli
-
-      - name: Create temporary Railway environment
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          ENVIRONMENT_NAME="auth1f-pr-${PR_NUMBER}-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-
-          echo "RAILWAY_AUTH1F_ENVIRONMENT=${ENVIRONMENT_NAME}" >> "$GITHUB_ENV"
-
-          railway link \
-            --project "$RAILWAY_PROJECT_ID" \
-            --environment "$RAILWAY_BASE_ENVIRONMENT" \
-            --json
-
-          railway environment new \
-            "$ENVIRONMENT_NAME" \
-            --json
-
-          railway link \
-            --project "$RAILWAY_PROJECT_ID" \
-            --environment "$ENVIRONMENT_NAME" \
-            --json
-
-          echo "Temporary Railway environment created: ${ENVIRONMENT_NAME}"
-
-      - name: Add temporary Railway PostgreSQL
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          ADD_JSON="$(railway add --database postgres --json)"
-
-          printf '%s' "$ADD_JSON" > "$RUNNER_TEMP/railway-add.json"
-
-          DB_SERVICE="$(
-            printf '%s' "$ADD_JSON" |
-              jq -r '.. | objects | .name? // empty' |
-              grep -i postgres |
-              head -n 1 ||
-              true
-          )"
-
-          if [ -z "$DB_SERVICE" ]; then
-            railway status --json > "$RUNNER_TEMP/railway-status.json"
-
-            DB_SERVICE="$(
-              jq -r '
-                .. |
-                objects |
-                select(
-                  ((.name? // "") | test("postgres"; "i")) or
-                  ((.image? // "") | test("postgres"; "i"))
-                ) |
-                .name? // empty
-              ' "$RUNNER_TEMP/railway-status.json" |
-                head -n 1
-            )"
-          fi
-
-          if [ -z "$DB_SERVICE" ]; then
-            DB_SERVICE="Postgres"
-          fi
-
-          echo "RAILWAY_AUTH1F_DB_SERVICE=${DB_SERVICE}" >> "$GITHUB_ENV"
-
-          echo "Temporary PostgreSQL service: ${DB_SERVICE}"
-
-      - name: Resolve Railway public database URL
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          DATABASE_URL_VALUE=""
-
-          for ATTEMPT in $(seq 1 60); do
-            railway variable list \
-              --service "$RAILWAY_AUTH1F_DB_SERVICE" \
-              --environment "$RAILWAY_AUTH1F_ENVIRONMENT" \
-              --json \
-              > "$RUNNER_TEMP/railway-vars.json" ||
-              true
-
-            DATABASE_URL_VALUE="$(
-              jq -r '
-                .. |
-                objects |
-                .DATABASE_PUBLIC_URL? // empty
-              ' "$RUNNER_TEMP/railway-vars.json" |
-                head -n 1
-            )"
-
-            if [ -z "$DATABASE_URL_VALUE" ]; then
-              DATABASE_URL_VALUE="$(
-                jq -r '
-                  .. |
-                  objects |
-                  select(.name? == "DATABASE_PUBLIC_URL") |
-                  .value? // empty
-                ' "$RUNNER_TEMP/railway-vars.json" |
-                  head -n 1
-              )"
-            fi
-
-            if [ -n "$DATABASE_URL_VALUE" ]; then
-              break
-            fi
-
-            echo "Waiting for Railway PostgreSQL variables: ${ATTEMPT}/60"
-            sleep 5
-          done
-
-          if [ -z "$DATABASE_URL_VALUE" ]; then
-            echo "DATABASE_PUBLIC_URL was not provided by Railway."
-            exit 1
-          fi
-
-          echo "::add-mask::$DATABASE_URL_VALUE"
-          printf 'DATABASE_URL=%s\n' "$DATABASE_URL_VALUE" >> "$GITHUB_ENV"
-
-      - name: Apply schema only to temporary Railway PostgreSQL
+      - name: Generate Prisma client
         working-directory: web
         shell: bash
-        env:
-          BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
-          BETTER_AUTH_URL: http://localhost:3000
-          AUTH_PUBLIC_BASE_URL: http://localhost:3000
-          AUTH_TRUSTED_ORIGINS: http://localhost:3000
-          NEXT_TELEMETRY_DISABLED: "1"
-          CI: "1"
+        run: npx prisma generate
+
+      - name: Validate disposable PostgreSQL
+        shell: bash
         run: |
           set -euo pipefail
-
-          SUCCESS=0
 
           for ATTEMPT in $(seq 1 30); do
-            if npx prisma db push \
-              --skip-generate \
-              --accept-data-loss
+            if pg_isready \
+              --host 127.0.0.1 \
+              --port 5432 \
+              --username auth1f \
+              --dbname cvss_auth1f
             then
-              SUCCESS=1
-              break
+              echo "Disposable PostgreSQL is ready."
+              exit 0
             fi
 
-            echo "Waiting for PostgreSQL connectivity: ${ATTEMPT}/30"
-            sleep 10
+            echo "Waiting for disposable PostgreSQL: ${ATTEMPT}/30"
+            sleep 2
           done
 
-          if [ "$SUCCESS" -ne 1 ]; then
-            echo "Unable to apply Prisma schema to temporary PostgreSQL."
-            exit 1
-          fi
+          echo "Disposable PostgreSQL did not become ready."
+          exit 1
 
-      - name: Execute Auth-1F real integration
+      - name: Apply schema to disposable PostgreSQL
         working-directory: web
         shell: bash
-        env:
-          BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
-          BETTER_AUTH_URL: http://localhost:3000
-          AUTH_PUBLIC_BASE_URL: http://localhost:3000
-          AUTH_TRUSTED_ORIGINS: http://localhost:3000
-          NEXT_TELEMETRY_DISABLED: "1"
-          CI: "1"
-        run: npm run test:auth1f:integration
-
-      - name: Execute Auth regressions
-        working-directory: web
-        shell: bash
-        env:
-          BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
-          BETTER_AUTH_URL: http://localhost:3000
-          AUTH_PUBLIC_BASE_URL: http://localhost:3000
-          AUTH_TRUSTED_ORIGINS: http://localhost:3000
-          NEXT_TELEMETRY_DISABLED: "1"
-          CI: "1"
         run: |
           set -euo pipefail
 
-          npm run validate:auth1b
-          npm run validate:auth1c
-          npm run validate:auth1d
-          npm run validate:auth1e
+          npx prisma db push \
+            --skip-generate
+
+      - name: Execute Auth-1F PostgreSQL integration
+        working-directory: web
+        shell: bash
+        run: npm run test:auth1f:integration
+
+      - name: Execute Auth-1B regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1b
+
+      - name: Execute Auth-1C regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1c
+
+      - name: Execute Auth-1D regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1d
+
+      - name: Execute Auth-1E regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1e
 
       - name: Build Next.js
         working-directory: web
         shell: bash
-        env:
-          BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
-          BETTER_AUTH_URL: http://localhost:3000
-          AUTH_PUBLIC_BASE_URL: http://localhost:3000
-          AUTH_TRUSTED_ORIGINS: http://localhost:3000
-          NEXT_TELEMETRY_DISABLED: "1"
-          CI: "1"
         run: npm run build
 
       - name: Install Python dependencies
@@ -301,196 +172,27 @@ jobs:
 
       - name: Execute real pipeline and Python tests
         shell: bash
-        env:
-          PYTHONDONTWRITEBYTECODE: "1"
-          PYTHONUTF8: "1"
-          NEXT_TELEMETRY_DISABLED: "1"
-          CI: "1"
         run: |
+          set -euo pipefail
+
           python -X utf8 \
             scripts/validate_real_pipeline.py \
             --skip-refresh \
             --skip-build
 
-      - name: Wait for Vercel Preview
-        if: github.event_name == 'pull_request'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-
-          DEADLINE=$((SECONDS + 1200))
-          VERCEL_OBSERVED=0
-
-          while [ "$SECONDS" -lt "$DEADLINE" ]; do
-            CHECKS_JSON="$(
-              gh api \
-                "repos/${GITHUB_REPOSITORY}/commits/${TARGET_SHA}/check-runs?per_page=100"
-            )"
-
-            VERCEL_COUNT="$(
-              printf '%s' "$CHECKS_JSON" |
-                jq '
-                  [
-                    .check_runs[]? |
-                    select(.name | test("vercel"; "i"))
-                  ] |
-                  length
-                '
-            )"
-
-            if [ "$VERCEL_COUNT" -gt 0 ]; then
-              VERCEL_OBSERVED=1
-
-              FAILED_COUNT="$(
-                printf '%s' "$CHECKS_JSON" |
-                  jq '
-                    [
-                      .check_runs[]? |
-                      select(.name | test("vercel"; "i")) |
-                      select(
-                        .conclusion == "failure" or
-                        .conclusion == "cancelled" or
-                        .conclusion == "timed_out" or
-                        .conclusion == "action_required"
-                      )
-                    ] |
-                    length
-                  '
-              )"
-
-              SUCCESS_COUNT="$(
-                printf '%s' "$CHECKS_JSON" |
-                  jq '
-                    [
-                      .check_runs[]? |
-                      select(.name | test("vercel"; "i")) |
-                      select(.conclusion == "success")
-                    ] |
-                    length
-                  '
-              )"
-
-              if [ "$FAILED_COUNT" -gt 0 ]; then
-                echo "Vercel Preview failed."
-                exit 1
-              fi
-
-              if [ "$SUCCESS_COUNT" -gt 0 ]; then
-                echo "Vercel Preview passed."
-                exit 0
-              fi
-            fi
-
-            echo "Waiting for Vercel Preview..."
-            sleep 15
-          done
-
-          if [ "$VERCEL_OBSERVED" -eq 0 ]; then
-            echo "No Vercel Preview check was observed."
-          else
-            echo "Vercel Preview did not complete within the workflow window."
-          fi
-
-          exit 1
-
-      - name: Publish PR summary
-        if: >-
-          always() &&
-          github.event_name == 'pull_request'
-        shell: bash
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-
-          BODY="$(cat <<EOF
-          ## Auth-1F Online
-
-          - Railway environment: \`${RAILWAY_AUTH1F_ENVIRONMENT:-not-created}\`
-          - Railway PostgreSQL: \`${RAILWAY_AUTH1F_DB_SERVICE:-not-created}\`
-          - Database execution: online only
-          - Local Docker/PostgreSQL: not used
-          - Vercel Preview: validated by workflow
-          - Persistent database changes: none
-          - Production deployment: none
-          - Railway cleanup: scheduled in the final step
-          EOF
-          )"
-
-          gh pr comment "$PR_NUMBER" \
-            --repo "$GITHUB_REPOSITORY" \
-            --body "$BODY"
-
-      - name: Remove temporary Railway environment
+      - name: Publish Auth-1F summary
         if: always()
         shell: bash
         run: |
-          set +e
-
-          if [ -n "${RAILWAY_AUTH1F_ENVIRONMENT:-}" ]; then
-            railway link \
-              --project "$RAILWAY_PROJECT_ID" \
-              --environment "$RAILWAY_BASE_ENVIRONMENT" \
-              --json
-
-            railway environment delete \
-              "$RAILWAY_AUTH1F_ENVIRONMENT" \
-              --yes \
-              --json
-          fi
-
-  cleanup-closed:
-    name: Railway fallback cleanup
-    if: >-
-      github.event_name == 'pull_request' &&
-      github.event.action == 'closed'
-
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    env:
-      RAILWAY_API_TOKEN: ${{ secrets.RAILWAY_API_TOKEN }}
-      PR_NUMBER: ${{ github.event.pull_request.number }}
-
-    steps:
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-
-      - name: Install Railway CLI
-        shell: bash
-        run: npm install --global @railway/cli
-
-      - name: Delete orphan Auth-1F environments
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          railway link \
-            --project "$RAILWAY_PROJECT_ID" \
-            --environment "$RAILWAY_BASE_ENVIRONMENT" \
-            --json
-
-          PREFIX="auth1f-pr-${PR_NUMBER}-"
-
-          railway environment list --json \
-            > "$RUNNER_TEMP/railway-environments.json"
-
-          mapfile -t ENVIRONMENTS < <(
-            jq -r '.. | objects | .name? // empty' \
-              "$RUNNER_TEMP/railway-environments.json" |
-              grep "^${PREFIX}" |
-              sort -u ||
-              true
-          )
-
-          for ENVIRONMENT_NAME in "${ENVIRONMENTS[@]}"; do
-            railway environment delete \
-              "$ENVIRONMENT_NAME" \
-              --yes \
-              --json ||
-              true
-          done
+          {
+            echo "## Auth-1F Online"
+            echo
+            echo "- Runner: GitHub-hosted Ubuntu"
+            echo "- PostgreSQL: disposable service container"
+            echo "- PostgreSQL image: postgres:16-alpine"
+            echo "- Railway production accessed: no"
+            echo "- Railway API token used: no"
+            echo "- Local Docker used: no"
+            echo "- Local PostgreSQL used: no"
+            echo "- Persistent database changed: no"
+          } >> "$GITHUB_STEP_SUMMARY"

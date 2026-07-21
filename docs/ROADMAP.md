@@ -127,11 +127,10 @@ Remaining before production closure of Fase 1:
 Online validation architecture:
 
 - GitHub branch and Pull Request;
-- GitHub Actions validation;
-- Railway disposable PostgreSQL;
-- Vercel Preview Deployment.
-
-Auth-1F does not use local infrastructure and does not alter production.
+- GitHub-hosted Ubuntu runner;
+- disposable PostgreSQL service container;
+- Vercel Preview Deployment;
+- Railway production preserved without test mutations.
 
 Remaining after Auth-1F approval:
 
