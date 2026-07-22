@@ -8,7 +8,6 @@ on:
       - opened
       - synchronize
       - reopened
-
   workflow_dispatch:
 
 permissions:
@@ -27,15 +26,12 @@ jobs:
     services:
       postgres:
         image: postgres:16-alpine
-
         env:
           POSTGRES_USER: auth1f
           POSTGRES_PASSWORD: auth1f-ci-password
           POSTGRES_DB: cvss_auth1f
-
         ports:
           - 5432:5432
-
         options: >-
           --health-cmd "pg_isready -U auth1f -d cvss_auth1f"
           --health-interval 10s
@@ -44,15 +40,12 @@ jobs:
 
     env:
       DATABASE_URL: "postgresql://auth1f:auth1f-ci-password@127.0.0.1:5432/cvss_auth1f?schema=public"
-
       BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
       BETTER_AUTH_URL: http://localhost:3000
       AUTH_PUBLIC_BASE_URL: http://localhost:3000
       AUTH_TRUSTED_ORIGINS: http://localhost:3000
-
       NEXT_TELEMETRY_DISABLED: "1"
       CI: "1"
-
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUTF8: "1"
 
@@ -66,8 +59,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: "22"
+          cache: "npm"
           cache-dependency-path: web/package-lock.json
 
       - name: Setup Python
@@ -79,7 +72,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
           sudo apt-get update
           sudo apt-get install --yes postgresql-client
 
@@ -121,9 +113,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-
-          npx prisma db push \
-            --skip-generate
+          npx prisma db push --skip-generate
 
       - name: Execute Auth-1F PostgreSQL integration
         working-directory: web
@@ -169,6 +159,8 @@ jobs:
           if [ -f requirements-dev.txt ]; then
             python -m pip install -r requirements-dev.txt
           fi
+
+          python -m pip install --upgrade pytest
 
       - name: Execute real pipeline and Python tests
         shell: bash
