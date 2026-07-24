@@ -67,3 +67,122 @@ A Fase 0 foi encerrada em 14 de julho de 2026 após a retirada dos protótipos w
 
 A linha de base encerrada preserva Next.js como interface web canônica, Prisma com PostgreSQL como persistência canônica e Python restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
 <!-- verified-validation-2026-07-14:end -->
+
+<!-- auth1b-operational-2026-07-20:start -->
+## Auth-1B operational update — 2026-07-20
+
+Auth-1B supersedes the earlier matrix entries that described
+authentication as absent.
+
+The locally validated implementation now includes:
+
+- Better Auth with Prisma/PostgreSQL;
+- Argon2id credential hashing;
+- login and logout;
+- persistent sessions;
+- disabled public registration;
+- protected `/app` area;
+- authoritative server-side account validation;
+- explicit PLATFORM_ADMIN bootstrap.
+
+RBAC, active organization resolution and tenant isolation remain
+pending for Auth-1C.
+<!-- auth1b-operational-2026-07-20:end -->
+
+<!-- auth1c-tenant-authorization-2026-07-20:start -->
+## Auth-1C tenant authorization update — 2026-07-20
+
+Auth-1C establishes the first operational organization boundary.
+
+Locally validated capabilities:
+
+- server-resolved organization slug;
+- ACTIVE membership requirement;
+- ACTIVE organization requirement;
+- explicit ADMIN, OPERATOR, REVIEWER and VIEWER permission matrix;
+- PLATFORM_ADMIN without implicit tenant access;
+- protected organization routes;
+- tenant-scoped project and environment reads;
+- not-found behavior shared by unknown and unauthorized tenants;
+- automated Auth-1C contract;
+- production Next.js build.
+
+This does not yet complete the whole RBAC milestone. Administrative
+mutations, the last-active-ADMIN invariant, invitations, password
+recovery delivery and cross-tenant integration/E2E tests remain pending.
+<!-- auth1c-tenant-authorization-2026-07-20:end -->
+
+<!-- auth1d-tenant-administration-2026-07-20:start -->
+## Auth-1D tenant administration update — 2026-07-20
+
+Auth-1D adds locally validated organization and tenant administration:
+
+- organization creation restricted to ACTIVE PLATFORM_ADMIN;
+- first ACTIVE ADMIN membership created transactionally;
+- membership creation for existing ACTIVE users;
+- membership role and status changes;
+- last-active-ADMIN protection;
+- Serializable transactions with bounded P2034 retry;
+- tenant-scoped project creation;
+- tenant-scoped environment creation with project ownership validation;
+- same-origin mutation protection;
+- SecurityAuditEvent for every successful mutation;
+- administrative user interfaces;
+- Auth-1B, Auth-1C and Auth-1D contract validation;
+- production Next.js build.
+
+The schema remains unchanged and no migration, bootstrap, push or deploy
+was executed.
+
+Fase 1 still requires invitation acceptance, recovery delivery,
+disposable PostgreSQL integration, real concurrency tests and
+cross-tenant E2E validation.
+<!-- auth1d-tenant-administration-2026-07-20:end -->
+
+<!-- auth1e-phase-2026-07-20:start -->
+## Auth-1E account lifecycle update — 2026-07-20
+
+Delivered locally:
+
+- password reset request without account enumeration;
+- SHA-256 storage of opaque token hashes;
+- Argon2id password replacement;
+- reset token expiration, single use and revocation;
+- automatic revocation of all sessions after reset;
+- invitation creation, delivery, revocation and acceptance;
+- exact invitation email matching against the active session;
+- controlled membership creation or reactivation;
+- user session listing without token exposure;
+- individual, other-session and all-session revocation;
+- SecurityAuditEvent coverage;
+- Resend email adapter with idempotency;
+- Auth-1B through Auth-1E contracts;
+- Next.js production build and Python pipeline.
+
+The Prisma schema remains unchanged. No migration, database push,
+bootstrap, push or deploy was executed.
+<!-- auth1e-phase-2026-07-20:end -->
+
+<!-- auth1f-online-phase-2026-07-21:start -->
+## Auth-1F Online — 2026-07-21
+
+Prepared:
+
+- GitHub Actions orchestration;
+- disposable PostgreSQL 16 service container;
+- PostgreSQL client and health check;
+- disposable Prisma schema application;
+- real password reset integration;
+- real invitation integration;
+- real session revocation integration;
+- concurrent token-consumption tests;
+- cross-tenant authorization test;
+- Auth-1B through Auth-1E regressions;
+- Next.js production build;
+- Python pipeline;
+- Vercel Preview verification through Pull Request checks.
+
+Railway production is not accessed or changed.
+
+The local computer is used only as a Git client and file editor.
+<!-- auth1f-online-phase-2026-07-21:end -->

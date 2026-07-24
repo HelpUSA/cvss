@@ -4,13 +4,28 @@ on:
   push:
     branches:
       - real-world-cvss
+      - "auth1f-*"
   pull_request:
     branches:
       - real-world-cvss
 
+permissions:
+  contents: read
+
 jobs:
   validate-real-pipeline:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      BETTER_AUTH_SECRET: real-pipeline-validation-secret-0123456789abcdef
+      BETTER_AUTH_URL: http://localhost:3000
+      AUTH_PUBLIC_BASE_URL: http://localhost:3000
+      AUTH_TRUSTED_ORIGINS: http://localhost:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+      CI: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUTF8: "1"
 
     steps:
       - name: Checkout

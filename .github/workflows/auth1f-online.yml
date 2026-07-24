@@ -1,0 +1,193 @@
+name: Auth-1F Online
+
+on:
+  push:
+    branches:
+      - "auth1f-*"
+  pull_request:
+    branches:
+      - real-world-cvss
+    types:
+      - opened
+      - synchronize
+      - reopened
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: auth1f-online-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: PostgreSQL integration
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: auth1f
+          POSTGRES_PASSWORD: auth1f-ci-password
+          POSTGRES_DB: cvss_auth1f
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U auth1f -d cvss_auth1f"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: "postgresql://auth1f:auth1f-ci-password@127.0.0.1:5432/cvss_auth1f?schema=public"
+      BETTER_AUTH_SECRET: auth1f-online-validation-secret-0123456789abcdef
+      BETTER_AUTH_URL: http://localhost:3000
+      AUTH_PUBLIC_BASE_URL: http://localhost:3000
+      AUTH_TRUSTED_ORIGINS: http://localhost:3000
+      NEXT_TELEMETRY_DISABLED: "1"
+      CI: "1"
+      PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUTF8: "1"
+
+    steps:
+      - name: Checkout PR head
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install PostgreSQL client
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+
+      - name: Install Node.js dependencies
+        working-directory: web
+        shell: bash
+        run: npm ci
+
+      - name: Generate Prisma client
+        working-directory: web
+        shell: bash
+        run: npx prisma generate
+
+      - name: Validate disposable PostgreSQL
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for ATTEMPT in $(seq 1 30); do
+            if pg_isready \
+              --host 127.0.0.1 \
+              --port 5432 \
+              --username auth1f \
+              --dbname cvss_auth1f
+            then
+              echo "Disposable PostgreSQL is ready."
+              exit 0
+            fi
+
+            echo "Waiting for disposable PostgreSQL: ${ATTEMPT}/30"
+            sleep 2
+          done
+
+          echo "Disposable PostgreSQL did not become ready."
+          exit 1
+
+      - name: Apply schema to disposable PostgreSQL
+        working-directory: web
+        shell: bash
+        run: |
+          set -euo pipefail
+          npx prisma db push --skip-generate
+
+      - name: Execute Auth-1F PostgreSQL integration
+        working-directory: web
+        shell: bash
+        run: npm run test:auth1f:integration
+
+      - name: Execute Auth-1B regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1b
+
+      - name: Execute Auth-1C regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1c
+
+      - name: Execute Auth-1D regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1d
+
+      - name: Execute Auth-1E regression
+        working-directory: web
+        shell: bash
+        run: npm run validate:auth1e
+
+      - name: Build Next.js
+        working-directory: web
+        shell: bash
+        run: npm run build
+
+      - name: Install Python dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python -m pip install --upgrade pip
+
+          if [ -f requirements.txt ]; then
+            python -m pip install -r requirements.txt
+          fi
+
+          if [ -f requirements-dev.txt ]; then
+            python -m pip install -r requirements-dev.txt
+          fi
+
+          python -m pip install --upgrade pytest
+
+      - name: Execute real pipeline and Python tests
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python -X utf8 \
+            scripts/validate_real_pipeline.py \
+            --skip-refresh \
+            --skip-build
+
+      - name: Publish Auth-1F summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## Auth-1F Online"
+            echo
+            echo "- Runner: GitHub-hosted Ubuntu"
+            echo "- PostgreSQL: disposable service container"
+            echo "- PostgreSQL image: postgres:16-alpine"
+            echo "- Railway production accessed: no"
+            echo "- Railway API token used: no"
+            echo "- Local Docker used: no"
+            echo "- Local PostgreSQL used: no"
+            echo "- Persistent database changed: no"
+          } >> "$GITHUB_STEP_SUMMARY"

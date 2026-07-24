@@ -68,3 +68,104 @@ Responsável por consumir achados, ativos, contexto e evidências; calcular CVSS
 ## Decisão arquitetural da Fase 0
 
 A interface web canônica é a aplicação Next.js em `web/`. A persistência canônica usa Prisma com PostgreSQL. Python permanece restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado. Não existe dashboard Python nem servidor FastAPI público paralelo. Os protótipos web Python anteriores foram retirados da árvore executável após auditoria confirmar ausência de dependências operacionais. O histórico permanece recuperável pelo Git a partir do commit `59c23c6`.
+
+<!-- auth1b-architecture-2026-07-20:start -->
+## Authentication architecture update — 2026-07-20
+
+Better Auth is the operational authentication boundary for the Next.js
+application. It uses the Prisma PostgreSQL adapter and the Auth-1A core
+identity tables.
+
+Middleware performs only an optimistic cookie-presence redirect.
+Protected server components validate the session and authoritative user
+status again.
+
+Tenant authorization remains an application responsibility and is not
+implicitly granted by authentication or by the PLATFORM_ADMIN role.
+<!-- auth1b-architecture-2026-07-20:end -->
+
+<!-- auth1c-architecture-2026-07-20:start -->
+## Tenant authorization architecture — Auth-1C
+
+Authenticated tenant routes use a server-resolved organization context.
+
+The route slug is normalized and matched together with:
+
+- the authenticated user ID;
+- ACTIVE membership status;
+- ACTIVE organization status;
+- an explicit permission required by the route.
+
+The authoritative organization ID produced by that resolution is the
+only organization identifier accepted by downstream tenant queries.
+
+PLATFORM_ADMIN is not an authorization bypass. It remains independent
+from tenant memberships.
+
+Unknown organizations and organizations outside the user boundary use
+the same external not-found behavior to reduce tenant enumeration.
+<!-- auth1c-architecture-2026-07-20:end -->
+
+<!-- auth1d-architecture-2026-07-20:start -->
+## Tenant mutation architecture — Auth-1D
+
+Tenant mutations use three independent boundaries:
+
+1. Better Auth validates the server-side session.
+2. The organization context validates ACTIVE membership, ACTIVE
+   organization and the route permission.
+3. The mutation transaction revalidates resource ownership and
+   invariants before writing.
+
+Administrative transactions use Serializable isolation with bounded
+retry for transaction conflicts.
+
+The last-active-ADMIN invariant is evaluated inside the same transaction
+that updates the membership.
+
+Client-provided project IDs are accepted only after the project is
+confirmed as ACTIVE and owned by the resolved organization.
+
+Every successful administrative mutation appends a separate
+SecurityAuditEvent without secrets.
+<!-- auth1d-architecture-2026-07-20:end -->
+
+<!-- auth1e-architecture-2026-07-20:start -->
+## Account lifecycle architecture — Auth-1E
+
+Password reset and invitation links use 256-bit opaque tokens.
+
+Only SHA-256 token hashes are stored in PostgreSQL. Raw tokens exist only
+while constructing the outbound link and are never included in logs,
+responses or audit metadata.
+
+Password reset confirmation revalidates the token inside a Serializable
+transaction, updates the credential password with Argon2id, consumes the
+token and deletes all sessions.
+
+Invitation acceptance requires the authenticated user's normalized email
+to match the invitation email exactly. The transaction creates or
+reactivates the tenant membership and consumes the invitation.
+
+Transactional email is delivered through the Resend HTTPS API using an
+idempotency key derived from the database record identifier.
+<!-- auth1e-architecture-2026-07-20:end -->
+
+<!-- auth1f-online-architecture-2026-07-21:start -->
+## Online PostgreSQL validation — Auth-1F
+
+Auth-1F executes its database integration in GitHub Actions.
+
+The GitHub-hosted Ubuntu job creates a disposable PostgreSQL 16 service
+container, applies the current Prisma schema and executes the account
+lifecycle, concurrency, session and tenant-isolation tests.
+
+The service database exists only for the workflow job. It does not use
+Railway credentials and cannot access Railway production databases.
+
+Vercel remains responsible for the branch Preview Deployment. Railway
+remains the production hosting platform and is not mutated by Auth-1F.
+
+No local database, local Docker engine or local application server
+participates in the validation.
+<!-- auth1f-online-architecture-2026-07-21:end -->

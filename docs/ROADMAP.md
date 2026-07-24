@@ -43,3 +43,101 @@ Um operador autenticado cria um ambiente, importa CSV/JSON e visualiza ativos e 
 ## Notas relacionadas
 
 [[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[NEXT_ACTIONS]] · [[ARCHITECTURE]] · [[DEPLOYMENT_VERIFICATION]]
+
+<!-- auth1b-roadmap-2026-07-20:start -->
+## Fase 1 progress update — 2026-07-20
+
+Delivered:
+
+- Auth-1A schema and cryptographic foundation;
+- Auth-1B operational login, logout, sessions, protected application
+  area and explicit platform-administrator bootstrap.
+
+Next:
+
+- Auth-1C organization context, memberships, RBAC and tenant isolation.
+<!-- auth1b-roadmap-2026-07-20:end -->
+
+<!-- auth1c-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1C
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C active organization context, role matrix and tenant-scoped
+  read boundaries.
+
+Remaining before closing Fase 1:
+
+- organization and membership administration;
+- invitations;
+- project and environment mutations;
+- last-active-ADMIN transaction;
+- password recovery delivery;
+- PostgreSQL integration and cross-tenant E2E tests.
+<!-- auth1c-roadmap-2026-07-20:end -->
+
+<!-- auth1d-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1D
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C tenant authorization boundary;
+- Auth-1D organization, membership, project and environment mutations;
+- append-only security audit for administrative mutations;
+- protection of the last active tenant administrator.
+
+Remaining before closing Fase 1:
+
+- invitation creation and acceptance flow;
+- password recovery delivery;
+- explicit session revocation operations;
+- disposable PostgreSQL integration tests;
+- real concurrent last-ADMIN tests;
+- cross-tenant E2E tests.
+<!-- auth1d-roadmap-2026-07-20:end -->
+
+<!-- auth1e-roadmap-2026-07-20:start -->
+## Fase 1 progress — Auth-1E
+
+Delivered:
+
+- Auth-1A identity and tenant schema;
+- Auth-1B operational authentication;
+- Auth-1C tenant authorization;
+- Auth-1D tenant administration and invariants;
+- Auth-1E password reset, invitations and session revocation.
+
+Remaining before production closure of Fase 1:
+
+- provider credentials and verified sender domain;
+- disposable PostgreSQL integration tests;
+- real concurrent last-ADMIN and token-consumption tests;
+- cross-tenant E2E tests;
+- deployment migration rehearsal;
+- production deployment and acceptance.
+<!-- auth1e-roadmap-2026-07-20:end -->
+
+<!-- auth1f-online-roadmap-2026-07-21:start -->
+## Phase 1 progress — Auth-1F Online
+
+Online validation architecture:
+
+- GitHub branch and Pull Request;
+- GitHub-hosted Ubuntu runner;
+- disposable PostgreSQL service container;
+- Vercel Preview Deployment;
+- Railway production preserved without test mutations.
+
+Remaining after Auth-1F approval:
+
+- browser-driven cross-tenant E2E;
+- real Better Auth cookie tests;
+- controlled email-provider sandbox;
+- Edge Runtime compatibility review;
+- production-like migration rehearsal;
+- production deployment and acceptance.
+<!-- auth1f-online-roadmap-2026-07-21:end -->
