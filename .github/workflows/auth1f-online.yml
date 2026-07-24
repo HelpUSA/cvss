@@ -1,6 +1,9 @@
 name: Auth-1F Online
 
 on:
+  push:
+    branches:
+      - "auth1f-*"
   pull_request:
     branches:
       - real-world-cvss
