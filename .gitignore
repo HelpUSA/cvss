@@ -27,3 +27,9 @@ temp/
 .vercel
 .env*.local
 outputs/evidence/
+
+# AUTH1G_PLAYWRIGHT_BEGIN
+web/playwright-report/
+web/test-results/
+web/.auth/
+# AUTH1G_PLAYWRIGHT_END

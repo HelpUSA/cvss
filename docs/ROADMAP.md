@@ -1,40 +1,40 @@
 # Operational roadmap
 
-## Fase 0 — Fechamento da base
+## Fase 0 â€” Fechamento da base
 
 Estado: encerrada em 14 de julho de 2026.
 
-Entregáveis: documentação coerente, inventário real/parcial/demo/ausente, arquitetura canônica com Next.js na interface web, Prisma com PostgreSQL na persistência e Python restrito à engine CVSS, watcher e processamento interno suportado, além de compilação, 52 testes, JavaScript, TypeScript, build, pipeline real, auditoria das 102 notas, riscos e Git limpo.
+EntregÃ¡veis: documentaÃ§Ã£o coerente, inventÃ¡rio real/parcial/demo/ausente, arquitetura canÃ´nica com Next.js na interface web, Prisma com PostgreSQL na persistÃªncia e Python restrito Ã  engine CVSS, watcher e processamento interno suportado, alÃ©m de compilaÃ§Ã£o, 52 testes, JavaScript, TypeScript, build, pipeline real, auditoria das 102 notas, riscos e Git limpo.
 
-## Fase 1 — Fundação multiusuário
+## Fase 1 â€” FundaÃ§Ã£o multiusuÃ¡rio
 
-Entregáveis: arquitetura fechada, autenticação, sessões, recuperação, RBAC, organizações, membros e ambientes.
+EntregÃ¡veis: arquitetura fechada, autenticaÃ§Ã£o, sessÃµes, recuperaÃ§Ã£o, RBAC, organizaÃ§Ãµes, membros e ambientes.
 
-## Fase 2 — Domínio e importação
+## Fase 2 â€” DomÃ­nio e importaÃ§Ã£o
 
-Entregáveis: modelo ampliado, migrations, seed, testes e primeiro fluxo CSV/JSON com validação, prévia, importação e inventário.
+EntregÃ¡veis: modelo ampliado, migrations, seed, testes e primeiro fluxo CSV/JSON com validaÃ§Ã£o, prÃ©via, importaÃ§Ã£o e inventÃ¡rio.
 
-## Fase 3 — Aplicação web operacional
+## Fase 3 â€” AplicaÃ§Ã£o web operacional
 
-Entregáveis: áreas pública, autenticada e administrativa; navegação por organização e ambiente; estados de erro e permissão.
+EntregÃ¡veis: Ã¡reas pÃºblica, autenticada e administrativa; navegaÃ§Ã£o por organizaÃ§Ã£o e ambiente; estados de erro e permissÃ£o.
 
-## Fase 4 — Watcher persistido
+## Fase 4 â€” Watcher persistido
 
-Entregáveis: fila, worker Python, execução acompanhável, resultados versionados, confiança, incerteza, justificativa, reprocessamento e trilha de auditoria. O watcher apenas propõe alterações.
+EntregÃ¡veis: fila, worker Python, execuÃ§Ã£o acompanhÃ¡vel, resultados versionados, confianÃ§a, incerteza, justificativa, reprocessamento e trilha de auditoria. O watcher apenas propÃµe alteraÃ§Ãµes.
 
-## Fase 5 — Tratamentos, relatórios e auditoria
+## Fase 5 â€” Tratamentos, relatÃ³rios e auditoria
 
-Entregáveis: decisões humanas, responsáveis, prazos, evidências de conclusão, reanálise, filtros e relatórios operacionais.
+EntregÃ¡veis: decisÃµes humanas, responsÃ¡veis, prazos, evidÃªncias de conclusÃ£o, reanÃ¡lise, filtros e relatÃ³rios operacionais.
 
-## Fase 6 — Portal científico
+## Fase 6 â€” Portal cientÃ­fico
 
-Pré-condição: fluxo operacional principal estável.
+PrÃ©-condiÃ§Ã£o: fluxo operacional principal estÃ¡vel.
 
-Entregáveis: atribuição individual, cegamento, submissão final, bloqueio e compatibilidade com o protocolo existente. Nenhuma estatística real será gerada antes das respostas humanas bloqueadas.
+EntregÃ¡veis: atribuiÃ§Ã£o individual, cegamento, submissÃ£o final, bloqueio e compatibilidade com o protocolo existente. Nenhuma estatÃ­stica real serÃ¡ gerada antes das respostas humanas bloqueadas.
 
-## Fase 7 — Produção
+## Fase 7 â€” ProduÃ§Ã£o
 
-Entregáveis: testes unitários, integração e E2E, segurança, uploads, segredos, observabilidade, backups, erros, CI/CD, deploy e validação pública.
+EntregÃ¡veis: testes unitÃ¡rios, integraÃ§Ã£o e E2E, seguranÃ§a, uploads, segredos, observabilidade, backups, erros, CI/CD, deploy e validaÃ§Ã£o pÃºblica.
 
 ## Marco inicial de produto
 
@@ -42,10 +42,10 @@ Um operador autenticado cria um ambiente, importa CSV/JSON e visualiza ativos e 
 
 ## Notas relacionadas
 
-[[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[NEXT_ACTIONS]] · [[ARCHITECTURE]] · [[DEPLOYMENT_VERIFICATION]]
+[[00_Index]] Â· [[CURRENT_PHASE_STATUS]] Â· [[NEXT_ACTIONS]] Â· [[ARCHITECTURE]] Â· [[DEPLOYMENT_VERIFICATION]]
 
 <!-- auth1b-roadmap-2026-07-20:start -->
-## Fase 1 progress update — 2026-07-20
+## Fase 1 progress update â€” 2026-07-20
 
 Delivered:
 
@@ -59,7 +59,7 @@ Next:
 <!-- auth1b-roadmap-2026-07-20:end -->
 
 <!-- auth1c-roadmap-2026-07-20:start -->
-## Fase 1 progress — Auth-1C
+## Fase 1 progress â€” Auth-1C
 
 Delivered:
 
@@ -79,7 +79,7 @@ Remaining before closing Fase 1:
 <!-- auth1c-roadmap-2026-07-20:end -->
 
 <!-- auth1d-roadmap-2026-07-20:start -->
-## Fase 1 progress — Auth-1D
+## Fase 1 progress â€” Auth-1D
 
 Delivered:
 
@@ -101,7 +101,7 @@ Remaining before closing Fase 1:
 <!-- auth1d-roadmap-2026-07-20:end -->
 
 <!-- auth1e-roadmap-2026-07-20:start -->
-## Fase 1 progress — Auth-1E
+## Fase 1 progress â€” Auth-1E
 
 Delivered:
 
@@ -122,7 +122,7 @@ Remaining before production closure of Fase 1:
 <!-- auth1e-roadmap-2026-07-20:end -->
 
 <!-- auth1f-online-roadmap-2026-07-21:start -->
-## Phase 1 progress — Auth-1F Online
+## Phase 1 progress â€” Auth-1F Online
 
 Online validation architecture:
 
@@ -141,3 +141,19 @@ Remaining after Auth-1F approval:
 - production-like migration rehearsal;
 - production deployment and acceptance.
 <!-- auth1f-online-roadmap-2026-07-21:end -->
+
+<!-- AUTH1G_ROADMAP_BEGIN -->
+## Auth-1G — Browser E2E
+
+- [x] Playwright e Chromium.
+- [x] Provisionamento descartável.
+- [x] Login real pela interface.
+- [x] Cookies `HttpOnly`.
+- [x] Dois tenants independentes.
+- [x] Isolamento cross-tenant com `404`.
+- [x] Segunda sessão e revogação das outras sessões.
+- [x] Regressões Auth-1B até Auth-1F.
+- [x] Build e pipeline Python.
+- [ ] Aprovação dos gates online.
+- [ ] Revisão e merge do Pull Request.
+<!-- AUTH1G_ROADMAP_END -->
