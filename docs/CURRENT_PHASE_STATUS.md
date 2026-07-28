@@ -2,74 +2,74 @@
 
 Atualizado em 2026-07-14.
 
-## Síntese
+## SÃ­ntese
 
-A pesquisa científica está preservada e pausada no ponto correto: existem 30 cenários, pacotes cegos para três revisores, compromisso criptográfico da chave, gate de pré-análise e motor estatístico da Fase 15. Ainda não existem respostas humanas recebidas e bloqueadas. Portanto, não há resultado de concordância, validação por especialistas ou conclusão estatística a declarar.
+A pesquisa cientÃ­fica estÃ¡ preservada e pausada no ponto correto: existem 30 cenÃ¡rios, pacotes cegos para trÃªs revisores, compromisso criptogrÃ¡fico da chave, gate de prÃ©-anÃ¡lise e motor estatÃ­stico da Fase 15. Ainda nÃ£o existem respostas humanas recebidas e bloqueadas. Portanto, nÃ£o hÃ¡ resultado de concordÃ¢ncia, validaÃ§Ã£o por especialistas ou conclusÃ£o estatÃ­stica a declarar.
 
-O foco ativo passou a ser transformar os protótipos existentes em uma aplicação operacional multiusuário. A Fase 0 está em fechamento documental e técnico; ela somente poderá ser considerada encerrada após a execução e o registro das validações atuais.
+O foco ativo passou a ser transformar os protÃ³tipos existentes em uma aplicaÃ§Ã£o operacional multiusuÃ¡rio. A Fase 0 estÃ¡ em fechamento documental e tÃ©cnico; ela somente poderÃ¡ ser considerada encerrada apÃ³s a execuÃ§Ã£o e o registro das validaÃ§Ãµes atuais.
 
 ## Matriz de realidade
 
-| Área | Classificação | Estado verificável |
+| Ãrea | ClassificaÃ§Ã£o | Estado verificÃ¡vel |
 |---|---|---|
-| Cálculo CVSS oficial v3.1 | Real | Implementação Python e testes existentes no repositório. |
-| Priorização contextual separada | Real | Motor, regras, rastros e wrapper real-world existem; não equivalem a CVSS oficial. |
-| Cenários científicos | Real | Conjunto de 30 cenários e artefatos de protocolo preservados. |
-| Gate de pré-análise e motor da Fase 15 | Real | Implementados com bloqueio para impedir análise antes da liberação correta. |
-| Dashboard estático e exportações | Demo funcional | Úteis para demonstração, mas não constituem o produto multiusuário. |
-| Next.js, Prisma e PostgreSQL | Parcial | Há dashboard e modelos básicos `Run`, `Assessment`, `Comparison` e `AuditEvent`; o domínio operacional ainda não está completo. |
-| FastAPI | Protótipo parcial | Existe servidor/protótipo Python; contrato operacional e integração definitiva ainda precisam ser fechados. |
-| Watcher | Protótipo parcial | O motor propõe análises em fluxo demonstrativo; não existe ainda ciclo operacional persistido, versionado e multiusuário. |
-| Autenticação, sessões e recuperação | Ausente | Não há fluxo operacional confirmado de login, logout, sessão, recuperação ou bootstrap administrativo. |
-| RBAC e isolamento organizacional | Ausente | Papéis `ADMIN`, `OPERATOR` e `REVIEWER` e isolamento por organização ainda não estão implementados. |
-| Importação real CSV/JSON | Ausente | Não existe ainda o primeiro fluxo operacional de validar, pré-visualizar e importar ativos e vulnerabilidades. |
-| Tratamentos e aprovação humana | Ausente | Correção, mitigação, aceite/rejeição, responsável, prazo e evidência de conclusão ainda não formam um fluxo persistido. |
-| Relatórios operacionais e auditoria completa | Ausente | A estrutura atual não cobre todas as consultas, decisões e execuções do watcher. |
-| Portal de revisores | Ausente no produto | O protocolo científico existe, mas o portal somente será construído depois do fluxo operacional principal. |
-| Produção pública atual | Não verificada | Configuração e domínio precisam ser confirmados; documentação antiga não deve ser tratada como prova de deploy atual. |
+| CÃ¡lculo CVSS oficial v3.1 | Real | ImplementaÃ§Ã£o Python e testes existentes no repositÃ³rio. |
+| PriorizaÃ§Ã£o contextual separada | Real | Motor, regras, rastros e wrapper real-world existem; nÃ£o equivalem a CVSS oficial. |
+| CenÃ¡rios cientÃ­ficos | Real | Conjunto de 30 cenÃ¡rios e artefatos de protocolo preservados. |
+| Gate de prÃ©-anÃ¡lise e motor da Fase 15 | Real | Implementados com bloqueio para impedir anÃ¡lise antes da liberaÃ§Ã£o correta. |
+| Dashboard estÃ¡tico e exportaÃ§Ãµes | Demo funcional | Ãšteis para demonstraÃ§Ã£o, mas nÃ£o constituem o produto multiusuÃ¡rio. |
+| Next.js, Prisma e PostgreSQL | Parcial | HÃ¡ dashboard e modelos bÃ¡sicos `Run`, `Assessment`, `Comparison` e `AuditEvent`; o domÃ­nio operacional ainda nÃ£o estÃ¡ completo. |
+| FastAPI | ProtÃ³tipo parcial | Existe servidor/protÃ³tipo Python; contrato operacional e integraÃ§Ã£o definitiva ainda precisam ser fechados. |
+| Watcher | ProtÃ³tipo parcial | O motor propÃµe anÃ¡lises em fluxo demonstrativo; nÃ£o existe ainda ciclo operacional persistido, versionado e multiusuÃ¡rio. |
+| AutenticaÃ§Ã£o, sessÃµes e recuperaÃ§Ã£o | Ausente | NÃ£o hÃ¡ fluxo operacional confirmado de login, logout, sessÃ£o, recuperaÃ§Ã£o ou bootstrap administrativo. |
+| RBAC e isolamento organizacional | Ausente | PapÃ©is `ADMIN`, `OPERATOR` e `REVIEWER` e isolamento por organizaÃ§Ã£o ainda nÃ£o estÃ£o implementados. |
+| ImportaÃ§Ã£o real CSV/JSON | Ausente | NÃ£o existe ainda o primeiro fluxo operacional de validar, prÃ©-visualizar e importar ativos e vulnerabilidades. |
+| Tratamentos e aprovaÃ§Ã£o humana | Ausente | CorreÃ§Ã£o, mitigaÃ§Ã£o, aceite/rejeiÃ§Ã£o, responsÃ¡vel, prazo e evidÃªncia de conclusÃ£o ainda nÃ£o formam um fluxo persistido. |
+| RelatÃ³rios operacionais e auditoria completa | Ausente | A estrutura atual nÃ£o cobre todas as consultas, decisÃµes e execuÃ§Ãµes do watcher. |
+| Portal de revisores | Ausente no produto | O protocolo cientÃ­fico existe, mas o portal somente serÃ¡ construÃ­do depois do fluxo operacional principal. |
+| ProduÃ§Ã£o pÃºblica atual | NÃ£o verificada | ConfiguraÃ§Ã£o e domÃ­nio precisam ser confirmados; documentaÃ§Ã£o antiga nÃ£o deve ser tratada como prova de deploy atual. |
 
 ## Prioridades imediatas
 
 1. Finalizar e versionar esta auditoria documental.
 2. Fechar formalmente a Fase 0 com testes e builds atuais.
-3. Implementar autenticação/RBAC e o modelo básico de usuários, organizações e ambientes.
+3. Implementar autenticaÃ§Ã£o/RBAC e o modelo bÃ¡sico de usuÃ¡rios, organizaÃ§Ãµes e ambientes.
 
-## Primeiro marco demonstrável
+## Primeiro marco demonstrÃ¡vel
 
 Um operador autenticado cria um ambiente, importa dados reais em CSV ou JSON e visualiza os ativos e vulnerabilidades encontrados.
 
-## Restrições científicas
+## RestriÃ§Ãµes cientÃ­ficas
 
-- Não fabricar respostas, resultados, concordância ou validação de especialistas.
-- Não abrir nem alterar a chave de adjudicação antes do token de liberação.
-- Não acessar ou modificar respostas, submissões ou artefatos privados dos revisores.
-- Manter o artigo e a estatística pausados até a entrega e o bloqueio das respostas dos três revisores independentes.
+- NÃ£o fabricar respostas, resultados, concordÃ¢ncia ou validaÃ§Ã£o de especialistas.
+- NÃ£o abrir nem alterar a chave de adjudicaÃ§Ã£o antes do token de liberaÃ§Ã£o.
+- NÃ£o acessar ou modificar respostas, submissÃµes ou artefatos privados dos revisores.
+- Manter o artigo e a estatÃ­stica pausados atÃ© a entrega e o bloqueio das respostas dos trÃªs revisores independentes.
 
 ## Notas relacionadas
 
-[[00_Index]] · [[NEXT_ACTIONS]] · [[ROADMAP]] · [[ARCHITECTURE]] · [[ARTICLE_STATUS]]
+[[00_Index]] Â· [[NEXT_ACTIONS]] Â· [[ROADMAP]] Â· [[ARCHITECTURE]] Â· [[ARTICLE_STATUS]]
 
 <!-- verified-validation-2026-07-14:start -->
-## Verified validation status — 2026-07-14
+## Verified validation status â€” 2026-07-14
 
-A auditoria documental passou com 102 notas, nenhum wikilink quebrado ou ambíguo, nenhum link Markdown interno para notas `.md`, MOC completo e exatamente 12 próximas atividades.
+A auditoria documental passou com 102 notas, nenhum wikilink quebrado ou ambÃ­guo, nenhum link Markdown interno para notas `.md`, MOC completo e exatamente 12 prÃ³ximas atividades.
 
-Também passaram:
+TambÃ©m passaram:
 
 - 52 testes Pytest;
-- verificação de sintaxe de `app.js`;
-- verificação TypeScript sem emissão;
-- build de produção do Next.js;
+- verificaÃ§Ã£o de sintaxe de `app.js`;
+- verificaÃ§Ã£o TypeScript sem emissÃ£o;
+- build de produÃ§Ã£o do Next.js;
 - validador do pipeline real;
 - `git diff --check`.
 
-A Fase 0 foi encerrada em 14 de julho de 2026 após a retirada dos protótipos web Python isolados e a aprovação da compilação Python, dos 52 testes, da verificação JavaScript, do TypeScript, do Prisma, do build Next.js, do pipeline real, da auditoria das 102 notas Obsidian e do `git diff --check`.
+A Fase 0 foi encerrada em 14 de julho de 2026 apÃ³s a retirada dos protÃ³tipos web Python isolados e a aprovaÃ§Ã£o da compilaÃ§Ã£o Python, dos 52 testes, da verificaÃ§Ã£o JavaScript, do TypeScript, do Prisma, do build Next.js, do pipeline real, da auditoria das 102 notas Obsidian e do `git diff --check`.
 
-A linha de base encerrada preserva Next.js como interface web canônica, Prisma com PostgreSQL como persistência canônica e Python restrito à engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
+A linha de base encerrada preserva Next.js como interface web canÃ´nica, Prisma com PostgreSQL como persistÃªncia canÃ´nica e Python restrito Ã  engine CVSS, ao watcher e ao processamento interno explicitamente suportado.
 <!-- verified-validation-2026-07-14:end -->
 
 <!-- auth1b-operational-2026-07-20:start -->
-## Auth-1B operational update — 2026-07-20
+## Auth-1B operational update â€” 2026-07-20
 
 Auth-1B supersedes the earlier matrix entries that described
 authentication as absent.
@@ -90,7 +90,7 @@ pending for Auth-1C.
 <!-- auth1b-operational-2026-07-20:end -->
 
 <!-- auth1c-tenant-authorization-2026-07-20:start -->
-## Auth-1C tenant authorization update — 2026-07-20
+## Auth-1C tenant authorization update â€” 2026-07-20
 
 Auth-1C establishes the first operational organization boundary.
 
@@ -113,7 +113,7 @@ recovery delivery and cross-tenant integration/E2E tests remain pending.
 <!-- auth1c-tenant-authorization-2026-07-20:end -->
 
 <!-- auth1d-tenant-administration-2026-07-20:start -->
-## Auth-1D tenant administration update — 2026-07-20
+## Auth-1D tenant administration update â€” 2026-07-20
 
 Auth-1D adds locally validated organization and tenant administration:
 
@@ -140,7 +140,7 @@ cross-tenant E2E validation.
 <!-- auth1d-tenant-administration-2026-07-20:end -->
 
 <!-- auth1e-phase-2026-07-20:start -->
-## Auth-1E account lifecycle update — 2026-07-20
+## Auth-1E account lifecycle update â€” 2026-07-20
 
 Delivered locally:
 
@@ -164,7 +164,7 @@ bootstrap, push or deploy was executed.
 <!-- auth1e-phase-2026-07-20:end -->
 
 <!-- auth1f-online-phase-2026-07-21:start -->
-## Auth-1F Online — 2026-07-21
+## Auth-1F Online â€” 2026-07-21
 
 Prepared:
 
@@ -186,3 +186,12 @@ Railway production is not accessed or changed.
 
 The local computer is used only as a Git client and file editor.
 <!-- auth1f-online-phase-2026-07-21:end -->
+
+<!-- AUTH1G_STATUS_BEGIN -->
+## Auth-1G — Browser E2E
+
+**Estado:** implementação enviada para validação online.
+
+O gate executa o Auth-1F com banco vazio, provisiona dois tenants
+descartáveis e valida login, cookies, isolamento e revogação de sessões.
+<!-- AUTH1G_STATUS_END -->

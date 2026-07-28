@@ -2,58 +2,58 @@
 
 ## Estado entregue
 
-A Fase 0 está encerrada.
+A Fase 0 estÃ¡ encerrada.
 
 A Fase 1 possui agora quatro marcos locais:
 
 - Auth-1A: schema aditivo de identidade e tenant;
-- Auth-1B: autenticação e sessões operacionais;
+- Auth-1B: autenticaÃ§Ã£o e sessÃµes operacionais;
 - Auth-1C: contexto organizacional e leitura tenant-scoped;
-- Auth-1D: administração de organizações, memberships, projetos e
+- Auth-1D: administraÃ§Ã£o de organizaÃ§Ãµes, memberships, projetos e
   ambientes com auditoria e invariantes.
 
 ## Capacidades Auth-1D
 
-- PLATFORM_ADMIN cria organização;
-- a criação inclui a primeira membership ADMIN;
-- ADMIN adiciona usuários ativos existentes ao tenant;
+- PLATFORM_ADMIN cria organizaÃ§Ã£o;
+- a criaÃ§Ã£o inclui a primeira membership ADMIN;
+- ADMIN adiciona usuÃ¡rios ativos existentes ao tenant;
 - ADMIN altera papel e status de memberships;
-- o último ADMIN ativo é protegido em transação Serializable;
+- o Ãºltimo ADMIN ativo Ã© protegido em transaÃ§Ã£o Serializable;
 - ADMIN e OPERATOR criam projetos e ambientes;
-- ambientes validam o projeto dentro da organização;
-- todas as mutações registram SecurityAuditEvent;
-- as rotas exigem sessão, permissão, same-origin e JSON limitado.
+- ambientes validam o projeto dentro da organizaÃ§Ã£o;
+- todas as mutaÃ§Ãµes registram SecurityAuditEvent;
+- as rotas exigem sessÃ£o, permissÃ£o, same-origin e JSON limitado.
 
-## Próxima atividade
+## PrÃ³xima atividade
 
 Fechar a Fase 1 com Auth-1E:
 
 - convites;
-- aceitação de convites;
-- recuperação de acesso;
-- revogação operacional de sessões;
-- PostgreSQL descartável;
+- aceitaÃ§Ã£o de convites;
+- recuperaÃ§Ã£o de acesso;
+- revogaÃ§Ã£o operacional de sessÃµes;
+- PostgreSQL descartÃ¡vel;
 - testes concorrentes reais;
 - testes E2E cross-tenant;
-- documentação final da Fase 1.
+- documentaÃ§Ã£o final da Fase 1.
 
-Depois, iniciar a Fase 2 com importação CSV/JSON tenant-scoped.
+Depois, iniciar a Fase 2 com importaÃ§Ã£o CSV/JSON tenant-scoped.
 
-## Restrições
+## RestriÃ§Ãµes
 
-- não confiar em organizationId, projectId ou role sem resolução;
-- não conceder bypass de tenant ao PLATFORM_ADMIN;
-- não remover o último ADMIN ativo;
-- não executar migrations de produção sem validação específica;
-- não executar bootstrap automaticamente;
-- não fabricar resultados científicos;
-- não acessar artefatos privados dos revisores;
-- o watcher apenas propõe mudanças.
+- nÃ£o confiar em organizationId, projectId ou role sem resoluÃ§Ã£o;
+- nÃ£o conceder bypass de tenant ao PLATFORM_ADMIN;
+- nÃ£o remover o Ãºltimo ADMIN ativo;
+- nÃ£o executar migrations de produÃ§Ã£o sem validaÃ§Ã£o especÃ­fica;
+- nÃ£o executar bootstrap automaticamente;
+- nÃ£o fabricar resultados cientÃ­ficos;
+- nÃ£o acessar artefatos privados dos revisores;
+- o watcher apenas propÃµe mudanÃ§as.
 
 ## Notas relacionadas
 
-[[CURRENT_PHASE_STATUS]] · [[ROADMAP]] · [[ARCHITECTURE]] ·
-[[AUTH_RBAC]] · [[auth/AUTH1D_TENANT_ADMINISTRATION]]
+[[CURRENT_PHASE_STATUS]] Â· [[ROADMAP]] Â· [[ARCHITECTURE]] Â·
+[[AUTH_RBAC]] Â· [[auth/AUTH1D_TENANT_ADMINISTRATION]]
 
 <!-- auth1e-handoff-2026-07-20:start -->
 ## Auth-1E handoff
@@ -96,3 +96,14 @@ persistent Auth-1F database to remove manually.
 
 The next milestone after approval is browser-driven Auth-1G E2E.
 <!-- auth1f-online-handoff-2026-07-21:end -->
+
+<!-- AUTH1G_HANDOFF_BEGIN -->
+## Auth-1G — Browser E2E
+
+A branch `auth1g-browser-e2e` implementa Playwright com Chromium,
+provisionamento descartável, login real, cookies `HttpOnly`, isolamento
+cross-tenant com `404` e revogação das outras sessões.
+
+O Pull Request deve ser revisado depois da aprovação dos gates. Nenhum
+merge é executado automaticamente.
+<!-- AUTH1G_HANDOFF_END -->

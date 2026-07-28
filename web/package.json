@@ -15,7 +15,9 @@
     "validate:auth1c": "prisma validate && prisma generate && tsx scripts/auth1c-contract.ts && tsc --noEmit --incremental false --pretty false",
     "validate:auth1d": "prisma validate && prisma generate && tsx scripts/auth1d-contract.ts && tsc --noEmit --incremental false --pretty false",
     "validate:auth1e": "prisma validate && prisma generate && tsx scripts/auth1e-contract.ts && tsc --noEmit --incremental false --pretty false",
-    "test:auth1f:integration": "tsx scripts/auth1f-integration.ts"
+    "test:auth1f:integration": "tsx scripts/auth1f-integration.ts",
+    "auth1g:seed": "tsx scripts/auth1g-seed.ts",
+    "test:auth1g:e2e": "playwright test --config=playwright.config.ts"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "1.6.23",
@@ -27,6 +29,7 @@
     "react-dom": "19.2.6"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
     "@types/node": "25.9.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
