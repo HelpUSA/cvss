@@ -1,13 +1,26 @@
 # CVSS current phase status
 
-Atualizado em 2026-07-14.
+Atualizado em 2026-07-30.
+## Síntese
 
-## SÃ­ntese
+A pesquisa científica permanece preservada e pausada no ponto correto:
+existem 30 cenários, pacotes cegos para três revisores, compromisso
+criptográfico da chave, gate de pré-análise e motor estatístico da Fase 15.
+Ainda não existem respostas humanas recebidas e bloqueadas; portanto, não
+há resultado de concordância, validação por especialistas ou conclusão
+estatística a declarar.
 
-A pesquisa cientÃ­fica estÃ¡ preservada e pausada no ponto correto: existem 30 cenÃ¡rios, pacotes cegos para trÃªs revisores, compromisso criptogrÃ¡fico da chave, gate de prÃ©-anÃ¡lise e motor estatÃ­stico da Fase 15. Ainda nÃ£o existem respostas humanas recebidas e bloqueadas. Portanto, nÃ£o hÃ¡ resultado de concordÃ¢ncia, validaÃ§Ã£o por especialistas ou conclusÃ£o estatÃ­stica a declarar.
+A Fase 0 está encerrada. A Fase 1 possui os marcos Auth-1A até Auth-1G
+implementados e versionados. O Auth-1G foi integrado pelo Pull Request
+`#2`, e os gates Real Pipeline e Browser E2E foram aprovados sobre o merge
+commit `0508fee56be4c2cf0ca7803f2d8251fe6f2162e7`.
 
-O foco ativo passou a ser transformar os protÃ³tipos existentes em uma aplicaÃ§Ã£o operacional multiusuÃ¡rio. A Fase 0 estÃ¡ em fechamento documental e tÃ©cnico; ela somente poderÃ¡ ser considerada encerrada apÃ³s a execuÃ§Ã£o e o registro das validaÃ§Ãµes atuais.
+A integração não representa ativação de produção. Nenhum deployment manual
+ou de produção foi executado durante o encerramento do Auth-1G.
 
+A matriz abaixo registra a linha de base histórica. As atualizações
+versionadas nas seções posteriores prevalecem quando indicarem que uma
+capacidade deixou de estar ausente ou parcial.
 ## Matriz de realidade
 
 | Ãrea | ClassificaÃ§Ã£o | Estado verificÃ¡vel |
@@ -30,10 +43,13 @@ O foco ativo passou a ser transformar os protÃ³tipos existentes em uma aplica�
 
 ## Prioridades imediatas
 
-1. Finalizar e versionar esta auditoria documental.
-2. Fechar formalmente a Fase 0 com testes e builds atuais.
-3. Implementar autenticaÃ§Ã£o/RBAC e o modelo bÃ¡sico de usuÃ¡rios, organizaÃ§Ãµes e ambientes.
-
+1. Validar o envio de recuperação e convites em sandbox controlado do
+   provedor de e-mail.
+2. Revisar a compatibilidade das rotas e dependências de autenticação com
+   Edge Runtime.
+3. Ensaiar as migrations em ambiente semelhante à produção.
+4. Preparar deployment e aceitação como etapa separada, sujeita a
+   autorização expressa.
 ## Primeiro marco demonstrÃ¡vel
 
 Um operador autenticado cria um ambiente, importa dados reais em CSV ou JSON e visualiza os ativos e vulnerabilidades encontrados.
@@ -190,8 +206,22 @@ The local computer is used only as a Git client and file editor.
 <!-- AUTH1G_STATUS_BEGIN -->
 ## Auth-1G — Browser E2E
 
-**Estado:** implementação enviada para validação online.
+**Estado:** encerrado e integrado em `real-world-cvss`.
 
-O gate executa o Auth-1F com banco vazio, provisiona dois tenants
-descartáveis e valida login, cookies, isolamento e revogação de sessões.
+O Pull Request `#2` integrou o commit
+`f21f80cbd31a5446153e1657c6ef67129327dd71` por meio do merge commit
+`0508fee56be4c2cf0ca7803f2d8251fe6f2162e7`.
+
+Validações de encerramento:
+
+- Real Pipeline Gate `30321808705`: `success`;
+- Auth-1G Browser E2E `30321871354`: `success`;
+- schema Prisma preservado;
+- exatamente onze arquivos Auth-1G integrados;
+- nenhum deployment manual ou de produção;
+- deployment GitHub observado somente no ambiente `Preview`.
+
+O próximo checkpoint não é outro merge do Auth-1G. Permanecem as
+validações de provedor de e-mail, Edge Runtime e ensaio de migrations antes
+de qualquer autorização de produção.
 <!-- AUTH1G_STATUS_END -->

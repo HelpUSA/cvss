@@ -2,16 +2,23 @@
 
 ## Estado entregue
 
-A Fase 0 estÃ¡ encerrada.
+A Fase 0 está encerrada.
 
-A Fase 1 possui agora quatro marcos locais:
+A Fase 1 possui os seguintes marcos versionados:
 
 - Auth-1A: schema aditivo de identidade e tenant;
-- Auth-1B: autenticaÃ§Ã£o e sessÃµes operacionais;
-- Auth-1C: contexto organizacional e leitura tenant-scoped;
-- Auth-1D: administraÃ§Ã£o de organizaÃ§Ãµes, memberships, projetos e
-  ambientes com auditoria e invariantes.
+- Auth-1B: autenticação e sessões operacionais;
+- Auth-1C: contexto organizacional, RBAC e leitura tenant-scoped;
+- Auth-1D: administração de organizações, memberships, projetos e
+  ambientes com auditoria e invariantes;
+- Auth-1E: recuperação de senha, convites e revogação de sessões;
+- Auth-1F: integração online com PostgreSQL descartável e gates reais;
+- Auth-1G: Browser E2E com login pela interface, cookies `HttpOnly`,
+  isolamento cross-tenant e revogação de sessões.
 
+O Auth-1G foi integrado à branch `real-world-cvss` pelo Pull Request `#2`.
+O merge commit atual é
+`0508fee56be4c2cf0ca7803f2d8251fe6f2162e7`.
 ## Capacidades Auth-1D
 
 - PLATFORM_ADMIN cria organizaÃ§Ã£o;
@@ -24,21 +31,19 @@ A Fase 1 possui agora quatro marcos locais:
 - todas as mutaÃ§Ãµes registram SecurityAuditEvent;
 - as rotas exigem sessÃ£o, permissÃ£o, same-origin e JSON limitado.
 
-## PrÃ³xima atividade
+## Próxima atividade
 
-Fechar a Fase 1 com Auth-1E:
+Concluir as validações operacionais restantes da Fase 1:
 
-- convites;
-- aceitaÃ§Ã£o de convites;
-- recuperaÃ§Ã£o de acesso;
-- revogaÃ§Ã£o operacional de sessÃµes;
-- PostgreSQL descartÃ¡vel;
-- testes concorrentes reais;
-- testes E2E cross-tenant;
-- documentaÃ§Ã£o final da Fase 1.
+- executar recuperação de senha e convites em sandbox controlado do
+  provedor de e-mail;
+- revisar compatibilidade com Edge Runtime;
+- ensaiar migrations em ambiente semelhante à produção;
+- preparar o procedimento de deployment e aceitação;
+- manter produção fora do escopo até autorização expressa.
 
-Depois, iniciar a Fase 2 com importaÃ§Ã£o CSV/JSON tenant-scoped.
-
+Depois do fechamento controlado da Fase 1, iniciar a Fase 2 com importação
+CSV/JSON tenant-scoped.
 ## RestriÃ§Ãµes
 
 - nÃ£o confiar em organizationId, projectId ou role sem resoluÃ§Ã£o;
@@ -98,12 +103,22 @@ The next milestone after approval is browser-driven Auth-1G E2E.
 <!-- auth1f-online-handoff-2026-07-21:end -->
 
 <!-- AUTH1G_HANDOFF_BEGIN -->
-## Auth-1G — Browser E2E
+## Auth-1G — Browser E2E — encerramento
 
-A branch `auth1g-browser-e2e` implementa Playwright com Chromium,
-provisionamento descartável, login real, cookies `HttpOnly`, isolamento
-cross-tenant com `404` e revogação das outras sessões.
+O Auth-1G está integrado em `real-world-cvss`.
 
-O Pull Request deve ser revisado depois da aprovação dos gates. Nenhum
-merge é executado automaticamente.
+Referências:
+
+- Pull Request: `#2`;
+- commit Auth-1G: `f21f80cbd31a5446153e1657c6ef67129327dd71`;
+- merge commit: `0508fee56be4c2cf0ca7803f2d8251fe6f2162e7`;
+- Real Pipeline Gate: execução `30321808705`, concluída com sucesso;
+- Auth-1G Browser E2E: execução `30321871354`, concluída com sucesso.
+
+O schema Prisma permaneceu inalterado. Nenhum merge adicional do Auth-1G,
+deployment manual, deployment de produção ou rollback é necessário.
+
+O próximo responsável deve trabalhar nas validações restantes de e-mail,
+Edge Runtime e migrations. Produção exige checkpoint e autorização
+separados.
 <!-- AUTH1G_HANDOFF_END -->
