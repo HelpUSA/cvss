@@ -145,6 +145,8 @@ Remaining after Auth-1F approval:
 <!-- AUTH1G_ROADMAP_BEGIN -->
 ## Auth-1G — Browser E2E
 
+**Estado:** encerrado e integrado em `real-world-cvss`.
+
 - [x] Playwright e Chromium.
 - [x] Provisionamento descartável.
 - [x] Login real pela interface.
@@ -154,6 +156,26 @@ Remaining after Auth-1F approval:
 - [x] Segunda sessão e revogação das outras sessões.
 - [x] Regressões Auth-1B até Auth-1F.
 - [x] Build e pipeline Python.
-- [ ] Aprovação dos gates online.
-- [ ] Revisão e merge do Pull Request.
+- [x] Aprovação dos gates online.
+- [x] Revisão e merge do Pull Request.
+- [x] Real Pipeline Gate aprovado após o merge.
+- [x] Auth-1G Browser E2E aprovado na base integrada.
+
+Evidências de encerramento:
+
+- Pull Request: `#2`;
+- commit Auth-1G: `f21f80cbd31a5446153e1657c6ef67129327dd71`;
+- merge commit: `0508fee56be4c2cf0ca7803f2d8251fe6f2162e7`;
+- Real Pipeline Gate: execução `30321808705`;
+- Auth-1G Browser E2E pós-merge: execução `30321871354`;
+- schema Prisma preservado;
+- nenhum deployment manual ou de produção executado;
+- somente deployment de Preview observado.
+
+Validações restantes antes de produção:
+
+- sandbox controlado do provedor de e-mail;
+- revisão de compatibilidade com Edge Runtime;
+- ensaio de migrations em ambiente semelhante à produção;
+- deployment e aceitação mediante autorização separada.
 <!-- AUTH1G_ROADMAP_END -->
