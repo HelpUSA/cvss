@@ -156,13 +156,17 @@ async function validateEmailContract(): Promise<void> {
   const originalFetch =
     globalThis.fetch;
 
+  const mutableEnvironment =
+    process.env as unknown as
+      Record<string, string | undefined>;
+
   for (const name of names) {
     saved.set(
       name,
       process.env[name],
     );
 
-    delete process.env[name];
+    delete mutableEnvironment[name];
   }
 
   try {
@@ -174,10 +178,10 @@ async function validateEmailContract(): Promise<void> {
       "public_base_url_unavailable",
     );
 
-    process.env.NODE_ENV =
+    mutableEnvironment.NODE_ENV =
       "production";
 
-    process.env.AUTH_PUBLIC_BASE_URL =
+    mutableEnvironment.AUTH_PUBLIC_BASE_URL =
       "http://cvss.example.invalid";
 
     expectDomainError(
@@ -188,7 +192,7 @@ async function validateEmailContract(): Promise<void> {
       "insecure_public_base_url",
     );
 
-    process.env.AUTH_PUBLIC_BASE_URL =
+    mutableEnvironment.AUTH_PUBLIC_BASE_URL =
       "https://cvss.example.invalid";
 
     if (
@@ -213,7 +217,7 @@ async function validateEmailContract(): Promise<void> {
       );
     }
 
-    process.env.AUTH_EMAIL_FROM =
+    mutableEnvironment.AUTH_EMAIL_FROM =
       "CVSS Sandbox <sandbox@example.invalid>";
 
     await expectAsyncDomainError(
@@ -237,7 +241,7 @@ async function validateEmailContract(): Promise<void> {
       "email_delivery_unavailable",
     );
 
-    process.env.RESEND_API_KEY =
+    mutableEnvironment.RESEND_API_KEY =
       "auth1h-contract-key";
 
     let capturedUrl = "";
@@ -382,10 +386,10 @@ async function validateEmailContract(): Promise<void> {
         saved.get(name);
 
       if (value === undefined) {
-        delete process.env[name];
+        delete mutableEnvironment[name];
       }
       else {
-        process.env[name] =
+        mutableEnvironment[name] =
           value;
       }
     }
