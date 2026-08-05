@@ -17,7 +17,9 @@
     "validate:auth1e": "prisma validate && prisma generate && tsx scripts/auth1e-contract.ts && tsc --noEmit --incremental false --pretty false",
     "test:auth1f:integration": "tsx scripts/auth1f-integration.ts",
     "auth1g:seed": "tsx scripts/auth1g-seed.ts",
-    "test:auth1g:e2e": "playwright test --config=playwright.config.ts"
+    "test:auth1g:e2e": "playwright test --config=playwright.config.ts",
+    "validate:auth1h": "tsx scripts/auth1h-operational.ts",
+    "email:auth1h:sandbox": "tsx scripts/auth1h-operational.ts"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "1.6.23",

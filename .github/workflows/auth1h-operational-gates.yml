@@ -1,0 +1,179 @@
+name: Auth-1H Operational Gates
+
+on:
+  pull_request:
+    branches:
+      - real-world-cvss
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+permissions:
+  contents: read
+
+concurrency:
+  group: auth1h-operational-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  contracts:
+    name: Auth-1H email and runtime contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    env:
+      DATABASE_URL: "postgresql://auth1h:auth1h-ci-password@127.0.0.1:5432/cvss_auth1h?schema=public"
+      BETTER_AUTH_SECRET: "auth1h-contract-secret-0123456789abcdef"
+      BETTER_AUTH_URL: "http://127.0.0.1:3000"
+      AUTH_PUBLIC_BASE_URL: "http://127.0.0.1:3000"
+      AUTH_TRUSTED_ORIGINS: "http://127.0.0.1:3000"
+      AUTH1H_MODE: "contract"
+      NEXT_TELEMETRY_DISABLED: "1"
+      CI: "1"
+
+    steps:
+      - name: Checkout tested head
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Generate Prisma client
+        working-directory: web
+        run: npx prisma generate
+
+      - name: Execute Auth-1H operational contract
+        working-directory: web
+        run: npm run validate:auth1h
+
+      - name: Execute Auth-1E regression
+        working-directory: web
+        run: npm run validate:auth1e
+
+      - name: Type-check
+        working-directory: web
+        run: npx tsc --noEmit --incremental false --pretty false
+
+      - name: Build
+        working-directory: web
+        run: npm run build
+
+  migration-rehearsal:
+    name: Auth-1H migration rehearsal
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+
+        env:
+          POSTGRES_USER: auth1h
+          POSTGRES_PASSWORD: auth1h-ci-password
+          POSTGRES_DB: cvss_auth1h
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd "pg_isready -U auth1h -d cvss_auth1h"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: "postgresql://auth1h:auth1h-ci-password@127.0.0.1:5432/cvss_auth1h?schema=public"
+      PSQL_DATABASE_URL: "postgresql://auth1h:auth1h-ci-password@127.0.0.1:5432/cvss_auth1h"
+      BETTER_AUTH_SECRET: "auth1h-migration-secret-0123456789abcdef"
+      BETTER_AUTH_URL: "http://127.0.0.1:3000"
+      AUTH_PUBLIC_BASE_URL: "http://127.0.0.1:3000"
+      AUTH_TRUSTED_ORIGINS: "http://127.0.0.1:3000"
+      NEXT_TELEMETRY_DISABLED: "1"
+      CI: "1"
+
+    steps:
+      - name: Checkout tested head
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install PostgreSQL client
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes postgresql-client
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Generate Prisma client
+        working-directory: web
+        run: npx prisma generate
+
+      - name: Apply and inspect versioned migrations
+        working-directory: web
+        run: |
+          set -euo pipefail
+          npx prisma migrate deploy
+          npx prisma migrate status
+
+      - name: Verify migration ledger
+        run: |
+          set -euo pipefail
+
+          APPLIED="$(
+            psql "$PSQL_DATABASE_URL" -Atc '
+              SELECT COUNT(*)
+              FROM "_prisma_migrations"
+              WHERE finished_at IS NOT NULL
+                AND rolled_back_at IS NULL;
+            '
+          )"
+
+          INCOMPLETE="$(
+            psql "$PSQL_DATABASE_URL" -Atc '
+              SELECT COUNT(*)
+              FROM "_prisma_migrations"
+              WHERE finished_at IS NULL
+                AND rolled_back_at IS NULL;
+            '
+          )"
+
+          test "$APPLIED" = "2"
+          test "$INCOMPLETE" = "0"
+
+      - name: Prove deploy idempotency
+        working-directory: web
+        run: |
+          set -euo pipefail
+          npx prisma migrate deploy
+          npx prisma migrate status
+
+      - name: Validate schema
+        working-directory: web
+        run: npx prisma validate
+
+      - name: Execute Auth-1F PostgreSQL integration
+        working-directory: web
+        run: npm run test:auth1f:integration
