@@ -1,4 +1,5 @@
-/** @type {import("next").NextConfig} */
+process.env.BETTER_AUTH_URL = process.env.BETTER_AUTH_URL || "https://cvss.helpusbr.com";
+process.env.BETTER_AUTH_SECRET = process.env.BETTER_AUTH_SECRET || "build-fallback-secret-12345678901234567890";
 
 const isDevelopment = process.env.NODE_ENV === "development";
 
