@@ -1,0 +1,117 @@
+{
+  "passed": 8,
+  "total": 10,
+  "rate": 80.0,
+  "cases": [
+    {
+      "id": "TC-FIRST-001",
+      "name": "Classic Unauthenticated Remote Code Execution",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "expected_score": 9.3,
+      "observed_score": 9.3,
+      "expected_severity": "Critical",
+      "observed_severity": "Critical",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Section 4.1"
+    },
+    {
+      "id": "TC-FIRST-002",
+      "name": "Maximal Impact Across System Boundaries",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+      "expected_score": 10.0,
+      "observed_score": 10.0,
+      "expected_severity": "Critical",
+      "observed_severity": "Critical",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Section 4.2"
+    },
+    {
+      "id": "TC-FIRST-003",
+      "name": "Local Privilege Escalation with Low Privileges",
+      "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "expected_score": 8.5,
+      "observed_score": 8.5,
+      "expected_severity": "High",
+      "observed_severity": "High",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Examples"
+    },
+    {
+      "id": "TC-FIRST-004",
+      "name": "Remote Info Disclosure with Attack Requirements (AT:P)",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "expected_score": 8.2,
+      "observed_score": 8.2,
+      "expected_severity": "High",
+      "observed_severity": "High",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Examples"
+    },
+    {
+      "id": "TC-FIRST-005",
+      "name": "Reflected Cross-Site Scripting (UI:P)",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "expected_score": 5.3,
+      "observed_score": 5.3,
+      "expected_severity": "Medium",
+      "observed_severity": "Medium",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Examples"
+    },
+    {
+      "id": "TC-FIRST-006",
+      "name": "Adjacent Network Denial of Service (AV:A)",
+      "vector": "CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "expected_score": 7.1,
+      "observed_score": 7.1,
+      "expected_severity": "High",
+      "observed_severity": "High",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Examples"
+    },
+    {
+      "id": "TC-FIRST-007",
+      "name": "Environmental High Requirements (CR:H/IR:H/AR:H)",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/CR:H/IR:H/AR:H",
+      "expected_score": 9.7,
+      "observed_score": 9.3,
+      "expected_severity": "Critical",
+      "observed_severity": "Critical",
+      "status": "FAIL",
+      "source": "FIRST CVSS v4.0 Specification Section 7.1"
+    },
+    {
+      "id": "TC-FIRST-008",
+      "name": "Environmental Control Mitigation (MAV:A/MAC:H/MPR:H)",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A/MAC:H/MPR:H",
+      "expected_score": 6.4,
+      "observed_score": 7.3,
+      "expected_severity": "Medium",
+      "observed_severity": "High",
+      "status": "FAIL",
+      "source": "FIRST CVSS v4.0 Specification Section 7.2"
+    },
+    {
+      "id": "TC-FIRST-009",
+      "name": "Low Impact Flaw with No Subsequent Impact",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "expected_score": 6.9,
+      "observed_score": 6.9,
+      "expected_severity": "Medium",
+      "observed_severity": "Medium",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Lookup"
+    },
+    {
+      "id": "TC-FIRST-010",
+      "name": "Physical Attack Vector (AV:P)",
+      "vector": "CVSS:4.0/AV:P/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "expected_score": 7.0,
+      "observed_score": 7.0,
+      "expected_severity": "High",
+      "observed_severity": "High",
+      "status": "PASS",
+      "source": "FIRST CVSS v4.0 Specification Examples"
+    }
+  ]
+}
