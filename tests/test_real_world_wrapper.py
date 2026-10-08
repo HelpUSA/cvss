@@ -1,69 +1,62 @@
+"""Tests for current-world HelpUS assessment wrapper (CVSS v4.0)."""
+import pytest
 from core.cvss_real_world import assess_finding
 
-NETWORK_CRITICAL_VECTOR = "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+CVSS4_VECTOR = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
 
 
 def test_assess_finding_returns_official_contextual_and_evidence_layers():
     row = {
-        "cvss_vector": NETWORK_CRITICAL_VECTOR,
-        "cve": "CVE-2099-0001",
+        "source_cvss_vector": CVSS4_VECTOR,
+        "cve": "CVE-2024-0001",
         "asset_id": "asset-web-01",
-        "source_url": "https://example.test/finding/CVE-2099-0001",
+        "source_url": "https://example.test/finding/CVE-2024-0001",
         "environment": "production",
         "business_criticality": "high",
-        "internet_exposed": True,
-        "pci_in_scope": True,
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "PUBLIC_ROUTED",
+        "telemetry_age_days": 0.5,
     }
 
     result = assess_finding(row)
 
-    assert set(result) == {
-        "official_cvss",
-        "contextual_environmental",
-        "evidence",
-    }
+    assert "source_cvss" in result
+    assert "official_cvss" in result  # compatibility alias
+    assert "contextual_environmental" in result
+    assert "evidence" in result
 
-    official = result["official_cvss"]
-    contextual = result["contextual_environmental"]
+    source = result["source_cvss"]
+    assert source["score"] == 9.3
+    assert source["severity"] == "Critical"
+    assert source["nomenclature"] == "CVSS-B"
+
+    ctx = result["contextual_environmental"]
+    assert ctx["score"] == 9.3
+    assert ctx["decision"] == "unchanged"
+    assert ctx["auto_downgrade_permitted"] is False
+
     evidence = result["evidence"]
-
-    assert official["base_score"] == 9.8
-    assert official["base_severity"] == "Critical"
-
-    assert contextual["contextual_score"] == 10.0
-    assert contextual["contextual_severity"] == "Critical"
-    assert contextual["decision"] == "upgraded"
-    assert round(contextual["delta_from_official_base"], 1) == 0.2
-    assert isinstance(contextual["trace"], list)
-    assert contextual["trace"]
-
-    assert evidence == {
-        "cve": "CVE-2099-0001",
-        "asset_id": "asset-web-01",
-        "source_url": "https://example.test/finding/CVE-2099-0001",
-        "environment": "production",
-        "business_criticality": "high",
-        "pci_in_scope": True,
-    }
+    assert evidence["cve"] == "CVE-2024-0001"
+    assert evidence["asset_id"] == "asset-web-01"
 
 
-def test_assess_finding_accepts_vector_alias_for_official_cvss_input():
-    result = assess_finding({"vector": NETWORK_CRITICAL_VECTOR})
+def test_assess_finding_accepts_vector_alias_for_source_vector():
+    result = assess_finding({
+        "vector": CVSS4_VECTOR,
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "PUBLIC_ROUTED",
+        "telemetry_age_days": 0.5,
+    })
 
-    assert result["official_cvss"]["base_score"] == 9.8
-    assert "contextual_score" in result["contextual_environmental"]
+    assert result["source_cvss"]["score"] == 9.3
+    assert "score" in result["contextual_environmental"]
 
 
 def test_assess_finding_requires_cvss_vector_or_vector_alias():
-    try:
+    with pytest.raises(ValueError, match="source_cvss_vector/cvss_vector/vector is required"):
         assess_finding({})
-    except ValueError as exc:
-        assert str(exc) == "cvss_vector is required for real-world assessment"
-    else:
-        raise AssertionError("assess_finding should require cvss_vector or vector")
 
 
-if __name__ == "__main__":
-    test_assess_finding_returns_official_contextual_and_evidence_layers()
-    test_assess_finding_accepts_vector_alias_for_official_cvss_input()
-    test_assess_finding_requires_cvss_vector_or_vector_alias()
+def test_assess_finding_rejects_non_v4_vector():
+    with pytest.raises(ValueError, match="Current HelpUS environmental assessment requires a CVSS v4.0 source vector"):
+        assess_finding({"vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"})

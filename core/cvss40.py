@@ -1,13 +1,13 @@
-"""Official CVSS v4.0 scoring layer.
+"""CVSS v4.0 scoring layer aligned with the FIRST specification.
 
 Scores are computed by the ``cvss`` library (RedHat implementation of the
 FIRST CVSS v4.0 MacroVector algorithm). This module adds:
 
 * strict validation of metric names and values;
-* the official nomenclature (CVSS-B, CVSS-BT, CVSS-BE, CVSS-BTE);
-* a guarded merge of *candidate* Environmental/Threat metrics into an
-  official Base vector. Candidates can never override Base metrics, which
-  keeps ``official_cvss`` separate from consumer-side context.
+* the CVSS v4.0 nomenclature (CVSS-B, CVSS-BT, CVSS-BE, CVSS-BTE);
+* a guarded merge of *candidate* Environmental/Threat metrics into a
+  source CVSS v4.0 vector. Candidates can never override Base metrics, which
+  keeps the source assessment separate from consumer-side context.
 
 No heuristic adjustment is applied here. Every score returned by this module
 is a CVSS v4.0 score computed from a vector.
@@ -129,7 +129,7 @@ def nomenclature(metrics: Mapping[str, str]) -> str:
 
 
 def score(vector: str) -> Dict[str, object]:
-    """Compute the official CVSS v4.0 score for a vector."""
+    """Compute the CVSS v4.0 result for a vector using the configured implementation."""
     metrics = parse_vector(vector)
     canonical = build_vector(metrics)
     try:
@@ -146,7 +146,7 @@ def score(vector: str) -> Dict[str, object]:
 
 
 def apply_candidates(base_vector: str, candidates: Mapping[str, Optional[str]]) -> str:
-    """Merge candidate Threat/Environmental metrics into an official Base vector.
+    """Merge candidate Threat/Environmental metrics into a source CVSS v4.0 vector.
 
     Raises ``CVSS40ValidationError`` if a candidate tries to set a Base or
     Supplemental metric, or uses a value outside the specification.
@@ -171,12 +171,17 @@ def apply_candidates(base_vector: str, candidates: Mapping[str, Optional[str]]) 
 
 
 def compare(base_vector: str, candidates: Mapping[str, Optional[str]]) -> Dict[str, object]:
-    """Score the official Base vector and the candidate-enriched vector side by side."""
-    official = score(base_vector)
+    """Score the source vector and candidate-enriched vector side by side.
+
+    ``official_cvss`` is retained as a deprecated compatibility alias only; new
+    consumers should use ``source_cvss``.
+    """
+    source = score(base_vector)
     contextual = score(apply_candidates(base_vector, candidates))
     return {
-        "official_cvss": official,
+        "source_cvss": source,
+        "official_cvss": source,  # deprecated compatibility alias
         "candidate_cvss": contextual,
-        "delta": round(contextual["score"] - official["score"], 1),
-        "severity_changed": contextual["severity"] != official["severity"],
+        "delta": round(contextual["score"] - source["score"], 1),
+        "severity_changed": contextual["severity"] != source["severity"],
     }

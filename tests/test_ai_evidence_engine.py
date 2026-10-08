@@ -1,48 +1,63 @@
-import pytest
-
+import unittest
 from core.ai_evidence_engine import AIEvidenceEngine
-from core.cvss40 import compare
 
-BASE_CRITICAL = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
-
-
-def test_ai_engine_segmented_internal_pci_asset():
-    engine = AIEvidenceEngine()
-    profile = {
-        "internet_exposed": False,
-        "network_segmented": True,
-        "pci_in_scope": True,
-        "business_criticality": "high",
-        "data_sensitivity": "payment",
-    }
-    result = engine.analyze_finding("CVE-2024-TEST", BASE_CRITICAL, profile)
-
-    assert result["candidate_metrics"]["MAV"] == "A"
-    assert result["candidate_metrics"]["CR"] == "H"
-    assert result["candidate_metrics"]["IR"] == "H"
-    assert len(result["citations"]) > 0
-    assert result["human_review_status"] == "required"
-
-    comparison = compare(BASE_CRITICAL, result["candidate_metrics"])
-    assert comparison["official_cvss"]["score"] == 9.3
-    # Segmentation to Adjacent drops score to 8.7 in CVSS v4.0
-    assert comparison["candidate_cvss"]["score"] == 8.7
-    assert comparison["candidate_cvss"]["nomenclature"] == "CVSS-BE"
+BASE = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
 
 
-def test_ai_engine_isolated_redundant_asset():
-    engine = AIEvidenceEngine()
-    profile = {
-        "internet_exposed": False,
-        "network_segmented": False,
-        "business_criticality": "low",
-        "high_availability": True,
-    }
-    result = engine.analyze_finding("CVE-2024-LOW", BASE_CRITICAL, profile)
+class TestAIEvidenceEngine(unittest.TestCase):
+    def setUp(self):
+        self.engine = AIEvidenceEngine()
 
-    assert result["candidate_metrics"]["MAV"] == "L"
-    assert result["candidate_metrics"]["CR"] == "L"
-    assert result["candidate_metrics"]["AR"] == "L"
+    def good(self, **kwargs):
+        e = {
+            "evidence_quality": "SUFFICIENT",
+            "telemetry_age_days": 0.2,
+            "telemetry_profile": "dynamic",
+            "reachability": "INTERNAL_ROUTED",
+        }
+        e.update(kwargs)
+        return e
 
-    comparison = compare(BASE_CRITICAL, result["candidate_metrics"])
-    assert comparison["candidate_cvss"]["score"] < 9.3
+    def test_internal_routed_is_network(self):
+        r = self.engine.analyze_scenario(BASE, self.good())
+        self.assertEqual(r["candidate_metrics"]["MAV"], "N")
+        self.assertFalse(r["auto_downgrade_permitted"])
+        self.assertEqual(r["human_review_status"], "required")
+
+    def test_pci_flag_alone_does_not_set_requirements(self):
+        r = self.engine.analyze_scenario(BASE, self.good(pci_in_scope=True))
+        self.assertNotIn("CR", r["candidate_metrics"])
+        self.assertNotIn("IR", r["candidate_metrics"])
+        self.assertNotIn("AR", r["candidate_metrics"])
+
+    def test_versioned_policy_can_set_requirements(self):
+        r = self.engine.analyze_scenario(
+            BASE,
+            self.good(
+                organization_policy_id="POL-001",
+                policy_version="1.0",
+                security_requirements={"CR": "H", "IR": "H", "AR": "M"},
+            ),
+        )
+        self.assertEqual(r["candidate_metrics"]["CR"], "H")
+        self.assertEqual(r["candidate_metrics"]["IR"], "H")
+        self.assertEqual(r["candidate_metrics"]["AR"], "M")
+
+    def test_high_availability_does_not_mean_ar_low(self):
+        r = self.engine.analyze_scenario(BASE, self.good(high_availability=True))
+        self.assertNotIn("AR", r["candidate_metrics"])
+
+    def test_explicit_modified_availability_impact(self):
+        r = self.engine.analyze_scenario(
+            BASE,
+            self.good(
+                organization_policy_id="POL-001",
+                policy_version="1.0",
+                modified_impacts={"MVA": "L"},
+            ),
+        )
+        self.assertEqual(r["candidate_metrics"]["MVA"], "L")
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,84 +1,49 @@
-"""Tests for topology modeling and reachability semantics in HelpUS.
-
-Validates that:
-- Internal routed IP traffic preserves MAV:Network.
-- MAV:Adjacent strictly requires unrouted L2 broadcast containment.
-- Local host requires interactive console/loopback isolation (MAV:Local).
-- Firewall presence alone does NOT automatically elevate MAC to High.
-- Same IP in different routing domains (VRF/VPC) are recognized as distinct.
-"""
-import sys
-import os
 import unittest
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from core.ai_evidence_engine import AIEvidenceEngine
+
+BASE = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+
 
 class TestTopologyReachability(unittest.TestCase):
     def setUp(self):
         self.engine = AIEvidenceEngine()
-        self.base_vector = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
 
-    def test_internal_routed_preserves_mav_network(self):
-        """Internal service reachable via routed subnets is MAV:Network, not Adjacent."""
-        evidence = {
-            "internet_exposed": False,
-            "routed_ip_access": True,
-            "l2_broadcast_only": False,
-            "local_host_only": False,
-            "evidence_quality": "SUFFICIENT"
-        }
-        res = self.engine.analyze_scenario(self.base_vector, evidence)
-        self.assertEqual(res["candidate_metrics"].get("MAV"), "N")
+    def good(self, reachability, **kwargs):
+        e = {"evidence_quality": "SUFFICIENT", "telemetry_age_days": 0.1,
+             "telemetry_profile": "dynamic", "reachability": reachability}
+        e.update(kwargs)
+        return e
 
-    def test_l2_containment_produces_mav_adjacent(self):
-        """Service confined to unrouted L2 broadcast domain produces MAV:Adjacent."""
-        evidence = {
-            "internet_exposed": False,
-            "routed_ip_access": False,
-            "l2_broadcast_only": True,
-            "local_host_only": False,
-            "evidence_quality": "SUFFICIENT"
-        }
-        res = self.engine.analyze_scenario(self.base_vector, evidence)
-        self.assertEqual(res["candidate_metrics"].get("MAV"), "A")
+    def test_public_routed_network(self):
+        self.assertEqual(self.engine.analyze_scenario(BASE, self.good("PUBLIC_ROUTED"))["candidate_metrics"]["MAV"], "N")
 
-    def test_local_host_produces_mav_local(self):
-        """Service without network listener requiring interactive shell is MAV:Local."""
-        evidence = {
-            "internet_exposed": False,
-            "routed_ip_access": False,
-            "l2_broadcast_only": False,
-            "local_host_only": True,
-            "evidence_quality": "SUFFICIENT"
-        }
-        res = self.engine.analyze_scenario(self.base_vector, evidence)
-        self.assertEqual(res["candidate_metrics"].get("MAV"), "L")
+    def test_internal_routed_network(self):
+        self.assertEqual(self.engine.analyze_scenario(BASE, self.good("INTERNAL_ROUTED"))["candidate_metrics"]["MAV"], "N")
 
-    def test_firewall_alone_does_not_set_mac_high(self):
-        """Presence of firewall without verified exploit-precondition change leaves MAC alone."""
-        evidence = {
-            "internet_exposed": True,
-            "routed_ip_access": True,
-            "firewall_active": True,
-            "evidenced_exploit_preconditions_elevated": False,
-            "evidence_quality": "SUFFICIENT"
-        }
-        res = self.engine.analyze_scenario(self.base_vector, evidence)
-        self.assertNotIn("MAC", res["candidate_metrics"])
+    def test_adjacent_only(self):
+        self.assertEqual(self.engine.analyze_scenario(BASE, self.good("ADJACENT_ONLY"))["candidate_metrics"]["MAV"], "A")
 
-    def test_elevated_exploit_preconditions_sets_mac_high(self):
-        """Verified exploit filtering/preconditions change produces MAC:High."""
-        evidence = {
-            "internet_exposed": True,
-            "routed_ip_access": True,
-            "firewall_active": True,
-            "evidenced_exploit_preconditions_elevated": True,
-            "evidence_quality": "SUFFICIENT"
-        }
-        res = self.engine.analyze_scenario(self.base_vector, evidence)
-        self.assertEqual(res["candidate_metrics"].get("MAC"), "H")
+    def test_local_only(self):
+        self.assertEqual(self.engine.analyze_scenario(BASE, self.good("LOCAL_ONLY"))["candidate_metrics"]["MAV"], "L")
+
+    def test_physical_only(self):
+        self.assertEqual(self.engine.analyze_scenario(BASE, self.good("PHYSICAL_ONLY"))["candidate_metrics"]["MAV"], "P")
+
+    def test_firewall_alone_does_not_set_mac(self):
+        r = self.engine.analyze_scenario(BASE, self.good("PUBLIC_ROUTED", firewall_active=True))
+        self.assertNotIn("MAC", r["candidate_metrics"])
+
+    def test_exploit_specific_precondition_can_set_mac(self):
+        r = self.engine.analyze_scenario(BASE, self.good("PUBLIC_ROUTED", evidenced_exploit_preconditions_elevated=True))
+        self.assertEqual(r["candidate_metrics"].get("MAC"), "H")
+
+    def test_conflicting_legacy_flags_abstain(self):
+        r = self.engine.analyze_scenario(BASE, {
+            "evidence_quality": "SUFFICIENT", "telemetry_age_days": 0,
+            "routed_ip_access": True, "internet_exposed": False, "l2_broadcast_only": True,
+        })
+        self.assertEqual(r["review_status"], "HUMAN_REVIEW_REQUIRED")
+
 
 if __name__ == "__main__":
     unittest.main()

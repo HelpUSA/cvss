@@ -1,0 +1,27 @@
+{
+  "artifact": "helpus_cvss_ai_monograph_reviewed_chatgpt_final",
+  "built_at_utc": "2026-10-08T21:01:52Z",
+  "pdf_pages": 42,
+  "pdf_size_bytes": 1238148,
+  "pdf_sha256": "eea1707c90e9597449751b42fb1e393ac9705631b3f9e6649c8c7c196c19af20",
+  "latex_build": "clean successful",
+  "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian)",
+  "bibliography_engine": "bibtex8 0.99d-x4.02 (TeX Live 2025/dev)",
+  "undefined_references": 0,
+  "undefined_citations": 0,
+  "overfull_hboxes": 0,
+  "visual_render_pages": 42,
+  "visual_check": "passed; no clipping/overlap observed in full contact sheet and key wide-table pages",
+  "targeted_engine_tests": {
+    "passed": 19,
+    "failed": 0
+  },
+  "dataset_b_structural_validation": {
+    "rows": 30,
+    "errors": 0
+  },
+  "historical_statistics_script": "passed",
+  "comprehensive_first_reference_set": "PENDING_LOCAL_RELEASE_GATE",
+  "full_repository_test_suite": "PENDING_LOCAL_CLEAN_ENVIRONMENT",
+  "dataset_b_authoritative_source_retrieval": "PENDING_LOCAL_RELEASE_GATE"
+}

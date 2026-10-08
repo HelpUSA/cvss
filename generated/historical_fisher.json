@@ -1,0 +1,20 @@
+{
+  "table": [
+    [
+      96,
+      20
+    ],
+    [
+      136,
+      96
+    ]
+  ],
+  "fisher_two_sided_p": 4.223475753262034e-06,
+  "sample_cross_product_or": 3.388235294117647,
+  "conditional_mle_or": 3.3770294841208597,
+  "conditional_exact_ci95": [
+    1.9131109781442286,
+    6.184139076556205
+  ],
+  "scipy_note": "Generated with scipy.stats.fisher_exact and scipy.stats.contingency.odds_ratio(kind='conditional')."
+}

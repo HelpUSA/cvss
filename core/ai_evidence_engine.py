@@ -1,19 +1,27 @@
-"""
-AI Evidence Engine for CVSS v4.0.
-Analyzes findings alongside operational telemetry (routing, firewalls, ACLs,
-network domains, and organizational policy) to propose candidate CVSS v4.0 metrics
-with explicit symbolic provenance and fail-safe abstention.
+"""Evidence-constrained candidate-metric inference for CVSS v4.0.
 
-Follows a strict two-stage pipeline:
-Stage 1: Symbolic deduction of candidate metrics from grounded evidence.
-Stage 2: Fail-safe check (abstains with HUMAN_REVIEW_REQUIRED on ambiguous/stale/conflicting evidence).
+This module does not calculate CVSS scores. It proposes candidate Threat/
+Environmental metrics from explicit evidence and applies a conservative
+fail-safe policy. Numerical scoring is delegated to ``core.cvss40``.
+
+Research-safety invariants
+--------------------------
+* Missing, stale, unknown, or conflicting reachability evidence -> abstain.
+* Internal routed reachability remains MAV:N; lack of Internet exposure is not
+  evidence of MAV:A or MAV:L.
+* Firewall/WAF presence alone never implies MAC:H.
+* CR/IR/AR are accepted only from an explicit, versioned organizational-policy
+  mapping. Regulatory scope is evidence to that policy, not a CVSS value.
+* High availability/redundancy never implies AR:L. If a deployment has an
+  approved Modified Availability Impact mapping, it may explicitly provide MVA.
+* Candidate metrics always require HITL review before operational action;
+  automatic downgrade is disabled by default.
 """
 from __future__ import annotations
 
 import os
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Mapping, Optional
 
-# Valid CVSS v4.0 environmental & threat values
 VALID_METRICS = {
     "CR": {"H", "M", "L", "X"},
     "IR": {"H", "M", "L", "X"},
@@ -32,6 +40,9 @@ VALID_METRICS = {
     "E": {"A", "P", "U", "X"},
 }
 
+_DYNAMIC_MAX_AGE_DAYS = 1.0
+_STATIC_MAX_AGE_DAYS = 7.0
+
 
 class AIEvidenceEngine:
     def __init__(self, api_key: Optional[str] = None):
@@ -44,11 +55,57 @@ class AIEvidenceEngine:
         asset_profile: Dict[str, Any],
         evidence_notes: Optional[List[str]] = None,
     ) -> Dict[str, Any]:
-        """Convenience wrapper for finding evaluation."""
         evidence = dict(asset_profile)
         if evidence_notes:
             evidence["evidence_notes"] = evidence_notes
         return self.analyze_scenario(base_vector=base_vector, evidence=evidence, cve_id=cve_id)
+
+    @staticmethod
+    def _freshness_limit(evidence: Mapping[str, Any]) -> float:
+        if evidence.get("max_telemetry_age_days") is not None:
+            return float(evidence["max_telemetry_age_days"])
+        profile = str(evidence.get("telemetry_profile", "dynamic")).lower()
+        return _STATIC_MAX_AGE_DAYS if profile == "static" else _DYNAMIC_MAX_AGE_DAYS
+
+    @staticmethod
+    def _validated_mapping(
+        mapping: Any, allowed_names: set[str], citations: List[str], label: str
+    ) -> Dict[str, str]:
+        if not isinstance(mapping, Mapping):
+            return {}
+        out: Dict[str, str] = {}
+        for name, value in mapping.items():
+            name = str(name).upper()
+            value = str(value).upper()
+            if name not in allowed_names:
+                continue
+            if value not in VALID_METRICS[name] or value == "X":
+                continue
+            out[name] = value
+        if out:
+            citations.append(label)
+        return out
+
+    def _abstain(
+        self,
+        *,
+        cve_id: Optional[str],
+        base_vector: str,
+        reasons: List[str],
+        evidence_quality: str,
+    ) -> Dict[str, Any]:
+        return {
+            "cve_id": cve_id or "UNKNOWN",
+            "base_vector": base_vector,
+            "review_status": "HUMAN_REVIEW_REQUIRED",
+            "human_review_status": "required",
+            "auto_downgrade_permitted": False,
+            "evidence_quality": evidence_quality,
+            "candidate_metrics": {},
+            "citations": [],
+            "uncertainty_flags": reasons,
+            "summary_rationale": "Automated inference abstained: " + "; ".join(reasons),
+        }
 
     def analyze_scenario(
         self,
@@ -56,118 +113,136 @@ class AIEvidenceEngine:
         evidence: Dict[str, Any],
         cve_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """
-        Evidence-constrained deterministic analysis.
-        Implements fail-safe abstention (HUMAN_REVIEW_REQUIRED) whenever telemetry
-        is incomplete, stale (>30 days), or conflicting.
-        """
+        """Return candidate metrics or a fail-safe abstention decision."""
         citations: List[str] = []
         candidate_metrics: Dict[str, str] = {}
-        uncertainties: List[str] = []
+        reasons: List[str] = []
 
-        # --- FAIL-SAFE AUDIT CHECKS ---
-        is_stale = evidence.get("telemetry_age_days", 0) > 30
-        has_conflict = bool(evidence.get("conflict_flag", False))
-        quality = str(evidence.get("evidence_quality", "SUFFICIENT")).upper()
-        reachability = str(evidence.get("reachability", "")).upper()
-
-        # Check for explicit conflict in rules vs routes
+        quality = str(evidence.get("evidence_quality", "UNKNOWN")).upper()
+        reachability = str(evidence.get("reachability", "UNKNOWN")).upper()
+        explicit_conflict = bool(evidence.get("conflict_flag", False))
         fw_status = str(evidence.get("firewall_status", "")).upper()
         rt_status = str(evidence.get("routing_table_status", "")).upper()
         if "ALLOW" in fw_status and "NO_ROUTE" in rt_status:
-            has_conflict = True
+            explicit_conflict = True
 
-        if quality in ("INSUFFICIENT", "UNKNOWN") or is_stale or has_conflict or reachability == "UNKNOWN":
-            reasons = []
-            if is_stale:
-                reasons.append(f"telemetry is stale ({evidence.get('telemetry_age_days')} days old)")
-            if has_conflict:
-                reasons.append("conflicting routing and firewall telemetry detected")
-            if quality in ("INSUFFICIENT", "UNKNOWN") or reachability == "UNKNOWN":
-                reasons.append("insufficient operational evidence to verify reachability")
+        age = evidence.get("telemetry_age_days")
+        if age is None:
+            reasons.append("telemetry age is missing")
+        else:
+            try:
+                limit = self._freshness_limit(evidence)
+                if float(age) > limit:
+                    reasons.append(f"telemetry is stale ({age} days; policy limit {limit:g})")
+            except (TypeError, ValueError):
+                reasons.append("telemetry age is invalid")
 
-            uncertainties.extend(reasons)
-            return {
-                "cve_id": cve_id or "UNKNOWN",
-                "base_vector": base_vector,
-                "review_status": "HUMAN_REVIEW_REQUIRED",
-                "auto_downgrade_permitted": False,
-                "evidence_quality": "INSUFFICIENT" if quality != "CONFLICTING" else "CONFLICTING",
-                "candidate_metrics": {},
-                "citations": [],
-                "uncertainty_flags": uncertainties,
-                "summary_rationale": "Automated inference abstained: " + "; ".join(reasons),
+        if quality in {"INSUFFICIENT", "UNKNOWN", "CONFLICTING"}:
+            reasons.append(f"evidence quality is {quality}")
+        if explicit_conflict:
+            reasons.append("conflicting routing/firewall evidence detected")
+
+        # A reachability class must be explicit. Legacy booleans are accepted only
+        # when they determine one unambiguous class.
+        allowed_reachability = {
+            "PUBLIC_ROUTED",
+            "INTERNAL_ROUTED",
+            "ADJACENT_ONLY",
+            "LOCAL_ONLY",
+            "PHYSICAL_ONLY",
+        }
+        if reachability not in allowed_reachability:
+            legacy_flags = {
+                "LOCAL_ONLY": bool(evidence.get("local_host_only", False)),
+                "ADJACENT_ONLY": bool(evidence.get("l2_broadcast_only", False)),
+                "INTERNAL_ROUTED": bool(evidence.get("routed_ip_access", False))
+                and not bool(evidence.get("internet_exposed", False)),
+                "PUBLIC_ROUTED": bool(evidence.get("routed_ip_access", False))
+                and bool(evidence.get("internet_exposed", False)),
+                "PHYSICAL_ONLY": bool(evidence.get("physical_access_only", False)),
             }
-
-        # --- REACHABILITY & MAV REASONING ---
-        # Note: Absence of public internet does NOT make an asset Adjacent or Local.
-        # Internal routed IP networks remain MAV:Network.
-        l2_only = bool(evidence.get("l2_broadcast_only", False))
-        local_shell_only = bool(evidence.get("local_host_only", False))
-        is_routed = bool(evidence.get("routed_ip_access", True))
-
-        if local_shell_only:
-            candidate_metrics["MAV"] = "L"
-            citations.append("MAV:Local — Vulnerability requires local shell/console interaction on host.")
-        elif l2_only:
-            candidate_metrics["MAV"] = "A"
-            citations.append("MAV:Adjacent — Reachability strictly constrained to same unrouted L2 broadcast domain.")
-        elif is_routed:
-            # Internal or external routed network
-            candidate_metrics["MAV"] = "N"
-            if not evidence.get("internet_exposed", True):
-                citations.append("MAV:Network — Service reachable via internal routed IP subnets (not Internet-exposed).")
+            active = [name for name, enabled in legacy_flags.items() if enabled]
+            if len(active) == 1:
+                reachability = active[0]
+            elif len(active) > 1:
+                reasons.append("legacy reachability flags are conflicting")
             else:
-                citations.append("MAV:Network — Service directly reachable over public network routing.")
+                reasons.append("reachability is missing or unknown")
 
-        # --- ATTACK COMPLEXITY (MAC) REASONING ---
-        # Presence of firewall/WAF does NOT automatically imply MAC:High.
-        # MAC only changes if verified exploit pre-conditions are demonstrably elevated.
-        if evidence.get("evidenced_exploit_preconditions_elevated", False):
+        if reasons:
+            out_quality = "CONFLICTING" if quality == "CONFLICTING" or explicit_conflict else "INSUFFICIENT"
+            return self._abstain(
+                cve_id=cve_id,
+                base_vector=base_vector,
+                reasons=reasons,
+                evidence_quality=out_quality,
+            )
+
+        reachability_to_mav = {
+            "PUBLIC_ROUTED": "N",
+            "INTERNAL_ROUTED": "N",
+            "ADJACENT_ONLY": "A",
+            "LOCAL_ONLY": "L",
+            "PHYSICAL_ONLY": "P",
+        }
+        candidate_metrics["MAV"] = reachability_to_mav[reachability]
+        citations.append(f"MAV:{candidate_metrics['MAV']} - verified reachability class {reachability}.")
+
+        # MAC may change only with exploit-specific evidence.
+        if evidence.get("evidenced_exploit_preconditions_elevated") is True:
             candidate_metrics["MAC"] = "H"
-            citations.append("MAC:High — Specific verified perimeter filtering elevates required attack complexity.")
+            citations.append("MAC:H - exploit-specific preconditions are explicitly evidenced; firewall presence alone was not used.")
 
-        # --- SECURITY REQUIREMENTS (CR, IR, AR) FROM ORGANIZATIONAL POLICY ---
-        # Requirements stem from approved organizational mapping, not third-party mandates.
-        crit = str(evidence.get("business_criticality", "medium")).lower()
-        has_regulated_data = bool(evidence.get("pci_in_scope", False) or evidence.get("regulated_data_scope", False))
+        # Organizational requirements must be an explicit versioned mapping.
+        policy_id = evidence.get("organization_policy_id")
+        policy_version = evidence.get("policy_version")
+        reqs = evidence.get("security_requirements")
+        if reqs:
+            if not policy_id or not policy_version:
+                return self._abstain(
+                    cve_id=cve_id,
+                    base_vector=base_vector,
+                    reasons=["security requirements supplied without organization_policy_id and policy_version"],
+                    evidence_quality="INSUFFICIENT",
+                )
+            candidate_metrics.update(
+                self._validated_mapping(
+                    reqs,
+                    {"CR", "IR", "AR"},
+                    citations,
+                    f"CR/IR/AR - derived from organizational policy {policy_id} version {policy_version}.",
+                )
+            )
 
-        if has_regulated_data:
-            candidate_metrics["CR"] = "H"
-            citations.append("CR:High — Asset in approved organizational scope for regulated/sensitive cardholder data.")
-        elif crit in ("high", "critical"):
-            candidate_metrics["CR"] = "H"
-            citations.append("CR:H — High business criticality per organizational asset classification.")
-        elif crit == "low":
-            candidate_metrics["CR"] = "L"
-            citations.append("CR:L — Test/development asset with non-sensitive synthetic data.")
-        else:
-            candidate_metrics["CR"] = "M"
-
-        if crit in ("high", "critical") or has_regulated_data:
-            candidate_metrics["IR"] = "H"
-            citations.append("IR:H — Authoritative transactional records require high integrity.")
-        elif crit == "low":
-            candidate_metrics["IR"] = "L"
-        else:
-            candidate_metrics["IR"] = "M"
-
-        if bool(evidence.get("high_availability", False)):
-            candidate_metrics["AR"] = "L"
-            citations.append("AR:L — Active multi-zone redundancy mitigates single-instance availability disruption.")
-        elif crit in ("high", "critical"):
-            candidate_metrics["AR"] = "H"
-        else:
-            candidate_metrics["AR"] = "M"
+        # Explicit approved Modified Impact mappings are distinct from Requirements.
+        impacts = evidence.get("modified_impacts")
+        if impacts:
+            if not policy_id or not policy_version:
+                return self._abstain(
+                    cve_id=cve_id,
+                    base_vector=base_vector,
+                    reasons=["modified impacts supplied without organization_policy_id and policy_version"],
+                    evidence_quality="INSUFFICIENT",
+                )
+            candidate_metrics.update(
+                self._validated_mapping(
+                    impacts,
+                    {"MVC", "MVI", "MVA", "MSC", "MSI", "MSA"},
+                    citations,
+                    f"Modified impacts - derived from organizational policy {policy_id} version {policy_version}.",
+                )
+            )
 
         return {
             "cve_id": cve_id or "UNKNOWN",
             "base_vector": base_vector,
             "review_status": "PROVISIONAL_INFERENCE_READY",
-            "auto_downgrade_permitted": True,
+            "human_review_status": "required",
+            "auto_downgrade_permitted": False,
             "evidence_quality": "SUFFICIENT",
+            "reachability_class": reachability,
             "candidate_metrics": candidate_metrics,
             "citations": citations,
-            "uncertainty_flags": uncertainties,
+            "uncertainty_flags": [],
             "summary_rationale": "; ".join(citations),
         }

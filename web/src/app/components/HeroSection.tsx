@@ -48,7 +48,7 @@ export function HeroSection({
         <div className="hero-contract" aria-label="Contrato de separação">
           <span>
             <code>official_cvss</code>
-            permanece imutável
+            preservado como score de origem
           </span>
 
           <span aria-hidden="true">→</span>

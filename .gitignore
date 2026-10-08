@@ -24,6 +24,7 @@ article/*.fdb_latexmk
 # Local generated archives
 _archive/
 temp/
+.pytest_temp/
 .vercel
 .env*.local
 outputs/evidence/

@@ -6,52 +6,67 @@ export function MethodologySection() {
       aria-labelledby="methodology-title"
     >
       <div className="section-heading section-heading--centered">
-        <span className="section-kicker">Como funciona</span>
+        <span className="section-kicker">Arquitetura de Avaliação</span>
         <h2 id="methodology-title">
-          Uma decisão em três camadas rastreáveis
+          Decisão Operacional em Cinco Camadas Auditáveis
         </h2>
         <p>
-          A plataforma mantém o score oficial separado das evidências utilizadas
-          para ajustar prioridade, tratamento e urgência operacional.
+          Separação formal entre o score oficial de origem, as evidências ambientais observadas,
+          o score ambiental derivado, a política de fluxo local (P0–P4) e a governança com especialista humano.
         </p>
       </div>
 
-      <div className="methodology-grid">
+      <div className="methodology-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
         <article className="methodology-card">
           <span className="methodology-card__number">01</span>
-          <h3>CVSS oficial</h3>
+          <h3>Score de Origem</h3>
           <p>
-            O score técnico original permanece preservado como referência
-            normativa e comparável.
+            O score oficial (CNA/NVD) permanece preservado como referência normativa e comparável.
           </p>
-          <code>official_cvss</code>
+          <code>source_cvss</code>
         </article>
 
         <article className="methodology-card">
           <span className="methodology-card__number">02</span>
-          <h3>Evidências ambientais</h3>
+          <h3>Evidências Locais</h3>
           <p>
-            Exposição, segmentação, criticidade, controles e impacto são
-            associados ao ativo.
+            Topologia, telemetria com controle de idade e políticas organizacionais versionadas.
           </p>
-          <code>evidence</code>
+          <code>telemetry_evidence</code>
         </article>
 
         <article className="methodology-card">
           <span className="methodology-card__number">03</span>
-          <h3>Prioridade contextual</h3>
+          <h3>CVSS v4.0 Ambiental</h3>
           <p>
-            A decisão resultante apresenta delta, justificativa e trilha de
-            auditoria sem reescrever o score oficial.
+            Cálculo determinístico via algoritmo MacroVector FIRST CVSS v4.0 (sem deltas ad-hoc).
           </p>
-          <code>contextual_environmental</code>
+          <code>environmental_cvss</code>
+        </article>
+
+        <article className="methodology-card">
+          <span className="methodology-card__number">04</span>
+          <h3>Disposição P0–P4</h3>
+          <p>
+            Mapeamento operacional da fila de remediação local (P0 a P4_DEFER_RECOMMENDED).
+          </p>
+          <code>operational_policy</code>
+        </article>
+
+        <article className="methodology-card">
+          <span className="methodology-card__number">05</span>
+          <h3>Governança HITL</h3>
+          <p>
+            Homologação obrigatória por analista humano credenciado e recibo criptográfico SHA-256.
+          </p>
+          <code>hitl_audit_receipt</code>
         </article>
       </div>
 
       <div className="methodology-note">
         <strong>Princípio central:</strong>
-        priorização contextual não é uma nova versão do CVSS e não substitui a
-        avaliação técnica oficial.
+        A priorização ambiental HelpUS não substitui nem revoga o score de origem do NVD/CNA.
+        A classificação P4_DEFER_RECOMMENDED constitui recomendação técnica e NÃO configura aceitação de risco sem autorização formal.
       </div>
     </section>
   );

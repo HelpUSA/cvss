@@ -11,6 +11,8 @@ import {
   CuratedRunsPanel,
   type Run as CuratedRun,
 } from "./CuratedRunsPanel";
+import { QuickStartGuide } from "./components/QuickStartGuide";
+import { EnvironmentSimulator } from "./components/EnvironmentSimulator";
 
 type AnyRow = Record<string, any>;
 
@@ -357,6 +359,10 @@ export function DashboardClient({
           sourceDetail={sourceDetail}
         />
 
+        <QuickStartGuide />
+
+        <EnvironmentSimulator />
+
         <section
           className="dashboard-section"
           id="dashboard"
@@ -444,7 +450,7 @@ export function DashboardClient({
               <dl>
                 <div>
                   <dt>CVSS oficial</dt>
-                  <dd>Referência técnica imutável</dd>
+                  <dd>Referência técnica preservada e normativa</dd>
                 </div>
 
                 <div>
