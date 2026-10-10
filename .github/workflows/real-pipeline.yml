@@ -50,7 +50,7 @@ jobs:
       - name: Install Web dependencies
         run: |
           npm ci --prefix web
-          npx --prefix web prisma generate
+          npx --prefix web prisma generate --schema web/prisma/schema.prisma
       - name: Python test suite
         run: python -m pytest -q
       - name: TypeScript check
