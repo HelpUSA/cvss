@@ -52,7 +52,7 @@ jobs:
       - name: Python test suite
         run: python -m pytest -q
       - name: TypeScript check
-        run: npx --prefix web tsc --noEmit --incremental false --pretty false
+        run: npm --prefix web run typecheck
       - name: Web build
         run: npm --prefix web run build
       - name: Validate committed real-world pipeline baseline

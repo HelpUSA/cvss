@@ -55,7 +55,7 @@ async function main(): Promise<void> {
   }
 
   const configuration =
-    auth.options.emailAndPassword;
+    auth.options.emailAndPassword as any;
 
   if (
     configuration?.enabled !== true ||
