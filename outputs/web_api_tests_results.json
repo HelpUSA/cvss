@@ -1,0 +1,58 @@
+{
+  "suite": "Web API fail-safe + policy separation",
+  "timestamp": "2026-10-10T20:13:41.172Z",
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "results": [
+    {
+      "name": "1. missing evidence -> HTTP 400",
+      "passed": true,
+      "status": 400
+    },
+    {
+      "name": "2. stale evidence -> HUMAN_REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "name": "3. conflicting/insufficient evidence -> HUMAN_REVIEW_REQUIRED",
+      "passed": true
+    },
+    {
+      "name": "4. INTERNAL_ROUTED -> MAV:N",
+      "passed": true
+    },
+    {
+      "name": "5. ADJACENT_ONLY -> MAV:A",
+      "passed": true
+    },
+    {
+      "name": "6. CR/IR/AR without policy metadata -> abstain/reject",
+      "passed": true
+    },
+    {
+      "name": "7. absent operational policy -> PENDING_POLICY_REVIEW",
+      "passed": true
+    },
+    {
+      "name": "8. explicit versioned operational policy -> disposition",
+      "passed": true
+    },
+    {
+      "name": "9. source vector containing optional metrics -> no duplicate metrics",
+      "passed": true,
+      "enrichedVector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/CR:M/MAV:N",
+      "mavCount": 1,
+      "crCount": 1
+    },
+    {
+      "name": "10. nested provenance receipt canonicalization",
+      "passed": true,
+      "digest": "d55c0df050d535c1973dcf7c9e07629e03e6cbdc78db6aa0c5b4ca8cb5a648cb"
+    },
+    {
+      "name": "11. no automatic downgrade under incomplete evidence",
+      "passed": true
+    }
+  ]
+}

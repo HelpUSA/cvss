@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261010-001",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "git_commit": "cab16ccea8c66ddd78d2e5f30b0f82cbe8c67b5a",
+  "created_at": "2026-10-10T17:16:00-03:00",
+  "artifacts": [
+    {
+      "path": "outputs/first-reference-corpus-round4.json",
+      "media_type": "application/json",
+      "sha256": "5f64cad43b1c9d69882f010c2538468912794b557910ab257c418498e8140f4b",
+      "size_bytes": 671,
+      "purpose": "g1_first_reference_corpus_evidence"
+    },
+    {
+      "path": "outputs/production-copy-audit-round4.json",
+      "media_type": "application/json",
+      "sha256": "e2732285d1895f2cd51a377dcbbee06466c69724afdcb2f7ad941d1df2d2623c",
+      "size_bytes": 686,
+      "purpose": "g8_production_site_claims_evidence"
+    },
+    {
+      "path": "outputs/web_api_tests_results.json",
+      "media_type": "application/json",
+      "sha256": "a316a67774045153bec83922e59a7caee7c9aced9ff255011870eb7dcf702f11",
+      "size_bytes": 1495,
+      "purpose": "g4_web_api_fail_safe_evidence"
+    }
+  ]
+}

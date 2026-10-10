@@ -1,0 +1,25 @@
+{
+  "suite": "FIRST CVSS v4.0 strict reference-corpus gate",
+  "first_repository": "https://github.com/FIRSTdotorg/cvss-resources",
+  "commit_sha": "UNPINNED",
+  "calculator": "cvss.CVSS4 (pin exact package/version in build manifest)",
+  "summary": {
+    "evaluated": 66568,
+    "passed": 66568,
+    "failed": 0,
+    "valid_cases": {
+      "evaluated": 41540,
+      "failed": 0
+    },
+    "negative_cases": {
+      "evaluated": 25028,
+      "failed": 0
+    },
+    "mismatch_delta_histogram": {},
+    "severity_mismatch_count": 0,
+    "gate_pass": true,
+    "comments_or_headers_skipped": 33,
+    "duration_seconds": 3.281
+  },
+  "mismatches": []
+}

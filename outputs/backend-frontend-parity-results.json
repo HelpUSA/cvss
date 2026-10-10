@@ -1,0 +1,354 @@
+{
+  "suite": "Backend (Python cvss 3.6) vs Frontend (JS ae-cvss-calculator) Parity",
+  "total_cases": 23,
+  "passed": 23,
+  "failed": 0,
+  "parity_rate": "100.0%",
+  "results": [
+    {
+      "case_id": "PARITY-001",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 9.3,
+        "nomenclature": "CVSS-B",
+        "severity": "Critical"
+      },
+      "javascript": {
+        "score": 9.3,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-002",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+      "python": {
+        "score": 10.0,
+        "nomenclature": "CVSS-B",
+        "severity": "Critical"
+      },
+      "javascript": {
+        "score": 10,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-003",
+      "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 8.5,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 8.5,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-004",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 8.2,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 8.2,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-005",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 5.3,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 5.3,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-006",
+      "vector": "CVSS:4.0/AV:A/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 7.1,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 7.1,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-007",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/CR:H/IR:H/AR:H",
+      "python": {
+        "score": 9.3,
+        "nomenclature": "CVSS-BE",
+        "severity": "Critical"
+      },
+      "javascript": {
+        "score": 9.3,
+        "nomenclature": "CVSS-BE"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-008",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/MAV:A/MAC:H/MPR:H",
+      "python": {
+        "score": 7.3,
+        "nomenclature": "CVSS-BE",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 7.3,
+        "nomenclature": "CVSS-BE"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-009",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 6.9,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 6.9,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-010",
+      "vector": "CVSS:4.0/AV:P/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 7.0,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 7,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-011",
+      "vector": "CVSS:4.0/AV:L/AC:H/AT:N/PR:L/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+      "python": {
+        "score": 1.1,
+        "nomenclature": "CVSS-BT",
+        "severity": "Low"
+      },
+      "javascript": {
+        "score": 1.1,
+        "nomenclature": "CVSS-BT"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-012",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P",
+      "python": {
+        "score": 8.9,
+        "nomenclature": "CVSS-BT",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 8.9,
+        "nomenclature": "CVSS-BT"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-013",
+      "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 6.8,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 6.8,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-014",
+      "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 8.3,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 8.3,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-015",
+      "vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 8.2,
+        "nomenclature": "CVSS-B",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 8.2,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-016",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+      "python": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-017",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-018",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:L/VI:H/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 6.0,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 6,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-019",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P",
+      "python": {
+        "score": 2.0,
+        "nomenclature": "CVSS-BT",
+        "severity": "Low"
+      },
+      "javascript": {
+        "score": 2,
+        "nomenclature": "CVSS-BT"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-020",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+      "python": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-021",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 5.1,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-022",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+      "python": {
+        "score": 6.0,
+        "nomenclature": "CVSS-B",
+        "severity": "Medium"
+      },
+      "javascript": {
+        "score": 6,
+        "nomenclature": "CVSS-B"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    },
+    {
+      "case_id": "PARITY-023",
+      "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P/MAV:A",
+      "python": {
+        "score": 7.4,
+        "nomenclature": "CVSS-BTE",
+        "severity": "High"
+      },
+      "javascript": {
+        "score": 7.4,
+        "nomenclature": "CVSS-BTE"
+      },
+      "delta": 0.0,
+      "status": "PASS"
+    }
+  ]
+}

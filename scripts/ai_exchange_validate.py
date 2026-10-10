@@ -32,12 +32,14 @@ COMMIT_SHA_REGEX = re.compile(r"^[0-9a-fA-F]{40}$")
 VALID_PARTICIPANTS = {"antigravity", "chatgpt"}
 VALID_MESSAGE_TYPES = {
     "bridge_test",
+    "bridge_test_response",
     "audit_request",
+    "prefreeze_audit_request",
     "audit_response",
     "gate_review",
     "general_message",
 }
-VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED"}
+VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
 def compute_sha256(filepath: Path) -> str:
     h = hashlib.sha256()
@@ -228,8 +230,8 @@ def main() -> int:
             # git commit
             git_info = meta.get("git", {})
             if isinstance(git_info, dict):
-                g_commit = git_info.get("commit", "")
-                if not COMMIT_SHA_REGEX.match(g_commit):
+                g_commit = git_info.get("commit") or git_info.get("reviewed_commit", "")
+                if not COMMIT_SHA_REGEX.match(str(g_commit)):
                     errors.append(f"Mensagem {mf.name}: git.commit '{g_commit}' não é SHA-1 válido de 40 caracteres.")
             else:
                 errors.append(f"Mensagem {mf.name}: bloco 'git' ausente ou inválido.")
@@ -256,16 +258,18 @@ def main() -> int:
                 errors.append(f"Manifesto {mn.name}: JSON inválido ({e}).")
                 continue
 
-            for req_key in ["schema_version", "manifest_id", "producer", "project", "git_commit", "created_at", "artifacts"]:
+            for req_key in ["schema_version", "manifest_id", "producer", "project", "created_at", "artifacts"]:
                 if req_key not in data:
                     errors.append(f"Manifesto {mn.name}: chave obrigatória ausente '{req_key}'.")
+
+            g_commit = data.get("git_commit") or data.get("reviewed_commit", "")
+            if not COMMIT_SHA_REGEX.match(str(g_commit)):
+                errors.append(f"Manifesto {mn.name}: git_commit '{g_commit}' não é SHA de 40 caracteres.")
 
             if str(data.get("schema_version")) != "1.0":
                 errors.append(f"Manifesto {mn.name}: schema_version deve ser '1.0'.")
 
-            g_commit = data.get("git_commit", "")
-            if not COMMIT_SHA_REGEX.match(g_commit):
-                errors.append(f"Manifesto {mn.name}: git_commit '{g_commit}' não é SHA de 40 caracteres.")
+
 
             art_list = data.get("artifacts", [])
             if not isinstance(art_list, list):

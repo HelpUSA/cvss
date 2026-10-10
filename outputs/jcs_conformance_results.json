@@ -1,0 +1,94 @@
+{
+  "suite": "Local JCS contract tests (not a substitute for a pinned RFC 8785 conformance corpus)",
+  "timestamp": "2026-10-10T20:13:56.549Z",
+  "totalTests": 15,
+  "passed": 15,
+  "failed": 0,
+  "formalRfc8785ConformanceClaimAllowed": false,
+  "results": [
+    {
+      "testCase": "JCS-001 shallow key ordering",
+      "passed": true,
+      "expected": "{\"a\":1,\"b\":2}",
+      "observed": "{\"a\":1,\"b\":2}"
+    },
+    {
+      "testCase": "JCS-002 recursive key ordering",
+      "passed": true,
+      "expected": "{\"a\":1,\"z\":{\"c\":3,\"d\":4}}",
+      "observed": "{\"a\":1,\"z\":{\"c\":3,\"d\":4}}"
+    },
+    {
+      "testCase": "JCS-003 array order preserved",
+      "passed": true,
+      "expected": "[3,1,2]",
+      "observed": "[3,1,2]"
+    },
+    {
+      "testCase": "JCS-004 objects inside arrays",
+      "passed": true,
+      "expected": "[{\"x\":1,\"y\":2},{\"a\":3,\"b\":4}]",
+      "observed": "[{\"x\":1,\"y\":2},{\"a\":3,\"b\":4}]"
+    },
+    {
+      "testCase": "JCS-005 primitives",
+      "passed": true,
+      "expected": "{\"f\":false,\"t\":true,\"z\":null}",
+      "observed": "{\"f\":false,\"t\":true,\"z\":null}"
+    },
+    {
+      "testCase": "JCS-006 valid Unicode and surrogate pair",
+      "passed": true,
+      "expected": "{\"emoji\":\"🛡️\",\"greek\":\"αβγ\"}",
+      "observed": "{\"emoji\":\"🛡️\",\"greek\":\"αβγ\"}"
+    },
+    {
+      "testCase": "JCS-007 integer/float serialization",
+      "passed": true,
+      "expected": "{\"float\":3.14159,\"int\":42,\"neg\":-10}",
+      "observed": "{\"float\":3.14159,\"int\":42,\"neg\":-10}"
+    },
+    {
+      "testCase": "JCS-008 negative zero normalizes to zero",
+      "passed": true,
+      "expected": "{\"val\":0}",
+      "observed": "{\"val\":0}"
+    },
+    {
+      "testCase": "JCS-009 reject NaN",
+      "passed": true,
+      "error": "JCS input must not contain NaN or Infinity"
+    },
+    {
+      "testCase": "JCS-010 reject +Infinity",
+      "passed": true,
+      "error": "JCS input must not contain NaN or Infinity"
+    },
+    {
+      "testCase": "JCS-011 reject -Infinity",
+      "passed": true,
+      "error": "JCS input must not contain NaN or Infinity"
+    },
+    {
+      "testCase": "JCS-012 reject lone high surrogate string",
+      "passed": true,
+      "error": "JCS input contains a lone high surrogate"
+    },
+    {
+      "testCase": "JCS-013 reject lone low surrogate string",
+      "passed": true,
+      "error": "JCS input contains a lone low surrogate"
+    },
+    {
+      "testCase": "JCS-014 reject lone surrogate property name",
+      "passed": true,
+      "error": "JCS input contains a lone high surrogate"
+    },
+    {
+      "testCase": "JCS-015 structural/hash invariance",
+      "passed": true,
+      "canonical": "{\"a\":{\"b\":1,\"c\":[{\"d\":2,\"e\":3}]},\"f\":4}",
+      "hash": "5fe988cb259ad6a9cf24978a4371da6c639bb82337d0259fe818f5bcca2314bc"
+    }
+  ]
+}
