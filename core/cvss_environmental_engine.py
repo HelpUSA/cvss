@@ -10,7 +10,7 @@ from __future__ import annotations
 from typing import Any, Dict
 
 from core.ai_evidence_engine import AIEvidenceEngine
-from core.cvss40 import compare
+from core.cvss40 import compare, score
 
 
 def calculate(row: Dict[str, Any]) -> Dict[str, Any]:

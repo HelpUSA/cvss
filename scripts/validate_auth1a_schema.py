@@ -6,7 +6,7 @@ import re
 from pathlib import Path
 
 
-ROOT = Path(r"D:\dev\cvss")
+ROOT = Path(__file__).resolve().parent.parent
 WEB = ROOT / "web"
 
 SCHEMA_PATH = (

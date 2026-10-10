@@ -8,6 +8,7 @@
   <link rel="shortcut icon" type="image/jpeg" href="helpus-logo.jpg">
   <link rel="apple-touch-icon" href="helpus-logo.jpg">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script defer src="app.js"></script>
 </head>
 <body>
@@ -28,11 +29,15 @@
           <button id="nav-btn-view-simulador" class="nav-tab-btn" onclick="switchView('view-simulador')">⚡ <span id="i18n-tab-simulador" data-i18n="tabSimulador">Simulador de Impacto</span></button>
           <button id="nav-btn-view-scanner" class="nav-tab-btn" onclick="switchView('view-scanner')">🌐 <span id="i18n-tab-scanner" data-i18n="tabScanner">Scanner & Topologia</span></button>
           <button id="nav-btn-view-metricas" class="nav-tab-btn" onclick="switchView('view-metricas')">📊 <span id="i18n-tab-metricas" data-i18n="tabMetricas">Métricas & Auditoria</span></button>
+          <button id="nav-btn-view-console" class="nav-tab-btn" onclick="switchView('view-console')">🚀 <span id="i18n-tab-console" data-i18n="tabConsole">Console Operacional</span></button>
         </div>
       </div>
 
-      <!-- Final do Cabeçalho: Popdown de Idioma Discreto -->
-      <div class="nav-right-actions">
+      <!-- Final do Cabeçalho: Acesso ao Console Operacional e Popdown de Idioma -->
+      <div class="nav-right-actions" style="display:flex;align-items:center;gap:10px;">
+        <button id="headerConsoleBtn" onclick="switchView('view-console')" style="display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#0284c7,#2563eb);color:#ffffff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:10px;border:1px solid #38bdf8;box-shadow:0 0 12px rgba(56,189,248,0.35);cursor:pointer;transition:all 0.2s ease;">
+          <span>🚀</span> <span id="headerConsoleLabel">Console Operacional</span>
+        </button>
         <div class="lang-popdown-wrap">
           <button class="lang-popdown-btn" id="langCurrentBtn" onclick="toggleLangMenu()" type="button" aria-label="Selecionar Idioma">
             <span id="langCurrentLabel">🌐 🇧🇷 PT</span>
@@ -70,6 +75,9 @@
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
           <button onclick="switchView('view-simulador')" style="width:auto;padding:10px 22px;background:#0284c7;font-weight:700;box-shadow:0 0 16px rgba(2,132,199,0.5);" id="i18n-hero-btn-sim" data-i18n="heroBtnSim">⚡ Testar Simulador com IA</button>
           <button onclick="switchView('view-scanner')" style="width:auto;padding:10px 22px;background:rgba(8,19,36,0.85);border:1px solid #38bdf8;color:#38bdf8;font-weight:700;" id="i18n-hero-btn-scan" data-i18n="heroBtnScan">🌐 Ver Topologia da Rede</button>
+          <button onclick="switchView('view-console')" style="display:inline-flex;align-items:center;gap:6px;width:auto;padding:10px 22px;background:rgba(14,29,48,0.92);border:1px solid #38bdf8;color:#ffffff;font-weight:700;border-radius:6px;box-shadow:0 0 16px rgba(56,189,248,0.3);cursor:pointer;transition:all 0.2s ease;">
+            <span>🚀</span> <span>Acessar Console Operacional (5 Camadas)</span>
+          </button>
         </div>
       </div>
     </div>
@@ -116,7 +124,7 @@
             <span class="solution-card-media-badge">FIRST Spec</span>
           </div>
           <p class="solution-card-desc" data-i18n="solCard2Desc">
-            Motor de inferência determinística que cruza relatórios de vulnerabilidade com evidências de VLAN, WAF e escopo de ativos, calibrando a severidade ambiental oficial sem alucinações de LLM.
+            Motor de inferência determinística que cruza relatórios de vulnerabilidade com evidências de VLAN, WAF e escopo de ativos, calibrando a severidade ambiental com base em regras versionadas auditáveis.
           </p>
           <div class="solution-card-footer">
             <span class="solution-card-footer-label" data-i18n="solFooterLabel">Ver detalhes da solução:</span>
@@ -259,7 +267,7 @@
           Na literatura científica e na indústria, equipes quase nunca preenchem as métricas ambientais do CVSS porque analisar dezenas de controles manualmente é custoso e demorado.
         </p>
         <p style="margin:0;color:#38bdf8;" data-i18n="whyP2">
-          <strong>Nossa contribuição:</strong> Automatizamos a coleta de evidências e o preenchimento de métricas com IA explicável, atingindo 100% de rastreabilidade e reduzindo o estresse operacional sem alucinações matemáticas.
+          <strong>Nossa contribuição:</strong> Automatizamos a coleta de evidências e o mapeamento de métricas sob regras versionadas determinísticas, assegurando rastreabilidade auditável e reduzindo a sobrecarga operacional.
         </p>
       </div>
 
@@ -331,7 +339,7 @@
       <div class="formgrid" style="margin-top:8px;">
         <label><span data-i18n="lblScenario">Cenário / Ativo</span><input id="scenario" value="pci_segmented_lab_20260517_143146" oninput="calc()"></label>
         <label><span data-i18n="lblAssetId">ID do Ativo</span><input id="asset_id" value="payment-api" oninput="calc()"></label>
-        <label><span data-i18n="lblCve">Identificador CVE</span><input id="cve" value="CVE-2025-0001" oninput="calc()"></label>
+        <label><span data-i18n="lblCve">Identificador CVE</span><input id="cve" value="CVE-2026-28490" oninput="calc()"></label>
         <label><span data-i18n="lblBaseScore">CVSS Base Oficial (NVD)</span><input id="base_score" value="9.8" oninput="calc()"></label>
         <label><span data-i18n="lblInternet">Exposto na Internet pública?</span>
           <select id="internet_exposed" onchange="calc()">
@@ -474,14 +482,14 @@
         <!-- Gráfico 1: Achatamento da Curva de Severidade -->
         <div class="chart-panel">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-            <strong style="color:#38bdf8;font-size:14px;" data-i18n="chart1Title">📉 Distribuição de Severidades: NVD Oficial vs HelpUS IA</strong>
+            <strong style="color:#38bdf8;font-size:14px;" data-i18n="chart1Title">📉 Distribuição de Severidades: Avaliação de Origem vs HelpUS IA</strong>
             <span style="font-size:11px;color:#94a3b8;" data-i18n="chart1Sub">Base vs Contextual</span>
           </div>
           <div id="auditChartSeverity" style="width:100%;height:180px;">
             <!-- SVG Chart 1 renderizado dinamicamente -->
           </div>
           <p class="note" style="font-size:12px;margin:8px 0 0;line-height:1.5;" data-i18n="chart1Note">
-            💡 <strong>Impacto Prático:</strong> O NVD trata 73.3% dos achados como Críticos ou Altos. A HelpUS redistribui os alertas reais para Médio/Baixo quando há controles como VLAN, WAF ou ausência de internet, eliminando a fadiga de alertas.
+            💡 <strong>Impacto Prático:</strong> A avaliação de origem trata a maioria dos achados no vácuo como Críticos ou Altos. A HelpUS contextualiza os alertas com base em controles reais (VLAN, WAF, ausência de exposição direta), reduzindo o falso alerta.
           </p>
         </div>
 
@@ -489,7 +497,7 @@
         <div class="chart-panel">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <strong style="color:#38bdf8;font-size:14px;" data-i18n="chart2Title">⚖ Matriz de Decisões do Watcher IA</strong>
-            <span style="font-size:11px;color:#94a3b8;" data-i18n="chart2Sub">30 Cenários Validados</span>
+            <span style="font-size:11px;color:#94a3b8;" data-i18n="chart2Sub">Dataset B (Benchmark, n=30)</span>
           </div>
           <div id="auditChartTransitions" style="width:100%;height:180px;">
             <!-- SVG Chart 2 renderizado dinamicamente -->
@@ -500,14 +508,14 @@
         </div>
       </div>
 
-      <!-- Pipeline Visual de Auditoria e Anti-Alucinação -->
+      <!-- Pipeline Visual de Auditoria e Inferência Determinística -->
       <div style="background:#050c17;border:1px solid #1e3a5f;border-radius:14px;padding:18px;margin-bottom:18px;">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <div>
-            <strong style="color:#38bdf8;font-size:15px;" data-i18n="pipeTitle">🔬 Arquitetura Científica: Pipeline de Decisão Anti-Alucinação</strong>
-            <p style="margin:2px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeSub">Garantia de conformidade matemática com a especificação CVSS v4.0 da FIRST</p>
+            <strong style="color:#38bdf8;font-size:15px;" data-i18n="pipeTitle">🔬 Arquitetura Científica: Pipeline de Decisão Auditável</strong>
+            <p style="margin:2px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeSub">Alinhamento algorítmico com a especificação CVSS v4.0 da FIRST</p>
           </div>
-          <span class="badge-tag" style="background:rgba(56,189,248,0.15);color:#38bdf8;" data-i18n="pipeTag">100% Determinístico</span>
+          <span class="badge-tag" style="background:rgba(56,189,248,0.15);color:#38bdf8;" data-i18n="pipeTag">Determinístico (Regras Versionadas)</span>
         </div>
         
         <div id="auditPipelineSvg" style="width:100%;min-height:90px;display:flex;justify-content:center;margin:10px 0;">
@@ -516,11 +524,11 @@
 
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px;">
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
-            <strong style="color:#f87171;font-size:13px;" data-i18n="pipeCard1Title">1. Contrato Tripartite Imutável</strong>
+            <strong style="color:#f87171;font-size:13px;" data-i18n="pipeCard1Title">1. Registro Canônico de Auditoria</strong>
             <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard1Text">O score oficial NVD nunca é sobrescrito ou distorcido. Fica permanentemente visível para fins de auditoria.</p>
           </div>
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
-            <strong style="color:#4ade80;font-size:13px;" data-i18n="pipeCard2Title">2. Inferência Determinística Sem Alucinações</strong>
+            <strong style="color:#4ade80;font-size:13px;" data-i18n="pipeCard2Title">2. Inferência Determinística de Métricas</strong>
             <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard2Text">A IA nunca calcula notas diretamente. Ela deduz apenas métricas canônicas nominais (ex: MAV:Adjacent). O score é gerado pela fórmula oficial da FIRST.</p>
           </div>
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
@@ -534,8 +542,8 @@
       <div style="background:#050c17;border:1px solid #1e3a5f;border-radius:14px;padding:18px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
           <div>
-            <strong style="color:#38bdf8;font-size:15px;" data-i18n="dsTitle">📋 Dataset Benchmark: 30 Cenários Empíricos do Estudo</strong>
-            <p style="margin:2px 0 0;font-size:12px;color:#94a3b8;" data-i18n="dsSub">Navegue pelos cenários reais e sintéticos avaliados na pesquisa científica</p>
+            <strong style="color:#38bdf8;font-size:15px;" data-i18n="dsTitle">📋 Dataset B: Benchmark de Desenvolvimento (12 CVEs Reais + 18 Sintéticos)</strong>
+            <p style="margin:2px 0 0;font-size:12px;color:#94a3b8;" data-i18n="dsSub">Navegue pelos cenários reais e sintéticos avaliados na pesquisa científica (validação confirmatória pendente)</p>
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <button class="scanner-mode-tab active" id="filter-btn-all" onclick="filterAuditScenarios('all')" data-i18n="filterAll">Todos (30)</button>
@@ -576,7 +584,251 @@
       </div>
     </div>
   </div>
-</main>
+
+  <!-- ABA 5: CONSOLE OPERACIONAL (5 CAMADAS & GOVERNANÇA HITL) -->
+  <div id="view-console" class="view-section">
+    <!-- Header da Aba -->
+    <div style="background:linear-gradient(135deg, rgba(8,19,36,0.95), rgba(13,29,51,0.9)); border:1px solid #1e3a5f; border-radius:18px; padding:24px 28px; margin-bottom:24px; box-shadow:0 12px 36px rgba(0,0,0,0.5);">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div>
+          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(56,189,248,0.15); border:1px solid #38bdf8; padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; color:#38bdf8; text-transform:uppercase; margin-bottom:8px;">
+            <span>🛡️</span> <span>Área Operacional Corporativa • 5 Camadas de Avaliação</span>
+          </div>
+          <h2 style="margin:0 0 6px; font-size:26px; color:#ffffff; font-weight:800; letter-spacing:-0.5px;">
+            Console Operacional HelpUS CVSS
+          </h2>
+          <p style="margin:0; font-size:14px; color:#94a3b8; max-width:820px; line-height:1.5;">
+            Priorização contextual em 5 camadas com proveniência compatível com JCS (RFC 8785 pendente validação formal) SHA-256 e governança supervisionada pelo SuperAdmin Master.
+          </p>
+        </div>
+
+        <div id="consoleSessionStatusBadge" style="display:flex; align-items:center; gap:10px;">
+          <!-- Injetado dinamicamente: Status de Sessão ou Botão de Acesso -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ESTADO 1: BLOCO DE LOGIN EXCLUSIVO GOOGLE (Quando não autenticado) -->
+    <div id="consoleLoginBlock" style="display:block; max-width:520px; margin:40px auto; background:#0d1d33; border:1px solid #1e3a5f; border-radius:20px; padding:36px; box-shadow:0 20px 50px rgba(0,0,0,0.6); text-align:center;">
+      <div style="width:58px; height:58px; border-radius:50%; border:2px solid #38bdf8; margin:0 auto 16px; overflow:hidden; box-shadow:0 0 16px rgba(56,189,248,0.4);">
+        <img src="helpus-logo.jpg" alt="Logo HelpUS" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+
+      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#38bdf8; margin-bottom:6px;">
+        Acesso Restrito ao SuperAdmin Master
+      </div>
+      <h3 style="font-size:22px; color:#ffffff; font-weight:800; margin:0 0 10px;">
+        Entrar com a Conta Google
+      </h3>
+      <p style="font-size:13px; color:#94a3b8; line-height:1.5; margin:0 0 24px;">
+        A aprovação de reclassificações de severidade e ações de remediação é restrita à conta oficial do SuperAdmin Master.
+      </p>
+
+      <!-- Card Informativo de Segurança -->
+      <div style="background:rgba(8,19,36,0.9); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:14px; text-align:left; margin-bottom:24px;">
+        <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; text-transform:uppercase; color:#38bdf8;">
+          <span>🔒</span> <span>Acesso Exclusivo SuperAdmin Master</span>
+        </div>
+        <div style="font-size:12px; color:#94a3b8; margin-top:4px; line-height:1.4;">
+          Autenticação restrita à conta corporativa autorizada do SuperAdmin Master via Google Workspace.
+        </div>
+      </div>
+
+      <!-- Mensagens de Erro / Status -->
+      <div id="googleAuthErrorBox" style="display:none; background:rgba(239,68,68,0.15); border:1px solid #ef4444; border-radius:10px; padding:12px; color:#fca5a5; font-size:13px; font-weight:600; margin-bottom:20px; text-align:left; line-height:1.4;"></div>
+
+      <!-- Botão Oficial Google (Exclusivo - Sem email/senha) -->
+      <button type="button" onclick="triggerGoogleAuth()" id="btnMainGoogleLogin" style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; padding:14px 20px; border-radius:14px; background:#081324; color:#ffffff; border:1px solid #38bdf8; box-shadow:0 4px 18px rgba(56,189,248,0.3); font-weight:700; font-size:15px; cursor:pointer; transition:all 0.2s ease;">
+        <svg style="width:20px; height:20px; flex-shrink:0;" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+        </svg>
+        <span id="btnGoogleText">Continuar com o Google</span>
+      </button>
+
+      <div style="margin-top:20px; font-size:11px; color:#64748b;">
+        Conexão segura com criptografia TLS 1.3 • Hash compatível com JCS (RFC 8785 pendente validação) SHA-256
+      </div>
+    </div>
+
+    <!-- ESTADO 2: CONSOLE OPERACIONAL DAS 5 CAMADAS (Quando autenticado como helpus.ecommerce@gmail.com) -->
+    <div id="consoleAppBlock" style="display:none;">
+      <!-- Barra do Usuário SuperAdmin Master -->
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#081324; border:1px solid #1e3a5f; padding:14px 22px; border-radius:14px; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div style="position:relative;">
+            <img src="helpus-logo.jpg" alt="Master" style="width:40px; height:40px; border-radius:50%; border:2px solid #4ade80;">
+            <span style="position:absolute; bottom:0; right:0; width:10px; height:10px; border-radius:50%; background:#4ade80; border:2px solid #081324;"></span>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
+              Wagner Santos
+              <span style="font-size:10px; font-weight:700; background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.4); padding:2px 8px; border-radius:6px; text-transform:uppercase;">SuperAdmin Master</span>
+            </div>
+            <div style="font-size:11px; color:#94a3b8; font-family:monospace;">
+              SuperAdmin Master • Sessão Corporativa Autenticada
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button onclick="downloadSessionAuditLog()" style="width:auto; padding:8px 16px; font-size:12px; font-weight:700; background:rgba(56,189,248,0.1); border:1px solid #38bdf8; color:#38bdf8; border-radius:8px; cursor:pointer;">
+            📥 Baixar Log da Sessão
+          </button>
+          <button onclick="logoutMasterGoogle()" style="width:auto; padding:8px 16px; font-size:12px; font-weight:700; background:rgba(239,68,68,0.15); border:1px solid #ef4444; color:#fca5a5; border-radius:8px; cursor:pointer;">
+            Encerrar Sessão
+          </button>
+        </div>
+      </div>
+
+      <!-- Seletor de Casos Reais (Dataset B - 12 CVEs Reais) -->
+      <div class="card" style="margin-bottom:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <span style="color:#38bdf8; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px;">Selecione o Caso de Estudo Real (Dataset B)</span>
+            <h3 style="margin:2px 0 0; font-size:18px; color:#ffffff;">12 Achados de Produção Normalizados</h3>
+          </div>
+          <span style="font-size:12px; color:#94a3b8; background:rgba(8,19,36,0.8); border:1px solid #1e3a5f; padding:4px 10px; border-radius:6px;">
+            Freeze: 2026-10-08T21:30:00Z
+          </span>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:10px;" id="consoleCveGrid">
+          <!-- Injetado dinamicamente via JS com os 12 CVEs -->
+        </div>
+      </div>
+
+      <!-- O PIPELINE DAS 5 CAMADAS DE AVALIAÇÃO CONTEXTUAL -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin-bottom:24px;">
+        <!-- Camada 1: Source CVSS Base -->
+        <div style="background:#0d1d33; border:1px solid #1e3a5f; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 1</span>
+              <span style="font-size:11px; color:#64748b;">Normativa</span>
+            </div>
+            <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Score de Origem (CNA/NVD)</h4>
+            <div id="c1ScoreDisplay" style="font-size:28px; font-weight:900; color:#f87171; margin:8px 0;">9.8</div>
+            <div id="c1CveId" style="font-size:12px; font-weight:700; color:#ffffff; font-family:monospace;">CVE-2026-4252</div>
+            <div id="c1CnaInfo" style="font-size:11px; color:#94a3b8; margin-top:2px;">CNA: Microsoft Corporation</div>
+          </div>
+          <div style="margin-top:14px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:#4ade80;">
+            ✓ Score Base Preservado Intacto
+          </div>
+        </div>
+
+        <!-- Camada 2: Contexto & Telemetria -->
+        <div style="background:#0d1d33; border:1px solid #1e3a5f; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 2</span>
+              <span style="font-size:11px; color:#64748b;">Evidências</span>
+            </div>
+            <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Contexto e Telemetria</h4>
+            <div style="margin:10px 0; display:flex; flex-direction:column; gap:6px; font-size:12px;">
+              <div>Vetor: <strong id="c2MavBadge" style="color:#38bdf8;">MAV:A (Adjacente)</strong></div>
+              <div>Complexidade: <strong id="c2MacBadge" style="color:#cbd5e1;">MAC:L (Baixa)</strong></div>
+              <div>Privilégios: <strong id="c2MprBadge" style="color:#cbd5e1;">MPR:N (Nenhum)</strong></div>
+              <div>Idade Telemetria: <strong id="c2AgeBadge" style="color:#4ade80;">42 segundos (&lt;300s)</strong></div>
+            </div>
+          </div>
+          <div style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:#38bdf8;">
+            ✓ Prova de Rede Auditada
+          </div>
+        </div>
+
+        <!-- Camada 3: Prioridade Operacional HelpUS (P0–P4) -->
+        <div style="background:#0d1d33; border:1px solid #1e3a5f; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 3</span>
+              <span style="font-size:11px; color:#64748b;">Priorização</span>
+            </div>
+            <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Prioridade HelpUS</h4>
+            <div id="c3PriorityBadge" style="display:inline-block; margin:8px 0; padding:6px 14px; border-radius:8px; font-size:18px; font-weight:900; background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid #fbbf24;">
+              P1 • ALTA
+            </div>
+            <div style="font-size:12px; color:#cbd5e1;">CVSS Ambiental: <strong id="c3EnvScore" style="color:#fbbf24;">8.9 High</strong></div>
+            <div style="font-size:11px; color:#94a3b8; margin-top:4px;">SLA Operacional: 24 Horas</div>
+          </div>
+          <div style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:#fbbf24;">
+            Transição: Crítico ➔ Alto
+          </div>
+        </div>
+
+        <!-- Camada 4: Recibo de Proveniência JCS -->
+        <div style="background:#0d1d33; border:1px solid #1e3a5f; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 4</span>
+              <span style="font-size:11px; color:#64748b;">Rastreabilidade</span>
+            </div>
+            <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Recibo Canônico JCS (compatível RFC 8785, pendente)</h4>
+            <div style="font-size:11px; font-family:monospace; color:#38bdf8; word-break:break-all; background:#081324; padding:8px; border-radius:6px; border:1px solid #162c4a; margin:8px 0;" id="c4HashDisplay">
+              SHA-256: 153f3f22572a...
+            </div>
+            <div style="font-size:11px; color:#94a3b8;">Canônico: JCS compatível (RFC 8785 pendente validação)</div>
+          </div>
+          <div style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.06);">
+            <button onclick="downloadCanonicalReceipt()" style="width:100%; padding:6px 10px; font-size:11px; background:#0284c7; border:none; border-radius:6px; color:#fff; cursor:pointer;">
+              📥 Baixar Recibo (.json)
+            </button>
+          </div>
+        </div>
+
+        <!-- Camada 5: Governança Human-in-the-Loop (HITL) -->
+        <div style="background:#0d1d33; border:1px solid #1e3a5f; border-radius:14px; padding:18px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+              <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 5</span>
+              <span style="font-size:11px; color:#64748b;">SuperAdmin</span>
+            </div>
+            <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Aprovação HITL</h4>
+            <div id="c5HitlStatusBadge" style="margin:8px 0; padding:6px 10px; border-radius:6px; font-size:12px; font-weight:700; background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid #4ade80;">
+              ✓ Aprovado pelo Master
+            </div>
+            <div style="font-size:11px; color:#94a3b8;">Solicitante: Wagner Santos</div>
+          </div>
+          <div style="display:flex; gap:6px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06);">
+            <button onclick="handleHitlApprove()" style="flex:1; padding:6px 8px; font-size:11px; font-weight:700; background:#16a34a; border:none; border-radius:6px; color:#fff; cursor:pointer;">
+              ✓ Homologar
+            </button>
+            <button onclick="handleHitlReject()" style="flex:1; padding:6px 8px; font-size:11px; font-weight:700; background:#dc2626; border:none; border-radius:6px; color:#fff; cursor:pointer;">
+              ✕ Rejeitar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Log de Governança e Auditoria HITL em Tempo Real -->
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h4 style="margin:0; font-size:16px; color:#ffffff;">Histórico de Homologações & Decisões Operacionais</h4>
+          <span style="font-size:11px; color:#94a3b8;">Sessão Auditada: SuperAdmin Master</span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Data/Hora UTC</th>
+                <th>CVE ID</th>
+                <th>Score Base</th>
+                <th>Score Contextual</th>
+                <th>Prioridade</th>
+                <th>Aprovador Master</th>
+                <th>Recibo SHA-256</th>
+              </tr>
+            </thead>
+            <tbody id="consoleAuditTableBody">
+              <!-- Injetado dinamicamente via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- RODAPÉ PADRONIZADO HELPUS TECHNOLOGY SOLUTIONS -->
 <footer class="helpus-footer">

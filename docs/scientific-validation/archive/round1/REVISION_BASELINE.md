@@ -7,7 +7,7 @@
 - **Versão da Aplicação Web**: 2.4.0-scientific-preview
 - **Versão do Monograph LaTeX**: 1.2-peer-review-aligned
 - **Versão do Motor CVSS v4.0**: FIRST CVSS v4.0 Official Specification (Macro-lookup Table EQ1-EQ6)
-- **Diretório de Backup do Livro**: D:\AntiG\cvss\book_latex_backup_pre_refactor\
+- **Diretório de Backup do Livro**: <repo>/book_latex_backup_pre_refactor\
 
 ## Checksums SHA-256 dos Componentes Críticos
 

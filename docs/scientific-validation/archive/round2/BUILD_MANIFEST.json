@@ -1,0 +1,40 @@
+{
+  "artifact": "helpus_cvss_ai_monograph_overleaf_final_round2",
+  "built_at_utc": "2026-10-09T16:24:17.386300+00:00",
+  "git_commit": "75019a0343a21376f1b5b13a460777d56a2e5533",
+  "pdf_pages": 41,
+  "pdf_size_bytes": 1225733,
+  "pdf_sha256": "030dc323b7b0302a35a170aef07551688222f27f289fdb3776ed503bb4c19c3b",
+  "overleaf_zip_sha256": "a270814ba3934e3ad6559d4ceecb6b9d6567e6536ae3058d7884054b9d76a6fa",
+  "overleaf_zip_size_bytes": 2918429,
+  "dataset_b_sha256": "80f185c0070fb426a08e8dc565bb9adf4e0c9f9c5524f204e199da06133fe0f3",
+  "latex_build": "clean successful",
+  "latex_engine": "pdfTeX 3.141592653-2.6-1.40.26 (MiKTeX 24.1)",
+  "bibliography_engine": "BibTeX 0.99d (MiKTeX 24.1)",
+  "undefined_references": 0,
+  "undefined_citations": 0,
+  "overfull_hboxes": 0,
+  "visual_render_pages": 41,
+  "visual_check": "passed; 0 undefined citations, 0 undefined references, 0 overfull hboxes",
+  "full_test_suite": {
+    "full_collection_passed": 121,
+    "full_collection_failed": 0,
+    "parity_subset_tests": 19,
+    "calculator_smoke_tests": 10,
+    "reference_corpus_tests": 22,
+    "jcs_conformance_tests": 12,
+    "web_api_security_tests": 5,
+    "dataset_consistency_tests": 1
+  },
+  "canonical_dataset_b": {
+    "total_rows": 30,
+    "real_cves_count": 12,
+    "synthetic_count": 18,
+    "source_origin_verified": true
+  },
+  "safe_to_freeze_evaluation": {
+    "internal_engineering_blockers_eliminated": true,
+    "SAFE_TO_FREEZE": "NO",
+    "justification": "Local engineering and documentary blockers are eliminated (G1-G8 passed); however, formal external ethics determination and independent expert panel formation (G9-G10) remain prospective prior to confirmatory C1/C2 execution."
+  }
+}

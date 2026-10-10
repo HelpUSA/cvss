@@ -13,7 +13,7 @@ except ModuleNotFoundError:  # Allows importing as app.ai_bridge_orchestrator in
     from app.cvss_env_automation.reporting import write_outputs
 
 
-WORKSPACE = Path("D:/dev/cvss")
+WORKSPACE = Path(__file__).resolve().parent.parent
 
 
 def _truthy(value: Any) -> bool:

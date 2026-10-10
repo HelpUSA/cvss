@@ -3,6 +3,7 @@
 Verifies that the Python scoring engine (core/cvss40.py) and the frontend
 JavaScript engine (ae-cvss-calculator) produce identical scores and nomenclature.
 """
+from pathlib import Path
 import subprocess
 import json
 import pytest
@@ -33,6 +34,9 @@ TEST_VECTORS = [
 
 @pytest.mark.parametrize("vector", TEST_VECTORS)
 def test_backend_frontend_cvss_score_parity(vector):
+    web_dir = Path(__file__).resolve().parent.parent / "web"
+    if not (web_dir / "node_modules" / "ae-cvss-calculator").exists():
+        pytest.skip("ae-cvss-calculator not installed in web/node_modules in portable environment")
     py_res = score(vector)
     js_code = (
         f"const {{ fromVector }} = require('ae-cvss-calculator'); "
@@ -41,7 +45,7 @@ def test_backend_frontend_cvss_score_parity(vector):
     )
     proc = subprocess.run(
         ["node", "-e", js_code],
-        cwd="D:/AntiG/cvss/web",
+        cwd=str(web_dir),
         capture_output=True,
         text=True,
         check=True,

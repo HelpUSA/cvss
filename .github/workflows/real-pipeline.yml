@@ -1,4 +1,4 @@
-name: Real Pipeline Gate
+name: real-pipeline
 
 on:
   push:
@@ -12,9 +12,6 @@ on:
     branches:
       - real-world-cvss
       - scientific-validation
-
-permissions:
-  contents: read
 
 jobs:
   ai-exchange-contract-validation:
@@ -33,41 +30,30 @@ jobs:
       - name: Validate AI Exchange Contracts
         run: python scripts/ai_exchange_validate.py
 
-  validate-real-pipeline:
+  validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    env:
-      BETTER_AUTH_SECRET: real-pipeline-validation-secret-0123456789abcdef
-      BETTER_AUTH_URL: http://localhost:3000
-      AUTH_PUBLIC_BASE_URL: http://localhost:3000
-      AUTH_TRUSTED_ORIGINS: http://localhost:3000
-      NEXT_TELEMETRY_DISABLED: "1"
-      CI: "1"
-      PYTHONDONTWRITEBYTECODE: "1"
-      PYTHONUTF8: "1"
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+          cache: pip
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip pytest
+          python -m pip install -r requirements.txt
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "npm"
+          cache: npm
           cache-dependency-path: web/package-lock.json
-
-      - name: Install Python dependencies
-        run: python -m pip install --upgrade pip pytest
-
-      - name: Install web dependencies
+      - name: Install Web dependencies
         run: npm ci --prefix web
-
-      - name: Validate real pipeline
+      - name: Python test suite
+        run: python -m pytest -q
+      - name: TypeScript check
+        run: npx --prefix web tsc --noEmit --incremental false --pretty false
+      - name: Web build
+        run: npm --prefix web run build
+      - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py
