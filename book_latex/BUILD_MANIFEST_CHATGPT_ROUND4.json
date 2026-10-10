@@ -1,0 +1,108 @@
+{
+  "artifact": "HelpUS CVSS AI monograph Round 4 pre-freeze baseline",
+  "generated_at_utc": "2026-10-09T18:56:11.720712+00:00",
+  "main_pdf": {
+    "path": "main.pdf",
+    "sha256": "9bc46412112d43cc3657e1cc647aeffc7d289cb69ee1201a720282ea57f3012e",
+    "bytes": 1216237,
+    "pages": 46
+  },
+  "build": {
+    "engine": "pdflatex",
+    "bibliography": "bibtex/bibtex8",
+    "undefined_citations": 0,
+    "undefined_references": 0,
+    "overfull_hboxes": 0,
+    "underfull_hboxes": 18
+  },
+  "scientific_status": {
+    "safe_to_freeze": "NO",
+    "dataset_b": "development-only; schema v2; recomputed with G1-verified official scorer (0 divergences across all 30 vectors)",
+    "calculator_gate_g1": "PASS \u2014 486,472/486,472 test cases passed across all 3 official vector families against pinned commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb (0 mismatches)",
+    "c1_c2": "planned/not executed",
+    "ethics": "pending external determination",
+    "expert_panel": "planned n=5; consent/COI pending"
+  },
+  "source_files": [
+    {
+      "path": "chapters/01_introduction.tex",
+      "sha256": "732754f9763a87723a7aea604fe1490d1aac5f9646c7895d4e72ecd4f4b829c8",
+      "bytes": 5044
+    },
+    {
+      "path": "chapters/02_cvss_foundations.tex",
+      "sha256": "c728c07e9b50a49318a33ffa703a4e347ddb3709b0d83712cff2cf7619be6896",
+      "bytes": 8834
+    },
+    {
+      "path": "chapters/03_watcher_architecture.tex",
+      "sha256": "0e5727ab4dcbbfaf8bea27171ba8f70832d63a0df6c6cd5596d55eb1e6dcf507",
+      "bytes": 14877
+    },
+    {
+      "path": "chapters/04_scanner_and_topology.tex",
+      "sha256": "c009afe2bf08b4176a826d1dee046bad6779851bcd11776ae89dfdf5aedc1348",
+      "bytes": 5182
+    },
+    {
+      "path": "chapters/05_hitl_governance.tex",
+      "sha256": "effa841984ce26cee4f69a1ea4fcf595fd75c56311547a12e809126ef9fbfc16",
+      "bytes": 5852
+    },
+    {
+      "path": "chapters/06_empirical_evaluation.tex",
+      "sha256": "428edc88eb4098fb56c15530171b748702c0d3a56256c98db13ca75894a6c5e3",
+      "bytes": 8226
+    },
+    {
+      "path": "chapters/07_case_studies.tex",
+      "sha256": "3ac6bc6a1f24a2884e81956cd844e1362636c303738382ccac2d408ef7365f28",
+      "bytes": 7762
+    },
+    {
+      "path": "chapters/08_conclusion.tex",
+      "sha256": "ca18b08987c05244d90bd4d40e79f1b71c075f2571a07357c765bd5e32c2d70c",
+      "bytes": 5958
+    },
+    {
+      "path": "chapters/appendix_a_pci_scenarios.tex",
+      "sha256": "8876964aaba943dee68357b469ba256c843ee7cb263f39822742cc38f1b46b0b",
+      "bytes": 5415
+    },
+    {
+      "path": "chapters/appendix_b_statistical_methods.tex",
+      "sha256": "100d8f7b643f2b270331e7afa7ec1d5a8e6159857724a8aff7961b9c81d52428",
+      "bytes": 5459
+    },
+    {
+      "path": "chapters/appendix_c_historical_dataset.tex",
+      "sha256": "55961ecb0bbf98daafa10c90979e524784b042ea13b1de70b23b9da047a0cb4e",
+      "bytes": 3945
+    },
+    {
+      "path": "chapters/dataset_b_v2_generated.tex",
+      "sha256": "3a2ac5f1060690e4645cd38b848c83bd58b319328fba43d23d41d9fec3232755",
+      "bytes": 4024
+    },
+    {
+      "path": "chapters/table_6_1_generated.tex",
+      "sha256": "8573445a1710ae133326ecf203a01fed82d30baa03959b97392c863cb3aa0718",
+      "bytes": 631
+    },
+    {
+      "path": "generated/dataset_b_source_assessments_v2.csv",
+      "sha256": "4aeeee5f30ce5d4d085f3b2b4b420ccbd15c4ed3976749f5c3fea1595cd16729",
+      "bytes": 14038
+    },
+    {
+      "path": "main.tex",
+      "sha256": "b01f0fa98fea6eaed2c1e4167fb6bcffb3416354ac9e896222d13a09450f355c",
+      "bytes": 4907
+    },
+    {
+      "path": "references.bib",
+      "sha256": "eb546e0d199bb6b8587a03ca8660508016dcea4d29b9f34a0f60336c75ed8054",
+      "bytes": 2843
+    }
+  ]
+}

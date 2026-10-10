@@ -8,8 +8,11 @@ simple marker block is present.
 import argparse,csv,json,re
 from pathlib import Path
 ap=argparse.ArgumentParser(); ap.add_argument('--root',default='.'); ap.add_argument('--site-snapshot'); args=ap.parse_args()
-root=Path(args.root)
-rows=list(csv.DictReader((root/'data/dataset_b/source_assessments_v2.csv').open(encoding='utf-8')))
+root = Path(args.root)
+csv_path = root / 'data/dataset_b/source_assessments_final.csv'
+if not csv_path.exists():
+    csv_path = root / 'data/dataset_b/source_assessments_v2.csv'
+rows = list(csv.DictReader(csv_path.open(encoding='utf-8')))
 ids={r['scenario_id'] for r in rows}; cves={r['cve_id'] for r in rows if r['cve_id']}
 errors=[]
 for rel in ['generated/dataset_b_summary.json','generated/dataset_b_public_fixture.json']:

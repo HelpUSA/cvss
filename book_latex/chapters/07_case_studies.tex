@@ -1,0 +1,75 @@
+\chapter{Real-World Operational Case Studies}
+\label{chap:case_studies}
+
+\section{Case Study 1: Core Banking PCI-DSS Payment Gateway}
+\subsection{Context and Architecture}
+This controlled fixture models a Tier-1 financial institution operating a transactional payment processing API (\texttt{payment-api}) that manages cardholder tokenization. The fixture uses a fixed source CVSS assessment for architecture testing; it is not presented as a claim about a particular live incident or provider-published CVE record.
+
+\subsection{Environmental Telemetry}
+\begin{itemize}
+    \item \textbf{Internet Exposure:} False (restricted to internal PCI VLAN).
+    \item \textbf{Segmentation:} Stateful gateway with strict ingress/egress filtering.
+    \item \textbf{Regulatory Scope Evidence:} PCI-DSS in-scope; no CVSS requirement value follows automatically from this fact.
+    \item \textbf{Organizational Requirements Policy:} Example policy \texttt{ORG-POL-PCI-v1} maps the documented confidentiality and transaction-integrity requirements to CR:H and IR:H for this fixture.
+\end{itemize}
+
+\subsection{HelpUS Evaluation vs. Legacy Scoring}
+This controlled case illustrates how the system can recommend a candidate Environmental vector from verified reachability and a versioned organizational requirements policy. The resulting CVSS-BE score must be produced by the pinned specification-conformant calculation stage. Any CR/IR settings are treated as organization-approved mappings rather than values mandated by PCI-DSS itself. The example score is therefore a benchmark output that must remain traceable to the exact input vector and calculator version.
+
+\section{Case Study 2: Network-Isolated Medical Clinic Workstation}
+\subsection{Context and Architecture}
+This controlled fixture models a private outpatient healthcare clinic hosting a local PostgreSQL database containing electronic health records (EHR). It represents an SQL-injection scenario with a fixed benchmark source assessment; the fixture is illustrative and is not presented as a provider-published CVSS v4.0 assessment for a specific CVE.
+
+\subsection{Environmental Telemetry}
+The host is physically attached to the clinic's local Ethernet switch behind a commercial NAT router with no port forwarding configured. The service is bound to the internal subnet ($192.168.0.x$) with local authentication.
+
+\subsection{HelpUS Evaluation vs. Legacy Scoring}
+A source-only workflow may overemphasize intrinsic vulnerability characteristics when local reachability evidence is unavailable. 
+The HelpUS AI Watcher records the observed routing boundary and proposes a candidate Environmental vector. A NAT router with no port forwarding establishes lack of direct inbound Internet publication, but it does not by itself prove $\text{MAV:Adjacent}$; the adjacent-network recommendation requires corroborating routing evidence. The final score and operational disposition must be generated from the canonical vector and the organization's approved SLA policy.
+
+\section{Case Study 3: Public Cloud E-Commerce Storefront}
+\subsection{Context and Architecture}
+This controlled fixture models a direct-to-consumer e-commerce storefront published on TCP/443 through a public cloud ingress path and affected by a critical deserialization flaw represented by a fixed benchmark source assessment. The host operates without an edge Web Application Firewall (WAF) or IP reputation rate-limiting.
+
+\subsection{HelpUS Evaluation}
+Because the controlled scenario specifies verified public reachability and no modeled perimeter control, the HelpUS engine preserves a Network-reachable candidate state and applies the configured organizational requirements. The final score is obtained from the canonical CVSS-BE vector; any escalation ticket is a policy action, not a prediction that exploitation will occur.
+
+\section{Case Study 4: Enterprise Infrastructure — Resolving the Cisco Switch Dilemma}
+\label{sec:case_study_cisco}
+\subsection{The Dilemma Identified in Empirical Literature}
+In the controlled experiment by Allodi et al.~\cite{santos2017estimating}, the single highest failure rate occurred when evaluators were asked to score core routing infrastructure implementing VLAN Access Control Lists (Cisco IOS Transaction Language 1 defect CVE-2016-6441 and CVE-2016-6428 in the historical CVSS v3.0-era study). Over \textbf{86\% to 90\% of human evaluators failed this assessment}, incorrectly classifying whether the defect exposed the internal POS networks or was mitigated by intermediate management enclaves.
+
+\subsection{HelpUS Topological Graph Evaluation}
+The HelpUS framework consumes the verified infrastructure model $\mathcal{G} = (\mathcal{V}, \mathcal{E})$ from active SNMP/LLDP telemetry and configuration files:
+\begin{itemize}
+    \item \textbf{Target Node:} Core Cisco ASR Aggregation Switch ($h_{\text{core}}$).
+    \item \textbf{Interface Inspection:} The vulnerability exists in the management plane daemon (port 3082/TCP TL1 and SSH/Telnet).
+    \item \textbf{Reachability Analysis:} The discovery engine verifies that the switch management interface is bound strictly to a dedicated Out-of-Band (OOB) VLAN ($10.254.0.0/24$) accessible exclusively via an authenticated Bastion VPN with hardware tokens.
+    \item \textbf{Data Plane Segregation:} The customer cardholder data plane traverses ASIC hardware switching pipelines isolated from the vulnerable control software.
+\end{itemize}
+
+\subsection{Contextual Vector Computation}
+The revised pipeline does not assign manual score deltas to individual metrics. It records the source vector, derives only evidence-supported candidate Environmental metrics, synthesizes a canonical CVSS v4.0 vector, and invokes the specification-conformant calculator:
+\begin{align}
+    \mathbf{v}_{\text{source}} &\longrightarrow \mathbf{v}_{\text{candidate-env}} \\
+    &\longrightarrow \mathbf{v}_{\text{canonical-CVSS-BE}} \\
+    &\longrightarrow S_{\text{env}}, \qquad \Delta_{\text{score}} = S_{\text{env}}-S_{\text{source}}.
+\end{align}
+The exact source vector, source nomenclature, contextual vector, and calculator version must be retained in the replication artifact. Values such as ``MAV:A $=-0.8$'' or ``MPR:H $=-1.2$'' are intentionally not used because CVSS v4.0 is not an additive per-metric delta model.
+
+\subsection{Policy-as-Code Virtual Patching and What-If Optimization}
+Rather than leaving the engineering team in paralysis over an unpatchable core switch that requires a full firmware reboot during business hours, the HelpUS engine activates its dual operational modules:
+\begin{enumerate}
+    \item \textbf{What-If Target Solver:} The analyst inputs an operational ceiling of $\theta_{\text{target}} \le 5.0$. The solver deduces the minimum compensatory control: \textit{Revoke the TL1 management interface listener on all core-facing IP interfaces and bind strictly to the loopback management VRF}.
+    \item \textbf{Candidate Virtual-Patching IaC:} The platform can synthesize a candidate Cisco IOS access-control change. Generation time alone is not a safety claim; syntax validation, reachability simulation, human approval, deployment verification, and rollback are required.
+    \begin{verbatim}
+    ip access-list extended ACL_BLOCK_TL1_EXPLOIT
+     permit tcp 10.254.0.0 0.0.0.255 host 10.254.0.1 eq 3082
+     deny   tcp any host 10.254.0.1 eq 3082
+     permit ip any any
+    interface GigabitEthernet0/0/0
+     ip access-group ACL_BLOCK_TL1_EXPLOIT in
+    \end{verbatim}
+\end{enumerate}
+This case illustrates how the architecture converts topological evidence into a reviewable candidate mitigation. It does not claim that an automatically generated ACL is safe or sufficient until the validation and HITL stages have completed.
+

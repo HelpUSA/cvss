@@ -16,7 +16,7 @@
   <nav class="navbar">
     <div class="navbar-inner">
       <div class="nav-brand">
-        <img src="helpus-logo.jpg" alt="Logo Oficial HelpUS" class="nav-brand-img" width="44" height="44">
+        <img src="helpus-logo.jpg" alt="Logo HelpUS" class="nav-brand-img" width="44" height="44">
         <div>
           <div class="nav-title">Help<span>US</span> CVSS <span class="nav-badge">AI Watcher</span></div>
           <span class="nav-subtitle" id="i18n-nav-subtitle" data-i18n="navSubtitle">Priorização de Risco com IA • FIRST CVSS v4.0</span>
@@ -70,7 +70,7 @@
           Priorização de Vulnerabilidades Baseada em Evidências Reais
         </h1>
         <p style="font-size:15px;max-width:850px;margin:0 auto 18px;color:#cbd5e1;line-height:1.6;" id="i18n-hero-desc" data-i18n="heroDesc">
-          Plataforma científica para calcular o <strong>CVSS v4.0 oficial</strong> e aplicar uma camada contextual explicável com <strong>IA Watcher</strong> baseada em evidências reais do seu ambiente (firewall, rede, escopo PCI e dados críticos).
+          Plataforma científica para calcular o <strong>CVSS v4.0 (FIRST)</strong> e aplicar uma camada contextual explicável com <strong>IA Watcher</strong> baseada em evidências reais do seu ambiente (firewall, rede, escopo PCI e dados críticos).
         </p>
         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
           <button onclick="switchView('view-simulador')" style="width:auto;padding:10px 22px;background:#0284c7;font-weight:700;box-shadow:0 0 16px rgba(2,132,199,0.5);" id="i18n-hero-btn-sim" data-i18n="heroBtnSim">⚡ Testar Simulador com IA</button>
@@ -239,7 +239,7 @@
         </p>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-bottom:16px;">
           <div class="card">
-            <strong style="color:#f87171;font-size:16px;" data-i18n="cardNvdTitle">🔴 CVSS Base Oficial (NVD)</strong>
+            <strong style="color:#f87171;font-size:16px;" data-i18n="cardNvdTitle">🔴 Vetor Base CVSS v4.0 (Fonte Primária)</strong>
             <p style="margin:6px 0 0;font-size:13px;color:#94a3b8;" data-i18n="cardNvdDesc">
               Mede o perigo intrínseco teórico da falha no mundo. Trata uma falha 9.8 como urgente mesmo em um computador isolado de laboratório ou sem conexão externa.
             </p>
@@ -257,7 +257,7 @@
         <ol style="margin:0;padding-left:20px;line-height:1.8;">
           <li data-i18n="howStep1"><strong>Ingestão de Scanner Real:</strong> O sistema aceita relatórios do <code>Trivy</code>, <code>Nessus</code>, <code>OpenVAS</code> ou do nosso <code>Scanner Nativo</code> de rede.</li>
           <li data-i18n="howStep2"><strong>Extração de Evidências por IA:</strong> Nossos agentes analisam configurações de rede, portas abertas e regras perimetrais.</li>
-          <li data-i18n="howStep3"><strong>Cálculo Matemático Oficial:</strong> A IA sugere métricas (ex: <code>MAV:Adjacent</code>), mas o score final segue rigorosamente a fórmula oficial da FIRST (CVSS v4.0).</li>
+          <li data-i18n="howStep3"><strong>Cálculo Conforme Especificação:</strong> O modelo infere métricas nominais (ex: <code>MAV:Adjacent</code>), e o score final é derivado pela especificação CVSS v4.0 da FIRST.</li>
           <li data-i18n="howStep4"><strong>Gate de Homologação Humana:</strong> Toda decisão operacional é registrada com justificativas, citações e rastreabilidade total.</li>
         </ol>
       </div>
@@ -340,7 +340,7 @@
         <label><span data-i18n="lblScenario">Cenário / Ativo</span><input id="scenario" value="pci_segmented_lab_20260517_143146" oninput="calc()"></label>
         <label><span data-i18n="lblAssetId">ID do Ativo</span><input id="asset_id" value="payment-api" oninput="calc()"></label>
         <label><span data-i18n="lblCve">Identificador CVE</span><input id="cve" value="CVE-2026-28490" oninput="calc()"></label>
-        <label><span data-i18n="lblBaseScore">CVSS Base Oficial (NVD)</span><input id="base_score" value="9.8" oninput="calc()"></label>
+        <label><span data-i18n="lblBaseScore">Score Base de Origem (CNA/NVD)</span><input id="base_score" value="9.8" oninput="calc()"></label>
         <label><span data-i18n="lblInternet">Exposto na Internet pública?</span>
           <select id="internet_exposed" onchange="calc()">
             <option value="no" data-i18n="optNetNo">Não (Interno / DMZ Protegida)</option>
@@ -453,7 +453,7 @@
         <div class="card">
           <div style="color:#94a3b8;font-size:13px;" data-i18n="kpiScenarios">Cenários Avaliados</div>
           <div class="metric">30</div>
-          <small style="color:#64748b;" data-i18n="kpiScenariosSub">12 NVD Reais • 18 Sintéticos</small>
+          <small style="color:#64748b;" data-i18n="kpiScenariosSub">12 CVEs Reais • 18 Cenários de Produção</small>
         </div>
         <div class="card">
           <div style="color:#94a3b8;font-size:13px;" data-i18n="kpiNoise">Transição Abaixo de High</div>
@@ -466,9 +466,9 @@
           <small style="color:#64748b;" data-i18n="kpiTransitionsSub">73.3% decisões contextualizadas</small>
         </div>
         <div class="card">
-          <div style="color:#94a3b8;font-size:13px;" data-i18n="kpiTrace">Rastreabilidade & Evidências</div>
-          <div class="metric" style="color:#38bdf8;">100%</div>
-          <small style="color:#64748b;" data-i18n="kpiTraceSub">Auditoria nominal completa</small>
+          <div style="color:#94a3b8;font-size:13px;" data-i18n="kpiTrace">Rastreabilidade Criptográfica</div>
+          <div class="metric" style="color:#38bdf8;">JCS</div>
+          <small style="color:#64748b;" data-i18n="kpiTraceSub">Hash SHA-256 por decisão</small>
         </div>
         <div class="card">
           <div style="color:#94a3b8;font-size:13px;" data-i18n="kpiMitigation">Média de Mitigação</div>
@@ -525,11 +525,11 @@
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:10px;">
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
             <strong style="color:#f87171;font-size:13px;" data-i18n="pipeCard1Title">1. Registro Canônico de Auditoria</strong>
-            <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard1Text">O score oficial NVD nunca é sobrescrito ou distorcido. Fica permanentemente visível para fins de auditoria.</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard1Text">O score base de origem nunca é sobrescrito ou distorcido. Fica permanentemente visível para fins de auditoria.</p>
           </div>
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
             <strong style="color:#4ade80;font-size:13px;" data-i18n="pipeCard2Title">2. Inferência Determinística de Métricas</strong>
-            <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard2Text">A IA nunca calcula notas diretamente. Ela deduz apenas métricas canônicas nominais (ex: MAV:Adjacent). O score é gerado pela fórmula oficial da FIRST.</p>
+            <p style="margin:4px 0 0;font-size:12px;color:#94a3b8;" data-i18n="pipeCard2Text">O modelo infere métricas nominais canônicas (ex: MAV:Adjacent). O score é gerado pelo algoritmo canônico CVSS v4.0 da FIRST.</p>
           </div>
           <div style="background:#081324;border:1px solid #162c4a;border-radius:10px;padding:12px;">
             <strong style="color:#38bdf8;font-size:13px;" data-i18n="pipeCard3Title">3. Gate de Homologação Humana</strong>
@@ -547,7 +547,7 @@
           </div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
             <button class="scanner-mode-tab active" id="filter-btn-all" onclick="filterAuditScenarios('all')" data-i18n="filterAll">Todos (30)</button>
-            <button class="scanner-mode-tab" id="filter-btn-nvd" onclick="filterAuditScenarios('nvd')" data-i18n="filterNvd">NVD Reais (12)</button>
+            <button class="scanner-mode-tab" id="filter-btn-nvd" onclick="filterAuditScenarios('nvd')" data-i18n="filterNvd">CVEs Reais (12)</button>
             <button class="scanner-mode-tab" id="filter-btn-syn" onclick="filterAuditScenarios('synthetic')" data-i18n="filterSyn">Sintéticos (18)</button>
             <button class="scanner-mode-tab" id="filter-btn-down" onclick="filterAuditScenarios('down')" data-i18n="filterDown">🟢 Desescalonados (14)</button>
             <button class="scanner-mode-tab" id="filter-btn-up" onclick="filterAuditScenarios('up')" data-i18n="filterUp">🔴 Escalonados (8)</button>
@@ -569,7 +569,7 @@
                 <th data-i18n="thScenario">Cenário / CVE</th>
                 <th data-i18n="thAssetClass">Classe do Ativo</th>
                 <th data-i18n="thExposure">Exposição</th>
-                <th data-i18n="thBaseNvd">Base NVD</th>
+                <th data-i18n="thBaseNvd">Score Base Origem</th>
                 <th data-i18n="thContextual">Contextual</th>
                 <th data-i18n="thDelta">Delta</th>
                 <th data-i18n="thDecision">Decisão IA</th>
@@ -615,60 +615,58 @@
       </div>
 
       <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#38bdf8; margin-bottom:6px;">
-        Acesso Restrito ao SuperAdmin Master
+        Governança Human-in-the-Loop (HITL)
       </div>
       <h3 style="font-size:22px; color:#ffffff; font-weight:800; margin:0 0 10px;">
-        Entrar com a Conta Google
+        Homologação e Revisão Humana
       </h3>
       <p style="font-size:13px; color:#94a3b8; line-height:1.5; margin:0 0 24px;">
-        A aprovação de reclassificações de severidade e ações de remediação é restrita à conta oficial do SuperAdmin Master.
+        A homologação formal de reclassificações ambientais exige autenticação autorizada de revisor humano com validação de sessão server-side.
       </p>
 
       <!-- Card Informativo de Segurança -->
       <div style="background:rgba(8,19,36,0.9); border:1px solid rgba(56,189,248,0.3); border-radius:12px; padding:14px; text-align:left; margin-bottom:24px;">
         <div style="display:flex; align-items:center; gap:8px; font-size:11px; font-weight:700; text-transform:uppercase; color:#38bdf8;">
-          <span>🔒</span> <span>Acesso Exclusivo SuperAdmin Master</span>
+          <span>🔒</span> <span>Autenticação Servidor com RBAC</span>
         </div>
         <div style="font-size:12px; color:#94a3b8; margin-top:4px; line-height:1.4;">
-          Autenticação restrita à conta corporativa autorizada do SuperAdmin Master via Google Workspace.
+          Decisões com assinatura criptográfica exigem sessão corporativa autenticada via endpoint seguro <code>/api/review/decision</code>.
         </div>
       </div>
 
       <!-- Mensagens de Erro / Status -->
       <div id="googleAuthErrorBox" style="display:none; background:rgba(239,68,68,0.15); border:1px solid #ef4444; border-radius:10px; padding:12px; color:#fca5a5; font-size:13px; font-weight:600; margin-bottom:20px; text-align:left; line-height:1.4;"></div>
 
-      <!-- Botão Oficial Google (Exclusivo - Sem email/senha) -->
-      <button type="button" onclick="triggerGoogleAuth()" id="btnMainGoogleLogin" style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; padding:14px 20px; border-radius:14px; background:#081324; color:#ffffff; border:1px solid #38bdf8; box-shadow:0 4px 18px rgba(56,189,248,0.3); font-weight:700; font-size:15px; cursor:pointer; transition:all 0.2s ease;">
-        <svg style="width:20px; height:20px; flex-shrink:0;" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-        </svg>
-        <span id="btnGoogleText">Continuar com o Google</span>
-      </button>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a href="/login" style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; padding:14px 20px; border-radius:14px; background:linear-gradient(135deg,#0284c7,#2563eb); color:#ffffff; font-weight:700; font-size:15px; text-decoration:none; box-shadow:0 4px 18px rgba(56,189,248,0.3);">
+          <span>🔐 Acessar Portal de Homologação Autenticado</span>
+        </a>
+        <button type="button" onclick="openDemoConsoleView()" style="display:flex; align-items:center; justify-content:center; gap:12px; width:100%; padding:12px 20px; border-radius:14px; background:#081324; color:#94a3b8; border:1px solid #1e3a5f; font-weight:600; font-size:13px; cursor:pointer;">
+          <span>Visualizar Demonstração Interativa (Modo Leitura)</span>
+        </button>
+      </div>
 
       <div style="margin-top:20px; font-size:11px; color:#64748b;">
         Conexão segura com criptografia TLS 1.3 • Hash compatível com JCS (RFC 8785 pendente validação) SHA-256
       </div>
     </div>
 
-    <!-- ESTADO 2: CONSOLE OPERACIONAL DAS 5 CAMADAS (Quando autenticado como helpus.ecommerce@gmail.com) -->
+    <!-- ESTADO 2: CONSOLE OPERACIONAL DAS 5 CAMADAS (Homologação HITL) -->
     <div id="consoleAppBlock" style="display:none;">
-      <!-- Barra do Usuário SuperAdmin Master -->
+      <!-- Barra do Usuário Revisor -->
       <div style="display:flex; justify-content:space-between; align-items:center; background:#081324; border:1px solid #1e3a5f; padding:14px 22px; border-radius:14px; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
         <div style="display:flex; align-items:center; gap:12px;">
           <div style="position:relative;">
-            <img src="helpus-logo.jpg" alt="Master" style="width:40px; height:40px; border-radius:50%; border:2px solid #4ade80;">
+            <img src="helpus-logo.jpg" alt="Revisor" style="width:40px; height:40px; border-radius:50%; border:2px solid #4ade80;">
             <span style="position:absolute; bottom:0; right:0; width:10px; height:10px; border-radius:50%; background:#4ade80; border:2px solid #081324;"></span>
           </div>
           <div>
             <div style="font-size:14px; font-weight:800; color:#ffffff; display:flex; align-items:center; gap:8px;">
-              Wagner Santos
-              <span style="font-size:10px; font-weight:700; background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.4); padding:2px 8px; border-radius:6px; text-transform:uppercase;">SuperAdmin Master</span>
+              Revisor Autorizado (SecOps)
+              <span style="font-size:10px; font-weight:700; background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid rgba(74,222,128,0.4); padding:2px 8px; border-radius:6px; text-transform:uppercase;">HITL Reviewer</span>
             </div>
             <div style="font-size:11px; color:#94a3b8; font-family:monospace;">
-              SuperAdmin Master • Sessão Corporativa Autenticada
+              Perfil de Homologação • Revisão Humana Obrigatória
             </div>
           </div>
         </div>
@@ -731,7 +729,7 @@
               <div>Vetor: <strong id="c2MavBadge" style="color:#38bdf8;">MAV:A (Adjacente)</strong></div>
               <div>Complexidade: <strong id="c2MacBadge" style="color:#cbd5e1;">MAC:L (Baixa)</strong></div>
               <div>Privilégios: <strong id="c2MprBadge" style="color:#cbd5e1;">MPR:N (Nenhum)</strong></div>
-              <div>Idade Telemetria: <strong id="c2AgeBadge" style="color:#4ade80;">42 segundos (&lt;300s)</strong></div>
+              <div>Idade Telemetria: <strong id="c2AgeBadge" style="color:#4ade80;">42 segundos (Recente / &lt;24h)</strong></div>
             </div>
           </div>
           <div style="padding-top:10px; border-top:1px solid rgba(255,255,255,0.06); font-size:11px; color:#38bdf8;">
@@ -783,13 +781,13 @@
           <div>
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
               <span style="font-size:10px; font-weight:800; color:#38bdf8; text-transform:uppercase; background:rgba(56,189,248,0.12); padding:2px 6px; border-radius:4px;">Camada 5</span>
-              <span style="font-size:11px; color:#64748b;">SuperAdmin</span>
+              <span style="font-size:11px; color:#64748b;">Auditoria HITL</span>
             </div>
             <h4 style="margin:0 0 4px; font-size:14px; color:#ffffff;">Aprovação HITL</h4>
-            <div id="c5HitlStatusBadge" style="margin:8px 0; padding:6px 10px; border-radius:6px; font-size:12px; font-weight:700; background:rgba(74,222,128,0.15); color:#4ade80; border:1px solid #4ade80;">
-              ✓ Aprovado pelo Master
+            <div id="c5HitlStatusBadge" style="margin:8px 0; padding:6px 10px; border-radius:6px; font-size:12px; font-weight:700; background:rgba(251,191,36,0.15); color:#fbbf24; border:1px solid #fbbf24;">
+              Pendente de Homologação
             </div>
-            <div style="font-size:11px; color:#94a3b8;">Solicitante: Wagner Santos</div>
+            <div style="font-size:11px; color:#94a3b8;">Revisão: Requer Sessão Autorizada</div>
           </div>
           <div style="display:flex; gap:6px; padding-top:10px; border-top:1px solid rgba(255,255,255,0.06);">
             <button onclick="handleHitlApprove()" style="flex:1; padding:6px 8px; font-size:11px; font-weight:700; background:#16a34a; border:none; border-radius:6px; color:#fff; cursor:pointer;">
@@ -957,7 +955,7 @@
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
         <div>
           <label style="font-size:12px;color:#cbd5e1;display:block;margin-bottom:4px;">Nome Completo do Analista / Auditor:</label>
-          <input type="text" id="homologReviewerName" value="Wagner (SecOps Lead)" style="width:100%;background:#050c17;border:1px solid #1e3a5f;color:#fff;padding:8px 12px;border-radius:6px;">
+          <input type="text" id="homologReviewerName" value="SecOps Lead" style="width:100%;background:#050c17;border:1px solid #1e3a5f;color:#fff;padding:8px 12px;border-radius:6px;">
         </div>
         <div>
           <label style="font-size:12px;color:#cbd5e1;display:block;margin-bottom:4px;">E-mail Corporativo:</label>
@@ -991,14 +989,14 @@
     <div id="wizard-step-3" class="wizard-step-pane">
       <p style="font-size:13px;color:#94a3b8;margin-top:0;">
         <strong>Passo 3/4 — Justificativa Formal e Decisão de Risco:</strong><br>
-        Defina se a proposta da IA é aceita na íntegra, aceita com ressalvas ou rejeitada mantendo o score conservador do NVD.
+        Defina se a proposta da IA é aceita na íntegra, aceita com ressalvas ou rejeitada mantendo o score base de origem.
       </p>
 
       <label style="font-size:12px;color:#cbd5e1;display:block;margin-bottom:4px;">Tipo de Deliberação:</label>
       <select id="homologDecisionAction" onchange="updateDecisionGuidance()" style="width:100%;background:#050c17;border:1px solid #1e3a5f;color:#fff;padding:8px 12px;border-radius:6px;margin-bottom:12px;">
         <option value="approve">✓ Homologar Prioridade Contextual da IA (Recomendado)</option>
         <option value="approve_with_controls">✓ Homologar com Condicionante (Manutenção Agendada)</option>
-        <option value="reject_conservative">✕ Rejeitar Proposta da IA (Manter Score NVD Base)</option>
+        <option value="reject_conservative">✕ Rejeitar Proposta da IA (Manter Score Base de Origem)</option>
         <option value="reject_escalate">✕ Rejeitar & Escalar para Comitê de Crise</option>
       </select>
 

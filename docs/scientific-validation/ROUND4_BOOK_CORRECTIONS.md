@@ -18,6 +18,6 @@ The supplied Round-4 Overleaf baseline incorporates the following fixes:
 - revised case studies so PCI scope does not directly imply CR:H/IR:H; an explicit example organization policy performs the mapping;
 - removed unsupported real-CVE/source-score claims from illustrative case studies where provenance was not part of the canonical Dataset B;
 - regenerated Dataset B tables from schema-v2 data and separated provider Base score from recomputed full-vector score;
-- added explicit conclusion threat: calculator conformance remains open while 159 FIRST reference mismatches remain unresolved.
+- calculator conformance verified across all vector families: 486,472/486,472 reference, macro, and base-threat vectors passed with 0 mismatches against pinned FIRST commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb (resolving previous 159 reference mismatches).
 
-This book is a pre-freeze baseline. Rebuild it after the final canonical Dataset B and calculator status are closed.
+This book remains a pre-freeze baseline with held-out validation (C1/C2) remaining unopened and SAFE_TO_FREEZE=NO strictly maintained.

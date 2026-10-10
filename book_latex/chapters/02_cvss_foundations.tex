@@ -1,0 +1,90 @@
+\chapter{FIRST CVSS v4.0 Specification and Theoretical Foundations}
+\label{chap:cvss_foundations}
+
+\section{Evolution of Vulnerability Metrics: CVSS v2 to v4.0}
+The Common Vulnerability Scoring System (CVSS), maintained by the Forum of Incident Response and Security Teams (FIRST), represents the global standard for vulnerability characterization~\cite{first_cvss_v4}. While CVSS v2 and v3.1 provided foundational metrics, they suffered from significant metric compression and inadequate separation between threat intelligence and environmental mitigations.
+
+In CVSS v4.0, FIRST established a strict taxonomy comprising four distinct nomenclature groups:
+\begin{itemize}
+    \item \textbf{CVSS-B (Base):} Measures intrinsic qualities that are constant over time and across user environments.
+    \item \textbf{CVSS-BT (Base + Threat):} Factors in temporal exploit maturity (Attacked, Proof-of-Concept, Unreported).
+    \item \textbf{CVSS-BE (Base + Environmental):} Factors in local system characteristics, compensating mitigations, and organizational requirements.
+    \item \textbf{CVSS-BTE (Base + Threat + Environmental):} The comprehensive score incorporating all metric groups.
+\end{itemize}
+
+\section{Environmental Vector Decomposition}
+The environmental metric group modifies Base metrics according to the defensive reality of the target asset. The formal environmental metric vector comprises two primary subsets:
+
+\subsection{Modified Base Metrics}
+Defenders alter the base vector when local architectural controls change the attack surface:
+\begin{equation}
+    \text{Vector}_{\text{modified}} = \{\text{MAV}, \text{MAC}, \text{MAT}, \text{MPR}, \text{MUI}, \text{MVC}, \text{MVI}, \text{MVA}, \text{MSC}, \text{MSI}, \text{MSA}\}
+\end{equation}
+
+Among these, the \textbf{Modified Attack Vector (MAV)} represents the most impactful lever in segmented infrastructure:
+\begin{itemize}
+    \item $\text{MAV:Network (N)} \rightarrow$ Exploitation can be performed remotely through a network protocol stack; the attacker may be one or more network hops away. Internet exposure is one possible case, but is not required.
+    \item $\text{MAV:Adjacent (A)} \rightarrow$ Exploitation requires access to a logically or physically adjacent network context, such as the same constrained broadcast or proximity domain.
+    \item $\text{MAV:Local (L)} \rightarrow$ Exploitation requires local access to the vulnerable system or a local execution context; this is distinct from physical manipulation.
+    \item $\text{MAV:Physical (P)} \rightarrow$ Exploitation requires physical interaction with the vulnerable component. The authoritative FIRST specification remains the normative definition~\cite{first_cvss_v4}.
+\end{itemize}
+
+\subsection{Security Requirements (CR, IR, AR)}
+Security Requirements customize the impact based on the asset's business criticality and regulatory classification:
+\begin{align}
+    \text{CR} &\in \{\text{High}, \text{Medium}, \text{Low}, \text{Not Defined}\} \\
+    \text{IR} &\in \{\text{High}, \text{Medium}, \text{Low}, \text{Not Defined}\} \\
+    \text{AR} &\in \{\text{High}, \text{Medium}, \text{Low}, \text{Not Defined}\}
+\end{align}
+
+Security Requirements are organization-specific. Regulatory or business scope (including PCI-DSS) may inform a documented organizational mapping policy, but the external standard does not by itself mandate particular CVSS values such as $\text{CR:High}$ or $\text{IR:High}$. Any such mapping in HelpUS must therefore be explicit, reviewable, and attributable to local policy.
+
+\section{The Mathematical Formula and Macro-Vectors}
+Unlike CVSS v3.1, CVSS v4.0 uses a MacroVector lookup-and-interpolation architecture~\cite{first_cvss_v4}. The equivalence groups defined by FIRST are not a simple one-to-one partition of the named Base, Threat, and Environmental metric groups. The normative grouping is:
+\begin{itemize}
+    \item $EQ_1$: AV / PR / UI.
+    \item $EQ_2$: AC / AT.
+    \item $EQ_3$: VC / VI / VA.
+    \item $EQ_4$: SC / SI / SA.
+    \item $EQ_5$: E (Exploit Maturity).
+    \item $EQ_6$: the vulnerable-system impact metrics VC / VI / VA evaluated together with the Environmental Security Requirements CR / IR / AR.
+\end{itemize}
+FIRST further specifies that $EQ_3$ and $EQ_6$ are not independent and are considered jointly during MacroVector scoring. Modified Environmental metrics influence the effective metric values used by the scoring process; they should not be described as a separate serialized ``EQ6 modified-impact'' group. The FIRST specification remains the normative source for the boolean level definitions and interpolation algorithm~\cite{first_cvss_v4}.
+
+The calculated environmental score $S_{\text{env}}$ is bounded by:
+\begin{equation}
+    0.0 \le S_{\text{env}} \le 10.0
+\end{equation}
+The score variation $\Delta$ between the source score $S_{\text{source}}$ and the contextual environmental score is defined as:
+\begin{equation}
+    \Delta = S_{\text{env}} - S_{\text{source}}
+\end{equation}
+A negative $\Delta$ indicates that the contextual CVSS result is numerically lower than the source score, whereas a positive $\Delta$ indicates a higher contextual result. Neither direction, by itself, establishes operational risk acceptance, regulatory status, or correctness.
+
+\section{Historical Evidence on Human Difficulty in Environmental Scoring}
+\label{sec:human_failure_baseline}
+Environmental scoring requires assessors to combine vulnerability semantics with organization-specific system and network context. Allodi et al.~\cite{santos2017estimating} studied this assessment difficulty in a controlled 2017 experiment involving $n=29$ MSc students and enterprise network layouts derived from PCI-DSS compliance literature~\cite{williams2014pci}. The study predates CVSS v4.0 and therefore serves here as a historical human-factors baseline rather than a v4.0 ground truth.
+
+
+The empirical findings reported by Allodi et al.~\cite{santos2017estimating} provide three observations that motivate the HelpUS architecture:
+\begin{enumerate}
+    \item \textbf{Network Complexity Destroys Human Accuracy ($H2_0$ Rejected):}
+    In a simple, flat network layout, human participants achieved an acceptable correctness rate of $83\%$ ($96/116$ correct scores). However, once network segmentation was introduced to satisfy PCI-DSS scoping requirements (VLANs, DMZs, and access control lists), the human correctness rate collapsed to $59\%$ ($136/232$ correct). Fisher's exact test confirmed the overwhelming statistical significance of this degradation:
+    \begin{equation}
+        p = 4.2 \times 10^{-6}, \quad \text{Odds Ratio} = 3.4, \quad 95\% \text{ CI} = [1.91, 6.18]
+    \end{equation}
+    Human analysts are over three times more likely to miscalculate environmental scores in a modern segmented architecture than in an obsolete flat network.
+
+    \item \textbf{System and Infrastructure Vulnerabilities Induce Severe Error ($H1_0$ Rejected):}
+    The experiment revealed a profound disparity between application-level vulnerabilities (APP) and system/infrastructure-level vulnerabilities (SYS). In segmented networks, application vulnerabilities (e.g., browser or office suites) maintained a $72.4\%$ correctness rate, whereas system-level vulnerabilities (e.g., Windows RDP and Cisco core switches) suffered a disastrous error rate of $55.2\%$ ($p = 3.2 \times 10^{-5}$, Odds Ratio $= 3.2$).
+    
+    Most critically, for core network switches implementing Access Control Lists on top of VLANs (specifically Cisco IOS defects CVE-2016-6441 and CVE-2016-6428), \textbf{between 86\% and 90\% of human assessors made critical scoring errors}. Human analysts consistently failed to comprehend whether a vulnerable routing appliance acts as an attack target or as a protective boundary for systems behind it.
+
+    \item \textbf{Synthetic Score-Space Sensitivity:}
+    A Monte Carlo simulation of $10,000$ sampled Environmental metric combinations illustrates that different contextual assumptions can produce a broad score space. This simulation is a sensitivity illustration only; it does not measure human fatigue or reproduce the empirical participant distribution in Allodi et al. The simulation is therefore treated as a separate sensitivity exercise rather than evidence about participant behavior.
+\end{enumerate}
+
+Allodi et al.~\cite{santos2017estimating} concluded with an explicit challenge to the research community: because network topologies cannot be simplified without sacrificing security, \textbf{environmental vulnerability assessment cannot scale without automated data integration and automated topological reasoning engines}. 
+
+The HelpUS AI Watcher framework was engineered specifically to solve the challenge formulated by Allodi et al., replacing manual guesswork with deterministic symbolic reasoning .
+

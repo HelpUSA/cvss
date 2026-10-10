@@ -8,13 +8,11 @@ import {
 import { prisma } from "@/lib/prisma";
 
 function requiredAuthSecret(): string {
-  const value =
-    process.env.BETTER_AUTH_SECRET?.trim();
+  const value = process.env.BETTER_AUTH_SECRET?.trim();
 
   if (!value || value.length < 32) {
-    return (
-      process.env.BETTER_AUTH_SECRET ||
-      "helpus_cvss_default_secure_secret_key_32chars_minimum!"
+    throw new Error(
+      "Configuration Error: BETTER_AUTH_SECRET must be explicitly set and be at least 32 characters long. Startup aborted in fail-closed mode."
     );
   }
 

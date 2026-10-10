@@ -1,0 +1,26 @@
+{
+  "artifact": "HelpUS CVSS AI monograph Round 3",
+  "generated_at_utc": "2026-10-09T17:24:00+00:00",
+  "main_pdf": {
+    "path": "main.pdf",
+    "sha256": "387c1a88ffe866a70ad03dd907eeff14043046d3fd5f89201630d6955ac3baae",
+    "bytes": 1226836,
+    "pages": 41
+  },
+  "build": {
+    "engine": "pdflatex",
+    "bibliography": "bibtex",
+    "undefined_citations": 0,
+    "undefined_references": 0,
+    "overfull_hboxes": 0,
+    "underfull_hboxes": 18
+  },
+  "scientific_status": {
+    "dataset_b": "development-only, schema v2 audited",
+    "c1_c2": "planned/not executed (custody locked)",
+    "full_first_reference_corpus": "passed locally (commit d766d0c8, 66409/66568 tests)",
+    "formal_jcs_conformance": "local JCS-compatible implementation verified (15/15 tests); formal claim qualified pending RFC corpus",
+    "ethics": "pending external determination (IRB/CEP)",
+    "expert_adjudication": "pending protocol freeze and signed consent (n=5 panel)"
+  }
+}

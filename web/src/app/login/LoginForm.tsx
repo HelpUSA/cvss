@@ -1,11 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-const GOOGLE_CLIENT_ID =
-  process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-  "812202824664-s716306ibb7c15jh7aok2v0lfnuocpkn.apps.googleusercontent.com";
+import { authClient } from "@/lib/auth-client";
 
 export function LoginForm({
   callbackURL,
@@ -18,23 +16,6 @@ export function LoginForm({
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  // Auto-injeta script do Google Identity Services (GSI)
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    if (
-      !(window as any).google?.accounts?.oauth2 &&
-      !document.getElementById("google-gsi-script")
-    ) {
-      const script = document.createElement("script");
-      script.id = "google-gsi-script";
-      script.src = "https://accounts.google.com/gsi/client";
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }
-  }, []);
-
   async function handleGoogleLogin() {
     if (googleLoading) return;
 
@@ -43,69 +24,14 @@ export function LoginForm({
     setSuccessMessage("");
 
     try {
-      if ((window as any).google?.accounts?.oauth2) {
-        const tokenClient = (window as any).google.accounts.oauth2.initTokenClient({
-          client_id: GOOGLE_CLIENT_ID,
-          scope: "email profile openid",
-          callback: async (tokenResponse: any) => {
-            if (tokenResponse.error) {
-              setErrorMessage("Autenticação com o Google cancelada ou indisponível.");
-              setGoogleLoading(false);
-              return;
-            }
-
-            try {
-              const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-                headers: {
-                  Authorization: `Bearer ${tokenResponse.access_token}`,
-                },
-              });
-
-              if (!res.ok) {
-                throw new Error("Falha ao obter perfil do Google");
-              }
-
-              const userInfo = await res.json();
-              if (userInfo?.email) {
-                localStorage.setItem("helpus_google_auth_user", JSON.stringify(userInfo));
-                // Define cookie de sessão local para navegação amigável
-                document.cookie = `helpus_auth_session=${encodeURIComponent(
-                  JSON.stringify(userInfo)
-                )}; path=/; max-age=86400; SameSite=Lax`;
-
-                setSuccessMessage(`✓ Bem-vindo, ${userInfo.name || userInfo.email}!`);
-                setTimeout(() => {
-                  router.replace(callbackURL || "/");
-                  router.refresh();
-                }, 800);
-              }
-            } catch (err) {
-              setErrorMessage("Não foi possível carregar o perfil da sua conta Google.");
-            } finally {
-              setGoogleLoading(false);
-            }
-          },
-        });
-
-        tokenClient.requestAccessToken({ prompt: "select_account" });
-      } else {
-        // Fallback popup direto OAuth 2.0 padrão
-        const redirectOrigin = window.location.origin;
-        const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(
-          GOOGLE_CLIENT_ID
-        )}&redirect_uri=${encodeURIComponent(
-          `${redirectOrigin}/login`
-        )}&response_type=token&scope=email%20profile%20openid&prompt=select_account`;
-
-        const popup = window.open(authUrl, "GoogleLoginPopup", "width=500,height=600");
-        if (!popup) {
-          window.location.href = authUrl;
-        } else {
-          setGoogleLoading(false);
-        }
-      }
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: callbackURL || "/",
+      });
     } catch (e: any) {
-      setErrorMessage("Erro ao inicializar o Google Login. Verifique se pop-ups estão habilitados.");
+      setErrorMessage(
+        e?.message || "Erro ao conectar com o Google Workspace corporativo."
+      );
       setGoogleLoading(false);
     }
   }

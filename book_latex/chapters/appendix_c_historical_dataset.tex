@@ -1,0 +1,42 @@
+\chapter{Complete Experimental Datasets}
+\label{app:historical_dataset}
+
+This appendix summarizes the current benchmark corpus. Full computational reproducibility additionally requires machine-readable source vectors, source/retrieval metadata, evidence objects, rule versions, calculator version, scripts, and independent reference labels. Those artifacts should accompany the final paper release.
+
+\section{Historical 2017 Vulnerability Corpus (Allodi et al.)}
+\label{sec:app_historical_cves}
+Table~\ref{tab:app_historical_cves} documents the complete set of twelve Common Vulnerabilities and Exposures (CVEs) evaluated during the controlled trials across flat and segmented topologies~\cite{santos2017estimating}.
+
+\begin{landscape}
+\begin{table}[p]
+\centering\scriptsize
+\caption{Historical Vulnerability Dataset from the Allodi et al.~\cite{santos2017estimating} Empirical Trial}
+\label{tab:app_historical_cves}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{lp{3.5cm}p{2.8cm}ccp{3.7cm}p{2.6cm}}
+\toprule
+\textbf{CVE ID} & \textbf{Affected Software} & \textbf{Target Host} & \textbf{Type} & \textbf{Base} & \textbf{CVSS Vector} & \textbf{Observed Human Error} \\
+\midrule
+CVE-2016-0126 & Microsoft Office 2016 & Customer Data PC & APP & 7.8 & AV:L/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:R & 10.0\% \\
+CVE-2016-5167 & Google Chrome 53      & Mailing Kiosk    & APP & 8.8 & AV:N/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:R & 21.0\% \\
+CVE-2016-0019 & Windows 10 Workstation& Customer PC      & SYS & 8.1 & AV:N/\allowbreak AC:H/\allowbreak PR:N/\allowbreak UI:N & 28.0\% \\
+CVE-2016-0067 & POS Terminal System   & Store POS IP     & SYS & 7.8 & AV:L/\allowbreak AC:L/\allowbreak PR:L/\allowbreak UI:N & 10.0\% \\
+CVE-2016-0036 & Windows Server 2012   & Corporate Server & SYS & 8.8 & AV:N/\allowbreak AC:L/\allowbreak PR:L/\allowbreak UI:N & 76.0\% \\
+CVE-2016-0469 & Oracle Retail MICROS  & Retail Store POS & SYS & 5.5 & AV:L/\allowbreak AC:L/\allowbreak PR:L/\allowbreak UI:N & 79.0\% \\
+CVE-2016-3234 & Microsoft Office 2010 & Store Admin PC   & APP & 5.5 & AV:L/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:R & 45.0\% \\
+CVE-2016-6792 & Google Chrome 47      & Store Admin PC   & APP & 9.8 & AV:N/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:N & 86.0\% \\
+CVE-2016-0012 & Microsoft Office 2010 & Legacy Wi-Fi PC  & APP & 4.3 & AV:N/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:R & 34.0\% \\
+CVE-2016-1619 & Google Chrome 48      & Legacy Wi-Fi PC  & APP & 7.6 & AV:N/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:R & 83.0\% \\
+CVE-2016-6441 & Cisco IOS XE (ASR 900)& Core VLAN Switch & SYS & 9.8 & AV:N/\allowbreak AC:L/\allowbreak PR:N/\allowbreak UI:N & 86.0\% \\
+CVE-2016-6428 & Cisco IOS XR          & Core VLAN Switch & SYS & 7.8 & AV:L/\allowbreak AC:L/\allowbreak PR:L/\allowbreak UI:N & 90.0\% \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{landscape}
+
+\section{Dataset B: 30-Scenario Development Benchmark}
+\label{sec:app_modern_benchmark}
+Dataset B is a development/regression benchmark rather than a held-out validation set. Its canonical schema separates provider-reported Base values from scores recomputed from the full source vector. This distinction is essential for CVSS-BT records: a provider may publish a Base score while the complete source vector also defines Threat metric $E$, yielding a different Base+Threat score. The synthetic fixtures also preserve their legacy investigator-assigned scores separately from the current vector recomputation. Several of those legacy assigned scores do not match the score recomputed from their own vectors; the discrepancy is intentionally exposed rather than silently overwritten and must be normalized only after calculator gate G1 closes with the final pinned scorer. The tables below are generated from the schema-v2 machine-readable dataset bundled with this monograph.
+
+\input{chapters/dataset_b_v2_generated.tex}

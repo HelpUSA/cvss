@@ -1,0 +1,61 @@
+\begin{landscape}
+\begin{table}[p]
+\centering\scriptsize
+\caption{Dataset B real-CVE source-assessment provenance (12 development scenarios). Provider-reported Base values are kept distinct from scores recomputed from the complete source vector. Full-vector recomputation remains provisional until calculator gate G1 reaches zero unexplained FIRST-reference mismatches.}
+\label{tab:dataset_b_v2_real}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{llllllll}
+\toprule
+\textbf{Scenario} & \textbf{CVE} & \textbf{Provider} & \textbf{Nom.} & \textbf{Provider Base} & \textbf{Current Full Vector} & \textbf{Full Sev.} & \textbf{Disposition} \\
+\midrule
+SCN-NVD-001 & CVE-2026-4251 & cna@vuldb.com & CVSS-BT & 2.0 & 1.1 & Low & P3 \\
+SCN-NVD-002 & CVE-2026-4252 & cna@vuldb.com & CVSS-BT & 9.3 & 8.9 & High & P2 \\
+SCN-NVD-003 & CVE-2026-4270 & ff89ba41-3aa1-4d27-914a-91399e9639e5 & CVSS-B & 6.8 & 6.8 & Medium & P1 \\
+SCN-NVD-004 & CVE-2026-28490 & security-advisories@github.com & CVSS-B & 8.3 & 8.3 & High & P0 \\
+SCN-NVD-005 & CVE-2026-28498 & security-advisories@github.com & CVSS-B & 8.2 & 8.2 & High & P1 \\
+SCN-NVD-006 & CVE-2026-29510 & disclosure@vulncheck.com & CVSS-B & 5.1 & 5.1 & Medium & P3 \\
+SCN-NVD-007 & CVE-2026-29513 & disclosure@vulncheck.com & CVSS-B & 5.1 & 5.1 & Medium & P2 \\
+SCN-NVD-008 & CVE-2026-29520 & disclosure@vulncheck.com & CVSS-B & 5.1 & 5.1 & Medium & P1 \\
+SCN-NVD-009 & CVE-2026-29521 & disclosure@vulncheck.com & CVSS-B & 5.1 & 5.1 & Medium & P1 \\
+SCN-NVD-010 & CVE-2026-3644 & cna@python.org & CVSS-B & 6.0 & 6.0 & Medium & P3 \\
+SCN-NVD-011 & CVE-2026-4224 & cna@python.org & CVSS-B & 6.0 & 6.0 & Medium & P1 \\
+SCN-NVD-012 & CVE-2026-4253 & cna@vuldb.com & CVSS-BT & 5.1 & 2.0 & Low & P2 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{landscape}
+
+\begin{landscape}
+\begin{table}[p]
+\centering\scriptsize
+\caption{Dataset B synthetic development scenarios (18 fixtures). The legacy assigned score is retained for provenance; the current vector recomputation exposes inconsistencies that must be resolved after calculator gate G1 closes. Synthetic inputs are investigator-authored and are not CNA/NVD-published assessments.}
+\label{tab:dataset_b_v2_synth}
+\begin{adjustbox}{max width=\linewidth}
+\begin{tabular}{llllllll}
+\toprule
+\textbf{Scenario} & \textbf{Asset Class} & \textbf{Nom.} & \textbf{Legacy Assigned} & \textbf{Current Recompute} & \textbf{Legacy Sev.} & \textbf{Current Sev.} & \textbf{Disposition} \\
+\midrule
+SCN-SYN-013 & developer\_workstation & CVSS-B & 9.3 & 10.0 & Critical & Critical & P0 \\
+SCN-SYN-014 & isolated\_lab\_system & CVSS-B & 8.7 & 9.4 & High & Critical & P4 \\
+SCN-SYN-015 & ot\_monitoring\_gateway & CVSS-B & 7.1 & 8.4 & High & High & P0 \\
+SCN-SYN-016 & public\_api\_gateway & CVSS-B & 6.8 & 8.4 & Medium & High & P0 \\
+SCN-SYN-017 & public\_web\_application & CVSS-B & 4.8 & 2.0 & Medium & Low & P1 \\
+SCN-SYN-018 & internal\_admin\_console & CVSS-B & 2.1 & 1.0 & Low & Low & P4 \\
+SCN-SYN-019 & identity\_provider & CVSS-B & 9.3 & 10.0 & Critical & Critical & P0 \\
+SCN-SYN-020 & database\_server & CVSS-B & 8.7 & 9.4 & High & Critical & P0 \\
+SCN-SYN-021 & developer\_workstation & CVSS-B & 7.1 & 8.4 & High & High & P1 \\
+SCN-SYN-022 & isolated\_lab\_system & CVSS-B & 6.8 & 8.4 & Medium & High & P4 \\
+SCN-SYN-023 & ot\_monitoring\_gateway & CVSS-B & 4.8 & 2.0 & Medium & Low & P0 \\
+SCN-SYN-024 & public\_api\_gateway & CVSS-B & 2.1 & 1.0 & Low & Low & P1 \\
+SCN-SYN-025 & public\_web\_application & CVSS-B & 9.3 & 10.0 & Critical & Critical & P0 \\
+SCN-SYN-026 & internal\_admin\_console & CVSS-B & 8.7 & 9.4 & High & Critical & P2 \\
+SCN-SYN-027 & identity\_provider & CVSS-B & 7.1 & 8.4 & High & High & P0 \\
+SCN-SYN-028 & database\_server & CVSS-B & 6.8 & 8.4 & Medium & High & P1 \\
+SCN-SYN-029 & developer\_workstation & CVSS-B & 4.8 & 2.0 & Medium & Low & P2 \\
+SCN-SYN-030 & isolated\_lab\_system & CVSS-B & 2.1 & 1.0 & Low & Low & P4 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+\end{landscape}

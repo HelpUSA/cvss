@@ -1,0 +1,81 @@
+\chapter{Empirical Evaluation and 30-Scenario Benchmark}
+\label{chap:empirical_evaluation}
+
+\section{Benchmark Dataset Architecture and Roles}
+\label{sec:dataset_architecture}
+To evaluate the HelpUS framework with scientific rigor, we formalize a multi-dataset architecture that clearly separates historical observation, development calibration, and planned independent validation:
+\begin{enumerate}
+    \item \textbf{Dataset A1 (Historical Human Benchmark)}: Comprises the $N=348$ vulnerability evaluations across 29 participants from the Allodi et al.~\cite{santos2017estimating} empirical trial. This dataset evaluates CVSS v3.0 in flat vs. segmented topologies and serves exclusively as a historical human-factor baseline.
+    \item \textbf{Dataset B (Development Benchmark, $n=30$)}: The current 30-scenario testbed comprising 12 real-CVE records embedded in controlled deployment profiles and 18 synthetic scenarios. Dataset B serves strictly for internal architectural verification, debugging, and regression testing during development; it is not presented as confirmatory evidence of external generalization.
+    \item \textbf{Dataset C1 (Independent Diverse Held-Out Set -- Planned)}: A prospective evaluation suite of 25--40 unseen enterprise network scenarios conceived independently by external network engineers. Evaluated by blinded independent domain experts to address research question RQ1 (Effectiveness).
+    \item \textbf{Dataset C2 (Adversarial Safety Challenge Set -- Planned)}: A prospective stress-testing suite of 20--30 scenarios featuring ambiguous reachability, conflicting telemetry, NAT edge cases, and stale inventories to evaluate RQ2 (Severe False Downgrade Rate) and RQ3 (Fail-Safe Abstention).
+\end{enumerate}
+
+\section{Distinction Between CVSS Severity and Operational Priority}
+\label{sec:priority_taxonomy}
+The HelpUS framework maintains an explicit boundary between the technical scoring standard and internal organizational actioning:
+\begin{itemize}
+    \item \textbf{Technical CVSS Output}: Comprises canonical vector $\text{Vector}_{\text{env}}$, continuous scalar score $S_{\text{env}} \in [0.0, 10.0]$, and standard FIRST qualitative severities: $\text{Severity}_{\text{env}} \in \{\text{None}, \text{Low}, \text{Medium}, \text{High}, \text{Critical}\}$.
+    \item \textbf{HelpUS Operational Disposition}: Dispositions reflect organizational operational workflow and are classified into distinct priority tiers:
+    \begin{align}
+        \text{Priority}_{\text{op}} \in \{&\text{P0\_IMMEDIATE}, \text{P1\_EXPEDITED}, \text{P2\_SCHEDULED}, \\
+        &\text{P3\_MONITOR}, \text{P4\_DEFER\_RECOMMENDED}\}.
+    \end{align}
+    Critically, $\text{P4\_DEFER\_RECOMMENDED}$ is not a CVSS severity level and does not represent automatic risk acceptance. Formal risk acceptance requires documented Human-in-the-Loop approval by an authorized risk owner. Cryptographic signing is a separate optional control that may be applied when a verified signing infrastructure is configured.
+\end{itemize}
+
+Operational dispositions are policy outputs rather than direct extensions of the CVSS severity scale. Any score bands or workflow thresholds used to map a CVSS-BE result to P0--P4 must therefore be defined in an explicit, versioned organizational policy. The framework does not assume a universal mapping from a CVSS score to an operational disposition.
+
+\section{Statistical Results on Development Benchmark (Dataset B)}
+Table~\ref{tab:transition_matrix} summarizes Dataset B by scenario origin and legacy local development-policy disposition. It intentionally avoids treating CVSS severity and P0--P4 as a single ordinal scale. Source-vector provenance, including the distinction between provider-reported Base values and complete-vector recomputation for CVSS-BT records, is retained separately in the schema-v2 tables in Appendix~\ref{app:historical_dataset}. These counts are descriptive development data, not a measure of correctness.
+
+\input{chapters/table_6_1_generated.tex}
+
+\subsection{Formal Evaluation Metric Formulations}
+To evaluate safety and abstention without conflating constructs, we formalize the evaluation metrics that govern current observations and prospective held-out trials:
+\begin{align}
+    \text{FDR}_{\text{CVSS}} &= \frac{N(H_s < R_s)}{N(\text{eligible reference scenarios})}, \\
+    \text{SFDR}_{\text{CVSS}} &= \frac{N(R_s \in \{C,H\} \land H_s \in \{M,L,N\})}{N(R_s \in \{C,H\})}, \\
+    \text{Abstention Sensitivity} &= \frac{N(A \land E \in \{I,C\})}{N(E \in \{I,C\})}, \\
+    \text{Unsafe Non-Abstention} &= \frac{N(D \land E \in \{I,C\})}{N(E \in \{I,C\})}.
+\end{align}
+Here $R_s$ and $H_s$ denote reference and HelpUS CVSS severity, respectively; $A$ denotes abstention; $D$ denotes an automatic downgrade; and $E\in\{I,C\}$ denotes independently classified insufficient or conflicting evidence.
+
+
+Table~\ref{tab:santos_comparison} provides a descriptive side-by-side comparison across the eight benchmark vulnerabilities evaluated in the complex PCI-DSS segmented scenario (``Christine's Company''~\cite{williams2014pci}).
+
+\begin{table}[htbp]
+\centering
+\scriptsize
+\caption{Replication-Inspired Benchmark: Historical Human Error Rates~\cite{santos2017estimating} and Development-Stage HelpUS Scenario Outputs}
+\label{tab:santos_comparison}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lp{3.4cm}cccp{3.4cm}}
+\toprule
+\textbf{CVE ID} & \textbf{Component \& Context} & \textbf{Type} & \textbf{Historical Base} & \textbf{Human Error~\cite{santos2017estimating}} & \textbf{HelpUS Output / Reference Status} \\
+\midrule
+CVE-2016-6441 & Cisco IOS Switch (VLAN ACLs) & SYS & 9.8 & \textbf{86.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-6428 & Cisco IOS Switch (Core RACL)  & SYS & 7.8 & \textbf{90.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-0036 & Win Server (RDP / Backend)   & SYS & 8.8 & \textbf{76.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-0469 & Oracle Retail MICROS POS      & SYS & 5.5 & \textbf{79.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-1619 & Chrome (Wireless Guest Subnet)& APP & 7.6 & \textbf{83.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-6792 & Chrome (Admin Office Store)   & APP & 9.8 & \textbf{86.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-0126 & MS Office (Customer Data)     & APP & 7.8 & \textbf{10.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+CVE-2016-0019 & Windows Client (Store POS)    & SYS & 8.1 & \textbf{28.0\%} & \textbf{Provisional match} (reference adjudication pending) \\
+\midrule
+\multicolumn{3}{l}{\textbf{Historical segmented-scenario aggregate}} & & \textbf{41.4\% error (96/232)} & \textbf{8/8 provisional scenario matches} \\
+\multicolumn{3}{l}{\textbf{Core Routing Infrastructure (Cisco Switches)}} & & \textbf{88.0\% Error} & \textbf{2/2 provisional matches} \\
+\multicolumn{3}{l}{\textbf{Timing context}} & & \textbf{120-min participant session window} & \textbf{680 ms engine timing; not end-to-end comparable} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsection{Resolution of the Infrastructure Attribution Failure}
+The most pronounced disparity in Table~\ref{tab:santos_comparison} occurs in the core routing tier (CVE-2016-6441 and CVE-2016-6428). In manual assessments, between 86\% and 90\% of human evaluators produced incorrect scores because humans struggled to model the dual identity of a switch:
+\begin{itemize}
+    \item When viewed as a \textit{host}, the switch exposes management interfaces bound to Out-of-Band enclaves.
+    \item When viewed as an \textit{intermediary}, the switch enforces Access Control Lists that shield downstream POS cardholder networks.
+\end{itemize}
+The historical study reports substantial disagreement on these routing cases. The HelpUS graph engine can evaluate the encoded reachability graph deterministically, but correctness must be established against an independently adjudicated expert reference. Engine micro-timings are reported separately from the historical participant-session duration.
+

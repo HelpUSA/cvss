@@ -1,6 +1,6 @@
 {
   "suite": "Web API fail-safe + policy separation",
-  "timestamp": "2026-10-10T20:13:41.172Z",
+  "timestamp": "2026-10-10T22:02:44.431Z",
   "total": 11,
   "passed": 11,
   "failed": 0,
@@ -48,7 +48,7 @@
     {
       "name": "10. nested provenance receipt canonicalization",
       "passed": true,
-      "digest": "d55c0df050d535c1973dcf7c9e07629e03e6cbdc78db6aa0c5b4ca8cb5a648cb"
+      "digest": "5ccd3cbb80ee2fd5dc782865dd12d3612abba99f2e83e92aad3bd5c68ed3f423"
     },
     {
       "name": "11. no automatic downgrade under incomplete evidence",

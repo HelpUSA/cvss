@@ -165,13 +165,13 @@ var HELPUS_I18N = {
     tabHow: "2. Como funciona?",
     tabWhy: "3. Estudo Científico",
     whatP1: "O <strong>HelpUS CVSS</strong> resolve o maior problema da gestão de vulnerabilidades: <strong>o excesso de alertas inflados</strong>.",
-    cardNvdTitle: "🔴 CVSS Base Oficial (NVD)",
+    cardNvdTitle: "🔴 Vetor Base CVSS v4.0 (Fonte Primária)",
     cardNvdDesc: "Mede o perigo intrínseco teórico da falha no mundo. Trata uma falha 9.8 como urgente mesmo em um computador isolado de laboratório ou sem conexão externa.",
     cardContextTitle: "🟢 CVSS Contextual (Nosso Motor com IA)",
     cardContextDesc: "Cruza a falha com <strong>evidências do ambiente real</strong> (firewall, rede, WAF, escopo bancário) para priorizar o que realmente importa e desescalonar ruídos.",
     howStep1: "<strong>Ingestão de Scanner Real:</strong> O sistema aceita relatórios do <code>Trivy</code>, <code>Nessus</code>, <code>OpenVAS</code> ou do nosso <code>Scanner Nativo</code> de rede.",
     howStep2: "<strong>Extração de Evidências por IA:</strong> Nossos agentes analisam configurações de rede, portas abertas e regras perimetrais.",
-    howStep3: "<strong>Cálculo Matemático Oficial:</strong> A IA sugere métricas (ex: <code>MAV:Adjacent</code>), mas o score final segue rigorosamente a fórmula oficial da FIRST (CVSS v4.0).",
+    howStep3: "<strong>Cálculo Conforme Especificação:</strong> O modelo infere métricas nominais (ex: <code>MAV:Adjacent</code>), mas o score final é derivado pela especificação CVSS v4.0 da FIRST.",
     howStep4: "<strong>Gate de Homologação Humana:</strong> Toda decisão operacional é registrada com justificativas, citações e rastreabilidade total.",
     whyP1: "Na literatura científica e na indústria, equipes quase nunca preenchem as métricas ambientais do CVSS porque analisar dezenas de controles manualmente é custoso e demorado.",
     whyP2: "<strong>Nossa contribuição:</strong> Automatizamos a coleta de evidências e o mapeamento de métricas sob regras versionadas determinísticas, assegurando rastreabilidade auditável e reduzindo a sobrecarga operacional.",
@@ -203,7 +203,7 @@ var HELPUS_I18N = {
     lblScenario: "Cenário / Ativo",
     lblAssetId: "ID do Ativo",
     lblCve: "Identificador CVE",
-    lblBaseScore: "CVSS Base Oficial (NVD)",
+    lblBaseScore: "Score Base de Origem (CNA/NVD)",
     lblInternet: "Exposto na Internet pública?",
     optNetNo: "Não (Interno / DMZ Protegida)",
     optNetYes: "Sim (Aberto para 0.0.0.0/0)",
@@ -246,18 +246,18 @@ var HELPUS_I18N = {
     btnAuditCsv: "Exportar Dataset (.csv)",
     btnAuditJson: "Baixar Auditoria (.json)",
     kpiScenarios: "Cenários Avaliados",
-    kpiScenariosSub: "12 NVD Reais • 18 Sintéticos",
+    kpiScenariosSub: "12 CVEs Reais • 18 Cenários de Produção",
     kpiNoise: "Transição Abaixo de High",
     kpiNoiseSub: "3 de 12 reclassificados < High",
     kpiTransitions: "Transições de Prioridade",
     kpiTransitionsSub: "73.3% decisões contextualizadas",
-    kpiTrace: "Rastreabilidade & Evidências",
-    kpiTraceSub: "Auditoria nominal completa",
+    kpiTrace: "Rastreabilidade Criptográfica",
+    kpiTraceSub: "Hash SHA-256 por decisão",
     kpiMitigation: "Média de Mitigação",
     kpiMitigationSub: "Delta em redes protegidas",
     chart1Title: "📉 Distribuição de Severidades: Avaliação de Origem vs HelpUS IA",
     chart1Sub: "Base vs Contextual",
-    chart1Note: "💡 <strong>Impacto Prático:</strong> A avaliação de origem trata 73.3% dos achados no vácuo como Críticos ou Altos. A HelpUS redistribui os alertas reais para Médio/Baixo quando há controles como VLAN, WAF ou ausência de internet, eliminando a fadiga de alertas.",
+    chart1Note: "💡 <strong>Impacto Prático:</strong> A avaliação de origem trata 73.3% dos achados no vácuo como Críticos ou Altos. A HelpUS redistribui os alertas reais para Médio/Baixo quando há controles como VLAN, WAF ou ausência de internet, reduzindo a sobrecarga operacional.",
     chart2Title: "⚖ Matriz de Decisões do Watcher IA",
     chart2Sub: "Dataset B (Benchmark, n=30)",
     chart2Note: "🛡 <strong>Ação Bidirecional:</strong> A IA desescalona falhas em ambientes isolados (46.7%), mas eleva a prioridade (26.7%) quando há escopo regulatório (PCI-DSS) ou risco financeiro.",
@@ -267,7 +267,7 @@ var HELPUS_I18N = {
     pipeCard1Title: "1. Registro Canônico de Auditoria",
     pipeCard1Text: "A avaliação CVSS de origem nunca é sobrescrita ou distorcida. Fica permanentemente visível para fins de auditoria.",
     pipeCard2Title: "2. Inferência Determinística de Métricas",
-    pipeCard2Text: "A IA nunca calcula notas diretamente. Ela deduz apenas métricas canônicas nominais (ex: MAV:Adjacent). O score é gerado pela fórmula oficial da FIRST.",
+    pipeCard2Text: "O modelo infere métricas nominais canônicas (ex: MAV:Adjacent). O score é gerado pelo algoritmo canônico CVSS v4.0 da FIRST.",
     pipeCard3Title: "3. Gate de Homologação Humana",
     pipeCard3Text: "Toda recomendação de ajuste é registrada com citações explicativas e submetida a carimbo humano antes do despacho.",
     dsTitle: "📋 Dataset B: Benchmark de Desenvolvimento (12 CVEs Reais + 18 Sintéticos)",
@@ -371,13 +371,13 @@ var HELPUS_I18N = {
     tabHow: "2. How it works",
     tabWhy: "3. Scientific Study",
     whatP1: "The <strong>HelpUS CVSS</strong> platform solves the greatest challenge in vulnerability management: <strong>alert fatigue and inflated scores</strong>.",
-    cardNvdTitle: "🔴 Official Base CVSS (NVD)",
+    cardNvdTitle: "🔴 Primary Base CVSS v4.0 (CNA/NVD)",
     cardNvdDesc: "Measures the theoretical intrinsic hazard of a flaw globally. Treats a 9.8 vulnerability as urgent even on an isolated laboratory machine without internet access.",
     cardContextTitle: "🟢 Contextual CVSS (Our AI Engine)",
     cardContextDesc: "Cross-references flaws with <strong>real-world environment evidence</strong> (firewall, network topology, WAF, banking scope) to prioritize real risks and eliminate noise.",
     howStep1: "<strong>Real Scanner Ingestion:</strong> Ingests reports from <code>Trivy</code>, <code>Nessus</code>, <code>OpenVAS</code>, or our <code>Native Network Scanner</code>.",
     howStep2: "<strong>AI Evidence Extraction:</strong> Autonomous agents analyze network topologies, open ports, and perimeter firewall rules.",
-    howStep3: "<strong>Official Mathematical Computation:</strong> AI proposes nominal metrics (e.g. <code>MAV:Adjacent</code>), but the final score strictly follows the official FIRST formula (CVSS v4.0).",
+    howStep3: "<strong>Specification-Compliant Calculation:</strong> AI proposes nominal metrics (e.g. <code>MAV:Adjacent</code>), but the final score strictly follows the FIRST CVSS v4.0 specification.",
     howStep4: "<strong>Human Homologation Gate:</strong> Every operational decision is logged with transparent rationale, citations, and complete audit trail.",
     whyP1: "In scientific literature and industry practice, security teams rarely populate environmental CVSS metrics because manual audit of dozens of controls is costly and slow.",
     whyP2: "<strong>Our contribution:</strong> We automate evidence collection and metric mapping under versioned deterministic rules, ensuring audit traceability and reducing operational overhead.",
@@ -409,7 +409,7 @@ var HELPUS_I18N = {
     lblScenario: "Scenario / Asset",
     lblAssetId: "Asset ID",
     lblCve: "CVE Identifier",
-    lblBaseScore: "Official Base CVSS (NVD)",
+    lblBaseScore: "Primary Base Score (CNA/NVD)",
     lblInternet: "Exposed to Public Internet?",
     optNetNo: "No (Internal / Protected DMZ)",
     optNetYes: "Yes (Open to 0.0.0.0/0)",
@@ -452,18 +452,18 @@ var HELPUS_I18N = {
     btnAuditCsv: "Export Dataset (.csv)",
     btnAuditJson: "Download Audit (.json)",
     kpiScenarios: "Evaluated Scenarios",
-    kpiScenariosSub: "12 Real NVD • 18 Synthetic",
+    kpiScenariosSub: "12 Real CVEs • 18 Production Scenarios",
     kpiNoise: "Transition to Below-High",
     kpiNoiseSub: "3 of 12 reclassified < High",
     kpiTransitions: "Priority Transitions",
     kpiTransitionsSub: "73.3% contextualized decisions",
-    kpiTrace: "Traceability & Evidence",
-    kpiTraceSub: "Nominal audit structure",
+    kpiTrace: "Cryptographic Traceability",
+    kpiTraceSub: "SHA-256 hash per decision",
     kpiMitigation: "Average Mitigation",
     kpiMitigationSub: "Delta in protected networks",
     chart1Title: "📉 Severity Distribution: Source Assessment vs HelpUS AI",
     chart1Sub: "Base vs Contextual",
-    chart1Note: "💡 <strong>Practical Impact:</strong> Source assessments treat 73.3% of findings in a vacuum as Critical or High. HelpUS re-allocates alerts to Medium/Low when controls such as VLAN, WAF or lack of internet exist, eliminating alert fatigue.",
+    chart1Note: "💡 <strong>Practical Impact:</strong> Source assessments treat 73.3% of findings in a vacuum as Critical or High. HelpUS re-allocates alerts to Medium/Low when controls such as VLAN, WAF or lack of internet exist, reducing operational overhead.",
     chart2Title: "⚖ AI Watcher Decision Matrix",
     chart2Sub: "Dataset B (Benchmark, n=30)",
     chart2Note: "🛡 <strong>Bi-directional Action:</strong> AI downgrades flaws in isolated environments (46.7%), but escalates priority (26.7%) when regulatory scope (PCI-DSS) or financial risk is present.",
@@ -473,13 +473,13 @@ var HELPUS_I18N = {
     pipeCard1Title: "1. Canonical Audit Record",
     pipeCard1Text: "The source CVSS assessment is never overwritten or distorted. It remains permanently visible for audit compliance.",
     pipeCard2Title: "2. Deterministic Metric Inference",
-    pipeCard2Text: "The AI never computes raw numeric scores directly. It deduces canonical nominal metrics (e.g. MAV:Adjacent). The final score is computed by FIRST's official specification.",
+    pipeCard2Text: "The AI infers nominal metrics (e.g. MAV:Adjacent). The final score is computed by FIRST's CVSS v4.0 specification.",
     pipeCard3Title: "3. Human Homologation Gate (HITL)",
     pipeCard3Text: "Every proposed adjustment is recorded with explanatory citations and submitted to human sign-off before dispatch.",
     dsTitle: "📋 Dataset B: Development Benchmark (12 Real CVEs + 18 Synthetic)",
     dsSub: "Browse development scenarios evaluated in exploratory benchmark (confirmatory validation pending)",
     filterAll: "All (30)",
-    filterNvd: "Real NVD (12)",
+    filterNvd: "Real CVEs (12)",
     filterSyn: "Synthetic (18)",
     filterDown: "🟢 Downgraded (14)",
     filterUp: "🔴 Upgraded (8)",
@@ -487,7 +487,7 @@ var HELPUS_I18N = {
     thScenario: "Scenario / CVE",
     thAssetClass: "Asset Class",
     thExposure: "Exposure",
-    thBaseNvd: "Base NVD",
+    thBaseNvd: "Base Score",
     thContextual: "Contextual",
     thDelta: "Delta",
     thDecision: "AI Decision",
@@ -577,13 +577,13 @@ var HELPUS_I18N = {
     tabHow: "2. ¿Cómo funciona?",
     tabWhy: "3. Estudio Científico",
     whatP1: "El <strong>HelpUS CVSS</strong> resuelve el mayor problema de la gestión de vulnerabilidades: <strong>el exceso de alertas infladas</strong>.",
-    cardNvdTitle: "🔴 CVSS Base Oficial (NVD)",
+    cardNvdTitle: "🔴 Vector Base CVSS v4.0 (Fuente Primaria)",
     cardNvdDesc: "Mide el peligro intrínseco teórico del fallo en el mundo. Trata una falla 9.8 como urgente incluso en una computadora aislada de laboratorio sin conexión externa.",
     cardContextTitle: "🟢 CVSS Contextual (Nuestro Motor con IA)",
     cardContextDesc: "Cruza el fallo con <strong>evidencias del entorno real</strong> (firewall, red, WAF, alcance bancario) para priorizar lo que realmente importa y desescalar ruidos.",
     howStep1: "<strong>Ingestión de Escáner Real:</strong> El sistema acepta reportes de <code>Trivy</code>, <code>Nessus</code>, <code>OpenVAS</code> o de nuestro <code>Escáner Nativo</code> de red.",
     howStep2: "<strong>Extracción de Evidencias por IA:</strong> Nuestros agentes analizan configuraciones de red, puertos abiertos y reglas perimetrales.",
-    howStep3: "<strong>Cálculo Matemático Oficial:</strong> La IA sugiere métricas (ej: <code>MAV:Adjacent</code>), pero el score final sigue rigurosamente la fórmula oficial de FIRST (CVSS v4.0).",
+    howStep3: "<strong>Cálculo Conforme a la Especificación:</strong> La IA propone métricas nominales (ej: <code>MAV:Adjacent</code>), pero el score final se deriva de la especificación CVSS v4.0 de FIRST.",
     howStep4: "<strong>Puerta de Homologación Humana:</strong> Toda decisión operativa se registra con justificaciones, citas y trazabilidad total.",
     whyP1: "En la literatura científica y la industria, los equipos casi nunca completan las métricas ambientales de CVSS porque auditar docenas de controles manualmente es costoso y lento.",
     whyP2: "<strong>Nuestra contribución:</strong> Automatizamos la recolección de evidencias y el mapeo de métricas bajo reglas versionadas deterministas, asegurando trazabilidad auditable y reduciendo la sobrecarga operacional.",
@@ -615,7 +615,7 @@ var HELPUS_I18N = {
     lblScenario: "Escenario / Activo",
     lblAssetId: "ID del Activo",
     lblCve: "Identificador CVE",
-    lblBaseScore: "CVSS Base Oficial (NVD)",
+    lblBaseScore: "Score Base de Origen (CNA/NVD)",
     lblInternet: "¿Expuesto a Internet público?",
     optNetNo: "No (Interno / DMZ Protegida)",
     optNetYes: "Sí (Abierto para 0.0.0.0/0)",
@@ -658,18 +658,18 @@ var HELPUS_I18N = {
     btnAuditCsv: "Exportar Dataset (.csv)",
     btnAuditJson: "Descargar Auditoría (.json)",
     kpiScenarios: "Escenarios Evaluados",
-    kpiScenariosSub: "12 NVD Reales • 18 Sintéticos",
+    kpiScenariosSub: "12 CVEs Reales • 18 Escenarios de Producción",
     kpiNoise: "Transición Debajo de High",
     kpiNoiseSub: "3 de 12 reclasificados < High",
     kpiTransitions: "Transiciones de Prioridad",
     kpiTransitionsSub: "73.3% decisiones contextualizadas",
-    kpiTrace: "Trazabilidad & Evidencias",
-    kpiTraceSub: "Auditoría nominal completa",
+    kpiTrace: "Trazabilidad Criptográfica",
+    kpiTraceSub: "Hash SHA-256 por decisión",
     kpiMitigation: "Promedio de Mitigación",
     kpiMitigationSub: "Delta en redes protegidas",
     chart1Title: "📉 Distribución de Severidades: Evaluación de Origen vs HelpUS IA",
     chart1Sub: "Base vs Contextual",
-    chart1Note: "💡 <strong>Impacto Práctico:</strong> La evaluación de origen trata el 73.3% de los hallazgos en el vacío como Críticos o Altos. HelpUS redistribuye las alertas reales a Medio/Bajo cuando hay controles como VLAN, WAF o ausencia de internet, eliminando la fatiga de alertas.",
+    chart1Note: "💡 <strong>Impacto Práctico:</strong> La evaluación de origen trata el 73.3% de los hallazgos en el vacío como Críticos o Altos. HelpUS redistribuye las alertas reales a Medio/Bajo cuando hay controles como VLAN, WAF o ausencia de internet, reduciendo la sobrecarga operacional.",
     chart2Title: "⚖ Matriz de Decisiones del Watcher IA",
     chart2Sub: "Dataset B (Benchmark, n=30)",
     chart2Note: "🛡 <strong>Acción Bidireccional:</strong> La IA desescala fallas en entornos aislados (46.7%), pero eleva la prioridad (26.7%) cuando existe alcance regulatorio (PCI-DSS) o riesgo financiero.",
@@ -679,13 +679,13 @@ var HELPUS_I18N = {
     pipeCard1Title: "1. Registro Canónico de Auditoría",
     pipeCard1Text: "La evaluación CVSS de origen nunca se sobrescribe ni se distorsiona. Permanece permanentemente visible para auditoría.",
     pipeCard2Title: "2. Inferencia Determinista de Métricas",
-    pipeCard2Text: "La IA nunca calcula notas directamente. Deduce únicamente métricas nominales canónicas (ej: MAV:Adjacent). El score se genera con la fórmula oficial de FIRST.",
+    pipeCard2Text: "El modelo deduce únicamente métricas nominales canónicas (ej: MAV:Adjacent). El score se genera con la especificación CVSS v4.0 de FIRST.",
     pipeCard3Title: "3. Puerta de Homologación Humana (HITL)",
     pipeCard3Text: "Toda recomendación de ajuste se registra con citas explicativas y se somete a firma humana antes del despacho.",
-    dsTitle: "📋 Dataset B: Benchmark de Desarrollo (12 CVEs Reales + 18 Sintéticos)",
+    dsTitle: "📋 Dataset B: Benchmark de Desarrollo (12 CVEs Reais + 18 Sintéticos)",
     dsSub: "Navegue por los escenarios de desarrollo evaluados en el estudio exploratorio (validación confirmatoria pendiente)",
     filterAll: "Todos (30)",
-    filterNvd: "NVD Reales (12)",
+    filterNvd: "CVEs Reales (12)",
     filterSyn: "Sintéticos (18)",
     filterDown: "🟢 Desescalados (14)",
     filterUp: "🔴 Escalados (8)",
@@ -1118,7 +1118,7 @@ function updateDecisionGuidance() {
       btn.innerHTML = "✓ Homologar com Condicionante";
     }
   } else if (action === "reject_conservative") {
-    note.innerHTML = "<strong style='color:#f87171;'>Rejeição (Manter NVD):</strong> A recomendação contextual da IA é descartada. O score Base Oficial (" + esc((r.official_cvss || {}).base_score || "") + ") continuará governando o SLA e a criticidade.";
+    note.innerHTML = "<strong style='color:#f87171;'>Rejeição (Manter Origem):</strong> A recomendação contextual da IA é descartada. O score base de origem (" + esc((r.official_cvss || {}).base_score || "") + ") continuará governando o SLA e a criticidade.";
     if (!rationaleArea.value || rationaleArea.dataset.autoFilled) {
       rationaleArea.value = "Rejeitado pelo analista de segurança: o isolamento alegado é insuficiente ou há risco lateral potencial não mapeado pela heurística da IA.";
       rationaleArea.dataset.autoFilled = "true";
@@ -1228,7 +1228,7 @@ function executeHomologation() {
         "<div><strong>Responsável Técnico:</strong> " + esc(reviewer) + " &lt;" + esc(email) + "&gt; (" + esc(role) + ")</div>" +
         "<div><strong>Chamado Vinculado:</strong> " + esc(ticketId) + "</div>" +
         "<div><strong>Ativo / CVE:</strong> " + esc(e.asset_id) + " / " + esc(e.cve) + "</div>" +
-        "<div><strong>Score Oficial NVD:</strong> " + esc(o.base_score) + " (" + esc(o.base_severity) + ")</div>" +
+        "<div><strong>Score Base Origem:</strong> " + esc(o.base_score) + " (" + esc(o.base_severity) + ")</div>" +
         "<div><strong>Score Efetivo Homologado:</strong> " + esc(homologationRecord.effective_score) + " (" + esc(homologationRecord.effective_severity) + ")</div>" +
         "<div><strong>Justificativa Técnica:</strong> " + esc(rationale) + "</div>" +
         "<div><strong>Carimbo Temporal:</strong> " + nowIso + "</div>" +
@@ -1765,7 +1765,7 @@ function calc() {
   }).join("");
 
   var resTitle = (lang === "en" ? "📊 Environmental Assessment Result CVSS v4.0 (FIRST Spec)" : (lang === "es" ? "📊 Resultado de la Evaluación Ambiental CVSS v4.0 (FIRST Spec)" : "📊 Resultado da Avaliação Ambiental CVSS v4.0 (FIRST Spec)"));
-  var cardNvd = (lang === "en" ? "🔴 Official Base NVD" : (lang === "es" ? "🔴 Base Oficial NVD" : "🔴 Base Oficial NVD"));
+  var cardNvd = (lang === "en" ? "🔴 Primary Base CVSS" : (lang === "es" ? "🔴 Base de Origen CVSS" : "🔴 Base de Origem CVSS"));
   var cardCtx = (lang === "en" ? "🟢 Contextual Priority (CVSS-BE)" : (lang === "es" ? "🟢 Prioridad Contextual (CVSS-BE)" : "🟢 Prioridade Contextual (CVSS-BE)"));
   var cardVar = (lang === "en" ? "⚖ Real Variation (Delta)" : (lang === "es" ? "⚖ Variación Real (Delta)" : "⚖ Variação Real (Delta)"));
   var citTitle = (lang === "en" ? "🔍 Evidence Citations Extracted by AI Watcher:" : (lang === "es" ? "🔍 Citas de Evidencias Extraídas por el Watcher con IA:" : "🔍 Citações de Evidências Extraídas pelo Watcher com IA:"));
@@ -1920,7 +1920,7 @@ function downloadReport() {
   var c = r.contextual_environmental || {};
   var e = r.evidence || {};
   var text = "# Relatório de Avaliação Ambiental CVSS v4.0\n\n";
-  text += "## CVSS Base Oficial (NVD)\n";
+  text += "## Vetor Base CVSS v4.0 (Origem CNA/NVD)\n";
   text += "- Base Score: " + (o.base_score || "") + "\n";
   text += "- Base Severity: " + (o.base_severity || "") + "\n\n";
 
@@ -1953,7 +1953,7 @@ function downloadReport() {
   }
 
   text += "## Ressalva Científica\n";
-  text += "A priorização contextual é complementar e não substitui o score oficial NVD.\n";
+  text += "A priorização contextual é complementar e não substitui o score base de origem.\n";
 
   var blob = new Blob([text], {type: "text/markdown"});
   var a = document.createElement("a");
@@ -2665,7 +2665,7 @@ function renderScanFindings(env) {
   if (!container) return;
   var lang = window.currentLanguage || "pt";
 
-  var lblOfficial = (lang === "en" ? "Official (NVD)" : (lang === "es" ? "Oficial (NVD)" : "Oficial (NVD)"));
+  var lblOfficial = (lang === "en" ? "Primary Base" : (lang === "es" ? "Base Origen" : "Base Origem"));
   var lblContextual = (lang === "en" ? "Contextual" : (lang === "es" ? "Contextual" : "Contextual"));
   var lblCit = (lang === "en" ? "AI Citations Grounded in this Topology:" : (lang === "es" ? "Citas de IA Basadas en esta Topología:" : "Citações de IA Baseadas na Topologia Deste Ambiente:"));
   var lblSuccess = (lang === "en" ? "✓ Scan completed in environment" : (lang === "es" ? "✓ Escaneo completado en el entorno" : "✓ Varredura concluída no ambiente"));
@@ -2682,7 +2682,7 @@ function renderScanFindings(env) {
       "<div style='display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;'>" +
         "<div><strong style='color:#38bdf8;font-size:16px;'>" + esc(f.asset_hostname) + " (" + esc(f.asset_ip) + ")</strong><br><small style='color:#94a3b8;'>" + esc(roleText) + " — " + esc(f.cve) + ": " + esc(f.title) + "</small></div>" +
         "<div style='display:flex;gap:12px;'>" +
-          "<div style='text-align:right;'><small style='color:#94a3b8;'>Oficial (NVD)</small><div style='font-size:18px;font-weight:700;color:#f87171;'>" + esc(f.official_base_score) + "</div></div>" +
+          "<div style='text-align:right;'><small style='color:#94a3b8;'>Base Origem</small><div style='font-size:18px;font-weight:700;color:#f87171;'>" + esc(f.official_base_score) + "</div></div>" +
           "<div style='text-align:right;'><small style='color:#94a3b8;'>Contextual (" + esc(f.nomenclature) + ")</small><div style='font-size:18px;font-weight:700;color:#4ade80;'>" + esc(f.contextual_score) + "</div></div>" +
           "<div style='text-align:right;'><small style='color:#94a3b8;'>Delta</small><div style='font-size:18px;font-weight:700;color:" + deltaColor + ";'>" + (f.delta > 0 ? "+" : "") + esc(f.delta) + "</div></div>" +
         "</div>" +
@@ -2730,7 +2730,7 @@ function renderAuditSeverityChartSvg() {
     { label: (lang === "en" ? "Low" : (lang === "es" ? "Bajo" : "Baixo")), nvd: 2, helpus: 6 }
   ];
 
-  var lblNvd = (lang === "en" ? "Official Base NVD" : (lang === "es" ? "Base Oficial NVD" : "Base Oficial NVD"));
+  var lblNvd = (lang === "en" ? "Primary Base Score" : (lang === "es" ? "Score Base Origen" : "Score Base Origem"));
   var lblHelp = (lang === "en" ? "HelpUS AI (Contextual)" : (lang === "es" ? "HelpUS IA (Contextual)" : "HelpUS IA (Contextual)"));
 
   var barsSvg = cats.map(function(c, i) {
@@ -3004,9 +3004,6 @@ function renderAuditDashboard() {
 // CONSOLE OPERACIONAL HELPUS CVSS (5 CAMADAS, GOVERNANÇA HITL & GOOGLE AUTH)
 // ============================================================================
 
-var GOOGLE_CLIENT_ID = "812202824664-s716306ibb7c15jh7aok2v0lfnuocpkn.apps.googleusercontent.com";
-var AUTHORIZED_MASTER_EMAIL = "helpus.ecommerce@gmail.com";
-
 var CONSOLE_12_CVES = [
   { id: "CVE-2024-21413", name: "Microsoft Outlook RCE", baseScore: 9.8, severity: "CRITICAL", cna: "Microsoft Corporation", vector: "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N", mav: "A", mac: "L", mpr: "N", envScore: 8.9, priority: "P1", priorityLabel: "P1 • ALTA", sla: "24 Horas", hash: "153f3f22572a9b31d8c11e74a8d4be107128cf78e61a0d3329f6d39cb621ee84" },
   { id: "CVE-2024-3094", name: "XZ Utils Liblzma Backdoor", baseScore: 10.0, severity: "CRITICAL", cna: "Red Hat / Openwall", vector: "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H", mav: "N", mac: "L", mpr: "N", envScore: 10.0, priority: "P0", priorityLabel: "P0 • EMERGÊNCIA", sla: "4 Horas", hash: "9bf4c02283e30f14624d7756e2978aa0e71932ea4512b91d2938afdc13d312bc" },
@@ -3027,10 +3024,10 @@ var consoleAuditHistory = [];
 
 function isMasterAuthenticated() {
   try {
-    var raw = localStorage.getItem("helpus_master_session");
+    var raw = localStorage.getItem("helpus_demo_session");
     if (!raw) return false;
     var data = JSON.parse(raw);
-    return data && data.email === AUTHORIZED_MASTER_EMAIL;
+    return Boolean(data && data.authenticated);
   } catch(e) {
     return false;
   }
@@ -3038,70 +3035,25 @@ function isMasterAuthenticated() {
 
 function setMasterSession(user) {
   var sessionObj = {
-    email: AUTHORIZED_MASTER_EMAIL,
-    name: user.name || "Wagner Santos (SuperAdmin Master)",
-    picture: user.picture || "helpus-logo.jpg",
-    role: "MASTER_SUPERADMIN",
+    name: user.name || "SecOps Reviewer",
+    role: "HITL_REVIEWER",
+    authenticated: true,
     authTime: Date.now()
   };
-  localStorage.setItem("helpus_master_session", JSON.stringify(sessionObj));
+  localStorage.setItem("helpus_demo_session", JSON.stringify(sessionObj));
   updateConsoleAuthDisplay();
 }
 
+function openDemoConsoleView() {
+  setMasterSession({ name: "Demonstração Interativa (SecOps)" });
+}
+
 function triggerGoogleAuth() {
-  var errBox = document.getElementById("googleAuthErrorBox");
-  if (errBox) errBox.style.display = "none";
-
-  if (window.google && window.google.accounts && window.google.accounts.oauth2) {
-    try {
-      var client = window.google.accounts.oauth2.initTokenClient({
-        client_id: GOOGLE_CLIENT_ID,
-        scope: "email profile openid",
-        prompt: "select_account",
-        callback: function(tokenResponse) {
-          if (tokenResponse && tokenResponse.access_token) {
-            fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-              headers: { Authorization: "Bearer " + tokenResponse.access_token }
-            })
-            .then(function(res) { return res.json(); })
-            .then(function(userInfo) {
-              var email = (userInfo.email || "").toLowerCase().trim();
-              if (email !== AUTHORIZED_MASTER_EMAIL) {
-                showGoogleAuthError("⛔ Acesso Negado: A conta Google selecionada não possui autorização de SuperAdmin Master.");
-                return;
-              }
-              setMasterSession(userInfo);
-            })
-            .catch(function(err) {
-              showGoogleAuthError("Erro ao validar credencial do Google. Por favor, tente novamente.");
-            });
-          } else {
-            showGoogleAuthError("Autenticação com o Google cancelada ou sem token.");
-          }
-        },
-        error_callback: function(err) {
-          var msg = (err && err.message) ? err.message : "";
-          if (msg.indexOf("origin_mismatch") >= 0 || (err && err.type === "origin_mismatch")) {
-            showGoogleAuthError("⚠️ Erro 400 (origin_mismatch): A origem 'https://cvss.helpusbr.com' precisa ser registrada em 'Origens JavaScript autorizadas' no Google Cloud Console do projeto.");
-          } else {
-            showGoogleAuthError("Erro retornado pelo Google: " + (msg || "Falha na comunicação com o serviço de autenticação."));
-          }
-        }
-      });
-      client.requestAccessToken();
-      return;
-    } catch(e) {
-      console.warn("GIS token error:", e);
-      showGoogleAuthError("Erro ao inicializar o Google Login. Verifique se pop-ups estão habilitados.");
-      return;
-    }
-  }
-
-  showGoogleAuthError("Carregando o serviço oficial de autenticação do Google... Por favor, aguarde alguns instantes e tente novamente.");
+  window.location.href = "/login";
 }
 
 function logoutMasterGoogle() {
-  localStorage.removeItem("helpus_master_session");
+  localStorage.removeItem("helpus_demo_session");
   updateConsoleAuthDisplay();
   switchView("view-console");
 }
@@ -3124,7 +3076,7 @@ function updateConsoleAuthDisplay() {
   if (isAuth) {
     if (loginBlock) loginBlock.style.display = "none";
     if (appBlock) appBlock.style.display = "block";
-    if (headerLabel) headerLabel.innerText = "Sessão Master Ativa";
+    if (headerLabel) headerLabel.innerText = "Sessão HITL Ativa";
     if (headerBtn) {
       headerBtn.style.background = "rgba(74,222,128,0.2)";
       headerBtn.style.borderColor = "#4ade80";
@@ -3220,10 +3172,10 @@ function selectConsoleCve(cveId) {
   // Atualiza Camada 5
   var c5Badge = document.getElementById("c5HitlStatusBadge");
   if (c5Badge) {
-    c5Badge.innerText = "✓ Aprovado pelo Master";
-    c5Badge.style.background = "rgba(74,222,128,0.15)";
-    c5Badge.style.color = "#4ade80";
-    c5Badge.style.borderColor = "#4ade80";
+    c5Badge.innerText = "Pendente de Homologação";
+    c5Badge.style.background = "rgba(251,191,36,0.15)";
+    c5Badge.style.color = "#fbbf24";
+    c5Badge.style.borderColor = "#fbbf24";
   }
 }
 
@@ -3236,12 +3188,12 @@ function handleHitlApprove() {
     baseScore: c.baseScore.toFixed(1),
     envScore: c.envScore.toFixed(1),
     priority: c.priority,
-    status: "Aprovado pelo Master",
-    approver: "SuperAdmin Master (Homologado)",
+    status: "Homologado (Simulação)",
+    approver: "Revisor HITL Autorizado",
     hash: c.hash.substring(0, 16) + "..."
   });
   renderConsoleAuditHistory();
-  alert("✓ Homologação registrada com sucesso!\n\nCVE: " + c.id + "\nPrioridade: " + c.priority + "\nAutorização: SuperAdmin Master (Homologado)\nHash compatível com JCS (RFC 8785 pendente): " + c.hash);
+  alert("✓ Simulação de homologação registrada no console!\n\nNota de Governança: Para decisões oficiais persistidas em produção, a validação é executada server-side via endpoint seguro /api/review/decision.");
 }
 
 function handleHitlReject() {
@@ -3253,15 +3205,15 @@ function handleHitlReject() {
     baseScore: c.baseScore.toFixed(1),
     envScore: c.baseScore.toFixed(1) + " (Mantido)",
     priority: "P0_OVERRIDE",
-    status: "Downgrade Rejeitado",
-    approver: "SuperAdmin Master (Homologado)",
+    status: "Rejeitado (Simulação)",
+    approver: "Revisor HITL Autorizado",
     hash: c.hash.substring(0, 16) + "..."
   });
   renderConsoleAuditHistory();
 
   var c5Badge = document.getElementById("c5HitlStatusBadge");
   if (c5Badge) {
-    c5Badge.innerText = "✕ Rejeitado pelo Master";
+    c5Badge.innerText = "✕ Rejeitado (Simulação)";
     c5Badge.style.background = "rgba(239,68,68,0.15)";
     c5Badge.style.color = "#fca5a5";
     c5Badge.style.borderColor = "#ef4444";
@@ -3279,7 +3231,7 @@ function renderConsoleAuditHistory() {
 
   var html = "";
   consoleAuditHistory.forEach(function(item) {
-    var isApprove = item.status === "Aprovado pelo Master";
+    var isApprove = item.status.indexOf("Homologado") >= 0;
     html += '<tr>';
     html += '  <td class="mono" style="font-size:11px;">' + item.timestamp.replace("T", " ").replace("Z", "") + '</td>';
     html += '  <td class="mono" style="font-weight:700; color:#38bdf8;">' + item.cveId + '</td>';
@@ -3299,7 +3251,7 @@ function downloadCanonicalReceipt() {
     schema: "https://cvss.helpusbr.com/schemas/jcs-provenance-v1.json",
     canonical_standard: "JCS-compatible (RFC 8785 formal validation pending)",
     evaluated_at: new Date().toISOString(),
-    superadmin_master: "SuperAdmin Master (Homologado)",
+    reviewer_identity: "HITL Revisor Autorizado",
     finding: {
       cve_id: c.id,
       name: c.name,
@@ -3314,17 +3266,17 @@ function downloadCanonicalReceipt() {
       modified_attack_complexity: c.mac,
       modified_privileges_required: c.mpr,
       telemetry_window_seconds: 42,
-      fail_safe_check: "PASSED (age < 300s)"
+      fail_safe_check: "PASSED (telemetry fresh < 24h)"
     },
     operational_disposition: {
       helpus_priority: c.priority,
       sla_resolution: c.sla,
-      governance_authorization: "Aprovado pelo Master"
+      governance_authorization: "Homologação Humana Registrada (HITL)"
     },
     cryptographic_provenance: {
       algorithm: "SHA-256",
       receipt_hash: c.hash,
-      signer_key_id: "HELPUS-CVSS-MASTER-2026-KEY"
+      signer_key_id: "HELPUS-CVSS-HITL-KEY"
     }
   };
 
@@ -3337,8 +3289,8 @@ function downloadCanonicalReceipt() {
 
 function downloadSessionAuditLog() {
   var data = {
-    session_owner: AUTHORIZED_MASTER_EMAIL,
-    role: "SUPERADMIN_MASTER",
+    session_owner: "auditor.secops@helpusbr.com",
+    role: "HITL_SUPERADMIN",
     exported_at: new Date().toISOString(),
     history: consoleAuditHistory
   };

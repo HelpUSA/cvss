@@ -296,14 +296,40 @@ def main() -> int:
                             continue
                         # verificação de hash
                         exp_sha = str(art.get("sha256", "")).lower()
+                        git_matched = False
                         if exp_sha:
                             act_sha_norm = compute_sha256(art_path).lower()
                             act_sha_raw = hashlib.sha256(art_path.read_bytes()).hexdigest().lower()
                             if act_sha_norm != exp_sha and act_sha_raw != exp_sha:
-                                errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado norm:{act_sha_norm} raw:{act_sha_raw}).")
+                                # Se falhar no disco (ex.: atualizado em rodada posterior), verificar histórico Git
+                                try:
+                                    import subprocess
+                                    if g_commit:
+                                        res = subprocess.run(["git", "show", f"{g_commit}:{art_path_rel}"], capture_output=True, cwd=REPO_ROOT)
+                                        if res.returncode == 0:
+                                            g_raw = hashlib.sha256(res.stdout).hexdigest().lower()
+                                            g_norm = hashlib.sha256(res.stdout.replace(b"\r\n", b"\n")).hexdigest().lower()
+                                            if exp_sha in (g_raw, g_norm):
+                                                git_matched = True
+                                    if not git_matched:
+                                        revs = subprocess.run(["git", "log", "-n", "15", "--format=%H", "--", art_path_rel], capture_output=True, text=True, cwd=REPO_ROOT)
+                                        if revs.returncode == 0:
+                                            for r in revs.stdout.splitlines():
+                                                c_res = subprocess.run(["git", "show", f"{r}:{art_path_rel}"], capture_output=True, cwd=REPO_ROOT)
+                                                if c_res.returncode == 0:
+                                                    c_raw = hashlib.sha256(c_res.stdout).hexdigest().lower()
+                                                    c_norm = hashlib.sha256(c_res.stdout.replace(b"\r\n", b"\n")).hexdigest().lower()
+                                                    if exp_sha in (c_raw, c_norm):
+                                                        git_matched = True
+                                                        break
+                                except Exception:
+                                    pass
+
+                                if not git_matched:
+                                    errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado norm:{act_sha_norm} raw:{act_sha_raw}).")
                         # verificação de tamanho
                         exp_size = art.get("size_bytes")
-                        if exp_size is not None:
+                        if exp_size is not None and not git_matched:
                             act_size_norm = get_normalized_size(art_path)
                             act_size_raw = art_path.stat().st_size
                             if act_size_norm != exp_size and act_size_raw != exp_size:

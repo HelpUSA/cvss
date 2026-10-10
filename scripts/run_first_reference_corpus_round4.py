@@ -2,9 +2,16 @@
 """Strict FIRST CVSS v4.0 reference-corpus gate.
 
 This runner is intentionally strict:
-- executes every applicable vector from the pinned fixture checkout;
-- retains *all* mismatches, not only the first N;
-- writes JSON + CSV machine-readable evidence;
+- executes every applicable vector from the pinned fixture checkout across all 3 pairs:
+    1. macro (macro-vectors / macro-scores)
+    2. reference (reference-vectors / reference-scores)
+    3. base_threat (base-threat-vectors / base-threat-scores)
+- asserts exact line count equality for every vector/score pair;
+- verifies exact SHA-256 and byte sizes of all 6 consumed fixture files;
+- pins exact FIRST repository commit;
+- fails on any unparseable score lines;
+- retains all mismatches, not only the first N;
+- writes JSON machine-readable evidence;
 - returns a non-zero exit code when any unexplained mismatch remains.
 
 It does not reinterpret a +/-0.1 difference as a pass. A score mismatch is a
@@ -12,10 +19,8 @@ mismatch until the calculator implementation or the pinned reference corpus is
 normatively reconciled.
 """
 from __future__ import annotations
-import ast, csv, json, os, sys, time
+import ast, hashlib, json, math, os, sys, time
 from pathlib import Path
-
-import math
 
 try:
     import cvss.cvss4
@@ -30,7 +35,40 @@ except Exception as exc:  # pragma: no cover
 ROOT = Path(__file__).resolve().parent.parent
 FIXTURE_DIR = ROOT / "tests" / "fixtures" / "cvss_resources" / "vectorFiles"
 REPO_URL = "https://github.com/FIRSTdotorg/cvss-resources"
-DEFAULT_COMMIT = os.environ.get("FIRST_CVSS_RESOURCES_COMMIT", "UNPINNED")
+EXPECTED_FIRST_COMMIT = "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb"
+
+FIXTURE_MANIFEST = {
+    "macro-vectors": {
+        "sha256": "e11a88715465c1b763027b4c49f3d37d080241ad167cddf6d3e0d3ebb725a90c",
+        "size_bytes": 23760,
+        "lines": 270,
+    },
+    "macro-scores": {
+        "sha256": "c422d64e908c7d605267521619bab880762584e5fa3108ca2c539751cbbd6f4b",
+        "size_bytes": 36947,
+        "lines": 270,
+    },
+    "reference-vectors": {
+        "sha256": "81918c58ff73a0bd82567fbd6b57b3d587a7bb6d1bf7833a471dd70825808c34",
+        "size_bytes": 6977862,
+        "lines": 66331,
+    },
+    "reference-scores": {
+        "sha256": "7bd6f6b162441a3bf591c946a7488e827776f390748133eb3cfb4df11fff6ad8",
+        "size_bytes": 11714403,
+        "lines": 66331,
+    },
+    "base-threat-vectors": {
+        "sha256": "b62819bb46716e9de9628d24e266d27ddf04b3b0d1140bc1956909f9dd21bb2b",
+        "size_bytes": 28973376,
+        "lines": 419904,
+    },
+    "base-threat-scores": {
+        "sha256": "eb8c4afddd8073b2aae2956e022678215e5e969d313e40a6efed4c206df4c7ca",
+        "size_bytes": 49268551,
+        "lines": 419904,
+    },
+}
 
 
 def evaluate_vector(vector: str):
@@ -38,17 +76,59 @@ def evaluate_vector(vector: str):
     return float(c.scores()[0]), str(c.severities()[0])
 
 
+def verify_fixtures(fixture_dir: Path) -> dict:
+    manifest_results = {}
+    for filename, spec in FIXTURE_MANIFEST.items():
+        filepath = fixture_dir / filename
+        if not filepath.exists():
+            raise FileNotFoundError(
+                f"Missing required FIRST fixture file: {filepath}. "
+                f"Please ensure tests/fixtures/cvss_resources/vectorFiles is populated from {REPO_URL} at commit {EXPECTED_FIRST_COMMIT}."
+            )
+        data = filepath.read_bytes()
+        actual_sha = hashlib.sha256(data).hexdigest()
+        actual_size = len(data)
+        actual_lines = data.count(b"\n")
+        if actual_sha != spec["sha256"]:
+            raise ValueError(
+                f"SHA256 mismatch for {filename}: expected {spec['sha256']}, got {actual_sha}"
+            )
+        if actual_size != spec["size_bytes"]:
+            raise ValueError(
+                f"Size mismatch for {filename}: expected {spec['size_bytes']}, got {actual_size}"
+            )
+        if actual_lines != spec["lines"]:
+            raise ValueError(
+                f"Line count mismatch for {filename}: expected {spec['lines']}, got {actual_lines}"
+            )
+        manifest_results[filename] = {
+            "sha256": actual_sha,
+            "size_bytes": actual_size,
+            "lines": actual_lines,
+            "verified": True,
+        }
+    return manifest_results
+
+
 def load_pairs(vpath: Path, spath: Path):
-    with vpath.open(encoding="utf-8") as fv, spath.open(encoding="utf-8") as fs:
-        for line_num, (v_line, s_line) in enumerate(zip(fv, fs), 1):
-            yield line_num, v_line.rstrip("\n"), s_line.rstrip("\n")
+    v_lines = vpath.read_text(encoding="utf-8").splitlines()
+    s_lines = spath.read_text(encoding="utf-8").splitlines()
+    if len(v_lines) != len(s_lines):
+        raise ValueError(
+            f"Line count mismatch between {vpath.name} ({len(v_lines)}) and {spath.name} ({len(s_lines)})"
+        )
+    for line_num, (v, s) in enumerate(zip(v_lines, s_lines), 1):
+        yield line_num, v, s
 
 
-def parse_expected(s: str):
+def parse_expected(s: str) -> dict | None:
     if s == "Invalid vector string":
         return None
     try:
-        return ast.literal_eval(s)
+        res = ast.literal_eval(s)
+        if isinstance(res, dict) and "score" in res:
+            return res
+        return None
     except Exception:
         return None
 
@@ -67,8 +147,9 @@ def run_pair_file(label: str, vector_file: str, score_file: str):
             continue
         exp = parse_expected(s)
         if exp is None:
-            comments += 1
-            continue
+            raise ValueError(
+                f"Corrupt score line in {score_file}:{line_num} for vector {v!r}: {s!r}"
+            )
 
         row = {
             "corpus": label,
@@ -135,11 +216,13 @@ def summarize(rows):
 
 def main():
     t0 = time.time()
+    manifest_results = verify_fixtures(FIXTURE_DIR)
     macro_rows, macro_comments = run_pair_file("macro", "macro-vectors", "macro-scores")
     ref_rows, ref_comments = run_pair_file("reference", "reference-vectors", "reference-scores")
-    rows = macro_rows + ref_rows
+    bt_rows, bt_comments = run_pair_file("base_threat", "base-threat-vectors", "base-threat-scores")
+    rows = macro_rows + ref_rows + bt_rows
     summary = summarize(rows)
-    summary["comments_or_headers_skipped"] = macro_comments + ref_comments
+    summary["comments_or_headers_skipped"] = macro_comments + ref_comments + bt_comments
     summary["duration_seconds"] = round(time.time() - t0, 3)
 
     outdir = ROOT / "outputs"
@@ -147,21 +230,19 @@ def main():
     payload = {
         "suite": "FIRST CVSS v4.0 strict reference-corpus gate",
         "first_repository": REPO_URL,
-        "commit_sha": DEFAULT_COMMIT,
-        "calculator": "cvss.CVSS4 (pin exact package/version in build manifest)",
+        "commit_sha": EXPECTED_FIRST_COMMIT,
+        "fixture_manifest": manifest_results,
+        "calculator": "HelpUS CVSS 4.0 Kernel (cvss==3.6 with FIRST JavaScript IEEE-754 rounding alignment)",
         "summary": summary,
         "mismatches": [r for r in rows if r["status"] != "PASS"],
     }
     (outdir / "first-reference-corpus-round4.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
-    with (outdir / "first-reference-corpus-round4.csv").open("w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
-        writer.writeheader(); writer.writerows(rows)
 
     print(json.dumps(payload["summary"], indent=2))
     if not summary["gate_pass"]:
         print("G1=FAIL: one or more FIRST reference cases differ from the current calculator.", file=sys.stderr)
         return 2
-    print("G1=PASS: zero mismatches in the complete applicable pinned corpus.")
+    print(f"G1=PASS: zero mismatches across all {summary['evaluated']} cases in the complete pinned FIRST corpus.")
     return 0
 
 if __name__ == "__main__":

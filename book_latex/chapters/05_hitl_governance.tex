@@ -1,0 +1,70 @@
+\chapter{Human-in-the-Loop (HITL) Governance and Regulatory Alignment}
+\label{chap:hitl_governance}
+
+\section{The Imperative of Human Oversight in AI Security Systems}
+While automated AI evaluation provides unprecedented speed, fully autonomous risk prioritization in cybersecurity introduces critical systemic vulnerabilities. If an algorithm erroneously downgrades a critical zero-day vulnerability without oversight, the resulting exposure window could precipitate catastrophic compromise.
+
+To reduce uncritical automation and ``rubber-stamping'', the HelpUS Framework implements a formalized \textbf{Human-in-the-Loop (HITL) Review Gate}. The workflow is designed to support governance practices discussed in the following standards and guidance; this document does not claim that the workflow alone establishes compliance:
+\begin{enumerate}
+    \item \textbf{NIST AI Risk Management Framework (AI RMF 1.0)}~\cite{nist_ai_rmf}: provides risk-management guidance relevant to transparency, accountability, and human oversight.
+    \item \textbf{ISO/IEC 27001:2022}~\cite{iso27001_2022}: provides an information-security management framework within which documented risk-assessment and treatment processes can be governed.
+    \item \textbf{NIST SP 800-40 Rev. 4}~\cite{nist_sp80040}: provides enterprise patch-management planning guidance relevant to prioritization and compensating controls.
+\end{enumerate}
+
+\section{The 4-Step Homologation Workflow Protocol}
+The review gate transitions the AI proposal from a mathematical hypothesis into an auditable organizational decision through a 4-step wizard protocol:
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.95\linewidth}
+        \centering
+        \fbox{\parbox{0.95\linewidth}{
+            \textbf{Step 1: Grounding Verification Checklist}\\
+            Analyst confirms physical facts: VLAN segmentation, firewall restriction, PCI boundary.\\
+            \vspace{1mm}
+            $\Downarrow$\\
+            \vspace{1mm}
+            \textbf{Step 2: Technical Attribution \& Identification}\\
+            The production deployment must bind a reviewer identifier, authorized role, and incident/change ticket through an authenticated authorization path; the scientific artifact treats authorization enforcement as a separately testable control.\\
+            \vspace{1mm}
+            $\Downarrow$\\
+            \vspace{1mm}
+            \textbf{Step 3: Formal Risk Justification}\\
+            Selection of disposition: Full Approval, Conditional Approval, Rejection (keep NVD), Escalation.\\
+            \vspace{1mm}
+            $\Downarrow$\\
+            \vspace{1mm}
+            \textbf{Step 4: Cryptographic Stamping \& Receipt Issuance}\\
+            Generates a deterministic audit receipt binding evidence, reviewer identity, timestamp, and decision. Digital signature is a separate optional control when an approved key infrastructure is available.
+        }}
+    \end{minipage}
+    \caption{The HelpUS 4-Step Human-in-the-Loop Homologation Pipeline.}
+    \label{fig:hitl_pipeline}
+\end{figure}
+
+\subsection{Formal Audit Hash Generation and Merkle Chain}
+To provide tamper-evident provenance, the implementation hashes a structured audit payload after deterministic JSON canonicalization rather than concatenating free-form fields:
+\begin{equation}
+    H_{\text{audit}} = \operatorname{SHA256}\!\left(\operatorname{Canonicalize}(\text{AuditPayload})\right).
+\end{equation}
+The payload binds the source assessment, evidence references, candidate metrics, contextual result, operational-policy identifier/version, review state, and timestamp. The current Web implementation is described as \emph{JCS-compatible}; a formal RFC~8785 conformance claim remains contingent on a pinned independent conformance corpus. A hash establishes integrity of the canonical payload, not signer identity or legal non-repudiation.
+
+Records may be inserted into an append-only Merkle-based audit structure so that later modification is detectable. This mechanism provides tamper evidence; it is not, by itself, proof of regulatory compliance, legal non-repudiation, or organizational immutability. Those properties depend on the surrounding identity, key-management, storage, access-control, and governance processes.
+
+\section{Configurable Operational SLA Policy}
+\label{sec:sla_economics}
+Organizations commonly maintain remediation targets that vary by vulnerability severity, asset importance, exposure, threat intelligence, and policy obligations. The HelpUS architecture therefore treats SLA selection as an \emph{organization-configured policy layer}; it does not infer a universal regulatory deadline from a CVSS score alone.
+
+For illustration, a deployment may configure thresholds such as:
+\begin{equation}
+    \text{SLA}_{\text{policy}}(\mathcal{C}) =
+    \begin{cases}
+        72 \text{ h} & \text{example emergency mapping}, \\
+        14 \text{ d} & \text{example expedited mapping}, \\
+        30\text{--}60 \text{ d} & \text{example scheduled-remediation mapping}.
+    \end{cases}
+\end{equation}
+These durations are examples, not statements of a universal PCI-DSS, NIS2, DORA, ISO, or NIST requirement. Any production deployment must version the applicable local policy and retain the policy identifier in the decision provenance.
+
+\subsection{Economic Modeling as Future Calibration Work}
+The current monograph does not claim a validated dollar-value reduction in incident cost, hotfix regression rate, or residual exploit probability. Such claims require an independently sourced and reproducible economic dataset, a documented causal model, and sensitivity analysis. The system can retain fields for implementation cost, operational disruption, and expected-loss modeling, but numerical economic benefits should be reported only after those parameters are empirically calibrated.

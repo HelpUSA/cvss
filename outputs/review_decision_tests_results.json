@@ -1,0 +1,40 @@
+{
+  "suite": "Server-Side HITL Review Decision Route Security Suite",
+  "total": 8,
+  "passed": 8,
+  "allPassed": true,
+  "results": [
+    {
+      "name": "1. Unauthenticated -> HTTP 401",
+      "passed": true
+    },
+    {
+      "name": "2. Non-SuperAdmin authenticated user -> HTTP 403 FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "3. Missing assessmentId -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "4. Invalid decision string -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "5. Short rationale (<10 chars) -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "6. SuperAdmin APPROVED -> HTTP 200 with valid receipt and hash",
+      "passed": true
+    },
+    {
+      "name": "7. SuperAdmin REJECTED -> HTTP 200 with valid receipt and hash",
+      "passed": true
+    },
+    {
+      "name": "8. Identity spoofing prevented: reviewer strictly loaded from authoritative server session",
+      "passed": true
+    }
+  ]
+}

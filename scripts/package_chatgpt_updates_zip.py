@@ -12,7 +12,9 @@ import hashlib
 import json
 from datetime import datetime
 
-REPO_ROOT = r'D:\AntiG\cvss'
+from pathlib import Path
+
+REPO_ROOT = str(Path(__file__).resolve().parent.parent)
 STAGING_DIR = os.path.join(REPO_ROOT, 'staging_atualizacoes_chatgpt')
 TARGET_ZIP = os.path.join(REPO_ROOT, 'helpus_cvss_ai_atualizacoes_round4_chatgpt.zip')
 

@@ -1,0 +1,160 @@
+\chapter{Architecture of the HelpUS AI Watcher Engine}
+\label{chap:architecture}
+
+\section{System Architecture Overview}
+The HelpUS framework operates as an automated bridge between network telemetry and vulnerability prioritization. Its design goal is to constrain metric recommendations to explicit evidence and deterministic rules. Generative components, when used for explanation or interface assistance, are not permitted to alter the CVSS vector without the same evidence checks and review policy. The earlier radar-style ``maturity benchmark'' has been removed because heterogeneous dimensions such as traceability, speed, and governance do not share a defensible common percentage scale.
+
+\section{The Tripartite Evidence Contract}
+A foundational principle of the HelpUS engine is that the source CVSS assessment (including its vector, nomenclature, provider, and reported score semantics) must never be overwritten, hidden, or artificially compressed. Instead, every assessment produces a \textbf{Tripartite Evidence Contract} represented formally by the tuple:
+\begin{equation}
+    \mathcal{C} = \langle \mathcal{O}_{\text{source}}, \mathcal{E}_{\text{context}}, \mathcal{V}_{\text{evidence}} \rangle
+\end{equation}
+where:
+\begin{itemize}
+    \item $\mathcal{O}_{\text{source}} = \{S_{\text{source}}, \text{Severity}_{\text{source}}, \mathbf{v}_{\text{source}}, \text{Provider}, \text{Nomenclature}\}$ preserves the source assessment and provenance without implying that NVD, a CNA, or FIRST authored every displayed score.
+    \item $\mathcal{E}_{\text{context}} = \{S_{\text{env}}, \text{Severity}_{\text{env}}, \mathbf{v}_{\text{env}}, \Delta_{\text{score}}, \Delta_{\text{sev}}, \text{Provenance}, \mathcal{K}_{\text{citations}}\}$ specifies the derived contextual CVSS result; operational disposition is produced separately by a versioned organizational policy.
+    \item $\mathcal{V}_{\text{evidence}} = \{I_{\text{route}}, N_{\text{vlan}}, F_{\text{acl}}, P_{\text{compliance}}, C_{\text{compensating}}, B_{\text{criticality}}\}$ documents the verified state of operational controls.
+\end{itemize}
+
+\section{Two-Stage Deterministic Prioritization Pipeline}
+\label{sec:two_stage_pipeline}
+Contrary to naive heuristics that apply arbitrary static deltas to base scores, the HelpUS engine strictly decouples \textbf{symbolic metric inference} from \textbf{standard score computation}. The architecture functions as a two-stage deterministic pipeline:
+\begin{enumerate}
+    \item \textbf{Stage 1: Evidence-Grounded Metric Deduction:} The engine maps physical and logical network telemetry into candidate CVSS v4.0 environmental metrics ($\text{MAV}, \text{MAC}, \text{MPR}, \text{CR}, \text{IR}, \text{AR}$).
+    \item \textbf{Stage 2: Specification-Conformant CVSS v4.0 Scoring:} Candidate Environmental metrics are combined with the preserved source vector to construct a valid CVSS v4.0 vector. Numerical scoring is delegated to a pinned calculator implementation whose behavior must be validated against FIRST reference resources before confirmatory evaluation~\cite{first_cvss_v4}.
+\end{enumerate}
+
+Algorithm~\ref{alg:metric_inference} formalizes this two-stage process. The observed delta $\Delta_{\text{score}} = S_{\text{env}} - S_{\text{source}}$ is strictly an emergent mathematical consequence of the FIRST specification, never an ad-hoc arithmetic rule.
+
+\begin{algorithm}[H]
+\caption{Evidence-Grounded CVSS v4.0 Environmental Metric Inference}
+\label{alg:metric_inference}
+\begin{algorithmic}[1]
+\footnotesize
+\Require Source CVSS vector $\mathbf{v}_{\text{source}}$, versioned evidence $\mathcal{V}_{\text{evidence}}$, topology graph $\mathcal{G}$, organizational policy $\Pi$
+\Ensure Either \texttt{HUMAN\_REVIEW\_REQUIRED}, or canonical contextual vector $\mathbf{v}_{\text{env}}$ and score $S_{\text{env}}$
+\State $\mathcal{K} \gets \emptyset$
+\If{$\text{Missing}(\mathcal{V}_{\text{evidence}}) \lor \text{Stale}(\mathcal{V}_{\text{evidence}}) \lor \text{Insufficient}(\mathcal{V}_{\text{evidence}}) \lor \text{Conflicting}(\mathcal{V}_{\text{evidence}})$}
+    \State \Return \texttt{HUMAN\_REVIEW\_REQUIRED}
+\EndIf
+\State $\mathbf{v}_{\text{cand}} \gets \text{ExtractCandidateEnvironmentalMetrics}(\mathbf{v}_{\text{source}})$
+\Comment{Topology-aware candidate MAV}
+\If{$\text{RequiresPhysicalInteraction}(h, \mathcal{V}_{\text{evidence}})$}
+    \State $\mathbf{v}_{\text{cand}}.\text{MAV} \gets \text{Physical}$
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``MAV:P - physical interaction required''}\}$
+\ElsIf{$\text{IsLoopbackOrLocalOnly}(h, \mathcal{V}_{\text{evidence}})$}
+    \State $\mathbf{v}_{\text{cand}}.\text{MAV} \gets \text{Local}$
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``MAV:L - local execution/access required''}\}$
+\ElsIf{$\text{IsAdjacentOnlyDomain}(h, \mathcal{G})$}
+    \State $\mathbf{v}_{\text{cand}}.\text{MAV} \gets \text{Adjacent}$
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``MAV:A - verified adjacent-only domain''}\}$
+\ElsIf{$\text{HasVerifiedRoutedPath}(h, \mathcal{G})$}
+    \State $\mathbf{v}_{\text{cand}}.\text{MAV} \gets \text{Network}$
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``MAV:N - verified routed reachability''}\}$
+\Else
+    \State \Return \texttt{HUMAN\_REVIEW\_REQUIRED}
+\EndIf
+\If{$\text{HasFirewallOrWafEvidence}(h, \mathcal{V}_{\text{evidence}})$}
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``firewall/WAF recorded; MAC unchanged by presence alone''}\}$
+\EndIf
+\If{$\text{ExploitPreconditionsSupportHighComplexity}(\mathcal{V}_{\text{evidence}})$}
+    \State $\mathbf{v}_{\text{cand}}.\text{MAC} \gets \text{High}$
+\EndIf
+\Comment{Organization-specific requirements}
+\If{$\text{HasApprovedRequirementMapping}(\Pi, \mathcal{V}_{\text{evidence}})$}
+    \State $(\text{CR},\text{IR},\text{AR}) \gets \text{ApplyVersionedPolicy}(\Pi, \mathcal{V}_{\text{evidence}})$
+    \State $\mathcal{K} \gets \mathcal{K} \cup \{\text{``versioned organizational requirement policy''}\}$
+\EndIf
+\State $\mathbf{v}_{\text{env}} \gets \text{SynthesizeCanonicalVector}(\mathbf{v}_{\text{source}}, \mathbf{v}_{\text{cand}})$
+\State $S_{\text{env}} \gets \text{ComputeCVSS40Pinned}(\mathbf{v}_{\text{env}})$
+\State $S_{\text{source}} \gets \text{ComputeOrPreserveSourceScore}(\mathbf{v}_{\text{source}})$
+\State $\Delta_{\text{score}} \gets \text{round}(S_{\text{env}} - S_{\text{source}}, 1)$
+\State \Return $\mathbf{v}_{\text{env}}, S_{\text{env}}, \Delta_{\text{score}}, \mathcal{K}$
+\end{algorithmic}
+\end{algorithm}
+
+\section{Formal Topological Inference for Modified Attack Vector (MAV)}
+\label{sec:mav_formal_table}
+A critical requirement of scientific rigor is to avoid conflating the absence of direct public Internet exposure with $\text{MAV:Local}$ or $\text{MAV:Adjacent}$. An internal corporate server that lacks an external IPv4 address but is accessible across enterprise L3 routed subnets remains vulnerable via $\text{MAV:Network}$.
+
+Table~\ref{tab:mav_inference_matrix} establishes the formal topological inference matrix implemented in the HelpUS engine.
+
+\begin{table}[htbp]
+\centering
+\small
+\caption{Evidence-oriented reachability conditions for candidate Modified Attack Vector (MAV) recommendations. FIRST remains the normative semantic source.}
+\label{tab:mav_inference_matrix}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{p{2.7cm}p{3.8cm}cp{4.7cm}p{2.1cm}}
+\toprule
+\textbf{Reachability condition} & \textbf{Observed evidence} & \textbf{Candidate} & \textbf{Rationale / limitation} & \textbf{Evidence strength} \\
+\midrule
+Remotely routable service & Verified routed path from an allowed remote network to the vulnerable service & $\text{MAV:N}$ & Network does not mean ``public Internet''; internal routed reachability may still satisfy Network semantics & Direct \\
+Adjacent-only domain & Verified absence of L3 routing and requirement to join the same constrained L2/proximity domain & $\text{MAV:A}$ & Use only when the attack truly requires adjacency under the FIRST definition & Strong \\
+Local execution context & Service/component is not remotely reachable and exploitation requires local execution/access on the vulnerable system & $\text{MAV:L}$ & Physical access is a distinct $\text{MAV:P}$ case & Direct \\
+Physical interaction & Exploitation requires physical manipulation of the vulnerable component & $\text{MAV:P}$ & Must be supported by vulnerability semantics, not inferred from network isolation alone & Direct \\
+Ambiguous / incomplete & Partial routes, stale telemetry, unresolved NAT/VPN/firewall state, or conflicting evidence & \textit{Abstain} & \texttt{HUMAN\_REVIEW\_REQUIRED}; preserve source priority rather than downgrade & Insufficient \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
+
+\subsection{Conservative Fail-Safe and Abstention Policy}
+In security-critical operations, an erroneous vulnerability downgrade introduces material security blind spots. Therefore, the HelpUS decision engine enforces a \textbf{Conservative Fail-Safe Policy}:
+\begin{align}
+    &\text{Missing}(\mathcal{V}_{\text{evidence}}) \lor \text{Stale}(\mathcal{V}_{\text{evidence}}) \lor \\
+    &\text{Insufficient}(\mathcal{V}_{\text{evidence}}) \lor \text{Conflicting}(\mathcal{V}_{\text{evidence}}) \nonumber\\
+    &\hspace{2cm}\Longrightarrow \text{Status} \gets \texttt{HUMAN\_REVIEW\_REQUIRED}.
+\end{align}
+Under this policy, incomplete, stale, unknown, or contradictory evidence causes automated inference to abstain. Automatic downgrade remains disabled and a human review is required before an operational disposition is approved.
+
+\section{Exact Combinatorial Optimization for What-If Target Remediation}
+\label{sec:whatif_optimizer}
+Conventional vulnerability management operates strictly in forward mode: given observed controls, it calculates the residual risk. HelpUS introduces the \textbf{What-If Target Remediation Solver}, which answers the operational engineering question: \textit{What is the exact minimal-cost set of compensating controls required to drive the environmental score below an organizational risk ceiling $\theta_{\text{target}}$?}
+
+Formally, let $\mathbf{U} = \{c_1, c_2, \dots, c_m\}$ denote the finite universe of deployable compensating controls (e.g., VLAN microsegmentation, WAF virtual patching, egress proxy restriction, credential rotation, service isolation). Each control $c_i$ has an associated operational disruption cost $w(c_i) \in \mathbb{R}^+$. The optimization problem is formulated as:
+\begin{align}
+    \min_{\mathbf{c} \subseteq \mathbf{U}} \quad & \sum_{c_i \in \mathbf{c}} w(c_i) \\
+    \text{subject to} \quad & S_{\text{env}}(\mathbf{c} \cup \mathcal{V}_{\text{active}}) \le \theta_{\text{target}} \nonumber
+\end{align}
+where $\theta_{\text{target}}$ is an organization-configured contextual-severity ceiling. Example thresholds may be used in experiments, but they are not universal risk standards.
+
+\subsection{Exact Global Optimality via Exhaustive State Enumeration}
+Unlike heuristic approximations that risk sub-optimal local minima, the HelpUS solver leverages the fact that the universe of viable architectural controls for a single workload is finite and bounded ($m \le 8$, comprising $2^m \le 256$ candidate subsets).
+
+For the bounded candidate-control universe ($m \le 8$), the solver can enumerate at most $256$ subsets. Runtime is treated as an empirical property of the implementation and hardware and is reported only from a documented benchmark; no universal sub-millisecond timing claim is assumed here:
+\begin{equation}
+    \mathbf{c}^* = \arg\min_{\mathbf{c} \in \mathcal{P}(\mathbf{U})} \left\{ \sum_{c_i \in \mathbf{c}} w(c_i) \ \middle|\ S_{\text{env}}(\mathbf{c} \cup \mathcal{V}_{\text{active}}) \le \theta_{\text{target}} \right\}
+\end{equation}
+Within the explicitly enumerated candidate-control universe and stated cost function, exhaustive search identifies a global minimum-cost feasible subset. This does not imply global optimality over controls that were not represented in $\mathbf{U}$, and all recommended controls remain subject to validation and human approval.
+
+\section{Policy-as-Code Virtual Patching Synthesis}
+\label{sec:virtual_patching}
+When software vendors require weeks to release official source-code patches, organizations face severe zero-day exposure windows. The HelpUS engine addresses this by synthesizing executable \textbf{Policy-as-Code Virtual Patches} directly from the CVSS vector decomposition.
+
+Depending on detected network topology and service protocol, the engine synthesizes deterministic firewall and proxy candidate rules:
+\begin{enumerate}
+    \item \textbf{Linux Host-Level Packet Filtering (\texttt{iptables}):} Drops non-internal traffic destined to vulnerable daemon ports:
+    \begin{verbatim}
+    iptables -A INPUT -p tcp --dport 8080 ! -s 10.0.0.0/8 -j DROP
+    \end{verbatim}
+    \item \textbf{Cloud Infrastructure Security Groups (AWS CLI):} Revokes wide-open ingress rules ($0.0.0.0/0$) on public interfaces and tightens security group scopes.
+    \item \textbf{Edge Application Layer Defense (Cloudflare WAF):} Synthesizes JSON filter expressions targeting exploit signatures in HTTP headers and URI payloads.
+\end{enumerate}
+
+To ensure operational stability, synthesized virtual patches are treated as \textbf{candidate compensating controls}: they undergo static syntax validation, blast-radius reachability simulation, and mandatory Human-in-the-Loop review before deployment into production.
+
+\section{Exploratory Reachability-Adjusted EPSS Model (Future Work)}
+\label{sec:contextual_epss}
+The production scoring pipeline is centered on source CVSS and HelpUS-derived Environmental CVSS. A separate exploratory model considers combining EPSS with reachability evidence; it is not part of the confirmatory contribution. For historical comparison, the following notation may be used descriptively:
+\begin{equation}
+    \mathbf{T} = \begin{bmatrix} S_{\text{base}}^{\text{v3.1}} & S_{\text{base}}^{\text{v4.0}} & S_{\text{env}}^{\text{AI}} \end{bmatrix}^T
+\end{equation}
+Furthermore, while the Exploit Prediction Scoring System (EPSS)~\cite{jacobs2021exploit} provides a global probability $P(E_{\text{wild}})$ of in-the-wild exploitation, it ignores local perimeter reachability. An unauthenticated RCE on a host with zero network access has virtually zero practical exploitation probability.
+
+A future-work prototype may compute a \textbf{Reachability-Adjusted EPSS heuristic} via:
+\begin{equation}
+    P(E_{\text{local}}) = P(E_{\text{wild}}) \times \Phi(\mathcal{G}_{\text{reachability}})
+\end{equation}
+where $\Phi(\cdot)$ is an explicitly heuristic exposure factor. Until calibrated against outcome data, the quantity must not be interpreted as a Bayesian posterior or calibrated exploitation probability and is excluded from the primary held-out evaluation.
+

@@ -1,0 +1,120 @@
+\documentclass[11pt,a4paper,oneside]{book}
+
+% Pacotes essenciais para padrão acadêmico internacional
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{pdflscape}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{cite}
+\setlength{\emergencystretch}{3em}
+\raggedbottom
+
+% Configuração de margens e geometria
+\geometry{
+    a4paper,
+    top=28mm,
+    bottom=28mm,
+    left=30mm,
+    right=25mm
+}
+
+% Cores acadêmicas
+\definecolor{primaryblue}{RGB}{2, 132, 199}
+\definecolor{darknavy}{RGB}{8, 19, 36}
+\definecolor{academicgray}{RGB}{100, 116, 139}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=primaryblue,
+    citecolor=primaryblue,
+    urlcolor=primaryblue,
+    pdftitle={Evidence-Based Environmental CVSS v4.0 Prioritization: An Explainable AI Watcher Architecture with Human-in-the-Loop Governance},
+    pdfauthor={Wagner Santos, HelpUS Security Research}
+}
+
+% Cabeçalhos e rodapés
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{academicgray}\ifnum\value{chapter}>0 \chaptername~\thechapter\fi}
+\fancyhead[R]{\small\color{academicgray}HelpUS Research Monograph}
+\setlength{\headheight}{14pt}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\input{generated/historical_fisher_macros.tex}
+
+\begin{document}
+
+% Capa Acadêmica
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries\color{darknavy} Evidence-Based Environmental CVSS v4.0 Prioritization\par}
+    \vspace{0.8cm}
+    {\Large\itshape An Explainable AI Watcher Architecture with Grounded Telemetry and Human-in-the-Loop Governance\par}
+    
+    \vspace{2.5cm}
+    {\large\bfseries Wagner Santos\par}
+    \vspace{0.2cm}
+    {\normalsize SecOps Research Lead, HelpUS Security Group\par}
+    {\normalsize \texttt{wagner@helpusbr.com}\par}
+    
+    \vfill
+    {\large\bfseries Comprehensive Technical Reference Monograph \& Companion Book\par}
+    \vspace{0.4cm}
+    {\small Prepared for IEEE International Conference on AI in Cybersecurity (ICAIC 2027) Submissions\par}
+    \vspace{0.8cm}
+    {\normalsize October 2026\par}
+\end{titlepage}
+
+\frontmatter
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\chapter{Executive Summary}
+This research monograph provides a comprehensive mathematical, architectural, and empirical reference for automated vulnerability prioritization under the FIRST Common Vulnerability Scoring System (CVSS) v4.0 specification. 
+
+Addressing the operational limitations of using source CVSS assessments without organization-specific context, we introduce the HelpUS Framework: a system integrating network-topology evidence, an explainable evidence-constrained deterministic inference pipeline, specification-conformant CVSS v4.0 scoring, and a Human-in-the-Loop (HITL) review gate. The governance workflow is designed to support auditability and human oversight; it does not by itself establish compliance with NIST, ISO, PCI-DSS, or other frameworks. 
+
+The current 30-scenario Dataset B is a development benchmark used for architectural verification and regression testing; it is not confirmatory evidence of external generalization. A pinned FIRST calculator reference corpus has been fully verified across all 486,472 test cases against official FIRST commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb with zero mismatches, successfully closing the calculator conformance gate (G1). Dataset B source provenance has been migrated to a schema that separates provider-reported Base values from scores recomputed from full source vectors, and all manuscript tables must be regenerated from that canonical source before freeze. Engine-level timing measurements are reported separately from historical human-session timings and are not treated as a like-for-like end-to-end speedup. Confirmatory claims remain pending independent held-out evaluation (Datasets C1/C2), expert adjudication, and applicable ethics determination. Web-layer audit-receipt canonicalization and authorization controls remain separate engineering claims that require their own conformance and security evidence.
+
+\mainmatter
+
+\include{chapters/01_introduction}
+\include{chapters/02_cvss_foundations}
+\include{chapters/03_watcher_architecture}
+\include{chapters/04_scanner_and_topology}
+\include{chapters/05_hitl_governance}
+\include{chapters/06_empirical_evaluation}
+\include{chapters/07_case_studies}
+\include{chapters/08_conclusion}
+
+\appendix
+\include{chapters/appendix_a_pci_scenarios}
+\include{chapters/appendix_b_statistical_methods}
+\include{chapters/appendix_c_historical_dataset}
+
+\backmatter
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
