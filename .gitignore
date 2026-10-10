@@ -15,4 +15,5 @@ outputs/evidence/
 
 # Local transient output
 *.log
+!outputs/pytest-*.log
 .DS_Store

@@ -1,0 +1,14 @@
+=== Clean-Room Portable Execution Log ===
+Executable: C:\Python314\python.exe
+Platform: win32
+Artifact: helpus_cvss_ai_portable_artifact_round4.zip
+Exit Code: 0
+
+--- STDOUT ---
+.........sssssssssssssssssss....................................s....... [ 59%]
+..............s..............sss..................                       [100%]
+98 passed, 24 skipped in 0.38s
+
+
+--- STDERR ---
+

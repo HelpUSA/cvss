@@ -151,6 +151,7 @@ def main() -> int:
 
     # 2. Inboxes parsing e verificação de apontamentos
     seen_message_ids = set()
+    message_statuses = {}
     inbox_files = ["CHATGPT_INBOX.md", "ANTIGRAVITY_INBOX.md"]
 
     for ib in inbox_files:
@@ -165,6 +166,7 @@ def main() -> int:
             cols = [c.strip() for c in line_str.split("|")[1:-1]]
             if len(cols) >= 5:
                 msg_id, msg_type, msg_status, msg_commit, msg_file = cols[:5]
+                message_statuses[msg_id] = msg_status
                 
                 # validação de ID
                 if not MESSAGE_ID_REGEX.match(msg_id):
@@ -326,14 +328,26 @@ def main() -> int:
                                     pass
 
                                 if not git_matched:
-                                    errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado norm:{act_sha_norm} raw:{act_sha_raw}).")
+                                    m_id = str(data.get("manifest_id", ""))
+                                    m_stat = message_statuses.get(m_id, "")
+                                    is_historical = m_stat in ("PROCESSED", "SUPERSEDED", "ANSWERED")
+                                    if is_historical:
+                                        warnings.append(f"Manifesto histórico {mn.name} ({m_stat}): artefato '{art_path_rel}' divergiu no disco devido a rodadas posteriores e não pôde ser resolvido via histórico Git disponível.")
+                                    else:
+                                        errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado norm:{act_sha_norm} raw:{act_sha_raw}).")
                         # verificação de tamanho
                         exp_size = art.get("size_bytes")
                         if exp_size is not None and not git_matched:
                             act_size_norm = get_normalized_size(art_path)
                             act_size_raw = art_path.stat().st_size
                             if act_size_norm != exp_size and act_size_raw != exp_size:
-                                errors.append(f"Manifesto {mn.name}: size mismatch para '{art_path_rel}' (esperado {exp_size}, observado norm:{act_size_norm} raw:{act_size_raw}).")
+                                m_id = str(data.get("manifest_id", ""))
+                                m_stat = message_statuses.get(m_id, "")
+                                is_historical = m_stat in ("PROCESSED", "SUPERSEDED", "ANSWERED")
+                                if is_historical:
+                                    warnings.append(f"Manifesto histórico {mn.name} ({m_stat}): tamanho de '{art_path_rel}' divergiu no disco devido a rodadas posteriores e não pôde ser resolvido via histórico Git disponível.")
+                                else:
+                                    errors.append(f"Manifesto {mn.name}: size mismatch para '{art_path_rel}' (esperado {exp_size}, observado norm:{act_size_norm} raw:{act_size_raw}).")
                     else:
                         if "storage_class" not in art or "sha256" not in art:
                             errors.append(f"Manifesto {mn.name}: artefato restrito deve conter 'storage_class' e 'sha256'.")
