@@ -5,14 +5,34 @@ on:
     branches:
       - real-world-cvss
       - "auth1f-*"
+      - scientific-validation
+      - "antigravity/*"
+      - "chatgpt/*"
   pull_request:
     branches:
       - real-world-cvss
+      - scientific-validation
 
 permissions:
   contents: read
 
 jobs:
+  ai-exchange-contract-validation:
+    name: AI Exchange Contract Validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Validate AI Exchange Contracts
+        run: python scripts/ai_exchange_validate.py
+
   validate-real-pipeline:
     runs-on: ubuntu-latest
     timeout-minutes: 30
