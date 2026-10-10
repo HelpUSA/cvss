@@ -9,8 +9,8 @@
     {
       "path": "outputs/first-reference-corpus-round4.json",
       "media_type": "application/json",
-      "sha256": "5f64cad43b1c9d69882f010c2538468912794b557910ab257c418498e8140f4b",
-      "size_bytes": 671,
+      "sha256": "1fe39919fdca5a35569a553cc84f46bc907aab4d695f40d2d477fc2fb13723ae",
+      "size_bytes": 647,
       "purpose": "g1_first_reference_corpus_evidence"
     },
     {

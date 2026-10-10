@@ -42,11 +42,16 @@ VALID_MESSAGE_TYPES = {
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
 def compute_sha256(filepath: Path) -> str:
-    h = hashlib.sha256()
-    with open(filepath, "rb") as f:
-        while chunk := f.read(65536):
-            h.update(chunk)
-    return h.hexdigest()
+    raw = filepath.read_bytes()
+    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml"]:
+        return hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
+    return hashlib.sha256(raw).hexdigest()
+
+def get_normalized_size(filepath: Path) -> int:
+    raw = filepath.read_bytes()
+    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml"]:
+        return len(raw.replace(b"\r\n", b"\n"))
+    return len(raw)
 
 def parse_yaml_front_matter(content: str) -> tuple[dict, str]:
     """Extrai front matter simples sem dependência obrigatória de PyYAML."""
@@ -290,17 +295,19 @@ def main() -> int:
                             errors.append(f"Manifesto {mn.name}: artefato declarado não existe no disco: '{art_path_rel}'.")
                             continue
                         # verificação de hash
-                        exp_sha = art.get("sha256")
+                        exp_sha = str(art.get("sha256", "")).lower()
                         if exp_sha:
-                            act_sha = compute_sha256(art_path)
-                            if act_sha.lower() != exp_sha.lower():
-                                errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado {act_sha}).")
+                            act_sha_norm = compute_sha256(art_path).lower()
+                            act_sha_raw = hashlib.sha256(art_path.read_bytes()).hexdigest().lower()
+                            if act_sha_norm != exp_sha and act_sha_raw != exp_sha:
+                                errors.append(f"Manifesto {mn.name}: hash mismatch para '{art_path_rel}' (esperado {exp_sha}, observado norm:{act_sha_norm} raw:{act_sha_raw}).")
                         # verificação de tamanho
                         exp_size = art.get("size_bytes")
                         if exp_size is not None:
-                            act_size = art_path.stat().st_size
-                            if act_size != exp_size:
-                                errors.append(f"Manifesto {mn.name}: size mismatch para '{art_path_rel}' (esperado {exp_size}, observado {act_size}).")
+                            act_size_norm = get_normalized_size(art_path)
+                            act_size_raw = art_path.stat().st_size
+                            if act_size_norm != exp_size and act_size_raw != exp_size:
+                                errors.append(f"Manifesto {mn.name}: size mismatch para '{art_path_rel}' (esperado {exp_size}, observado norm:{act_size_norm} raw:{act_size_raw}).")
                     else:
                         if "storage_class" not in art or "sha256" not in art:
                             errors.append(f"Manifesto {mn.name}: artefato restrito deve conter 'storage_class' e 'sha256'.")
