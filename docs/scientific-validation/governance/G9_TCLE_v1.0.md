@@ -1,7 +1,7 @@
 # Termo de Consentimento Livre e Esclarecido (TCLE) — Estudo com Especialistas (Gate G9)
 
 **Documento**: `G9_TCLE_v1.0.md`  
-**Versão**: `1.1` (Revisado per CG-20261010-010 e CG-20261010-011)  
+**Versão**: `1.2` (Revisado per CG-20261010-013 e CG-20261010-014)  
 **Embasamento Legal**: Lei Federal nº 14.874/2024 (Artigos 21 a 27) e Decreto Federal nº 12.651/2025.  
 
 ---

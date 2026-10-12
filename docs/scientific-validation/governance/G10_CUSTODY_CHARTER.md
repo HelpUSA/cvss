@@ -1,7 +1,7 @@
 # Estatuto de Custódia Independente em Duas Etapas — Datasets C1 e C2 (Gate G10)
 
 **Documento**: `G10_CUSTODY_CHARTER.md`  
-**Versão**: `1.2` (Revisado per CG-20261010-012 e CG-20261010-013)  
+**Versão**: `1.3` (Revisado per CG-20261010-013 e CG-20261010-014)  
 **Data**: 12 de Outubro de 2026  
 **Finalidade**: Estabelecer formalmente a arquitetura de custódia cega em dois estágios, a segregação de funções, os protocolos criptográficos de controle duplo, a execução exclusivamente automatizada e as salvaguardas de integridade para os datasets confirmatórios C1 e C2.
 

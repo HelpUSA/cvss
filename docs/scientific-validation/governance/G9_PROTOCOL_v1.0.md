@@ -1,7 +1,7 @@
 # Protocolo de Pesquisa Científica com Participantes Humanos — HelpUS CVSS AI (Gate G9)
 
 **Identificador**: `G9_PROTOCOL_v1.0.md`  
-**Versão**: `1.1` (Revisado per CG-20261010-010 e CG-20261010-011)  
+**Versão**: `1.2` (Revisado per CG-20261010-013 e CG-20261010-014)  
 **Data**: 12 de Outubro de 2026  
 **Status**: `PRÉ-SUBMISSÃO / AGUARDANDO APRECIAÇÃO ÉTICA`  
 **Marco Legal e Regulatório**: 
@@ -9,7 +9,7 @@
 - Decreto Federal nº 12.651/2025
 - Diretrizes do Sistema Nacional de Ética em Pesquisa (SINEP / INAEP)
 - Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018)
-- Guia de Ética em Inteligência Artificial INAEP & Framework MARIAH (Avaliação de Suporte Orientativo)
+- Guia de Ética em Inteligência Artificial INAEP & Matriz MARIAH (Matriz de Avaliação de Risco em IA em Pesquisa com Seres Humanos — Suporte Orientativo)
 
 ---
 
@@ -20,7 +20,7 @@
 * **Pesquisador Responsável**: Wagner Santos (`helpus.ecommerce@gmail.com`).
 * **Papel dos Especialistas Avaliadores**: Os 5 especialistas avaliadores externos são qualificados formalmente como **participantes de pesquisa com seres humanos**.
 * **Declaração Ética Fundamental**: A equipe proponente declara que **não há autodeclaração de dispensa de apreciação ética nem autoclassificação sumária de risco**. O estudo será submetido à apreciação do **CEP competente de acordo com a classificação de risco e tramitação do SINEP** via Plataforma Brasil antes de qualquer contato, recrutamento ou coleta de dados com os especialistas.
-* **Papel do Framework MARIAH e Guia INAEP**: O Guia de Ética em IA INAEP e o framework MARIAH são adotados estritamente como suporte técnico orientativo de avaliação de risco algorítmico, **nunca como substitutos da apreciação do CEP competente**.
+* **Papel do Framework MARIAH e Guia INAEP**: O Guia de Ética em IA INAEP e a Matriz MARIAH são adotados estritamente como suporte técnico orientativo prévio de mapeamento de risco algorítmico, **nunca como substitutos da apreciação soberana do CEP competente**.
 
 ---
 
@@ -30,7 +30,7 @@
 Validar a eficácia, segurança fail-closed e taxa de abstenção do motor de inteligência artificial HelpUS na determinação de métricas ambientais do CVSS v4.0 em comparação com o julgamento independente e adjudicado de 5 especialistas seniores em cibersegurança e análise de vulnerabilidades.
 
 ### 2.2. Objetivos Específicos
-1. **RQ1 (Eficácia)**: Medir a concordância exata macro-média entre as inferências ambientais do HelpUS e o padrão-ouro estabelecido pelos especialistas no Dataset C1.
+1. **RQ1 (Eficácia Confirmatória Primária)**: Medir a concordância vetorial exata (EVMR) entre as inferências ambientais do HelpUS e o padrão-ouro estabelecido pelos especialistas no **conjunto confirmatório agrupado ($N = 100$)**, composto pela mistura fixa pré-especificada de 50 cenários de diversidade corporativa (Estrato C1, $N_1 = 50$) e 50 cenários de estresse e condições adversariais (Estrato C2, $N_2 = 50$). Os estratos C1 e C2 constituem análises secundárias pré-especificadas mandatárias.
 2. **RQ2 (Segurança de Severidade)**: Quantificar a Taxa de Desescalonamento Falso Severo ($\text{SFDR}_{\text{CVSS}}$) sob cenários ambíguos ou com vetores adversariais no Dataset C2.
 3. **RQ3 (Comportamento Fail-Safe e Abstenção)**: Determinar a sensibilidade de abstenção (`HUMAN_REVIEW_REQUIRED`) em cenários com telemetria classificada como insuficiente ou conflitante.
 4. **RQ4 (Concordância Interobservadores Humana)**: Calcular o coeficiente de concordância entre os especialistas antes da adjudicação (Fleiss' Kappa e Gwet's AC1).

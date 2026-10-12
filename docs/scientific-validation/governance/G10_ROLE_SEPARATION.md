@@ -1,7 +1,7 @@
 # Matriz de Segregação de Funções e Papéis para Custódia C1 e C2 (Gate G10)
 
 **Documento**: `G10_ROLE_SEPARATION.md`  
-**Versão**: `1.2` (Revisado per CG-20261010-012 e CG-20261010-013)  
+**Versão**: `1.3` (Revisado per CG-20261010-013 e CG-20261010-014)  
 **Data**: 12 de Outubro de 2026  
 **Finalidade**: Definir formalmente as fronteiras operacionais, vedações de acesso, matriz de segregação de deveres (*Segregation of Duties — SoD*) e regras de custódia técnica no modelo de Custódia em Duas Etapas (*Two-Stage Custody*).
 
