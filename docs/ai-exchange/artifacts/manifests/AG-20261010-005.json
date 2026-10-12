@@ -44,8 +44,8 @@
     {
       "path": "outputs/pytest-portable.log",
       "media_type": "text/plain",
-      "sha256": "4a69e541c97cae9f451e0ab4f37c329eb3c891b614c863471d23dc5b8ef515ef",
-      "size_bytes": 1158,
+      "sha256": "87a794c34e7e0b228b653689d4b5d9f2647191267c6a843d0c2ea722b9ae0bf9",
+      "size_bytes": 1109,
       "purpose": "g2_clean_room_portable_pytest_log_with_complete_transitive_lock"
     },
     {
