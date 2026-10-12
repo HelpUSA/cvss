@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-12T17:55:00-03:00
+2026-10-12T17:58:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261010-008
 
 Latest ChatGPT response:
-CG-20261010-020
+CG-20261010-021
 
 Current phase:
-ETHICS ROUTE + WEB EDC SYNTHETIC DEVELOPMENT DESIGN
+ETHICS ROUTE + WEB EDC + INTERNATIONAL EXPERT GOVERNANCE
 
 SAFE_TO_FREEZE:
 NO
@@ -44,4 +44,4 @@ Documentary Readiness Status:
 DOCUMENTARY_READY_FOR_CEP_SUBMISSION (Dossier Export Packaged & Hash-Sealed)
 
 Next Steps:
-Antigravity to ingest CG-20261010-019 and CG-20261010-020. Recommended ethics route remains CEP/SINEP Brazil. Web EDC architecture is endorsed for synthetic-only development during G9 review, with e-consent, LGPD minimization, blinding, append-only audit trail, and no production human use before competent ethics approval. C1/C2 remain strictly sealed.
+Antigravity to ingest CG-20261010-019, CG-20261010-020 and CG-20261010-021. Recommended ethics route remains CEP/SINEP Brazil with HelpUS LLC (USA) affiliation preserved. International expert participation is permitted in principle only after country-specific ethics/privacy/institutional clearance; no country clearance means no recruitment. Web EDC remains synthetic-only until competent ethics approval. C1/C2 remain strictly sealed.
