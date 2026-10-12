@@ -1,13 +1,13 @@
 {
-  "timestamp_utc": "2026-10-12T01:59:50.869869+00:00",
-  "target": "outputs/production-live-snapshot.html",
+  "timestamp_utc": "2026-10-12T02:36:56.310232+00:00",
+  "target": "https://cvss.helpusbr.com/",
   "pass": true,
   "results": [
     {
-      "target": "outputs/production-live-snapshot.html",
-      "timestamp_utc": "2026-10-12T01:59:50.822333+00:00",
-      "http_content_bytes": 74000,
-      "content_sha256": "871bf1ed371001f2ed08af7e103b2b0eea1c444df36959a18bd192909794968e",
+      "target": "https://cvss.helpusbr.com/",
+      "timestamp_utc": "2026-10-12T02:36:55.849049+00:00",
+      "http_content_bytes": 75066,
+      "content_sha256": "f8599c141f40a5fa4b38236b83f0014acf86860f6b9ba1b32c838ec93d58f044",
       "prohibited_claim_hits": {
         "validated_30": false,
         "zero_hallucination": false,
@@ -29,14 +29,30 @@
         "unsupported_superadmin_master": false
       },
       "matched_snippets": {},
-      "response_headers": {},
+      "response_headers": {
+        "Accept-Ranges": "bytes",
+        "Access-Control-Allow-Origin": "*",
+        "Age": "70",
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Disposition": "inline",
+        "Content-Length": "75066",
+        "Content-Type": "text/html; charset=utf-8",
+        "Date": "Mon, 12 Oct 2026 02:37:23 GMT",
+        "Etag": "\"f9a6a37333da3505b3158db6a394ea4c\"",
+        "Last-Modified": "Mon, 12 Oct 2026 02:36:12 GMT",
+        "Server": "Vercel",
+        "Strict-Transport-Security": "max-age=63072000",
+        "X-Vercel-Cache": "HIT",
+        "X-Vercel-Id": "gru1::sqtkz-1791772643225-a7621ace688d",
+        "Connection": "close"
+      },
       "pass": true
     },
     {
-      "target": "app.js",
-      "timestamp_utc": "2026-10-12T01:59:50.869672+00:00",
-      "http_content_bytes": 200397,
-      "content_sha256": "7ecc6fd9397bff1f54c5b074cecf579651f3e2ccd8969c0c4e9a7466139f39a3",
+      "target": "https://cvss.helpusbr.com/app.js",
+      "timestamp_utc": "2026-10-12T02:36:56.310144+00:00",
+      "http_content_bytes": 203723,
+      "content_sha256": "642361f9d44c5df9a6bca6c7d16cf48a2c5528ba36b79e09aff8ed2017aadf78",
       "prohibited_claim_hits": {
         "validated_30": false,
         "zero_hallucination": false,
@@ -58,7 +74,23 @@
         "unsupported_superadmin_master": false
       },
       "matched_snippets": {},
-      "response_headers": {},
+      "response_headers": {
+        "Accept-Ranges": "bytes",
+        "Access-Control-Allow-Origin": "*",
+        "Age": "70",
+        "Cache-Control": "public, max-age=0, must-revalidate",
+        "Content-Disposition": "inline; filename=\"app.js\"",
+        "Content-Length": "203723",
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Date": "Mon, 12 Oct 2026 02:37:23 GMT",
+        "Etag": "\"55086d520b8e555f17f02bd5eb4d1938\"",
+        "Last-Modified": "Mon, 12 Oct 2026 02:36:13 GMT",
+        "Server": "Vercel",
+        "Strict-Transport-Security": "max-age=63072000",
+        "X-Vercel-Cache": "HIT",
+        "X-Vercel-Id": "gru1::qn72d-1791772643474-7b0e8ec11c06",
+        "Connection": "close"
+      },
       "pass": true
     }
   ]

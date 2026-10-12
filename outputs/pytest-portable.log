@@ -3,7 +3,7 @@ Python Version: Python 3.14.0
 Executable: python.exe
 Platform: win32
 Artifact: helpus_cvss_ai_portable_artifact_round4.zip
-Artifact SHA-256: ff141683280fb116ee919ca95af49103336a0a0c75477f3abbc18aa01fafa3ec
+Artifact SHA-256: 85bb4c87814f1af61d5f9a5eb7c8fcea2e5eff170ff700c68a6e1d9754c246d7
 Lockfile SHA-256: 6393bf458c62c36cde74382b4ec47142b233f530b0c355aba4eb1f535e46d471
 Exit Code: 0
 
@@ -42,7 +42,7 @@ urllib3==2.8.0
 --- STDOUT ---
 .........sssssssssssssssssss....................................s....... [ 59%]
 ..............s..............sss..................                       [100%]
-98 passed, 24 skipped in 0.51s
+98 passed, 24 skipped in 0.46s
 
 
 --- STDERR ---
