@@ -44,8 +44,8 @@
     {
       "path": "outputs/pytest-portable.log",
       "media_type": "text/plain",
-      "sha256": "a5e59e1e16cd3102b991ff3a1ee5023f36098afaffca47021996c76d8c7e7a71",
-      "size_bytes": 1158,
+      "sha256": "054606803d99c1e7c5eb19ce2a7d6c4b8866d7a0f56d37e7fe20812279323882",
+      "size_bytes": 1109,
       "purpose": "g2_clean_room_portable_pytest_log_with_isolated_venv"
     },
     {
@@ -58,8 +58,8 @@
     {
       "path": "helpus_cvss_ai_portable_artifact_round4.zip",
       "media_type": "application/zip",
-      "sha256": "1a03b3ba512b39ae356e167854c21af1242d6e629118e76c8d43a8a91dde3146",
-      "size_bytes": 11156607,
+      "sha256": "2e1bec2019f2d7e5dccd5e7cb5231950223d218d250fd1e5a2c4775b1c1d0c23",
+      "size_bytes": 11156606,
       "purpose": "g2_portable_artifact_archive"
     },
     {
