@@ -23,7 +23,13 @@ import ast, hashlib, json, math, os, sys, time
 from pathlib import Path
 
 try:
+    import cvss
     import cvss.cvss4
+    actual_cvss_version = getattr(cvss, "__version__", None)
+    if actual_cvss_version != "3.6":
+        raise RuntimeError(
+            f"Release Scorer Pinning Violation: expected exact cvss==3.6, found cvss=={actual_cvss_version}."
+        )
     # Port exact FIRST reference calculator arithmetic (Math.round(x * 10) / 10)
     # to eliminate the 1e-6 epsilon distortion present in Python cvss package boundary rounding.
     cvss.cvss4.final_rounding = lambda x: math.floor(x * 10.0 + 0.5) / 10.0
@@ -33,6 +39,12 @@ except Exception as exc:  # pragma: no cover
     raise
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+try:
+    from fetch_first_fixtures import verify_and_fetch
+except ImportError:
+    verify_and_fetch = None
+
 FIXTURE_DIR = ROOT / "tests" / "fixtures" / "cvss_resources" / "vectorFiles"
 REPO_URL = "https://github.com/FIRSTdotorg/cvss-resources"
 EXPECTED_FIRST_COMMIT = "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb"
@@ -77,6 +89,11 @@ def evaluate_vector(vector: str):
 
 
 def verify_fixtures(fixture_dir: Path) -> dict:
+    if any(not (fixture_dir / filename).exists() for filename in FIXTURE_MANIFEST):
+        if verify_and_fetch:
+            print("Auto-fetching missing FIRST fixtures...")
+            verify_and_fetch()
+
     manifest_results = {}
     for filename, spec in FIXTURE_MANIFEST.items():
         filepath = fixture_dir / filename
@@ -227,12 +244,25 @@ def main():
 
     outdir = ROOT / "outputs"
     outdir.mkdir(exist_ok=True)
+    rounding_patch_code = "math.floor(x * 10.0 + 0.5) / 10.0"
+    rounding_patch_sha256 = hashlib.sha256(rounding_patch_code.encode("utf-8")).hexdigest()
     payload = {
         "suite": "FIRST CVSS v4.0 strict reference-corpus gate",
         "first_repository": REPO_URL,
         "commit_sha": EXPECTED_FIRST_COMMIT,
+        "runtime_scorer": {
+            "engine": "HelpUS CVSS 4.0 Kernel",
+            "base_package": "cvss",
+            "pinned_version": "3.6",
+            "actual_version": actual_cvss_version,
+            "rounding_alignment": "FIRST JavaScript Math.round alignment (floor(x * 10.0 + 0.5) / 10.0)",
+            "patch_expression_sha256": rounding_patch_sha256,
+            "python_version": sys.version.split()[0],
+            "python_executable": os.path.basename(sys.executable),
+            "platform": sys.platform,
+        },
         "fixture_manifest": manifest_results,
-        "calculator": "HelpUS CVSS 4.0 Kernel (cvss==3.6 with FIRST JavaScript IEEE-754 rounding alignment)",
+        "calculator": f"HelpUS CVSS 4.0 Kernel (cvss=={actual_cvss_version} with FIRST JavaScript IEEE-754 rounding alignment)",
         "summary": summary,
         "mismatches": [r for r in rows if r["status"] != "PASS"],
     }

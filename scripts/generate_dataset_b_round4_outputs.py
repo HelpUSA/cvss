@@ -11,7 +11,8 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = ROOT / 'data' / 'dataset_b' / 'source_assessments_v2.csv'
+SRC_FINAL = ROOT / 'data' / 'dataset_b' / 'source_assessments_final.csv'
+SRC = SRC_FINAL if SRC_FINAL.exists() else (ROOT / 'data' / 'dataset_b' / 'source_assessments_v2.csv')
 OUT = ROOT / 'generated'
 OUT.mkdir(exist_ok=True)
 

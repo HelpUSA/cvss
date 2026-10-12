@@ -7,7 +7,7 @@ from the complete source_cvss_v4_vector. It compares this against development re
 writes detailed recalculation provenance, and fails closed on any unexplained discrepancy.
 """
 from __future__ import annotations
-import argparse, csv, json, sys
+import argparse, csv, hashlib, json, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -97,15 +97,22 @@ with out.open("w", encoding="utf-8", newline="") as fh:
     w.writeheader()
     w.writerows(rows)
 
+g1_bytes = (root / args.g1_json).read_bytes()
+actual_g1_evidence_sha256 = hashlib.sha256(g1_bytes).hexdigest()
+
 prov_out = root / "outputs" / "dataset_b_finalization_provenance.json"
 prov_payload = {
     "suite": "Dataset B G1-Scorer Finalization Provenance",
     "total_scenarios": len(rows),
     "recomputed_and_verified": len(provenance_entries),
-    "scorer_kernel": "HelpUS CVSS 4.0 Kernel (cvss==3.6 aligned with FIRST IEEE 754)",
-    "g1_evidence_sha256": g1.get("commit_sha"),
+    "scorer_kernel": g1.get("calculator") or "HelpUS CVSS 4.0 Kernel (cvss==3.6 aligned with FIRST IEEE 754)",
+    "runtime_scorer": g1.get("runtime_scorer", {}),
+    "first_repository": g1.get("first_repository"),
+    "first_commit_sha": g1.get("commit_sha"),
+    "g1_evidence_artifact": str(args.g1_json),
+    "g1_evidence_sha256": actual_g1_evidence_sha256,
     "canonical_file": str(args.output),
     "scenarios": provenance_entries,
 }
 prov_out.write_text(json.dumps(prov_payload, indent=2), encoding="utf-8")
-print(f"Finalized Dataset B to {out} and recorded provenance in {prov_out}")
+print(f"Finalized Dataset B to {out} and recorded provenance in {prov_out} (g1_evidence_sha256={actual_g1_evidence_sha256})")

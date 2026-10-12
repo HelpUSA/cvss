@@ -61,5 +61,9 @@ jobs:
         run: npm --prefix web run typecheck
       - name: Web build
         run: npm --prefix web run build
+      - name: Fetch and verify FIRST Reference Corpus fixtures
+        run: python scripts/fetch_first_fixtures.py
+      - name: Execute G1 FIRST Reference Calculator Corpus
+        run: python scripts/run_first_reference_corpus_round4.py
       - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py

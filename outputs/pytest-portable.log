@@ -7,7 +7,7 @@ Exit Code: 0
 --- STDOUT ---
 .........sssssssssssssssssss....................................s....... [ 59%]
 ..............s..............sss..................                       [100%]
-98 passed, 24 skipped in 0.38s
+98 passed, 24 skipped in 0.52s
 
 
 --- STDERR ---

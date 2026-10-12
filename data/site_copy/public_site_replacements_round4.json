@@ -1,0 +1,46 @@
+{
+  "status": "scientific-copy-policy-round4",
+  "forbidden_or_requires_qualification": [
+    "30 Cenários Validados",
+    "30 Validated Scenarios",
+    "30 Escenarios Validados",
+    "zero hallucination",
+    "zero alucinação",
+    "sem alucinações",
+    "garantia de conformidade matemática",
+    "mathematical compliance guarantee",
+    "NVD Oficial",
+    "Official NVD",
+    "100% rastreabilidade",
+    "100% traceability",
+    "Contrato Tripartite Imutável",
+    "Immutable Tripartite Contract",
+    "RFC 8785 compliant"
+  ],
+  "preferred": {
+    "pt": {
+      "dataset_b": "Dataset B — benchmark de desenvolvimento (n=30). Usado para desenvolvimento, regressão e verificação arquitetural; validação independente C1/C2 ainda pendente.",
+      "source_score": "Avaliação CVSS de origem",
+      "determinism": "Inferência determinística sob a mesma evidência, política e versão de regras.",
+      "audit": "Estrutura de auditoria tamper-evident; assinatura e não-repúdio são controles separados.",
+      "jcs": "Canonicalização compatível com JCS; validação formal RFC 8785 pendente.",
+      "hitl": "Revisão humana obrigatória quando a evidência é insuficiente, obsoleta ou conflitante."
+    },
+    "en": {
+      "dataset_b": "Dataset B — development benchmark (n=30). Used for development, regression, and architecture verification; independent C1/C2 validation remains pending.",
+      "source_score": "Source CVSS assessment",
+      "determinism": "Deterministic given the same versioned evidence, policy, and ruleset.",
+      "audit": "Tamper-evident audit structure; signature and non-repudiation are separate controls.",
+      "jcs": "JCS-compatible canonicalization; formal RFC 8785 validation pending.",
+      "hitl": "Human review is required when evidence is insufficient, stale, or conflicting."
+    },
+    "es": {
+      "dataset_b": "Dataset B — benchmark de desarrollo (n=30). Usado para desarrollo, regresión y verificación arquitectónica; la validación independiente C1/C2 sigue pendiente.",
+      "source_score": "Evaluación CVSS de origen",
+      "determinism": "Determinista con la misma evidencia, política y versión de reglas.",
+      "audit": "Estructura de auditoría con evidencia de manipulación; firma y no repudio son controles separados.",
+      "jcs": "Canonicalización compatible con JCS; validación formal RFC 8785 pendiente.",
+      "hitl": "Se requiere revisión humana cuando la evidencia es insuficiente, obsoleta o conflictiva."
+    }
+  }
+}

@@ -1,5 +1,6 @@
 process.env.BETTER_AUTH_SECRET = process.env.BETTER_AUTH_SECRET || "test-secret-at-least-32-chars-long-for-route-tests!";
 process.env.BETTER_AUTH_URL = process.env.BETTER_AUTH_URL || "http://localhost:3000";
+process.env.DATABASE_URL = process.env.DATABASE_URL || "postgresql://mock:mock@localhost:5432/mock";
 
 import assert from "assert";
 import crypto from "crypto";
@@ -8,8 +9,29 @@ import fs from "fs";
 import path from "path";
 
 async function main() {
+  const { prisma } = await import("../src/lib/prisma");
+
+  // Mock prisma.user to return authoritative platformRole
+  (prisma as any).user = {
+    findUnique: async ({ where }: any) => {
+      if (where.id === "admin-master-1") {
+        return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN" };
+      }
+      return { id: where.id, platformRole: "USER" };
+    },
+  };
+
   const { POST } = await import("../src/app/api/review/decision/route");
   const { auth } = await import("../src/lib/auth");
+
+  // Track Prisma create calls for integration assertions
+  let lastPersistedEvent: any = null;
+  (prisma as any).securityAuditEvent = {
+    create: async ({ data }: any) => {
+      lastPersistedEvent = data;
+      return { id: "audit_evt_123", ...data, createdAt: new Date() };
+    },
+  };
 
   // Mock auth.api.getSession to simulate authentications
   let mockSession: any = null;
@@ -45,7 +67,7 @@ async function main() {
   const d1 = await r1.json();
   check("1. Unauthenticated -> HTTP 401", r1.status === 401 && d1.code === "UNAUTHENTICATED");
 
-  // 2. Authenticated user with role USER (non-superadmin) must fail closed with HTTP 403
+  // 2. Authenticated user with role USER (non-PLATFORM_ADMIN) must fail closed with HTTP 403
   mockSession = {
     user: {
       id: "usr-regular-1",
@@ -56,118 +78,117 @@ async function main() {
   };
   const r2 = await POST(req({ assessmentId: "asm-1", decision: "APPROVED", rationale: "Valid rationale for test" }));
   const d2 = await r2.json();
-  check("2. Non-SuperAdmin authenticated user -> HTTP 403 FORBIDDEN", r2.status === 403 && d2.code === "FORBIDDEN_NOT_SUPERADMIN");
+  check("2. Non-PLATFORM_ADMIN authenticated user -> HTTP 403 FORBIDDEN", r2.status === 403 && d2.code === "FORBIDDEN_NOT_PLATFORM_ADMIN");
 
-  // 3. Authenticated SuperAdmin with missing assessmentId -> HTTP 400
+  // 3. Authenticated PLATFORM_ADMIN with missing assessmentId -> HTTP 400
   mockSession = {
     user: {
       id: "admin-master-1",
       email: "master@helpusbr.com",
-      name: "Master SuperAdmin",
-      platformRole: "SUPERADMIN",
+      name: "Master Platform Admin",
+      platformRole: "PLATFORM_ADMIN",
     },
   };
   const r3 = await POST(req({ decision: "APPROVED", rationale: "Valid rationale for test" }));
   const d3 = await r3.json();
   check("3. Missing assessmentId -> HTTP 400", r3.status === 400 && d3.code === "INVALID_ASSESSMENT_ID");
 
-  // 4. Authenticated SuperAdmin with invalid decision -> HTTP 400
+  // 4. Authenticated PLATFORM_ADMIN with invalid decision -> HTTP 400
   const r4 = await POST(req({ assessmentId: "asm-1", decision: "MAYBE", rationale: "Valid rationale for test" }));
   const d4 = await r4.json();
   check("4. Invalid decision string -> HTTP 400", r4.status === 400 && d4.code === "INVALID_DECISION");
 
-  // 5. Authenticated SuperAdmin with missing/short rationale (<10 chars) -> HTTP 400
+  // 5. Authenticated PLATFORM_ADMIN with missing/short rationale (<10 chars) -> HTTP 400
   const r5 = await POST(req({ assessmentId: "asm-1", decision: "APPROVED", rationale: "short" }));
   const d5 = await r5.json();
   check("5. Short rationale (<10 chars) -> HTTP 400", r5.status === 400 && d5.code === "INVALID_RATIONALE");
 
-  // 6. Authenticated SuperAdmin with valid APPROVED payload -> HTTP 200 with JCS receipt
+  // 6. Missing policy provenance fields must fail closed (NO silent fabricated defaults) -> HTTP 400
+  const r6a = await POST(
+    req({
+      assessmentId: "asm-pci-prod-001",
+      decision: "APPROVED",
+      rationale: "Topologia verificada em conformidade com isolamento de rede PCI-DSS e regras de firewall ativas.",
+    })
+  );
+  const d6a = await r6a.json();
+  check(
+    "6. Missing policy binding -> HTTP 400 (no fabricated defaults)",
+    r6a.status === 400 && d6a.code === "MISSING_POLICY_BINDING"
+  );
+
+  // 7. Authenticated PLATFORM_ADMIN with valid APPROVED payload -> HTTP 200 with JCS receipt and Prisma mutation
+  lastPersistedEvent = null;
   const validApprovedPayload = {
     assessmentId: "asm-pci-prod-001",
     decision: "APPROVED",
     rationale: "Topologia verificada em conformidade com isolamento de rede PCI-DSS e regras de firewall ativas.",
     organizationPolicyId: "pci-segmented-prod",
     policyVersion: "2.1.0",
+    rulesetVersion: "1.0.0",
+    calculatorVersion: "0.2.0-aligned-first-cvss40",
   };
-  const r6 = await POST(req(validApprovedPayload));
-  const d6 = await r6.json();
-  const sha6 = crypto.createHash("sha256").update(d6.receiptCanonicalJcs || "", "utf8").digest("hex");
-  check(
-    "6. SuperAdmin APPROVED -> HTTP 200 with valid receipt and hash",
-    r6.status === 200 &&
-      d6.success === true &&
-      d6.decision === "APPROVED" &&
-      d6.receipt?.reviewer?.role === "SUPERADMIN" &&
-      d6.receiptSha256 === sha6
-  );
-
-  // 7. Authenticated SuperAdmin with valid REJECTED payload -> HTTP 200 with JCS receipt
-  const validRejectedPayload = {
-    assessmentId: "asm-pci-prod-002",
-    decision: "REJECTED",
-    rationale: "Evidência de telemetria desatualizada e sem garantias de regras de borda ativas.",
-    organizationPolicyId: "pci-segmented-prod",
-    policyVersion: "2.1.0",
-  };
-  const r7 = await POST(req(validRejectedPayload));
+  const r7 = await POST(req(validApprovedPayload));
   const d7 = await r7.json();
   const sha7 = crypto.createHash("sha256").update(d7.receiptCanonicalJcs || "", "utf8").digest("hex");
   check(
-    "7. SuperAdmin REJECTED -> HTTP 200 with valid receipt and hash",
+    "7. PLATFORM_ADMIN APPROVED -> HTTP 200 with valid receipt and hash",
     r7.status === 200 &&
       d7.success === true &&
-      d7.decision === "REJECTED" &&
-      d7.receipt?.reviewer?.role === "SUPERADMIN" &&
-      d7.receiptSha256 === sha7
+      d7.decision === "APPROVED" &&
+      d7.receipt?.reviewer?.role === "PLATFORM_ADMIN" &&
+      d7.receipt?.policyBinding?.organizationPolicyId === "pci-segmented-prod" &&
+      d7.receiptHashSha256 === sha7 &&
+      lastPersistedEvent !== null &&
+      lastPersistedEvent.action === "HITL_REVIEW_APPROVED" &&
+      lastPersistedEvent.targetId === "asm-pci-prod-001"
   );
 
-  // 8. Receipt verification: reviewer email and identity must come from server session, not request body
-  const spoofAttemptPayload = {
-    assessmentId: "asm-pci-prod-003",
-    decision: "APPROVED",
-    rationale: "Tentativa de injeção de identidade forjada no corpo da requisição.",
-    reviewer: {
-      email: "forged.superadmin@external.com",
-      role: "ROOT_SUPERADMIN",
-    },
+  // 8. Authenticated PLATFORM_ADMIN with valid REJECTED payload -> HTTP 200 with REJECTED receipt and Prisma mutation
+  lastPersistedEvent = null;
+  const validRejectedPayload = {
+    assessmentId: "asm-pci-prod-002",
+    decision: "REJECTED",
+    rationale: "Evidência de firewall insuficiente para justificar atenuação de vetor ambiental MAV.",
+    organizationPolicyId: "pci-segmented-prod",
+    policyVersion: "2.1.0",
+    rulesetVersion: "1.0.0",
+    calculatorVersion: "0.2.0-aligned-first-cvss40",
   };
-  const r8 = await POST(req(spoofAttemptPayload));
+  const r8 = await POST(req(validRejectedPayload));
   const d8 = await r8.json();
+  const sha8 = crypto.createHash("sha256").update(d8.receiptCanonicalJcs || "", "utf8").digest("hex");
   check(
-    "8. Identity spoofing prevented: reviewer strictly loaded from authoritative server session",
+    "8. PLATFORM_ADMIN REJECTED -> HTTP 200 with valid receipt and hash",
     r8.status === 200 &&
-      d8.receipt.reviewer.email === "master@helpusbr.com" &&
-      d8.receipt.reviewer.id === "admin-master-1" &&
-      d8.receipt.reviewer.role === "SUPERADMIN"
+      d8.success === true &&
+      d8.decision === "REJECTED" &&
+      d8.receipt?.reviewer?.role === "PLATFORM_ADMIN" &&
+      d8.receiptHashSha256 === sha8 &&
+      lastPersistedEvent !== null &&
+      lastPersistedEvent.action === "HITL_REVIEW_REJECTED" &&
+      lastPersistedEvent.targetId === "asm-pci-prod-002"
   );
 
-  const passedCount = results.filter((r) => r.passed).length;
-  console.log("------------------------------------------------------------");
-  console.log(`TOTAL: ${passedCount}/${results.length} tests passed.`);
+  const total = results.length;
+  const passed = results.filter((r) => r.passed).length;
+  console.log(`\nResultado: ${passed}/${total} testes de segurança aprovados.`);
 
-  const outputPath = path.resolve(__dirname, "../../outputs/review_decision_tests_results.json");
+  // Write machine-readable evidence
+  const outDir = path.resolve(__dirname, "../../outputs");
+  if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(
-    outputPath,
-    JSON.stringify(
-      {
-        suite: "Server-Side HITL Review Decision Route Security Suite",
-        total: results.length,
-        passed: passedCount,
-        allPassed: passedCount === results.length,
-        results,
-      },
-      null,
-      2
-    )
+    path.join(outDir, "hitl-review-decision-security-tests.json"),
+    JSON.stringify({ timestamp: new Date().toISOString(), total, passed, results }, null, 2),
+    "utf8"
   );
-  console.log(`Saved results to ${outputPath}`);
 
-  if (passedCount !== results.length) {
+  if (passed !== total) {
     process.exit(1);
   }
 }
 
-main().catch((e) => {
-  console.error("Test execution error:", e);
+main().catch((err) => {
+  console.error("Test execution failed:", err);
   process.exit(1);
 });

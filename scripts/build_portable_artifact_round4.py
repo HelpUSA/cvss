@@ -10,7 +10,7 @@ from pathlib import Path
 
 REQUIRED = [
     "core", "app", "tests", "scripts", "data/dataset_b", "docs/scientific-validation",
-    "requirements.txt", "pyproject.toml", "pytest.ini", ".github/workflows/real-pipeline.yml",
+    "requirements.txt", "requirements.lock", "pyproject.toml", "pytest.ini", ".github/workflows/real-pipeline.yml",
     ".gitignore", "web/package.json", "web/package-lock.json", "web/src", "web/scripts",
 ]
 EXCLUDE_NAMES = {".git", "node_modules", ".next", "__pycache__", ".pytest_cache", ".venv", "venv"}

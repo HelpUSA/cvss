@@ -1,0 +1,57 @@
+{
+  "dataset_role": "DEVELOPMENT_BENCHMARK_ONLY",
+  "n": 30,
+  "real_cve_scenarios": 12,
+  "synthetic_scenarios": 18,
+  "provider_reported_base_severity_counts": {
+    "CRITICAL": 4,
+    "HIGH": 8,
+    "LOW": 4,
+    "MEDIUM": 14
+  },
+  "full_source_vector_severity_counts": {
+    "CRITICAL": 6,
+    "HIGH": 9,
+    "LOW": 8,
+    "MEDIUM": 7
+  },
+  "operational_disposition_counts": {
+    "P0_IMMEDIATE": 9,
+    "P1_EXPEDITED": 9,
+    "P2_SCHEDULED": 5,
+    "P3_MONITOR": 3,
+    "P4_DEFER_RECOMMENDED": 4
+  },
+  "scenario_ids": [
+    "SCN-NVD-001",
+    "SCN-NVD-002",
+    "SCN-NVD-003",
+    "SCN-NVD-004",
+    "SCN-NVD-005",
+    "SCN-NVD-006",
+    "SCN-NVD-007",
+    "SCN-NVD-008",
+    "SCN-NVD-009",
+    "SCN-NVD-010",
+    "SCN-NVD-011",
+    "SCN-NVD-012",
+    "SCN-SYN-013",
+    "SCN-SYN-014",
+    "SCN-SYN-015",
+    "SCN-SYN-016",
+    "SCN-SYN-017",
+    "SCN-SYN-018",
+    "SCN-SYN-019",
+    "SCN-SYN-020",
+    "SCN-SYN-021",
+    "SCN-SYN-022",
+    "SCN-SYN-023",
+    "SCN-SYN-024",
+    "SCN-SYN-025",
+    "SCN-SYN-026",
+    "SCN-SYN-027",
+    "SCN-SYN-028",
+    "SCN-SYN-029",
+    "SCN-SYN-030"
+  ]
+}

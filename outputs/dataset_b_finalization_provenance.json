@@ -2,8 +2,22 @@
   "suite": "Dataset B G1-Scorer Finalization Provenance",
   "total_scenarios": 30,
   "recomputed_and_verified": 30,
-  "scorer_kernel": "HelpUS CVSS 4.0 Kernel (cvss==3.6 aligned with FIRST IEEE 754)",
-  "g1_evidence_sha256": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "scorer_kernel": "HelpUS CVSS 4.0 Kernel (cvss==3.6 with FIRST JavaScript IEEE-754 rounding alignment)",
+  "runtime_scorer": {
+    "engine": "HelpUS CVSS 4.0 Kernel",
+    "base_package": "cvss",
+    "pinned_version": "3.6",
+    "actual_version": "3.6",
+    "rounding_alignment": "FIRST JavaScript Math.round alignment (floor(x * 10.0 + 0.5) / 10.0)",
+    "patch_expression_sha256": "a248255440ba3c6bf22f5a71ed2e67fb3e6a62d73e328e728e69e1b5afa1c81b",
+    "python_version": "3.14.0",
+    "python_executable": "python.exe",
+    "platform": "win32"
+  },
+  "first_repository": "https://github.com/FIRSTdotorg/cvss-resources",
+  "first_commit_sha": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "g1_evidence_artifact": "outputs/first-reference-corpus-round4.json",
+  "g1_evidence_sha256": "36168a560d0eadd3e909717fbb341ab1cd10b6ad39a788825969265190780f27",
   "canonical_file": "data/dataset_b/source_assessments_final.csv",
   "scenarios": [
     {

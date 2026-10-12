@@ -17,3 +17,26 @@ outputs/evidence/
 *.log
 !outputs/pytest-*.log
 .DS_Store
+
+# Local environments and vercel
+.env.local
+.vercel/
+temp/
+temp_*
+staging_*/
+*_backup*/
+tests/fixtures/
+
+# LaTeX compilation intermediates
+book_latex/*.aux
+book_latex/*.bbl
+book_latex/*.blg
+book_latex/*.out
+book_latex/*.toc
+book_latex/*.lof
+book_latex/*.lot
+book_latex/chapters/*.aux
+article/*.aux
+article/*.bbl
+article/*.blg
+article/*.out

@@ -2,6 +2,17 @@
   "suite": "FIRST CVSS v4.0 strict reference-corpus gate",
   "first_repository": "https://github.com/FIRSTdotorg/cvss-resources",
   "commit_sha": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "runtime_scorer": {
+    "engine": "HelpUS CVSS 4.0 Kernel",
+    "base_package": "cvss",
+    "pinned_version": "3.6",
+    "actual_version": "3.6",
+    "rounding_alignment": "FIRST JavaScript Math.round alignment (floor(x * 10.0 + 0.5) / 10.0)",
+    "patch_expression_sha256": "a248255440ba3c6bf22f5a71ed2e67fb3e6a62d73e328e728e69e1b5afa1c81b",
+    "python_version": "3.14.0",
+    "python_executable": "python.exe",
+    "platform": "win32"
+  },
   "fixture_manifest": {
     "macro-vectors": {
       "sha256": "e11a88715465c1b763027b4c49f3d37d080241ad167cddf6d3e0d3ebb725a90c",
@@ -57,7 +68,7 @@
     "severity_mismatch_count": 0,
     "gate_pass": true,
     "comments_or_headers_skipped": 33,
-    "duration_seconds": 30.029
+    "duration_seconds": 33.217
   },
   "mismatches": []
 }
