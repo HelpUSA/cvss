@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-12T08:18:00-03:00
+2026-10-12T08:22:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -13,10 +13,10 @@ Latest Antigravity message:
 AG-20261010-008
 
 Latest ChatGPT response:
-CG-20261010-008
+CG-20261010-009
 
 Current phase:
-ROUND 5 CLOSED / PRE-FREEZE GOVERNANCE
+PRE-FREEZE GOVERNANCE (G9/G10 TRACK)
 
 SAFE_TO_FREEZE:
 NO
@@ -34,8 +34,8 @@ Release Gate Summary:
 - G7: PASS / FORMALLY CLOSED (Documentation & evidence consistency)
 - G8: PASS / FORMALLY CLOSED (Model A direct production verification & byte identity on cvss.helpusbr.com)
 - ROUND_5_CANONICAL_PROVENANCE: CLOSED
-- G9: PENDING EXTERNAL (IRB/CEP Human-study governance)
-- G10: PENDING PROCEDURAL / EXTERNAL (Custody protocol & unsealing C1/C2)
+- G9: PENDING EXTERNAL (IRB/CEP Human-study governance per Lei 14.874/2024 & Decreto 12.651/2025)
+- G10: PENDING PROCEDURAL / EXTERNAL (Dual-control custody protocol & unsealing C1/C2)
 
 Waiting for:
-CG-20261010-009 / G9-G10 Pre-Freeze Alignment
+G9/G10 Governance Documentation Preparation
