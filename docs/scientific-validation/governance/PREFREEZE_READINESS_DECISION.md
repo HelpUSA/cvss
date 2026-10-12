@@ -3,7 +3,7 @@
 **Documento**: `PREFREEZE_READINESS_DECISION.md`  
 **Versão**: `1.0` (Pre-Freeze Readiness Decision)  
 **Data**: 12 de Outubro de 2026  
-**Status**: `PENDING_INDEPENDENT_AUDIT_CG017`  
+**Status**: `DOCUMENTARY_READY_FOR_CEP_SUBMISSION`  
 **Decisão Global**: `SAFE_TO_FREEZE = NO` (Permanece Estritamente Não Autorizado)
 
 ---
@@ -23,9 +23,9 @@
 
 ## 2. Decisão e Roteiro Subsequente Recomendado
 
-1. **Aprovação do Pacote Documental**: Submeter a presente micro-retificação documental à auditoria independente final **CG-20261010-017** para fechamento formal da prontidão documental.
-2. **Vedação de Abertura Prematura**: Não abrir, executar ou inspecionar C1 ou C2 nesta fase.
+1. **Fechamento Documental Pré-CEP**: Pacote documental da fase pré-congelamento formalmente auditado, aprovado e fechado (`DOCUMENTARY_READY_FOR_CEP_SUBMISSION` per pareceres CG-20261010-016 e CG-20261010-017).
+2. **Vedação de Abertura Prematura**: Não abrir, executar ou inspecionar C1 ou C2 nesta fase (`C1/C2: SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE`).
 3. **Próxima Etapa Operacional**:
-   - Montagem formal do dossiê para submissão ética ao CEP.
-   - Nomeação dos custodiantes e auditores externos independentes.
+   - Montagem formal do dossiê para submissão ética ao CEP (`G9: PENDING_EXTERNAL`).
+   - Nomeação dos custodiantes e auditores externos independentes (`G10: PENDING_PROCEDURAL_EXTERNAL`).
    - Realização dos ensaios secos (*synthetic dry-run*) exclusivamente com dados sintéticos.

@@ -10,13 +10,13 @@
 - Instância Federal Deliberativa: Instância Nacional de Ética em Pesquisa (INAEP) e Comitês de Ética em Pesquisa (CEPs)
 - Contexto Histórico: Transição e consolidação das diretrizes de ética em IA anteriormente originadas no âmbito da Conep.
 
-**Declaração de Limites de Competência Regulatória**: Este documento constitui mapeamento analítico prévio adotado como **ferramenta orientativa de suporte técnico do INAEP / SINEP** para instrução do processo na Plataforma Brasil. A equipe de pesquisa **não se autodeclara sumariamente conforme** e declara formalmente que este mapeamento prévio **não substitui nem condiciona a apreciação ética e a deliberação soberana do Comitê de Ética em Pesquisa (CEP)** institucional competente no âmbito do SINEP.
+**Declaração de Limites de Competência Regulatória**: Este documento constitui mapeamento analítico prévio adotado como **ferramenta orientativa de suporte técnico da INAEP / SINEP**, cuja adoção e aplicação ficam a critério institucional e discricionário do CEP competente no âmbito do SINEP. O presente mapeamento interno pode acompanhar o dossiê como material de suporte, enquanto qualquer aplicação formal da Matriz MARIAH seguirá o procedimento adotado pelo CEP. A equipe de pesquisa **não se autodeclara sumariamente conforme** e declara formalmente que este mapeamento prévio **não substitui nem condiciona a apreciação ética e a deliberação soberana do Comitê de Ética em Pesquisa (CEP)** institucional competente no âmbito do SINEP.
 
 ---
 
 ## 1. Mapeamento Prévio Interno de Salvaguardas do Projeto (Internal Preparatory Safeguards Mapping)
 
-*Nota de Escopo*: Os 6 tópicos abaixo representam o mapeamento analítico interno prévio das salvaguardas metodológicas do estudo. O preenchimento formal da Matriz MARIAH v1.0 oficial (Versão A com 5 eixos temáticos ou Versão B com 7 blocos temáticos) será instruído na Plataforma Brasil sob a orientação do CEP competente, sem qualquer autoclassificação de risco pela equipe proponente.
+*Nota de Escopo*: Os 6 tópicos abaixo representam o mapeamento analítico interno prévio das salvaguardas metodológicas do estudo, elaborado como material de suporte. A Matriz MARIAH v1.0 oficial constitui instrumento de suporte orientativo da INAEP cuja formalização (seja na Versão A com 5 eixos temáticos ou na Versão B com 7 blocos temáticos) não é compulsória a priori, ficando sua adoção e aplicação a critério institucional e discricionário do CEP competente na instrução pela Plataforma Brasil, sem qualquer autoclassificação de risco pela equipe proponente.
 
 | Tópico Interno de Salvaguarda Ética | Salvaguardas Projetadas no Protocolo HelpUS | Status de Instrução |
 |---|---|:---:|
@@ -31,4 +31,4 @@
 
 ## 2. Destinação Regulatória
 
-O presente mapeamento integrará o dossiê formal de submissão na **Plataforma Brasil** como anexo complementar de subsídio orientativo ao CEP, aguardando a apreciação colegiada e emissão do Parecer Consubstanciado.
+O presente mapeamento interno poderá integrar o dossiê de submissão na **Plataforma Brasil** como anexo complementar de material de suporte orientativo, permanecendo sua eventual aplicação formal subordinada ao procedimento adotado pelo CEP institucional competente, aguardando a apreciação colegiada e emissão do Parecer Consubstanciado.

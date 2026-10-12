@@ -1,13 +1,13 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-12T10:38:00-03:00
+2026-10-12T10:50:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
 
 Current governance commit:
-59e0fb49d1303187270a7c8eb62792d219efae41
+940c36dcf7577f49347f417d99b89a9fc2b1b410
 
 Canonical Round 5 evidence commit:
 326e59bd6a12b7c0c792d5c3ffa9bd3765fd2414
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261010-008
 
 Latest ChatGPT response:
-CG-20261010-016
+CG-20261010-017
 
 Current phase:
-PRE-FREEZE GOVERNANCE (G9/G10 TRACK)
+PRE-FREEZE GOVERNANCE (DOCUMENTARY CLOSEOUT COMPLETED)
 
 SAFE_TO_FREEZE:
 NO
@@ -37,8 +37,11 @@ Release Gate Summary:
 - G7: PASS / FORMALLY CLOSED (Documentation & evidence consistency)
 - G8: PASS / FORMALLY CLOSED (Model A direct production verification & byte identity on cvss.helpusbr.com)
 - ROUND_5_CANONICAL_PROVENANCE: CLOSED
-- G9: IN PROGRESS / GOVERNANCE HARMONIZED (Harmonized Protocol v1.2, TCLE v1.2, SAP v1.2, authentic MARIAH, and pre-execution templates)
-- G10: IN PROGRESS / GOVERNANCE HARMONIZED (Harmonized Custody Charter v1.3, Role Separation v1.3, Access Log template, and operational templates)
+- G9: PENDING_EXTERNAL (Documentary Readiness Closed; Awaiting CEP Ethical Review via SINEP)
+- G10: PENDING_PROCEDURAL_EXTERNAL (Documentary Readiness Closed; Awaiting External Appointments & Post-G9 Key Custody)
 
-Waiting for:
-Final Focused Review (CG-017) to Close Documentary Readiness
+Documentary Readiness Status:
+DOCUMENTARY_READY_FOR_CEP_SUBMISSION
+
+Next Steps:
+Assembly of official CEP submission dossier and operational G10 synthetic dry-run (synthetic data only).

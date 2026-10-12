@@ -44,7 +44,7 @@ Determinar se o motor de inferência algorítmico HelpUS CVSS v4.0 atinge concor
      - Esta probabilidade diz respeito especificamente à condição de sucesso pontual de $\text{EVMR} \ge 85.0\%$, não devendo ser descrita como probabilidade de sucesso confirmatório conjunto, uma vez que $\text{MAE} \le 0.50$, $\text{SAR} \le 15.0\%$ e $\text{SFDR} \le 5.0\%$ são condições co-primárias e de segurança independentes e cumulativas.
 3. **Análises Estratificadas Pré-Especificadas**:
    Concomitantemente à análise primária agrupada, o protocolo pré-especifica estratificações obrigatórias:
-   - *Estrato C1 ($N_1 = 50$)*: Estimativa pontual de EVMR e MAE com IC 95% Clopper-Pearson para documentar eficácia em diversidade corporativa.
+   - *Estrato C1 ($N_1 = 50$)*: Estimativa pontual de EVMR (com IC 95% Clopper-Pearson) e MAE (com IC 95% Bootstrap BCa) para documentar eficácia em diversidade corporativa.
    - *Estrato C2 ($N_2 = 50$)*: Estimativa pontual de SFDR e SAR para documentar segurança operacional e prudência sob estresse (OT/SCADA).
 
 ### 2.3 Denominadores Operacionais, Abstenções e Sensibilidade
