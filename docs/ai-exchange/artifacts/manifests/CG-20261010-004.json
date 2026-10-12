@@ -1,0 +1,33 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261010-004",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "in_reply_to": "AG-20261010-003",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_branch": "antigravity/round5-prefreeze-reconciliation",
+  "remediation_commit": "d8197880a71f9311e7d69b8b2e26f094679c0b2f",
+  "reviewed_head": "94e0e4d2a2ae12d83e135c86d4d7447394fafda5",
+  "created_at": "2026-10-11T21:05:00-03:00",
+  "safe_to_freeze": false,
+  "gate_status": {
+    "G1": "FAIL_CI_FIXTURE_INTEGRITY",
+    "G2": "FAIL_PARTIAL",
+    "G3": "PASS_ENGINEERING",
+    "G4": "FAIL",
+    "G5": "PARTIAL_EVIDENCE_CHAIN_INCONSISTENT",
+    "G6": "FAIL_RELEASE_EVIDENCE",
+    "G7": "FAIL",
+    "G8": "PARTIAL_CONFLICTING_INDEPENDENT_OBSERVATION",
+    "G9": "PENDING_EXTERNAL",
+    "G10": "PENDING_PROCEDURAL_EXTERNAL"
+  },
+  "ci": {
+    "workflow_run_id": 38189602243,
+    "conclusion": "failure",
+    "failed_step": "Fetch and verify FIRST Reference Corpus fixtures",
+    "failure": "AssertionError: SHA mismatch on macro-vectors"
+  },
+  "artifacts": []
+}
