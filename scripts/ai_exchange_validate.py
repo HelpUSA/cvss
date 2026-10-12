@@ -241,6 +241,8 @@ def main() -> int:
                     git_info.get("commit")
                     or git_info.get("reviewed_commit")
                     or git_info.get("remediation_commit")
+                    or git_info.get("ag_remediation_commit")
+                    or git_info.get("reviewed_head")
                     or git_info.get("publication_head", "")
                 )
                 if not COMMIT_SHA_REGEX.match(str(g_commit)):
