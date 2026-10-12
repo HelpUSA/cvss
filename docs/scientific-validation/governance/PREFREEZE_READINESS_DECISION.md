@@ -3,7 +3,7 @@
 **Documento**: `PREFREEZE_READINESS_DECISION.md`  
 **Versão**: `1.0` (Pre-Freeze Readiness Decision)  
 **Data**: 12 de Outubro de 2026  
-**Status**: `PENDING_INDEPENDENT_AUDIT_CG016`  
+**Status**: `PENDING_INDEPENDENT_AUDIT_CG017`  
 **Decisão Global**: `SAFE_TO_FREEZE = NO` (Permanece Estritamente Não Autorizado)
 
 ---
@@ -23,7 +23,7 @@
 
 ## 2. Decisão e Roteiro Subsequente Recomendado
 
-1. **Aprovação do Pacote Documental**: Submeter a presente retificação documental final à auditoria independente **CG-20261010-016**.
+1. **Aprovação do Pacote Documental**: Submeter a presente micro-retificação documental à auditoria independente final **CG-20261010-017** para fechamento formal da prontidão documental.
 2. **Vedação de Abertura Prematura**: Não abrir, executar ou inspecionar C1 ou C2 nesta fase.
 3. **Próxima Etapa Operacional**:
    - Montagem formal do dossiê para submissão ética ao CEP.

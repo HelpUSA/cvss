@@ -36,7 +36,7 @@ Determinar se o motor de inferência algorítmico HelpUS CVSS v4.0 atinge concor
    - **Poder de Rejeição da Hipótese Nula ($H_0: \theta \le 0.70$ vs $H_1: \theta > 0.70$ sob $\alpha = 0.025$ unilateral via Limite Inferior Clopper-Pearson 95% $> 0.70$)**:
      - Para $n = 100$ cenários avaliáveis, a rejeição formal de $H_0$ exige limiar crítico exato de **$k \ge 80$ acertos** (onde o limite inferior Clopper-Pearson é $0.7082 > 0.70$). Assumindo taxa real de concordância de $\theta = 0.85$, o poder binomial exato é de **$93.368\%$** ($P(\text{Binomial}(100, 0.85) \ge 80) \approx 0.93368$).
      - Para $n_1 = 50$ cenários isolados, a rejeição de $H_0$ exige limiar crítico de **$k \ge 42$ acertos** (limite inferior $0.7088 > 0.70$), com poder binomial exato sob os mesmos parâmetros de apenas **$66.810\%$** ($P(\text{Binomial}(50, 0.85) \ge 42) \approx 0.66810$), comprovando a necessidade formal do agrupamento.
-     - Para a amostra mínima avaliável $n_{evaluable} = 85$, a rejeição de $H_0$ exige limiar crítico de **$k \ge 69$ acertos** (limite inferior $0.7107 > 0.70$), com poder binomial exato de **$87.114\%$** ($P(\text{Binomial}(85, 0.85) \ge 69) \approx 0.87114$).
+     - Para a amostra mínima avaliável $n_{evaluable} = 85$, a rejeição de $H_0$ exige limiar crítico de **$k \ge 69$ acertos** (limite inferior Clopper-Pearson 95% aproximadamente $0.71239 > 0.70$), com poder binomial exato de **$87.114\%$** ($P(\text{Binomial}(85, 0.85) \ge 69) \approx 0.87114$).
    - **Distinção entre Poder do Teste de Hipótese e Probabilidade da Condição Pontual de EVMR**:
      - O critério operacional confirmatório exige, além da rejeição estatística de $H_0$, que a estimativa pontual observada atinja $\hat{\text{EVMR}} \ge 85.0\%$ ($k \ge 85$ em $n = 100$).
      - Sob uma taxa real de $\theta = 0.85$ exata, a probabilidade de observar $\ge 85$ acertos é de **$56.83\%$** ($P(\text{Binomial}(100, 0.85) \ge 85) \approx 0.5683$).
@@ -80,9 +80,12 @@ $$\mathbf{V}_{env} = [CR, IR, AR, MAC, MAT, MPR, MUI, MVC, MVI, MVA, MSC, MSI, M
    - `MVI` (Modified Vulnerable System Integrity): `[H, L, N, X]`
    - `MVA` (Modified Vulnerable System Availability): `[H, L, N, X]`
 3. **Métricas Modificadas do Sistema Subsequente**:
-   - `MSC` (Modified Subsequent System Confidentiality): `[H, L, N, X]`
-   - `MSI` (Modified Subsequent System Integrity): `[S, H, L, N, X]` (inclui Safety `S` para sistemas críticos/SCADA)
-   - `MSA` (Modified Subsequent System Availability): `[S, H, L, N, X]` (inclui Safety `S` para sistemas críticos/SCADA)
+   - `MSC` (Modified Subsequent System Confidentiality): `[H, L, N, X]` (High, Low, Negligible, Not Defined)
+   - `MSI` (Modified Subsequent System Integrity): `[S, H, L, N, X]` (Safety, High, Low, Negligible, Not Defined)
+   - `MSA` (Modified Subsequent System Availability): `[S, H, L, N, X]` (Safety, High, Low, Negligible, Not Defined)
+   - *Nomenclatura Oficial e Rigor de Safety (FIRST CVSS v4.0 Seção 4.3)*:
+     * Nas métricas do sistema subsequente (`MSC`, `MSI`, `MSA`), o símbolo `N` representa oficialmente **Negligible** (desprezível), mantendo-se inalterado o caractere `N`.
+     * A atribuição de `Safety (S)` em `MSI` e `MSA` aplica-se estritamente quando a exploração da vulnerabilidade puder previsivelmente acarretar impacto direto à segurança física humana ou lesão corporal de severidade Marginal ou superior segundo a norma IEC 61508. Danos materiais catastróficos a infraestruturas isoladas, desprovidos de impacto previsível sobre a segurança humana, não justificam a atribuição de Safety `S`.
 4. **Métricas Fixadas / Não Inferidas**:
    - `MAV` (Modified Attack Vector): Fixada estritamente no valor base do cenário (`AV`).
    - `E` (Exploit Maturity): Fixada no valor base de referência.
@@ -124,10 +127,10 @@ A **Safety-Fatal Directional Rate (SFDR)** mensura a proporção de cenários av
 
 ### 5.1 Ordenamentos Métricos Específicos de Severidade
 * **Impactos Modificados com Dimensão Safety (`MSI`, `MSA`)**:
-  $$\text{Safety (S)} > \text{High (H)} > \text{Low (L)} > \text{None (N)}$$
+  $$\text{Safety (S)} > \text{High (H)} > \text{Low (L)} > \text{Negligible (N)}$$
   *(O valor `X` normaliza para a métrica Base correspondente antes da ordenação).*
 * **Impactos Modificados Tradicionais (`MVC`, `MVI`, `MVA`, `MSC`)**:
-  $$\text{High (H)} > \text{Low (L)} > \text{None (N)}$$
+  $$\text{High (H)} > \text{Low (L)} > \text{None / Negligible (N)}$$
 * **Requisitos de Segurança (`CR`, `IR`, `AR`)**:
   $$\text{High (H)} \equiv \text{Not Defined (X)} > \text{Medium (M)} > \text{Low (L)}$$
   *(Em conformidade com a equivalência de pior caso razoável do FIRST CVSS v4.0 Seção 4.1).*
@@ -140,8 +143,8 @@ A **Safety-Fatal Directional Rate (SFDR)** mensura a proporção de cenários av
 
 ### 5.2 Regra de Rebaixamento Severo (Severe False Downgrade)
 Configura-se SFDR quando:
-1. Em métricas de impacto subsequente com criticidade de segurança (`MSI`, `MSA`), o Consenso for `Safety (S)` e o HelpUS previr `High`, `Low` ou `None`; OU o Consenso for `High` e o HelpUS previr `Low` ou `None`;
-2. Em métricas de impacto subsequente (`MSC`), o Consenso for `High` e o HelpUS previr `Low` ou `None`;
+1. Em métricas de impacto subsequente com criticidade de segurança (`MSI`, `MSA`), o Consenso for `Safety (S)` e o HelpUS previr `High`, `Low` ou `Negligible (N)`; OU o Consenso for `High` e o HelpUS previr `Low` ou `Negligible (N)`;
+2. Em métricas de impacto subsequente (`MSC`), o Consenso for `High` e o HelpUS previr `Low` ou `Negligible (N)`;
 3. Em requisitos organizacionais (`CR`, `IR`, `AR`), o Consenso for `High` (ou `X`) e o HelpUS previr `Low` (ou `Medium` com desescalonamento substantivo).
 * **Tratamento de Abstenções**: Abstenções do HelpUS são contabilizadas como parada segura (*fail-closed*) e não configuram erro direcional SFDR.
 

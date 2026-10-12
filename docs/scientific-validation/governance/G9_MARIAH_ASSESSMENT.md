@@ -7,16 +7,18 @@
 - Lei Federal nº 14.874/2024 (Marco da Pesquisa com Seres Humanos no Brasil)
 - Decreto Federal nº 12.651/2025
 - Sistema Nacional de Ética em Pesquisa com Seres Humanos (SINEP)
-- Instância Federal Deliberativa: Instituto Nacional de Ética em Pesquisa (INAEP) e Comitês de Ética em Pesquisa (CEPs)
+- Instância Federal Deliberativa: Instância Nacional de Ética em Pesquisa (INAEP) e Comitês de Ética em Pesquisa (CEPs)
 - Contexto Histórico: Transição e consolidação das diretrizes de ética em IA anteriormente originadas no âmbito da Conep.
 
 **Declaração de Limites de Competência Regulatória**: Este documento constitui mapeamento analítico prévio adotado como **ferramenta orientativa de suporte técnico do INAEP / SINEP** para instrução do processo na Plataforma Brasil. A equipe de pesquisa **não se autodeclara sumariamente conforme** e declara formalmente que este mapeamento prévio **não substitui nem condiciona a apreciação ética e a deliberação soberana do Comitê de Ética em Pesquisa (CEP)** institucional competente no âmbito do SINEP.
 
 ---
 
-## 1. Mapeamento dos Eixos de Avaliação de Risco em IA (SINEP / INAEP)
+## 1. Mapeamento Prévio Interno de Salvaguardas do Projeto (Internal Preparatory Safeguards Mapping)
 
-| Eixo Temático da Matriz MARIAH (INAEP/SINEP) | Salvaguardas Projetadas no Protocolo HelpUS | Status de Instrução |
+*Nota de Escopo*: Os 6 tópicos abaixo representam o mapeamento analítico interno prévio das salvaguardas metodológicas do estudo. O preenchimento formal da Matriz MARIAH v1.0 oficial (Versão A com 5 eixos temáticos ou Versão B com 7 blocos temáticos) será instruído na Plataforma Brasil sob a orientação do CEP competente, sem qualquer autoclassificação de risco pela equipe proponente.
+
+| Tópico Interno de Salvaguarda Ética | Salvaguardas Projetadas no Protocolo HelpUS | Status de Instrução |
 |---|---|:---:|
 | **1. Autonomia e Voluntariedade dos Participantes** | Participação estritamente voluntária de especialistas seniores sob TCLE; liberdade de desistência sem ônus; vedação de benefícios diretos indevidos. | `PREPARADO PARA APRECIAÇÃO DO CEP` |
 | **2. Transparência Algorítmica e Auditabilidade** | Formulação estritamente baseada no padrão aberto FIRST CVSS v4.0; código inferencial determinístico; rastreabilidade completa por repositório público auditado. | `PREPARADO PARA APRECIAÇÃO DO CEP` |

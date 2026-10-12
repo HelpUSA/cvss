@@ -27,15 +27,16 @@ Cada especialista deve atribuir julgamento técnico exclusivamente às seguintes
 * `MVA` (Modified Vulnerable System Availability): `[H, L, N, X]` (High, Low, None, Not Defined)
 
 ### 1.3. Métricas Modificadas do Sistema Subsequente (Modified Subsequent System Metrics)
-* `MSC` (Modified Subsequent System Confidentiality): `[H, L, N, X]` (High, Low, None, Not Defined)
-* `MSI` (Modified Subsequent System Integrity): `[S, H, L, N, X]` (Safety, High, Low, None, Not Defined)
-* `MSA` (Modified Subsequent System Availability): `[S, H, L, N, X]` (Safety, High, Low, None, Not Defined)
+* `MSC` (Modified Subsequent System Confidentiality): `[H, L, N, X]` (High, Low, Negligible, Not Defined)
+* `MSI` (Modified Subsequent System Integrity): `[S, H, L, N, X]` (Safety, High, Low, Negligible, Not Defined)
+* `MSA` (Modified Subsequent System Availability): `[S, H, L, N, X]` (Safety, High, Low, Negligible, Not Defined)
+* *Significado de N*: Conforme a especificação oficial FIRST CVSS v4.0, para as métricas do sistema subsequente o símbolo `N` representa **Negligible** (desprezível), mantendo-se o caractere `N`.
 
 ### 1.4. Tratamento do Impacto em Segurança Física (Safety — S) e Not Defined (X)
 1. **Impacto Safety (S) em Sistemas Ciberfísicos (OT/ICS/SCADA)**:
-   - Presente nos domínios de `MSI` e `MSA`.
-   - Conforme especificação oficial CVSS v4.0 (Seção 4.3), o valor `Safety (S)` deve ser atribuído quando a falha de integridade ou indisponibilidade do sistema subsequente acarretar risco direto à integridade física humana, segurança de operadores ou dano catastrófico à infraestrutura crítica (cenários industriais, usinas, transportes ou telemetria médica presentes no Dataset C2).
-   - O valor `Safety (S)` possui severidade máxima estrita: $\text{Safety (S)} > \text{High (H)} > \text{Low (L)} > \text{None (N)}$.
+   - Presente exclusivamente nos domínios de `MSI` e `MSA`.
+   - Conforme especificação oficial FIRST CVSS v4.0 (Seção 4.3), o valor `Safety (S)` aplica-se **estritamente quando a exploração puder previsivelmente acarretar impacto direto à segurança física humana ou lesão corporal de severidade Marginal ou superior segundo a norma IEC 61508**. Danos materiais catastróficos a infraestruturas isoladas, desprovidos de impacto previsível sobre a integridade física humana, **não são suficientes para a atribuição de Safety (S)**.
+   - O valor `Safety (S)` possui severidade máxima estrita: $\text{Safety (S)} > \text{High (H)} > \text{Low (L)} > \text{Negligible (N)}$.
 2. **Semântica de Herança do Valor Not Defined (X)**:
    - Em conformidade com a especificação FIRST CVSS v4.0, a seleção do valor `X` para qualquer métrica modificada denota explicitamente que as condições ambientais ou controles compensatórios locais **não alteram** o valor original da métrica Base correspondente.
    - O valor efetivo normalizado herda integralmente a métrica Base do cenário:
