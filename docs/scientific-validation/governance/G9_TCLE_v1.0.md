@@ -1,59 +1,84 @@
 # Termo de Consentimento Livre e Esclarecido (TCLE) — Estudo com Especialistas (Gate G9)
 
 **Documento**: `G9_TCLE_v1.0.md`  
-**Versão**: `1.0` (Modelo para Submissão ao CEP)  
+**Versão**: `1.1` (Revisado per CG-20261010-010 e CG-20261010-011)  
 **Embasamento Legal**: Lei Federal nº 14.874/2024 (Artigos 21 a 27) e Decreto Federal nº 12.651/2025.  
 
 ---
 
 ## 1. Convite e Justificativa da Pesquisa
 
-Você está sendo convidado(a) a participar, como especialista voluntário(a), da pesquisa acadêmica e científica intitulada **"Avaliação Independente por Especialistas em Segurança da Informação da Acurácia, Segurança e Abstenção do Motor de Inferência Topológica HelpUS CVSS v4.0"**, desenvolvida sob responsabilidade do pesquisador Wagner Santos (`helpus.ecommerce@gmail.com`).
+Você está sendo convidado(a) a participar, na condição de especialista participante de pesquisa humana, do estudo científico intitulado **"Avaliação Independente por Especialistas em Segurança da Informação da Acurácia, Segurança e Abstenção do Motor de Inferência Topológica HelpUS CVSS v4.0"**, conduzido sob a responsabilidade do pesquisador Wagner Santos (`helpus.ecommerce@gmail.com`).
 
-A sua participação é fundamental para estabelecer o referencial padrão-ouro (adjudicado por pares humanos) sobre métricas ambientais do padrão CVSS v4.0 em cenários corporativos complexos.
-
----
-
-## 2. Procedimentos da Pesquisa
-
-Caso concorde em participar:
-1. Você receberá descrições técnicas cegas de cenários corporativos de rede (topologias, firewalls e requisitos) associados a vulnerabilidades reais (CVEs publicadas pelo NVD/CNA).
-2. Caberá a você atribuir, de acordo com o seu julgamento profissional independente e estritamente amparado na especificação oficial FIRST CVSS v4.0, os valores cabíveis das métricas ambientais modificadas (`MAV`, `MAC`, `MPR`, `MUI`, `MS`, `MC`, `MI`, `MA`) e dos requisitos ambientais (`CR`, `IR`, `AR`).
-3. Suas avaliações individuais serão coletadas de forma cega em plataforma segura protegida por autenticação individual e criptografia em repouso.
-4. Após o envio das respostas individuais, você participará de uma sessão remota de adjudicação para debater divergências pontuais com outros especialistas independentes.
+A sua participação é fundamental para estabelecer o referencial padrão-ouro humano independente e adjudicado sobre métricas ambientais do padrão CVSS v4.0 em cenários de rede corporativos.
 
 ---
 
-## 3. Riscos e Benefícios
+## 2. Procedimentos e Duração Estimada
 
-* **Riscos**: Os riscos associados à pesquisa são considerados **mínimos**, limitando-se ao cansaço cognitivo inerente à leitura e análise de relatórios técnicos de segurança. Não há risco físico ou biológico.
-* **Salvaguardas**: Para mitigar a fadiga, você poderá realizar a análise de forma fracionada no decorrer de até 10 dias úteis. Seus dados de contato e dados pessoais serão estritamente anonimizados e tratados sob sigilo de acordo com a LGPD (Lei nº 13.709/2018).
-* **Benefícios**: Contribuição direta para o avanço da ciência de cibersegurança e padronização da adoção do CVSS v4.0 no Brasil e no mundo.
-
----
-
-## 4. Voluntariedade, Sigilo e Desistência
-
-* A sua participação é inteiramente **voluntária**.
-* Você tem o direito pleno de recusar a participação ou de retirar o seu consentimento a qualquer momento, sem que isso lhe cause qualquer prejuízo profissional, pessoal ou legal.
-* Os relatórios públicos e artigos científicos publicarão apenas dados agregados e métricas estatísticas codificadas (Ex.: "Especialista 1", "Especialista 2"), resguardando permanentemente a sua identidade.
+Caso concorde voluntariamente em participar:
+1. Você receberá conjuntos de cenários técnicos corporativos (diagramas de rede, regras de firewall e políticas de segurança) associados a vulnerabilidades reais (CVEs publicadas pelo NVD/CNA), previamente certificados como sintéticos, autorizados ou desidentificados.
+2. Caberá a você atribuir, segundo seu julgamento técnico independente e amparado estritamente na especificação oficial FIRST CVSS v4.0, os valores das métricas ambientais modificadas (`MAV`, `MAC`, `MPR`, `MUI`, `MS`, `MC`, `MI`, `MA`) e dos requisitos de segurança (`CR`, `IR`, `AR`).
+3. Suas avaliações individuais serão coletadas de forma cega em ambiente seguro e cifrado.
+4. Você participará de uma sessão remota de adjudicação (cerca de 2 horas) com os outros especialistas para debater divergências técnicas e buscar consenso fundamentado.
+5. **Duração Estimada**: O tempo total estimado de dedicação é de aproximadamente **4 a 6 horas**, distribuídas de forma flexível ao longo de até 10 (dez) dias úteis.
 
 ---
 
-## 5. Contato do Pesquisador e do Comitê de Ética
+## 3. Riscos, Desconfortos e Ausência de Benefício Individual Direto
 
-* **Pesquisador Responsável**: Wagner Santos  
-  E-mail: `helpus.ecommerce@gmail.com`  
-* **Comitê de Ética em Pesquisa (CEP)**:  
-  [Endereço, telefone e e-mail institucional do CEP a ser inserido após a submissão via Plataforma Brasil / SINEP].
+* **Riscos e Desconfortos**: O estudo envolve potencial cansaço cognitivo e esforço visual decorrentes da leitura de especificações e diagramas de rede. Não há risco físico, biológico ou financeiro.
+* **Medidas Mitigadoras**: Você terá autonomia plena para fracionar a realização das análises conforme sua disponibilidade, evitando sessões prolongadas.
+* **Ausência de Benefício Individual Direto**: **Não há qualquer benefício individual direto garantido a você pela participação**. O benefício é de ordem coletiva e científica, contribuindo para a segurança e padronização da avaliação de vulnerabilidades cibernéticas.
 
 ---
 
-## 6. Declaração de Consentimento
+## 4. Sigilo, Codificação (Pseudonimização) e Retenção de Dados
 
-Declaro que li e compreendi as informações deste documento, tive a oportunidade de esclarecer dúvidas com o pesquisador responsável e concordo voluntariamente em participar deste estudo.
+* **Proteção LGPD**: Seus dados pessoais serão tratados em estrita observância à Lei Geral de Proteção de Dados (Lei nº 13.709/2018).
+* **Codificação de Dados**: Suas respostas e análises serão tratadas de forma **pseudonimizada / codificada** (ex.: "Avaliador 01", "Avaliador 02"). A chave de reidentificação ficará armazenada em cofre digital criptografado de acesso exclusivo do pesquisador responsável.
+* **Prazo de Retenção**: Os dados brutos e os termos de consentimento serão custodiados em segurança pelo prazo legal de **5 (cinco) anos**, após o qual serão permanentemente eliminados.
 
-Nome Completo: __________________________________________________  
-CPF: ___________________________  
+---
+
+## 5. Voluntariedade, Direito de Desistência e Destinação de Dados
+
+* A sua participação é absolutamente **voluntária**.
+* Você pode recusar-se a participar ou retirar seu consentimento a qualquer momento, sem necessidade de justificativa e sem sofrer qualquer penalidade, prejuízo profissional ou constrangimento.
+* Em caso de retirada de consentimento, você poderá optar expressamente pela exclusão definitiva de seus dados não agregados da base de pesquisa.
+
+---
+
+## 6. Direitos a Ressarcimento e Indenização
+
+* **Ressarcimento**: Caso você incorra em despesas comprovadas decorrentes diretamente de sua participação neste estudo, você terá direito ao ressarcimento integral, conforme previsto na Lei nº 14.874/2024.
+* **Indenização**: É assegurado a você o direito a eventual indenização por danos materiais ou imateriais que venham a ser comprovadamente causados pela pesquisa, nos termos da legislação vigente.
+
+---
+
+## 7. Contatos do Pesquisador e do Comitê de Ética
+
+* **Pesquisador Responsável**:  
+  Wagner Santos — E-mail: `helpus.ecommerce@gmail.com`  
+* **Comitê de Ética em Pesquisa (CEP Competente)**:  
+  [Dados institucionais de contato do CEP competente conforme atribuição do SINEP via Plataforma Brasil].
+
+---
+
+## 8. Consentimento do Participante e Assinatura do Pesquisador
+
+Declaro que li e compreendi as informações deste termo, foram-me esclarecidas todas as dúvidas e consinto de livre e espontânea vontade em participar desta pesquisa.
+
+Nome Completo do Especialista: __________________________________________________  
+E-mail de Contato: ___________________________________________________________  
 Data: ____ / ____ / 2026  
-Assinatura Digital (ICP-Brasil / GOV.BR): ____________________________
+Assinatura Digital do Participante (Assinatura Eletrônica Válida): ___________________  
+
+---
+
+**Declaração do Pesquisador Responsável**:  
+Declaro que cumprirei integralmente as diretrizes éticas e legais previstas na Lei nº 14.874/2024 e no presente Termo de Consentimento.
+
+Wagner Santos (Pesquisador Responsável)  
+Data: ____ / ____ / 2026  
+Assinatura Digital: ___________________________________________________________  
