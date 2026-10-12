@@ -23,7 +23,7 @@
     {
       "path": "outputs/hitl-review-decision-security-tests.json",
       "media_type": "application/json",
-      "sha256": "b4ef589dc70612a0f18c85eddd41ffea250023147ae0ef6d7568252f6fe35392",
+      "sha256": "5d2f4bc7a51a3fc55c3a502659e7abfb26143fdd6b6b9b8481838db55b2703e3",
       "size_bytes": 1134,
       "purpose": "g4_hitl_server_review_decision_security_tests"
     },
@@ -44,8 +44,8 @@
     {
       "path": "outputs/pytest-portable.log",
       "media_type": "text/plain",
-      "sha256": "b22cef680c050f2192bc40d4fb9219af7fbcd774add69d90020269b6ae4886a9",
-      "size_bytes": 1109,
+      "sha256": "a5e59e1e16cd3102b991ff3a1ee5023f36098afaffca47021996c76d8c7e7a71",
+      "size_bytes": 1158,
       "purpose": "g2_clean_room_portable_pytest_log_with_isolated_venv"
     },
     {
@@ -58,8 +58,8 @@
     {
       "path": "helpus_cvss_ai_portable_artifact_round4.zip",
       "media_type": "application/zip",
-      "sha256": "3f563ffb2992ab990bdee919097768318a8f66c4d9a6689149cb4cab80237902",
-      "size_bytes": 11159893,
+      "sha256": "1a03b3ba512b39ae356e167854c21af1242d6e629118e76c8d43a8a91dde3146",
+      "size_bytes": 11156607,
       "purpose": "g2_portable_artifact_archive"
     },
     {
