@@ -43,13 +43,13 @@ VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
 def compute_sha256(filepath: Path) -> str:
     raw = filepath.read_bytes()
-    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml", ".log"]:
+    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml", ".log", ".html"]:
         return hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
     return hashlib.sha256(raw).hexdigest()
 
 def get_normalized_size(filepath: Path) -> int:
     raw = filepath.read_bytes()
-    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml", ".log"]:
+    if filepath.suffix.lower() in [".json", ".md", ".txt", ".csv", ".py", ".ts", ".yaml", ".yml", ".log", ".html"]:
         return len(raw.replace(b"\r\n", b"\n"))
     return len(raw)
 
