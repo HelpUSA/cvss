@@ -25,11 +25,16 @@ Caso concorde voluntariamente em participar:
 
 ---
 
-## 3. Riscos, Desconfortos e Ausência de Benefício Individual Direto
+## 3. Riscos Previsíveis, Desconfortos e Ausência de Benefício Individual Direto
 
-* **Riscos e Desconfortos**: O estudo envolve potencial cansaço cognitivo e esforço visual decorrentes da leitura de especificações e diagramas de rede. Não há risco físico, biológico ou financeiro.
-* **Medidas Mitigadoras**: Você terá autonomia plena para fracionar a realização das análises conforme sua disponibilidade, evitando sessões prolongadas.
-* **Ausência de Benefício Individual Direto**: **Não há qualquer benefício individual direto garantido a você pela participação**. O benefício é de ordem coletiva e científica, contribuindo para a segurança e padronização da avaliação de vulnerabilidades cibernéticas.
+Em estrita consonância com o Artigo 22 da Lei Federal nº 14.874/2024, são declarados expressamente todos os riscos e desconfortos previsíveis associados à pesquisa:
+1. **Cansaço Cognitivo e Fadiga Visual**: A leitura técnica de especificações detalhadas, diagramas de topologia e análise de regras de rede pode acarretar esforço visual e esgotamento cognitivo.
+   * *Medida Mitigadora*: Autonomia plena do especialista para distribuir as análises de forma fracionada ao longo de até 10 dias úteis, sugerindo-se sessões máximas de 60 minutos.
+2. **Risco de Quebra de Confidencialidade e Privacidade**: Possibilidade teórica de exposição acidental de identidade profissional, e-mail ou dados cadastrais do especialista.
+   * *Medida Mitigadora*: Tratamento estritamente codificado/pseudonimizado (ex.: "Avaliador 01"), mantendo-se a chave criptográfica em cofre digital isolado sob custódia exclusiva do pesquisador responsável em estrita observância à LGPD.
+3. **Desconforto Decorrente de Divergência Profissional durante a Adjudicação**: Durante a sessão de adjudicação colegiada remota, debates técnicos sobre discordâncias nas métricas podem gerar potencial tensão ou desconforto interpessoal entre pares.
+   * *Medida Mitigadora*: Sessão conduzida por relator designado com base em protocolo estruturado, com foco objetivo na especificação FIRST CVSS v4.0, vedado qualquer consenso forçado e respeitando-se o registro soberano de desacordo como `REFERENCE_UNRESOLVED`.
+* **Ausência de Benefício Individual Direto**: **Não há qualquer compensação financeira, vantagem profissional ou benefício individual direto garantido a você pela participação**. O benefício é estritamente coletivo e científico, contribuindo para a padronização e segurança cibernética global.
 
 ---
 

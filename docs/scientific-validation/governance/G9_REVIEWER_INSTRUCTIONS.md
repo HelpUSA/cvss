@@ -15,7 +15,7 @@ Cada especialista deve atribuir julgamento técnico exclusivamente às seguintes
 * `CR` (Confidentiality Requirement): `[H, M, L, X]` (High, Medium, Low, Not Defined)
 * `IR` (Integrity Requirement): `[H, M, L, X]` (High, Medium, Low, Not Defined)
 * `AR` (Availability Requirement): `[H, M, L, X]` (High, Medium, Low, Not Defined)
-* *Semântica do valor X*: Denota que a criticidade organizacional não foi customizada em relação à baseline neutra (ponderação neutra 1.0 no cálculo oficial FIRST).
+* *Semântica do valor X (FIRST CVSS v4.0 Seção 4.1)*: Conforme a especificação oficial FIRST, a ausência de definição (`X - Not Defined`) assume a premissa de pior caso razoável (*reasonable worst case*), sendo operacionalmente equivalente a **High (H)** no cálculo oficial ($X \equiv H$). Não se trata de uma ponderação neutra ou atenuante.
 
 ### 1.2. Métricas Modificadas do Sistema Vulnerável (Modified Vulnerable System Metrics)
 * `MAC` (Modified Attack Complexity): `[L, H, X]` (Low, High, Not Defined)

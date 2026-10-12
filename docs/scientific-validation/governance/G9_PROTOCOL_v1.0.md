@@ -77,14 +77,16 @@ Para garantir integridade metodológica e representatividade profissional, os 5 
 
 Em estrita consonância com a Lei nº 14.874/2024, os riscos e as respectivas medidas mitigadoras são especificados:
 
-1. **Risco de Fadiga e Cansaço Cognitivo**: A análise detalhada de múltiplos cenários técnicos de vulnerabilidades pode acarretar esgotamento mental.
+1. **Risco de Fadiga e Cansaço Cognitivo**: A análise detalhada de múltiplos cenários técnicos de vulnerabilidades pode acarretar esgotamento mental e fadiga visual.
    * *Mitigação*: Janela temporal flexível de até 10 dias úteis para a avaliação individual, recomendando-se sessões máximas de 60 minutos diários.
-2. **Risco de Quebra de Confidencialidade e Dados Pessoais**: Exposição de dados de identidade ou de contato dos avaliadores.
-   * *Mitigação*: Codificação e pseudonimização de todos os registros de respostas. Apenas o pesquisador responsável possui a chave de reidentificação mantida em cofre digital cifrado e isolado.
-3. **Risco Relativo à Segurança dos Cenários Técnicos**:
+2. **Risco de Quebra de Confidencialidade e Dados Pessoais**: Exposição acidental de identidade profissional ou dados de contato dos avaliadores.
+   * *Mitigação*: Codificação e pseudonimização de todos os registros de respostas. Apenas o pesquisador responsável possui a chave de reidentificação mantida em cofre digital cifrado e isolado sob a LGPD.
+3. **Desconforto por Divergência Técnica durante a Adjudicação**: Potencial tensão ou desconforto interpessoal entre especialistas durante o debate de cenários discordantes.
+   * *Mitigação*: Condução estruturada por relator neutro baseada exclusivamente no padrão técnico FIRST CVSS v4.0, vedado qualquer consenso forçado e catalogando-se divergências irredutíveis como `REFERENCE_UNRESOLVED`.
+4. **Risco Relativo à Segurança dos Cenários Técnicos**:
    * *Certificação*: Todos os cenários corporativos e topologias fornecidos são estritamente **sintéticos, previamente autorizados ou integralmente desidentificados**, sem envolver endereços IP reais, credenciais ativas ou topologias proprietárias vulneráveis de organizações terceiras.
-4. **Política de Retenção e Descarte**:
-   * Todos os dados, termos de consentimento, formulários e registros brutos de auditoria serão armazenados sob custódia segura por um período mandatória de **5 (cinco) anos**, após o qual serão descartados conforme as diretrizes do CEP e da LGPD.
+5. **Política de Retenção e Descarte**:
+   * Todos os dados, termos de consentimento, formulários e registros brutos de auditoria serão armazenados sob custódia segura por um período mandatório de **5 (cinco) anos**, após o qual serão descartados conforme as diretrizes do CEP e da LGPD.
 
 ---
 
