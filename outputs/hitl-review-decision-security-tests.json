@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-10-12T00:30:35.518Z",
-  "total": 8,
-  "passed": 8,
+  "timestamp": "2026-10-12T01:11:26.377Z",
+  "total": 10,
+  "passed": 10,
   "results": [
     {
       "name": "1. Unauthenticated -> HTTP 401",
@@ -33,6 +33,14 @@
     },
     {
       "name": "8. PLATFORM_ADMIN REJECTED -> HTTP 200 with valid receipt and hash",
+      "passed": true
+    },
+    {
+      "name": "9. Database lookup failure -> HTTP 503 fail-closed",
+      "passed": true
+    },
+    {
+      "name": "10. Security audit event persistence failure -> HTTP 500 fail-closed",
       "passed": true
     }
   ]

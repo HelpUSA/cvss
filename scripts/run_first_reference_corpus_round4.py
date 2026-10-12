@@ -41,46 +41,15 @@ except Exception as exc:  # pragma: no cover
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 try:
-    from fetch_first_fixtures import verify_and_fetch
+    from fetch_first_fixtures import verify_and_fetch, FIXTURE_MANIFEST
 except ImportError:
     verify_and_fetch = None
+    FIXTURE_MANIFEST = {}
 
 FIXTURE_DIR = ROOT / "tests" / "fixtures" / "cvss_resources" / "vectorFiles"
 REPO_URL = "https://github.com/FIRSTdotorg/cvss-resources"
 EXPECTED_FIRST_COMMIT = "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb"
 
-FIXTURE_MANIFEST = {
-    "macro-vectors": {
-        "sha256": "e11a88715465c1b763027b4c49f3d37d080241ad167cddf6d3e0d3ebb725a90c",
-        "size_bytes": 23760,
-        "lines": 270,
-    },
-    "macro-scores": {
-        "sha256": "c422d64e908c7d605267521619bab880762584e5fa3108ca2c539751cbbd6f4b",
-        "size_bytes": 36947,
-        "lines": 270,
-    },
-    "reference-vectors": {
-        "sha256": "81918c58ff73a0bd82567fbd6b57b3d587a7bb6d1bf7833a471dd70825808c34",
-        "size_bytes": 6977862,
-        "lines": 66331,
-    },
-    "reference-scores": {
-        "sha256": "7bd6f6b162441a3bf591c946a7488e827776f390748133eb3cfb4df11fff6ad8",
-        "size_bytes": 11714403,
-        "lines": 66331,
-    },
-    "base-threat-vectors": {
-        "sha256": "b62819bb46716e9de9628d24e266d27ddf04b3b0d1140bc1956909f9dd21bb2b",
-        "size_bytes": 28973376,
-        "lines": 419904,
-    },
-    "base-threat-scores": {
-        "sha256": "eb8c4afddd8073b2aae2956e022678215e5e969d313e40a6efed4c206df4c7ca",
-        "size_bytes": 49268551,
-        "lines": 419904,
-    },
-}
 
 
 def evaluate_vector(vector: str):
@@ -266,7 +235,8 @@ def main():
         "summary": summary,
         "mismatches": [r for r in rows if r["status"] != "PASS"],
     }
-    (outdir / "first-reference-corpus-round4.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
+    with open(outdir / "first-reference-corpus-round4.json", "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(payload, indent=2) + "\n")
 
     print(json.dumps(payload["summary"], indent=2))
     if not summary["gate_pass"]:

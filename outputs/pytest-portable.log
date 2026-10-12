@@ -1,13 +1,48 @@
 === Clean-Room Portable Execution Log ===
-Executable: C:\Python314\python.exe
+Python Version: Python 3.14.0
+Executable: python.exe
 Platform: win32
 Artifact: helpus_cvss_ai_portable_artifact_round4.zip
+Artifact SHA-256: 3f563ffb2992ab990bdee919097768318a8f66c4d9a6689149cb4cab80237902
+Lockfile SHA-256: b3c1ff878a6bdadb1b1db2c7cea5a003b9f1f0375fa994bf63d798dd1027d8a3
 Exit Code: 0
+
+--- PIP FREEZE ---
+annotated-doc==0.0.5
+annotated-types==0.8.0
+anyio==4.15.1
+certifi==2026.7.22
+charset-normalizer==3.5.2
+colorama==0.4.6
+coverage==7.16.2
+cvss==3.6
+fastapi==0.136.3
+idna==3.20
+iniconfig==2.3.1
+numpy==2.4.1
+packaging==26.3
+pandas==3.0.0
+pluggy==1.6.0
+pydantic==2.12.5
+pydantic_core==2.41.5
+Pygments==2.21.0
+pytest==9.0.3
+pytest-cov==4.0.0
+python-dateutil==2.9.0.post0
+PyYAML==6.0.3
+requests==2.32.5
+scipy==1.18.0
+six==1.17.0
+starlette==1.7.0
+typing-inspection==0.4.4
+typing_extensions==4.16.0
+tzdata==2026.5
+urllib3==2.8.0
 
 --- STDOUT ---
 .........sssssssssssssssssss....................................s....... [ 59%]
 ..............s..............sss..................                       [100%]
-98 passed, 24 skipped in 0.52s
+98 passed, 24 skipped in 0.50s
 
 
 --- STDERR ---

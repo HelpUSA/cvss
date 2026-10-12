@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Server-side authoritative platform role verification from Prisma
-    let authoritativeRole = (session.user as any).platformRole || (session.user as any).role || "USER";
+    // Server-side authoritative platform role verification from Prisma (Strict Fail-Closed)
+    let authoritativeRole: string | null = null;
     try {
       if (session.user.id) {
         const dbUser = await prisma.user.findUnique({
@@ -44,18 +44,26 @@ export async function POST(request: NextRequest) {
           authoritativeRole = dbUser.platformRole;
         }
       }
-    } catch {
-      // Fallback to session platformRole when running in mock/isolated testing environment
+    } catch (dbErr: any) {
+      console.error("[review/decision] Database user lookup failure:", dbErr);
+      return NextResponse.json(
+        {
+          code: "DATABASE_LOOKUP_FAILURE",
+          error: "Falha na verificação autoritativa do usuário no banco de dados. Operação recusada (fail-closed).",
+          authorization_enforced: true,
+        },
+        { status: 503 }
+      );
     }
 
     // Enforce PLATFORM_ADMIN authorization role (strictly matches Prisma enum PlatformRole)
-    if (authoritativeRole !== "PLATFORM_ADMIN") {
+    if (!authoritativeRole || authoritativeRole !== "PLATFORM_ADMIN") {
       return NextResponse.json(
         {
           code: "FORBIDDEN_NOT_PLATFORM_ADMIN",
-          error: "Acesso restrito. Somente contas com papel PLATFORM_ADMIN podem homologar decisões.",
+          error: "Acesso restrito. Somente contas com papel PLATFORM_ADMIN comprovado no banco podem homologar decisões.",
           authorization_enforced: true,
-          currentUserRole: authoritativeRole,
+          currentUserRole: authoritativeRole || "UNKNOWN",
         },
         { status: 403 }
       );
@@ -165,7 +173,7 @@ export async function POST(request: NextRequest) {
       .update(receiptCanonicalJcs, "utf8")
       .digest("hex");
 
-    // Persist durable review decision event in Prisma SecurityAuditEvent
+    // Persist durable review decision event in Prisma SecurityAuditEvent (Fail-Closed)
     try {
       await prisma.securityAuditEvent.create({
         data: {
@@ -179,8 +187,15 @@ export async function POST(request: NextRequest) {
           },
         },
       });
-    } catch (persistErr) {
-      console.warn("[review/decision] SecurityAuditEvent persistence warning:", persistErr);
+    } catch (persistErr: any) {
+      console.error("[review/decision] SecurityAuditEvent persistence failure:", persistErr);
+      return NextResponse.json(
+        {
+          code: "DURABLE_PERSISTENCE_FAILED",
+          error: "Falha crítica na persistência durável do evento de auditoria. Recibo não emitido (fail-closed).",
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({

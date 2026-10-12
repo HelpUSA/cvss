@@ -15,38 +15,38 @@
   },
   "fixture_manifest": {
     "macro-vectors": {
-      "sha256": "e11a88715465c1b763027b4c49f3d37d080241ad167cddf6d3e0d3ebb725a90c",
-      "size_bytes": 23760,
+      "sha256": "f653914506e697a94a18b690c051144b295626c534737fb79c589a61c1e0e8a3",
+      "size_bytes": 23490,
       "lines": 270,
       "verified": true
     },
     "macro-scores": {
-      "sha256": "c422d64e908c7d605267521619bab880762584e5fa3108ca2c539751cbbd6f4b",
-      "size_bytes": 36947,
+      "sha256": "b55926940d4fbb073a0d30a98d6983de93f4542209eee936a671713387f92213",
+      "size_bytes": 36677,
       "lines": 270,
       "verified": true
     },
     "reference-vectors": {
-      "sha256": "81918c58ff73a0bd82567fbd6b57b3d587a7bb6d1bf7833a471dd70825808c34",
-      "size_bytes": 6977862,
+      "sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "size_bytes": 6911531,
       "lines": 66331,
       "verified": true
     },
     "reference-scores": {
-      "sha256": "7bd6f6b162441a3bf591c946a7488e827776f390748133eb3cfb4df11fff6ad8",
-      "size_bytes": 11714403,
+      "sha256": "3b60f12899249bf8b48e01ff0aba451f052a836b22c6a3ffd880b7a5cc2fea4f",
+      "size_bytes": 11648072,
       "lines": 66331,
       "verified": true
     },
     "base-threat-vectors": {
-      "sha256": "b62819bb46716e9de9628d24e266d27ddf04b3b0d1140bc1956909f9dd21bb2b",
-      "size_bytes": 28973376,
+      "sha256": "eb9cf89bab6712f368fe65c43f884e1ca4750e4e30181fabad4a61aaecccede1",
+      "size_bytes": 28553472,
       "lines": 419904,
       "verified": true
     },
     "base-threat-scores": {
-      "sha256": "eb8c4afddd8073b2aae2956e022678215e5e969d313e40a6efed4c206df4c7ca",
-      "size_bytes": 49268551,
+      "sha256": "2695a9b8664608dbf589d48cc8f5cb3f136c7a20d180fa8a54787810c2566ba3",
+      "size_bytes": 48848647,
       "lines": 419904,
       "verified": true
     }
@@ -68,7 +68,7 @@
     "severity_mismatch_count": 0,
     "gate_pass": true,
     "comments_or_headers_skipped": 33,
-    "duration_seconds": 33.217
+    "duration_seconds": 42.545
   },
   "mismatches": []
 }

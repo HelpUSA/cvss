@@ -170,6 +170,36 @@ async function main() {
       lastPersistedEvent.targetId === "asm-pci-prod-002"
   );
 
+  // 9. Database lookup failure -> HTTP 503 fail-closed (Blocker A verification)
+  (prisma as any).user.findUnique = async () => {
+    throw new Error("Simulated database connection failure");
+  };
+  const r9 = await POST(req(validApprovedPayload));
+  const d9 = await r9.json();
+  check(
+    "9. Database lookup failure -> HTTP 503 fail-closed",
+    r9.status === 503 && d9.code === "DATABASE_LOOKUP_FAILURE"
+  );
+
+  // Restore working prisma.user.findUnique
+  (prisma as any).user.findUnique = async ({ where }: any) => {
+    if (where.id === "admin-master-1") {
+      return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN" };
+    }
+    return { id: where.id, platformRole: "USER" };
+  };
+
+  // 10. Audit event persistence failure -> HTTP 500 fail-closed (Blocker B verification)
+  (prisma as any).securityAuditEvent.create = async () => {
+    throw new Error("Simulated audit disk write failure");
+  };
+  const r10 = await POST(req(validApprovedPayload));
+  const d10 = await r10.json();
+  check(
+    "10. Security audit event persistence failure -> HTTP 500 fail-closed",
+    r10.status === 500 && d10.code === "DURABLE_PERSISTENCE_FAILED"
+  );
+
   const total = results.length;
   const passed = results.filter((r) => r.passed).length;
   console.log(`\nResultado: ${passed}/${total} testes de segurança aprovados.`);

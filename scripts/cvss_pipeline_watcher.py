@@ -13,8 +13,8 @@ import subprocess
 from datetime import datetime
 from pathlib import Path
 
-REPO_ROOT = Path("D:/AntiG/cvss")
-BRIDGE_DB = Path("D:/AntiG/ai-bridge-local/queue_local.db")
+REPO_ROOT = Path(__file__).resolve().parent.parent
+BRIDGE_DB = REPO_ROOT.parent / "ai-bridge-local" / "queue_local.db"
 CHAT_ID = "6ac64e59-b8e4-83e9-a136-4f9bb5af45ca"
 
 def clear_screen():

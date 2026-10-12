@@ -65,5 +65,9 @@ jobs:
         run: python scripts/fetch_first_fixtures.py
       - name: Execute G1 FIRST Reference Calculator Corpus
         run: python scripts/run_first_reference_corpus_round4.py
+      - name: HITL Route Security Tests
+        run: npx --prefix web tsx scripts/test_review_decision_route.ts
+      - name: Verify Portable Clean-Room Artifact
+        run: python scripts/verify_portable_artifact_round4.py helpus_cvss_ai_portable_artifact_round4.zip
       - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py

@@ -18,7 +18,7 @@
   "scientific_status": {
     "safe_to_freeze": "NO",
     "dataset_b": "development-only; schema v2; recomputed with G1-verified official scorer (0 divergences across all 30 vectors)",
-    "calculator_gate_g1": "PASS \u2014 486,472/486,472 test cases passed across all 3 official vector families against pinned commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb (0 mismatches)",
+    "calculator_gate_g1": "PASS — 486,472/486,472 test cases passed across all 3 official vector families against pinned commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb (0 mismatches)",
     "c1_c2": "planned/not executed",
     "ethics": "pending external determination",
     "expert_panel": "planned n=5; consent/COI pending"
@@ -107,7 +107,7 @@
   ],
   "overleaf_zip": {
     "path": "helpus_cvss_ai_monograph_overleaf_final_round4.zip",
-    "sha256": "300a6e54264ee03e3921314911ada4496778e31f2f221a72334a8b8c89691a30",
-    "bytes": 3003075
+    "bytes": 3003075,
+    "sha256": "300a6e54264ee03e3921314911ada4496778e31f2f221a72334a8b8c89691a30"
   }
 }

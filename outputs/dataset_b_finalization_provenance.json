@@ -17,7 +17,7 @@
   "first_repository": "https://github.com/FIRSTdotorg/cvss-resources",
   "first_commit_sha": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
   "g1_evidence_artifact": "outputs/first-reference-corpus-round4.json",
-  "g1_evidence_sha256": "36168a560d0eadd3e909717fbb341ab1cd10b6ad39a788825969265190780f27",
+  "g1_evidence_sha256": "a6105c66df1c3e3185b9f1d4a30085574524126c374eb42dcd85fb472e0c8916",
   "canonical_file": "data/dataset_b/source_assessments_final.csv",
   "scenarios": [
     {

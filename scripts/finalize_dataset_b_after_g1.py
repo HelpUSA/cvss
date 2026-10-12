@@ -97,7 +97,7 @@ with out.open("w", encoding="utf-8", newline="") as fh:
     w.writeheader()
     w.writerows(rows)
 
-g1_bytes = (root / args.g1_json).read_bytes()
+g1_bytes = (root / args.g1_json).read_bytes().replace(b"\r\n", b"\n")
 actual_g1_evidence_sha256 = hashlib.sha256(g1_bytes).hexdigest()
 
 prov_out = root / "outputs" / "dataset_b_finalization_provenance.json"
@@ -114,5 +114,6 @@ prov_payload = {
     "canonical_file": str(args.output),
     "scenarios": provenance_entries,
 }
-prov_out.write_text(json.dumps(prov_payload, indent=2), encoding="utf-8")
+with open(prov_out, "w", encoding="utf-8", newline="\n") as fh:
+    fh.write(json.dumps(prov_payload, indent=2) + "\n")
 print(f"Finalized Dataset B to {out} and recorded provenance in {prov_out} (g1_evidence_sha256={actual_g1_evidence_sha256})")
