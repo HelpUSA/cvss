@@ -1,18 +1,16 @@
 # Matriz de Segregação de Funções e Papéis para Custódia C1 e C2 (Gate G10)
 
 **Documento**: `G10_ROLE_SEPARATION.md`  
-**Versão**: `1.1`  
+**Versão**: `1.2` (Revisado per CG-20261010-012 e CG-20261010-013)  
 **Data**: 12 de Outubro de 2026  
-**Status**: Em conformidade com Diretivas CG-20261010-010 e CG-20261010-011  
-**Finalidade**: Definir formalmente as fronteiras operacionais, vedações de acesso e matriz de segregação de deveres (*Segregation of Duties — SoD*) para os datasets confirmatórios C1 e C2 no modelo de Custódia em Duas Etapas (*Two-Stage Custody*).
+**Finalidade**: Definir formalmente as fronteiras operacionais, vedações de acesso, matriz de segregação de deveres (*Segregation of Duties — SoD*) e regras de custódia técnica no modelo de Custódia em Duas Etapas (*Two-Stage Custody*).
 
 ---
 
-## 1. Princípios Gerais de Segregação de Funções
+## 1. Princípios de Segregação e Estado de Congelamento
 
-A integridade do protocolo confirmatório HelpUS CVSS v4.0 apoia-se no princípio da segregação estrita de deveres para eliminar vieses de confirmação, vazamento de dados (*data leakage*) e contaminação de hiperparâmetros (*p-hacking* ou ajuste post-hoc).
-
-Nenhum participante individual detém controle unilateral sobre os dados, sobre o ambiente de execução ou sobre os resultados do experimento.
+1. **Estado de Congelamento**: O status técnico da base de código do motor inferencial é denominado **`ENGINEERING_FREEZE_CANDIDATE`**. O gate global **`SAFE_TO_FREEZE` permanece estritamente `NO`** durante toda a tramitação, até que os Gates G9 (Aprovação Ética Formal do CEP) e G10 (Custódia Independente) estejam plenamente concluídos e auditados.
+2. **Segregação Zero entre Desenvolvedores e Dados Confirmatórios**: A equipe de engenharia e desenvolvimento não possui acesso, controle de execução ou capacidade de intervenção sobre os dados brutos ou sobre o runtime pós-deslacre.
 
 ---
 
@@ -20,73 +18,35 @@ Nenhum participante individual detém controle unilateral sobre os dados, sobre 
 
 | Papel | Titular / Responsável | Atribuições Principais | Vedações Absolutas |
 |---|---|---|---|
-| **Custodiante Independente Primário** | Auditor Externo Independente Credenciado | Guarda física/lógica do cofre cifrado C1/C2, custódia do Componente de Chave A (Dual-Control 2-of-2), custódia do log imutável de auditoria (*hash-chained*), liberação da Etapa 1 (*Reference Release*) e Etapa 2 (*Machine Unseal*). | Proibido de inspecionar saídas do modelo antes do congelamento e proibido de alterar código ou pesos do sistema. |
-| **Custodiante Suplente** | Auditor Externo Substituto Formal | Suplência formal em caso de impedimento por força maior devidamente atestado do titular. | Mesmas vedações do custodiante titular. |
-| **Pesquisador Responsável (PI)** | Wagner Santos (`helpus.ecommerce@gmail.com`) | Gestão metodológica geral, submissão ao CEP competente via Plataforma Brasil/SINEP, guarda do Componente de Chave B (Dual-Control), requisição formal de deslacre após cumprimento de todos os gates. | Proibido de acessar cenários brutos deslacrados individualmente ou alterar vetores após congelamento. |
-| **Equipe de Desenvolvimento / Engenharia IA** | Engenheiros Antigravity / HelpUS | Desenvolvimento do motor inferencial, testes exploratórios restritos a datasets sintéticos de treino e Dataset B, empacotamento do executável congelado (*frozen binary/container*). | **Cegamento Absoluto**: Proibido de inspecionar qualquer cenário de C1/C2 em qualquer fase antes da publicação final dos resultados. |
-| **Painel de Avaliadores Especialistas (5 membros)** | 5 Especialistas Independentes em Cibersegurança / CVSS | Avaliação cega dos cenários na Etapa 1 (*Reference Release*), pontuação individual, participação nas sessões de adjudicação colegiada. | Proibidos de conhecer predições do HelpUS, de compartilhar notas antes da sessão de adjudicação e de manter interesse financeiro no resultado. |
-| **Estatístico / Auditor Independente de Resultados** | Perito Estatístico Externo | Execução estrita do Plano de Análise Estatística (`G9_SAP_v1.0.md`) utilizando o script congelado de cálculo, sem acesso aos hiperparâmetros de inferência. | Proibido de realizar testes post-hoc exploratórios não pré-especificados. |
+| **Custodiante Independente Titular** | Auditor Externo Independente A | Guarda lógica do cofre cifrado C1/C2, custódia do Componente de Chave A (Dual-Control 2-of-2), manutenção do log append-only com ancoragem externa, liberação da Etapa 1 (*Reference Release*) e supervisão da Etapa 2. | Proibido de inspecionar predições do modelo antes do bloqueio do padrão-ouro; proibido de alterar código ou modelos. |
+| **Co-Custodiante Independente Suplente** | Auditor Externo Independente B | Guarda do Componente de Chave B (Dual-Control 2-of-2), suplência técnica formal e co-validação de integridade nos checkpoints operacionais. | Mesmas vedações do custodiante titular. |
+| **Pesquisador Responsável (PI)** | Wagner Santos (`helpus.ecommerce@gmail.com`) | Gestão metodológica, submissão ao CEP competente via fluxo SINEP, subscrição formal da ordem de requisição de deslacre após cumprimento dos gates. | **Não detém chave técnica de decifragem**; proibido de acessar cenários brutos individuais ou alterar vetores após o congelamento. |
+| **Comitê de Ética em Pesquisa (CEP)** | CEP Competente conforme fluxo SINEP | Avaliação ética do protocolo, emissão de parecer e acompanhamento regulatório institucional. | **Não possui custódia operacional de chaves criptográficas técnicas**. |
+| **Equipe de Desenvolvimento IA** | Engenheiros HelpUS / Antigravity | Manutenção do candidato a congelamento (`ENGINEERING_FREEZE_CANDIDATE`) até a homologação. | **Cegamento Total e Sem Controle de Execução**: Proibido de visualizar cenários de C1/C2 e proibido de operar o runtime durante o deslacre. |
+| **Painel de Especialistas (5 avaliadores)** | 5 Especialistas Independentes em Segurança | Avaliação cega dos cenários na Etapa 1 (*Reference Release*), pontuação individual, participação nas sessões de adjudicação colegiada. | Proibidos de conhecer predições HelpUS, de compartilhar notas antes da sessão de adjudicação e de manter interesse financeiro no resultado. |
+| **AUTOMATED_CONFIRMATORY_RUNNER** | Runtime Pré-Congelado e Contêinerizado (*Air-gapped*) | Execução determinística e automatizada de uma única passada (*one-shot*) dos cenários de teste através do binário congelado, sem operador humano. | Incapaz de comunicação externa (egress desativado); material de memória destruído por higienização segura (*memory wiping*). |
+| **Auditor Estatístico Independente** | Perito Estatístico Externo | Execução estrita do Plano de Análise Estatística (`G9_SAP_v1.0.md`) sobre os resultados lacrados, utilizando script analítico congelado. | Proibido de realizar testes post-hoc não pré-especificados ou calibrações retrospectivas. |
 
 ---
 
-## 3. As Cinco Fases Operacionais do Protocolo
+## 3. Matriz de Segregação de Funções (SoD Matrix por Fase)
 
-O ciclo de vida do experimento confirmatório é estruturado em cinco fases sequenciais e estanques:
-
-1. **Fase 1 — Pré-Registro, Congelamento Técnico e Tramitação Ética**:
-   - Congelamento formal do código e artefatos de inferência (`SAFE_TO_FREEZE = YES` apenas após gates de engenharia).
-   - Datasets C1 e C2 cifrados com esquema Dual-Control 2-of-2 (Componente A com Custodiante, Componente B com PI).
-   - Submissão ética ao CEP competente via SINEP.
-   - Equipe de desenvolvimento mantém C1/C2 estritamente lacrados.
-
-2. **Fase 2 — Etapa 1 de Custódia: Liberação de Referência (*Reference Release*)**:
-   - Autorização do CEP obtida e formalmente averbada.
-   - Custodiante descriptografa e libera **exclusivamente os enunciados dos cenários de teste** (sem predições HelpUS) para os 5 especialistas do painel.
-   - **Desenvolvedores permanecem 100% cegos**.
-
-3. **Fase 3 — Avaliação Independente e Trancamento do Padrão-Ouro (*Gold Standard Lock*)**:
-   - Especialistas submetem suas notas de forma individual e independente.
-   - Realização da rodada de adjudicação formal mediada pelo auditor.
-   - Fixação do consenso definitivo dos especialistas.
-   - O Custodiante gera e publica o hash SHA-256 do arquivo de consenso (*Gold Standard Reference Lock*).
-
-4. **Fase 4 — Etapa 2 de Custódia: Deslacre da Máquina (*Machine Unseal*)**:
-   - Realização da Cerimônia Dual-Control (Custodiante Chave A + PI Chave B).
-   - Execução em ambiente isolado (*clean-room*) do executável congelado HelpUS sobre os mesmos cenários de entrada de C1 e C2.
-   - Geração e registro dos hashes SHA-256 das saídas inferenciais brutas.
-   - Nenhuma nova inferência é permitida (*one-shot execution*).
-
-5. **Fase 5 — Apuração Estatística e Divulgação Científica**:
-   - Execução do script congelado de análise estatística (`evaluate_confirmatory.py`).
-   - Apuração dos intervalos de confiança Clopper-Pearson, concordância Fleiss' Kappa / Gwet's AC1, SFDR e bootstrap.
-   - Elaboração do relatório de auditoria e publicação na monografia.
+| Ação Operacional | Fase | Custodiante Titular (Chave A) | Co-Custodiante Suplente (Chave B) | Pesquisador Responsável | Equipe Dev / IA | Painel de Especialistas | Runner Automatizado | Estatístico Independente |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Criptografia inicial de C1/C2 | Fase 1 | **EXECUTA** | Co-Participa | Autoriza Metadados | **VEDADO** | **VEDADO** | N/A | **VEDADO** |
+| Guarda de Chave Criptográfica | Todas | **CHAVE A** | **CHAVE B** | **VEDADO** | **VEDADO** | **VEDADO** | N/A | **VEDADO** |
+| Declaração de `SAFE_TO_FREEZE` | Fase 1 a 4 | **`NO`** | **`NO`** | **`NO`** | **`NO`** | N/A | N/A | **`NO`** |
+| Liberação de Cenários à Avaliação Humana | Fase 2 | **LIBERA ENTRADAS** | Valida | Ciência | **VEDADO** | **RECEBE ENTRADAS** | N/A | Supervisiona |
+| Avaliação e Pontuação de Vetores | Fase 3 | Registra | Registra | **VEDADO** | **VEDADO** | **AVALIA / PONTUA** | N/A | Tabula |
+| Trancamento do Padrão-Ouro (SHA-256) | Fase 3 | **LACRA HASH** | Co-Assina | Ciência | **VEDADO** | Aprova Adjudicação | N/A | **AUDITA HASH** |
+| Cerimônia Dual-Control de Deslacre | Fase 4 | **APLICA CHAVE A** | **APLICA CHAVE B** | Requisita | **VEDADO** | N/A | N/A | Testemunha |
+| Execução Técnica pós-deslacre | Fase 4 | Supervisiona | Supervisiona | Supervisiona | **VEDADO** | N/A | **EXECUTA ONE-SHOT** | Supervisiona |
+| Alteração de Código/Pesos pós-deslacre | Fase 4/5 | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO TOTAL** | **VEDADO** | N/A | **VEDADO** |
+| Execução do Script Estatístico SAP | Fase 5 | Testemunha | Testemunha | Testemunha | **VEDADO** | Testemunha | N/A | **EXECUTA SCRIPT** |
 
 ---
 
-## 4. Matriz de Segregação de Funções (SoD Matrix por Fase)
+## 4. Salvaguardas Contra Violação de Papéis
 
-| Ação Operacional | Fase | Custodiante Independente | Pesquisador Responsável | Equipe Dev / IA | Painel de Especialistas | Estatístico Independente |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Criptografia inicial de C1/C2 | Fase 1 | **EXECUTA** | Co-Participa (Chave B) | **VEDADO** | **VEDADO** | **VEDADO** |
-| Guarda da Chave Parcial A | Todas | **CUSTÓDIA EXCLUSIVA** | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO** |
-| Guarda da Chave Parcial B | Todas | **VEDADO** | **CUSTÓDIA EXCLUSIVA** | **VEDADO** | **VEDADO** | **VEDADO** |
-| Congelamento do Código / Executável | Fase 1 | **HOMOLOGA HASH** | Homologa | **EXECUTA** | N/A | **AUDITA HASH** |
-| Visualização de Cenários C1/C2 | Fase 1 | Cifrado | Cifrado | **VEDADO** | **VEDADO** | Cifrado |
-| Liberação de Cenários aos Especialistas | Fase 2 | **LIBERA ENTRADAS** | Autoriza | **VEDADO** | **RECEBE ENTRADAS** | Supervisiona |
-| Visualização das Predições HelpUS | Fase 2/3 | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO** |
-| Emissão de Notas dos Cenários | Fase 3 | Registra | **VEDADO** | **VEDADO** | **AVALIA / PONTUA** | Tabula |
-| Trancamento do Padrão-Ouro (Hash) | Fase 3 | **LACRA E HASH** | Ciência | **VEDADO** | Aprova Adjudicação | **AUDITA HASH** |
-| Cerimônia Dual-Control de Deslacre | Fase 4 | **APLICA CHAVE A** | **APLICA CHAVE B** | **VEDADO** | N/A | Supervisiona |
-| Execução do Modelo Congelado | Fase 4 | **SUPERVISIONA** | Supervisiona | **RUN CONTROLADO** | N/A | Supervisiona |
-| Alteração de Parâmetros/Código pós-deslacre | Fase 4/5 | **VEDAÇÃO TOTAL** | **VEDAÇÃO TOTAL** | **VEDAÇÃO TOTAL** | **VEDAÇÃO TOTAL** | **VEDAÇÃO TOTAL** |
-| Execução do Script Estatístico SAP | Fase 5 | Testemunha | Testemunha | **VEDADO** | Testemunha | **EXECUTA SCRIPT** |
-| Publicação de Relatório / Monografia | Fase 5 | Assina Parecer | Assina e Publica | Co-Autoria Técnica | Co-Autoria / Agradecimento | Emite Laudo |
-
----
-
-## 5. Diretrizes de Tolerância a Falhas e Sanitização de Desvios
-
-1. **Tentativa de Acesso Prematuro**:
-   Qualquer tentativa de acesso não autorizado aos dados de teste por membros da equipe de engenharia resulta na desqualificação imediata do lote e abertura de processo administrativo de descarte dos dados comprometidos.
-2. **Falha de Infraestrutura vs Rerun Proibido**:
-   Conforme previsto no `G10_CUSTODY_CHARTER.md`, se ocorrer uma falha puramente técnica de hardware/SO antes da geração dos resultados do modelo, é permitida uma reinicialização restrita de infraestrutura sob ata circunstanciada do Custodiante e do Auditor Estatístico. Nenhuma reinicialização é permitida após a visualização das métricas preliminares.
+1. Se qualquer operador da equipe de desenvolvimento intervir no ambiente pós-deslacre, o experimento confirmatório é automaticamente abortado e desqualificado.
+2. Nenhuma chave criptográfica parcial pode ser transferida, combinada ou armazenada fora da cerimônia formal de decifragem autorizada.

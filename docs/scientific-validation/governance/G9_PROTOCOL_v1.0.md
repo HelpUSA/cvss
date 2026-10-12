@@ -42,8 +42,8 @@ Validar a eficácia, segurança fail-closed e taxa de abstenção do motor de in
 Para garantir integridade metodológica e representatividade profissional, os 5 participantes avaliadores devem cumprir cumulativamente:
 1. **Formação e Experiência**: Mínimo de 5 anos de experiência comprovada em Segurança da Informação, Resposta a Incidentes, Análise de Vulnerabilidades (AppSec/SecOps) ou Arquitetura de Redes.
 2. **Domínio Técnico**: Conhecimento aprofundado comprovado das especificações FIRST CVSS v3.1 e CVSS v4.0.
-3. **Independência Profissional**: Ausência de vínculo empregatício, societário ou de desenvolvimento com a HelpUS nos últimos 24 meses.
-4. **Conflito de Interesses**: Assinatura obrigatória do formulário de declaração de Conflito de Interesses (`G9_COI_FORM.md`) com parecer conclusivo de elegibilidade (`ELIGIBLE`).
+3. **Independência Profissional**: Ausência de vínculo empregatício, societário ou de desenvolvimento com a HelpUS nos últimos **36 (trinta e seis) meses**.
+4. **Conflito de Interesses**: Preenchimento e homologação obrigatória do formulário de Conflito de Interesses (`G9_COI_FORM.md`), com parecer de elegibilidade `ELIGIBLE` ou `ELIGIBLE_WITH_MITIGATION` (neste último caso, sujeito às salvaguardas obrigatórias de mitigação formal e vedação de relatoria-líder na adjudicação; candidatos categorizados como `EXCLUDED` são expressamente inaptos).
 5. **Consentimento Formal**: Assinatura prévia do TCLE aprovado pelo CEP competente (`G9_TCLE_v1.0.md`).
 
 ---

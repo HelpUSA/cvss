@@ -58,12 +58,12 @@ Após o preenchimento pelo especialista, o Comitê de Avaliação de Conflitos d
 
 ## 4. Declaração de Compromisso e Veracidade
 
-Eu, abaixo identificado(a), declaro sob as penas da lei que todas as informações prestadas neste formulário são completas, exatas e verdadeiras. Comprometo-me a comunicar imediatamente ao Custodiante Independente e ao Pesquisador Responsável qualquer fato superveniente que configure novo conflito de interesses no decorrer da pesquisa.
+Eu, abaixo identificado(a), declaro sob compromisso de honra e responsabilidade ética e científica que todas as informações prestadas neste formulário são completas, exatas e verdadeiras. Comprometo-me a comunicar imediatamente ao Custodiante Independente e ao Pesquisador Responsável qualquer fato superveniente que configure novo conflito de interesses no decorrer da pesquisa.
 
 Local e Data: ________________________, ____ / ____ / 2026.
 
 ____________________________________________________________________  
-**Assinatura do Especialista Avaliador (Digital ICP-Brasil / GOV.BR)**  
+**Assinatura do Especialista Avaliador (Assinatura Eletrônica ou Digital Válida: DocuSign, Adobe Sign, GOV.BR, ICP-Brasil ou Assinatura Institucional)**  
 
 ---
 
