@@ -237,7 +237,12 @@ def main() -> int:
             # git commit
             git_info = meta.get("git", {})
             if isinstance(git_info, dict):
-                g_commit = git_info.get("commit") or git_info.get("reviewed_commit", "")
+                g_commit = (
+                    git_info.get("commit")
+                    or git_info.get("reviewed_commit")
+                    or git_info.get("remediation_commit")
+                    or git_info.get("publication_head", "")
+                )
                 if not COMMIT_SHA_REGEX.match(str(g_commit)):
                     errors.append(f"Mensagem {mf.name}: git.commit '{g_commit}' não é SHA-1 válido de 40 caracteres.")
             else:
@@ -269,7 +274,12 @@ def main() -> int:
                 if req_key not in data:
                     errors.append(f"Manifesto {mn.name}: chave obrigatória ausente '{req_key}'.")
 
-            g_commit = data.get("git_commit") or data.get("reviewed_commit", "")
+            g_commit = (
+                data.get("git_commit")
+                or data.get("reviewed_commit")
+                or data.get("remediation_commit")
+                or data.get("reviewed_head", "")
+            )
             if not COMMIT_SHA_REGEX.match(str(g_commit)):
                 errors.append(f"Manifesto {mn.name}: git_commit '{g_commit}' não é SHA de 40 caracteres.")
 
