@@ -29,8 +29,12 @@ async function main() {
       return { id: where.id, platformRole: "USER", status: "ACTIVE" };
     },
   };
+  let revokedSessionUserId: string | null = null;
   (prisma as any).session = {
-    deleteMany: async () => ({ count: 1 }),
+    deleteMany: async ({ where }: any) => {
+      revokedSessionUserId = where?.userId || null;
+      return { count: 1 };
+    },
   };
 
   const { POST } = await import("../src/app/api/review/decision/route");
@@ -228,6 +232,8 @@ async function main() {
   };
 
   // 11. Suspended PLATFORM_ADMIN user -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  lastPersistedEvent = null;
+  revokedSessionUserId = null;
   mockSession = {
     user: {
       id: "admin-suspended-1",
@@ -239,11 +245,17 @@ async function main() {
   const r11 = await POST(req(validApprovedPayload));
   const d11 = await r11.json();
   check(
-    "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
-    r11.status === 403 && d11.code === "FORBIDDEN_USER_NOT_ACTIVE" && d11.currentUserStatus === "SUSPENDED"
+    "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
+    r11.status === 403 &&
+      d11.code === "FORBIDDEN_USER_NOT_ACTIVE" &&
+      d11.currentUserStatus === "SUSPENDED" &&
+      revokedSessionUserId === "admin-suspended-1" &&
+      lastPersistedEvent === null
   );
 
   // 12. Disabled PLATFORM_ADMIN user -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  lastPersistedEvent = null;
+  revokedSessionUserId = null;
   mockSession = {
     user: {
       id: "admin-disabled-1",
@@ -255,11 +267,17 @@ async function main() {
   const r12 = await POST(req(validApprovedPayload));
   const d12 = await r12.json();
   check(
-    "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
-    r12.status === 403 && d12.code === "FORBIDDEN_USER_NOT_ACTIVE" && d12.currentUserStatus === "DISABLED"
+    "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
+    r12.status === 403 &&
+      d12.code === "FORBIDDEN_USER_NOT_ACTIVE" &&
+      d12.currentUserStatus === "DISABLED" &&
+      revokedSessionUserId === "admin-disabled-1" &&
+      lastPersistedEvent === null
   );
 
   // 13. Missing authoritative user in DB -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  lastPersistedEvent = null;
+  revokedSessionUserId = null;
   mockSession = {
     user: {
       id: "admin-missing-1",
@@ -271,8 +289,12 @@ async function main() {
   const r13 = await POST(req(validApprovedPayload));
   const d13 = await r13.json();
   check(
-    "13. Missing authoritative user in DB -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
-    r13.status === 403 && d13.code === "FORBIDDEN_USER_NOT_ACTIVE" && d13.currentUserStatus === "NOT_FOUND"
+    "13. Missing authoritative user in DB -> HTTP 403 fail-closed, session revoked, zero persistence",
+    r13.status === 403 &&
+      d13.code === "FORBIDDEN_USER_NOT_ACTIVE" &&
+      d13.currentUserStatus === "NOT_FOUND" &&
+      revokedSessionUserId === "admin-missing-1" &&
+      lastPersistedEvent === null
   );
 
   const total = results.length;

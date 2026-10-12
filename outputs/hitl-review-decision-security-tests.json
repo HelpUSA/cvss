@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-12T01:54:43.255Z",
+  "timestamp": "2026-10-12T02:57:47.768Z",
   "total": 13,
   "passed": 13,
   "results": [
@@ -44,15 +44,15 @@
       "passed": true
     },
     {
-      "name": "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+      "name": "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
       "passed": true
     },
     {
-      "name": "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+      "name": "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
       "passed": true
     },
     {
-      "name": "13. Missing authoritative user in DB -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+      "name": "13. Missing authoritative user in DB -> HTTP 403 fail-closed, session revoked, zero persistence",
       "passed": true
     }
   ]

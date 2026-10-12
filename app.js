@@ -172,7 +172,7 @@ var HELPUS_I18N = {
     howStep1: "<strong>Ingestão de Scanner Real:</strong> O sistema aceita relatórios do <code>Trivy</code>, <code>Nessus</code>, <code>OpenVAS</code> ou do nosso <code>Scanner Nativo</code> de rede.",
     howStep2: "<strong>Extração de Evidências por IA:</strong> Nossos agentes analisam configurações de rede, portas abertas e regras perimetrais.",
     howStep3: "<strong>Cálculo Conforme Especificação:</strong> O modelo infere métricas nominais (ex: <code>MAV:Adjacent</code>), mas o score final é derivado pela especificação CVSS v4.0 da FIRST.",
-    howStep4: "<strong>Gate de Homologação Humana:</strong> Toda decisão operacional é registrada com justificativas, citações e rastreabilidade total.",
+    howStep4: "<strong>Gate de Homologação Humana:</strong> Toda decisão operacional é registrada com justificativas, citações e rastreabilidade auditável.",
     whyP1: "Na literatura científica e na indústria, equipes quase nunca preenchem as métricas ambientais do CVSS porque analisar dezenas de controles manualmente é custoso e demorado.",
     whyP2: "<strong>Nossa contribuição:</strong> Automatizamos a coleta de evidências e o mapeamento de métricas sob regras versionadas determinísticas, assegurando rastreabilidade auditável e reduzindo a sobrecarga operacional.",
     guideBtnSim: "⚡ Abrir Simulador de Parâmetros",
