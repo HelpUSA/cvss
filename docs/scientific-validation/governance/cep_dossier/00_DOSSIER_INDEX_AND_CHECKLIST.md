@@ -7,32 +7,34 @@
 **Pesquisador Responsável**: Wagner Santos (`helpus.ecommerce@gmail.com`)  
 **Instituição Proponente**: HelpUS Tecnologia / Laboratório de Pesquisa Aplicada em Cibersegurança  
 **Manifesto Estruturado**: [`G9_CEP_DOSSIER_MANIFEST.json`](./G9_CEP_DOSSIER_MANIFEST.json)  
+**Relatório de Pré-Voo QA dos PDFs**: [`PDF_QA_REPORT.json`](./PDF_QA_REPORT.json) (`Status: PASS`)  
+**Proveniência de Build**: Commit `4f8b12db9595` | Python `3.14.0` | ReportLab `5.0.1` | Modo Determinístico Ativo  
 
 ---
 
 ## 1. Inventário Oficial de Documentos do Dossiê
 
-O dossiê é composto por 11 documentos técnicos e éticos preparados em estrita consonância com a Lei nº 14.874/2024 e o padrão FIRST CVSS v4.0. Todas as versões em PDF foram geradas de forma reproduzível a partir das fontes Markdown auditadas.
+O dossiê é composto por 11 documentos técnicos e éticos preparados em estrita consonância com a Lei nº 14.874/2024 e o padrão FIRST CVSS v4.0. Todas as versões em PDF foram geradas de forma deterministicamente reprodutível a partir das fontes Markdown auditadas.
 
-| # | Documento Formal | Versão | Status Interno | Arquivo Markdown & Hash SHA-256 | Arquivo PDF & Hash SHA-256 |
-|---|---|:---:|:---:|---|---|
-| **01** | **Protocolo de Pesquisa Científica com Participantes Humanos** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/01_G9_PROTOCOL_v1.2.md`](md/01_G9_PROTOCOL_v1.2.md)<br/>`f953d28988b80bcb...` | [`pdf/01_G9_PROTOCOL_v1.2.pdf`](pdf/01_G9_PROTOCOL_v1.2.pdf)<br/>`521e832481473b81...` |
-| **02** | **Termo de Consentimento Livre e Esclarecido (TCLE — Especialistas)** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/02_G9_TCLE_v1.2.md`](md/02_G9_TCLE_v1.2.md)<br/>`f061d918449d8d3c...` | [`pdf/02_G9_TCLE_v1.2.pdf`](pdf/02_G9_TCLE_v1.2.pdf)<br/>`7bd5161cf7794ce1...` |
-| **03** | **Plano de Análise Estatística Pré-Especificado (Statistical Analysis Plan — SAP)** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/03_G9_SAP_v1.2.md`](md/03_G9_SAP_v1.2.md)<br/>`69abf4c5b5b321d7...` | [`pdf/03_G9_SAP_v1.2.pdf`](pdf/03_G9_SAP_v1.2.pdf)<br/>`fa9297542c6777cd...` |
-| **04** | **Declaração de Inexistência de Conflito de Interesses (COI Form)** | `v1.1` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/04_G9_COI_FORM_v1.1.md`](md/04_G9_COI_FORM_v1.1.md)<br/>`cf240378833fe6d6...` | [`pdf/04_G9_COI_FORM_v1.1.pdf`](pdf/04_G9_COI_FORM_v1.1.pdf)<br/>`455965a749f04a56...` |
-| **05** | **Critérios Formais de Elegibilidade, Inclusão e Exclusão de Especialistas** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/05_G9_EXPERT_ELIGIBILITY_v1.0.md`](md/05_G9_EXPERT_ELIGIBILITY_v1.0.md)<br/>`ab66646585df4ba0...` | [`pdf/05_G9_EXPERT_ELIGIBILITY_v1.0.pdf`](pdf/05_G9_EXPERT_ELIGIBILITY_v1.0.pdf)<br/>`314773076ac6af5c...` |
-| **06** | **Carta-Convite Institucional para Recrutamento de Especialistas Avaliadores** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/06_G9_RECRUITMENT_INVITATION_v1.0.md`](md/06_G9_RECRUITMENT_INVITATION_v1.0.md)<br/>`1785334c380d907e...` | [`pdf/06_G9_RECRUITMENT_INVITATION_v1.0.pdf`](pdf/06_G9_RECRUITMENT_INVITATION_v1.0.pdf)<br/>`f3461cfc6e368a52...` |
-| **07** | **Manual de Instruções aos Especialistas Avaliadores (Diretrizes FIRST CVSS v4.0)** | `v1.1` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/07_G9_REVIEWER_INSTRUCTIONS_v1.1.md`](md/07_G9_REVIEWER_INSTRUCTIONS_v1.1.md)<br/>`a0e1b20e5b8be90f...` | [`pdf/07_G9_REVIEWER_INSTRUCTIONS_v1.1.pdf`](pdf/07_G9_REVIEWER_INSTRUCTIONS_v1.1.pdf)<br/>`6111f1a969c6b072...` |
-| **08** | **Plano de Gestão, Armazenamento e Rastreabilidade de Dados de Pesquisa (DMP)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/08_G9_DATA_MANAGEMENT_PLAN_v1.0.md`](md/08_G9_DATA_MANAGEMENT_PLAN_v1.0.md)<br/>`773fc75492d65927...` | [`pdf/08_G9_DATA_MANAGEMENT_PLAN_v1.0.pdf`](pdf/08_G9_DATA_MANAGEMENT_PLAN_v1.0.pdf)<br/>`a9d1a305e329661b...` |
-| **09** | **Plano de Privacidade, Confidencialidade e Conformidade LGPD (Lei nº 13.709/2018)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/09_G9_LGPD_PRIVACY_PLAN_v1.0.md`](md/09_G9_LGPD_PRIVACY_PLAN_v1.0.md)<br/>`4b645d80b2a5e70e...` | [`pdf/09_G9_LGPD_PRIVACY_PLAN_v1.0.pdf`](pdf/09_G9_LGPD_PRIVACY_PLAN_v1.0.pdf)<br/>`64c96b6e3f8fcd56...` |
-| **10** | **Mapeamento Prévio Interno de Salvaguardas Éticas em IA (Suporte Orientativo MARIAH — SINEP/INAEP)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/10_G9_MARIAH_ASSESSMENT_v1.0.md`](md/10_G9_MARIAH_ASSESSMENT_v1.0.md)<br/>`bf5c8cce005e1798...` | [`pdf/10_G9_MARIAH_ASSESSMENT_v1.0.pdf`](pdf/10_G9_MARIAH_ASSESSMENT_v1.0.pdf)<br/>`dfe2df8bc08b077c...` |
-| **11** | **Parecer Técnico de Prontidão da Fase Pré-Congelamento (Gates G9 e G10)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/11_PREFREEZE_READINESS_DECISION_v1.0.md`](md/11_PREFREEZE_READINESS_DECISION_v1.0.md)<br/>`8ad7082a3495b35e...` | [`pdf/11_PREFREEZE_READINESS_DECISION_v1.0.pdf`](pdf/11_PREFREEZE_READINESS_DECISION_v1.0.pdf)<br/>`bcd4a84727343aab...` |
+| # | Documento Formal | Versão | Status Interno | Arquivo Markdown & Raw SHA-256 | Arquivo PDF & Raw SHA-256 | Páginas | QA Pré-Voo |
+|---|---|:---:|:---:|---|---|:---:|:---:|
+| **01** | **Protocolo de Pesquisa Científica com Participantes Humanos** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/01_G9_PROTOCOL_v1.2.md`](md/01_G9_PROTOCOL_v1.2.md)<br/>`f953d28988b80bcb...` | [`pdf/01_G9_PROTOCOL_v1.2.pdf`](pdf/01_G9_PROTOCOL_v1.2.pdf)<br/>`50242cc4aa8e1a4e...` | 3 | `PASS` |
+| **02** | **Termo de Consentimento Livre e Esclarecido (TCLE — Especialistas)** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/02_G9_TCLE_v1.2.md`](md/02_G9_TCLE_v1.2.md)<br/>`f061d918449d8d3c...` | [`pdf/02_G9_TCLE_v1.2.pdf`](pdf/02_G9_TCLE_v1.2.pdf)<br/>`f8c4d6674d786c46...` | 3 | `PASS` |
+| **03** | **Plano de Análise Estatística Pré-Especificado (Statistical Analysis Plan — SAP)** | `v1.2` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/03_G9_SAP_v1.2.md`](md/03_G9_SAP_v1.2.md)<br/>`69abf4c5b5b321d7...` | [`pdf/03_G9_SAP_v1.2.pdf`](pdf/03_G9_SAP_v1.2.pdf)<br/>`614afa39ebc2a044...` | 5 | `PASS` |
+| **04** | **Declaração de Inexistência de Conflito de Interesses (COI Form)** | `v1.1` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/04_G9_COI_FORM_v1.1.md`](md/04_G9_COI_FORM_v1.1.md)<br/>`cf240378833fe6d6...` | [`pdf/04_G9_COI_FORM_v1.1.pdf`](pdf/04_G9_COI_FORM_v1.1.pdf)<br/>`fdf56ccf9f76a907...` | 3 | `PASS` |
+| **05** | **Critérios Formais de Elegibilidade, Inclusão e Exclusão de Especialistas** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/05_G9_EXPERT_ELIGIBILITY_v1.0.md`](md/05_G9_EXPERT_ELIGIBILITY_v1.0.md)<br/>`ab66646585df4ba0...` | [`pdf/05_G9_EXPERT_ELIGIBILITY_v1.0.pdf`](pdf/05_G9_EXPERT_ELIGIBILITY_v1.0.pdf)<br/>`c7357d503f662692...` | 1 | `PASS` |
+| **06** | **Carta-Convite Institucional para Recrutamento de Especialistas Avaliadores** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/06_G9_RECRUITMENT_INVITATION_v1.0.md`](md/06_G9_RECRUITMENT_INVITATION_v1.0.md)<br/>`1785334c380d907e...` | [`pdf/06_G9_RECRUITMENT_INVITATION_v1.0.pdf`](pdf/06_G9_RECRUITMENT_INVITATION_v1.0.pdf)<br/>`90b821b24d263d44...` | 1 | `PASS` |
+| **07** | **Manual de Instruções aos Especialistas Avaliadores (Diretrizes FIRST CVSS v4.0)** | `v1.1` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/07_G9_REVIEWER_INSTRUCTIONS_v1.1.md`](md/07_G9_REVIEWER_INSTRUCTIONS_v1.1.md)<br/>`a0e1b20e5b8be90f...` | [`pdf/07_G9_REVIEWER_INSTRUCTIONS_v1.1.pdf`](pdf/07_G9_REVIEWER_INSTRUCTIONS_v1.1.pdf)<br/>`41ebe5a64f9af270...` | 2 | `PASS` |
+| **08** | **Plano de Gestão, Armazenamento e Rastreabilidade de Dados de Pesquisa (DMP)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/08_G9_DATA_MANAGEMENT_PLAN_v1.0.md`](md/08_G9_DATA_MANAGEMENT_PLAN_v1.0.md)<br/>`773fc75492d65927...` | [`pdf/08_G9_DATA_MANAGEMENT_PLAN_v1.0.pdf`](pdf/08_G9_DATA_MANAGEMENT_PLAN_v1.0.pdf)<br/>`d045cc589e3c5e7c...` | 1 | `PASS` |
+| **09** | **Plano de Privacidade, Confidencialidade e Conformidade LGPD (Lei nº 13.709/2018)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/09_G9_LGPD_PRIVACY_PLAN_v1.0.md`](md/09_G9_LGPD_PRIVACY_PLAN_v1.0.md)<br/>`4b645d80b2a5e70e...` | [`pdf/09_G9_LGPD_PRIVACY_PLAN_v1.0.pdf`](pdf/09_G9_LGPD_PRIVACY_PLAN_v1.0.pdf)<br/>`3aa14a0a2124fe62...` | 1 | `PASS` |
+| **10** | **Mapeamento Prévio Interno de Salvaguardas Éticas em IA (Suporte Orientativo MARIAH — SINEP/INAEP)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/10_G9_MARIAH_ASSESSMENT_v1.0.md`](md/10_G9_MARIAH_ASSESSMENT_v1.0.md)<br/>`bf5c8cce005e1798...` | [`pdf/10_G9_MARIAH_ASSESSMENT_v1.0.pdf`](pdf/10_G9_MARIAH_ASSESSMENT_v1.0.pdf)<br/>`97a1e24a767ccda9...` | 2 | `PASS` |
+| **11** | **Parecer Técnico de Prontidão da Fase Pré-Congelamento (Gates G9 e G10)** | `v1.0` | `DOCUMENTARY_READY_FOR_CEP_SUBMISSION` | [`md/11_PREFREEZE_READINESS_DECISION_v1.0.md`](md/11_PREFREEZE_READINESS_DECISION_v1.0.md)<br/>`8ad7082a3495b35e...` | [`pdf/11_PREFREEZE_READINESS_DECISION_v1.0.pdf`](pdf/11_PREFREEZE_READINESS_DECISION_v1.0.pdf)<br/>`7a7826d4cc344a3d...` | 1 | `PASS` |
 
 ---
 
 ## 2. Segregação Rigorosa: Prontidão Interna vs. Pendências Externas Reais
 
-Em estrito cumprimento aos preceitos de integridade científica e às diretrizes das auditorias independentes do ChatGPT (CG-20261010-013 a CG-20261010-018), declara-se a separação absoluta entre o que está formalmente concluído no projeto e o que depende exclusivamente de terceiros e instâncias externas.
+Em estrito cumprimento aos preceitos de integridade científica e às diretrizes das auditorias independentes do ChatGPT (CG-20261010-013 a CG-20261010-020), declara-se a separação absoluta entre o que está formalmente concluído no projeto e o que depende exclusivamente de terceiros e instâncias externas.
 
 ### 2.1. O que Está 100% Concluído e Congelado Internamente
 1. **Harmonização Conceitual Plena**:
@@ -46,6 +48,9 @@ Em estrito cumprimento aos preceitos de integridade científica e às diretrizes
 4. **Governança de Custódia Cega (G10)**:
    - Arquitetura de custódia em dois estágios, controle duplo de chaves (2-de-2), runbook *one-shot* e políticas de falha formalizados.
    - Datasets confirmatórios C1 e C2 estritamente lacrados (`SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE`).
+5. **Garantia de Qualidade dos PDFs (QA Preflight Hardening)**:
+   - Compilação determinística e reprodutível comprovada (dois builds consecutivos com hashes de PDFs idênticos).
+   - Semântica de raw bytes auditada e sem caracteres corrompidos (`U+FFFD`).
 
 ### 2.2. Campos e Procedimentos Genuinamente Externos (Não Preenchidos Prematuramente)
 Nenhum campo externo foi falsificado ou preenchido com dados fictícios. Os seguintes itens permanecem com *placeholders* explícitos e aguardam seus trâmites reais:

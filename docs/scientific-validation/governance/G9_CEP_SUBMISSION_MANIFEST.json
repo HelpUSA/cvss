@@ -11,13 +11,14 @@
   },
   "regulatory_framework": {
     "law": "Lei Federal nº 14.874/2024",
-    "decree": "Decreto nº 12.651/2025",
+    "decree": "Decreto Federal nº 12.651/2025",
     "system": "SINEP / Plataforma Brasil",
     "cep_competente": "[PENDENTE DE DETERMINACAO VIA FLUXO SINEP / PLACEHOLDER]"
   },
   "package_dossier": {
     "index_file": "docs/scientific-validation/governance/cep_dossier/00_DOSSIER_INDEX_AND_CHECKLIST.md",
     "manifest_file": "docs/scientific-validation/governance/cep_dossier/G9_CEP_DOSSIER_MANIFEST.json",
+    "qa_report_file": "docs/scientific-validation/governance/cep_dossier/PDF_QA_REPORT.json",
     "pdf_bundle_directory": "docs/scientific-validation/governance/cep_dossier/pdf",
     "md_bundle_directory": "docs/scientific-validation/governance/cep_dossier/md",
     "total_documents": 11
