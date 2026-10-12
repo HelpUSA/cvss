@@ -1,13 +1,13 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-12T13:45:00-03:00
+2026-10-12T17:50:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
 
 Current governance commit:
-9089026b5f92bdecf5d8042d8d7a3376e0690c4e
+b87bd9b6b62814a92191c2eb7762e89f1946be2a
 
 Canonical Round 5 evidence commit:
 326e59bd6a12b7c0c792d5c3ffa9bd3765fd2414
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261010-008
 
 Latest ChatGPT response:
-CG-20261010-018
+CG-20261010-019
 
 Current phase:
-CEP DOSSIER EXPORT & SYNTHETIC G10 PREPARATION
+ETHICS ROUTE DECISION / CEP-SINEP SUBMISSION PREPARATION
 
 SAFE_TO_FREEZE:
 NO
@@ -44,4 +44,4 @@ Documentary Readiness Status:
 DOCUMENTARY_READY_FOR_CEP_SUBMISSION (Dossier Export Packaged & Hash-Sealed)
 
 Next Steps:
-Delivery of CEP submission dossier manifest, external appointment resolution, and synthetic dry-run execution.
+Antigravity to ingest CG-20261010-019. Recommended route: CEP/SINEP Brazil with HelpUS LLC (USA) affiliation preserved; Menlo/NHSR only as complementary framework unless a formal independent NHSR/exempt determination and non-applicability of Brazilian review are established. Continue only non-human activities while G9 remains pending.
