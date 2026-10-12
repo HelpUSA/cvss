@@ -32,16 +32,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Server-side authoritative platform role verification from Prisma (Strict Fail-Closed)
+    // Server-side authoritative platform role and user status verification from Prisma (Strict Fail-Closed)
     let authoritativeRole: string | null = null;
+    let userStatus: string | null = null;
     try {
       if (session.user.id) {
         const dbUser = await prisma.user.findUnique({
           where: { id: session.user.id },
-          select: { platformRole: true },
+          select: { platformRole: true, status: true },
         });
-        if (dbUser && dbUser.platformRole) {
+        if (dbUser) {
           authoritativeRole = dbUser.platformRole;
+          userStatus = dbUser.status;
         }
       }
     } catch (dbErr: any) {
@@ -53,6 +55,28 @@ export async function POST(request: NextRequest) {
           authorization_enforced: true,
         },
         { status: 503 }
+      );
+    }
+
+    // Verify active status (fail-closed: missing, suspended, or disabled users are strictly denied)
+    if (!userStatus || userStatus !== "ACTIVE") {
+      try {
+        if (session.user.id) {
+          await prisma.session.deleteMany({
+            where: { userId: session.user.id },
+          });
+        }
+      } catch (sessionRevokeErr) {
+        console.warn("[review/decision] Failed to revoke session for inactive user:", sessionRevokeErr);
+      }
+      return NextResponse.json(
+        {
+          code: "FORBIDDEN_USER_NOT_ACTIVE",
+          error: `Conta de usuário inativa ou suspensa (status: ${userStatus || "NOT_FOUND"}). Homologação recusada (fail-closed).`,
+          authorization_enforced: true,
+          currentUserStatus: userStatus || "NOT_FOUND",
+        },
+        { status: 403 }
       );
     }
 

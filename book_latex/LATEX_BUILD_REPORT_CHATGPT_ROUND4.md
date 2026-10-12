@@ -12,8 +12,8 @@ Results:
 - Overfull hboxes: **0**
 - Underfull hboxes: **18** (non-blocking; visually inspected critical pages)
 - Hyperref warnings: **2** (non-blocking Appendix anchor warnings)
-- PDF SHA-256: `9bc46412112d43cc3657e1cc647aeffc7d289cb69ee1201a720282ea57f3012e`
-- PDF bytes: **1216237**
+- PDF SHA-256: `a222230192cd32e359d4fb196ae75dbbdc0fd8bb71b282dcaa789e21fdf5180a`
+- PDF bytes: **1224761**
 - LaTeX engine: `pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian)`
 - Bibliography tool: `This is 8-bit Big BibTeX version 0.99d-x4.02 (TeX Live 2025/dev)`
 

@@ -1142,13 +1142,18 @@ function updateDecisionGuidance() {
   }
 }
 
-function generateAuditHash() {
-  var chars = "0123456789abcdef";
-  var hash = "0x";
-  for (var i = 0; i < 40; i++) {
-    hash += chars[Math.floor(Math.random() * chars.length)];
+function generateAuditHash(payload) {
+  // Demo simulation digest generation over canonicalized preview payload.
+  // Strictly non-authoritative demo digest — NOT a cryptographic signature or durable audit event.
+  var str = JSON.stringify(payload || {});
+  var hash = 0;
+  for (var i = 0; i < str.length; i++) {
+    var chr = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + chr;
+    hash |= 0;
   }
-  return hash;
+  var hex = (hash >>> 0).toString(16).padStart(8, "0");
+  return "demo-digest-simulacao-" + hex;
 }
 
 function executeHomologation() {
@@ -1165,12 +1170,24 @@ function executeHomologation() {
   var rationale = document.getElementById("homologRationaleText").value;
 
   var nowIso = new Date().toISOString();
-  var auditHash = generateAuditHash();
-
   var isApproved = (action === "approve" || action === "approve_with_controls");
 
+  var demoPayload = {
+    action: action,
+    reviewer_email: email,
+    ticket_id: ticketId,
+    rationale: rationale,
+    timestamp: nowIso,
+    target_cve: e.cve,
+    asset_id: e.asset_id,
+    effective_score: isApproved ? c.contextual_score : o.base_score,
+  };
+  var demoDigest = generateAuditHash(demoPayload);
+
   var homologationRecord = {
-    status: isApproved ? "HOMOLOGADO" : "REJEITADO",
+    status: isApproved ? "SIMULACAO_APROVADA" : "SIMULACAO_REJEITADA",
+    mode: "client_side_simulation",
+    governance_notice: "Simulação client-side não autoritativa para pré-visualização. Homologações corporativas oficiais com recibo auditável exigem sessão corporativa autenticada via endpoint /api/review/decision.",
     action: action,
     reviewer_name: reviewer,
     reviewer_email: email,
@@ -1178,7 +1195,7 @@ function executeHomologation() {
     ticket_id: ticketId,
     rationale: rationale,
     timestamp: nowIso,
-    audit_hash: auditHash,
+    demo_digest: demoDigest,
     target_cve: e.cve,
     asset_id: e.asset_id,
     effective_score: isApproved ? c.contextual_score : o.base_score,
@@ -1201,13 +1218,13 @@ function executeHomologation() {
     box.innerHTML =
       "<div style='background:" + statusBg + ";border:1px solid " + statusBadgeColor + ";border-radius:8px;padding:12px;width:100%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;'>" +
         "<div>" +
-          "<div style='color:" + statusBadgeColor + ";font-weight:700;font-size:13px;'>" + icon + " Decisão: " + homologationRecord.status + " por " + esc(reviewer) + " (" + esc(role) + ")</div>" +
-          "<div style='font-size:11px;color:#cbd5e1;margin-top:3px;'>Ticket: <strong>" + esc(ticketId) + "</strong> | Hash: <code>" + auditHash.substring(0, 16) + "...</code> | " + nowIso.substring(0, 19).replace("T", " ") + " UTC</div>" +
-          "<div style='font-size:11px;color:#94a3b8;margin-top:2px;'>Score Efetivo de Prioridade: <strong>" + esc(homologationRecord.effective_score) + " (" + esc(homologationRecord.effective_severity) + ")</strong></div>" +
+          "<div style='color:" + statusBadgeColor + ";font-weight:700;font-size:13px;'>" + icon + " Simulação: " + homologationRecord.status + " por " + esc(reviewer) + " (" + esc(role) + ")</div>" +
+          "<div style='font-size:11px;color:#cbd5e1;margin-top:3px;'>Ticket: <strong>" + esc(ticketId) + "</strong> | Digest (Demo): <code>" + demoDigest + "</code> | " + nowIso.substring(0, 19).replace("T", " ") + " UTC</div>" +
+          "<div style='font-size:11px;color:#94a3b8;margin-top:2px;'>Score de Simulação: <strong>" + esc(homologationRecord.effective_score) + " (" + esc(homologationRecord.effective_severity) + ")</strong></div>" +
         "</div>" +
         "<div style='display:flex;gap:6px;'>" +
-          "<button onclick='openHomologationModal(\"" + (isApproved ? "approve" : "reject") + "\")' style='width:auto;padding:6px 12px;background:#0d223f;border:1px solid #1e3a5f;font-size:11px;color:#38bdf8;'>Revisar Homologação</button>" +
-          "<button onclick='downloadHomologationCertificate()' style='width:auto;padding:6px 12px;background:#1e293b;border:1px solid #334155;font-size:11px;color:#cbd5e1;'>Certificado</button>" +
+          "<button onclick='openHomologationModal(\"" + (isApproved ? "approve" : "reject") + "\")' style='width:auto;padding:6px 12px;background:#0d223f;border:1px solid #1e3a5f;font-size:11px;color:#38bdf8;'>Revisar Simulação</button>" +
+          "<button onclick='downloadHomologationCertificate()' style='width:auto;padding:6px 12px;background:#1e293b;border:1px solid #334155;font-size:11px;color:#cbd5e1;'>Comprovante Demo</button>" +
         "</div>" +
       "</div>";
   }
@@ -1219,20 +1236,21 @@ function executeHomologation() {
     certBox.innerHTML =
       "<div style='display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1e3a5f;padding-bottom:10px;margin-bottom:12px;'>" +
         "<div>" +
-          "<span style='font-size:11px;color:#94a3b8;text-transform:uppercase;'>Certificado de Rastreabilidade Humana</span>" +
+          "<span style='font-size:11px;color:#94a3b8;text-transform:uppercase;'>Comprovante de Demonstração Interativa (Simulação Local)</span>" +
           "<h4 style='margin:2px 0 0;font-size:16px;color:" + (isApproved ? "#4ade80" : "#f87171") + ";'>" + homologationRecord.status + " • " + esc(homologationRecord.effective_score) + " " + esc(homologationRecord.effective_severity) + "</h4>" +
         "</div>" +
-        "<span style='font-size:11px;background:#050c17;padding:4px 8px;border-radius:6px;border:1px solid #1e3a5f;color:#38bdf8;'>ISO 27001 Cláusula 6.1.2</span>" +
+        "<span style='font-size:11px;background:#050c17;padding:4px 8px;border-radius:6px;border:1px solid #1e3a5f;color:#38bdf8;'>Simulação Client-Side</span>" +
       "</div>" +
       "<div style='font-size:12px;line-height:1.7;color:#cbd5e1;'>" +
-        "<div><strong>Responsável Técnico:</strong> " + esc(reviewer) + " &lt;" + esc(email) + "&gt; (" + esc(role) + ")</div>" +
+        "<div><strong>Responsável Técnico (Simulado):</strong> " + esc(reviewer) + " &lt;" + esc(email) + "&gt; (" + esc(role) + ")</div>" +
         "<div><strong>Chamado Vinculado:</strong> " + esc(ticketId) + "</div>" +
         "<div><strong>Ativo / CVE:</strong> " + esc(e.asset_id) + " / " + esc(e.cve) + "</div>" +
         "<div><strong>Score Base Origem:</strong> " + esc(o.base_score) + " (" + esc(o.base_severity) + ")</div>" +
-        "<div><strong>Score Efetivo Homologado:</strong> " + esc(homologationRecord.effective_score) + " (" + esc(homologationRecord.effective_severity) + ")</div>" +
+        "<div><strong>Score Efetivo Simulado:</strong> " + esc(homologationRecord.effective_score) + " (" + esc(homologationRecord.effective_severity) + ")</div>" +
         "<div><strong>Justificativa Técnica:</strong> " + esc(rationale) + "</div>" +
         "<div><strong>Carimbo Temporal:</strong> " + nowIso + "</div>" +
-        "<div style='margin-top:6px;word-break:break-all;'><strong>Assinatura Criptográfica:</strong> <code style='color:#38bdf8;'>" + auditHash + "</code></div>" +
+        "<div style='margin-top:6px;word-break:break-all;'><strong>Digest de Demonstração (Não Autoritativo):</strong> <code style='color:#38bdf8;'>" + demoDigest + "</code></div>" +
+        "<div style='margin-top:4px;font-size:11px;color:#94a3b8;'><em>Nota: Pré-visualização demonstrativa no navegador. Homologações oficiais são auditadas e persistidas via API autenticada /api/review/decision.</em></div>" +
       "</div>";
   }
 

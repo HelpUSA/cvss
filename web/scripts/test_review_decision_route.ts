@@ -11,14 +11,26 @@ import path from "path";
 async function main() {
   const { prisma } = await import("../src/lib/prisma");
 
-  // Mock prisma.user to return authoritative platformRole
+  // Mock prisma.user to return authoritative platformRole and status
   (prisma as any).user = {
     findUnique: async ({ where }: any) => {
       if (where.id === "admin-master-1") {
-        return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN" };
+        return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN", status: "ACTIVE" };
       }
-      return { id: where.id, platformRole: "USER" };
+      if (where.id === "admin-suspended-1") {
+        return { id: "admin-suspended-1", platformRole: "PLATFORM_ADMIN", status: "SUSPENDED" };
+      }
+      if (where.id === "admin-disabled-1") {
+        return { id: "admin-disabled-1", platformRole: "PLATFORM_ADMIN", status: "DISABLED" };
+      }
+      if (where.id === "admin-missing-1") {
+        return null;
+      }
+      return { id: where.id, platformRole: "USER", status: "ACTIVE" };
     },
+  };
+  (prisma as any).session = {
+    deleteMany: async () => ({ count: 1 }),
   };
 
   const { POST } = await import("../src/app/api/review/decision/route");
@@ -184,9 +196,18 @@ async function main() {
   // Restore working prisma.user.findUnique
   (prisma as any).user.findUnique = async ({ where }: any) => {
     if (where.id === "admin-master-1") {
-      return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN" };
+      return { id: "admin-master-1", platformRole: "PLATFORM_ADMIN", status: "ACTIVE" };
     }
-    return { id: where.id, platformRole: "USER" };
+    if (where.id === "admin-suspended-1") {
+      return { id: "admin-suspended-1", platformRole: "PLATFORM_ADMIN", status: "SUSPENDED" };
+    }
+    if (where.id === "admin-disabled-1") {
+      return { id: "admin-disabled-1", platformRole: "PLATFORM_ADMIN", status: "DISABLED" };
+    }
+    if (where.id === "admin-missing-1") {
+      return null;
+    }
+    return { id: where.id, platformRole: "USER", status: "ACTIVE" };
   };
 
   // 10. Audit event persistence failure -> HTTP 500 fail-closed (Blocker B verification)
@@ -198,6 +219,60 @@ async function main() {
   check(
     "10. Security audit event persistence failure -> HTTP 500 fail-closed",
     r10.status === 500 && d10.code === "DURABLE_PERSISTENCE_FAILED"
+  );
+
+  // Restore working securityAuditEvent.create
+  (prisma as any).securityAuditEvent.create = async ({ data }: any) => {
+    lastPersistedEvent = data;
+    return { id: "audit_evt_123", ...data, createdAt: new Date() };
+  };
+
+  // 11. Suspended PLATFORM_ADMIN user -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  mockSession = {
+    user: {
+      id: "admin-suspended-1",
+      email: "suspended.admin@helpusbr.com",
+      name: "Suspended Admin",
+      platformRole: "PLATFORM_ADMIN",
+    },
+  };
+  const r11 = await POST(req(validApprovedPayload));
+  const d11 = await r11.json();
+  check(
+    "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+    r11.status === 403 && d11.code === "FORBIDDEN_USER_NOT_ACTIVE" && d11.currentUserStatus === "SUSPENDED"
+  );
+
+  // 12. Disabled PLATFORM_ADMIN user -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  mockSession = {
+    user: {
+      id: "admin-disabled-1",
+      email: "disabled.admin@helpusbr.com",
+      name: "Disabled Admin",
+      platformRole: "PLATFORM_ADMIN",
+    },
+  };
+  const r12 = await POST(req(validApprovedPayload));
+  const d12 = await r12.json();
+  check(
+    "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+    r12.status === 403 && d12.code === "FORBIDDEN_USER_NOT_ACTIVE" && d12.currentUserStatus === "DISABLED"
+  );
+
+  // 13. Missing authoritative user in DB -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)
+  mockSession = {
+    user: {
+      id: "admin-missing-1",
+      email: "ghost.admin@helpusbr.com",
+      name: "Ghost Admin",
+      platformRole: "PLATFORM_ADMIN",
+    },
+  };
+  const r13 = await POST(req(validApprovedPayload));
+  const d13 = await r13.json();
+  check(
+    "13. Missing authoritative user in DB -> HTTP 403 fail-closed (FORBIDDEN_USER_NOT_ACTIVE)",
+    r13.status === 403 && d13.code === "FORBIDDEN_USER_NOT_ACTIVE" && d13.currentUserStatus === "NOT_FOUND"
   );
 
   const total = results.length;

@@ -28,6 +28,10 @@ EXPANDED_PATTERNS = {
     'hardcoded_wagner_name': r'Wagner\s+Santos',
     'unproven_master_approval': r'Aprovado\s+pelo\s+Master',
     'stale_telemetry_window_300s': r'<\s*300s',
+    'unsupported_false_alert_reduction': r'reduzindo\s+o\s+falso\s+alerta|reduzindo\s+falsos?\s+alertas?|reducing\s+false\s+alerts?|reduciendo\s+falsas?\s+alertas?',
+    'unsupported_crypto_signature': r'assinatura\s+criptogr[aá]fica(?![^<\n]{0,120}(exigem\s+sess[aã]o|não\s+constitui|não\s+autoritativo|simula[cç][aã]o|demo|demonstra[cç][aã]o))|carimbo\s+digital[^<\n]{0,100}integridade\s+criptogr[aá]fica\s+verific[aá]vel',
+    'math_random_crypto_claim': r'Math\.random\(\)[^;\n]{0,80}(assinatura|crypto|cripto)',
+    'unsupported_superadmin_master': r'SuperAdmin\s+Master',
 }
 
 def audit_content(content_str: str, target_desc: str, response_headers: dict = None) -> dict:
@@ -57,30 +61,73 @@ def audit_content(content_str: str, target_desc: str, response_headers: dict = N
     return result
 
 def main():
+    results = []
+    overall_pass = True
+
     if TARGET.startswith(('http://', 'https://')):
         req = Request(TARGET, headers={'User-Agent': 'HelpUS-Scientific-Copy-Audit/2.0'})
         try:
             with urlopen(req, timeout=30) as resp:
                 headers = dict(resp.headers)
                 html = resp.read().decode('utf-8', errors='replace')
-                result = audit_content(html, TARGET, headers)
+                res_html = audit_content(html, TARGET, headers)
+                results.append(res_html)
+                if not res_html.get('pass'):
+                    overall_pass = False
         except Exception as e:
-            result = {
+            results.append({
                 'target': TARGET,
                 'timestamp_utc': datetime.now(timezone.utc).isoformat(),
                 'error': str(e),
                 'pass': False,
-            }
+            })
+            overall_pass = False
+
+        # Audit linked production JS (app.js)
+        js_url = TARGET.rstrip('/') + '/app.js'
+        try:
+            req_js = Request(js_url, headers={'User-Agent': 'HelpUS-Scientific-Copy-Audit/2.0'})
+            with urlopen(req_js, timeout=30) as resp_js:
+                js_content = resp_js.read().decode('utf-8', errors='replace')
+                res_js = audit_content(js_content, js_url, dict(resp_js.headers))
+                results.append(res_js)
+                if not res_js.get('pass'):
+                    overall_pass = False
+        except Exception as e:
+            # Fall back to local app.js if production server bundles or redirects
+            if os.path.exists('app.js'):
+                with open('app.js', 'r', encoding='utf-8', errors='replace') as f:
+                    res_js = audit_content(f.read(), 'app.js (local fallback)')
+                    results.append(res_js)
+                    if not res_js.get('pass'):
+                        overall_pass = False
     else:
         if not os.path.exists(TARGET):
             print(f"Error: Target file {TARGET} not found", file=sys.stderr)
             sys.exit(1)
         with open(TARGET, 'r', encoding='utf-8', errors='replace') as f:
             html = f.read()
-        result = audit_content(html, TARGET)
+        res_html = audit_content(html, TARGET)
+        results.append(res_html)
+        if not res_html.get('pass'):
+            overall_pass = False
 
-    print(json.dumps(result, indent=2, ensure_ascii=False))
-    sys.exit(0 if result.get('pass', False) else 2)
+        # Also audit app.js if in repository
+        if os.path.exists('app.js') and TARGET != 'app.js':
+            with open('app.js', 'r', encoding='utf-8', errors='replace') as f:
+                res_js = audit_content(f.read(), 'app.js')
+                results.append(res_js)
+                if not res_js.get('pass'):
+                    overall_pass = False
+
+    output = {
+        'timestamp_utc': datetime.now(timezone.utc).isoformat(),
+        'target': TARGET,
+        'pass': overall_pass,
+        'results': results,
+    }
+    print(json.dumps(output, indent=2, ensure_ascii=False))
+    sys.exit(0 if overall_pass else 2)
 
 if __name__ == '__main__':
     main()

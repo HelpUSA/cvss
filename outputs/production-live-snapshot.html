@@ -489,7 +489,7 @@
             <!-- SVG Chart 1 renderizado dinamicamente -->
           </div>
           <p class="note" style="font-size:12px;margin:8px 0 0;line-height:1.5;" data-i18n="chart1Note">
-            💡 <strong>Impacto Prático:</strong> A avaliação de origem trata a maioria dos achados no vácuo como Críticos ou Altos. A HelpUS contextualiza os alertas com base em controles reais (VLAN, WAF, ausência de exposição direta), reduzindo o falso alerta.
+            💡 <strong>Impacto Prático:</strong> A avaliação de origem trata 73.3% dos achados no vácuo como Críticos ou Altos. A HelpUS redistribui os alertas reais para Médio/Baixo quando há controles como VLAN, WAF ou ausência de internet, reduzindo a sobrecarga operacional.
           </p>
         </div>
 
@@ -598,7 +598,7 @@
             Console Operacional HelpUS CVSS
           </h2>
           <p style="margin:0; font-size:14px; color:#94a3b8; max-width:820px; line-height:1.5;">
-            Priorização contextual em 5 camadas com proveniência compatível com JCS (RFC 8785 pendente validação formal) SHA-256 e governança supervisionada pelo SuperAdmin Master.
+            Priorização contextual em 5 camadas com proveniência compatível com JCS (RFC 8785 pendente validação formal) SHA-256 e governança supervisionada pelo perfil autoritativo PLATFORM_ADMIN.
           </p>
         </div>
 
@@ -630,7 +630,7 @@
           <span>🔒</span> <span>Autenticação Servidor com RBAC</span>
         </div>
         <div style="font-size:12px; color:#94a3b8; margin-top:4px; line-height:1.4;">
-          Decisões com assinatura criptográfica exigem sessão corporativa autenticada via endpoint seguro <code>/api/review/decision</code>.
+          Decisões operacionais com persistência e auditoria exigem sessão corporativa autenticada via endpoint seguro <code>/api/review/decision</code>. O console público atua em modo de simulação demonstrativa.
         </div>
       </div>
 
@@ -804,7 +804,7 @@
       <div class="card">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h4 style="margin:0; font-size:16px; color:#ffffff;">Histórico de Homologações & Decisões Operacionais</h4>
-          <span style="font-size:11px; color:#94a3b8;">Sessão Auditada: SuperAdmin Master</span>
+          <span style="font-size:11px; color:#94a3b8;">Console Interativo: Modo Demonstração (Não Autoritativo)</span>
         </div>
         <div class="table-wrap">
           <table>
@@ -1009,16 +1009,16 @@
 
       <div style="display:flex;justify-content:space-between;margin-top:18px;">
         <button onclick="goToWizardStep(2)" style="width:auto;padding:8px 16px;background:#1e293b;border-color:#334155;">← Voltar</button>
-        <button onclick="executeHomologation()" id="btnExecuteHomologation" style="width:auto;padding:8px 18px;background:#16a34a;border-color:#16a34a;color:#fff;">✓ Assinar & Concluir Homologação</button>
+        <button onclick="executeHomologation()" id="btnExecuteHomologation" style="width:auto;padding:8px 18px;background:#16a34a;border-color:#16a34a;color:#fff;">✓ Concluir Simulação de Homologação</button>
       </div>
     </div>
 
-    <!-- Passo 4: Conclusão & Certificado de Rastreabilidade -->
+    <!-- Passo 4: Conclusão & Certificado de Rastreabilidade (Simulação) -->
     <div id="wizard-step-4" class="wizard-step-pane">
       <div style="text-align:center;padding:10px 0;">
         <div style="display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:rgba(74,222,128,0.2);color:#4ade80;font-size:24px;margin-bottom:8px;">✓</div>
-        <h4 style="margin:0 0 6px;color:#4ade80;font-size:18px;">Homologação Registrada com Sucesso!</h4>
-        <p style="font-size:12px;color:#94a3b8;margin:0;">O carimbo digital foi anexado ao pacote tripartite com integridade criptográfica verificável.</p>
+        <h4 style="margin:0 0 6px;color:#4ade80;font-size:18px;">Simulação de Homologação Concluída</h4>
+        <p style="font-size:12px;color:#94a3b8;margin:0;">O digest de demonstração local foi gerado para pré-visualização. Homologações oficiais são registradas exclusivamente via API autenticada.</p>
       </div>
 
       <div id="homologationCertificateBox" class="homologation-receipt">
@@ -1026,7 +1026,7 @@
       </div>
 
       <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:18px;">
-        <button onclick="downloadHomologationCertificate()" style="width:auto;padding:8px 16px;background:#0284c7;">📥 Baixar Certificado (.json)</button>
+        <button onclick="downloadHomologationCertificate()" style="width:auto;padding:8px 16px;background:#0284c7;">📥 Baixar Comprovante de Simulação (.json)</button>
         <button onclick="closeHomologationModal()" style="width:auto;padding:8px 16px;background:#1e293b;border-color:#334155;">Fechar</button>
       </div>
     </div>

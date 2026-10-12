@@ -70,5 +70,9 @@ jobs:
         run: npx tsx scripts/test_review_decision_route.ts
       - name: Verify Portable Clean-Room Artifact
         run: python scripts/verify_portable_artifact_round4.py helpus_cvss_ai_portable_artifact_round4.zip
+      - name: Verify Book LaTeX Build Manifest
+        run: python scripts/verify_book_latex_manifest.py
+      - name: Audit Public Site Semantic Claims
+        run: python scripts/audit_public_site_claims_round4.py index.html
       - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py
