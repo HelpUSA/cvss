@@ -63,9 +63,13 @@ Para garantir integridade metodológica e representatividade profissional, os 5 
   - Regras internas de heurística ou pesos da IA;
   - Resultados emitidos pelos demais 4 especialistas antes da sessão formal de adjudicação.
 
-### 4.2. Adjudicação e Consenso
-* Casos de divergência entre os especialistas serão submetidos a uma rodada formal de adjudicação com relator designado.
-* Casos sem possibilidade de consenso unânime serão formalmente catalogados como `REFERENCE_UNRESOLVED` e não sofrerão consenso forçado.
+### 4.2. Adjudicação e Regra de Consenso
+* Casos de divergência entre os especialistas serão submetidos a uma rodada formal de adjudicação colegiada com relator designado.
+* O padrão-ouro de referência é consolidado por **consenso unânime (5/5)** ou por **supermaioria qualificada mínima de 4 de 5 avaliadores (4/5)**.
+* Casos em que persistir desacordo irredutível ($\le 3$ votos concordantes) mesmo após deliberação plenária serão formalmente catalogados como `REFERENCE_UNRESOLVED` e não sofrerão consenso forçado.
+* **Agrupamento de Estimandos C1 e C2**: Para conferir poder estatístico robusto ($>90\%$) ao teste confirmatório primário ($H_0: \theta \le 0.70$ vs $H_1: \theta > 0.70$), os cenários de C1 e C2 são avaliados conjuntamente no conjunto pooled ($N=100$). Concomitantemente, mantêm-se análises estratificadas pré-especificadas: Estrato C1 ($N_1=50$) para Eficácia em Diversidade Não Observada, e Estrato C2 ($N_2=50$) para Estresse, Não-Degradação de Segurança e Robustez Adversarial (locus principal de estimativa de SFDR e SAR).
+* **Vetor de Métricas**: O painel avalia exatamente as 13 métricas ambientais do CVSS v4.0: `[CR, IR, AR, MAC, MAT, MPR, MUI, MVC, MVI, MVA, MSC, MSI, MSA]`. A métrica `MAV` permanece fixada no valor base do cenário (`AV`) e não sofre inferência topológica isolada.
+* **Designações e Placeholders**: Todos os nomes e identificações do Custodiante Titular, Co-Custodiante Suplente, Estatístico Independente e Especialistas Avaliadores constam como `[PENDENTE DE NOMEAÇÃO FORMAL / PLACEHOLDER]` até a homologação pelo CEP competente, vedada qualquer nomeação antecipada fictícia.
 
 ---
 

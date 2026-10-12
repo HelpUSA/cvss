@@ -41,6 +41,7 @@
 | Trancamento do Padrão-Ouro (SHA-256) | Fase 3 | **LACRA HASH** | Co-Assina | Ciência | **VEDADO** | Aprova Adjudicação | N/A | **AUDITA HASH** |
 | Cerimônia Dual-Control de Deslacre | Fase 4 | **APLICA CHAVE A** | **APLICA CHAVE B** | Requisita | **VEDADO** | N/A | N/A | Testemunha |
 | Execução Técnica pós-deslacre | Fase 4 | Supervisiona | Supervisiona | Supervisiona | **VEDADO** | N/A | **EXECUTA ONE-SHOT** | Supervisiona |
+| Visualização de Saídas Brutas Pré-Lacre | Fase 4 | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO** | N/A | Grava e Cifra | **VEDADO** |
 | Alteração de Código/Pesos pós-deslacre | Fase 4/5 | **VEDADO** | **VEDADO** | **VEDADO** | **VEDADO TOTAL** | **VEDADO** | N/A | **VEDADO** |
 | Execução do Script Estatístico SAP | Fase 5 | Testemunha | Testemunha | Testemunha | **VEDADO** | Testemunha | N/A | **EXECUTA SCRIPT** |
 

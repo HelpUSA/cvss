@@ -1,0 +1,35 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "G9_CEP_SUBMISSION_MANIFEST",
+  "protocol_version": "1.2",
+  "status": "PENDING_CEP_SUBMISSION",
+  "project_title": "Avaliação Independente por Especialistas em Segurança da Informação da Acurácia, Segurança e Abstenção do Motor de Inferência Topológica HelpUS CVSS v4.0",
+  "principal_investigator": {
+    "name": "Wagner Santos",
+    "email": "helpus.ecommerce@gmail.com",
+    "institution": "HelpUS Tecnologia"
+  },
+  "regulatory_framework": {
+    "law": "Lei Federal nº 14.874/2024",
+    "decree": "Decreto nº 12.651/2025",
+    "system": "SINEP / Plataforma Brasil",
+    "cep_competente": "[PENDENTE DE DETERMINACAO VIA FLUXO SINEP / PLACEHOLDER]"
+  },
+  "package_documents": [
+    "docs/scientific-validation/governance/G9_PROTOCOL_v1.0.md",
+    "docs/scientific-validation/governance/G9_TCLE_v1.0.md",
+    "docs/scientific-validation/governance/G9_SAP_v1.0.md",
+    "docs/scientific-validation/governance/G9_COI_FORM.md",
+    "docs/scientific-validation/governance/G9_EXPERT_ELIGIBILITY.md",
+    "docs/scientific-validation/governance/G9_RECRUITMENT_INVITATION.md",
+    "docs/scientific-validation/governance/G9_REVIEWER_INSTRUCTIONS.md",
+    "docs/scientific-validation/governance/G9_DATA_MANAGEMENT_PLAN.md",
+    "docs/scientific-validation/governance/G9_LGPD_PRIVACY_PLAN.md",
+    "docs/scientific-validation/governance/G9_MARIAH_ASSESSMENT.md"
+  ],
+  "submission_metadata": {
+    "submission_date": "[PENDENTE_SUBMISSAO]",
+    "caae_number": "[PENDENTE_GERACAO_PLATAFORMA_BRASIL]",
+    "opinion_number": "[PENDENTE_PARECER_CONSUBSTANCIADO_CEP]"
+  }
+}

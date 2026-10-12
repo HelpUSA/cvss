@@ -18,9 +18,9 @@ A sua participação é fundamental para estabelecer o referencial padrão-ouro 
 
 Caso concorde voluntariamente em participar:
 1. Você receberá conjuntos de cenários técnicos corporativos (diagramas de rede, regras de firewall e políticas de segurança) associados a vulnerabilidades reais (CVEs publicadas pelo NVD/CNA), previamente certificados como sintéticos, autorizados ou desidentificados.
-2. Caberá a você atribuir, segundo seu julgamento técnico independente e amparado estritamente na especificação oficial FIRST CVSS v4.0, os valores das métricas ambientais modificadas (`MAV`, `MAC`, `MPR`, `MUI`, `MS`, `MC`, `MI`, `MA`) e dos requisitos de segurança (`CR`, `IR`, `AR`).
+2. Caberá a você atribuir, segundo seu julgamento técnico independente e amparado estritamente na especificação oficial FIRST CVSS v4.0, os valores das 13 métricas ambientais avaliadas: requisitos de segurança (`CR`, `IR`, `AR`), métricas base modificadas do sistema vulnerável (`MAC`, `MAT`, `MPR`, `MUI`, `MVC`, `MVI`, `MVA`) e métricas modificadas do sistema subsequente (`MSC`, `MSI`, `MSA`). A métrica `MAV` permanece fixada no valor base de referência do cenário (`AV`).
 3. Suas avaliações individuais serão coletadas de forma cega em ambiente seguro e cifrado.
-4. Você participará de uma sessão remota de adjudicação (cerca de 2 horas) com os outros especialistas para debater divergências técnicas e buscar consenso fundamentado.
+4. Você participará de uma sessão remota de adjudicação (cerca de 2 horas) com os outros especialistas para debater divergências técnicas e buscar consenso fundamentado (unanimidade 5/5 ou supermaioria qualificada 4/5).
 5. **Duração Estimada**: O tempo total estimado de dedicação é de aproximadamente **4 a 6 horas**, distribuídas de forma flexível ao longo de até 10 (dez) dias úteis.
 
 ---

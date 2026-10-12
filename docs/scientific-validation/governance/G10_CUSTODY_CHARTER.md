@@ -40,6 +40,7 @@ flowchart TD
 1. Autorizado apenas após o travamento público do hash do padrão-ouro humano.
 2. A execução é conduzida sem intervenção humana de desenvolvedores, utilizando o papel **`AUTOMATED_CONFIRMATORY_RUNNER`**: um runtime contêinerizado, previamente congelado e verificado por hash, executado em ambiente *clean-room* e *air-gapped*.
 3. Os resultados brutos da inferência são imediatamente gravados, gerando digests SHA-256 e lacres digitais antes de qualquer apuração estatística comparativa.
+4. **Vedação Absoluta de Visualização Prévia**: É **expressa e terminantemente vedado** ao Pesquisador Responsável, aos Custodiantes e à Equipe de Desenvolvimento visualizar, inspecionar ou ter acesso preliminar às saídas brutas do runner até que o processo automatizado de lacre criptográfico e geração dos hashes SHA-256 tenha sido completamente finalizado e averbado.
 
 ---
 
@@ -52,7 +53,7 @@ flowchart TD
   - **Papel do Pesquisador Responsável (Wagner Santos)**: Atua como autoridade requerente metodológica, co-assinando a autorização de abertura após homologação do CEP, sem posse unilateral de componentes de chave de decifragem.
 * **Log Imutável com Ancoragem Externa (*Anti-Truncation Ledger*)**:
   - Todas as operações operacionais são registradas em log *append-only* encadeado por hash (`G10_ACCESS_LOG.jsonl`).
-  - Para evitar o risco de truncamento de logs hash-chained, são emitidos **checkpoints externamente ancorados** (commits públicos assinados em repositório imutável e carimbos de tempo RFC 3161 / ledger WORM equivalente).
+  - Reconhecendo que um repositório Git ordinário por si só não é imutável contra reescrita de histórico forçada, a integridade do protocolo apoia-se estritamente em **checkpoints externamente ancorados**: carimbos de tempo criptográficos RFC 3161 emitidos por Autoridade de Carimbo do Tempo (ACT), tags GPG assinadas distribuídas e registros em ledger WORM (*Write Once, Read Many*) independente.
 * **Isolamento de Runtime e Higienização de Memória**:
   - O runner automatizado opera sem conectividade externa (*network egress desabilitado em nível de firewall do kernel*).
   - Todo material em texto claro reside em disco volátil cifrado e na memória RAM efêmera. Ao término do processamento, realiza-se **higienização e sobrescrita segura de memória** (*memory wiping / cryptographic zeroization*) seguida de destruição efêmera do contêiner.
