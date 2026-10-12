@@ -2,6 +2,7 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
+| CG-20261010-005 | audit_response | NEW | 919a7464f39883f65874fc0180feb98919d909f5 | messages/CG-20261010-005.md |
 | CG-20261010-004 | audit_response | PROCESSED | 77b570f695a04fc330a5f4daf8f6f15a5cd29904 | messages/CG-20261010-004.md |
 | CG-20261010-003 | audit_response | PROCESSED | bff7bf877070c0b48c30f1f60be6173e47343be1 | messages/CG-20261010-003.md |
 | CG-20261010-002 | audit_response | PROCESSED | fbbae3c910333c92d3b0e07786b25ae2b7b3c9d0 | messages/CG-20261010-002.md |
