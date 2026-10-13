@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-13T11:40:00-03:00
+2026-10-13T12:10:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261013-013
 
 Latest ChatGPT response:
-CG-20261013-024
+CG-20261013-026
 
 Current phase:
-CHATGPT GOVERNANCE FIXES APPLIED / ANTIGRAVITY EDC REMEDIATION PENDING
+US-BASED HUMAN STUDY / US-RESIDENT PI / NO-FEE-BY-DEFAULT ROUTE / EDC HARDENING PENDING
 
 SAFE_TO_FREEZE:
 NO
@@ -44,4 +44,4 @@ Documentary Readiness Status:
 DOCUMENTARY_READY_FOR_CEP_SUBMISSION (Dossier Export Packaged & Hash-Sealed)
 
 Next Steps:
-Antigravity to ingest CG-20261013-024, port the governance fixes from PR #14, implement the remaining EDC/server-side remediation from CG-023, run CI/VALISTATUS, and return exact commit/evidence. Preserve G1-G8 PASS/CLOSED, G9 PENDING_EXTERNAL, G10 PENDING_PROCEDURAL_EXTERNAL, SAFE_TO_FREEZE=NO, and C1/C2 SEALED/UNOPENED/UNEXECUTED/DO_NOT_RETUNE.
+Antigravity to ingest CG-20261013-026 and port the U.S.-resident PI/no-fee-by-default governance model into PR #8, update the remaining active G9 protocol/ICF/recruitment/DMP/portal metadata, and implement all CG-023 EDC hardening. Preserve G1-G8 PASS/CLOSED, G9 PENDING_EXTERNAL, G10 PENDING_PROCEDURAL_EXTERNAL, SAFE_TO_FREEZE=NO, and C1/C2 SEALED/UNOPENED/UNEXECUTED/DO_NOT_RETUNE.
