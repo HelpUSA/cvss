@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-12T17:58:00-03:00
+2026-10-13T09:15:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261010-008
 
 Latest ChatGPT response:
-CG-20261010-021
+CG-20261013-022
 
 Current phase:
-ETHICS ROUTE + WEB EDC + INTERNATIONAL EXPERT GOVERNANCE
+INDEPENDENCE STRATEGY + ETHICS ROUTE + WEB EDC + INTERNATIONAL EXPERT GOVERNANCE
 
 SAFE_TO_FREEZE:
 NO
@@ -44,4 +44,4 @@ Documentary Readiness Status:
 DOCUMENTARY_READY_FOR_CEP_SUBMISSION (Dossier Export Packaged & Hash-Sealed)
 
 Next Steps:
-Antigravity to ingest CG-20261010-019, CG-20261010-020 and CG-20261010-021. Recommended ethics route remains CEP/SINEP Brazil with HelpUS LLC (USA) affiliation preserved. International expert participation is permitted in principle only after country-specific ethics/privacy/institutional clearance; no country clearance means no recruitment. Web EDC remains synthetic-only until competent ethics approval. C1/C2 remain strictly sealed.
+Antigravity to ingest CG-20261010-019, CG-20261010-020, CG-20261010-021 and CG-20261013-022. Consolidated strategy: HelpUS LLC remains sponsor/affiliation; PI conducts from Brazil; CEP/SINEP remains coordinating ethics review; scientific canonical language is English; no university or commercial IRB dependency is required by default; U.S. IRB only if a real applicability trigger exists; international experts require country clearance; son may be coauthor only with substantive contribution and should not be one of the five independent experts; FIRST/CVSS meeting participation may be described only as factual professional engagement unless formal affiliation is independently verified. C1/C2 remain strictly sealed.
