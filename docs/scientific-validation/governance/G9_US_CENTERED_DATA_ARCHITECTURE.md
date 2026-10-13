@@ -15,7 +15,7 @@ Define a U.S.-based architecture for the human validation phase so that operatio
 
 The human phase may begin only when:
 
-- the PI is physically conducting the human-subjects phase from the United States;
+- the U.S.-resident Principal Investigator is conducting the human-subjects phase from the United States;
 - the U.S. EDC production controls are complete;
 - the U.S. regulatory applicability review is current;
 - the target participant jurisdiction has been cleared;
