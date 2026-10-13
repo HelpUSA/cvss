@@ -37,5 +37,6 @@
     "g1_g8": "PASS_CLOSED",
     "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
     "pr8_merge_authorized": false
-  }
+  },
+  "artifacts": []
 }

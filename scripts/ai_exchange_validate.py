@@ -44,6 +44,7 @@ VALID_MESSAGE_TYPES = {
     "onboarding_briefing",
     "tripartite_review",
     "tripartite_review_response",
+    "scientific_scope_pivot",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
