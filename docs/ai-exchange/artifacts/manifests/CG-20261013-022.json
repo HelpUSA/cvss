@@ -1,0 +1,44 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261013-022",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_branch": "antigravity/round5-prefreeze-reconciliation",
+  "reviewed_head": "b87bd9b6b62814a92191c2eb7762e89f1946be2a",
+  "created_at": "2026-10-13T09:15:00-03:00",
+  "type": "gate_review",
+  "decision": "INDEPENDENCE_STRATEGY_APPROVED",
+  "safe_to_freeze": false,
+  "gate_status": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS",
+    "G9": "PENDING_EXTERNAL",
+    "G10": "PENDING_PROCEDURAL_EXTERNAL"
+  },
+  "strategy": {
+    "brazil_cep_coordinating_review": "RECOMMENDED",
+    "us_commercial_irb": "NOT_REQUIRED_BY_DEFAULT",
+    "helpus_self_irb": "NOT_RECOMMENDED",
+    "university_dependency": "OPTIONAL_ONLY",
+    "scientific_canonical_language": "ENGLISH",
+    "international_panel": "ALLOWED_WITH_COUNTRY_CLEARANCE",
+    "son_coauthorship": "ALLOWED_IF_SUBSTANTIVE",
+    "son_as_independent_expert": "NOT_RECOMMENDED",
+    "first_cvss_engagement": "USEFUL_PROFESSIONAL_CONTEXT_IF_FACTUAL",
+    "first_formal_affiliation": "DO_NOT_CLAIM_UNLESS_VERIFIED"
+  },
+  "constraints": {
+    "human_recruitment_before_ethics_decision": false,
+    "c1_c2_status": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "artifacts": []
+}
