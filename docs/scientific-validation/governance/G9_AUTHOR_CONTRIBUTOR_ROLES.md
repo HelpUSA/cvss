@@ -1,5 +1,5 @@
 # G9 — Author and Contributor Roles Charter (CRediT Taxonomy)
-**Document ID:** `G9-AUTHOR-CONTRIBUTOR-ROLES-v1.0`  
+**Document ID:** `G9-AUTHOR-CONTRIBUTOR-ROLES-v2.0`  
 **Project:** HelpUS CVSS AI Scientific Validation  
 **Sponsor:** HelpUS LLC (United States)  
 **Taxonomy Standard:** ANSI/NISO Z39.104-2022 (Contributor Roles Taxonomy — CRediT)  
@@ -8,62 +8,122 @@
 
 ---
 
-## 1. Principles of Authorship and Scientific Integrity
+## 1. Study Leadership Structure
 
-HelpUS LLC adheres strictly to the International Committee of Medical Journal Editors (ICMJE) and Committee on Publication Ethics (COPE) standards for scientific authorship:
-1. Substantial contributions to the conception or design of the work; or the acquisition, analysis, or interpretation of data for the work;
-2. Drafting the work or reviewing it critically for important intellectual content;
-3. Final approval of the version to be published;
-4. Agreement to be accountable for all aspects of the work in ensuring that questions related to the accuracy or integrity of any part of the work are appropriately investigated and resolved.
+The project separates **human-subjects operational leadership** from **technology authorship and methodological leadership**.
 
-Honorary, gift, or familial authorship is strictly prohibited. Co-authorship must be supported by documented, substantive intellectual or technical labor.
+### U.S.-Resident Principal Investigator
+- Affiliation: HelpUS LLC (United States)
+- Role: Principal Investigator for the human-subjects validation phase
+- Location: United States
+- Responsibilities:
+  - participant recruitment and eligibility oversight;
+  - informed-consent process;
+  - U.S. EDC operational supervision;
+  - participant communications;
+  - study-administration records;
+  - incident and withdrawal handling;
+  - human-study data custody;
+  - protocol execution during the active human phase;
+  - accountability for participant protection.
 
----
+The PI is a substantive technical collaborator already working on the project and is not designated merely for nominal regulatory convenience.
 
-## 2. Contributor Attribution Matrix (CRediT)
+### Wagner Santos
+- Affiliation: HelpUS LLC
+- Role: Primary intellectual contributor / lead author
+- Responsibilities:
+  - Conceptualization — Lead
+  - Methodology — Lead
+  - Software — Lead
+  - Formal Analysis — Lead
+  - Validation architecture — Lead
+  - Writing – Original Draft — Lead
+  - Writing – Review & Editing — Lead
+  - Project supervision — Lead
+  - Technical interpretation of results — Lead
 
-### 2.1. Principal Investigator (PI) — Wagner Santos
-- **Affiliation**: HelpUS LLC / Independent Cybersecurity Research Group (Brazil)
-- **Role**: Primary Author & Principal Investigator
-- **CRediT Allocations**:
-  - **Conceptualization**: Lead (formulation of zero-shot deterministic CVSS 4.0 evaluation model and multi-source cross-entropy weighting).
-  - **Methodology**: Lead (development of validation gates G1–G10, statistical power calculation, synthetic scenario curation).
-  - **Software**: Lead (author of core CVSS 4.0 mathematical engine, deterministic parser, and test suite).
-  - **Formal Analysis**: Lead (statistical analysis plan SAP v1.0, Gwet's AC1 and Fleiss' Kappa formulation).
-  - **Investigation**: Lead (execution of benchmark tests against FIRST.org 486k corpus).
-  - **Writing – Original Draft**: Lead (composition of the primary manuscript, theoretical foundations, and mathematical appendices).
-  - **Project Administration**: Lead (overall coordination of research lifecycle).
-
-### 2.2. Collaborator / Potential Coauthor — US-Resident Technical Lead (Son of PI)
-- **Affiliation**: HelpUS LLC (United States)
-- **Role**: Coauthor (Contingent on Substantive Technical Execution)
-- **Eligible CRediT Allocations**:
-  - **Software**: Supporting (architecture, maintenance, and deployment of the Web Electronic Data Capture — EDC system).
-  - **Validation Infrastructure**: Lead (implementation of HMAC-SHA256 audit trails, version hashes, and zero-trust blinding controls).
-  - **Data Curation**: Supporting (data pipeline automation, artifact hashing, and portable clean-room reproduction scripts).
-  - **Writing – Review & Editing**: Supporting (critical revision of manuscript text, regulatory harmonization with US disclosures).
-  - **Reproducibility**: Lead (Docker packaging, Vercel edge deployment, and multi-platform validation runs).
-- **Absolute Boundary Rule**:
-  - **`SON_AS_COAUTHOR = PERMITTED_IF_SUBSTANTIVE_CONTRIBUTION`**
-  - **`SON_AS_ONE_OF_5_INDEPENDENT_EXPERTS = STRICTLY_PROHIBITED`**
-  - He shall under no circumstances serve as an evaluator, reviewer, or adjudicator in the 5-expert independent panel.
+Wagner does not need to serve as Principal Investigator of the human-subjects phase in order to remain first author or corresponding author, provided final venue authorship requirements are satisfied.
 
 ---
 
-## 3. The 5 Independent Expert Evaluators (Study Participants)
+## 2. Authorship Rule
 
-The five external cybersecurity specialists recruited for the blind adjudication panel hold a distinct, legally protected scientific role:
-- **Role Classification**: Research Participants / Expert Adjudicators (NOT Co-Authors).
-- **Blinding & Independence**:
-  - Completely independent of HelpUS LLC corporate ownership, employment, or familial relationships.
-  - Evaluate vulnerability scenarios under double-blind protocols (blind to engine scores, peer evaluations, and synthetic metadata).
-- **Confidentiality & Acknowledgment**:
-  - Identified in scientific publications solely via persistent pseudonyms (`EXP-01` through `EXP-05`).
-  - May be acknowledged by name in the *Acknowledgements* section of published manuscripts only upon voluntary, written opt-in provided via their e-ICF / TCLE submission.
-  - Zero authorial liability or financial interest in HelpUS LLC intellectual property.
+Authorship must reflect actual contribution.
+
+The U.S.-resident PI may be a coauthor because he has substantive responsibilities in:
+- human-study investigation;
+- EDC operations;
+- validation infrastructure;
+- data curation/custody;
+- reproducibility;
+- manuscript review/editing.
+
+No authorship is awarded solely because of family relationship, U.S. residence, or corporate role.
 
 ---
 
-## 4. Governance Verification
+## 3. Independent Expert Panel
 
-Any manuscript submission derived from this codebase must attach this charter as supplementary governance documentation to assure peer reviewers and editors that evaluator independence was rigorously maintained and all co-authors satisfied international standards.
+The five expert evaluators are distinct from the research team.
+
+Rules:
+- no author or coauthor may occupy an expert-evaluator seat;
+- no family member of an author may occupy an independent expert-evaluator seat;
+- evaluators must be independent of HelpUS LLC ownership, employment, and development;
+- evaluators are blinded to model predictions and peer responses;
+- evaluators are study participants, not default coauthors.
+
+Therefore:
+
+`US_RESIDENT_PI_AS_EXPERT = PROHIBITED`
+
+`WAGNER_AS_EXPERT = PROHIBITED`
+
+`COAUTHOR_AS_EXPERT = PROHIBITED`
+
+---
+
+## 4. CRediT Allocation
+
+### Wagner Santos
+- Conceptualization: Lead
+- Methodology: Lead
+- Software: Lead
+- Formal Analysis: Lead
+- Writing – Original Draft: Lead
+- Writing – Review & Editing: Lead
+- Supervision: Lead
+- Project Administration: Supporting/Shared
+
+### U.S.-Resident Principal Investigator
+- Investigation: Lead for human-subjects phase
+- Data Curation: Lead/Shared
+- Project Administration: Lead for human-subjects phase
+- Software: Supporting where actually performed
+- Validation: Lead/Shared for EDC and reproducibility
+- Writing – Review & Editing: Supporting/Shared
+- Resources: Supporting/Shared where applicable
+
+Final CRediT labels must be reconciled against actual completed contributions before manuscript submission.
+
+---
+
+## 5. Accountability
+
+Both authors must:
+- approve the final manuscript;
+- accept accountability for their own contributions;
+- cooperate in resolving questions about integrity or accuracy;
+- disclose relevant financial and corporate interests.
+
+---
+
+## 6. Current Governance State
+
+- Sponsor: HelpUS LLC (United States)
+- Human-study PI: U.S.-resident technical collaborator
+- Primary intellectual lead / lead author: Wagner Santos
+- Independent experts: 5 external participants
+- Initial study jurisdiction: United States
+- Human-study activation: not authorized until EDC/regulatory activation gates are satisfied
