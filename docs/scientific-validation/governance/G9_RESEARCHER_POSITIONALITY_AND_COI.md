@@ -1,5 +1,5 @@
 # G9 — Researcher Positionality, Professional Engagement, and Conflict of Interest (COI) Statement
-**Document ID:** `G9-RESEARCHER-POSITIONALITY-AND-COI-v1.0`  
+**Document ID:** `G9-RESEARCHER-POSITIONALITY-AND-COI-v2.0`  
 **Project:** HelpUS CVSS AI Scientific Validation  
 **Sponsor:** HelpUS LLC (United States)  
 **Status:** BINDING DISCLOSURE CHARTER  
@@ -7,52 +7,98 @@
 
 ---
 
-## 1. Purpose and Philosophical Foundation
+## 1. Purpose
 
-In high-stakes computational cybersecurity and automated artificial intelligence evaluation, transparency regarding the researcher's background, institutional motivations, professional interactions, and financial relationships is foundational to reproducibility and peer-review integrity. This document sets forth a formal Researcher Positionality and Conflict of Interest statement for all academic publications, conference proceedings, and public repositories associated with HelpUS CVSS AI.
-
----
-
-## 2. Institutional Affiliation & Commercial Disclosure
-
-1. **Corporate Sponsor**: The research is sponsored and supported by HelpUS LLC, an entity incorporated in the United States.
-2. **Commercial Interest**: The algorithmic technology and automated scoring pipelines developed under this project may form the basis for commercial enterprise vulnerability triage services provided by HelpUS LLC.
-3. **Intellectual Property**: Wagner Santos (Principal Investigator) is the primary inventor and developer of the HelpUS CVSS AI engine and holds an equity/founder interest in HelpUS LLC.
+This document discloses the relationship between the technology originator, the U.S.-resident human-study Principal Investigator, HelpUS LLC, and the independent expert panel.
 
 ---
 
-## 3. Factual Characterization of FIRST / CVSS Ecosystem Engagement
+## 2. Corporate and Intellectual-Property Disclosure
 
-### 3.1. Approved Factual Statements
-The Principal Investigator regularly follows and participates in technical dialogues surrounding vulnerability scoring methodologies. Publications and biographical notices may factually declare:
-- *"The Principal Investigator has actively participated in CVSS-related community meetings and technical discussions concerning vulnerability scoring practices."*
-- *"The research methodology was informed by insights gained through engagement with the broader CVSS practitioner and working group discussions."*
-- *"The authors actively follow and contribute technical discussions within vulnerability management communities."*
-
-### 3.2. Prohibited Claims (Boundary Rules)
-Unless verified by formal institutional membership credentials and organizational authorization, authors and project documentation shall **NOT** claim:
-- "Official representative of FIRST.org";
-- "FIRST-endorsed scoring engine / methodology";
-- "Institutional member of FIRST Special Interest Group on behalf of HelpUS LLC";
-- "Research certified or co-sponsored by FIRST".
-
-### 3.3. Methodological and Ethics Demarcation
-Participation in community discussions provides technical domain competence, but does **NOT** substitute for:
-- Independent Research Ethics Committee (CEP/IRB) approval;
-- Rigorous statistical hypothesis pre-registration;
-- Strict double-blind separation between the PI and external expert adjudicators.
+1. HelpUS LLC is the U.S. sponsor and operational host.
+2. Wagner Santos is the primary inventor/developer and principal intellectual contributor to the HelpUS CVSS AI technology.
+3. The U.S.-resident Principal Investigator is a substantive technical collaborator involved in the project and assumes operational responsibility for the human-subjects phase.
+4. Both relationships must be disclosed transparently in manuscripts and participant-facing materials where relevant.
 
 ---
 
-## 4. Methodological Safeguards Against Researcher Bias
+## 3. Separation of Roles
 
-To prevent the Principal Investigator's commercial interest and theoretical preconceptions from introducing confirmation bias into the validation results, the project enforces four objective architectural safeguards:
+### Human-Study Principal Investigator
+Responsible for:
+- recruitment;
+- eligibility;
+- informed consent;
+- participant communications;
+- operational EDC supervision;
+- incident/withdrawal handling;
+- human-study data custody;
+- protocol execution in the United States.
 
-1. **Pre-Registration & Protocol Freezing (G9 / SAP v1.0)**:
-   All statistical hypotheses, primary endpoints (Gwet's AC1 ≥ 0.80), sample size calculations, and metric formulas are cryptographically frozen in `G9_SAP_v1.0.md` prior to unsealing evaluation data.
-2. **Cryptographic Sealing of Datasets C1 & C2**:
-   The definitive testing datasets C1 (synthetic multi-vector benchmark) and C2 (complex edge-case corpus) are encrypted and sealed with SHA-256 commitments (`SEALED / UNOPENED / DO NOT RETUNE`). The PI has zero discretion to filter, prune, or reweight data post-execution.
-3. **Architectural Blinding in Web EDC (G10 Custody)**:
-   The Web EDC platform enforces cryptographic role separation. The PI has zero ability to view expert scoring in progress or modify submitted adjudications. Expert identities are segregated from rating data.
-4. **Independent 5-Expert Panel**:
-   Scoring is performed by five independent external cybersecurity professionals bound by non-affiliation warranties. The PI and co-authors are barred from participating in the scoring panel.
+### Wagner Santos
+Responsible for:
+- conceptualization;
+- methodology;
+- software;
+- formal analysis;
+- validation design;
+- interpretation;
+- manuscript drafting and scientific supervision.
+
+### Independent Experts
+The five expert evaluators:
+- are not authors by default;
+- are not HelpUS LLC owners/employees/developers;
+- are not family members of the authors;
+- are blinded to model predictions and peer responses.
+
+---
+
+## 4. FIRST / CVSS Ecosystem Engagement
+
+The technology originator may factually state participation in CVSS-related community meetings and technical discussions when supported by records.
+
+Permitted language includes:
+- "has participated in CVSS-related community meetings and technical discussions";
+- "has engaged with the broader CVSS practitioner community".
+
+Do not claim without formal evidence:
+- FIRST membership;
+- FIRST representation;
+- FIRST endorsement;
+- FIRST certification or sponsorship.
+
+---
+
+## 5. Bias Safeguards
+
+The project mitigates researcher bias through:
+1. pre-specified protocol and SAP;
+2. sealed confirmatory datasets;
+3. independent expert adjudication;
+4. expert blinding to model outputs and peers;
+5. separation between authors and evaluator panel;
+6. server-side auditability and immutable submission controls before live activation.
+
+The project does not claim complete objectivity.
+
+---
+
+## 6. Family Relationship Disclosure
+
+Because the human-study PI is a family member of the primary technology originator/lead author, that relationship must be disclosed in the study governance file and, where relevant, in the manuscript conflict-of-interest or author-contribution statements.
+
+The family relationship does not itself invalidate the study, but it makes the independent expert panel and transparent separation of roles especially important.
+
+The PI may not serve as one of the five independent experts.
+
+---
+
+## 7. Current State
+
+- Study sponsor: HelpUS LLC (United States)
+- Human-study PI: U.S.-resident substantive collaborator
+- Lead intellectual contributor / lead author: Wagner Santos
+- Independent panel: 5 external experts
+- Human study jurisdiction: United States
+- Human collection: not yet authorized
