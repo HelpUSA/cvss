@@ -2,6 +2,7 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
+| GM-20261013-001 | tripartite_review | NEW | 811fd5f789b84edc9af428c9f4ffdef5133f9a07 | messages/GM-20261013-001.md |
 | CG-20261013-026 | us_pi_and_zero_fee_route | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-026.md |
 | CG-20261013-025 | jurisdiction_pivot | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-025.md |
 | CG-20261013-024 | implementation_handoff | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-024.md |
