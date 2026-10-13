@@ -26,10 +26,10 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 AI_EXCHANGE_DIR = REPO_ROOT / "docs" / "ai-exchange"
 
-MESSAGE_ID_REGEX = re.compile(r"^(AG|CG)-(TEST-\d+|\d{8}-\d{3})$")
+MESSAGE_ID_REGEX = re.compile(r"^(AG|CG|GE|GM)-(TEST-\d+|\d{8}-\d{3})$")
 COMMIT_SHA_REGEX = re.compile(r"^[0-9a-fA-F]{40}$")
 
-VALID_PARTICIPANTS = {"antigravity", "chatgpt"}
+VALID_PARTICIPANTS = {"antigravity", "chatgpt", "gemini"}
 VALID_MESSAGE_TYPES = {
     "bridge_test",
     "bridge_test_response",
@@ -41,6 +41,8 @@ VALID_MESSAGE_TYPES = {
     "implementation_handoff",
     "jurisdiction_pivot",
     "us_pi_and_zero_fee_route",
+    "onboarding_briefing",
+    "tripartite_review",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
@@ -156,6 +158,8 @@ def main() -> int:
     seen_message_ids = set()
     message_statuses = {}
     inbox_files = ["CHATGPT_INBOX.md", "ANTIGRAVITY_INBOX.md"]
+    if (AI_EXCHANGE_DIR / "GEMINI_INBOX.md").exists():
+        inbox_files.append("GEMINI_INBOX.md")
 
     for ib in inbox_files:
         ib_path = AI_EXCHANGE_DIR / ib
