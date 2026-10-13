@@ -43,6 +43,7 @@ VALID_MESSAGE_TYPES = {
     "us_pi_and_zero_fee_route",
     "onboarding_briefing",
     "tripartite_review",
+    "tripartite_review_response",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
