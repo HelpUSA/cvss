@@ -17,7 +17,7 @@ The human phase may activate only when all operational conditions in this memo a
 
 ### Activation conditions
 
-- Principal Investigator is physically conducting the human-subjects phase from the United States;
+- U.S.-resident Principal Investigator is conducting the human-subjects phase from the United States;
 - HelpUS LLC is the operational sponsor and host;
 - recruitment is initiated from the U.S. operation;
 - informed consent is executed through the U.S. EDC;
@@ -99,13 +99,11 @@ Other countries may be added only after country-specific clearance.
 
 ---
 
-## 6. Principal Investigator Location Requirement
+## 6. Principal Investigator Requirement
 
-The human-subjects phase is not to be represented as active until the PI is physically conducting that phase from the United States.
+The human-subjects phase is led operationally by the U.S.-resident Principal Investigator.
 
-The project must not create a false contemporaneous record of PI location.
-
-Once relocation is complete, the project may record the U.S. operating location prospectively from the effective activation date.
+The PI must genuinely perform the human-study responsibilities assigned in the protocol, including recruitment oversight, consent, participant communications, protocol execution, and U.S. data custody. This role is substantive and not nominal.
 
 Historical records remain unchanged.
 
@@ -174,7 +172,7 @@ Reassess the U.S. regulatory position if any of the following occurs:
 | Dimension | Status |
 |---|---|
 | Study operating jurisdiction | UNITED STATES |
-| Human-study activation | BLOCKED UNTIL PI IS PHYSICALLY CONDUCTING HUMAN PHASE IN U.S. |
+| Human-study activation | BLOCKED UNTIL U.S. PI + EDC + APPLICABILITY ACTIVATION GATES ARE SATISFIED |
 | U.S. federal Common Rule trigger | NONE IDENTIFIED CURRENTLY |
 | Self-declared exemption | NOT USED |
 | FDA trigger | NONE IDENTIFIED CURRENTLY |
