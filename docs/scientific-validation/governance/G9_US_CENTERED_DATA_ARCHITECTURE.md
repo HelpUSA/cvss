@@ -1,42 +1,47 @@
-# G9 — U.S.-Centered Data Architecture and Brazil Access Minimization
+# G9 — U.S.-Based Human Study Data Architecture
 
-**Document ID:** `G9-US-CENTERED-DATA-ARCHITECTURE-v1.0`  
+**Document ID:** `G9-US-CENTERED-DATA-ARCHITECTURE-v2.0`  
 **Project:** HelpUS CVSS AI Scientific Validation  
 **Sponsor:** HelpUS LLC (United States)  
-**Status:** GOVERNANCE DESIGN — PRE-PRODUCTION  
+**Study Operating Jurisdiction:** United States  
+**Status:** GOVERNANCE DESIGN — PRE-ACTIVATION  
 **Effective Date:** 2026-10-13  
 
 ## 1. Objective
 
-Define a U.S.-centered operating model that preserves HelpUS LLC operational independence while minimizing unnecessary personal-data processing from Brazil.
+Define a U.S.-based architecture for the human validation phase so that operational control, consent, participant identity, pseudonymized responses, and custody remain within the HelpUS LLC U.S. environment.
 
-This architecture does not attempt to evade Brazilian law. It separates operational custody of identifiable participant data from scientific analysis.
+## 2. Activation Gate
 
-## 2. Target Data Zones
+The human phase may begin only when:
+
+- the PI is physically conducting the human-subjects phase from the United States;
+- the U.S. EDC production controls are complete;
+- the U.S. regulatory applicability review is current;
+- the target participant jurisdiction has been cleared;
+- all synthetic-only restrictions are lifted through the formal study-activation record.
+
+Until then:
+
+`HUMAN_STUDY_ACTIVATION = BLOCKED`
+
+## 3. Data Zones
 
 ### Zone A — U.S. Identity Store
 Contains:
 - name;
 - email;
-- invitation status;
+- invitation state;
 - authentication metadata;
 - jurisdiction clearance.
 
-Access:
-- restricted operational role only;
-- Brazil-based PI has no routine access.
-
 ### Zone B — U.S. Consent Store
 Contains:
-- e-ICF/TCLE version;
+- e-ICF version;
 - document hash;
 - authoritative consent timestamp;
-- signature/acceptance evidence;
+- acceptance/signature evidence;
 - withdrawal/reconsent events.
-
-Access:
-- restricted compliance role;
-- Brazil PI receives only status and approved audit evidence when necessary.
 
 ### Zone C — U.S. Pseudonymized Research Store
 Contains:
@@ -47,72 +52,63 @@ Contains:
 - submission receipt;
 - audit-chain evidence.
 
-Contains no direct identity fields.
+No direct identifiers are permitted here.
 
-### Zone D — Scientific Analysis Export
-Preferred export to Brazil:
-- anonymized or maximally minimized;
-- no name/email/IP/signature/authentication event;
-- no identity-code mapping key;
-- only fields required by the frozen SAP.
-
-## 3. Default Access Rule
-
-`BRAZIL_PI_PERSONAL_DATA_ACCESS = DENY_BY_DEFAULT`
-
-Any exception requires:
-- documented purpose;
-- least-privilege authorization;
-- access log;
-- time limitation;
-- DMP update where material.
+### Zone D — Scientific Analysis Store
+Contains:
+- pseudonymized or anonymized study dataset;
+- no direct identity fields;
+- no identity-to-code mapping key.
 
 ## 4. Identity Separation
 
 The participant-code lookup table must:
 - reside separately from the response dataset;
 - use stricter access control;
-- never be embedded in browser-side code;
+- never be embedded in browser code;
 - never be included in scientific exports;
 - never be stored in C1/C2.
 
-## 5. Anonymization
-
-Pseudonymization is not anonymization.
-
-Before a dataset is classified as anonymous for Brazil analysis, the project must document:
-- removal of direct identifiers;
-- removal/generalization of quasi-identifiers;
-- re-identification risk assessment;
-- separation/destruction or inaccessibility of linkage keys for the receiving analysis context.
-
-## 6. Portal Production Boundary
+## 5. Expert Portal Production Boundary
 
 Current public EDC remains synthetic-only.
 
 Live mode requires:
-- server-side authenticated token flow;
-- U.S. authoritative stores;
-- server-side consent and submission events;
+- server-side one-time invitation token;
+- authoritative U.S. server timestamp;
+- exact consent version/hash;
 - recursive canonicalization;
 - server-side HMAC/signature;
 - append-only audit trail;
-- immutable submission state;
-- no answer-key data in expert bundle.
+- immutable final state;
+- no answer-key data in the expert bundle;
+- fail-closed completeness validation;
+- token-bound expert identity.
 
-## 7. Regulatory Result
+## 6. Participant Scope
 
-A U.S.-centered architecture can materially reduce LGPD exposure by minimizing personal-data processing in Brazil.
+Initial live recruitment should use U.S.-based independent experts unless another country has completed jurisdiction clearance.
 
-It does **not** automatically eliminate:
-- Brazilian ethics review;
-- LGPD applicability to any personal data actually processed in Brazil;
-- international-transfer analysis;
-- U.S. state/institutional requirements.
+No participant should be enrolled merely because the portal is technically reachable from that country.
 
-## 8. Current State
+## 7. Scientific Language
 
-- G9 = PENDING_EXTERNAL
+The canonical study language is English.
+
+Additional consent or participant-facing translations may be added only when required for a cleared jurisdiction.
+
+## 8. Historical Integrity
+
+Historical governance records are not rewritten to imply facts that were not true at the time.
+
+The U.S.-based study configuration applies prospectively from the formal activation date.
+
+## 9. Current State
+
+- G1-G8 = PASS / CLOSED
+- G9 = PENDING_EXTERNAL / U.S. APPLICABILITY + STUDY ACTIVATION
+- G10 = PENDING_PROCEDURAL_EXTERNAL
+- SAFE_TO_FREEZE = NO
 - HUMAN COLLECTION = NOT AUTHORIZED
 - EDC = SYNTHETIC DRY-RUN ONLY
-- C1/C2 = SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE
+- C1/C2 = SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
