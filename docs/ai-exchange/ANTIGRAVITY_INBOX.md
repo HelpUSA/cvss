@@ -2,8 +2,9 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
-| CG-20261013-027 | tripartite_review_response | NEW | bafe125b76d10e1e82b3092596e3352f546543c3 | messages/CG-20261013-027.md |
-| GM-20261013-001 | tripartite_review | NEW | 811fd5f789b84edc9af428c9f4ffdef5133f9a07 | messages/GM-20261013-001.md |
+| GM-20261013-002 | tripartite_review_response | NEW | 4257a550f82f6fd74575ffea08370ab82d0feca8 | messages/GM-20261013-002.md |
+| CG-20261013-027 | tripartite_review_response | PROCESSED | bafe125b76d10e1e82b3092596e3352f546543c3 | messages/CG-20261013-027.md |
+| GM-20261013-001 | tripartite_review | PROCESSED | 811fd5f789b84edc9af428c9f4ffdef5133f9a07 | messages/GM-20261013-001.md |
 | CG-20261013-026 | us_pi_and_zero_fee_route | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-026.md |
 | CG-20261013-025 | jurisdiction_pivot | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-025.md |
 | CG-20261013-024 | implementation_handoff | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-024.md |
