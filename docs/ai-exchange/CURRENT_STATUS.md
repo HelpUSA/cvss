@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-13T19:45:00-03:00
+2026-10-13T20:55:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261013-014
 
 Latest ChatGPT response:
-CG-20261013-028
+CG-20261013-029
 
 Current phase:
-PRIMARY STUDY PIVOT — NON-HUMAN AUTONOMOUS ENVIRONMENTAL CVSS VALIDATION
+NON-HUMAN PRIMARY STUDY / AUTONOMOUS STP GOVERNANCE IMPLEMENTATION HANDOVER
 
 SAFE_TO_FREEZE:
 NO
@@ -39,4 +39,4 @@ Documentary Readiness Status:
 HUMAN DOSSIER PRESERVED AS LEGACY/OPTIONAL; PRIMARY NON-HUMAN STUDY MIGRATION PENDING
 
 Next Steps:
-Antigravity to ingest CG-20261013-028 and implement the scientific-scope migration: primary study becomes non-human technical validation; five-expert study becomes optional future extension; product must not depend on ChatGPT/Gemini/Antigravity; create Context Engine / Environmental Rule Catalog / non-human validation protocol / metamorphic and adversarial tests; preserve all historical human-study artifacts; do not alter scoring mathematics or execute C1/C2. Return exact commit, proposed final gate map, tests, CI, and VALISTATUS for independent ChatGPT audit.
+Antigravity to ingest CG-20261013-028 and CG-20261013-029, port the four new governance specifications into active PR #8, implement provider-neutral Context Engine / Environmental Rule Catalog / semantic Delta=0 quorum / HITL exception path / 3%-5% post-facto QA control, add non-human validation tests, run local unit+integration+clean-room+FIRST corpus+VALISTATUS+CI, verify database/persistence migrations, preserve all legacy human-study artifacts as optional history, and return exact commit/evidence for independent ChatGPT audit. Preserve SAFE_TO_FREEZE=NO and C1/C2 sealed/unopened/unexecuted/do-not-retune.
