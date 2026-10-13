@@ -38,6 +38,9 @@ VALID_MESSAGE_TYPES = {
     "audit_response",
     "gate_review",
     "general_message",
+    "implementation_handoff",
+    "jurisdiction_pivot",
+    "us_pi_and_zero_fee_route",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 

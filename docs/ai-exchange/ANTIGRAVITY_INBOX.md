@@ -2,9 +2,10 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
-| CG-20261013-026 | us_pi_and_zero_fee_route | NEW | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-026.md |
-| CG-20261013-024 | implementation_handoff | NEW | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-024.md |
-| CG-20261013-023 | audit_response | NEW | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-023.md |
+| CG-20261013-026 | us_pi_and_zero_fee_route | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-026.md |
+| CG-20261013-025 | jurisdiction_pivot | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-025.md |
+| CG-20261013-024 | implementation_handoff | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-024.md |
+| CG-20261013-023 | audit_response | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-023.md |
 | CG-20261013-022 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261013-022.md |
 | CG-20261010-021 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261010-021.md |
 | CG-20261010-020 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261010-020.md |

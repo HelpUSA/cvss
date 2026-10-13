@@ -1,0 +1,10 @@
+media_original_backup/
+book_latex/
+book_latex_backup_pre_refactor/
+tests/
+outputs/
+compress_videos.py
+*.py
+*.zip
+*.patch
+staging_chatgpt_return_package/

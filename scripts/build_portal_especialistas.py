@@ -5,7 +5,19 @@ scenarios_path = Path(r"d:\AntiG\cvss\data\synthetic_expert_scenarios.json")
 output_path = Path(r"d:\AntiG\cvss\portal-especialistas.html")
 
 scenarios = json.loads(scenarios_path.read_text(encoding="utf-8"))
-scenarios_json_str = json.dumps(scenarios, ensure_ascii=False)
+# Purgar estritamente qualquer vazamento de resposta ou vetor de referência (Conforme CG-20261013-023 C1)
+clean_scenarios = []
+for s in scenarios:
+    clean_s = {
+        "scenario_id": s["scenario_id"],
+        "cve_id": s["cve_id"],
+        "summary": s["summary"],
+        "asset_class": s["asset_class"],
+        "deployment_context": s["deployment_context"],
+        "controls": s["controls"]
+    }
+    clean_scenarios.append(clean_s)
+scenarios_json_str = json.dumps(clean_scenarios, ensure_ascii=False)
 
 html_content = f"""<!doctype html>
 <html lang="pt-BR">
@@ -491,7 +503,12 @@ html_content = f"""<!doctype html>
 </head>
 <body>
 
-<header>
+<!-- BANNER PERSISTENTE DE DEMONSTRAÇÃO SINTÉTICA (EXIGÊNCIA CG-20261013-023 H1) -->
+<div id="syntheticDemoBanner" style="background:#7f1d1d;border-bottom:2px solid #ef4444;color:#fef2f2;padding:10px 16px;text-align:center;font-size:12px;font-weight:700;letter-spacing:0.5px;position:sticky;top:0;z-index:99999;">
+  ⚠️ SYNTHETIC DEMONSTRATION — NO REAL PARTICIPANT DATA COLLECTION — G9 PENDING ETHICS APPROVAL
+</div>
+
+<header style="top:38px;">
   <div class="header-inner">
     <a href="/" class="brand-wrap" id="brandWrapLink" title="Voltar ao site principal">
       <img src="/helpus-logo.jpg" onerror="this.src='helpus-logo.jpg'; this.onerror=null;" alt="Logo HelpUS">
@@ -634,11 +651,6 @@ html_content = f"""<!doctype html>
             <div>
               <strong style="color:#94a3b8;display:block;margin-bottom:2px;" id="labelControlsTitle">Controles Compensatórios:</strong>
               <span style="color:#cbd5e1;" id="cardControls">Firewall, WAF ativo</span>
-            </div>
-          </div>
-
-          <div class="vector-box" id="cardOfficialVector">
-            CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N
           </div>
         </div>
 
@@ -656,8 +668,9 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Confidentiality Requirement (CR):</label>
                 <select class="metric-select" id="metric-CR" onchange="onMetricChange('CR')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="H">High (H) — Impacto Catastrófico</option>
-                  <option value="M" selected>Medium (M) — Impacto Significativo</option>
+                  <option value="M">Medium (M) — Impacto Significativo</option>
                   <option value="L">Low (L) — Impacto Limitado</option>
                   <option value="X">Not Defined (X)</option>
                 </select>
@@ -665,8 +678,9 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Integrity Requirement (IR):</label>
                 <select class="metric-select" id="metric-IR" onchange="onMetricChange('IR')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="H">High (H) — Impacto Catastrófico</option>
-                  <option value="M" selected>Medium (M) — Impacto Significativo</option>
+                  <option value="M">Medium (M) — Impacto Significativo</option>
                   <option value="L">Low (L) — Impacto Limitado</option>
                   <option value="X">Not Defined (X)</option>
                 </select>
@@ -674,8 +688,9 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Availability Requirement (AR):</label>
                 <select class="metric-select" id="metric-AR" onchange="onMetricChange('AR')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="H">High (H) — Impacto Catastrófico</option>
-                  <option value="M" selected>Medium (M) — Impacto Significativo</option>
+                  <option value="M">Medium (M) — Impacto Significativo</option>
                   <option value="L">Low (L) — Impacto Limitado</option>
                   <option value="X">Not Defined (X)</option>
                 </select>
@@ -690,6 +705,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Attack Complexity (MAC):</label>
                 <select class="metric-select" id="metric-MAC" onchange="onMetricChange('MAC')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H) — Requer bypass de controles</option>
                   <option value="L">Low (L) — Sem complexidade adicional</option>
@@ -698,6 +714,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Attack Requirements (MAT):</label>
                 <select class="metric-select" id="metric-MAT" onchange="onMetricChange('MAT')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="P">Present (P) — Condições de ataque necessárias</option>
                   <option value="N">None (N) — Sem requisitos prévios</option>
@@ -706,6 +723,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Privileges Required (MPR):</label>
                 <select class="metric-select" id="metric-MPR" onchange="onMetricChange('MPR')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H) — Privilégios administrativos</option>
                   <option value="L">Low (L) — Privilégios básicos de usuário</option>
@@ -715,6 +733,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified User Interaction (MUI):</label>
                 <select class="metric-select" id="metric-MUI" onchange="onMetricChange('MUI')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="N">None (N) — Sem interação humana</option>
                   <option value="P">Passive (P) — Interação involuntária</option>
@@ -731,6 +750,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Vulnerable Conf. (MVC):</label>
                 <select class="metric-select" id="metric-MVC" onchange="onMetricChange('MVC')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -740,6 +760,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Vulnerable Integ. (MVI):</label>
                 <select class="metric-select" id="metric-MVI" onchange="onMetricChange('MVI')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -749,6 +770,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Vulnerable Avail. (MVA):</label>
                 <select class="metric-select" id="metric-MVA" onchange="onMetricChange('MVA')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -765,6 +787,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Subsequent Conf. (MSC):</label>
                 <select class="metric-select" id="metric-MSC" onchange="onMetricChange('MSC')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -774,6 +797,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Subsequent Integ. (MSI):</label>
                 <select class="metric-select" id="metric-MSI" onchange="onMetricChange('MSI')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -783,6 +807,7 @@ html_content = f"""<!doctype html>
               <div class="metric-field">
                 <label>Modified Subsequent Avail. (MSA):</label>
                 <select class="metric-select" id="metric-MSA" onchange="onMetricChange('MSA')">
+                  <option value="" disabled selected>-- Selecione / Select --</option>
                   <option value="X">Not Defined (X / Inalterado)</option>
                   <option value="H">High (H)</option>
                   <option value="L">Low (L)</option>
@@ -1022,14 +1047,16 @@ function getTcleHtml(lang) {{
     return `
       <h2>INFORMED CONSENT FORM (e-ICF) — GATE G9</h2>
       <p><strong>Study Title:</strong> Empirical Validation and Human-in-the-Loop Benchmarking of Contextual Environmental Scoring for FIRST CVSS v4.0</p>
-      <p><strong>Sponsor / Principal Investigator:</strong> HelpUS LLC (USA) / Research Coordination (Brazil)</p>
-      <p><strong>Regulatory Framework:</strong> US 45 CFR 46 (Common Rule Minimal Risk Survey Criteria), DHS/IEEE Menlo Report Principles, Brazilian Law 14,874/2024, and Coordinating Review via Brazilian Research Ethics System (SINEP / CEP Res. CNS 510/2016).</p>
+      <p><strong>Sponsor:</strong> HelpUS LLC (United States)</p>
+      <p><strong>Operational Human-Study PI:</strong> U.S.-Resident Technical Collaborator (HelpUS LLC, USA)</p>
+      <p><strong>Lead Intellectual Author & Technology Originator:</strong> Wagner Santos (HelpUS LLC)</p>
+      <p><strong>Regulatory Framework:</strong> US Title 45 CFR Part 46 (Common Rule Minimal Risk Analysis), DHS/IEEE Menlo Report Principles, and Brazilian Law 14,874/2024 / Decree 12,651/2025.</p>
       <br>
       <h3>1. Study Purpose & Nature of Participation</h3>
       <p>You are invited to serve as an Independent Expert Evaluator to assess 30 synthetic and curated vulnerability scenarios under FIRST CVSS v4.0 specifications. Your professional scoring will establish the human reference ground truth against which an automated contextual reasoning engine will be benchmarked.</p>
       <br>
-      <h3>2. Independent & Blinded Review Safeguards</h3>
-      <p>In accordance with scientific blinding protocols: (a) You will NOT be shown any AI model outputs or automated severity scores; (b) You will NOT see other evaluators' responses prior to the adjudication phase; (c) Your judgments must reflect solely your independent expertise and the provided technical deployment topology.</p>
+      <h3>2. Blinded Independent Review Safeguards</h3>
+      <p>In accordance with scientific blinding protocols: (a) You will NOT be shown any AI model outputs or automated severity scores; (b) You will NOT see other evaluators' responses prior to the adjudication phase; (c) Your judgments must reflect solely your independent expertise and the provided technical deployment topology and compensating controls.</p>
       <br>
       <h3>3. Risks, Safeguards, and Confidentiality</h3>
       <p>The only anticipated risk is cognitive fatigue from reviewing technical records. You may take breaks at any time; your progress is auto-saved. All personal evaluator identity is strictly pseudonymized (EXP-01 through EXP-05). No individual identifiable private data is published.</p>
@@ -1037,38 +1064,42 @@ function getTcleHtml(lang) {{
       <h3>4. Voluntary Participation & Right to Withdraw</h3>
       <p>Your participation is entirely voluntary. You may withdraw at any moment prior to final cryptographic sealing without penalty.</p>
       <br>
-      <h3>5. Regulatory Applicability & Ethics Oversight</h3>
-      <p>This protocol adheres to the US Common Rule (45 CFR 46) minimal risk expert survey standard and Brazilian National Health Council (CNS) Resolution 510/2016 for independent expert consultations. HelpUS LLC conducts this research under coordinating ethics review via Platform Brazil / SINEP without commercial IRB fees, safeguarding complete academic objectivity.</p>
+      <h3>5. Regulatory Governance & Independent Oversight</h3>
+      <p>This protocol adheres to the US Common Rule (45 CFR 46) minimal risk expert survey framework with no federal trigger requiring commercial IRB review, and operates under independent ethics review standards. HelpUS LLC conducts this research with transparent conflict-of-interest disclosures and strict double-blind evaluation controls.</p>
     `;
   }}
   if (lang === "es") {{
     return `
       <h2>FORMULARIO DE CONSENTIMIENTO INFORMADO ELECTRÓNICO (e-TCLE / e-ICF) — GATE G9</h2>
       <p><strong>Título del Estudio:</strong> Validación Empírica y Benchmarking Humano de Métricas Ambientales en el Estándar FIRST CVSS v4.0</p>
-      <p><strong>Patrocinador / Investigador Principal:</strong> HelpUS LLC (EE.UU.) / Coordinación de Investigación HelpUS (Brasil)</p>
-      <p><strong>Marco Regulatorio:</strong> Marco Binacional EE.UU. 45 CFR 46 (Criterios de Encuesta de Riesgo Mínimo Common Rule), Ley Federal Brasileña 14.874/2024, Resolución CNS 510/2016 (Revisión Coordinadora CEP/SINEP) y Principios del Informe Menlo / Declaración de Helsinki.</p>
+      <p><strong>Patrocinador:</strong> HelpUS LLC (Estados Unidos)</p>
+      <p><strong>Investigador Principal Operativo (Fase Humana):</strong> Colaborador Técnico Residente en EE. UU. (HelpUS LLC)</p>
+      <p><strong>Autor Intelectual Principal y Creador Tecnológico:</strong> Wagner Santos (HelpUS LLC)</p>
+      <p><strong>Marco Regulatorio:</strong> Marco EE. UU. 45 CFR 46 (Common Rule Riesgo Mínimo), Principios del Informe Menlo, Ley Federal Brasileña 14.874/2024 y Decreto 12.651/2025.</p>
       <br>
       <h3>1. Objetivos del Estudio y Rol del Experto</h3>
       <p>Usted ha sido invitado(a) como Experto Evaluador Independiente para juzgar 30 escenarios técnicos de vulnerabilidades bajo la especificación oficial FIRST CVSS v4.0. Sus determinaciones conformarán el Patrón de Oro Humano de Referencia (Human Ground Truth) para la auditoría y calibración de precisión del motor contextual automatizado.</p>
       <br>
-      <h3>2. Protocolo de Evaluación Ciega Estricta (Blinded Review)</h3>
+      <h3>2. Protocolo de Evaluación Ciega e Imparcial</h3>
       <p>Para resguardar la máxima imparcialidad científica: (a) Usted NO tendrá acceso a puntuaciones sugeridas por Inteligencia Artificial; (b) Usted NO verá los votos emitidos por los otros evaluadores antes de la sesión formal de adjudicación; (c) Sus elecciones deben fundamentarse estrictamente en su conocimiento técnico profesional y en las evidencias de red y controles compensatorios provistos.</p>
       <br>
       <h3>3. Riesgos Mitigados y Confidencialidad</h3>
-      <p>El único riesgo previsto es la fatiga cognitiva por el análisis de registros técnicos. Dispone de guardado automático para realizar la evaluación en sesiones convenientes a su ritmo. Su identidad profesional está estrictamente seudonimizada (EXP-01 a EXP-05), garantizando la protección de datos conforme a GDPR/LGPD.</p>
+      <p>El único riesgo previsto es la fatiga cognitiva por el análisis de registros técnicos. Dispone de guardado automático para realizar la evaluación en sesiones convenientes a su ritmo. Su identidad profesional está estrictamente seudonimizada (EXP-01 a EXP-05), garantizando la protección de datos conforme a estándares internacionales.</p>
       <br>
       <h3>4. Participación Voluntaria y Derecho de Revocación</h3>
       <p>Su participación es totalmente voluntaria y puede revocar su consentimiento en cualquier momento antes del sellado criptográfico definitivo de sus respuestas.</p>
       <br>
-      <h3>5. Gobernanza Ética y Aplicabilidad Regulatoria</h3>
-      <p>Este protocolo se rige por el marco de riesgo mínimo para encuestas de expertos de la Common Rule de EE. UU. (45 CFR 46) y la Resolución CNS 510/2016 de Brasil. HelpUS LLC conduce esta investigación bajo revisión ética coordinadora a través de la Plataforma Brasil / SINEP sin tarifas de IRB comercial, garantizando total independencia científica.</p>
+      <h3>5. Gobernanza Ética e Independencia Metodológica</h3>
+      <p>Este protocolo se rige por el marco de riesgo mínimo de la Common Rule de EE. UU. (45 CFR 46) y normas éticas independientes, asegurando total rigor metodológico, declaración transparente de conflicto de intereses y ausencia de sesgo evaluador.</p>
     `;
   }}
   return `
     <h2>TERMO DE CONSENTIMENTO LIVRE E ESCLARECIDO ELETRÔNICO (e-TCLE)</h2>
     <p><strong>Título da Pesquisa:</strong> Validação Empírica e Benchmarking Humano de Métricas Ambientais no Padrão FIRST CVSS v4.0</p>
-    <p><strong>Patrocinador / Pesquisador Responsável:</strong> HelpUS LLC (EUA) / Coordenação de Pesquisa HelpUS (Brasil)</p>
-    <p><strong>Marco Regulatório:</strong> Lei Federal nº 14.874/2024, Resolução CNS nº 510/2016 (Revisão Ética Coordenadora SINEP/CEP), Critérios de Risco Mínimo US 45 CFR 46 (Common Rule) e Princípios Internacionais do Menlo Report / Declaração de Helsinki.</p>
+    <p><strong>Patrocinador Institucional:</strong> HelpUS LLC (Estados Unidos)</p>
+    <p><strong>Investigador Principal Operativo (Fase Humana):</strong> Colaborador Técnico Residente nos EUA (HelpUS LLC)</p>
+    <p><strong>Autor Intelectual Principal e Originador Tecnológico:</strong> Wagner Santos (HelpUS LLC)</p>
+    <p><strong>Marco Regulatório:</strong> Lei Federal nº 14.874/2024, Decreto nº 12.651/2025 (SINEP/INAEP/CEP), Critérios de Risco Mínimo US 45 CFR 46 (Common Rule) e Princípios do Menlo Report / Declaração de Helsinki.</p>
     <br>
     <h3>1. Objetivos da Pesquisa e Papel do Especialista</h3>
     <p>Você foi convidado(a) como Especialista Independente para avaliar 30 cenários técnicos de vulnerabilidades sob a especificação oficial FIRST CVSS v4.0. Seus julgamentos formarão o Padrão-Ouro Humano de Referência para a auditoria de acurácia de modelos automatizados de priorização de risco.</p>
@@ -1077,13 +1108,13 @@ function getTcleHtml(lang) {{
     <p>Para resguardar a imparcialidade científica: (a) Você NÃO terá acesso a notas sugeridas por Inteligência Artificial; (b) Você NÃO verá votos emitidos pelos outros 4 especialistas antes da sessão formal de adjudicação; (c) Suas escolhas devem se basear estritamente na sua experiência profissional e nas evidências de rede e controles compensatórios informados.</p>
     <br>
     <h3>3. Riscos Mitigados e Confidencialidade</h3>
-    <p>O único risco previsível é o cansaço cognitivo visual na leitura dos dados técnicos. Você dispõe de salvamento automático de rascunhos para realizar a análise em sessões convenientes. Seus dados de identificação são pseudonimizados sob estrita conformidade com a LGPD (EXP-01 a EXP-05).</p>
+    <p>O único risco previsível é o cansaço cognitivo visual na leitura dos dados técnicos. Você dispõe de salvamento automático de rascunhos para realizar a análise em sessões convenientes. Seus dados de identificação são pseudonimizados sob estrita conformidade técnica (EXP-01 a EXP-05).</p>
     <br>
-    <h3>4. Voluntariedade e Direito de Revogação</h3>
+    <h3>4. Voluntariedade e Direito de Revocação</h3>
     <p>Sua participação é estritamente voluntária e você pode revogar seu consentimento a qualquer momento antes da selagem definitiva de suas respostas.</p>
     <br>
     <h3>5. Governança Ética e Independência Científica</h3>
-    <p>Este protocolo segue o enquadramento de consulta a especialistas de risco mínimo da Resolução CNS 510/2016 e da Common Rule dos EUA (45 CFR 46). A HelpUS LLC atua como patrocinadora institucional, coordenando a revisão ética via Plataforma Brasil / SINEP sem custos ou taxas de IRB comercial, garantindo total independência operacional e metodológica.</p>
+    <p>Este protocolo segue a arquitetura regulatória da Lei 14.874/2024 e o enquadramento de consulta a especialistas de risco mínimo da Common Rule dos EUA (45 CFR 46), assegurando rigor metodológico, salvaguardas de conflito de interesses e blindagem algorítmica.</p>
   `;
 }}
 
@@ -1245,9 +1276,8 @@ function loadScenario(idx) {{
   document.getElementById("cardSummary").innerText = scn.summary;
   document.getElementById("cardContext").innerText = scn.deployment_context;
   document.getElementById("cardControls").innerText = scn.controls;
-  document.getElementById("cardOfficialVector").innerText = scn.official_vector;
   
-  // Preencher respostas salvas (ou defaults)
+  // Preencher respostas salvas (ou vazio por padrão para evitar viés de ancoragem)
   var responses = loadResponses();
   var r = responses[scn.scenario_id] || {{}};
   
@@ -1255,7 +1285,7 @@ function loadScenario(idx) {{
   metrics.forEach(function(m) {{
     var sel = document.getElementById("metric-" + m);
     if (sel) {{
-      sel.value = r[m] || (["CR", "IR", "AR"].includes(m) ? "M" : "X");
+      sel.value = r[m] !== undefined ? r[m] : "";
     }}
   }});
   
@@ -1375,19 +1405,33 @@ async function computeSha256(str) {{
 async function sealAndSubmitAll() {{
   var responses = loadResponses();
   var missing = [];
+  var metrics = ["CR", "IR", "AR", "MAC", "MAT", "MPR", "MUI", "MVC", "MVI", "MVA", "MSC", "MSI", "MSA"];
+  
   SCENARIOS.forEach(function(scn, idx) {{
-    if (!responses[scn.scenario_id] || !responses[scn.scenario_id].saved) {{
+    var r = responses[scn.scenario_id];
+    if (!r || !r.saved) {{
       missing.push(idx + 1);
+    }} else {{
+      var allAnswered = true;
+      for (var i = 0; i < metrics.length; i++) {{
+        if (!r[metrics[i]]) {{
+          allAnswered = false;
+          break;
+        }}
+      }}
+      if (!allAnswered) missing.push(idx + 1);
     }}
   }});
   
+  // VALIDAÇÃO FAIL-CLOSED (EXIGÊNCIA CG-20261013-023 C4): Recusa submissão incompleta
   if (missing.length > 0) {{
     var msg = currentLang === "pt"
-      ? "Existem cenários pendentes: " + missing.join(", ") + ". Deseja submeter mesmo assim?"
+      ? "Avaliação Incompleta (Fail-Closed): Os seguintes cenários possuem métricas não respondidas: #" + missing.join(", #") + ". Todos os 30 cenários e suas 13 métricas devem ser preenchidos antes da selagem definitiva."
       : currentLang === "es"
-      ? "Existen escenarios pendientes: " + missing.join(", ") + ". ¿Desea enviar de todos modos?"
-      : "There are pending scenarios: " + missing.join(", ") + ". Do you wish to seal anyway?";
-    if (!confirm(msg)) return;
+      ? "Evaluación Incompleta (Fail-Closed): Los siguientes escenarios tienen métricas sin responder: #" + missing.join(", #") + ". Los 30 escenarios y sus 13 métricas deben responderse antes del sellado definitivo."
+      : "Incomplete Evaluation (Fail-Closed): The following scenarios have unanswered metrics: #" + missing.join(", #") + ". All 30 scenarios and all 13 metrics must be answered before final sealing.";
+    alert(msg);
+    return;
   }}
   
   var payload = {{
