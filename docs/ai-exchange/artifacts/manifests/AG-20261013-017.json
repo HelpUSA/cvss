@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261013-017",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "git_commit": "1fc5e323067201fae5dbd4d38ff0b6eb1b0ff42c",
+  "created_at": "2026-10-13T14:45:00-03:00",
+  "artifacts": []
+}
