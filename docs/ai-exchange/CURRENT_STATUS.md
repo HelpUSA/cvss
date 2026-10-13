@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-13T18:05:00-03:00
+2026-10-13T19:45:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261013-014
 
 Latest ChatGPT response:
-CG-20261013-027
+CG-20261013-028
 
 Current phase:
-TRIPARTITE AI GOVERNANCE / GEMINI TECHNICAL CORROBORATION WITH QUALIFICATIONS
+PRIMARY STUDY PIVOT — NON-HUMAN AUTONOMOUS ENVIRONMENTAL CVSS VALIDATION
 
 SAFE_TO_FREEZE:
 NO
@@ -28,20 +28,15 @@ C1/C2:
 STRICTLY SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
 
 Release Gate Summary:
-- G1: PASS / FORMALLY CLOSED (FIRST corpus 486,472/486,472, zero divergence)
-- G2: PASS / FORMALLY CLOSED (Clean-room portable artifact execution in isolated venv)
-- G3: PASS / FORMALLY CLOSED (Core fail-safe semantics, 122 tests)
-- G4: PASS / FORMALLY CLOSED (Web semantics / JCS / Auth & HITL session revocation, 13 security tests)
-- G5: PASS / FORMALLY CLOSED (Dataset B provenance / synchronization)
-- G6: PASS / FORMALLY CLOSED (Book LaTeX integrity & sync)
-- G7: PASS / FORMALLY CLOSED (Documentation & evidence consistency)
-- G8: PASS / FORMALLY CLOSED (Model A direct production verification & byte identity on cvss.helpusbr.com)
-- ROUND_5_CANONICAL_PROVENANCE: CLOSED
-- G9: PENDING_EXTERNAL (Documentary Readiness Closed; Awaiting CEP Ethical Review via SINEP)
-- G10: PENDING_PROCEDURAL_EXTERNAL (Documentary Readiness Closed; Awaiting External Appointments & Post-G9 Key Custody)
+- G1-G8: PASS / FORMALLY CLOSED
+- Legacy G9 human-study track: no longer on primary-study critical path; preserve as optional future extension pending formal migration
+- Legacy G10 human-custody track: no longer on primary-study critical path; preserve as optional future extension pending formal migration
+- Proposed new technical gates: G9A Environmental Rule Catalog Validation; G9B Synthetic/Metamorphic Environmental Validation; G10A Autonomous Context Pipeline Reproducibility and Freeze
+- SAFE_TO_FREEZE: NO until the new technical gate map is implemented and independently audited
+- C1/C2: STRICTLY SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
 
 Documentary Readiness Status:
-DOCUMENTARY_READY_FOR_CEP_SUBMISSION (Dossier Export Packaged & Hash-Sealed)
+HUMAN DOSSIER PRESERVED AS LEGACY/OPTIONAL; PRIMARY NON-HUMAN STUDY MIGRATION PENDING
 
 Next Steps:
-Antigravity to ingest CG-20261013-027. Gemini technical review is accepted as corroborative evidence, not canonical certification. Preserve deterministic score authority, treat supplemental metrics as optional non-scoring context, treat v3.1→v4.0 divergence as explanation-only, challenge-test parser malformed inputs, and avoid unverified zero-data-retention or FIRST-certification language. Preserve G1-G8 PASS/CLOSED, G9 PENDING_EXTERNAL, G10 PENDING_PROCEDURAL_EXTERNAL, SAFE_TO_FREEZE=NO, and C1/C2 SEALED/UNOPENED/UNEXECUTED/DO_NOT_RETUNE.
+Antigravity to ingest CG-20261013-028 and implement the scientific-scope migration: primary study becomes non-human technical validation; five-expert study becomes optional future extension; product must not depend on ChatGPT/Gemini/Antigravity; create Context Engine / Environmental Rule Catalog / non-human validation protocol / metamorphic and adversarial tests; preserve all historical human-study artifacts; do not alter scoring mathematics or execute C1/C2. Return exact commit, proposed final gate map, tests, CI, and VALISTATUS for independent ChatGPT audit.
