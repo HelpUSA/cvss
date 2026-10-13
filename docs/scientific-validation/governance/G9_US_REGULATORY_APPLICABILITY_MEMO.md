@@ -1,64 +1,62 @@
-# G9 — US Regulatory Applicability Legal & Ethics Memo
-**Document ID:** `G9-US-REGULATORY-APPLICABILITY-MEMO-v1.1`  
+# G9 — U.S. Regulatory Applicability and Study Governance Memo
+**Document ID:** `G9-US-REGULATORY-APPLICABILITY-MEMO-v2.0`  
 **Project:** HelpUS CVSS AI Scientific Validation  
 **Sponsor:** HelpUS LLC (United States)  
-**Principal Investigator:** based in Brazil  
-**Coordinating Ethics Review:** Brazilian SINEP / competent CEP  
-**Applicability References:** 45 CFR Part 46 (Common Rule), 21 CFR Parts 50/56 (FDA), Lei 14.874/2024, Decreto 12.651/2025  
-**Status:** BINDING GOVERNANCE CHARTER  
+**Study Operating Jurisdiction:** United States  
+**Scientific Language:** English  
+**Status:** BINDING GOVERNANCE CHARTER — PRE-ACTIVATION  
 **Effective Date:** 2026-10-13  
 
 ---
 
 ## 1. Executive Summary
 
-This memorandum evaluates whether the current HelpUS CVSS AI expert-validation study triggers mandatory U.S. federal IRB review.
+The human-subjects validation phase is prospectively structured as a **U.S.-based study operated by HelpUS LLC**.
 
-Current project facts:
+The human phase may activate only when all operational conditions in this memo are true.
 
-- privately sponsored by HelpUS LLC;
-- no identified U.S. federal research funding or Common Rule agency support;
-- non-clinical and non-biomedical;
-- no FDA-regulated clinical investigation;
-- Principal Investigator coordinates the study from Brazil;
-- human experts evaluate technical cybersecurity artifacts.
+### Activation conditions
 
-### Current conclusion
+- Principal Investigator is physically conducting the human-subjects phase from the United States;
+- HelpUS LLC is the operational sponsor and host;
+- recruitment is initiated from the U.S. operation;
+- informed consent is executed through the U.S. EDC;
+- identifiable and pseudonymized participant data remain in U.S.-controlled systems during active collection;
+- no human-subjects collection or operational study management is performed from another jurisdiction unless separately cleared;
+- no participant is recruited from a jurisdiction that has not passed the applicable jurisdiction-clearance process.
 
-**No U.S. federal Common Rule trigger has been identified under the present study design.**
+Until these conditions are met:
 
-This is an **applicability determination**, not a self-declared U.S. IRB exemption.
-
-If the study later becomes subject to the Common Rule, exemption eligibility must be assessed by the appropriate institutional or regulatory authority rather than treated as conclusively self-determined by the investigator.
+`HUMAN_STUDY_ACTIVATION = BLOCKED`
 
 ---
 
-## 2. Common Rule Applicability
+## 2. U.S. Common Rule Applicability
 
-The Common Rule applies to human-subjects research conducted, supported, or otherwise subject to regulation by a federal department or agency that has adopted the Common Rule. Institutions may also voluntarily apply the Common Rule to additional research through institutional policy or assurance mechanisms.
+Current facts:
 
-For the current HelpUS study:
-
-- no U.S. federal grant has been identified;
-- no federal cooperative agreement or contract has been identified;
-- no participating institution has yet been identified whose internal policy independently requires U.S. IRB review;
-- HelpUS LLC has not represented that it holds an assurance extending the Common Rule to all privately sponsored research.
+- privately sponsored by HelpUS LLC;
+- no identified HHS or other Common Rule agency support;
+- no identified federal grant, cooperative agreement, or federal research contract;
+- non-clinical cybersecurity expert-evaluation study;
+- no current university or hospital institutional sponsorship;
+- no identified FWA or institutional policy voluntarily extending the Common Rule to this project.
 
 Therefore:
 
 `US_COMMON_RULE_TRIGGER = NONE_IDENTIFIED_CURRENTLY`
 
-This status must be re-checked before recruiting a U.S.-based expert.
+This is an applicability conclusion, not a self-declared exemption.
+
+If a federal or institutional trigger later arises, applicability and any exemption category must be reassessed by the appropriate authority.
 
 ---
 
-## 3. Exemption Analysis
+## 3. Exemption Position
 
-45 CFR 46.104(d)(2) includes certain educational-test, survey, interview, and public-behavior research categories.
+The project does **not** rely on a self-declared exemption under 45 CFR 46.104 as its primary legal position.
 
-Because the current project does not have an identified federal Common Rule nexus, the project does **not** rely on a self-declared §46.104(d)(2) exemption as its primary legal position.
-
-If a future federal or institutional nexus arises, the study may present characteristics relevant to an exemption analysis, but the final determination must be made by the applicable institutional or regulatory process.
+If the Common Rule becomes applicable in the future, the project may request an exemption or other determination through the appropriate process.
 
 Therefore:
 
@@ -68,122 +66,120 @@ Therefore:
 
 ## 4. FDA Applicability
 
-The present study evaluates cybersecurity scoring and expert judgments. It does not currently involve:
-
-- drugs;
-- biologics;
-- regulated medical-device clinical investigation;
-- investigational device use;
-- human clinical intervention intended for FDA submission.
+The current study:
+- does not involve a drug;
+- does not involve a biologic;
+- does not involve a medical-device clinical investigation;
+- is not being conducted for an FDA medical-product submission.
 
 Therefore:
 
 `FDA_HUMAN_SUBJECTS_TRIGGER = NONE_IDENTIFIED_CURRENTLY`
 
-This conclusion must be reassessed if the product or study scope changes materially.
+Reassess if scope changes.
 
 ---
 
-## 5. Brazilian Coordinating Ethics Review
+## 5. U.S.-Based Human-Study Operating Model
 
-Because the Principal Investigator coordinates the human-subjects component from Brazil, the project will maintain Brazilian ethics review through the current legal framework:
+**Sponsor:** HelpUS LLC  
+**Operational jurisdiction:** United States  
+**Research operations:** United States  
+**EDC hosting:** United States  
+**Canonical language:** English  
+**Participant consent:** EN-US unless another cleared jurisdiction/language is specifically added  
+**Identity store:** United States  
+**Consent store:** United States  
+**Pseudonymized research store:** United States  
+**Scientific analysis:** U.S.-controlled environment during active human collection
 
-- Lei 14.874/2024;
-- Decreto 12.651/2025;
-- SINEP;
-- competent CEP;
-- INAEP as the national ethics instance under the current system.
+Initial deployment should prioritize U.S.-based independent cybersecurity experts.
 
-Older CNS/Conep instruments may remain relevant where still effective and compatible, but they are not described as the current primary institutional architecture.
-
-Therefore:
-
-`BRAZIL_COORDINATING_ETHICS_REVIEW = REQUIRED_BY_PROJECT_GOVERNANCE`
+Other countries may be added only after country-specific clearance.
 
 ---
 
-## 6. U.S.-Centered Operating Model
+## 6. Principal Investigator Location Requirement
 
-The project may be operationally centered in the United States while still maintaining Brazilian ethics review.
+The human-subjects phase is not to be represented as active until the PI is physically conducting that phase from the United States.
 
-Recommended U.S.-centered design:
+The project must not create a false contemporaneous record of PI location.
 
-- HelpUS LLC = sponsor/controller for the U.S. operational environment;
-- canonical scientific language = English;
-- participant portal hosted in a U.S. region;
-- U.S. participant identity, consent evidence, and security logs remain in the U.S. environment;
-- U.S. experts use an EN-US informed-consent package;
-- the PI in Brazil receives only the minimum data needed for scientific analysis.
+Once relocation is complete, the project may record the U.S. operating location prospectively from the effective activation date.
 
-This design **does not automatically eliminate Brazilian data-protection or ethics obligations**.
-
-If personal or pseudonymous participant data is accessed, reviewed, organized, analyzed, or otherwise processed by the PI from Brazil, that processing may fall within LGPD territorial scope.
-
-To minimize LGPD exposure while preserving scientific validity:
-
-1. keep directly identifying data and consent evidence in the U.S.;
-2. segregate the identity-to-participant-code key;
-3. provide the Brazil-based PI only anonymized or appropriately minimized scientific datasets where feasible;
-4. prohibit unnecessary access from Brazil to identity, email, IP address, consent signatures, and authentication logs;
-5. document every cross-border access path.
+Historical records remain unchanged.
 
 ---
 
 ## 7. U.S. Participant Clearance
 
-Before inviting any U.S.-based expert, complete a jurisdiction-specific applicability check:
+Before inviting a U.S.-based expert, document:
 
+- state of participation when needed;
 - federal funding/support trigger;
-- Common Rule agency involvement;
+- Common Rule agency trigger;
 - FDA trigger;
-- institutional policy/FWA trigger;
-- state-specific privacy or research requirement;
-- employer/institution restrictions;
-- publisher/sponsor-specific requirement.
+- institutional-policy/FWA trigger;
+- employer/institution restrictions where relevant;
+- state privacy-law applicability;
+- consent package version;
+- data-flow clearance.
 
-Only after all applicable checks are resolved may:
+Only after review:
 
 `US_PARTICIPANT_CLEARANCE = YES`
 
-No commercial U.S. IRB should be purchased merely for prestige.
+---
+
+## 8. Independent Ethics Review Strategy
+
+A commercial or university IRB is not required by default merely because the study is U.S.-based.
+
+However, the project should obtain a documented independent regulatory/ethics applicability determination if required by:
+- a federal trigger;
+- an institution;
+- a publisher/venue;
+- a state-specific rule;
+- a contractual counterparty;
+- a material change in study risk.
+
+The project must not imply that an OHRP IRB registration or FWA exists unless actually obtained.
 
 ---
 
-## 8. Neutral Treatment of IRB Costs
+## 9. Neutral Cost Language
 
-The project does not characterize fee-for-service IRBs as biased, predatory, or scientifically inferior.
+No governance or participant-facing material may characterize paid IRB review as biased, predatory, inferior, or scientifically compromised.
 
-The correct neutral statement is:
-
-- Brazilian public ethics review does not charge a review fee to this project;
-- commercial or institutional U.S. IRBs may charge fees depending on the service and institution;
-- cost does not determine the scientific integrity of a review.
+Cost and scientific independence are separate issues.
 
 ---
 
-## 9. Reassessment Triggers
+## 10. Reassessment Triggers
 
-Reassess U.S. IRB requirements if any of the following occurs:
+Reassess the U.S. regulatory position if any of the following occurs:
 
-1. receipt of U.S. federal funding or agency support;
-2. participation through a U.S. university, hospital, or other institution whose policy requires IRB review;
-3. new FDA-regulated activity;
-4. material change in participant population or data sensitivity;
-5. explicit non-waivable requirement from a sponsor, venue, regulator, or partner.
+1. federal funding or agency support;
+2. participation through an institution requiring IRB review;
+3. FDA-regulated activity;
+4. recruitment outside the cleared U.S. scope;
+5. handling of new sensitive data categories;
+6. new contractual or publication requirement;
+7. relocation of active human-study operations outside the United States.
 
 ---
 
-## 10. Binding Summary
+## 11. Binding Summary
 
-| Dimension | Current Status |
+| Dimension | Status |
 |---|---|
+| Study operating jurisdiction | UNITED STATES |
+| Human-study activation | BLOCKED UNTIL PI IS PHYSICALLY CONDUCTING HUMAN PHASE IN U.S. |
 | U.S. federal Common Rule trigger | NONE IDENTIFIED CURRENTLY |
 | Self-declared exemption | NOT USED |
-| FDA human-subjects trigger | NONE IDENTIFIED CURRENTLY |
-| Brazilian coordinating ethics review | REQUIRED BY PROJECT GOVERNANCE |
-| Canonical scientific language | ENGLISH |
-| U.S.-centered hosting | PERMITTED |
-| Brazil access to identifiable/pseudonymous data | MINIMIZE / RESTRICT |
+| FDA trigger | NONE IDENTIFIED CURRENTLY |
 | Commercial U.S. IRB | NOT REQUIRED BY DEFAULT |
-| Reassessment | REQUIRED IF TRIGGERS CHANGE |
-
+| Scientific language | ENGLISH |
+| Human data hosting | UNITED STATES |
+| Initial participant scope | U.S.-BASED EXPERTS PREFERRED |
+| Non-U.S. recruitment | COUNTRY CLEARANCE REQUIRED |
