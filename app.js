@@ -48,7 +48,7 @@ function getExportContract() {
 }
 
 function switchView(viewId) {
-  var views = ["view-guia", "view-simulador", "view-scanner", "view-metricas", "view-console"];
+  var views = ["view-guia", "view-simulador", "view-scanner", "view-metricas", "view-console", "view-especialistas"];
   views.forEach(function(v) {
     var el = document.getElementById(v);
     var btn = document.getElementById("nav-btn-" + v);
@@ -98,6 +98,8 @@ var HELPUS_I18N = {
     tabScanner: "Scanner & Topologia",
     tabMetricas: "Métricas & Auditoria",
     tabConsole: "Console Operacional",
+    tabEspecialistas: "Painel Especialistas (G9)",
+    headerPortalLabel: "Portal EDC (Online)",
     navWa: "WhatsApp",
     footerSub: "Plataforma de Cibersegurança & Pesquisa Científica em IA",
     footerCredit: "Desenvolvido por",
@@ -293,7 +295,150 @@ var HELPUS_I18N = {
     step1Badge: "1. Evidências",
     step2Badge: "2. Identificação",
     step3Badge: "3. Justificativa",
-    step4Badge: "4. Carimbo & Hash"
+    step4Badge: "4. Carimbo & Hash",
+
+    // Console Operacional
+    headerConsoleLabel: "Console Operacional",
+    heroBtnConsole: "Acessar Console Operacional (5 Camadas)",
+    consoleAreaBadge: "Área Operacional Corporativa • 5 Camadas de Avaliação",
+    consoleTitle: "Console Operacional HelpUS CVSS",
+    consoleDesc: "Priorização contextual em 5 camadas com proveniência compatível com JCS (RFC 8785 pendente validação formal) SHA-256 e governança supervisionada pelo perfil autoritativo PLATFORM_ADMIN.",
+    consoleHitlBadge: "Governança Human-in-the-Loop (HITL)",
+    consoleHitlTitle: "Homologação e Revisão Humana",
+    consoleHitlDesc: "A homologação formal de reclassificações ambientais exige autenticação autorizada de revisor humano com validação de sessão server-side.",
+    consoleRbacBadge: "Autenticação Servidor com RBAC",
+    consoleRbacDesc: "Decisões operacionais com persistência e auditoria exigem sessão corporativa autenticada via endpoint seguro <code>/api/review/decision</code>. O console público atua em modo de simulação demonstrativa.",
+    consoleLoginBtn: "🔐 Acessar Portal de Homologação Autenticado",
+    consoleDemoBtn: "Visualizar Demonstração Interativa (Modo Leitura)",
+    consoleTlsFooter: "Conexão segura com criptografia TLS 1.3 • Hash compatível com JCS (RFC 8785 pendente validação) SHA-256",
+    consoleReviewerName: "Revisor Autorizado (SecOps)",
+    consoleReviewerRole: "HITL Reviewer",
+    consoleReviewerProfile: "Perfil de Homologação • Revisão Humana Obrigatória",
+    consoleDownloadLogBtn: "📥 Baixar Log da Sessão",
+    consoleLogoutBtn: "Encerrar Sessão",
+    consoleCaseStudyLabel: "Selecione o Caso de Estudo Real (Dataset B)",
+    consoleFindingsTitle: "12 Achados de Produção Normalizados",
+    consoleFreezeNotice: "Freeze: 2026-10-08T21:30:00Z",
+    layer1Badge: "Camada 1",
+    layer1Tag: "Normativa",
+    layer1Header: "Score de Origem (CNA/NVD)",
+    layer1Check: "✓ Score Base Preservado Intacto",
+    layer2Badge: "Camada 2",
+    layer2Tag: "Evidências",
+    layer2Header: "Contexto e Telemetria",
+    layer2VectorLabel: "Vetor:",
+    layer2ComplexityLabel: "Complexidade:",
+    layer2PrivilegesLabel: "Privilégios:",
+    layer2AgeLabel: "Idade Telemetria:",
+    layer2Check: "✓ Prova de Rede Auditada",
+    layer3Badge: "Camada 3",
+    layer3Tag: "Priorização",
+    layer3Header: "Prioridade HelpUS",
+    layer3CvssLabel: "CVSS Ambiental:",
+    layer3SlaLabel: "SLA Operacional:",
+    layer3TransitionLabel: "Transição:",
+    layer4Badge: "Camada 4",
+    layer4Tag: "Rastreabilidade",
+    layer4Header: "Recibo Canônico JCS (compatível RFC 8785, pendente)",
+    layer4ReceiptLabel: "Canônico: JCS compatível (RFC 8785 pendente validação)",
+    layer4DownloadBtn: "📥 Baixar Recibo (.json)",
+    layer5Badge: "Camada 5",
+    layer5Tag: "Auditoria HITL",
+    layer5Header: "Aprovação HITL",
+    layer5PendingBadge: "Pendente de Homologação",
+    layer5ReqSession: "Revisão: Requer Sessão Autorizada",
+    layer5ApproveBtn: "✓ Homologar",
+    layer5RejectBtn: "✕ Rejeitar",
+    consoleHistoryTitle: "Histórico de Homologações & Decisões Operacionais",
+    consoleDemoBadge: "Console Interativo: Modo Demonstração (Não Autoritativo)",
+    thConsoleDate: "Data/Hora UTC",
+    thConsoleCve: "CVE ID",
+    thConsoleBase: "Score Base",
+    thConsoleContext: "Score Contextual",
+    thConsolePriority: "Prioridade",
+    thConsoleApprover: "Aprovador Master",
+    thConsoleReceipt: "Recibo SHA-256",
+    consoleEmptyAudit: "Nenhuma homologação realizada nesta sessão. Selecione um CVE e clique em 'Homologar'.",
+    consoleHitlApproved: "✓ Homologado (Simulação)",
+    consoleHitlRejected: "✕ Rejeitado (Simulação)",
+    cnaAuthorizedPrefix: "CNA Autorizado: ",
+    mavAdj: " (Adjacente)",
+    mavExt: " (Rede Externa)",
+    mavLoc: " (Local)",
+
+    // Painel Especialistas (G9)
+    g9HeroBadge: "Gate G9 • Validação Externa por Painel de Especialistas",
+    g9HeroTitle: "Portal Eletrônico de Avaliação Cega de Especialistas (EDC)",
+    g9HeroDesc: "Ambiente dedicado para coleta eletrônica de dados de especialistas independentes (pesquisadores e profissionais seniores de cibersegurança). O protocolo implementa consentimento eletrônico bilíngue (e-TCLE / e-ICF), blindagem estrita (sem viés de IA), reavaliação de 13 métricas ambientais FIRST CVSS v4.0 em 30 cenários e selamento criptográfico SHA-256.",
+    g9OpenBtn: "🚀 Abrir Portal EDC Completo",
+    g9OpenSub: "(Nova Aba ↗)",
+    g9ActiveBadge: "Ambiente Sintético Ativo • Gate G9",
+    g9Card1Title: "Coleta Web Online (EDC)",
+    g9Card1Sub: "30 Cenários de Referência Sintética",
+    g9Card1Desc: "Interface web autônoma e responsiva desenvolvida para aplicação online. O especialista pode navegar entre os cenários, revisar evidências de rede, atribuir notas de 13 métricas ambientais e salvar rascunhos localmente com segurança.",
+    g9Card1Li1: "<strong>e-TCLE / e-ICF:</strong> Assinatura eletrônica e declaração de ausência de conflitos.",
+    g9Card1Li2: "<strong>Auto-save:</strong> Persistência local no navegador (localStorage).",
+    g9Card1Li3: "<strong>Selamento:</strong> Hash SHA-256 e recibo JSON auditável baixável.",
+    g9Card1Btn: "Acessar Portal dos Especialistas →",
+    g9Card2Title: "Dossiê Ético & Regulatório",
+    g9Card2Sub: "Estratégia Binacional Brasil / EUA (Opção 1)",
+    g9Card2Desc: "Conforme pareceres de auditoria <code>CG-20261010-021</code> e <code>CG-20261013-022</code>, a HelpUS adota submissão via CEP nacional (Custo R$ 0,00) com escopo internacional declarado, permitindo especialistas dos EUA e Brasil sem taxas de IRB comercial.",
+    g9Card2DocsLabel: "Documentos Disponíveis no Dossiê:",
+    g9Card2Status: "Status CEP: Submissão em Preparação • R$ 0,00",
+    g9Card3Title: "Blindagem & Integridade Metodológica",
+    g9Card3Sub: "Duplo-Cego Estrito (Blinded Review)",
+    g9Card3Desc: "A metodologia científica assegura que o especialista não veja nem seja influenciado pelos scores preditos pelo motor de IA nem pelas respostas de revisores prévios.",
+    g9Card3Li1: "<strong>Dataset C1/C2:</strong> Permanece estritamente lacrado até o congelamento formal.",
+    g9Card3Li2: "<strong>13 Métricas FIRST:</strong> CR, IR, AR, MAV, MAC, MPR, MUI, MVC, MVI, MVA, MSC, MSI, MSA.",
+    g9Card3Li3: "<strong>Acordo Inter-Avaliadores:</strong> Fleiss' Kappa / ICC e Wilcoxon pareado no plano estatístico.",
+    g9Card3Status: "✓ Blinding Shield Validado por Auditoria",
+    g9FlowTitle: "Fluxo Operacional do Especialista no Portal EDC",
+    g9Step1Tag: "Passo 1",
+    g9Step1Title: "Consentimento & COI",
+    g9Step1Desc: "Leitura do e-TCLE (PT-BR) ou e-ICF (EN-US/ES), preenchimento de identificação e declaração de não conflito de interesses.",
+    g9Step2Tag: "Passo 2",
+    g9Step2Title: "Avaliação dos 30 Cenários",
+    g9Step2Desc: "Análise técnica de cada cenário, seleção das 13 métricas ambientais CVSS v4.0 e justificativa pericial textual.",
+    g9Step3Tag: "Passo 3",
+    g9Step3Title: "Revisão & Selamento SHA-256",
+    g9Step3Desc: "Geração do hash criptográfico digital nativo, certificado de custódia e download do pacote de submissão (.json).",
+
+    // Modal de Homologação HITL
+    homologStep1Title: "Passo 1/4 — Checagem de Grounding (Fatos Reais):",
+    homologStep1P: "Em conformidade com a <em>ISO/IEC 27001 (Cláusula 6.1.2)</em> e <em>NIST AI RMF</em>, o analista deve atestar que as premissas de rede e negócio declaradas refletem o ambiente físico ou lógico real:",
+    homologBtnCancel: "Cancelar",
+    homologBtnNext1: "Avançar: Identificação →",
+    homologStep2Title: "Passo 2/4 — Atribuição & Responsabilidade Técnica:",
+    homologStep2P: "Registre a identidade do operador para garantir não-repúdio e auditoria forense.",
+    homologLblName: "Nome Completo do Analista / Auditor:",
+    homologLblEmail: "E-mail Corporativo:",
+    homologLblRole: "Papel / Perfil de Acesso:",
+    homologOptRole1: "Lead Security Engineer / CISO",
+    homologOptRole2: "SOC Analyst N3",
+    homologOptRole3: "Auditor de Compliance PCI/ISO",
+    homologOptRole4: "Engenheiro DevSecOps",
+    homologLblTicket: "ID do Chamado / Ticket (Jira/HelpUS/GLPI):",
+    homologBtnBack: "← Voltar",
+    homologBtnNext2: "Avançar: Justificativa →",
+    homologStep3Title: "Passo 3/4 — Justificativa Formal e Decisão de Risco:",
+    homologStep3P: "Defina se a proposta da IA é aceita na íntegra, aceita com ressalvas ou rejeitada mantendo o score base de origem.",
+    homologLblDelib: "Tipo de Deliberação:",
+    homologOptDelib1: "✓ Homologar Prioridade Contextual da IA (Recomendado)",
+    homologOptDelib2: "✓ Homologar com Condicionante (Manutenção Agendada)",
+    homologOptDelib3: "✕ Rejeitar Proposta da IA (Manter Score Base de Origem)",
+    homologOptDelib4: "✕ Rejeitar & Escalar para Comitê de Crise",
+    homologLblJust: "Justificativa Técnica do Analista (Obrigatória):",
+    homologPlaceholderJust: "Ex: Topologia validada com regras de iptables/VLAN verificadas. Risco aceito com base nos controles compensatórios vigentes até a janela quinzenal.",
+    homologBtnSubmit: "✓ Concluir Simulação de Homologação",
+    homologSuccessTitle: "Simulação de Homologação Concluída",
+    homologSuccessDesc: "O digest de demonstração local foi gerado para pré-visualização. Homologações oficiais são registradas exclusivamente via API autenticada.",
+    homologBtnReceipt: "📥 Baixar Comprovante de Simulação (.json)",
+    homologBtnClose: "Fechar",
+
+    // Virtual Patching
+    vpTabIptables: "Linux (iptables)",
+    vpTabAws: "AWS Security Group",
+    vpTabWaf: "Cloudflare WAF"
   },
 
   en: {
@@ -304,6 +449,8 @@ var HELPUS_I18N = {
     tabScanner: "Scanner & Topology",
     tabMetricas: "Metrics & Audit",
     tabConsole: "Operational Console",
+    tabEspecialistas: "Expert Panel (G9)",
+    headerPortalLabel: "EDC Portal (Online)",
     navWa: "WhatsApp",
     footerSub: "Cybersecurity Platform & Scientific AI Research",
     footerCredit: "Powered by",
@@ -499,7 +646,150 @@ var HELPUS_I18N = {
     step1Badge: "1. Evidence",
     step2Badge: "2. Identification",
     step3Badge: "3. Justification",
-    step4Badge: "4. Stamp & Hash"
+    step4Badge: "4. Stamp & Hash",
+
+    // Operational Console
+    headerConsoleLabel: "Operational Console",
+    heroBtnConsole: "Access Operational Console (5 Layers)",
+    consoleAreaBadge: "Corporate Operational Area • 5 Evaluation Layers",
+    consoleTitle: "HelpUS CVSS Operational Console",
+    consoleDesc: "5-layer contextual prioritization with JCS-compliant (RFC 8785 pending formal validation) SHA-256 provenance and supervision by PLATFORM_ADMIN authoritative role.",
+    consoleHitlBadge: "Human-in-the-Loop (HITL) Governance",
+    consoleHitlTitle: "Human Review & Homologation",
+    consoleHitlDesc: "Formal homologation of environmental reclassifications requires authorized human reviewer authentication with server-side session validation.",
+    consoleRbacBadge: "Server Authentication with RBAC",
+    consoleRbacDesc: "Operational decisions with persistence and audit require an authenticated corporate session via secure endpoint <code>/api/review/decision</code>. The public console operates in demonstration simulation mode.",
+    consoleLoginBtn: "🔐 Access Authenticated Homologation Portal",
+    consoleDemoBtn: "View Interactive Demonstration (Read-Only Mode)",
+    consoleTlsFooter: "Secure connection with TLS 1.3 encryption • Hash compatible with JCS (RFC 8785 pending validation) SHA-256",
+    consoleReviewerName: "Authorized Reviewer (SecOps)",
+    consoleReviewerRole: "HITL Reviewer",
+    consoleReviewerProfile: "Homologation Profile • Mandatory Human Review",
+    consoleDownloadLogBtn: "📥 Download Session Log",
+    consoleLogoutBtn: "Sign Out",
+    consoleCaseStudyLabel: "Select Real-World Case Study (Dataset B)",
+    consoleFindingsTitle: "12 Normalized Production Findings",
+    consoleFreezeNotice: "Freeze: 2026-10-08T21:30:00Z",
+    layer1Badge: "Layer 1",
+    layer1Tag: "Normative",
+    layer1Header: "Origin Score (CNA/NVD)",
+    layer1Check: "✓ Base Score Preserved Intact",
+    layer2Badge: "Layer 2",
+    layer2Tag: "Evidence",
+    layer2Header: "Context & Telemetry",
+    layer2VectorLabel: "Vector:",
+    layer2ComplexityLabel: "Complexity:",
+    layer2PrivilegesLabel: "Privileges:",
+    layer2AgeLabel: "Telemetry Age:",
+    layer2Check: "✓ Network Proof Audited",
+    layer3Badge: "Layer 3",
+    layer3Tag: "Prioritization",
+    layer3Header: "HelpUS Priority",
+    layer3CvssLabel: "Environmental CVSS:",
+    layer3SlaLabel: "Operational SLA:",
+    layer3TransitionLabel: "Transition:",
+    layer4Badge: "Layer 4",
+    layer4Tag: "Traceability",
+    layer4Header: "JCS Canonical Receipt (RFC 8785 compatible, pending)",
+    layer4ReceiptLabel: "Canonical: JCS compatible (RFC 8785 validation pending)",
+    layer4DownloadBtn: "📥 Download Receipt (.json)",
+    layer5Badge: "Layer 5",
+    layer5Tag: "HITL Audit",
+    layer5Header: "HITL Approval",
+    layer5PendingBadge: "Pending Homologation",
+    layer5ReqSession: "Review: Requires Authorized Session",
+    layer5ApproveBtn: "✓ Homologate",
+    layer5RejectBtn: "✕ Reject",
+    consoleHistoryTitle: "Homologations & Operational Decisions History",
+    consoleDemoBadge: "Interactive Console: Demonstration Mode (Non-Authoritative)",
+    thConsoleDate: "UTC Date/Time",
+    thConsoleCve: "CVE ID",
+    thConsoleBase: "Base Score",
+    thConsoleContext: "Contextual Score",
+    thConsolePriority: "Priority",
+    thConsoleApprover: "Master Approver",
+    thConsoleReceipt: "SHA-256 Receipt",
+    consoleEmptyAudit: "No homologation performed in this session. Select a CVE and click 'Homologate'.",
+    consoleHitlApproved: "✓ Homologated (Simulation)",
+    consoleHitlRejected: "✕ Rejected (Simulation)",
+    cnaAuthorizedPrefix: "Authorized CNA: ",
+    mavAdj: " (Adjacent)",
+    mavExt: " (External Network)",
+    mavLoc: " (Local)",
+
+    // Expert Panel (G9)
+    g9HeroBadge: "Gate G9 • External Independent Expert Panel Validation",
+    g9HeroTitle: "Electronic Blinded Expert Evaluation Portal (EDC)",
+    g9HeroDesc: "Dedicated electronic data capture environment for independent experts (senior cybersecurity professionals and researchers). Protocol implements bilingual electronic consent (e-ICF / e-TCLE), strict blinding (zero AI bias), reassessment of 13 FIRST CVSS v4.0 environmental metrics across 30 scenarios, and SHA-256 cryptographic sealing.",
+    g9OpenBtn: "🚀 Open Full EDC Portal",
+    g9OpenSub: "(New Tab ↗)",
+    g9ActiveBadge: "Synthetic Environment Active • Gate G9",
+    g9Card1Title: "Online Web EDC Collection",
+    g9Card1Sub: "30 Synthetic Reference Scenarios",
+    g9Card1Desc: "Autonomous, responsive web interface built for online execution. Experts can navigate scenarios, inspect network evidence, assign 13 environmental metrics, and safely save drafts locally.",
+    g9Card1Li1: "<strong>e-ICF / e-TCLE:</strong> Electronic signature and conflict-of-interest declaration.",
+    g9Card1Li2: "<strong>Auto-save:</strong> Local in-browser persistence (localStorage).",
+    g9Card1Li3: "<strong>Sealing:</strong> SHA-256 hash and downloadable auditable JSON receipt.",
+    g9Card1Btn: "Access Expert Portal →",
+    g9Card2Title: "Ethical & Regulatory Dossier",
+    g9Card2Sub: "Binational Brazil / US Strategy (Option 1)",
+    g9Card2Desc: "Per audit opinions <code>CG-20261010-021</code> and <code>CG-20261013-022</code>, HelpUS adopts submission via national CEP (R$ 0.00 cost) with declared international scope, enabling US and Brazilian experts without commercial IRB fees.",
+    g9Card2DocsLabel: "Documents Available in Dossier:",
+    g9Card2Status: "CEP Status: Submission in Preparation • R$ 0.00",
+    g9Card3Title: "Blinding & Methodological Integrity",
+    g9Card3Sub: "Strict Double-Blind (Blinded Review)",
+    g9Card3Desc: "Scientific methodology ensures that reviewers neither see nor are influenced by AI predicted scores or peer responses.",
+    g9Card3Li1: "<strong>C1/C2 Dataset:</strong> Remains strictly sealed until formal code freeze.",
+    g9Card3Li2: "<strong>13 FIRST Metrics:</strong> CR, IR, AR, MAV, MAC, MPR, MUI, MVC, MVI, MVA, MSC, MSI, MSA.",
+    g9Card3Li3: "<strong>Inter-Rater Agreement:</strong> Fleiss' Kappa / ICC and paired Wilcoxon in statistical analysis plan.",
+    g9Card3Status: "✓ Blinding Shield Audited & Validated",
+    g9FlowTitle: "Expert Operational Flow in the EDC Portal",
+    g9Step1Tag: "Step 1",
+    g9Step1Title: "Consent & COI",
+    g9Step1Desc: "Review of e-TCLE (PT-BR) or e-ICF (EN-US/ES), personal details, and declaration of no conflict of interest.",
+    g9Step2Tag: "Step 2",
+    g9Step2Title: "30-Scenario Evaluation",
+    g9Step2Desc: "Technical analysis of each scenario, scoring 13 CVSS v4.0 environmental metrics, and textual expert rationale.",
+    g9Step3Tag: "Step 3",
+    g9Step3Title: "Review & SHA-256 Sealing",
+    g9Step3Desc: "Generation of native cryptographic SHA-256 hash, custody certificate, and downloadable submission JSON package.",
+
+    // HITL Homologation Modal
+    homologStep1Title: "Step 1/4 — Grounding Verification (Real Facts):",
+    homologStep1P: "In compliance with <em>ISO/IEC 27001 (Clause 6.1.2)</em> and <em>NIST AI RMF</em>, the analyst must certify that declared network and business assumptions match the physical or logical environment:",
+    homologBtnCancel: "Cancel",
+    homologBtnNext1: "Next: Identification →",
+    homologStep2Title: "Step 2/4 — Attribution & Technical Accountability:",
+    homologStep2P: "Register operator identity to ensure non-repudiation and forensic auditability.",
+    homologLblName: "Analyst / Auditor Full Name:",
+    homologLblEmail: "Corporate Email:",
+    homologLblRole: "Role / Access Profile:",
+    homologOptRole1: "Lead Security Engineer / CISO",
+    homologOptRole2: "SOC Analyst N3",
+    homologOptRole3: "PCI/ISO Compliance Auditor",
+    homologOptRole4: "DevSecOps Engineer",
+    homologLblTicket: "Ticket / Issue ID (Jira/HelpUS/GLPI):",
+    homologBtnBack: "← Back",
+    homologBtnNext2: "Next: Justification →",
+    homologStep3Title: "Step 3/4 — Formal Justification & Risk Decision:",
+    homologStep3P: "Define whether the AI proposal is accepted in full, accepted with conditions, or rejected keeping original base score.",
+    homologLblDelib: "Deliberation Type:",
+    homologOptDelib1: "✓ Homologate AI Contextual Priority (Recommended)",
+    homologOptDelib2: "✓ Homologate with Conditions (Scheduled Maintenance)",
+    homologOptDelib3: "✕ Reject AI Proposal (Maintain Original Base Score)",
+    homologOptDelib4: "✕ Reject & Escalate to Crisis Committee",
+    homologLblJust: "Analyst Technical Justification (Mandatory):",
+    homologPlaceholderJust: "E.g.: Topology verified with iptables/VLAN rules confirmed. Risk accepted based on active compensating controls until biweekly maintenance window.",
+    homologBtnSubmit: "✓ Complete Homologation Simulation",
+    homologSuccessTitle: "Homologation Simulation Completed",
+    homologSuccessDesc: "The demonstration digest was generated for preview. Official homologations are recorded exclusively via authenticated API.",
+    homologBtnReceipt: "📥 Download Simulation Receipt (.json)",
+    homologBtnClose: "Close",
+
+    // Virtual Patching
+    vpTabIptables: "Linux (iptables)",
+    vpTabAws: "AWS Security Group",
+    vpTabWaf: "Cloudflare WAF"
   },
 
   es: {
@@ -510,6 +800,8 @@ var HELPUS_I18N = {
     tabScanner: "Escáner & Topología",
     tabMetricas: "Métricas & Auditoría",
     tabConsole: "Consola Operativa",
+    tabEspecialistas: "Panel de Expertos (G9)",
+    headerPortalLabel: "Portal EDC (Online)",
     navWa: "WhatsApp",
     footerSub: "Plataforma de Ciberseguridad & Investigación Científica en IA",
     footerCredit: "Desarrollado por",
@@ -705,7 +997,150 @@ var HELPUS_I18N = {
     step1Badge: "1. Evidencias",
     step2Badge: "2. Identificación",
     step3Badge: "3. Justificación",
-    step4Badge: "4. Firma & Hash"
+    step4Badge: "4. Firma & Hash",
+
+    // Consola Operativa
+    headerConsoleLabel: "Consola Operativa",
+    heroBtnConsole: "Acceder a Consola Operativa (5 Capas)",
+    consoleAreaBadge: "Área Operativa Corporativa • 5 Capas de Evaluación",
+    consoleTitle: "Consola Operativa HelpUS CVSS",
+    consoleDesc: "Priorización contextual en 5 capas con procedencia compatible con JCS (RFC 8785 pendiente de validación formal) SHA-256 y gobernanza supervisada por el perfil autoritativo PLATFORM_ADMIN.",
+    consoleHitlBadge: "Gobernanza Human-in-the-Loop (HITL)",
+    consoleHitlTitle: "Homologación y Revisión Humana",
+    consoleHitlDesc: "La homologación formal de reclasificaciones ambientales exige autenticación autorizada de revisor humano con validación de sesión en el servidor.",
+    consoleRbacBadge: "Autenticación de Servidor con RBAC",
+    consoleRbacDesc: "Las decisiones operativas con persistencia y auditoría requieren una sesión corporativa autenticada a través del endpoint seguro <code>/api/review/decision</code>. La consola pública funciona en modo de simulación demostrativa.",
+    consoleLoginBtn: "🔐 Acceder al Portal de Homologación Autenticado",
+    consoleDemoBtn: "Ver Demostración Interactiva (Modo Lectura)",
+    consoleTlsFooter: "Conexión segura con cifrado TLS 1.3 • Hash compatible con JCS (RFC 8785 pendiente de validación) SHA-256",
+    consoleReviewerName: "Revisor Autorizado (SecOps)",
+    consoleReviewerRole: "Revisor HITL",
+    consoleReviewerProfile: "Perfil de Homologación • Revisión Humana Obligatoria",
+    consoleDownloadLogBtn: "📥 Descargar Registro de Sesión",
+    consoleLogoutBtn: "Cerrar Sesión",
+    consoleCaseStudyLabel: "Seleccione el Caso de Estudio Real (Dataset B)",
+    consoleFindingsTitle: "12 Hallazgos de Producción Normalizados",
+    consoleFreezeNotice: "Congelación: 2026-10-08T21:30:00Z",
+    layer1Badge: "Capa 1",
+    layer1Tag: "Normativa",
+    layer1Header: "Puntuación de Origen (CNA/NVD)",
+    layer1Check: "✓ Puntuación Base Preservada Intacta",
+    layer2Badge: "Capa 2",
+    layer2Tag: "Evidencias",
+    layer2Header: "Contexto y Telemetría",
+    layer2VectorLabel: "Vector:",
+    layer2ComplexityLabel: "Complejidad:",
+    layer2PrivilegesLabel: "Privilegios:",
+    layer2AgeLabel: "Antigüedad Telemetría:",
+    layer2Check: "✓ Prueba de Red Auditada",
+    layer3Badge: "Capa 3",
+    layer3Tag: "Priorización",
+    layer3Header: "Prioridad HelpUS",
+    layer3CvssLabel: "CVSS Ambiental:",
+    layer3SlaLabel: "SLA Operativo:",
+    layer3TransitionLabel: "Transición:",
+    layer4Badge: "Capa 4",
+    layer4Tag: "Trazabilidad",
+    layer4Header: "Recibo Canónico JCS (compatible RFC 8785, pendiente)",
+    layer4ReceiptLabel: "Canónico: JCS compatible (validación RFC 8785 pendiente)",
+    layer4DownloadBtn: "📥 Descargar Recibo (.json)",
+    layer5Badge: "Capa 5",
+    layer5Tag: "Auditoría HITL",
+    layer5Header: "Aprobación HITL",
+    layer5PendingBadge: "Pendiente de Homologación",
+    layer5ReqSession: "Revisión: Requiere Sesión Autorizada",
+    layer5ApproveBtn: "✓ Homologar",
+    layer5RejectBtn: "✕ Rechazar",
+    consoleHistoryTitle: "Historial de Homologaciones y Decisiones Operativas",
+    consoleDemoBadge: "Consola Interactiva: Modo Demostración (No Autoritativo)",
+    thConsoleDate: "Fecha/Hora UTC",
+    thConsoleCve: "CVE ID",
+    thConsoleBase: "Score Base",
+    thConsoleContext: "Score Contextual",
+    thConsolePriority: "Prioridad",
+    thConsoleApprover: "Aprobador Máster",
+    thConsoleReceipt: "Recibo SHA-256",
+    consoleEmptyAudit: "Ninguna homologación realizada en esta sesión. Seleccione un CVE y haga clic en 'Homologar'.",
+    consoleHitlApproved: "✓ Homologado (Simulación)",
+    consoleHitlRejected: "✕ Rechazado (Simulación)",
+    cnaAuthorizedPrefix: "CNA Autorizado: ",
+    mavAdj: " (Adyacente)",
+    mavExt: " (Red Externa)",
+    mavLoc: " (Local)",
+
+    // Panel de Expertos (G9)
+    g9HeroBadge: "Gate G9 • Validación Externa por Panel de Expertos",
+    g9HeroTitle: "Portal Electrónico de Evaluación a Ciegas de Expertos (EDC)",
+    g9HeroDesc: "Entorno dedicado para captura electrónica de datos de expertos independientes (investigadores y profesionales sénior de ciberseguridad). El protocolo implementa consentimiento electrónico bilingüe (e-ICF / e-TCLE), doble ciego estricto (sin sesgo de IA), reevaluación de 13 métricas ambientales FIRST CVSS v4.0 en 30 escenarios y sellado criptográfico SHA-256.",
+    g9OpenBtn: "🚀 Abrir Portal EDC Completo",
+    g9OpenSub: "(Nueva Pestaña ↗)",
+    g9ActiveBadge: "Entorno Sintético Activo • Gate G9",
+    g9Card1Title: "Recolección Web Online (EDC)",
+    g9Card1Sub: "30 Escenarios de Referencia Sintética",
+    g9Card1Desc: "Interfaz web autónoma y adaptable creada para ejecución online. El experto puede navegar entre escenarios, inspeccionar evidencias de red, calificar 13 métricas ambientales y guardar borradores localmente.",
+    g9Card1Li1: "<strong>e-ICF / e-TCLE:</strong> Firma electrónica y declaración de ausencia de conflicto de intereses.",
+    g9Card1Li2: "<strong>Autoguardado:</strong> Persistencia local en el navegador (localStorage).",
+    g9Card1Li3: "<strong>Sellado:</strong> Hash SHA-256 y recibo JSON auditable descargable.",
+    g9Card1Btn: "Acceder al Portal de Expertos →",
+    g9Card2Title: "Dossier Ético y Regulatorio",
+    g9Card2Sub: "Estrategia Binacional Brasil / EE. UU. (Opción 1)",
+    g9Card2Desc: "Según los dictámenes de auditoría <code>CG-20261010-021</code> y <code>CG-20261013-022</code>, HelpUS adopta la sumisión vía CEP nacional (costo R$ 0,00) con alcance internacional declarado, permitiendo expertos de EE. UU. y Brasil sin tarifas de IRB comercial.",
+    g9Card2DocsLabel: "Documentos Disponibles en el Dossier:",
+    g9Card2Status: "Estado CEP: Sumisión en Preparación • R$ 0,00",
+    g9Card3Title: "Blindaje e Integridad Metodológica",
+    g9Card3Sub: "Doble Ciego Estricto (Blinded Review)",
+    g9Card3Desc: "La metodología científica asegura que el experto no vea ni sea influenciado por los puntajes predichos por la IA ni por respuestas de otros revisores.",
+    g9Card3Li1: "<strong>Dataset C1/C2:</strong> Permanece estrictamente sellado hasta el congelamiento formal.",
+    g9Card3Li2: "<strong>13 Métricas FIRST:</strong> CR, IR, AR, MAV, MAC, MPR, MUI, MVC, MVI, MVA, MSC, MSI, MSA.",
+    g9Card3Li3: "<strong>Acuerdo Interevaluador:</strong> Fleiss' Kappa / ICC y Wilcoxon pareado en el plan de análisis estadístico.",
+    g9Card3Status: "✓ Escudo de Cegamiento Auditado y Validado",
+    g9FlowTitle: "Flujo Operativo del Experto en el Portal EDC",
+    g9Step1Tag: "Paso 1",
+    g9Step1Title: "Consentimiento y COI",
+    g9Step1Desc: "Lectura del e-TCLE (PT-BR) o e-ICF (EN-US/ES), registro de identificación y declaración de no conflicto de intereses.",
+    g9Step2Tag: "Paso 2",
+    g9Step2Title: "Evaluación de los 30 Escenarios",
+    g9Step2Desc: "Análisis técnico de cada escenario, selección de las 13 métricas ambientales CVSS v4.0 y justificación pericial en texto.",
+    g9Step3Tag: "Paso 3",
+    g9Step3Title: "Revisión y Sellado SHA-256",
+    g9Step3Desc: "Generación del hash criptográfico nativo SHA-256, certificado de custodia y descarga del paquete de sumisión (.json).",
+
+    // Modal de Homologación HITL
+    homologStep1Title: "Paso 1/4 — Verificación de Hechos Reales (Grounding):",
+    homologStep1P: "En conformidad con <em>ISO/IEC 27001 (Cláusula 6.1.2)</em> y <em>NIST AI RMF</em>, el analista debe certificar que las premisas declaradas reflejan el entorno físico o lógico real:",
+    homologBtnCancel: "Cancelar",
+    homologBtnNext1: "Avanzar: Identificación →",
+    homologStep2Title: "Paso 2/4 — Atribución y Responsabilidad Técnica:",
+    homologStep2P: "Registre la identidad del operador para garantizar no repudio y auditoría forense.",
+    homologLblName: "Nombre Completo del Analista / Auditor:",
+    homologLblEmail: "Correo Electrónico Corporativo:",
+    homologLblRole: "Rol / Perfil de Acceso:",
+    homologOptRole1: "Lead Security Engineer / CISO",
+    homologOptRole2: "Analista SOC N3",
+    homologOptRole3: "Auditor de Cumplimiento PCI/ISO",
+    homologOptRole4: "Ingeniero DevSecOps",
+    homologLblTicket: "ID del Ticket / Incidencia (Jira/HelpUS/GLPI):",
+    homologBtnBack: "← Volver",
+    homologBtnNext2: "Avanzar: Justificación →",
+    homologStep3Title: "Paso 3/4 — Justificación Formal y Decisión de Riesgo:",
+    homologStep3P: "Defina si la propuesta de la IA se acepta por completo, se acepta con reservas o se rechaza manteniendo el score base original.",
+    homologLblDelib: "Tipo de Deliberación:",
+    homologOptDelib1: "✓ Homologar Prioridad Contextual de la IA (Recomendado)",
+    homologOptDelib2: "✓ Homologar con Condición (Mantenimiento Programado)",
+    homologOptDelib3: "✕ Rechazar Propuesta de la IA (Mantener Score Base Original)",
+    homologOptDelib4: "✕ Rechazar y Escalar a Comité de Crisis",
+    homologLblJust: "Justificación Técnica del Analista (Obligatoria):",
+    homologPlaceholderJust: "Ej: Topología validada con reglas de iptables/VLAN verificadas. Riesgo aceptado con base en controles compensatorios vigentes hasta la ventana quincenal.",
+    homologBtnSubmit: "✓ Concluir Simulación de Homologación",
+    homologSuccessTitle: "Simulación de Homologación Concluida",
+    homologSuccessDesc: "El resumen de demostración fue generado para vista previa. Las homologaciones oficiales se registran exclusivamente a través de API autenticada.",
+    homologBtnReceipt: "📥 Descargar Comprobante de Simulación (.json)",
+    homologBtnClose: "Cerrar",
+
+    // Virtual Patching
+    vpTabIptables: "Linux (iptables)",
+    vpTabAws: "AWS Security Group",
+    vpTabWaf: "Cloudflare WAF"
   }
 };
 
@@ -780,6 +1215,11 @@ function setLanguage(lang) {
   runWhatIfOptimization(window.currentWhatIfTarget || 5.0);
   renderScanModeControls(currentScanMode);
   renderAuditDashboard();
+  if (typeof renderConsoleCveCards === "function") renderConsoleCveCards();
+  if (typeof renderConsoleAuditHistory === "function") renderConsoleAuditHistory();
+  if (typeof selectConsoleCve === "function" && typeof currentSelectedConsoleCve !== "undefined" && currentSelectedConsoleCve) {
+    selectConsoleCve(currentSelectedConsoleCve.id);
+  }
 }
 
 // Gerenciamento do Banner de Cookies
@@ -808,6 +1248,11 @@ function closePrivacyModal() {
 }
 
 window.addEventListener("DOMContentLoaded", function() {
+  if (window.location.protocol === "file:") {
+    document.querySelectorAll('a[href="/experts"]').forEach(function(el) {
+      el.href = "portal-especialistas.html";
+    });
+  }
   setLanguage(window.currentLanguage);
   checkCookieConsent();
 });
@@ -3151,16 +3596,20 @@ function selectConsoleCve(cveId) {
   var c1Score = document.getElementById("c1ScoreDisplay");
   var c1Id = document.getElementById("c1CveId");
   var c1Cna = document.getElementById("c1CnaInfo");
+  var d = HELPUS_I18N[window.currentLanguage] || HELPUS_I18N.pt;
   if (c1Score) {
     c1Score.innerText = c.baseScore.toFixed(1);
     c1Score.style.color = c.severity === "CRITICAL" ? "#f87171" : "#fbbf24";
   }
   if (c1Id) c1Id.innerText = c.id + " • " + c.severity;
-  if (c1Cna) c1Cna.innerText = "CNA Autorizado: " + c.cna;
+  if (c1Cna) c1Cna.innerText = (d.cnaAuthorizedPrefix || "CNA Autorizado: ") + c.cna;
 
   // Atualiza Camada 2
   var c2Mav = document.getElementById("c2MavBadge");
-  if (c2Mav) c2Mav.innerText = "MAV:" + c.mav + (c.mav === "A" ? " (Adjacente)" : c.mav === "N" ? " (Rede Externa)" : " (Local)");
+  if (c2Mav) {
+    var mavText = c.mav === "A" ? (d.mavAdj || " (Adjacente)") : c.mav === "N" ? (d.mavExt || " (Rede Externa)") : (d.mavLoc || " (Local)");
+    c2Mav.innerText = "MAV:" + c.mav + mavText;
+  }
 
   // Atualiza Camada 3
   var c3Priority = document.getElementById("c3PriorityBadge");
@@ -3190,7 +3639,7 @@ function selectConsoleCve(cveId) {
   // Atualiza Camada 5
   var c5Badge = document.getElementById("c5HitlStatusBadge");
   if (c5Badge) {
-    c5Badge.innerText = "Pendente de Homologação";
+    c5Badge.innerText = d.layer5PendingBadge || "Pendente de Homologação";
     c5Badge.style.background = "rgba(251,191,36,0.15)";
     c5Badge.style.color = "#fbbf24";
     c5Badge.style.borderColor = "#fbbf24";
@@ -3198,6 +3647,7 @@ function selectConsoleCve(cveId) {
 }
 
 function handleHitlApprove() {
+  var d = HELPUS_I18N[window.currentLanguage] || HELPUS_I18N.pt;
   var c = currentSelectedConsoleCve;
   var now = new Date().toISOString();
   consoleAuditHistory.unshift({
@@ -3206,32 +3656,33 @@ function handleHitlApprove() {
     baseScore: c.baseScore.toFixed(1),
     envScore: c.envScore.toFixed(1),
     priority: c.priority,
-    status: "Homologado (Simulação)",
-    approver: "Revisor HITL Autorizado",
+    status: d.consoleHitlApproved || "Homologado (Simulação)",
+    approver: d.consoleReviewerName || "Revisor HITL Autorizado",
     hash: c.hash.substring(0, 16) + "..."
   });
   renderConsoleAuditHistory();
-  alert("✓ Simulação de homologação registrada no console!\n\nNota de Governança: Para decisões oficiais persistidas em produção, a validação é executada server-side via endpoint seguro /api/review/decision.");
+  alert(window.currentLanguage === "en" ? "✓ Homologation simulation recorded in console!\n\nGovernance Note: For official production decisions, validation is performed server-side via authenticated /api/review/decision." : (window.currentLanguage === "es" ? "✓ ¡Simulación de homologación registrada en la consola!\n\nNota de Gobernanza: Para decisiones oficiales en producción, la validación se ejecuta en el servidor mediante /api/review/decision." : "✓ Simulação de homologação registrada no console!\n\nNota de Governança: Para decisões oficiais persistidas em produção, a validação é executada server-side via endpoint seguro /api/review/decision."));
 }
 
 function handleHitlReject() {
+  var d = HELPUS_I18N[window.currentLanguage] || HELPUS_I18N.pt;
   var c = currentSelectedConsoleCve;
   var now = new Date().toISOString();
   consoleAuditHistory.unshift({
     timestamp: now,
     cveId: c.id,
     baseScore: c.baseScore.toFixed(1),
-    envScore: c.baseScore.toFixed(1) + " (Mantido)",
+    envScore: c.baseScore.toFixed(1) + (window.currentLanguage === "en" ? " (Kept)" : (window.currentLanguage === "es" ? " (Mantenido)" : " (Mantido)")),
     priority: "P0_OVERRIDE",
-    status: "Rejeitado (Simulação)",
-    approver: "Revisor HITL Autorizado",
+    status: d.consoleHitlRejected || "Rejeitado (Simulação)",
+    approver: d.consoleReviewerName || "Revisor HITL Autorizado",
     hash: c.hash.substring(0, 16) + "..."
   });
   renderConsoleAuditHistory();
 
   var c5Badge = document.getElementById("c5HitlStatusBadge");
   if (c5Badge) {
-    c5Badge.innerText = "✕ Rejeitado (Simulação)";
+    c5Badge.innerText = d.consoleHitlRejected || "✕ Rejeitado (Simulação)";
     c5Badge.style.background = "rgba(239,68,68,0.15)";
     c5Badge.style.color = "#fca5a5";
     c5Badge.style.borderColor = "#ef4444";
@@ -3242,8 +3693,10 @@ function renderConsoleAuditHistory() {
   var tbody = document.getElementById("consoleAuditTableBody");
   if (!tbody) return;
 
+  var d = HELPUS_I18N[window.currentLanguage] || HELPUS_I18N.pt;
   if (consoleAuditHistory.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:16px;">Nenhuma homologação realizada nesta sessão. Selecione um CVE e clique em "Homologar".</td></tr>';
+    var emptyMsg = (d && d.consoleEmptyAudit) || 'Nenhuma homologação realizada nesta sessão. Selecione um CVE e clique em "Homologar".';
+    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:16px;">' + emptyMsg + '</td></tr>';
     return;
   }
 

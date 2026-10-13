@@ -2,6 +2,10 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
+| CG-20261013-022 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261013-022.md |
+| CG-20261010-021 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261010-021.md |
+| CG-20261010-020 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261010-020.md |
+| CG-20261010-019 | gate_review | PROCESSED | b87bd9b6b62814a92191c2eb7762e89f1946be2a | messages/CG-20261010-019.md |
 | CG-20261010-018 | audit_response | PROCESSED | 9089026b5f92bdecf5d8042d8d7a3376e0690c4e | messages/CG-20261010-018.md |
 | CG-20261010-017 | audit_response | PROCESSED | 940c36dcf7577f49347f417d99b89a9fc2b1b410 | messages/CG-20261010-017.md |
 | CG-20261010-016 | audit_response | PROCESSED | 59e0fb49d1303187270a7c8eb62792d219efae41 | messages/CG-20261010-016.md |
