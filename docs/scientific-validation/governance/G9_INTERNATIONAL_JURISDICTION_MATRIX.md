@@ -1,225 +1,159 @@
-# G9 — International Legal, Ethics, and Data Protection Matrix
-**Document ID:** `G9-INTERNATIONAL-JURISDICTION-MATRIX-v1.1`  
+# G9 — International Jurisdiction and Privacy Matrix
+**Document ID:** `G9-INTERNATIONAL-JURISDICTION-MATRIX-v2.0`  
 **Project:** HelpUS CVSS AI Scientific Validation  
 **Sponsor:** HelpUS LLC (United States)  
+**Initial Study Jurisdiction:** United States  
 **Status:** BINDING COMPLIANCE MATRIX  
 **Effective Date:** 2026-10-13  
 
 ---
 
-## 1. Operating Model
+## 1. Initial Scope
 
-The HelpUS CVSS AI validation may operate with a U.S.-centered technical environment while the Principal Investigator remains based in Brazil.
+The human validation phase is structured as a U.S.-based study.
 
-Current governance:
-
-- **Sponsor / operational host:** HelpUS LLC (United States)
-- **PI location:** Brazil
-- **Coordinating ethics review:** SINEP / competent CEP in Brazil
-- **Scientific canonical language:** English
-- **Participant pool:** Brazil, United States, and other countries only after jurisdiction clearance
-- **Human-use status:** NOT AUTHORIZED until ethics approval
-- **EDC status:** SYNTHETIC DRY-RUN ONLY until production controls are complete
+Initial operating model:
+- sponsor and host: HelpUS LLC, United States;
+- PI conducts the human-subjects phase from the United States;
+- EDC and human-study records hosted in the United States;
+- canonical scientific language: English;
+- initial participants: U.S.-based independent cybersecurity experts;
+- expansion outside the United States only after jurisdiction-specific clearance.
 
 ---
 
 ## 2. Core Rule
 
-**No country clearance = no recruitment.**
+**No jurisdiction clearance = no recruitment.**
 
 A participant may be invited only after:
 
 `COUNTRY_CLEARANCE = YES`
 
-which requires:
-- ethics applicability review;
-- institutional-policy review where relevant;
-- privacy-law applicability review;
-- consent-language package;
-- data-flow approval;
-- transfer/access safeguards.
+For the initial U.S. cohort this requires:
+- federal/Common Rule applicability check;
+- FDA applicability check;
+- institutional-policy/FWA check where relevant;
+- state-law/privacy applicability check;
+- consent-package approval;
+- data-flow approval.
 
 ---
 
-## 3. Data-Protection Matrix
+## 3. U.S. Compliance Matrix
 
-| Data/Operation | U.S.-centered target state | Brazil/LGPD impact | Required control |
-|---|---|---|---|
-| Name/email | U.S. identity store | Avoid access from Brazil where feasible | Segregated identity store; least privilege |
-| e-ICF / signature evidence | U.S. consent store | Avoid routine Brazil access | Versioned consent artifact + server receipt |
-| Authentication/security logs | U.S. security store | Avoid routine Brazil access | Short retention; security purpose only |
-| Expert scientific responses | Pseudonymized U.S. research store | LGPD may apply if processed/accessed in Brazil | Minimize fields; role-based access |
-| Identity-code linkage | U.S. restricted vault | Do not expose to Brazil PI by default | Separate key table |
-| Analysis dataset for PI | Prefer anonymized/minimized export | If truly anonymized, LGPD personal-data rules may no longer apply to that dataset | Document anonymization method |
-| Aggregate statistics | U.S. or Brazil | Low privacy exposure if non-identifying | Suppression/aggregation checks |
-| Cross-border access | Explicitly logged | Can trigger LGPD territorial or transfer analysis | Data-flow map + legal basis + logging |
-
----
-
-## 4. LGPD Territorial Scope
-
-LGPD is not determined only by server location or participant nationality.
-
-If the Brazil-based PI or another person in Brazil performs operations on personal or pseudonymous participant data, that may constitute processing in Brazilian territory.
-
-Therefore:
-
-**U.S. hosting does not automatically remove LGPD.**
-
-The project's preferred architecture is to reduce Brazilian access to identifiable or linkable data and provide the PI only the minimum scientific dataset required.
-
-This is a privacy-minimization strategy, not an attempt to bypass Brazilian law.
+| Dimension | Current Project Position |
+|---|---|
+| Sponsor | HelpUS LLC (United States) |
+| Human-study operations | United States |
+| Common Rule | No federal trigger identified currently |
+| Self-declared exemption | Not used |
+| FDA | No human-subjects trigger identified currently |
+| Institutional IRB | Only if an institution/policy actually triggers it |
+| State privacy | Evaluate per participant/state and company applicability |
+| Consent | EN-US e-ICF with authoritative server evidence |
+| Identity storage | U.S. restricted identity store |
+| Consent storage | U.S. restricted consent store |
+| Research responses | U.S. pseudonymized research store |
+| Scientific dataset | Pseudonymized/anonymized analysis dataset |
+| International recruitment | Not allowed without separate clearance |
 
 ---
 
-## 5. Legal-Basis Discipline
+## 4. State-by-State U.S. Review
 
-HelpUS LLC is a for-profit company and must **not** use `LGPD Art. 7, IV — studies by research body` as a blanket basis merely because the activity is scientific.
+Before recruitment of a U.S. expert, record:
+- state of participation when legally relevant;
+- whether a comprehensive state privacy law applies to HelpUS LLC and the processing;
+- whether any sector-specific rule applies;
+- whether employer or institutional policies restrict participation;
+- whether any local requirement changes consent or privacy disclosures.
 
-A purpose-by-purpose legal-basis matrix must be maintained for:
-
-- recruitment/contact;
-- consent evidence;
-- research responses;
-- security logs;
-- audit trail;
-- retention;
-- incident response;
-- international transfers/access.
-
-Ethics consent and data-protection legal basis are separate concepts.
+Do not claim blanket CCPA/CPRA or other state-law compliance for participants outside applicable scope.
 
 ---
 
-## 6. United States
+## 5. Consent and Privacy
 
-For an independent U.S.-based expert:
+Research consent and privacy-law legal basis are separate concepts.
 
-- a U.S. IRB is not automatically required solely because the participant resides in the United States;
-- first determine whether any federal, FDA, institutional, contractual, or state trigger exists;
-- do not self-declare a Common Rule exemption as the project's primary legal basis;
-- if no U.S. trigger is identified, document that conclusion in the participant's jurisdiction-clearance record.
-
-Preferred status language:
-
-`US_IRB_REQUIREMENT = NONE_IDENTIFIED_AFTER_APPLICABILITY_REVIEW`
-
-not:
-
-`US_EXEMPT = YES`
-
----
-
-## 7. Brazil
-
-Current ethics architecture must be described using:
-
-- Lei 14.874/2024;
-- Decreto 12.651/2025;
-- SINEP;
-- CEP;
-- INAEP.
-
-Older CNS/Conep materials may be referenced where still effective and compatible, but not as the primary current architecture.
-
-Brazilian participants should receive a PT-BR consent package when required for comprehension and CEP approval, even though the scientific instrument itself may remain in English if eligibility requires sufficient English proficiency.
-
----
-
-## 8. European Union / EEA
-
-Europe is not treated as a single ethics jurisdiction.
-
-For each country:
-
-- assess local research-ethics requirements;
-- assess GDPR territorial scope;
-- define participant-facing language;
-- define controller/processor roles;
-- define transfer mechanism where applicable.
-
-Do not claim blanket `GDPR compliant` status before this mapping is complete.
-
----
-
-## 9. U.S. State Privacy
-
-Do not assume that CCPA/CPRA or any other state law applies to every participant.
-
-For each U.S. participant:
-
-- record state of participation only if needed for compliance;
-- assess whether the relevant state privacy statute applies to HelpUS LLC and the specific processing;
-- document the result.
-
-Do not claim blanket U.S. state-law compliance.
-
----
-
-## 10. Consent and Withdrawal
-
-The portal must not treat a checkbox plus browser localStorage as production e-consent.
-
-Production consent requires:
-
+Production e-consent requires:
 - participant/session identity binding;
 - exact document version/hash;
 - authoritative server timestamp;
 - evidence of acceptance/signature;
-- copy made available to participant;
-- withdrawal/reconsent workflow;
+- participant copy;
+- withdrawal/reconsent history;
 - immutable audit history.
 
-Withdrawal rights and data-retention consequences must be described accurately. Do not promise automatic deletion of all research records where scientific-integrity or legal obligations require retention of non-identifying records.
+A browser checkbox or localStorage record is not sufficient for production.
 
 ---
 
-## 11. Cross-Border Architecture
+## 6. Data Minimization
 
-Recommended operational flow:
+The study should not collect:
+- health data;
+- biometric data;
+- race/ethnicity;
+- political views;
+- religion;
+- sexual orientation;
+- unrelated employment records;
+- unnecessary precise location.
 
-`Participant -> U.S. EDC -> U.S. identity/consent store -> U.S. pseudonymized research store -> anonymized/minimized scientific export -> PI in Brazil`
-
-This is the preferred privacy architecture because it:
-
-- keeps direct identifiers outside the scientific dataset;
-- reduces unnecessary international exposure;
-- reduces the amount of personal data processed from Brazil;
-- preserves the ability to conduct scientific analysis from Brazil.
-
-Any deviation must be documented in the DMP.
+Collect only information needed for:
+- eligibility;
+- contact;
+- consent;
+- conflict-of-interest screening;
+- technical expert evaluation;
+- security/audit.
 
 ---
 
-## 12. Recruitment Clearance Record
+## 7. International Expansion
 
-For each participant, record at minimum:
+If a future expert is outside the United States, create a country-specific row before invitation covering:
 
 | Field | Required |
 |---|---|
 | Country | YES |
-| State/region when relevant | YES |
 | Participant type | YES |
-| Institutional affiliation used for recruitment | YES |
+| Recruitment channel | YES |
+| Institutional affiliation used | YES |
 | Local ethics trigger | YES |
-| U.S. federal/FDA trigger where applicable | YES |
-| Institutional-policy trigger | YES |
 | Privacy-law applicability | YES |
 | Consent language | YES |
-| Data-hosting region | YES |
-| Cross-border access path | YES |
+| Hosting country | YES |
+| Transfer/access mechanism | YES |
 | Evidence file | YES |
 | Cleared for recruitment | YES/NO |
 
-No participant may proceed unless `Cleared for recruitment = YES`.
+No non-U.S. participant may proceed while `Cleared for recruitment = NO`.
 
 ---
 
-## 13. Current Project State
+## 8. Human-Study Activation
+
+The portal remains synthetic-only until:
+- PI is physically conducting the human phase from the U.S.;
+- production EDC controls are complete;
+- the regulatory applicability memo is current;
+- the initial U.S. participant route is cleared;
+- formal activation is recorded.
+
+Until then:
+
+`HUMAN_STUDY_ACTIVATION = BLOCKED`
+
+---
+
+## 9. Current Project State
 
 - G1-G8 = PASS / CLOSED
-- G9 = PENDING_EXTERNAL
+- G9 = PENDING_EXTERNAL / U.S. APPLICABILITY + STUDY ACTIVATION
 - G10 = PENDING_PROCEDURAL_EXTERNAL
 - SAFE_TO_FREEZE = NO
-- C1/C2 = SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE
 - HUMAN EDC USE = NOT AUTHORIZED
+- C1/C2 = SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
