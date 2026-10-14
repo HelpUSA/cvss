@@ -10,6 +10,7 @@ import {
 } from "@/lib/api-response";
 import {
   analyzeEnvironment,
+  type EnvironmentalAssessment,
 } from "@/lib/environmental-analysis-service";
 import {
   jcsCanonicalize,
@@ -302,10 +303,11 @@ export async function POST(
       environmental.status ===
         "ABSTAINED";
 
-    const finalAssessment =
+    const finalAssessment:
+      EnvironmentalAssessment | null =
       abstained
         ? null
-        : environmental;
+        : environmental as EnvironmentalAssessment;
 
     const requestAudit =
       getRequestAuditContext(
