@@ -130,9 +130,7 @@ export default async function LoginPage({
 
           <div style={{ marginTop: "16px", marginBottom: "20px" }}>
             <a
-              href="https://cvss.helpusbr.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/demo"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -147,7 +145,7 @@ export default async function LoginPage({
                 textDecoration: "none",
               }}
             >
-              <span>🔬</span> Acessar Portal Científico & Demonstrador Público ↗
+              <span>🧪</span> Abrir demonstração pública
             </a>
           </div>
 
@@ -205,12 +203,10 @@ export default async function LoginPage({
               ← Página inicial
             </a>
             <a
-              href="https://cvss.helpusbr.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/demo"
               style={{ color: "#38bdf8", fontWeight: 600, textDecoration: "none" }}
             >
-              Portal Científico ↗
+              Demonstração
             </a>
           </div>
         </div>
