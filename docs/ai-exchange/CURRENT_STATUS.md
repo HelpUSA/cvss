@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-14T12:15:00-03:00
+2026-10-14T12:35:00-03:00
 
 Current reviewed branch:
 scientific-validation
@@ -16,13 +16,13 @@ Latest Antigravity message:
 AG-20261014-025
 
 Latest ChatGPT response:
-CG-20261014-036
+CG-20261014-037
 
 Latest Gemini response:
 GM-20261014-003
 
 Current phase:
-POST-FREEZE GOVERNANCE RECONCILIATION — DETERMINISTIC BASELINE FROZEN
+CONFIRMATORY PHASE PLANNING — G10B PROTOCOL DEFINED / C1-C2 STILL SEALED
 
 SAFE_TO_FREEZE:
 YES
@@ -48,6 +48,7 @@ Release Gate Summary:
 - G9A: PASS
 - G9B: PASS
 - G10A: PASS / FROZEN
+- G10B: PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED
 - G11-OPTIONAL-AI: IMPLEMENTED HARDENED PROTOTYPE NON-BLOCKING / OUTSIDE DETERMINISTIC FREEZE SCOPE
 - TECHNICAL_FREEZE_READINESS: PASS
 - TRIPARTITE_VERDICT:
@@ -62,7 +63,9 @@ Documentary Readiness Status:
 POST-FREEZE STATUS RECONCILED. PR #8 IS ALREADY MERGED; NO FURTHER MERGE ACTION IS PENDING FOR THE DETERMINISTIC BASELINE.
 
 Next Steps:
-1. Preserve frozen deterministic baseline and its provenance.
-2. Keep C1/C2 sealed until a separately authorized blind confirmatory session.
-3. Treat HCAL as optional and outside the deterministic freeze scope.
-4. Any post-freeze code change affecting deterministic scoring/rules requires a new governed baseline rather than silent modification of the frozen one.
+1. Review and approve the proposed G10B confirmatory protocol.
+2. Do not open, inspect, hash for execution, parse, or execute C1/C2 until the protocol is finalized and the pre-existing seal/custody hashes are registered.
+3. Freeze the executor, dependency lock, protocol hash, and expected C1/C2 hashes before authorization.
+4. Require explicit Master SuperAdmin `wmsjp` authorization before any unsealing.
+5. Execute C1 and C2 once, blind and single-pass, with HCAL disabled and network isolated.
+6. Preserve the frozen deterministic baseline and do not retune from C1/C2.
