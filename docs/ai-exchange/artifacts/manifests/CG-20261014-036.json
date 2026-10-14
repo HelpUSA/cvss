@@ -28,5 +28,7 @@
     "deterministic_baseline_frozen": true,
     "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
     "deterministic_code_modified": false
-  }
+  },
+  "git_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "artifacts": []
 }
