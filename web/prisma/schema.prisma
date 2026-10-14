@@ -111,6 +111,35 @@ enum EnvironmentStatus {
   ARCHIVED
 }
 
+enum OperationalAssessmentStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum OperationalAssessmentRunStatus {
+  COMPLETED
+  ABSTAINED
+  FAILED
+}
+
+enum AssessmentReviewDecision {
+  APPROVED
+  REJECTED
+  EVIDENCE_REQUESTED
+}
+
+enum OrganizationPolicyStatus {
+  DRAFT
+  ACTIVE
+  RETIRED
+}
+
+enum PlatformSettingStatus {
+  ACTIVE
+  RETIRED
+}
+
 model User {
   id                    String               @id @default(cuid())
   name                  String
@@ -130,6 +159,12 @@ model User {
   acceptedInvitations   Invitation[]         @relation("InvitationAcceptedBy")
   passwordResetTokens   PasswordResetToken[]
   securityAuditEvents   SecurityAuditEvent[] @relation("SecurityAuditActor")
+  createdOperationalAssessments OperationalAssessment[] @relation("OperationalAssessmentCreatedBy")
+  executedOperationalRuns      OperationalAssessmentRun[] @relation("OperationalRunExecutedBy")
+  createdEvidenceSnapshots     EvidenceSnapshot[] @relation("EvidenceSnapshotCreatedBy")
+  assessmentReviews            AssessmentReview[] @relation("AssessmentReviewReviewer")
+  createdPolicyVersions        OrganizationPolicyVersion[] @relation("OrganizationPolicyCreatedBy")
+  changedPlatformSettings      PlatformSetting[] @relation("PlatformSettingChangedBy")
 
   @@index([status])
   @@index([platformRole])
@@ -195,6 +230,7 @@ model Organization {
   projects            Project[]
   invitations         Invitation[]
   securityAuditEvents SecurityAuditEvent[]
+  policyVersions      OrganizationPolicyVersion[]
 
   @@index([status])
 }
@@ -241,6 +277,8 @@ model Environment {
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
   project   Project           @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  operationalAssessments OperationalAssessment[]
+  evidenceSnapshots     EvidenceSnapshot[]
 
   @@unique([projectId, slug])
   @@index([projectId, status])
@@ -298,5 +336,146 @@ model SecurityAuditEvent {
   @@index([organizationId])
   @@index([actorUserId])
   @@index([action])
+  @@index([createdAt])
+}
+
+
+// ============================================================================
+// Auth-2 operational SaaS assessment lifecycle
+// ============================================================================
+
+model OperationalAssessment {
+  id              String                      @id @default(cuid())
+  environmentId   String
+  vulnerabilityId String
+  cve             String?
+  title           String
+  description     String?                     @db.Text
+  status          OperationalAssessmentStatus @default(DRAFT)
+  createdByUserId String
+  createdAt       DateTime                    @default(now())
+  updatedAt       DateTime                    @updatedAt
+  archivedAt      DateTime?
+
+  environment Environment @relation(fields: [environmentId], references: [id], onDelete: Restrict)
+  createdBy   User        @relation("OperationalAssessmentCreatedBy", fields: [createdByUserId], references: [id], onDelete: Restrict)
+  runs        OperationalAssessmentRun[]
+
+  @@index([environmentId, status])
+  @@index([vulnerabilityId])
+  @@index([cve])
+  @@index([createdByUserId])
+  @@index([createdAt])
+}
+
+model EvidenceSnapshot {
+  id              String   @id @default(cuid())
+  environmentId   String
+  sourceType      String
+  sourceReference String?
+  capturedAt      DateTime
+  expiresAt       DateTime?
+  canonicalHash   String
+  storageReference String?
+  metadata        Json?
+  createdByUserId String
+  createdAt       DateTime @default(now())
+
+  environment Environment @relation(fields: [environmentId], references: [id], onDelete: Restrict)
+  createdBy   User        @relation("EvidenceSnapshotCreatedBy", fields: [createdByUserId], references: [id], onDelete: Restrict)
+  runs        OperationalAssessmentRun[]
+
+  @@index([environmentId, capturedAt])
+  @@index([environmentId, canonicalHash])
+  @@index([createdByUserId])
+  @@index([expiresAt])
+}
+
+model OperationalAssessmentRun {
+  id                  String                         @id @default(cuid())
+  assessmentId        String
+  executedByUserId    String
+  status              OperationalAssessmentRunStatus
+  sourceVector        String
+  sourceScore         Float
+  finalVector         String?
+  finalScore          Float?
+  severity            String?
+  decision            String
+  abstentionReasons   Json?
+  candidateMetrics    Json?
+  operationalDisposition Json?
+  engineCommit        String
+  ruleCatalogVersion  String?
+  ruleCatalogHash     String?
+  policyId            String?
+  policyVersion       String?
+  evidenceSnapshotId  String
+  auditReceiptHash    String
+  startedAt           DateTime                       @default(now())
+  completedAt         DateTime?
+  createdAt           DateTime                       @default(now())
+
+  assessment       OperationalAssessment @relation(fields: [assessmentId], references: [id], onDelete: Restrict)
+  executedBy       User                  @relation("OperationalRunExecutedBy", fields: [executedByUserId], references: [id], onDelete: Restrict)
+  evidenceSnapshot EvidenceSnapshot      @relation(fields: [evidenceSnapshotId], references: [id], onDelete: Restrict)
+  reviews          AssessmentReview[]
+
+  @@index([assessmentId, createdAt])
+  @@index([executedByUserId])
+  @@index([evidenceSnapshotId])
+  @@index([status])
+  @@index([auditReceiptHash])
+}
+
+model AssessmentReview {
+  id             String                   @id @default(cuid())
+  runId          String
+  reviewerUserId String
+  decision       AssessmentReviewDecision
+  comments       String?                  @db.Text
+  createdAt      DateTime                 @default(now())
+
+  run      OperationalAssessmentRun @relation(fields: [runId], references: [id], onDelete: Restrict)
+  reviewer User                     @relation("AssessmentReviewReviewer", fields: [reviewerUserId], references: [id], onDelete: Restrict)
+
+  @@index([runId, createdAt])
+  @@index([reviewerUserId, createdAt])
+}
+
+model OrganizationPolicyVersion {
+  id              String                   @id @default(cuid())
+  organizationId  String
+  policyId        String
+  version         String
+  contentHash     String
+  status          OrganizationPolicyStatus @default(DRAFT)
+  effectiveFrom   DateTime?
+  createdByUserId String
+  createdAt       DateTime                 @default(now())
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  createdBy    User         @relation("OrganizationPolicyCreatedBy", fields: [createdByUserId], references: [id], onDelete: Restrict)
+
+  @@unique([organizationId, policyId, version])
+  @@index([organizationId, status])
+  @@index([createdByUserId])
+  @@index([effectiveFrom])
+}
+
+model PlatformSetting {
+  id              String                @id @default(cuid())
+  key             String
+  version         Int
+  value           Json
+  status          PlatformSettingStatus @default(ACTIVE)
+  changedByUserId String
+  createdAt       DateTime              @default(now())
+
+  changedBy User @relation("PlatformSettingChangedBy", fields: [changedByUserId], references: [id], onDelete: Restrict)
+
+  @@unique([key, version])
+  @@index([key, status])
+  @@index([changedByUserId])
   @@index([createdAt])
 }
