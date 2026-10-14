@@ -1,1 +1,31 @@
-\section{Threats to Validity} \label{sec:threats}  The current evaluation is intentionally limited to artifact validation. The PCI segmented lab contains six findings and one controlled network-segmentation scenario, so the results should not be generalized to all enterprise networks, vulnerability classes, or CVSS Environmental assessment practices. The baseline demonstrates that the prototype can reproduce expected labels and generate auditable before-after artifacts; it does not establish superiority over human assessors.  Construct validity is limited by the mapping from local evidence to CVSS Environmental requirements. The case files encode expected confidentiality, integrity, availability, and modified attack-vector labels, and the evaluation checks consistency with those labels. If the case evidence is incomplete or biased, the resulting agreement can overstate assessment quality.  Internal validity is strengthened by deterministic inputs, run manifests, hashes, audit traces, and generated comparison tables, but the pipeline remains a software artifact that can contain implementation bugs. For this reason, the dashboard, manuscript table, and run outputs are treated as mutually checking views of the same baseline rather than as independent evidence sources.  External validity remains future work. Broader experiments should add additional cases, independent expert review, and a comparison among manual assessment, LLM-only assistance, and watcher-mediated evidence collection before making claims about operational accuracy or efficiency.
+\section{Threats to Validity}
+\label{sec:threats}
+
+The development and synthetic datasets are not statistically representative of
+all enterprise environments and cannot by themselves establish broad field
+accuracy. This threat is addressed by preserving C1 and C2 as held-out
+confirmatory datasets under a pre-registered single-pass protocol.
+
+Construct validity depends on whether operational evidence is mapped to CVSS
+v4.0 semantics correctly. The architecture therefore separates control
+presence, control effectiveness, and the final Modified metric; it also keeps
+organizational Security Requirements distinct from technical resilience
+controls. An auditable deterministic deduction can still be wrong if the
+underlying rule is wrong.
+
+Internal validity is strengthened by a frozen baseline, versioned rule catalog,
+clean-room execution, cryptographic hashes, explicit provenance, and
+fail-closed abstention. The confirmatory protocol prohibits result-driven rule
+changes, selective retries, or threshold adjustment after exposure.
+
+External validity remains bounded by the diversity of the held-out scenarios
+and by the operational sources represented in the evidence model. Results must
+not be generalized beyond the tested baseline and datasets.
+
+Conclusion validity is protected by pre-registering the primary C1/C2
+acceptance thresholds before unsealing. Confidence intervals and descriptive
+statistics are reported as uncertainty summaries and do not replace or alter
+the pre-registered pass/fail criteria.
+
+HCAL is an optional secondary layer. Any post-hoc HCAL analysis is reported
+separately and cannot change the deterministic confirmatory verdict.
