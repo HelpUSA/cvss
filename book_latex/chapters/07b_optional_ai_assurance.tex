@@ -1,0 +1,68 @@
+\chapter{Optional Cognitive Assurance Layer}
+\label{ch:optional_ai_assurance}
+
+The HelpUS architecture is designed so that the deterministic CVSS processing plane remains fully functional without external artificial-intelligence services. AI integration is therefore treated as an optional assurance and enrichment capability rather than a scoring dependency.
+
+\section{Architectural Separation}
+
+The deterministic plane remains responsible for evidence ingestion, asset-context normalization, environmental rule execution, metric resolution, canonical CVSS vector construction, scalar scoring, prioritization, and operational reporting. The optional HelpUS Cognitive Assurance Layer (HCAL) may inspect exported evidence packages and return structured advisory findings.
+
+The governing invariant is:
+
+\begin{quote}
+\textbf{AI enhancement must be non-blocking.}
+\end{quote}
+
+Complete AI unavailability must not prevent otherwise valid deterministic processing.
+
+\section{Operating Modes}
+
+HCAL defines three operating modes:
+
+\begin{itemize}
+  \item \textbf{Core Autonomous:} no external AI provider is used;
+  \item \textbf{Single-AI Augmentation:} one provider reviews an approved evidence package;
+  \item \textbf{Multi-AI Assurance:} two or more provider-neutral adapters independently review the same normalized package.
+\end{itemize}
+
+No mode permits an AI provider to become the normative scoring authority.
+
+\section{Package and Return Contracts}
+
+The core may export vulnerability, environment-review, or executive-risk packages containing only the data approved for external analysis. AI responses are normalized into structured findings that include a finding type, evidence references, confidence, and a recommended follow-up action.
+
+Two return classes are distinguished. Non-authoritative returns, such as summaries, explanations, or investigation suggestions, may enrich reports directly when clearly labeled. Authoritative-candidate returns that could affect a metric must pass independent evidence validation and deterministic policy checks before they are admitted back into the metric-resolution pipeline.
+
+Thus, the allowed path is:
+
+\begin{center}
+AI finding $\rightarrow$ evidence validation $\rightarrow$ policy/rule validation $\rightarrow$ metric resolver $\rightarrow$ deterministic CVSS engine.
+\end{center}
+
+Direct AI score override is prohibited.
+
+\section{Multi-Model Review}
+
+In multi-model mode, independent providers may produce unanimous, partially overlapping, conflicting, or provider-specific findings. Agreement may raise the priority of a verification task, but AI consensus is not treated as CVSS authority or as a substitute for normative evidence.
+
+Where semantic metric candidates are generated, the existing strict quorum rule applies: exact agreement at the required metric level is necessary for autonomous acceptance. Final score computation remains deterministic.
+
+\section{Graceful Degradation}
+
+Timeouts, provider outages, quota exhaustion, malformed AI responses, or connector failures must degrade only the enrichment layer. The core continues to completion and records the AI-enrichment status as unavailable or skipped.
+
+This provides a testable architectural property: full completion of otherwise valid core cases under total AI outage.
+
+\section{Security and Privacy}
+
+External AI packages must be minimized, sanitized, and logged. Credentials, secrets, and unnecessary internal identifiers must be removed. The architecture should support external providers, private enterprise AI services, and local models through replaceable adapters. Returned data must be schema-validated before use.
+
+\section{Scientific Evaluation}
+
+A secondary research track can compare core-only, single-model, and multi-model configurations. Fault-injection experiments can introduce known inconsistencies such as stale CMDB records, contradictory topology, false mitigation claims, missing dependencies, or poisoned free text. Because the faults are injected by the experiment, their ground truth is known without a human-expert panel.
+
+The principal claim boundary is deliberately narrow: AI may improve anomaly detection, explanation, and contextual evidence discovery while remaining outside the normative scoring function and outside the critical execution path.
+
+\section{Product Modularity}
+
+The same architecture can support distinct product capabilities such as \emph{HelpUS CVSS Autonomous}, \emph{HelpUS CVSS Cognitive Assurance}, and \emph{HelpUS CVSS Multi-AI Assurance}. These capabilities must share the same deterministic scoring guarantees and must not create a dependency on any specific AI brand or provider.
