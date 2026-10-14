@@ -112,11 +112,11 @@ function resolveOperationalDisposition(
     decision === "abstained"
   ) {
     return {
-      code: "PENDING_HUMAN_REVIEW",
+      code: "EVIDENCE_REMEDIATION_REQUIRED",
       label:
-        "Revisão Humana Obrigatória",
+        "Evidência insuficiente para decisão ambiental",
       caveat:
-        "Inferência em abstenção segura; nenhuma disposição operacional foi aprovada.",
+        "A execução entrou em ABSTAIN. Corrija ou complete as evidências antes de afirmar métricas ambientais.",
       policyApplied: false,
     };
   }
@@ -646,9 +646,9 @@ export function analyzeEnvironment(
     governance: {
       review_status:
         shouldAbstain
-          ? "HUMAN_REVIEW_REQUIRED"
-          : "PROVISIONAL_INFERENCE_READY",
-      human_approval_required: true,
+          ? "EVIDENCE_REMEDIATION_REQUIRED"
+          : "AUTO_ACCEPT_READY",
+      human_approval_required: false,
       automatic_downgrade_permitted:
         false,
       authorization_enforced_by_this_route:
