@@ -1,0 +1,160 @@
+{
+  "schema_id": "helpus.synthetic-confirmatory.c2.v1",
+  "synthetic_only": true,
+  "intended_use": "G10B metamorphic runner development and clean-room rehearsal only. Not confirmatory evidence.",
+  "generated_without_access_to_real_c2": true,
+  "metamorphic_cases": [
+    {
+      "relation_id": "MR-1-MONOTONIC-HARDENING-SYN-001",
+      "relation": "MONOTONIC_HARDENING",
+      "precondition": "Mutation changes only verified reachability from PUBLIC_ROUTED to LOCAL_ONLY, a valid less-severe MAV transition.",
+      "original": {
+        "vulnerability_id": "SYNTH-CVE-2099-1001",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "PUBLIC_ROUTED",
+          "telemetry_age_days": 0.1
+        }
+      },
+      "mutated": {
+        "vulnerability_id": "SYNTH-CVE-2099-1001",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "LOCAL_ONLY",
+          "telemetry_age_days": 0.1
+        }
+      },
+      "invariant": {
+        "type": "SCORE_MUTATED_LTE_ORIGINAL",
+        "expected": true
+      }
+    },
+    {
+      "relation_id": "MR-2-SUBSEQUENT-CONFINEMENT-SYN-001",
+      "relation": "SUBSEQUENT_SYSTEM_CONFINEMENT",
+      "precondition": "Synthetic scenario explicitly asserts all relevant subsequent-system impact paths are absent; route removal alone is not sufficient.",
+      "original": {
+        "vulnerability_id": "SYNTH-CVE-2099-1002",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "INTERNAL_ROUTED",
+          "telemetry_age_days": 0.1
+        }
+      },
+      "mutated": {
+        "vulnerability_id": "SYNTH-CVE-2099-1002",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "INTERNAL_ROUTED",
+          "telemetry_age_days": 0.1,
+          "all_relevant_subsequent_impact_paths_absent": true,
+          "organization_policy_id": "SYN-POLICY-02",
+          "policy_version": "1.0",
+          "modified_impacts": {
+            "MSC": "N",
+            "MSI": "N",
+            "MSA": "N"
+          }
+        }
+      },
+      "invariant": {
+        "type": "EXPECTED_METRICS",
+        "expected": {
+          "MSC": "N",
+          "MSI": "N",
+          "MSA": "N"
+        }
+      }
+    },
+    {
+      "relation_id": "MR-3-NOISE-INVARIANCE-SYN-001",
+      "relation": "NOISE_INVARIANCE",
+      "precondition": "Injected observation is explicitly outside target dependency/evidence closure.",
+      "original": {
+        "vulnerability_id": "SYNTH-CVE-2099-1003",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "ADJACENT_ONLY",
+          "telemetry_age_days": 0.1
+        }
+      },
+      "mutated": {
+        "vulnerability_id": "SYNTH-CVE-2099-1003",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence": {
+          "evidence_quality": "SUFFICIENT",
+          "reachability": "ADJACENT_ONLY",
+          "telemetry_age_days": 0.1,
+          "irrelevant_observations": [
+            {
+              "asset_id": "urn:helpus:synthetic:unrelated-asset",
+              "field": "banner",
+              "value": "noise",
+              "outside_dependency_closure": true
+            }
+          ]
+        }
+      },
+      "invariant": {
+        "type": "VECTOR_EXACT_EQUALITY",
+        "expected": true
+      }
+    },
+    {
+      "relation_id": "MR-4-INGESTION-COMMUTATIVITY-SYN-001",
+      "relation": "INGESTION_COMMUTATIVITY",
+      "precondition": "Same semantic observations, no last-write-wins ambiguity; only input order differs.",
+      "original": {
+        "vulnerability_id": "SYNTH-CVE-2099-1004",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence_events": [
+          {
+            "event_id": "E1",
+            "field": "reachability",
+            "value": "LOCAL_ONLY"
+          },
+          {
+            "event_id": "E2",
+            "field": "evidence_quality",
+            "value": "SUFFICIENT"
+          },
+          {
+            "event_id": "E3",
+            "field": "telemetry_age_days",
+            "value": 0.1
+          }
+        ]
+      },
+      "mutated": {
+        "vulnerability_id": "SYNTH-CVE-2099-1004",
+        "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "evidence_events": [
+          {
+            "event_id": "E3",
+            "field": "telemetry_age_days",
+            "value": 0.1
+          },
+          {
+            "event_id": "E1",
+            "field": "reachability",
+            "value": "LOCAL_ONLY"
+          },
+          {
+            "event_id": "E2",
+            "field": "evidence_quality",
+            "value": "SUFFICIENT"
+          }
+        ]
+      },
+      "invariant": {
+        "type": "VECTOR_AND_SCORE_EXACT_EQUALITY",
+        "expected": true
+      }
+    }
+  ]
+}
