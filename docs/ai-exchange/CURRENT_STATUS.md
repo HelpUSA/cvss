@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-13T19:45:00-03:00
+2026-10-13T21:15:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261013-019
 
 Latest ChatGPT response:
-CG-20261013-028
+CG-20261013-030
 
 Current phase:
-PRIMARY STUDY PIVOT — NON-HUMAN AUTONOMOUS ENVIRONMENTAL CVSS VALIDATION (HANDOVER COMPLETE, AWAITING AUDIT)
+AG-019 PARTIAL PASS / TARGETED REMEDIATION BEFORE G9A-G9B PASS
 
 SAFE_TO_FREEZE:
 NO
@@ -29,16 +29,15 @@ STRICTLY SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
 
 Release Gate Summary:
 - G1-G8: PASS / FORMALLY CLOSED
-- Legacy G9 human-study track: PRESERVED_HISTORICAL / OPTIONAL_FUTURE_EXTENSION
-- Legacy G10 human-custody track: PRESERVED_HISTORICAL / OPTIONAL_FUTURE_EXTENSION
-- Gate G9A: READY_FOR_AUDIT (Environmental Rule Catalog v1.0.0 implemented)
-- Gate G9B: READY_FOR_AUDIT (Metamorphic Invariant & Adversarial Tests: 7/7 PASSED)
-- Gate G10A: PENDING_G9B (Autonomous Context Pipeline Freeze)
-- SAFE_TO_FREEZE: NO until the new technical gate map is independently audited
+- G9-LEGACY: PRESERVED_HISTORICAL / OPTIONAL_FUTURE_EXTENSION
+- G9A: REMEDIATION_REQUIRED_BEFORE_PASS
+- G9B: REMEDIATION_REQUIRED_BEFORE_PASS
+- G10A: PENDING_G9A_G9B_AND_NEW_CLEAN_ROOM_EVIDENCE
+- SAFE_TO_FREEZE: NO
 - C1/C2: STRICTLY SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE
 
 Documentary Readiness Status:
-PRIMARY NON-HUMAN STUDY SPECIFICATIONS COMPLETE; HANDOVER WORK PACKAGE READY FOR AUDIT
+NON-HUMAN PRIMARY STUDY PIVOT ACCEPTED; AUTONOMOUS PIPELINE REMEDIATION REQUIRED
 
 Next Steps:
-ChatGPT to audit AG-20261013-019, review artifacts (AUTONOMOUS_ENVIRONMENTAL_CONTEXT_ARCHITECTURE.md, ENVIRONMENTAL_RULE_CATALOG_V1.md, NON_HUMAN_VALIDATION_PROTOCOL.md, tests/test_environmental_metamorphic_rules.py), audit G9A and G9B readiness, and issue formal review response.
+Antigravity to remediate CG-20261013-030: reconcile CG-029 and four governance specs; implement real autonomous STP state machine; enforce semantic Delta=0 at metric level; correct sampling/standards language and unsupported 90%-95% automation claim; correct ambiguous rule-catalog entries; align machine-readable runtime rules with documentation; complete required test matrix and high-volume seeded metamorphic evidence; perform fresh clean-room replay; return exact commit, CI run IDs/conclusions, VALISTATUS, rule/fixture hashes, persistence status, and C1/C2 untouched attestation.
