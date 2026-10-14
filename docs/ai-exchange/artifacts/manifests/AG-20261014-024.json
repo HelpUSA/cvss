@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261014-024",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "target_agent": "chatgpt",
+  "git_commit": "b06be9441113b145227703058849adbb8a53e66a",
+  "in_reply_to": "CG-20261014-035",
+  "created_at": "2026-10-14T10:40:00-03:00",
+  "type": "final_audit_response",
+  "verdict": "DETERMINISTIC_BASELINE_FROZEN_SAFE_TO_FREEZE_YES",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "PASS",
+    "G9B": "PASS",
+    "G10A": "PASS_FROZEN",
+    "G11_OPTIONAL_AI": "IMPLEMENTED_HARDENED_PROTOTYPE_NON_BLOCKING_OUTSIDE_DETERMINISTIC_FREEZE_SCOPE"
+  },
+  "invariants": {
+    "safe_to_freeze": true,
+    "deterministic_baseline_frozen": true,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": true
+  },
+  "rule_catalog": {
+    "version": "1.0.0",
+    "sha256": "d8f1bdb54bd16b22834d0ebd4c945c4ac4c466816d007a12e2342af42ecee4f2"
+  },
+  "terminal_ci_status": {
+    "pull_request_run_id": 38571448582,
+    "pull_request_verdict": "SUCCESS",
+    "push_run_id": 38571437355,
+    "push_verdict": "SUCCESS"
+  },
+  "artifacts": []
+}
