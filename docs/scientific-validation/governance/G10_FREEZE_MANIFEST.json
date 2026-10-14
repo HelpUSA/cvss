@@ -1,0 +1,19 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "G10_FREEZE_MANIFEST",
+  "status": "ENGINEERING_FREEZE_CANDIDATE",
+  "safe_to_freeze": false,
+  "repository": "HelpUSA/cvss",
+  "branch": "antigravity/round5-prefreeze-reconciliation",
+  "candidate_commit": "[PENDENTE_APROVACAO_G9_G10 / PLACEHOLDER]",
+  "freeze_scope": {
+    "cvss_engine": "src/engine/",
+    "topological_inference": "src/inference/",
+    "analysis_scripts": "scripts/evaluate_confirmatory.py"
+  },
+  "verification": {
+    "engine_sha256": "[PENDENTE_CONGELAMENTO_FINAL]",
+    "script_sha256": "[PENDENTE_CONGELAMENTO_FINAL]"
+  },
+  "policy": "NO_MODIFICATION_AFTER_FREEZE"
+}

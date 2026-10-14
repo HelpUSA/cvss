@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "GM-20261014-003",
+  "producer": "gemini",
+  "project": "helpus-cvss-ai",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_head": "f412091c44c7c38a6e01071be1b96c5843cea691",
+  "created_at": "2026-10-14T10:30:00-03:00",
+  "type": "tripartite_review_response",
+  "verdict": "APPROVED_FOR_FREEZE_GO",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "PASS",
+    "G9B": "PASS",
+    "G10A": "READY_FOR_FREEZE",
+    "G11_OPTIONAL_AI": "IMPLEMENTED_HARDENED_PROTOTYPE_NON_BLOCKING"
+  },
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "artifacts": []
+}

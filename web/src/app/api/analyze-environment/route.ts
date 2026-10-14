@@ -1,282 +1,276 @@
 import { NextResponse } from "next/server";
 import { fromVector } from "ae-cvss-calculator";
 import crypto from "crypto";
+import { jcsCanonicalize } from "@/lib/jcs";
 
-// Helper to determine severity from CVSS v4.0 score
-function getSeverity(score: number): string {
-  if (score >= 9.0) return "Critical";
-  if (score >= 7.0) return "High";
-  if (score >= 4.0) return "Medium";
-  if (score > 0.0) return "Low";
+function getSeverity(cvssScore: number): string {
+  if (cvssScore >= 9.0) return "Critical";
+  if (cvssScore >= 7.0) return "High";
+  if (cvssScore >= 4.0) return "Medium";
+  if (cvssScore > 0.0) return "Low";
   return "None";
 }
 
-// Operational disposition mapping (P0 - P4)
-function getOperationalDisposition(score: number | null, decision: string): { code: string; label: string; caveat: string } {
+type OperationalBand = {
+  code: "P0_IMMEDIATE" | "P1_EXPEDITED" | "P2_SCHEDULED" | "P3_MONITOR" | "P4_DEFER_RECOMMENDED";
+  label: string;
+  minScore: number;
+  maxScore: number;
+  caveat?: string;
+};
+
+type OperationalPolicy = {
+  policyId: string;
+  policyVersion: string;
+  scoreBands: OperationalBand[];
+};
+
+function resolveOperationalDisposition(score: number | null, decision: string, evidence: any) {
   if (score === null || decision === "abstained") {
     return {
       code: "PENDING_HUMAN_REVIEW",
       label: "Revisão Humana Obrigatória",
-      caveat: "Inferência automatizada em abstenção segura (fail-safe). Decisão retida.",
+      caveat: "Inferência em abstenção segura; nenhuma disposição operacional foi aprovada.",
+      policyApplied: false,
     };
   }
-  if (score >= 9.0) {
+
+  const policy = evidence?.operationalPolicy as OperationalPolicy | undefined;
+  if (!policy || !policy.policyId || !policy.policyVersion || !Array.isArray(policy.scoreBands)) {
     return {
-      code: "P0_IMMEDIATE",
-      label: "P0 - Remediação Imediata",
-      caveat: "Criticidade operacional máxima exigindo contenção de emergência.",
+      code: "PENDING_POLICY_REVIEW",
+      label: "Política Operacional Necessária",
+      caveat: "O CVSS-BE foi calculado, mas P0-P4 não é derivado diretamente do score sem uma política organizacional explícita e versionada.",
+      policyApplied: false,
     };
   }
-  if (score >= 7.0) {
+
+  if (evidence.organizationPolicyId && evidence.organizationPolicyId !== policy.policyId) {
     return {
-      code: "P1_EXPEDITED",
-      label: "P1 - Remediação Prioritária",
-      caveat: "Tratamento prioritário na janela de sustentação.",
+      code: "PENDING_POLICY_REVIEW",
+      label: "Política Operacional Inconsistente",
+      caveat: "operationalPolicy.policyId difere de organizationPolicyId.",
+      policyApplied: false,
     };
   }
-  if (score >= 4.0) {
+  if (evidence.policyVersion && evidence.policyVersion !== policy.policyVersion) {
     return {
-      code: "P2_SCHEDULED",
-      label: "P2 - Correção Programada",
-      caveat: "Correção dentro do ciclo de release ordinário.",
+      code: "PENDING_POLICY_REVIEW",
+      label: "Versão de Política Inconsistente",
+      caveat: "operationalPolicy.policyVersion difere de policyVersion.",
+      policyApplied: false,
     };
   }
-  if (score > 0.0) {
+
+  const allowed = new Set(["P0_IMMEDIATE", "P1_EXPEDITED", "P2_SCHEDULED", "P3_MONITOR", "P4_DEFER_RECOMMENDED"]);
+  const validBands = policy.scoreBands.filter((band) =>
+    allowed.has(band.code) &&
+    Number.isFinite(band.minScore) &&
+    Number.isFinite(band.maxScore) &&
+    band.minScore >= 0 &&
+    band.maxScore <= 10 &&
+    band.minScore <= band.maxScore
+  );
+
+  const matches = validBands.filter((band) => score >= band.minScore && score <= band.maxScore);
+  if (matches.length !== 1) {
     return {
-      code: "P3_MONITOR",
-      label: "P3 - Monitoramento Contínuo",
-      caveat: "Baixo impacto ambiental; acompanhamento via telemetria.",
+      code: "PENDING_POLICY_REVIEW",
+      label: "Política Operacional Ambígua",
+      caveat: `O score ${score.toFixed(1)} deve corresponder a exatamente uma banda operacional; correspondências encontradas: ${matches.length}.`,
+      policyApplied: false,
     };
   }
+
+  const band = matches[0];
   return {
-    code: "P4_DEFER_RECOMMENDED",
-    label: "P4 - Postergação Recomendada",
-    caveat: "A postergação (P4) é uma recomendação e NÃO constitui aceitação de risco sem aprovação formal de autoridade competente.",
+    code: band.code,
+    label: band.label,
+    caveat: band.caveat ?? "Recomendação local sujeita a aprovação humana.",
+    policyApplied: true,
+    policyId: policy.policyId,
+    policyVersion: policy.policyVersion,
   };
 }
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const {
-      cveId = "CVE-2024-4251",
-      baseVector = "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
-      sourceProvider = "CNA_PUBLISHED",
-      evidence = {
-        evidenceQuality: "SUFFICIENT",
-        telemetryAgeDays: 0.5,
-        telemetryProfile: "dynamic",
-        reachability: "INTERNAL_ROUTED",
-        organizationPolicyId: "POL-SEC-2026-V1",
-        policyVersion: "1.0",
-        pciScope: false,
-        highAvailability: false,
-        businessCriticality: "high",
-        dataSensitivity: "internal",
-        firewallActive: true,
-      },
-      manualOverrides = {},
-    } = body;
+    const { cveId, baseVector, sourceAssessmentMeta, evidence } = body ?? {};
 
-    // Validate CVSS v4.0 vector
-    if (!baseVector || !baseVector.startsWith("CVSS:4.0/")) {
-      return NextResponse.json(
-        { success: false, error: "Vetor de origem deve ser compatível com CVSS v4.0 (prefixo CVSS:4.0/ obrigatório)" },
-        { status: 400 }
-      );
+    if (!cveId || typeof cveId !== "string") {
+      return NextResponse.json({ success: false, error: "cveId é obrigatório" }, { status: 400 });
+    }
+    if (!baseVector || typeof baseVector !== "string" || !baseVector.startsWith("CVSS:4.0/")) {
+      return NextResponse.json({ success: false, error: "baseVector CVSS:4.0 é obrigatório" }, { status: 400 });
+    }
+    if (!evidence || typeof evidence !== "object") {
+      return NextResponse.json({ success: false, error: "evidence é obrigatório; presets de demonstração devem ser enviados explicitamente" }, { status: 400 });
+    }
+    if (!sourceAssessmentMeta || typeof sourceAssessmentMeta !== "object" || !sourceAssessmentMeta.provider) {
+      return NextResponse.json({ success: false, error: "sourceAssessmentMeta.provider é obrigatório para provenance" }, { status: 400 });
     }
 
-    // 1. Calculate Source CVSS (Preserved & Separated)
     const sourceCalculator = fromVector(baseVector);
     const sourceScore = sourceCalculator.calculateOverallScore();
     const sourceSeverity = getSeverity(sourceScore);
     const sourceNomenclature = sourceCalculator.getNomenclature();
 
-    // 2. Fail-Safe Engine Validation
     const citations: string[] = [];
     const reasons: string[] = [];
-    const quality = (evidence.evidenceQuality || "UNKNOWN").toUpperCase();
+    const candidateMetrics: Record<string, string> = {};
+
+    const quality = String(evidence.evidenceQuality ?? "UNKNOWN").toUpperCase();
     const telemetryAge = typeof evidence.telemetryAgeDays === "number" ? evidence.telemetryAgeDays : null;
-    const maxAge = evidence.telemetryProfile === "static" ? 7.0 : 1.0;
+    const maxAge = typeof evidence.maxTelemetryAgeDays === "number"
+      ? evidence.maxTelemetryAgeDays
+      : evidence.telemetryProfile === "static" ? 7.0 : 1.0;
 
-    if (telemetryAge === null) {
-      reasons.push("Idade da telemetria ausente");
-    } else if (telemetryAge > maxAge) {
-      reasons.push(`Telemetria obsoleta (${telemetryAge} dias; limite da política é ${maxAge} dias)`);
-    }
+    if (telemetryAge === null) reasons.push("Idade da telemetria ausente");
+    else if (telemetryAge > maxAge) reasons.push(`Telemetria obsoleta (${telemetryAge} dias; limite ${maxAge} dias)`);
 
-    if (quality !== "SUFFICIENT") {
-      reasons.push(`Qualidade da evidência não-suficiente (${quality})`);
-    }
+    if (["UNKNOWN", "INSUFFICIENT", "CONFLICTING"].includes(quality)) reasons.push(`Qualidade da evidência não suficiente (${quality})`);
+    if (evidence.conflictFlag === true) reasons.push("Conflito explícito de evidência");
 
-    // 3. Reachability Reasoning
-    // PUBLIC_ROUTED -> MAV:N
-    // INTERNAL_ROUTED -> MAV:N (Internal L3-routed reachability remains Network, NOT Adjacent)
-    // ADJACENT_ONLY -> MAV:A (requires demonstrated L2 adjacency)
-    // LOCAL_ONLY -> MAV:L
-    // PHYSICAL_ONLY -> MAV:P
-    const reachability = (evidence.reachability || "UNKNOWN").toUpperCase();
-    const candidateMetrics: Record<string, string> = { ...manualOverrides };
-
-    if (!candidateMetrics.MAV) {
-      if (reachability === "PUBLIC_ROUTED") {
-        candidateMetrics.MAV = "N";
-        citations.push("MAV:N — Ativo roteado e acessível via rede pública.");
-      } else if (reachability === "INTERNAL_ROUTED") {
-        candidateMetrics.MAV = "N";
-        citations.push("MAV:N — Ativo alcançável via rede IP interna roteada (invariante: rede interna L3 permanece MAV:N, não MAV:A).");
-      } else if (reachability === "ADJACENT_ONLY") {
-        candidateMetrics.MAV = "A";
-        citations.push("MAV:A — Acesso comprovadamente restrito ao mesmo domínio de broadcast L2 / adjacência física.");
-      } else if (reachability === "LOCAL_ONLY") {
-        candidateMetrics.MAV = "L";
-        citations.push("MAV:L — Sem rota remota ou adjacente; execução restrita a contexto local do host.");
-      } else if (reachability === "PHYSICAL_ONLY") {
-        candidateMetrics.MAV = "P";
-        citations.push("MAV:P — Requer acesso físico direto ao dispositivo.");
-      } else {
-        reasons.push("Classe de alcançabilidade de rede ausente ou indeterminada");
-      }
-    }
-
-    // 4. Attack Complexity Reasoning (Firewall/WAF presence alone NEVER implies MAC:H)
-    if (evidence.firewallActive) {
-      citations.push("Presença de Firewall/WAF registrada; conforme a norma, filtragem perimetral genérica não altera MAC para H isoladamente.");
-    }
-    if (evidence.evidencedExploitPreconditionsElevated) {
-      candidateMetrics.MAC = "H";
-      citations.push("MAC:H — Pré-condições específicas de exploração demonstradas e documentadas.");
-    }
-
-    // 5. Security Requirements (CR, IR, AR) - Policy-governed
-    const policyId = evidence.organizationPolicyId;
-    const policyVersion = evidence.policyVersion;
-
-    if (policyId && policyVersion) {
-      if (evidence.securityRequirements) {
-        if (evidence.securityRequirements.CR) candidateMetrics.CR = evidence.securityRequirements.CR;
-        if (evidence.securityRequirements.IR) candidateMetrics.IR = evidence.securityRequirements.IR;
-        if (evidence.securityRequirements.AR) candidateMetrics.AR = evidence.securityRequirements.AR;
-        citations.push(`Requisitos de segurança mapeados via política organizacional ${policyId} v${policyVersion}.`);
-      } else {
-        // Fallback default organizational policy mapping for demo
-        if (evidence.pciScope || evidence.dataSensitivity === "payment") {
-          candidateMetrics.CR = "H";
-          citations.push(`CR:H — Política ${policyId}: Escopo de dados regulados/cartões.`);
-        }
-        if (["critical", "high"].includes(evidence.businessCriticality)) {
-          candidateMetrics.IR = "H";
-          citations.push(`IR:H — Política ${policyId}: Ativo de criticidade elevada requer integridade transacional.`);
-        }
-        if (evidence.highAvailability) {
-          citations.push("Cluster de alta disponibilidade registrado; por norma, redundância física não reduz requisito AR para L.");
-        }
-      }
-    } else if (evidence.securityRequirements) {
-      reasons.push("Requisitos de segurança fornecidos sem identificador de política (organizationPolicyId/policyVersion)");
-    }
-
-    // Fail-safe abstention check
-    const shouldAbstain = reasons.length > 0;
-
-    let contextualCvss: any = null;
-    let environmentalVector: string | null = null;
-    let delta = 0;
-    let decision = "unchanged";
-
-    if (shouldAbstain) {
-      decision = "abstained";
+    const reachability = String(evidence.reachability ?? "UNKNOWN").toUpperCase();
+    if (reachability === "PUBLIC_ROUTED" || reachability === "INTERNAL_ROUTED") {
+      candidateMetrics.MAV = "N";
+      citations.push(`MAV:N - reachability ${reachability}`);
+    } else if (reachability === "ADJACENT_ONLY") {
+      candidateMetrics.MAV = "A";
+      citations.push("MAV:A - adjacência explicitamente evidenciada");
+    } else if (reachability === "LOCAL_ONLY") {
+      candidateMetrics.MAV = "L";
+      citations.push("MAV:L - exploração restrita a contexto local");
+    } else if (reachability === "PHYSICAL_ONLY") {
+      candidateMetrics.MAV = "P";
+      citations.push("MAV:P - interação física requerida");
     } else {
-      // Build environmental vector
-      let enrichedVector = baseVector;
-      for (const [key, val] of Object.entries(candidateMetrics)) {
-        if (val && val !== "X") {
-          enrichedVector += `/${key}:${val}`;
+      reasons.push("Classe de reachability ausente ou indeterminada");
+    }
+
+    if (evidence.firewallActive) citations.push("Firewall/WAF registrado como evidência; MAC não foi alterado por essa condição isoladamente.");
+    if (evidence.evidencedExploitPreconditionsElevated === true) {
+      candidateMetrics.MAC = "H";
+      citations.push("MAC:H - precondições específicas de exploração evidenciadas");
+    }
+
+    // CR/IR/AR are accepted only as values already resolved by an explicit versioned policy.
+    const reqs = evidence.securityRequirements;
+    if (reqs) {
+      if (!evidence.organizationPolicyId || !evidence.policyVersion) {
+        reasons.push("securityRequirements fornecido sem organizationPolicyId/policyVersion");
+      } else {
+        for (const key of ["CR", "IR", "AR"]) {
+          const val = reqs[key];
+          if (val && ["H", "M", "L"].includes(String(val).toUpperCase())) candidateMetrics[key] = String(val).toUpperCase();
+        }
+        citations.push(`CR/IR/AR recebidos como mapping resolvido pela política ${evidence.organizationPolicyId} v${evidence.policyVersion}`);
+      }
+    }
+
+    const shouldAbstain = reasons.length > 0;
+    let contextualCvss: null | { vector: string; score: number; severity: string; nomenclature: string; delta: number; decision: string } = null;
+    let decision = shouldAbstain ? "abstained" : "unchanged";
+
+    function applyEnvironmentalMetrics(vector: string, overrides: Record<string, string>): string {
+      const parts = vector.split("/");
+      const prefix = parts[0];
+      const metricMap = new Map<string, string>();
+      for (let i = 1; i < parts.length; i++) {
+        const p = parts[i];
+        const colonIdx = p.indexOf(":");
+        if (colonIdx > 0) {
+          metricMap.set(p.substring(0, colonIdx), p.substring(colonIdx + 1));
         }
       }
-      environmentalVector = enrichedVector;
+      for (const [k, v] of Object.entries(overrides)) {
+        if (v && v !== "X") {
+          metricMap.set(k, v);
+        } else {
+          metricMap.delete(k);
+        }
+      }
+      const canonicalOrder = [
+        "AV", "AC", "AT", "PR", "UI", "VC", "VI", "VA", "SC", "SI", "SA",
+        "E",
+        "CR", "IR", "AR",
+        "MAV", "MAC", "MAT", "MPR", "MUI", "MVC", "MVI", "MVA", "MSC", "MSI", "MSA"
+      ];
+      const orderedParts = [prefix];
+      for (const k of canonicalOrder) {
+        if (metricMap.has(k)) {
+          orderedParts.push(`${k}:${metricMap.get(k)}`);
+          metricMap.delete(k);
+        }
+      }
+      for (const [k, v] of metricMap.entries()) {
+        orderedParts.push(`${k}:${v}`);
+      }
+      return orderedParts.join("/");
+    }
+
+    if (!shouldAbstain) {
+      const enrichedVector = applyEnvironmentalMetrics(baseVector, candidateMetrics);
       const envCalc = fromVector(enrichedVector);
       const envScore = envCalc.calculateOverallScore();
-      delta = Math.round((envScore - sourceScore) * 10) / 10;
+      const delta = Math.round((envScore - sourceScore) * 10) / 10;
       decision = delta < 0 ? "downgraded" : delta > 0 ? "upgraded" : "unchanged";
-
-      contextualCvss = {
-        vector: enrichedVector,
-        score: envScore,
-        severity: getSeverity(envScore),
-        nomenclature: envCalc.getNomenclature(),
-        delta,
-        decision,
-      };
+      contextualCvss = { vector: enrichedVector, score: envScore, severity: getSeverity(envScore), nomenclature: envCalc.getNomenclature(), delta, decision };
     }
 
-    const disposition = getOperationalDisposition(contextualCvss ? contextualCvss.score : null, decision);
+    const disposition = resolveOperationalDisposition(contextualCvss?.score ?? null, decision, evidence);
+    const generatedAt = new Date().toISOString();
 
-    // 6. Generate RFC 8785 Canonical Provenance Receipt + SHA-256 Digest
     const auditPayload = {
-      asset_profile: evidence,
+      schema_version: "helpus-audit-receipt-v2",
       cve_id: cveId,
-      disposition: disposition.code,
-      environmental_decision: decision,
-      environmental_vector: environmentalVector,
-      generated_at: new Date().toISOString(),
-      source_vector: baseVector,
+      source_assessment: {
+        vector: baseVector,
+        nomenclature: sourceNomenclature,
+        score: sourceScore,
+        severity: sourceSeverity,
+        ...sourceAssessmentMeta,
+      },
+      evidence,
+      inferred_metrics: candidateMetrics,
+      environmental_assessment: contextualCvss,
+      operational_recommendation: disposition,
+      governance: {
+        review_status: shouldAbstain ? "HUMAN_REVIEW_REQUIRED" : "PROVISIONAL_INFERENCE_READY",
+        human_approval_required: true,
+        automatic_downgrade_permitted: false,
+        authorization_enforced_by_this_route: false,
+      },
+      generated_at: generatedAt,
     };
-    const canonicalJson = JSON.stringify(auditPayload, Object.keys(auditPayload).sort());
-    const provenanceHash = crypto.createHash("sha256").update(canonicalJson).digest("hex");
+
+    const canonicalJson = jcsCanonicalize(auditPayload);
+    const provenanceHash = crypto.createHash("sha256").update(canonicalJson, "utf8").digest("hex");
 
     return NextResponse.json({
       success: true,
-      timestamp: new Date().toISOString(),
+      timestamp: generatedAt,
       cveId,
-      // Layer 1: Source Assessment / Provenance
-      sourceAssessment: {
-        vector: baseVector,
-        score: sourceScore,
-        severity: sourceSeverity,
-        nomenclature: sourceNomenclature,
-        provider: sourceProvider,
-        retrievedAt: new Date().toISOString(),
-      },
-      // Layer 2: HelpUS-derived CVSS v4.0 Environmental Assessment
-      environmentalAssessment: contextualCvss ? {
-        vector: contextualCvss.vector,
-        score: contextualCvss.score,
-        severity: contextualCvss.severity,
-        nomenclature: contextualCvss.nomenclature,
-        delta: contextualCvss.delta,
-        decision: contextualCvss.decision,
-      } : {
-        status: "ABSTAINED",
-        reasons,
-      },
-      // Layer 3: Local Operational Disposition
+      sourceAssessment: auditPayload.source_assessment,
+      environmentalAssessment: contextualCvss ?? { status: "ABSTAINED", reasons },
       operationalDisposition: disposition,
-      // Layer 4: Evidence & Inference Citations
       inferenceAnalysis: {
-        reviewStatus: shouldAbstain ? "HUMAN_REVIEW_REQUIRED" : "PROVISIONAL_INFERENCE_READY",
+        reviewStatus: auditPayload.governance.review_status,
         abstentionReasons: reasons,
         candidateMetrics,
         citations,
         reachabilityClass: reachability,
       },
-      // Layer 5: HITL Governance & Fail-safe Semantics
-      governance: {
-        humanReviewGate: "HUMAN_REVIEW_REQUIRED",
-        autoDowngradePermitted: false,
-        hitlSupervisionRequired: true,
-      },
-      // Audit Receipt & Cryptographic Provenance
+      governance: auditPayload.governance,
       auditReceipt: {
-        canonicalAlgorithm: "RFC-8785 / JCS Canonicalization",
+        canonicalAlgorithm: "JCS-compatible local implementation; formal RFC 8785 conformance requires a pinned independent conformance corpus",
         digestAlgorithm: "SHA-256",
         receiptDigest: provenanceHash,
+        schemaVersion: auditPayload.schema_version,
       },
     });
   } catch (err: any) {
-    return NextResponse.json(
-      { success: false, error: err.message || "Erro no processamento da inferência" },
-      { status: 400 }
-    );
+    return NextResponse.json({ success: false, error: err?.message || "Erro no processamento" }, { status: 400 });
   }
 }

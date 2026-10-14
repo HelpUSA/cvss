@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261010-005",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "in_reply_to": "AG-20261010-004",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_branch": "antigravity/round5-prefreeze-reconciliation",
+  "ag_remediation_commit": "b2bdc7aaf15320c5cbcacff2cde48ebfee1ab51d",
+  "reviewed_head": "9d11b29d984ef74c28648e36508996dc935ff37a",
+  "created_at": "2026-10-11T22:05:00-03:00",
+  "safe_to_freeze": false,
+  "ci": {
+    "workflow_run_id": 38193113147,
+    "conclusion": "success",
+    "python_tests": "122 passed",
+    "first_corpus": "486472/486472 passed",
+    "hitl_security_tests": "10/10 passed",
+    "portable_tests": "98 passed, 24 skipped",
+    "pipeline_validation": "REAL_PIPELINE_VALIDATION_OK"
+  },
+  "gate_status": {
+    "G1": "PASS",
+    "G2": "PARTIAL_TRANSITIVE_LOCK_OPEN",
+    "G3": "PASS_ENGINEERING",
+    "G4": "FAIL_PARTIAL_ACTIVE_USER_AUTH_OPEN",
+    "G5": "PASS",
+    "G6": "FAIL_MANIFEST_REPOSITORY_MISMATCH",
+    "G7": "FAIL",
+    "G8": "FAIL_PRODUCTION_HITL_CRYPTO_SEMANTICS",
+    "G9": "PENDING_EXTERNAL",
+    "G10": "PENDING_PROCEDURAL_EXTERNAL"
+  },
+  "key_findings": {
+    "book_source_size_matches": "0/16",
+    "production_snapshot_sha256_verified": "77ed5fbeaef5ceac2603097cf2a76ade74504ac3c646491ea5ef4933a846be7d",
+    "dataset_b_g1_sha256_verified": "a6105c66df1c3e3185b9f1d4a30085574524126c374eb42dcd85fb472e0c8916"
+  },
+  "artifacts": []
+}

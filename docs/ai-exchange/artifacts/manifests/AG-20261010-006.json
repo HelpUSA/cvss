@@ -1,0 +1,87 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261010-006",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "git_commit": "c495cfdca5c958c0bf3bd852a59c68140b7a3856",
+  "created_at": "2026-10-11T23:38:00-03:00",
+  "artifacts": [
+    {
+      "path": "outputs/first-reference-corpus-round4.json",
+      "media_type": "application/json",
+      "sha256": "a6105c66df1c3e3185b9f1d4a30085574524126c374eb42dcd85fb472e0c8916",
+      "size_bytes": 2327,
+      "purpose": "g1_first_corpus_evidence_486k_cases_canonical_lf"
+    },
+    {
+      "path": "outputs/dataset_b_finalization_provenance.json",
+      "media_type": "application/json",
+      "sha256": "cc95800cfa59bf2f33f7319cb48f8fdae952fc9bb23bac0137387834f1de7a03",
+      "size_bytes": 12733,
+      "purpose": "g5_dataset_b_final_provenance_recomputed"
+    },
+    {
+      "path": "outputs/hitl-review-decision-security-tests.json",
+      "media_type": "application/json",
+      "sha256": "2adbbf1c533a8d8b09c1e9bcecd97ae5165cc260a41188061e892fe0e0659781",
+      "size_bytes": 1537,
+      "purpose": "g4_hitl_server_review_decision_active_user_security_tests"
+    },
+    {
+      "path": "outputs/production-copy-audit-round4.json",
+      "media_type": "application/json",
+      "sha256": "158a5f24b3fdb8fea21f14a1db4a4fc9ae14728e37aaad3f2a8ea4f2a878f5b9",
+      "size_bytes": 3679,
+      "purpose": "g8_production_live_custom_domain_and_linked_js_audit_evidence"
+    },
+    {
+      "path": "outputs/production-live-snapshot.html",
+      "media_type": "text/html",
+      "sha256": "871bf1ed371001f2ed08af7e103b2b0eea1c444df36959a18bd192909794968e",
+      "size_bytes": 74000,
+      "purpose": "g8_production_live_custom_domain_raw_html_snapshot"
+    },
+    {
+      "path": "outputs/pytest-portable.log",
+      "media_type": "text/plain",
+      "sha256": "d2bdb5d2b99ee3c69d1684e6d82fc1505e5b2abff15a6b77d493440b2f0d8a0d",
+      "size_bytes": 1109,
+      "purpose": "g2_clean_room_portable_pytest_log_with_complete_transitive_lock"
+    },
+    {
+      "path": "outputs/pytest-full.log",
+      "media_type": "text/plain",
+      "sha256": "a632c9daa09a328b211a6fcd8b2a5d071a2c127e8b0f9e1742567268decf83b0",
+      "size_bytes": 180,
+      "purpose": "g3_complete_repository_pytest_log"
+    },
+    {
+      "path": "helpus_cvss_ai_portable_artifact_round4.zip",
+      "media_type": "application/zip",
+      "sha256": "85bb4c87814f1af61d5f9a5eb7c8fcea2e5eff170ff700c68a6e1d9754c246d7",
+      "size_bytes": 11159751,
+      "purpose": "g2_portable_artifact_zip_round4_complete_transitive_lock"
+    },
+    {
+      "path": "book_latex/BUILD_MANIFEST_CHATGPT_ROUND4.json",
+      "media_type": "application/json",
+      "sha256": "d59726e967024b746b432dd7618db50892817dacd6258224f290e70b912bf020",
+      "size_bytes": 3897,
+      "purpose": "g6_book_latex_source_git_blobs_build_manifest"
+    },
+    {
+      "path": "book_latex/main.pdf",
+      "media_type": "application/pdf",
+      "sha256": "a222230192cd32e359d4fb196ae75dbbdc0fd8bb71b282dcaa789e21fdf5180a",
+      "size_bytes": 1224761,
+      "purpose": "g6_book_monograph_compiled_pdf"
+    },
+    {
+      "path": "book_latex/helpus_cvss_ai_monograph_overleaf_final_round4.zip",
+      "media_type": "application/zip",
+      "sha256": "300a6e54264ee03e3921314911ada4496778e31f2f221a72334a8b8c89691a30",
+      "size_bytes": 3003075,
+      "purpose": "g6_book_monograph_overleaf_sync_archive"
+    }
+  ]
+}

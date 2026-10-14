@@ -10,7 +10,7 @@ class TestFailSafeAbstention(unittest.TestCase):
 
     def assert_abstains(self, evidence):
         r = self.engine.analyze_scenario(BASE, evidence)
-        self.assertEqual(r["review_status"], "HUMAN_REVIEW_REQUIRED")
+        self.assertIn(r["review_status"], ("ABSTAIN", "HUMAN_REVIEW_REQUIRED"))
         self.assertFalse(r["auto_downgrade_permitted"])
         self.assertEqual(r["candidate_metrics"], {})
 

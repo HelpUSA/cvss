@@ -1,0 +1,49 @@
+\chapter{Dynamic Network Scanning and Topology Inference}
+\label{chap:network_scanner}
+
+\section{Real-Time Discovery Pipeline}
+Static vulnerability databases fail to capture dynamic network reconfigurations. To ground the environmental assessment in physical reality, the HelpUS platform integrates an active network interrogation and topology discovery module.
+
+The discovery subsystem interrogates target subnets across four distinct operational modes:
+\begin{enumerate}
+    \item \textbf{Local Host Probe:} Interrogates the operator or visitor environment via native browser capabilities, client platform hints, and local socket probes to establish identity and loopback boundary.
+    \item \textbf{Subnet CIDR Range Sweep:} Scans arbitrary private subnets (e.g., $192.168.0.0/24$, $10.0.0.0/16$) via concurrent socket connections across standard enterprise service ports (HTTP 80/443, SSH 22, PostgreSQL 5432, RDP 3389, MySQL 3306).
+    \item \textbf{Enterprise Presets:} Documented baseline topologies including PCI-segmented cardholder environments, DMZs, and network-isolated clinical intranets. These presets are controlled fixtures for development and demonstration, not independently validated production topologies.
+    \item \textbf{Audit JSON Ingestion:} Direct consumption of Nmap, OpenVAS, or Qualys output artifacts for automated continuous integration.
+\end{enumerate}
+
+\section{Topology Inference and Attack Surface Mapping}
+Once active hosts and open listener ports are discovered, the topology engine derives the reachability graph:
+\begin{equation}
+    \mathcal{G} = (\mathcal{V}_{\text{nodes}}, \mathcal{E}_{\text{edges}})
+\end{equation}
+where nodes $\mathcal{V}_{\text{nodes}}$ represent gateways, firewalls, and workloads, and edges $\mathcal{E}_{\text{edges}}$ represent verified routing paths.
+
+\subsection{Exposure Classification Logic}
+A host $h \in \mathcal{V}_{\text{nodes}}$ is classified based on routing and perimeter boundaries:
+\begin{itemize}
+    \item \textbf{Direct Internet Exposure ($I_{\text{exposed}} = \text{true}$):} Verified inbound path from an external network to a service bound on an Internet-routable address or explicitly published through a gateway/NAT. The CIDR $0.0.0.0/0$ denotes the IPv4 default route/address set and is not itself a host address.
+    \item \textbf{Segmented Subnet ($N_{\text{segmented}} = \text{true}$):} Workload located behind a stateful gateway or VLAN tag, requiring intra-subnet lateral movement for exploitation.
+    \item \textbf{Local Loopback ($I_{\text{exposed}} = \text{false}, N_{\text{segmented}} = \text{true}$):} Service bound strictly to loopback/IPC with no verified remote listener. This supports a local-reachability hypothesis only when vulnerability semantics are consistent with local exploitation.
+\end{itemize}
+
+\section{Throughput and Latency Performance}
+
+The current implementation records engine-level timings, but the manuscript does not present them as a controlled speedup against historical human analysis because the quantities were collected under different protocols. A publication-quality latency benchmark should report the engine hardware/software environment, repeated runs, and distributional statistics (for example median and p95), and should compare equivalent end-to-end tasks.
+
+\section{Next-Generation Firewall (NGFW) Telemetry Ingestion}
+\label{sec:ngfw_telemetry}
+While active port sweeping identifies live listener sockets, enterprise defense in depth relies fundamentally on stateful packet inspection, Intrusion Prevention Systems (IPS), and layer-7 application firewalls. To bridge passive logs with active prioritization, HelpUS defines an ingestion adapter for structured Next-Generation Firewall (NGFW) and IDS telemetry. Production validation against specific vendors must be documented separately with versioned artifacts before it is claimed as an empirical result.
+
+Let $\mathcal{L} = \{\ell_1, \ell_2, \dots, \ell_k\}$ represent the stream of structured firewall event records. Each event $\ell_i$ is represented by the tuple:
+\begin{equation}
+    \ell_i = \langle \text{timestamp}, \text{IP}_{\text{src}}, \text{IP}_{\text{dst}}, \text{port}_{\text{dst}}, \text{proto}, \text{action}, \text{threat\_id}, \text{rule\_name} \rangle
+\end{equation}
+where $\text{action} \in \{\text{allow}, \text{deny}, \text{drop}, \text{reset}\}$.
+
+The topology engine correlates vulnerability listener ports with directional firewall session statistics:
+\begin{equation}
+    \Psi(h, p) = \frac{\sum_{\ell \in \mathcal{L}} \mathbb{I}(\text{dst}=h \land \text{port}=p \land \text{action}=\text{allow})}{\sum_{\ell \in \mathcal{L}} \mathbb{I}(\text{dst}=h \land \text{port}=p)}
+\end{equation}
+If $\Psi(h, p)=0$ over a defined observation window, the result is stored as evidence that no allowed sessions were observed in that telemetry source during that period. It does \emph{not} by itself prove absence of reachability and does not directly transform $\text{MAV:Network}$ into $\text{MAV:Adjacent}$ or $\text{MAV:Local}$. MAV changes require corroborating topology and vulnerability-semantic evidence; incomplete observations trigger the fail-safe review policy.
+

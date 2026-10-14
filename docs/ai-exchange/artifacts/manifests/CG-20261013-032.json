@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261013-032",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_head": "208a2b04bd2fd9dcd00f2d695c3ec332272cc01f",
+  "created_at": "2026-10-13T22:05:00-03:00",
+  "type": "optional_ai_assurance_architecture",
+  "decision": "OPTIONAL_NON_BLOCKING_PROVIDER_NEUTRAL_AI_ASSURANCE_LAYER",
+  "architecture": {
+    "core": "FULLY_AUTONOMOUS_WITHOUT_AI",
+    "ai_layer": "OPTIONAL_HCAL",
+    "direct_score_override": "PROHIBITED",
+    "outage_behavior": "GRACEFUL_DEGRADATION",
+    "final_score_engine": "DETERMINISTIC_FIRST_ONLY",
+    "future_optional_gate": "G11_OPTIONAL_AI_ASSURANCE_VALIDATION"
+  },
+  "current_gates": {
+    "G9A": "FINAL_TECHNICAL_CORRECTION_REQUIRED",
+    "G9B": "PASS",
+    "G10A": "NOT_YET_READY_FOR_FREEZE_AUDIT"
+  },
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "artifacts": []
+}

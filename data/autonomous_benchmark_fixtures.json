@@ -1,0 +1,159 @@
+[
+  {
+    "fixture_id": "FIX-001-MAV-PUBLIC",
+    "cve_id": "CVE-2024-0001",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "PUBLIC_ROUTED",
+      "telemetry_age_days": 0.1
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mav": "N"
+  },
+  {
+    "fixture_id": "FIX-002-MAV-ADJACENT",
+    "cve_id": "CVE-2024-0002",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "ADJACENT_ONLY",
+      "telemetry_age_days": 0.1
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mav": "A"
+  },
+  {
+    "fixture_id": "FIX-003-MAV-LOCAL",
+    "cve_id": "CVE-2024-0003",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "LOCAL_ONLY",
+      "telemetry_age_days": 0.1
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mav": "L"
+  },
+  {
+    "fixture_id": "FIX-004-MAV-PHYSICAL",
+    "cve_id": "CVE-2024-0004",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "PHYSICAL_ONLY",
+      "telemetry_age_days": 0.1
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mav": "P"
+  },
+  {
+    "fixture_id": "FIX-005-MAC-WAF-GENERIC",
+    "cve_id": "CVE-2024-0005",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "PUBLIC_ROUTED",
+      "waf_active": true,
+      "telemetry_age_days": 0.2
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mac": null
+  },
+  {
+    "fixture_id": "FIX-006-MAC-ELEVATED",
+    "cve_id": "CVE-2024-0006",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "PUBLIC_ROUTED",
+      "evidenced_exploit_preconditions_elevated": true,
+      "telemetry_age_days": 0.2
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mac": "H"
+  },
+  {
+    "fixture_id": "FIX-007-MPR-AUTH-PREREQ",
+    "cve_id": "CVE-2024-0007",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "PUBLIC_ROUTED",
+      "target_authenticated_prerequisite": "LOW",
+      "telemetry_age_days": 0.2
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_mpr": "L"
+  },
+  {
+    "fixture_id": "FIX-008-REQS-POLICY-CR-IR",
+    "cve_id": "CVE-2024-0008",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "INTERNAL_ROUTED",
+      "telemetry_age_days": 0.1,
+      "organization_policy_id": "POL-CORP-01",
+      "policy_version": "2026.1",
+      "security_requirements": {"CR": "H", "IR": "H", "AR": "M"}
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_cr": "H"
+  },
+  {
+    "fixture_id": "FIX-009-SUBSEQUENT-IMPACTS",
+    "cve_id": "CVE-2024-0009",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "INTERNAL_ROUTED",
+      "telemetry_age_days": 0.1,
+      "organization_policy_id": "POL-CORP-01",
+      "policy_version": "2026.1",
+      "modified_impacts": {"MSC": "N", "MSI": "N", "MSA": "N"}
+    },
+    "expected_status": "AUTO_ACCEPT",
+    "expected_msc": "N"
+  },
+  {
+    "fixture_id": "FIX-010-STALE-TELEMETRY-ABSTAIN",
+    "cve_id": "CVE-2024-0010",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "LOCAL_ONLY",
+      "telemetry_profile": "dynamic",
+      "telemetry_age_days": 2.5
+    },
+    "expected_status": "ABSTAIN",
+    "expected_decision": "abstained"
+  },
+  {
+    "fixture_id": "FIX-011-CONFLICTING-FIREWALL-ROUTING",
+    "cve_id": "CVE-2024-0011",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "INTERNAL_ROUTED",
+      "telemetry_age_days": 0.1,
+      "firewall_status": "ALLOW_TRAFFIC",
+      "routing_table_status": "NO_ROUTE_TO_HOST"
+    },
+    "expected_status": "ABSTAIN",
+    "expected_decision": "abstained"
+  },
+  {
+    "fixture_id": "FIX-012-WARNING-NEAR-EXPIRATION",
+    "cve_id": "CVE-2024-0012",
+    "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+    "evidence": {
+      "evidence_quality": "SUFFICIENT",
+      "reachability": "LOCAL_ONLY",
+      "telemetry_profile": "dynamic",
+      "telemetry_age_days": 0.90
+    },
+    "expected_status": "AUTO_ACCEPT_WITH_WARNING",
+    "expected_mav": "L"
+  }
+]

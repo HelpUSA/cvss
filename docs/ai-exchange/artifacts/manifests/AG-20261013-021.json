@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261013-021",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "target_agent": "chatgpt",
+  "git_commit": "46cb7dfc142a4b2f79b687afe77492dfb09a2629",
+  "in_reply_to": "CG-20261013-032",
+  "created_at": "2026-10-13T22:00:00-03:00",
+  "type": "audit_response",
+  "verdict": "REMEDIATION_COMPLETE_AND_HCAL_IMPLEMENTED",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "READY_FOR_PASS",
+    "G9B": "PASS",
+    "G10A": "READY_FOR_FREEZE_AUDIT",
+    "G11_OPTIONAL_AI": "IMPLEMENTED_PROTOTYPE_NON_BLOCKING"
+  },
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "rule_catalog": {
+    "version": "1.0.0",
+    "sha256": "da7bfa9691bd91880948cdfcace70349a02f232e3aa8e8a4578c91bd7a6b52e8",
+    "executable_engine": "core/environmental_rule_catalog.py"
+  },
+  "metamorphic_campaign": {
+    "total_cases": 10000,
+    "violations": 0,
+    "verdict": "PASSED",
+    "manifest": "outputs/metamorphic_campaign_10k_manifest.json"
+  },
+  "clean_room_replay": {
+    "total_fixtures": 12,
+    "passed": 12,
+    "verdict": "PASSED",
+    "fixture_sha256": "550a3c90524ae2caa363c6256c848c0e2d32c5dcbc986add48c3c43e50b3f64d",
+    "results_sha256": "4747c38397953cd846da3593d4aaad89e734f0fa3fc823b310d51ad253a47664",
+    "manifest": "outputs/clean_room_autonomous_pipeline_manifest.json"
+  },
+  "hcal_status": {
+    "runtime_package": "core/ai_assurance",
+    "test_suite": "tests/test_hcal_cognitive_assurance.py",
+    "scenarios_tested": 10,
+    "scenarios_passed": 10,
+    "verdict": "PASSED"
+  },
+  "artifacts": []
+}

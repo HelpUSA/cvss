@@ -1,20 +1,30 @@
-"""Compatibility adapter for the evidence-grounded CVSS v4.0 pipeline.
+"""Evidence-grounded CVSS v4.0 environmental engine adapter.
 
-The former implementation applied hand-authored numeric deltas to a Base score.
-That model is intentionally removed. This adapter now requires a CVSS v4.0 source
-vector, obtains candidate metrics from ``AIEvidenceEngine``, and delegates numeric
-calculation to ``core.cvss40``.
+Receives a CVSS v4.0 source vector, evaluates evidence via the canonical
+environmental rule catalog (core.environmental_rule_catalog), and delegates
+numeric calculation to core.cvss40.
+
+Autonomous Straight-Through Processing (STP) state machine:
+- AUTO_ACCEPT: Fully automated deterministic scoring without HITL block.
+- AUTO_ACCEPT_WITH_WARNING: Automated scoring with audit sampling flag.
+- HUMAN_REVIEW_REQUIRED: Routing to exception queue (e.g. semantic disagreement, policy ambiguity).
+- ABSTAIN: Fail-closed abstention (missing, stale, or conflicting reachability/evidence).
 """
 from __future__ import annotations
 
 from typing import Any, Dict
 
 from core.ai_evidence_engine import AIEvidenceEngine
-from core.cvss40 import compare
+from core.cvss40 import compare, score
 
 
 def calculate(row: Dict[str, Any]) -> Dict[str, Any]:
-    source_vector = row.get("source_cvss_vector") or row.get("cvss_vector") or row.get("vector") or row.get("base_vector")
+    source_vector = (
+        row.get("source_cvss_vector")
+        or row.get("cvss_vector")
+        or row.get("vector")
+        or row.get("base_vector")
+    )
     if not source_vector:
         raise ValueError("A CVSS v4.0 source vector is required; numeric-only base_score input is no longer supported")
     if not str(source_vector).startswith("CVSS:4.0/"):
@@ -28,6 +38,7 @@ def calculate(row: Dict[str, Any]) -> Dict[str, Any]:
         "internet_exposed", "routed_ip_access", "l2_broadcast_only", "local_host_only",
         "physical_access_only", "evidenced_exploit_preconditions_elevated",
         "organization_policy_id", "policy_version", "security_requirements", "modified_impacts",
+        "target_authenticated_prerequisite", "waf_active",
     ):
         if key in row and key not in evidence:
             evidence[key] = row[key]
@@ -38,7 +49,9 @@ def calculate(row: Dict[str, Any]) -> Dict[str, Any]:
         cve_id=row.get("cve_id") or row.get("cve"),
     )
 
-    if inference["review_status"] == "HUMAN_REVIEW_REQUIRED":
+    review_status = inference.get("review_status", "ABSTAIN")
+
+    if review_status in ("ABSTAIN", "HUMAN_REVIEW_REQUIRED"):
         src = score(str(source_vector))
         return {
             "source_vector": src["vector"],
@@ -51,18 +64,22 @@ def calculate(row: Dict[str, Any]) -> Dict[str, Any]:
             "environmental_severity": None,
             "delta": None,
             "decision": "abstained",
-            "review_status": inference["review_status"],
-            "human_review_status": "required",
+            "review_status": review_status,
+            "human_review_status": inference.get("human_review_status", "required"),
             "auto_downgrade_permitted": False,
             "candidate_metrics": {},
-            "adjustment_trace": inference["citations"],
-            "rationale": inference["summary_rationale"],
+            "adjustment_trace": inference.get("citations", []),
+            "rationale": inference.get("summary_rationale", ""),
+            "catalog_version": inference.get("catalog_version"),
+            "catalog_hash": inference.get("catalog_hash"),
+            "evidence_hash": inference.get("evidence_hash"),
         }
 
     scoring = compare(str(source_vector), inference["candidate_metrics"])
     src = scoring["source_cvss"]
     ctx = scoring["candidate_cvss"]
     delta = scoring["delta"]
+
     return {
         "source_vector": src["vector"],
         "source_nomenclature": src["nomenclature"],
@@ -74,10 +91,13 @@ def calculate(row: Dict[str, Any]) -> Dict[str, Any]:
         "environmental_severity": ctx["severity"],
         "delta": delta,
         "decision": "downgraded" if delta < 0 else ("upgraded" if delta > 0 else "unchanged"),
-        "review_status": inference["review_status"],
-        "human_review_status": "required",
-        "auto_downgrade_permitted": False,
+        "review_status": review_status,
+        "human_review_status": inference.get("human_review_status", "none"),
+        "auto_downgrade_permitted": inference.get("auto_downgrade_permitted", True),
         "candidate_metrics": inference["candidate_metrics"],
         "adjustment_trace": inference["citations"],
         "rationale": inference["summary_rationale"],
+        "catalog_version": inference.get("catalog_version"),
+        "catalog_hash": inference.get("catalog_hash"),
+        "evidence_hash": inference.get("evidence_hash"),
     }

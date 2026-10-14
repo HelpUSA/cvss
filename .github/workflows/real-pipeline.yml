@@ -1,53 +1,78 @@
-name: Real Pipeline Gate
+name: real-pipeline
 
 on:
   push:
     branches:
       - real-world-cvss
       - "auth1f-*"
+      - scientific-validation
+      - "antigravity/*"
+      - "chatgpt/*"
   pull_request:
     branches:
       - real-world-cvss
-
-permissions:
-  contents: read
+      - scientific-validation
 
 jobs:
-  validate-real-pipeline:
+  ai-exchange-contract-validation:
+    name: AI Exchange Contract Validation
     runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    env:
-      BETTER_AUTH_SECRET: real-pipeline-validation-secret-0123456789abcdef
-      BETTER_AUTH_URL: http://localhost:3000
-      AUTH_PUBLIC_BASE_URL: http://localhost:3000
-      AUTH_TRUSTED_ORIGINS: http://localhost:3000
-      NEXT_TELEMETRY_DISABLED: "1"
-      CI: "1"
-      PYTHONDONTWRITEBYTECODE: "1"
-      PYTHONUTF8: "1"
-
+    timeout-minutes: 5
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Validate AI Exchange Contracts
+        run: python scripts/ai_exchange_validate.py
+
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip pytest
+          python -m pip install -r requirements.txt
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "npm"
+          cache: npm
           cache-dependency-path: web/package-lock.json
-
-      - name: Install Python dependencies
-        run: python -m pip install --upgrade pip pytest
-
-      - name: Install web dependencies
-        run: npm ci --prefix web
-
-      - name: Validate real pipeline
+      - name: Install Web dependencies
+        run: |
+          npm ci --prefix web
+          npx --prefix web prisma generate --schema web/prisma/schema.prisma
+      - name: Python test suite
+        run: python -m pytest -q
+      - name: TypeScript check
+        run: npm --prefix web run typecheck
+      - name: Web build
+        run: npm --prefix web run build
+      - name: Fetch and verify FIRST Reference Corpus fixtures
+        run: python scripts/fetch_first_fixtures.py
+      - name: Execute G1 FIRST Reference Calculator Corpus
+        run: python scripts/run_first_reference_corpus_round4.py
+      - name: HITL Route Security Tests
+        working-directory: web
+        run: npx tsx scripts/test_review_decision_route.ts
+      - name: Verify Portable Clean-Room Artifact
+        run: python scripts/verify_portable_artifact_round4.py helpus_cvss_ai_portable_artifact_round4.zip
+      - name: Verify Book LaTeX Build Manifest
+        run: python scripts/verify_book_latex_manifest.py
+      - name: Audit Public Site Semantic Claims
+        run: python scripts/audit_public_site_claims_round4.py index.html
+      - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py

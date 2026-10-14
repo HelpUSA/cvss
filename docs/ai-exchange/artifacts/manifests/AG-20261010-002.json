@@ -1,0 +1,59 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261010-002",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "git_commit": "52b72836262b8813bc034d61244589258aa58428",
+  "created_at": "2026-10-10T18:55:00-03:00",
+  "artifacts": [
+    {
+      "path": "outputs/first-reference-corpus-round4.json",
+      "media_type": "application/json",
+      "sha256": "eb2adb6846f00c888677c2d49591fbd3f7b191e641047afd254c0b450f8ca2f5",
+      "size_bytes": 1881,
+      "purpose": "g1_first_corpus_evidence_486k_cases"
+    },
+    {
+      "path": "outputs/review_decision_tests_results.json",
+      "media_type": "application/json",
+      "sha256": "7337596c9ce1469069794c923dd7e1a243095a5cdbe4aa9d32aeb287dab0edbd",
+      "size_bytes": 972,
+      "purpose": "g4_hitl_server_review_decision_tests_evidence"
+    },
+    {
+      "path": "outputs/web_api_tests_results.json",
+      "media_type": "application/json",
+      "sha256": "a4d3b893f1b04cc2f334c999137c99e2b031903cc6c1d3b854b4460f7b76c83a",
+      "size_bytes": 1495,
+      "purpose": "g4_web_api_analyze_environment_tests_evidence"
+    },
+    {
+      "path": "outputs/production-copy-audit-round4.json",
+      "media_type": "application/json",
+      "sha256": "8a10d4744f8d2d1e91e29f02250641461bd0434a23fd5be74f09383d610a5b53",
+      "size_bytes": 771,
+      "purpose": "g8_expanded_site_semantic_audit_evidence"
+    },
+    {
+      "path": "outputs/dataset_b_finalization_provenance.json",
+      "media_type": "application/json",
+      "sha256": "6c5e491f298054af482e31dd1046a80676ddc2761beae2f3a43cc0e55dbd0dfa",
+      "size_bytes": 12032,
+      "purpose": "g5_dataset_b_g1_scorer_recomputation_provenance"
+    },
+    {
+      "path": "outputs/pytest-portable.log",
+      "media_type": "text/plain",
+      "sha256": "bf96af1f74d317ce8fda2b2121ff0fc172375059b787ecc21f8e6b0b0e189a15",
+      "size_bytes": 386,
+      "purpose": "g2_clean_room_portable_pytest_log"
+    },
+    {
+      "path": "outputs/pytest-full.log",
+      "media_type": "text/plain",
+      "sha256": "d4714876e27a0deeddd1ae43732c6d7f1491a7709fbdfb33b3c3137903558dcc",
+      "size_bytes": 4346,
+      "purpose": "g2_full_repository_pytest_log"
+    }
+  ]
+}

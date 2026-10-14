@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261013-019",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "git_commit": "c8d53ed311b51829e06c3395b8d2eb97d91d84a7",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_branch": "antigravity/round5-prefreeze-reconciliation",
+  "created_at": "2026-10-13T20:55:00-03:00",
+  "type": "implementation_handoff",
+  "safe_to_freeze": false,
+  "gate_status_current": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS",
+    "G8": "PASS",
+    "G9-LEGACY": "PRESERVED_HISTORICAL",
+    "G9A": "READY_FOR_AUDIT",
+    "G9B": "READY_FOR_AUDIT",
+    "G10A": "PENDING_G9B"
+  },
+  "invariants": {
+    "g1_g8": "PASS_CLOSED",
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "artifacts": [
+    {
+      "path": "docs/AUTONOMOUS_ENVIRONMENTAL_CONTEXT_ARCHITECTURE.md",
+      "sha256": "3be0a490ea20b0b5d7bcf33ebd756f15366e0c90db304d384916f52455706dca",
+      "size_bytes": 6377,
+      "type": "specification"
+    },
+    {
+      "path": "docs/ENVIRONMENTAL_RULE_CATALOG_V1.md",
+      "sha256": "783668c3c1d3f44812ae336674cd2b4fee3a167c41f4b102e72d332fe46a0a32",
+      "size_bytes": 6452,
+      "type": "specification"
+    },
+    {
+      "path": "docs/NON_HUMAN_VALIDATION_PROTOCOL.md",
+      "sha256": "7c930b5c48494e3bcfd4e3253d8a7eff5b97a9a4934665e112587bcd2d2c2d33",
+      "size_bytes": 5203,
+      "type": "specification"
+    },
+    {
+      "path": "tests/test_environmental_metamorphic_rules.py",
+      "sha256": "bdc4f0c62dc3617cd0972f411e8d0688500cf088f1e5c992261650fd97278e4e",
+      "size_bytes": 6827,
+      "type": "test_suite"
+    }
+  ]
+}

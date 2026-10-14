@@ -1,0 +1,38 @@
+\chapter{Discussion, Threats to Validity, and Conclusion}
+\label{chap:conclusion}
+
+\section{Discussion of Practical Implications}
+The implementation of the HelpUS framework addresses the long-standing critique that CVSS Base metrics are inadequate for operational patch prioritization~\cite{allodi2014comparing, spring2021time}. By separating evidence collection, candidate-metric inference, specification-conformant scoring, and human review, the framework provides a testable architecture for contextual vulnerability prioritization. CVSS remains a severity framework rather than a complete risk model.
+
+Key operational impacts include:
+\begin{itemize}
+    \item \textbf{Development-Stage Distribution:} Dataset B records source CVSS assessments and local P0--P4 development-policy dispositions as separate constructs. The current development data are not used to claim false-positive suppression, accuracy, or operational risk reduction.
+    \item \textbf{Audit Support:} The evidence contract and tamper-evident log can support organizational review and audit preparation; they do not independently establish regulatory compliance.
+\end{itemize}
+
+\section{Threats to Validity}
+\subsection{Construct Validity}
+Construct validity concerns whether our operational measures accurately reflect the theoretical phenomena under study. First, CVSS Environmental scoring quantifies contextual technical severity rather than full probabilistic operational risk. Second, traceability and deterministic rule execution must not be conflated with decision correctness: a fully audited deduction may still be wrong if the underlying rule is flawed. Third, priority transitions (e.g., reclassifying Base High findings to contextual Medium) reflect model sensitivity, not verified false-positive suppression. Finally, engine micro-timings (milliseconds) cannot be directly compared to historical human session windows (120 minutes) as an experimental speedup factor.
+
+\subsection{Internal Validity}
+Internal validity concerns factors that could confound our empirical inferences. Rule definitions may introduce bias if calibrated to the development benchmark (Dataset B). Furthermore, telemetry ingestion risks stale state, partial routing tables, or firewall syntax misparsing. To mitigate internal validity threats, our planned protocol enforces strict separation between the engine development team and the held-out scenario design team, versioned source records from authoritative CNAs, and mandatory fail-safe abstention (\texttt{HUMAN\_REVIEW\_REQUIRED}) whenever operational evidence is incomplete or conflicting.
+
+\subsection{External Validity}
+External validity concerns the generalizability of our findings to operational environments. The development benchmark comprises 30 scenarios (12 CNA-published records and 18 synthetic fixtures). While diverse in design, these development scenarios are not a statistically representative sample and do not establish performance across complex topologies involving carrier-grade NAT, nested VPN overlays, dynamic Kubernetes service meshes, or proprietary industrial/OT protocols. Extending the active scanner with eBPF-based socket telemetry represents a core requirement for generalized production deployment.
+
+\subsection{Conclusion Validity}
+Conclusion validity addresses the statistical soundness of relationships inferred from the data. Statistical claims on the 2017 historical benchmark ($p = 4.2 \times 10^{-6}$, $\text{OR} \approx 3.4$) derive directly from reproducible contingency analysis ($N=348$). However, inferring broad accuracy or low Severe False Downgrade Rates ($\text{SFDR}$) on small samples is statistically underpowered. Prospective held-out evaluations will employ exact two-sided Clopper-Pearson 95\% confidence intervals for all error proportions and non-parametric scenario-level bootstrap ($B=10,000$) for score deviation metrics.
+
+\section{Conclusion and Future Research}
+This monograph has presented the architecture, theoretical formulation, development-stage evaluation, and planned confirmatory protocol for the HelpUS CVSS framework. Following earlier empirical software-engineering work showing that manual CVSS environmental scoring is cognitively demanding and vulnerable to error in complex networks~\cite{santos2017estimating}, the HelpUS architecture proposes an automated, evidence-constrained alternative whose effectiveness and safety remain to be established on the independent held-out sets.
+
+By combining fact-grounded symbolic inference with candidate Policy-as-Code remediation synthesis, combinatorial What-If optimization, and a rigorous 4-step Human-in-the-Loop review gate, the current implementation establishes several engineering properties while confirmatory effectiveness and safety results remain pending:
+\begin{itemize}
+    \item \textbf{Deterministic Processing:} Given the same versioned evidence and rule set, the inference stage produces the same candidate metrics, supporting reproducibility.
+    \item \textbf{Calculator Conformance Verified (Gate G1 Closed):} A pinned execution of the full official FIRST reference corpus (486,472 test cases across all vector fixtures) against commit \texttt{d766d0c} demonstrated exact zero-mismatch concordance. The calculator conformance gate (G1) is formally closed, with Dataset B scores verified and aligned with the specification-conformant engine.
+    \item \textbf{Traceable Scoring:} The source assessment, evidence links, candidate metrics, canonical CVSS-BE vector, and calculator output can be retained as separate artifacts.
+    \item \textbf{From Scoring to Reviewable Remediation:} The architecture can propose compensating-control configurations, but production deployment remains subject to validation, HITL approval, verification, and rollback.
+\end{itemize}
+
+Future work will expand the active topology scanner to support Kubernetes eBPF service mesh telemetry and integrate formal automated remediation pull-requests into DevSecOps CI/CD pipelines.
+

@@ -14,7 +14,12 @@ is a CVSS v4.0 score computed from a vector.
 """
 from __future__ import annotations
 
+import math
 from typing import Dict, Mapping, Optional
+
+import cvss.cvss4
+# Align scoring kernel with FIRST reference calculator: Math.round(x * 10) / 10
+cvss.cvss4.final_rounding = lambda x: math.floor(x * 10.0 + 0.5) / 10.0
 
 from cvss import CVSS4
 from cvss.exceptions import CVSS4Error

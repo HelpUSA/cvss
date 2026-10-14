@@ -1,0 +1,206 @@
+{
+  "generated_at": "2026-10-08",
+  "status": "PRE_FREEZE",
+  "files": [
+    {
+      "path": "LATEX_BUILD_REPORT_CHATGPT_ROUND2.md",
+      "sha256": "cdcfa130128afb8af6baf7fc580f7fad10fc6e1b79fe08faa025603108c320e3",
+      "bytes": 545
+    },
+    {
+      "path": "OVERLEAF_README_CHATGPT_ROUND2.md",
+      "sha256": "c614faeffcfb13e7477719e7ca8dcfa6ff703b89cf30f7d86c3fba8cc89a6cf1",
+      "bytes": 1165
+    },
+    {
+      "path": "chapters/01_introduction.tex",
+      "sha256": "f6e2172a1152a9e55ad6c8fb42caf699b20ba6e8132750d142fc002bc2e0219b",
+      "bytes": 4841
+    },
+    {
+      "path": "chapters/02_cvss_foundations.tex",
+      "sha256": "beb6775cc60e7f7bab7f959685b71b24d8bbf39ae1e96edea4b62524b65aa80a",
+      "bytes": 8441
+    },
+    {
+      "path": "chapters/03_watcher_architecture.tex",
+      "sha256": "26195792c3e38261aae2f453e3cbc428ccab186c7f30a9ce3f63efa176a4abcb",
+      "bytes": 14260
+    },
+    {
+      "path": "chapters/04_scanner_and_topology.tex",
+      "sha256": "ac5801480253b6a5d55492898f0ef11944405f9e9b665b4f3a069abf49d7062f",
+      "bytes": 5057
+    },
+    {
+      "path": "chapters/05_hitl_governance.tex",
+      "sha256": "d3fee4f42e75f207662f5e2e2cd82ba205a19340803f462e776105792694f5a2",
+      "bytes": 5423
+    },
+    {
+      "path": "chapters/06_empirical_evaluation.tex",
+      "sha256": "ffe7516fadc21fe2f9f7165aa83b69508a226cf5dd240f4c0a73c3539d7abe13",
+      "bytes": 7405
+    },
+    {
+      "path": "chapters/07_case_studies.tex",
+      "sha256": "f704ede866b51e67917ff81ec771bf3c82e49b1f3908fa6331a61bd02653312c",
+      "bytes": 7311
+    },
+    {
+      "path": "chapters/08_conclusion.tex",
+      "sha256": "67634cfbee25042ad24966731a82f36c46d10562869cae367a7b7fce735e0f13",
+      "bytes": 5582
+    },
+    {
+      "path": "chapters/appendix_a_pci_scenarios.tex",
+      "sha256": "8876964aaba943dee68357b469ba256c843ee7cb263f39822742cc38f1b46b0b",
+      "bytes": 5415
+    },
+    {
+      "path": "chapters/appendix_b_statistical_methods.tex",
+      "sha256": "100d8f7b643f2b270331e7afa7ec1d5a8e6159857724a8aff7961b9c81d52428",
+      "bytes": 5459
+    },
+    {
+      "path": "chapters/appendix_c_historical_dataset.tex",
+      "sha256": "2322e050815bdee62eb4345e999b885c2e0deb6cb693bbbc14d290ad3bbce8d2",
+      "bytes": 6734
+    },
+    {
+      "path": "chapters/table_6_1_generated.tex",
+      "sha256": "9eb2b54333ff9e5d67119c8b8ad75f9416885ad7a707d62fbe0f64a44f33b331",
+      "bytes": 777
+    },
+    {
+      "path": "figures/christineafter.JPG",
+      "sha256": "849b42f16a806abe6010a51ab1c978e938024baa02770720d3150529d0f010ec",
+      "bytes": 81483
+    },
+    {
+      "path": "figures/christinebefore.JPG",
+      "sha256": "0b60cef5454f00332863dde5cd9eaa3efa970ba9b0c87aa63ba0f9f1ac2dcaea",
+      "bytes": 75132
+    },
+    {
+      "path": "figures/christinebeforeandafter.jpg",
+      "sha256": "de16e6cefbaf4ed100d5361a67eaa362e181e8731ac34a34f5134e56d0cfa3e6",
+      "bytes": 232268
+    },
+    {
+      "path": "figures/fig1_severity_redistribution.pdf",
+      "sha256": "a9d436130ac96ff034e46b3f42c77064f6e6156f18ebc1fa0c4eac260933c3bf",
+      "bytes": 32028
+    },
+    {
+      "path": "figures/fig1_severity_redistribution.png",
+      "sha256": "af03931507edbeaf743049a5d5e0ee9963457277b47cc547096286d1f5c2ac1c",
+      "bytes": 82672
+    },
+    {
+      "path": "figures/fig2_transition_matrix.pdf",
+      "sha256": "def93d0c4f2b53f866cfbe33c13d4fc02b98587375a1708dd6380d710b3f727f",
+      "bytes": 29178
+    },
+    {
+      "path": "figures/fig2_transition_matrix.png",
+      "sha256": "44a375849a9959b69ed927c7f03e3365a939c20582e6c06e2accb8fc14261bc6",
+      "bytes": 89209
+    },
+    {
+      "path": "figures/fig3_delta_distribution.pdf",
+      "sha256": "73bb795bf101685c5114de866dc3aa27d22561ebe9c9fb4abdd142138ba082c2",
+      "bytes": 28585
+    },
+    {
+      "path": "figures/fig3_delta_distribution.png",
+      "sha256": "edfaa4c681f60f9b69d97ee0f10b9d5c50f8d6dae1fdb73fae99e77f24826701",
+      "bytes": 98095
+    },
+    {
+      "path": "figures/fig4_radar_comparison.pdf",
+      "sha256": "5517794b883a4213b2a445cc6499d0d54b9a213c97d08e96d9011267ed3422cb",
+      "bytes": 26562
+    },
+    {
+      "path": "figures/fig4_radar_comparison.png",
+      "sha256": "0b0127948b72ff64430af819269190b21cae54e167947c7e5f9197717d44138d",
+      "bytes": 256301
+    },
+    {
+      "path": "figures/fig5_latency_throughput.pdf",
+      "sha256": "f451bf83f605990ecd48926c1c053c30f344b2b873269f4e9d895fb8f9514dbc",
+      "bytes": 27476
+    },
+    {
+      "path": "figures/fig5_latency_throughput.png",
+      "sha256": "aa32d743257cc6366b5f2e88e5cdac982af35ac34d9d293629d47272719790bf",
+      "bytes": 96313
+    },
+    {
+      "path": "figures/fig6_human_vs_ai_accuracy.pdf",
+      "sha256": "c95156506485c0a518860c1ef9771f1cfbec1ceb7b8473f27539a2c7d3319055",
+      "bytes": 36212
+    },
+    {
+      "path": "figures/fig6_human_vs_ai_accuracy.png",
+      "sha256": "f768576559ab8f0993d7a7e5b04872d2030e9c8e660c6cc57665f0f31296d761",
+      "bytes": 238194
+    },
+    {
+      "path": "figures/fig7_monte_carlo_human_vs_ai.pdf",
+      "sha256": "482f4eebc4aa0029b7feae8a312f016e55482f890fa8cfefe94fd777161a2d1d",
+      "bytes": 35011
+    },
+    {
+      "path": "figures/fig7_monte_carlo_human_vs_ai.png",
+      "sha256": "95cf0f5caa3d07d46dcf766ad05235ee22fe14c4106d27759bf5cd6dd779163a",
+      "bytes": 279804
+    },
+    {
+      "path": "figures/joeafter.jpg",
+      "sha256": "f6120e5821a2b77b14bb819a6460dbde905132529e6f7a9767fea31a9f7ffa89",
+      "bytes": 63282
+    },
+    {
+      "path": "figures/joebefore.jpg",
+      "sha256": "df0b5a97adfb92aac8740ea7f0130c36db2646ece4867e9df2229d76379e5137",
+      "bytes": 51851
+    },
+    {
+      "path": "figures/joebeforeandafter.jpg",
+      "sha256": "cde8467bd49f342e4a2319258e865fca543ac146a01df5633ee49183883c005c",
+      "bytes": 271749
+    },
+    {
+      "path": "generated/historical_fisher.json",
+      "sha256": "49e44c85d3aa6a32d3d8b4bb624425e423ca4990e0e8896fe8446a59dcd2950f",
+      "bytes": 424
+    },
+    {
+      "path": "generated/historical_fisher_macros.tex",
+      "sha256": "bcfb62c8c13cd6371b0ccc31c03ee731c8f4ea0c7c705b357db85f98ddc0d09e",
+      "bytes": 299
+    },
+    {
+      "path": "helpus_cvss_ai_monograph_chatgpt_round2.pdf",
+      "sha256": "ca9a6be6cc1849dbde2187a948072a58e2bd4097189ab1657ce678d188a5f5e9",
+      "bytes": 1113010
+    },
+    {
+      "path": "main.pdf",
+      "sha256": "ca9a6be6cc1849dbde2187a948072a58e2bd4097189ab1657ce678d188a5f5e9",
+      "bytes": 1113010
+    },
+    {
+      "path": "main.tex",
+      "sha256": "19330b61e1f24b67020694d4d3d77c4387795b266c41e21a3fda8eb8a979f962",
+      "bytes": 4335
+    },
+    {
+      "path": "references.bib",
+      "sha256": "eb546e0d199bb6b8587a03ca8660508016dcea4d29b9f34a0f60336c75ed8054",
+      "bytes": 2843
+    }
+  ]
+}

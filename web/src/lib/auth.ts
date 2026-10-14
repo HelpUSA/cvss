@@ -8,12 +8,11 @@ import {
 import { prisma } from "@/lib/prisma";
 
 function requiredAuthSecret(): string {
-  const value =
-    process.env.BETTER_AUTH_SECRET?.trim();
+  const value = process.env.BETTER_AUTH_SECRET?.trim();
 
   if (!value || value.length < 32) {
     throw new Error(
-      "BETTER_AUTH_SECRET must contain at least 32 characters.",
+      "Configuration Error: BETTER_AUTH_SECRET must be explicitly set and be at least 32 characters long. Startup aborted in fail-closed mode."
     );
   }
 
@@ -25,9 +24,10 @@ function requiredAuthBaseUrl(): string {
     process.env.BETTER_AUTH_URL?.trim();
 
   if (!value) {
-    throw new Error(
-      "BETTER_AUTH_URL is required.",
-    );
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`;
+    }
+    return "https://cvss.helpusbr.com";
   }
 
   return new URL(value).origin;
@@ -65,14 +65,17 @@ export const auth = betterAuth({
   }),
 
   emailAndPassword: {
-    enabled: true,
+    enabled: false,
     disableSignUp: true,
-    minPasswordLength: 12,
-    maxPasswordLength: 128,
+  },
 
-    password: {
-      hash: hashPassword,
-      verify: verifyPassword,
+  socialProviders: {
+    google: {
+      clientId:
+        process.env.GOOGLE_CLIENT_ID ||
+        process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
+        "812202824664-s716306ibb7c15jh7aok2v0lfnuocpkn.apps.googleusercontent.com",
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
     },
   },
 

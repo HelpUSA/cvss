@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "G9_CEP_SUBMISSION_MANIFEST",
+  "protocol_version": "1.2",
+  "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+  "project_title": "Avaliação Independente por Especialistas em Segurança da Informação da Acurácia, Segurança e Abstenção do Motor de Inferência Topológica HelpUS CVSS v4.0",
+  "principal_investigator": {
+    "name": "Wagner Santos",
+    "email": "helpus.ecommerce@gmail.com",
+    "institution": "HelpUS Tecnologia"
+  },
+  "regulatory_framework": {
+    "law": "Lei Federal nº 14.874/2024",
+    "decree": "Decreto Federal nº 12.651/2025",
+    "system": "SINEP / Plataforma Brasil",
+    "cep_competente": "[PENDENTE DE DETERMINACAO VIA FLUXO SINEP / PLACEHOLDER]"
+  },
+  "package_dossier": {
+    "index_file": "docs/scientific-validation/governance/cep_dossier/00_DOSSIER_INDEX_AND_CHECKLIST.md",
+    "manifest_file": "docs/scientific-validation/governance/cep_dossier/G9_CEP_DOSSIER_MANIFEST.json",
+    "qa_report_file": "docs/scientific-validation/governance/cep_dossier/PDF_QA_REPORT.json",
+    "pdf_bundle_directory": "docs/scientific-validation/governance/cep_dossier/pdf",
+    "md_bundle_directory": "docs/scientific-validation/governance/cep_dossier/md",
+    "total_documents": 11
+  },
+  "submission_metadata": {
+    "submission_date": "[PENDENTE_SUBMISSAO_PLATAFORMA_BRASIL]",
+    "caae_number": "[PENDENTE_GERACAO_PLATAFORMA_BRASIL]",
+    "opinion_number": "[PENDENTE_PARECER_CONSUBSTANCIADO_CEP]"
+  }
+}

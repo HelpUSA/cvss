@@ -1,0 +1,74 @@
+{
+  "suite": "FIRST CVSS v4.0 strict reference-corpus gate",
+  "first_repository": "https://github.com/FIRSTdotorg/cvss-resources",
+  "commit_sha": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "runtime_scorer": {
+    "engine": "HelpUS CVSS 4.0 Kernel",
+    "base_package": "cvss",
+    "pinned_version": "3.6",
+    "actual_version": "3.6",
+    "rounding_alignment": "FIRST JavaScript Math.round alignment (floor(x * 10.0 + 0.5) / 10.0)",
+    "patch_expression_sha256": "a248255440ba3c6bf22f5a71ed2e67fb3e6a62d73e328e728e69e1b5afa1c81b",
+    "python_version": "3.14.0",
+    "python_executable": "python.exe",
+    "platform": "win32"
+  },
+  "fixture_manifest": {
+    "macro-vectors": {
+      "sha256": "f653914506e697a94a18b690c051144b295626c534737fb79c589a61c1e0e8a3",
+      "size_bytes": 23490,
+      "lines": 270,
+      "verified": true
+    },
+    "macro-scores": {
+      "sha256": "b55926940d4fbb073a0d30a98d6983de93f4542209eee936a671713387f92213",
+      "size_bytes": 36677,
+      "lines": 270,
+      "verified": true
+    },
+    "reference-vectors": {
+      "sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "size_bytes": 6911531,
+      "lines": 66331,
+      "verified": true
+    },
+    "reference-scores": {
+      "sha256": "3b60f12899249bf8b48e01ff0aba451f052a836b22c6a3ffd880b7a5cc2fea4f",
+      "size_bytes": 11648072,
+      "lines": 66331,
+      "verified": true
+    },
+    "base-threat-vectors": {
+      "sha256": "eb9cf89bab6712f368fe65c43f884e1ca4750e4e30181fabad4a61aaecccede1",
+      "size_bytes": 28553472,
+      "lines": 419904,
+      "verified": true
+    },
+    "base-threat-scores": {
+      "sha256": "2695a9b8664608dbf589d48cc8f5cb3f136c7a20d180fa8a54787810c2566ba3",
+      "size_bytes": 48848647,
+      "lines": 419904,
+      "verified": true
+    }
+  },
+  "calculator": "HelpUS CVSS 4.0 Kernel (cvss==3.6 with FIRST JavaScript IEEE-754 rounding alignment)",
+  "summary": {
+    "evaluated": 486472,
+    "passed": 486472,
+    "failed": 0,
+    "valid_cases": {
+      "evaluated": 461444,
+      "failed": 0
+    },
+    "negative_cases": {
+      "evaluated": 25028,
+      "failed": 0
+    },
+    "mismatch_delta_histogram": {},
+    "severity_mismatch_count": 0,
+    "gate_pass": true,
+    "comments_or_headers_skipped": 33,
+    "duration_seconds": 42.545
+  },
+  "mismatches": []
+}

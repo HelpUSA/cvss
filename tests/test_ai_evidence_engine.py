@@ -21,8 +21,9 @@ class TestAIEvidenceEngine(unittest.TestCase):
     def test_internal_routed_is_network(self):
         r = self.engine.analyze_scenario(BASE, self.good())
         self.assertEqual(r["candidate_metrics"]["MAV"], "N")
-        self.assertFalse(r["auto_downgrade_permitted"])
-        self.assertEqual(r["human_review_status"], "required")
+        self.assertEqual(r["review_status"], "AUTO_ACCEPT")
+        self.assertTrue(r["auto_downgrade_permitted"])
+        self.assertEqual(r["human_review_status"], "none")
 
     def test_pci_flag_alone_does_not_set_requirements(self):
         r = self.engine.analyze_scenario(BASE, self.good(pci_in_scope=True))

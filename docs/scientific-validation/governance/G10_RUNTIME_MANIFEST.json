@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "G10_RUNTIME_MANIFEST",
+  "status": "PENDING_CONTAINER_FREEZE",
+  "runtime_environment": {
+    "engine": "docker / podman (rootless)",
+    "base_image": "python:3.11-slim@sha256:[PENDENTE_DIGEST]",
+    "network_policy": "NO_EGRESS / AIR_GAPPED",
+    "memory_protection": "EPHEMERAL_TMPFS_WITH_ZEROIZATION",
+    "execution_mode": "DETERMINISTIC_ONE_SHOT"
+  },
+  "runner_role": "AUTOMATED_CONFIRMATORY_RUNNER",
+  "supervision": {
+    "primary_custodian": "[PENDENTE_NOMEACAO_PLACEHOLDER]",
+    "independent_statistician": "[PENDENTE_NOMEACAO_PLACEHOLDER]"
+  }
+}

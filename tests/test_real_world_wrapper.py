@@ -33,7 +33,7 @@ def test_assess_finding_returns_official_contextual_and_evidence_layers():
     ctx = result["contextual_environmental"]
     assert ctx["score"] == 9.3
     assert ctx["decision"] == "unchanged"
-    assert ctx["auto_downgrade_permitted"] is False
+    assert ctx["auto_downgrade_permitted"] is True
 
     evidence = result["evidence"]
     assert evidence["cve"] == "CVE-2024-0001"

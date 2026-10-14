@@ -1,0 +1,275 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "G9_CEP_DOSSIER_MANIFEST",
+  "generated_at": "2026-10-12T16:55:00-03:00",
+  "project_title": "Avaliação Independente por Especialistas em Segurança da Informação da Acurácia, Segurança e Abstenção do Motor de Inferência Topológica HelpUS CVSS v4.0",
+  "principal_investigator": {
+    "name": "Wagner Santos",
+    "email": "helpus.ecommerce@gmail.com",
+    "institution": "HelpUS Tecnologia"
+  },
+  "regulatory_framework": {
+    "law": "Lei Federal nº 14.874/2024",
+    "decree": "Decreto Federal nº 12.651/2025",
+    "system": "SINEP / Plataforma Brasil",
+    "independent_ethics_committee": "[PENDENTE_FLUXO_SINEP_PLATAFORMA_BRASIL]"
+  },
+  "provenance": {
+    "source_commit_sha": "4f8b12db95957c5fac09682b02ab1e1ed53ec8f3",
+    "build_script_sha256": "2e3d6f745640bd8816bc297f0a883cd42ba04c8692b0948c6b816e31cbc8ddf9",
+    "python_version": "3.14.0",
+    "reportlab_version": "5.0.1",
+    "renderer_engine": "ReportLab 5.0.1 (build) / PyMuPDF 1.28.2 (preflight QA)",
+    "deterministic_mode": true,
+    "byte_integrity_semantics": "RAW_FILESYSTEM_BYTES_EXACT",
+    "reproducibility_verified": true
+  },
+  "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+  "gates": {
+    "G1_G8": "PASS_CLOSED",
+    "G9": "PENDING_EXTERNAL",
+    "G10": "PENDING_PROCEDURAL_EXTERNAL",
+    "SAFE_TO_FREEZE": "NO",
+    "C1_C2_STATUS": "STRICTLY_SEALED_UNOPENED_UNEXECUTED"
+  },
+  "qa_summary": {
+    "overall_status": "PASS",
+    "total_documents": 11,
+    "qa_report_file": "PDF_QA_REPORT.json"
+  },
+  "dossier_documents": [
+    {
+      "id": "01",
+      "slug": "G9_PROTOCOL",
+      "formal_name": "Protocolo de Pesquisa Científica com Participantes Humanos",
+      "version": "1.2",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Protocolo de Pesquisa",
+        "Wagner Santos",
+        "Lei Federal nº 14.874/2024"
+      ],
+      "markdown_file": "md/01_G9_PROTOCOL_v1.2.md",
+      "markdown_sha256": "f953d28988b80bcb7ff927d18d7991442277b67520de3329c97b275feb59f2f2",
+      "markdown_size_bytes": 9957,
+      "pdf_file": "pdf/01_G9_PROTOCOL_v1.2.pdf",
+      "pdf_sha256": "50242cc4aa8e1a4ee40db80e4f1c79cf5685dfb718dace575f137afcd55eb389",
+      "pdf_size_bytes": 12766,
+      "external_fields_required": [
+        "Nome do CEP Institucional Competente (definido pelo fluxo SINEP/Plataforma Brasil)",
+        "Número do CAAE (gerado na submissão na Plataforma Brasil)",
+        "Assinatura do Pesquisador Responsável na Folha de Rosto",
+        "Data oficial de protocolo"
+      ]
+    },
+    {
+      "id": "02",
+      "slug": "G9_TCLE",
+      "formal_name": "Termo de Consentimento Livre e Esclarecido (TCLE — Especialistas)",
+      "version": "1.2",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Termo de Consentimento",
+        "TCLE",
+        "voluntária"
+      ],
+      "markdown_file": "md/02_G9_TCLE_v1.2.md",
+      "markdown_sha256": "f061d918449d8d3c827586b8be4d49e499e966f640432a58838697cc32c82e61",
+      "markdown_size_bytes": 7057,
+      "pdf_file": "pdf/02_G9_TCLE_v1.2.pdf",
+      "pdf_sha256": "f8c4d6674d786c46371712b8deb1ea481d098779ceb9d8e2202d675ff136e9f9",
+      "pdf_size_bytes": 10082,
+      "external_fields_required": [
+        "Número do Parecer Consubstanciado de Aprovação do CEP",
+        "Dados de contato do CEP institucional (endereço, telefone, e-mail)",
+        "Assinatura individual do participante especialista (somente pós-aprovação ética)"
+      ]
+    },
+    {
+      "id": "03",
+      "slug": "G9_SAP",
+      "formal_name": "Plano de Análise Estatística Pré-Especificado (Statistical Analysis Plan — SAP)",
+      "version": "1.2",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Plano de Análise Estatística",
+        "Clopper-Pearson",
+        "Bootstrap BCa"
+      ],
+      "markdown_file": "md/03_G9_SAP_v1.2.md",
+      "markdown_sha256": "69abf4c5b5b321d71629fbd8306eff98d2634c744be24a65ab85430139589ed6",
+      "markdown_size_bytes": 14431,
+      "pdf_file": "pdf/03_G9_SAP_v1.2.pdf",
+      "pdf_sha256": "614afa39ebc2a04406732b73e3ceb40abcd7f8688a9b553276c8c3280818df0c",
+      "pdf_size_bytes": 17683,
+      "external_fields_required": [
+        "Nome e registro profissional (CONRE) do Estatístico/Auditor Independente Externo"
+      ]
+    },
+    {
+      "id": "04",
+      "slug": "G9_COI_FORM",
+      "formal_name": "Declaração de Inexistência de Conflito de Interesses (COI Form)",
+      "version": "1.1",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Conflito de Interesses",
+        "COI",
+        "independente"
+      ],
+      "markdown_file": "md/04_G9_COI_FORM_v1.1.md",
+      "markdown_sha256": "cf240378833fe6d6c5eeed42f4e7f1414c12f30ba358ac4f2d8e2ef41b54398e",
+      "markdown_size_bytes": 5430,
+      "pdf_file": "pdf/04_G9_COI_FORM_v1.1.pdf",
+      "pdf_sha256": "fdf56ccf9f76a9073bcf2c7fba9f6c9d6354fd12138968af738a22ce03503024",
+      "pdf_size_bytes": 9418,
+      "external_fields_required": [
+        "Assinaturas e declarações individuais dos avaliadores (pós-aprovação ética)"
+      ]
+    },
+    {
+      "id": "05",
+      "slug": "G9_EXPERT_ELIGIBILITY",
+      "formal_name": "Critérios Formais de Elegibilidade, Inclusão e Exclusão de Especialistas",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Elegibilidade",
+        "Critérios",
+        "Inclusão"
+      ],
+      "markdown_file": "md/05_G9_EXPERT_ELIGIBILITY_v1.0.md",
+      "markdown_sha256": "ab66646585df4ba0d14d698fdfa4f6f5a316e6cccb220bed2c8bfd2c9cf5febc",
+      "markdown_size_bytes": 1910,
+      "pdf_file": "pdf/05_G9_EXPERT_ELIGIBILITY_v1.0.pdf",
+      "pdf_sha256": "c7357d503f662692430ffe8d919be5fd8a58c1c27c1246659ff595355326d9fe",
+      "pdf_size_bytes": 4867,
+      "external_fields_required": [
+        "Comprovação documental de certificações/titulações no recrutamento (pós-CEP)"
+      ]
+    },
+    {
+      "id": "06",
+      "slug": "G9_RECRUITMENT_INVITATION",
+      "formal_name": "Carta-Convite Institucional para Recrutamento de Especialistas Avaliadores",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Convite",
+        "Participação",
+        "Pesquisa"
+      ],
+      "markdown_file": "md/06_G9_RECRUITMENT_INVITATION_v1.0.md",
+      "markdown_sha256": "1785334c380d907e57999c90794ad2a44ff88e94459845aa0a5cc7bfdf159830",
+      "markdown_size_bytes": 2061,
+      "pdf_file": "pdf/06_G9_RECRUITMENT_INVITATION_v1.0.pdf",
+      "pdf_sha256": "90b821b24d263d44d80ebfbdc94a0eefb9fa0f335258fcc274e90054640abd63",
+      "pdf_size_bytes": 4611,
+      "external_fields_required": [
+        "Envio condicionado estritamente à prévia aprovação pelo CEP (Art. 21 da Lei nº 14.874/2024)"
+      ]
+    },
+    {
+      "id": "07",
+      "slug": "G9_REVIEWER_INSTRUCTIONS",
+      "formal_name": "Manual de Instruções aos Especialistas Avaliadores (Diretrizes FIRST CVSS v4.0)",
+      "version": "1.1",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Instruções",
+        "CVSS v4.0",
+        "Negligible"
+      ],
+      "markdown_file": "md/07_G9_REVIEWER_INSTRUCTIONS_v1.1.md",
+      "markdown_sha256": "a0e1b20e5b8be90f6959065fc6dc8dfa2d02f58584e6ab0e45ea8c64228e38eb",
+      "markdown_size_bytes": 4786,
+      "pdf_file": "pdf/07_G9_REVIEWER_INSTRUCTIONS_v1.1.pdf",
+      "pdf_sha256": "41ebe5a64f9af27053c3681d35c531f06f74c23cff60f10bba520bfb2a385536",
+      "pdf_size_bytes": 7363,
+      "external_fields_required": []
+    },
+    {
+      "id": "08",
+      "slug": "G9_DATA_MANAGEMENT_PLAN",
+      "formal_name": "Plano de Gestão, Armazenamento e Rastreabilidade de Dados de Pesquisa (DMP)",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Gestão",
+        "Dados",
+        "Armazenamento"
+      ],
+      "markdown_file": "md/08_G9_DATA_MANAGEMENT_PLAN_v1.0.md",
+      "markdown_sha256": "773fc75492d6592778c0fcd847b29592f843504f5468e0ce19054bb1917fe7ba",
+      "markdown_size_bytes": 1399,
+      "pdf_file": "pdf/08_G9_DATA_MANAGEMENT_PLAN_v1.0.pdf",
+      "pdf_sha256": "d045cc589e3c5e7ce0aea96ff16868eb4a00f8b9f9e5a76f0397cd8d253a3be4",
+      "pdf_size_bytes": 3882,
+      "external_fields_required": [
+        "Identificação do Repositório Institucional pós-deliberação do CEP"
+      ]
+    },
+    {
+      "id": "09",
+      "slug": "G9_LGPD_PRIVACY_PLAN",
+      "formal_name": "Plano de Privacidade, Confidencialidade e Conformidade LGPD (Lei nº 13.709/2018)",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "LGPD",
+        "Privacidade",
+        "Pseudonimização"
+      ],
+      "markdown_file": "md/09_G9_LGPD_PRIVACY_PLAN_v1.0.md",
+      "markdown_sha256": "4b645d80b2a5e70e10cc6b960f3b74ac47fa5d3aa36777e430364d8d93dc2b23",
+      "markdown_size_bytes": 1354,
+      "pdf_file": "pdf/09_G9_LGPD_PRIVACY_PLAN_v1.0.pdf",
+      "pdf_sha256": "3aa14a0a2124fe62c031b8a00a122fed618825edf0d5098dbd3968a123239d3a",
+      "pdf_size_bytes": 3799,
+      "external_fields_required": [
+        "Identificação de DPO ou Encarregado de Dados Institucional"
+      ]
+    },
+    {
+      "id": "10",
+      "slug": "G9_MARIAH_ASSESSMENT",
+      "formal_name": "Mapeamento Prévio Interno de Salvaguardas Éticas em IA (Suporte Orientativo MARIAH — SINEP/INAEP)",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "MARIAH",
+        "SINEP",
+        "INAEP",
+        "orientativo"
+      ],
+      "markdown_file": "md/10_G9_MARIAH_ASSESSMENT_v1.0.md",
+      "markdown_sha256": "bf5c8cce005e179852ca6a73563e4c85fa592b6390432cc31cea288f154e1913",
+      "markdown_size_bytes": 4443,
+      "pdf_file": "pdf/10_G9_MARIAH_ASSESSMENT_v1.0.pdf",
+      "pdf_sha256": "97a1e24a767ccda9ac5613b2753743779fd2285c7264ac3e48b7a22f5c9bca8d",
+      "pdf_size_bytes": 7384,
+      "external_fields_required": [
+        "Definição formal pelo CEP da necessidade de instrução em formulário MARIAH v1.0 oficial na Plataforma Brasil"
+      ]
+    },
+    {
+      "id": "11",
+      "slug": "PREFREEZE_READINESS_DECISION",
+      "formal_name": "Parecer Técnico de Prontidão da Fase Pré-Congelamento (Gates G9 e G10)",
+      "version": "1.0",
+      "status": "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+      "required_tokens": [
+        "Prontidão",
+        "DOCUMENTARY_READY_FOR_CEP_SUBMISSION",
+        "SAFE_TO_FREEZE"
+      ],
+      "markdown_file": "md/11_PREFREEZE_READINESS_DECISION_v1.0.md",
+      "markdown_sha256": "8ad7082a3495b35ee078c4efb756c42b8fe315561cd6869c7c154652d7c9281f",
+      "markdown_size_bytes": 2175,
+      "pdf_file": "pdf/11_PREFREEZE_READINESS_DECISION_v1.0.pdf",
+      "pdf_sha256": "7a7826d4cc344a3df20ae8d77adc39f646b76151657853dab454b36daf2564fc",
+      "pdf_size_bytes": 4591,
+      "external_fields_required": []
+    }
+  ]
+}

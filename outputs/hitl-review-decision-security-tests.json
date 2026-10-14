@@ -1,0 +1,59 @@
+{
+  "timestamp": "2026-10-12T02:57:47.768Z",
+  "total": 13,
+  "passed": 13,
+  "results": [
+    {
+      "name": "1. Unauthenticated -> HTTP 401",
+      "passed": true
+    },
+    {
+      "name": "2. Non-PLATFORM_ADMIN authenticated user -> HTTP 403 FORBIDDEN",
+      "passed": true
+    },
+    {
+      "name": "3. Missing assessmentId -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "4. Invalid decision string -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "5. Short rationale (<10 chars) -> HTTP 400",
+      "passed": true
+    },
+    {
+      "name": "6. Missing policy binding -> HTTP 400 (no fabricated defaults)",
+      "passed": true
+    },
+    {
+      "name": "7. PLATFORM_ADMIN APPROVED -> HTTP 200 with valid receipt and hash",
+      "passed": true
+    },
+    {
+      "name": "8. PLATFORM_ADMIN REJECTED -> HTTP 200 with valid receipt and hash",
+      "passed": true
+    },
+    {
+      "name": "9. Database lookup failure -> HTTP 503 fail-closed",
+      "passed": true
+    },
+    {
+      "name": "10. Security audit event persistence failure -> HTTP 500 fail-closed",
+      "passed": true
+    },
+    {
+      "name": "11. Suspended PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
+      "passed": true
+    },
+    {
+      "name": "12. Disabled PLATFORM_ADMIN -> HTTP 403 fail-closed, session revoked, zero persistence",
+      "passed": true
+    },
+    {
+      "name": "13. Missing authoritative user in DB -> HTTP 403 fail-closed, session revoked, zero persistence",
+      "passed": true
+    }
+  ]
+}
