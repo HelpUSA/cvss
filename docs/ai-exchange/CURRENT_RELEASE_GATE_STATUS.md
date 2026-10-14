@@ -1,27 +1,42 @@
-# Current Release Gate Status — Round 5 Reconciled Status
+# Current Release Gate Status — Deterministic Baseline Frozen
 
 **This file is the single authoritative release-gate status.**
 
-**SAFE_TO_FREEZE = NO**
+**SAFE_TO_FREEZE = YES**  
+**DETERMINISTIC_BASELINE_FROZEN = TRUE**
 
-Canonical Round 5 Evidence Commit: `326e59bd6a12b7c0c792d5c3ffa9bd3765fd2414`
-Authorized Closeout Directive: `CG-20261010-008`
+Frozen merge commit on `scientific-validation`: `007fe79a6cd0e843fe6a9f837444720e23a4bcad`  
+Post-merge CI: GitHub Actions run `38574360876` = **SUCCESS**  
+Tripartite closure: `CG-20261014-035` + `GM-20261014-003` + `AG-20261014-024`
 
-| Gate | Status | Evidence | Last Reviewer |
-|---|---|---|---|
-| G1 — CVSS calculator / FIRST corpus | **PASS / FORMALLY CLOSED** | Runner estrito `run_first_reference_corpus_round4.py` executado contra o corpus completo de `vectorFiles` da FIRST (486.472 casos no total, abrangendo `macro`, `reference` e `base_threat`): 486.472/486.472 passaram com 0 divergências contra o commit pinado `d766d0c8ab4368b67bf27dd0e411eb481f05fdbb`. Hashes e tamanhos de fixtures canônicos LF verificados em `scripts/fetch_first_fixtures.py`. Evidência em `outputs/first-reference-corpus-round4.json` (`gate_pass: true`). | Antigravity & ChatGPT (CG-20261010-008) |
-| G2 — Portable reproducibility | **PASS / FORMALLY CLOSED** | Artefato portátil `helpus_cvss_ai_portable_artifact_round4.zip` construído via `build_portable_artifact_round4.py` (SHA-256 `85bb4c87814f1af61d5f9a5eb7c8fcea2e5eff170ff700c68a6e1d9754c246d7`). Execução clean-room comprovada em diretório temporário isolado com ambiente virtual limpo (`venv`) e instalação de dependências travadas do `requirements.lock` via `verify_portable_artifact_round4.py`: 98 passed, 0 failed, 24 skipped (`outputs/pytest-portable.log`, hash do artefato expressamente vinculado no log). Suíte completa do repositório: 122 passed, 0 failed, 0 skipped (`outputs/pytest-full.log`). | Antigravity & ChatGPT (CG-20261010-008) |
-| G3 — Core fail-safe semantics | **PASS / FORMALLY CLOSED** | Comportamento preservado e validado em 122 testes unitários: abstenção em evidência ausente/desconhecida/obsoleta/conflitante; roteamento interno -> MAV:N; adjacente -> MAV:A; firewall != MAC:H; HA != AR:L; requisitos exigem política versionada. | Antigravity & ChatGPT (CG-20261010-008) |
-| G4 — Web semantics / JCS / Auth & HITL | **PASS / FORMALLY CLOSED** | Endpoint protegido server-side `/api/review/decision` implementado com validação de sessão autorizada BetterAuth e restrição ao perfil PLATFORM_ADMIN ativo (usuários suspensos/desabilitados são rejeitados com HTTP 403 e sessões revogadas). Falhas de consulta ao banco retornam HTTP 503 e falhas de persistência de auditoria retornam HTTP 500 (13/13 testes de segurança aprovados em `outputs/hitl-review-decision-security-tests.json`). Rota `/api/analyze-environment` com 11/11 testes aprovados (`outputs/web_api_tests_results.json`). JCS recursivo em conformidade local (15/15 testes). | Antigravity & ChatGPT (CG-20261010-008) |
-| G5 — Dataset B provenance / synchronization | **PASS / FORMALLY CLOSED** | Reconciliação canônica via `finalize_dataset_b_after_g1.py` recomputando diretamente pelo scorer oficial validado no G1. Proveniência gravada em `outputs/dataset_b_finalization_provenance.json` com `g1_evidence_sha256` idêntico ao hash do artefato G1 (`a6105c66df1c3e3185b9f1d4a30085574524126c374eb42dcd85fb472e0c8916`). 30 cenários, 12 CVEs reais, 0 erros. | Antigravity & ChatGPT (CG-20261010-008) |
-| G6 — Book integrity / Synchronization | **PASS / FORMALLY CLOSED** | Monografia LaTeX corrigida e sincronizada. `book_latex/BUILD_MANIFEST_CHATGPT_ROUND4.json` alinhado exatamente com os Git blobs canônicos dos 16 arquivos fonte, validado via `scripts/verify_book_latex_manifest.py` (PASS), `main.pdf` (1.224.761 bytes, SHA-256 `a222230192cd32e359d4fb196ae75dbbdc0fd8bb71b282dcaa789e21fdf5180a`) e `helpus_cvss_ai_monograph_overleaf_final_round4.zip` (3.003.075 bytes). | Antigravity & ChatGPT (CG-20261010-008) |
-| G7 — Documentation consistency | **PASS / FORMALLY CLOSED** | Documentação reconciliada com evidências machine-readable brutas: 122 testes do repositório, 98 testes portáteis em venv isolado com requirements.lock fechado (30 pacotes transitivos, log vinculado ao ZIP exato), 13 testes de decisão HITL com fail-closed e verificação de status ativo, 486.472 casos do corpus FIRST, e comprovação direta do snapshot de produção ao vivo. Status mantido em estrita consistência com os logs de execução e contratos formais do AI Exchange. | Antigravity & ChatGPT (CG-20261010-008) |
-| G8 — Production synchronization | **PASS / FORMALLY CLOSED** | Domínio de produção real `https://cvss.helpusbr.com/` implantado via Vercel (`dpl_JNwyRJkzaZ2N9GoDp2XYUkXUBgTe`) e verificado diretamente online via `scripts/audit_public_site_claims_round4.py https://cvss.helpusbr.com/` (`outputs/production-copy-audit-round4.json`: `pass: true`, 0 alegações proibidas tanto no HTML quanto no `app.js` servido). Snapshot HTML bruto ao vivo preservado e commitado em `outputs/production-live-snapshot.html` (74.005 bytes, SHA-256 `45d93687047174580851c24d1c9eed66898df4f949338d7f43138dcc564591e3`). Model A comprovado com 100% de correspondência byte a byte com o repositório. | Antigravity & ChatGPT (CG-20261010-008) |
-| G9 — Human-study governance | **PENDING EXTERNAL** | Determinação de comitê de ética institucional (IRB/CEP ou dispensa formal), TCLE (Termo de Consentimento Livre e Esclarecido) assinado e declaração de conflito de interesses (COI) para os 5 especialistas independentes. | Comitê de Ética / Em espera |
-| G10 — Held-out custody C1/C2 | **PENDING PROCEDURAL / EXTERNAL** | Custódia final, cegamento, lacre de protocolo e congelamento definitivo de regras/código/dependências antes da exposição aos conjuntos confirmatórios C1/C2. C1/C2 permanecem inviolados e não executados. | Custodiante Externo / Em espera |
+| Gate | Status | Current evidence / scope |
+|---|---|---|
+| G1 — CVSS calculator / FIRST corpus | **PASS / FORMALLY CLOSED** | 486,472/486,472 official FIRST reference-corpus cases passed with 0 divergences against pinned FIRST commit `d766d0c8ab4368b67bf27dd0e411eb481f05fdbb`. |
+| G2 — Portable reproducibility | **PASS / FORMALLY CLOSED** | Portable clean-room artifact and locked dependency execution previously accepted; no freeze-blocking regression introduced afterward. |
+| G3 — Core fail-safe semantics | **PASS / FORMALLY CLOSED** | Missing, stale, conflicting, or insufficient evidence routes to abstention/review rather than forced guessing. |
+| G4 — Web semantics / JCS / Auth & review controls | **PASS / FORMALLY CLOSED** | Authenticated review path, fail-closed error handling, canonicalization and security tests accepted in the frozen baseline. |
+| G5 — Dataset B provenance / synchronization | **PASS / FORMALLY CLOSED** | Dataset B remains development/regression evidence with canonical provenance; it is not confirmatory evidence. |
+| G6 — Book / Overleaf integrity | **PASS / FORMALLY CLOSED** | Current pre-freeze monograph includes HCAL chapter; 50-page PDF, 0 undefined citations/references, 0 overfull hboxes, 17/17 source blobs verified; Overleaf ZIP SHA-256 `09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5`. |
+| G7 — Documentation consistency | **PASS / FORMALLY CLOSED** | Governance, AI Exchange, scientific scope, and frozen-baseline records reconciled through CG-035 / GM-003 / AG-024. |
+| G8 — Production synchronization | **PASS / FORMALLY CLOSED** | Production synchronization evidence from Round 5 remains accepted; freeze does not expand claims beyond audited production evidence. |
+| G9-LEGACY — Human-study governance | **NOT ACTIVE FOR PRIMARY STUDY / OPTIONAL FUTURE EXTENSION** | Historical human-study/ethics materials are preserved but are not blockers for the non-human primary study. No historical human gate is relabeled PASS. |
+| G9A — Environmental Rule Catalog validation | **PASS** | `CANONICAL_RULES` is the executable source of truth. Canonical catalog hash: `d8f1bdb54bd16b22834d0ebd4c945c4ac4c466816d007a12e2342af42ecee4f2`, bound to executable semantics and source. |
+| G9B — Synthetic / metamorphic environmental validation | **PASS** | Seeded 10,000-profile campaign completed with 0 violations across the declared MR-1..MR-4 scope. |
+| G10A — Autonomous context pipeline reproducibility / freeze | **PASS / FROZEN** | Clean-room replay on commit `6b594bd73695b63f220e2a14d9c5d84d1b768790`: clean tree, 0 tracked modifications, 12/12 fixtures passed; later technical baseline and CI accepted before merge. |
+| G11-OPTIONAL-AI — HCAL | **IMPLEMENTED HARDENED PROTOTYPE / OUTSIDE DETERMINISTIC FREEZE SCOPE** | Optional, provider-neutral, non-blocking cognitive assurance layer. It cannot directly override CVSS scoring and is not required for deterministic core completion. |
 
 ---
 
-## Regra de Congelamento (Freeze Rule)
+## Frozen Baseline and Confirmatory Data Rule
 
-`SAFE_TO_FREEZE = NO` é estritamente mantido até que os gates procedimentais e externos G9 e G10 sejam concluídos. Nenhum teste nos conjuntos confirmatórios mantidos sob custódia (C1/C2) foi executado ou aberto. Os conjuntos C1 e C2 permanecem estritamente lacrados e intocados.
+The deterministic pre-confirmatory baseline is frozen at merge commit:
+
+`007fe79a6cd0e843fe6a9f837444720e23a4bcad`
+
+Datasets C1 and C2 remain:
+
+**SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE**
+
+The architectural freeze does **not** authorize opening C1/C2. Confirmatory execution must occur in a separate future session under the blind protocol. If confirmatory exposure occurs, subsequent retuning would invalidate that confirmatory status and require a new independent dataset.
+
+HCAL remains outside the deterministic freeze scope. Future HCAL changes must not silently alter the frozen deterministic scoring baseline.

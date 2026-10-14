@@ -51,6 +51,7 @@ VALID_MESSAGE_TYPES = {
     "governance_implementation_handover",
     "final_audit_response",
     "optional_ai_assurance_architecture",
+    "postfreeze_governance_reconciliation",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
@@ -383,12 +384,22 @@ def main() -> int:
 
     # 5. Validação de status operacional e científico
     cur_status = (AI_EXCHANGE_DIR / "CURRENT_STATUS.md").read_text(encoding="utf-8")
-    if "SAFE_TO_FREEZE:" not in cur_status or "NO" not in cur_status:
-        errors.append("CURRENT_STATUS.md deve conter 'SAFE_TO_FREEZE: NO'.")
+    status_is_frozen = "DETERMINISTIC_BASELINE_FROZEN:\nTRUE" in cur_status
+    if status_is_frozen:
+        if "SAFE_TO_FREEZE:\nYES" not in cur_status:
+            errors.append("CURRENT_STATUS.md congelado deve conter 'SAFE_TO_FREEZE: YES'.")
+    else:
+        if "SAFE_TO_FREEZE:\nNO" not in cur_status:
+            errors.append("CURRENT_STATUS.md pré-congelamento deve conter 'SAFE_TO_FREEZE: NO'.")
 
     cur_gate = (AI_EXCHANGE_DIR / "CURRENT_RELEASE_GATE_STATUS.md").read_text(encoding="utf-8")
-    if "SAFE_TO_FREEZE = NO" not in cur_gate:
-        errors.append("CURRENT_RELEASE_GATE_STATUS.md deve conter 'SAFE_TO_FREEZE = NO'.")
+    gate_is_frozen = "DETERMINISTIC_BASELINE_FROZEN = TRUE" in cur_gate
+    if gate_is_frozen:
+        if "SAFE_TO_FREEZE = YES" not in cur_gate:
+            errors.append("CURRENT_RELEASE_GATE_STATUS.md congelado deve conter 'SAFE_TO_FREEZE = YES'.")
+    else:
+        if "SAFE_TO_FREEZE = NO" not in cur_gate:
+            errors.append("CURRENT_RELEASE_GATE_STATUS.md pré-congelamento deve conter 'SAFE_TO_FREEZE = NO'.")
 
     for g_num in range(1, 11):
         if f"G{g_num}" not in cur_gate:
