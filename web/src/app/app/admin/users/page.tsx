@@ -33,6 +33,11 @@ export default async function PlatformUsersPage() {
   const users =
     await listPlatformUsers();
 
+  const actorIsCanonical =
+    isCanonicalPlatformSuperAdminEmail(
+      currentSession.user.email,
+    );
+
   return (
     <section className="tenant-page-heading">
       <span className="section-kicker">
@@ -91,6 +96,7 @@ export default async function PlatformUsersPage() {
                     currentStatus={user.status}
                     currentPlatformRole={user.platformRole}
                     canonical={isCanonicalPlatformSuperAdminEmail(user.email)}
+                    canManagePlatformRole={actorIsCanonical}
                   />
                 </td>
               </tr>
