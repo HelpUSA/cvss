@@ -1,10 +1,10 @@
 {
   "manifest_type": "HELPUS_AUTONOMOUS_PIPELINE_CLEAN_ROOM_REPLAY",
-  "timestamp_utc": "2026-10-14T00:58:22.780638+00:00",
-  "git_commit": "4e8d628d8094c352f473b445cdd4eff752a12384",
+  "timestamp_utc": "2026-10-14T01:02:32.840548+00:00",
+  "git_commit": "43e12719beef4ee9ec393a43a5c95494dca676de",
   "working_tree_provenance": {
     "is_clean": false,
-    "tracked_modifications_count": 11
+    "tracked_modifications_count": 4
   },
   "runtime_environment": {
     "python_version": "3.14.0",

@@ -7,7 +7,7 @@ Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
 
 Current governance commit:
-4e8d628d8094c352f473b445cdd4eff752a12384
+43e12719beef4ee9ec393a43a5c95494dca676de
 
 Canonical Round 5 evidence commit:
 326e59bd6a12b7c0c792d5c3ffa9bd3765fd2414
