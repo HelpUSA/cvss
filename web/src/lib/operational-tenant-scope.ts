@@ -1,15 +1,20 @@
+import {
+  OperationalAssessmentStatus,
+  type Prisma,
+} from "@prisma/client";
+
 export function operationalAssessmentScopeWhere(input: {
   organizationId: string;
   projectId: string;
   environmentId: string;
   assessmentId: string;
 }) {
-  return {
+  const where = {
     id: input.assessmentId,
     status: {
       in: [
-        "DRAFT",
-        "ACTIVE",
+        OperationalAssessmentStatus.DRAFT,
+        OperationalAssessmentStatus.ACTIVE,
       ],
     },
     environment: {
@@ -26,5 +31,7 @@ export function operationalAssessmentScopeWhere(input: {
         },
       },
     },
-  };
+  } satisfies Prisma.OperationalAssessmentWhereInput;
+
+  return where;
 }

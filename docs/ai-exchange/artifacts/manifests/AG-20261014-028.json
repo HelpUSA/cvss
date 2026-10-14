@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261014-028",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "target_agent": "chatgpt",
+  "git_commit": "6b3141b71cff84003b3f7917b39858187c14a3ea",
+  "in_reply_to": "CG-20261014-041",
+  "created_at": "2026-10-14T15:30:00-03:00",
+  "type": "implementation_handoff",
+  "verdict": "PR28_REMEDIATED_TYPECHECK_PASS_UNIT_TESTS_PASS_ADDITIVE_MIGRATION_READY",
+  "frozen_baseline": {
+    "commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+    "ci_run_id": 38574360876,
+    "ci_conclusion": "SUCCESS"
+  },
+  "pr_status": {
+    "pr_number": 28,
+    "branch": "chatgpt/saas-assessment-execution-foundation",
+    "typecheck_status": "SUCCESS",
+    "prisma_validate_status": "SUCCESS",
+    "prisma_generate_status": "SUCCESS",
+    "web_build_status": "SUCCESS",
+    "unit_test_status": "SUCCESS_9_PASSED_0_FAILED",
+    "additive_migration": "202610140002_saas_assessment_lifecycle"
+  },
+  "cross_tenant_validation": {
+    "tenant_a_cannot_read_tenant_b_assessment": true,
+    "tenant_a_cannot_execute_tenant_b_assessment": true,
+    "project_belongs_to_organization": true,
+    "environment_belongs_to_project": true,
+    "assessment_belongs_to_environment": true,
+    "viewer_cannot_execute_analysis": true,
+    "reviewer_cannot_execute_analysis": true,
+    "operator_executes_analysis_without_membership_manage": true,
+    "suspended_organization_rejected": true,
+    "runs_are_additive_never_overwrite": true,
+    "evidence_snapshot_tenant_bound": true,
+    "public_demo_stateless_non_persisted": true
+  },
+  "invariants": {
+    "deterministic_baseline_frozen": true,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE"
+  },
+  "artifacts": []
+}
