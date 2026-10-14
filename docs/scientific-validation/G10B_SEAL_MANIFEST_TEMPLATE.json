@@ -1,0 +1,23 @@
+{
+  "protocol_id": "HELPUS-G10B-CONFIRMATORY-RUN-v1.0",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "custody_record_id": null,
+  "sealed_at_utc": null,
+  "custodian_id": null,
+  "datasets": {
+    "C1": {
+      "logical_name": "C1_real_world",
+      "path": "data/c1_real_world_benchmark.json",
+      "state": "SEALED",
+      "expected_sha256": null,
+      "expected_size_bytes": null
+    },
+    "C2": {
+      "logical_name": "C2_adversarial_metamorphic",
+      "path": "data/c2_adversarial_metamorphic_benchmark.json",
+      "state": "SEALED",
+      "expected_sha256": null,
+      "expected_size_bytes": null
+    }
+  }
+}
