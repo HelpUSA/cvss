@@ -58,14 +58,23 @@ export default async function OperationalHomePage() {
 
         <div className="operational-actions">
           {canCreateOrganization ? (
-            <a
-              className="button button--primary"
-              href={
-                "/app/admin/organizations/new"
-              }
-            >
-              Criar organização
-            </a>
+            <>
+              <a
+                className="button button--primary"
+                href={
+                  "/app/admin/organizations/new"
+                }
+              >
+                Criar organização
+              </a>
+
+              <a
+                className="button button--secondary"
+                href="/app/admin/users"
+              >
+                Gerenciar usuários
+              </a>
+            </>
           ) : null}
 
           <a

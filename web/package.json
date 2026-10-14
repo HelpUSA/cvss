@@ -20,7 +20,8 @@
     "auth1g:seed": "tsx scripts/auth1g-seed.ts",
     "test:auth1g:e2e": "playwright test --config=playwright.config.ts",
     "validate:auth1h": "tsx scripts/auth1h-operational.ts",
-    "email:auth1h:sandbox": "tsx scripts/auth1h-operational.ts"
+    "email:auth1h:sandbox": "tsx scripts/auth1h-operational.ts",
+    "auth:reconcile-google-superadmin": "tsx scripts/reconcile-google-platform-superadmin.ts"
   },
   "dependencies": {
     "@better-auth/prisma-adapter": "1.6.23",
