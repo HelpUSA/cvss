@@ -17,6 +17,7 @@ type Props = {
     | "USER"
     | "PLATFORM_ADMIN";
   canonical: boolean;
+  canManagePlatformRole: boolean;
 };
 
 export function PlatformUserControls({
@@ -24,6 +25,7 @@ export function PlatformUserControls({
   currentStatus,
   currentPlatformRole,
   canonical,
+  canManagePlatformRole,
 }: Props) {
   const router = useRouter();
   const [pending, setPending] =
@@ -95,7 +97,11 @@ export function PlatformUserControls({
       <select
         aria-label="Papel de plataforma"
         value={currentPlatformRole}
-        disabled={pending || canonical}
+        disabled={
+          pending ||
+          canonical ||
+          !canManagePlatformRole
+        }
         onChange={(event) =>
           void update({
             platformRole:
