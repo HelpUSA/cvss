@@ -1,34 +1,36 @@
-\section{Case Study Design}
+\section{Study Design}
 \label{sec:case-study}
 
-The case-study design follows the logic of the prior PCI-DSS inspired experiment:
-compare environmental assessment under flat and segmented network conditions. The
-new study adds machine-readable evidence artifacts so that the same type of
-scenario can be assessed by deterministic scripts, language-model agents, and a
-watcher-enabled multi-agent workflow.
+The primary study uses non-human technical validation. The unit of analysis is
+a vulnerability-plus-environment evidence package evaluated by the frozen
+deterministic HelpUS pipeline. Human expert adjudication is not a prerequisite
+for the primary study and is retained only as an optional future comparative
+extension.
 
-Each case is represented by:
+Development evidence is separated from confirmatory evidence. Dataset B is
+used for architecture development, regression testing, and provenance checks.
+Synthetic/metamorphic campaigns exercise deterministic invariants and
+fail-safe behavior. The held-out datasets C1 and C2 are reserved for a
+single-pass blind confirmatory run under the G10B protocol and are not used for
+debugging or calibration.
+
+Each development or synthetic case can contain:
 \begin{itemize}[leftmargin=*]
-  \item an asset inventory;
-  \item vulnerability findings;
-  \item network topology;
-  \item firewall rules;
-  \item business-impact mappings;
-  \item PCI scope declarations; and
-  \item expected expert labels used only for evaluation.
+  \item a canonical CVSS v4.0 source vector;
+  \item structured asset and reachability evidence;
+  \item organizational security-requirement policy evidence;
+  \item vulnerability-specific exploit preconditions;
+  \item subsequent-system impact evidence where applicable; and
+  \item provenance, freshness, and conflict metadata.
 \end{itemize}
 
-The experimental comparison includes four conditions:
-\begin{enumerate}[leftmargin=*]
-  \item historical human-baseline findings from the prior study;
-  \item a deterministic rule-based baseline;
-  \item a language-model baseline without local tool access; and
-  \item the AI Bridge watcher workflow with local evidence access.
-\end{enumerate}
+The deterministic pipeline may auto-accept a metric decision only when the
+required evidence predicates are satisfied. Missing, stale, or materially
+conflicting evidence routes to warning, review, or abstention rather than a
+forced guess. Confidence may affect routing but never the official CVSS score.
 
-The main outcomes are exact match against expert labels, environmental score
-error, correct direction of before-after change, reproducibility across repeated
-runs, and evidence coverage. Evidence coverage is defined as the proportion of
-scoring decisions that can be traced to a concrete artifact such as an asset
-record, topology entry, firewall rule, PCI scope declaration, or business-impact
-statement.
+The primary evaluation measures specification conformance, exact
+metric/vector agreement where an oracle exists, deterministic reproducibility,
+score error, abstention safety, evidence provenance, and metamorphic invariant
+preservation. HCAL is outside the primary endpoint and, if evaluated, is
+reported separately as a secondary post-hoc assurance layer.
