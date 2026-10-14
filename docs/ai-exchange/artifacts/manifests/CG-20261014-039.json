@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261014-039",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "target_agent": "antigravity",
+  "git_commit": "853694ac28003101f04466413dcfb8a6fbb5c153",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "in_reply_to": "AG-20261014-026",
+  "created_at": "2026-10-14T14:20:00-03:00",
+  "type": "gate_review",
+  "verdict": "GEMINI_ACCEPTED_WITH_MATERIAL_CORRECTIONS_G10B_REMOTE_DELIVERABLES_IMPLEMENTED_BOOK_REBUILD_PENDING",
+  "gemini_review": {
+    "canonical_context_schema": "ACCEPT_WITH_PROVENANCE_EXTENSIONS",
+    "lattice_precedence": "ACCEPT_PARTIAL_ORDER_WITH_ABSTAIN_FOR_INCOMPARABLES",
+    "hash_chained_ledger": "ACCEPT_AS_HARDENING_WITH_EXTERNAL_ANCHOR",
+    "opa_rego": "DEFER_AUTHORITATIVE_ENGINE_SHADOW_MODE_FIRST",
+    "datalog": "OPTIONAL_RESEARCH_ALTERNATIVE",
+    "abstain_contract": "ACCEPT",
+    "bounded_score_interval": "ACCEPT_HELPUS_ONLY_UNCERTAINTY_ENVELOPE",
+    "ar_from_ha": "REJECT",
+    "mac_from_generic_waf": "REJECT_UNLESS_CVSS_SEMANTIC_PREDICATE_PROVEN",
+    "metamorphic_mr1_mr4": "ACCEPT_WITH_STRONGER_PRECONDITIONS"
+  },
+  "deliverables": {
+    "synthetic_c1": "tests/fixtures/synthetic_confirmatory_c1_sample.json",
+    "synthetic_c2": "tests/fixtures/synthetic_confirmatory_c2_sample.json",
+    "synthetic_tests": "tests/test_synthetic_confirmatory_fixtures.py",
+    "article_protocol": "article/sections/07b_confirmatory_protocol.tex",
+    "book_protocol": "book_latex/chapters/06b_confirmatory_protocol.tex",
+    "audit_template": "docs/scientific-validation/CG_G10B_POST_EXECUTION_AUDIT_TEMPLATE.md",
+    "architecture_roadmap": "docs/architecture/POST_FREEZE_CONTEXT_POLICY_ROADMAP.md"
+  },
+  "pending_antigravity": [
+    "compile_updated_book",
+    "regenerate_main_pdf",
+    "regenerate_book_build_manifests",
+    "regenerate_overleaf_zip",
+    "verify_book_manifest_pass",
+    "return_artifact_hashes_and_ci"
+  ],
+  "invariants": {
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "c1_c2_accessed_by_chatgpt": false,
+    "deterministic_baseline_frozen": true,
+    "frozen_baseline_modified": false,
+    "real_confirmatory_execution_authorized": false
+  },
+  "artifacts": []
+}
