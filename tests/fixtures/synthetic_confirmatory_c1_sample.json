@@ -1,0 +1,115 @@
+{
+  "schema_id": "helpus.synthetic-confirmatory.c1.v1",
+  "synthetic_only": true,
+  "intended_use": "G10B runner development and clean-room rehearsal only. Not confirmatory evidence.",
+  "generated_without_access_to_real_c1": true,
+  "cases": [
+    {
+      "case_id": "SYN-C1-001-PUBLIC",
+      "vulnerability_id": "SYNTH-CVE-2099-0001",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "PUBLIC_ROUTED",
+        "telemetry_age_days": 0.1
+      },
+      "oracle": {
+        "expected_status": "AUTO_ACCEPT",
+        "expected_metrics": {
+          "MAV": "N"
+        }
+      }
+    },
+    {
+      "case_id": "SYN-C1-002-LOCAL",
+      "vulnerability_id": "SYNTH-CVE-2099-0002",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "LOCAL_ONLY",
+        "telemetry_age_days": 0.1
+      },
+      "oracle": {
+        "expected_status": "AUTO_ACCEPT",
+        "expected_metrics": {
+          "MAV": "L"
+        }
+      }
+    },
+    {
+      "case_id": "SYN-C1-003-POLICY-REQS",
+      "vulnerability_id": "SYNTH-CVE-2099-0003",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "INTERNAL_ROUTED",
+        "telemetry_age_days": 0.1,
+        "organization_policy_id": "SYN-POLICY-01",
+        "policy_version": "1.0",
+        "security_requirements": {
+          "CR": "H",
+          "IR": "H",
+          "AR": "M"
+        }
+      },
+      "oracle": {
+        "expected_status": "AUTO_ACCEPT",
+        "expected_metrics": {
+          "MAV": "N",
+          "CR": "H",
+          "IR": "H",
+          "AR": "M"
+        }
+      }
+    },
+    {
+      "case_id": "SYN-C1-004-ELEVATED-PRECONDITION",
+      "vulnerability_id": "SYNTH-CVE-2099-0004",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "PUBLIC_ROUTED",
+        "evidenced_exploit_preconditions_elevated": true,
+        "telemetry_age_days": 0.2
+      },
+      "oracle": {
+        "expected_status": "AUTO_ACCEPT",
+        "expected_metrics": {
+          "MAV": "N",
+          "MAC": "H"
+        }
+      }
+    },
+    {
+      "case_id": "SYN-C1-005-STALE-ABSTAIN",
+      "vulnerability_id": "SYNTH-CVE-2099-0005",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "LOCAL_ONLY",
+        "telemetry_profile": "dynamic",
+        "telemetry_age_days": 2.5
+      },
+      "oracle": {
+        "expected_status": "ABSTAIN",
+        "expected_decision": "abstained"
+      }
+    },
+    {
+      "case_id": "SYN-C1-006-CONFLICT-ABSTAIN",
+      "vulnerability_id": "SYNTH-CVE-2099-0006",
+      "source_cvss_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+      "evidence": {
+        "evidence_quality": "SUFFICIENT",
+        "reachability": "INTERNAL_ROUTED",
+        "telemetry_age_days": 0.1,
+        "firewall_status": "ALLOW_TRAFFIC",
+        "routing_table_status": "NO_ROUTE_TO_HOST"
+      },
+      "oracle": {
+        "expected_status": "ABSTAIN",
+        "expected_decision": "abstained"
+      }
+    }
+  ]
+}

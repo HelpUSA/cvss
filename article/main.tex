@@ -10,8 +10,8 @@
 \usepackage{enumitem}
 \usepackage{xcolor}
 
-\title{From Manual to Evidence-Based CVSS Environmental Assessment:\\
-A Multi-Agent Automation Case Study with AI Bridge}
+\title{Autonomous Evidence-Based CVSS v4.0 Environmental Assessment:\\
+Deterministic Contextualization with Held-Out Confirmatory Validation}
 
 \author{
 Wagner Santos \and
@@ -25,19 +25,19 @@ Wagner Santos \and
 
 \begin{abstract}
 Environmental metrics in the Common Vulnerability Scoring System (CVSS) allow
-assessors to adapt vulnerability severity to the deployment context of an
-organization. Prior empirical work showed that human assessment of these
-metrics becomes error-prone as network segmentation and system dependencies
-increase. This paper proposes an evidence-based automation workflow using AI
-Bridge, a local multi-agent execution framework that can read environment
-files, run controlled commands, coordinate independent agent reviews through
-watchers, and produce auditable CVSS Environmental assessments. We present a
-PCI-DSS inspired case study in which AI agents replace human subjects and
-derive environmental metrics from structured evidence: asset inventory, network
-topology, firewall rules, business impact, PCI scope and vulnerability findings.
-The expected contribution is not an autonomous replacement for expert judgment,
-but a reproducible and auditable process for generating CVSS Environmental
-vectors with explicit evidence and review traces.
+vulnerability severity to be contextualized to an organization's deployment
+environment, but manual assessment is difficult to reproduce at scale. This
+paper presents the HelpUS framework, an autonomous-by-default pipeline that
+normalizes structured operational evidence, resolves environmental metric
+candidates under deterministic policy rules, and delegates final CVSS v4.0
+calculation to a deterministic FIRST-compatible scoring engine. The primary
+study is non-human and evaluates normative conformance, reproducibility,
+synthetic/metamorphic robustness, and a pre-registered held-out confirmatory
+run. Human expert comparison is retained only as optional future work. An
+optional HelpUS Cognitive Assurance Layer (HCAL) may provide secondary
+semantic review, but it is non-blocking and cannot override the deterministic
+score. The confirmatory C1/C2 run is governed by a single-pass blind protocol
+with cryptographic custody, explicit authorization, and a no-retuning rule.
 \end{abstract}
 
 \input{sections/01_introduction}
@@ -47,6 +47,7 @@ vectors with explicit evidence and review traces.
 \input{sections/05_case_study_design}
 \input{sections/06_artifact_and_implementation}
 \input{sections/07_expected_evaluation}
+\input{sections/07b_confirmatory_protocol}
 \input{sections/08_threats_to_validity}
 \input{sections/09_conclusion}
 

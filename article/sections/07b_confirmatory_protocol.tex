@@ -1,0 +1,42 @@
+\section{Pre-Registered Confirmatory Protocol (G10B)}
+\label{sec:g10b-confirmatory}
+
+The primary non-human validation study separates development evidence from a
+single-pass held-out confirmatory evaluation. The deterministic baseline is
+frozen at commit
+\texttt{007fe79a6cd0e843fe6a9f837444720e23a4bcad}. Datasets C1 and C2
+remain sealed until an explicit authorization event and are not used for
+development, debugging, or threshold selection.
+
+The confirmatory procedure is governed by
+\texttt{HELPUS-G10B-CONFIRMATORY-RUN-v1.0}. Before execution, the
+protocol, executor, dependency lock, and the pre-existing custody hashes for
+C1 and C2 must be frozen. The run is fail-closed: authorization from the
+Master SuperAdmin (\texttt{wmsjp}) is mandatory, the deterministic inference
+environment must be network-isolated, and the optional HCAL layer is disabled
+for the primary endpoint.
+
+C1 and C2 are executed as one governed transaction. Case-level and aggregate
+results are not revealed until both datasets have completed and the raw
+outputs and evidence manifest have been hashed. No selective retry, case
+exclusion, rule modification, scoring change, or threshold change is allowed
+after exposure.
+
+For C1, the pre-registered primary acceptance criteria are metric-level exact
+agreement $\geq 0.95$, full-vector exact agreement $\geq 0.90$, MAE
+$\leq 0.25$ CVSS points, maximum absolute error $\leq 1.0$, severity-band
+agreement $\geq 0.95$, and zero forced guesses where abstention is required.
+Any arithmetic divergence in the canonical FIRST-compatible scoring engine is
+a technical failure.
+
+For C2, all governed metamorphic endpoints are zero-tolerance: invariant
+violations, state/order leakage, unexpected crashes, forced guesses when the
+oracle requires abstention, and deterministic reproducibility failures must
+all equal zero. The overall confirmatory result is PASS only if all mandatory
+C1 and C2 criteria pass.
+
+The run manifest records protocol and authorization hashes, frozen baseline,
+runtime/dependency identity, C1/C2 observed hashes and sizes, raw-output hashes,
+endpoint values, and the final verdict. If confirmatory exposure occurs,
+subsequent retuning invalidates reuse of C1/C2 for a new confirmatory claim and
+requires an independent held-out dataset.
