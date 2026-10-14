@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-14T12:35:00-03:00
+2026-10-14T13:05:00-03:00
 
 Current reviewed branch:
 scientific-validation
@@ -16,13 +16,13 @@ Latest Antigravity message:
 AG-20261014-025
 
 Latest ChatGPT response:
-CG-20261014-037
+CG-20261014-038
 
 Latest Gemini response:
 GM-20261014-003
 
 Current phase:
-CONFIRMATORY PHASE PLANNING — G10B PROTOCOL DEFINED / C1-C2 STILL SEALED
+CONFIRMATORY HARNESS PREPARATION — PROTOCOL MERGED / REAL C1-C2 EXECUTION NOT AUTHORIZED
 
 SAFE_TO_FREEZE:
 YES
@@ -63,9 +63,11 @@ Documentary Readiness Status:
 POST-FREEZE STATUS RECONCILED. PR #8 IS ALREADY MERGED; NO FURTHER MERGE ACTION IS PENDING FOR THE DETERMINISTIC BASELINE.
 
 Next Steps:
-1. Review and approve the proposed G10B confirmatory protocol.
-2. Do not open, inspect, hash for execution, parse, or execute C1/C2 until the protocol is finalized and the pre-existing seal/custody hashes are registered.
-3. Freeze the executor, dependency lock, protocol hash, and expected C1/C2 hashes before authorization.
-4. Require explicit Master SuperAdmin `wmsjp` authorization before any unsealing.
-5. Execute C1 and C2 once, blind and single-pass, with HCAL disabled and network isolated.
-6. Preserve the frozen deterministic baseline and do not retune from C1/C2.
+1. Antigravity/local custodian retrieves the pre-existing C1/C2 seal hashes and byte sizes without inspecting benchmark semantics.
+2. Antigravity builds the schema-aware executor using pre-existing schema documentation or synthetic mirrors only.
+3. Demonstrate OS/container network isolation and HCAL-disabled execution.
+4. Freeze executor, dependency-lock, protocol, and seal-manifest hashes.
+5. Validate the complete harness only on synthetic/non-confirmatory fixtures.
+6. Return evidence to ChatGPT for independent audit.
+7. Request explicit Master SuperAdmin `wmsjp` authorization only after that audit.
+8. Until then C1/C2 remain strictly SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE.
