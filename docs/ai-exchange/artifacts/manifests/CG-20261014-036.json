@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261014-036",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "created_at": "2026-10-14T11:55:00-03:00",
+  "type": "postfreeze_governance_reconciliation",
+  "frozen_merge_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "post_merge_ci": {
+    "run_id": 38574360876,
+    "conclusion": "SUCCESS"
+  },
+  "corrections": {
+    "current_release_gate_status": "RECONCILED",
+    "current_status": "RECONCILED",
+    "stale_inbox_statuses": "RECONCILED",
+    "stale_open_prs_closed": [
+      4,
+      6,
+      13,
+      16,
+      18,
+      21
+    ]
+  },
+  "invariants": {
+    "safe_to_freeze": true,
+    "deterministic_baseline_frozen": true,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "deterministic_code_modified": false
+  }
+}
