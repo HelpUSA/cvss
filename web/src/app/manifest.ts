@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "HelpUS CVSS",
     short_name: "HelpUS CVSS",
     description:
-      "Priorização contextual de vulnerabilidades com separação explícita do CVSS oficial.",
+      "Contextualização ambiental CVSS v4.0 com vetor de origem preservado, evidências rastreáveis e fluxo guiado.",
     start_url: "/",
     display: "standalone",
     background_color: "#07111f",
