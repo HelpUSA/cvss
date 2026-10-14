@@ -83,14 +83,24 @@ export default async function TenantLayout({
             Visão geral
           </a>
 
+          <a href={`${basePath}/guide`}>
+            Comece aqui
+          </a>
+
           <a href={`${basePath}/projects`}>
-            Projetos
+            1. Projetos
           </a>
 
           <a
             href={`${basePath}/environments`}
           >
-            Ambientes
+            2. Ambientes
+          </a>
+
+          <a
+            href={`${basePath}/assessments`}
+          >
+            3–5. Avaliações
           </a>
 
           {canReadMemberships ? (
@@ -104,14 +114,14 @@ export default async function TenantLayout({
 
         <div className="tenant-boundary-note">
           <strong>
-            Isolamento ativo
+            Dúvida sobre o próximo passo?
           </strong>
 
           <p>
-            Todas as consultas e mutações
-            recebem o ID da organização
-            resolvido pela membership no
-            servidor.
+            Abra “Comece aqui”. O roteiro
+            mostra o que já existe e qual
+            etapa deve ser concluída em
+            seguida.
           </p>
         </div>
       </aside>
