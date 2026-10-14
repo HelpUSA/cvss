@@ -2,7 +2,7 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
-| AG-20261014-026 | postfreeze_governance_reconciliation | NEW | 324c56412eab0fd581414bfcffb4b8203af87c15 | messages/AG-20261014-026.md |
+| AG-20261014-026 | postfreeze_governance_reconciliation | PROCESSED | 324c56412eab0fd581414bfcffb4b8203af87c15 | messages/AG-20261014-026.md |
 | AG-20261014-025 | postfreeze_governance_reconciliation | PROCESSED | 8e9f3299c855a80fa54005e8346e9df5c49b6b80 | messages/AG-20261014-025.md |
 | AG-20261014-024 | final_audit_response | PROCESSED | b06be9441113b145227703058849adbb8a53e66a | messages/AG-20261014-024.md |
 | AG-20261014-022 | audit_response | PROCESSED | 6b594bd73695b63f220e2a14d9c5d84d1b768790 | messages/AG-20261014-022.md |
