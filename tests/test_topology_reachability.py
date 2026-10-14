@@ -42,7 +42,7 @@ class TestTopologyReachability(unittest.TestCase):
             "evidence_quality": "SUFFICIENT", "telemetry_age_days": 0,
             "routed_ip_access": True, "internet_exposed": False, "l2_broadcast_only": True,
         })
-        self.assertEqual(r["review_status"], "HUMAN_REVIEW_REQUIRED")
+        self.assertIn(r["review_status"], ("ABSTAIN", "HUMAN_REVIEW_REQUIRED"))
 
 
 if __name__ == "__main__":

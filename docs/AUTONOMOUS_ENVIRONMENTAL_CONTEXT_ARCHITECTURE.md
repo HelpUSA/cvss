@@ -51,16 +51,17 @@ CONTROL_PRESENT != CONTROL_EFFECTIVE != CVSS_MODIFIED_METRIC
 * A modified metric ($M^*$) is asserted **only** when a deterministic rule demonstrates with verifiable telemetry that the defensive control explicitly breaks or alters the attack condition defined in the FIRST CVSS v4.0 specification.
 
 ### 3.2. Straight-Through Processing (STP) by Default
-* **Routine Flow (90% to 95% of volume):** Complete asset telemetry + verified advisory $\longrightarrow$ 100% automated resolution and deterministic FIRST scoring.
+* **Routine Autonomous Flow (Target Operational Hypothesis):** Complete asset telemetry + verified advisory $\longrightarrow$ 100% automated resolution and deterministic FIRST scoring. (Coverage rate is an empirical hypothesis to be measured during deployment, not a fixed guarantee).
 * **Human-in-the-Loop (HITL) by Exception Only:** Human security analysts are engaged strictly under defined triggers:
-  1. $\Delta \ge 1$ divergence in semantic advisory parsing during auditing;
-  2. Asset metadata absent, stale ($> 7$ days), or contradictory;
-  3. Extreme residual severity ($\ge 9.0$) on designated *Crown Jewel* assets requiring legal/regulatory sign-off.
+  1. **Strict Metric-Level Quorum Disagreement ($\text{STRICT\_QUORUM\_DELTA} = 0$):** Any difference in resolved individual metrics between automated resolvers during auditing or dual-inference; final-score agreement alone is strictly insufficient;
+  2. Asset metadata absent, stale ($> 1$ day dynamic, $> 7$ days static), or contradictory;
+  3. Control present but effectiveness unverified under FIRST metric definitions;
+  4. Extreme residual severity ($\ge 9.0$) on designated *Crown Jewel* assets requiring legal/regulatory sign-off.
 
 ### 3.3. Deterministic Abstention (Fail-Closed)
 * In the absence of verifiable context, the system **never guesses**.
-* If evidence is partial, conflicting, or unverified, the engine transitions to `ABSTAIN`, emitting:
-  1. `review_status: HUMAN_REVIEW_REQUIRED`;
+* If evidence is partial, conflicting, or unverified, the engine transitions to `ABSTAIN` (or `HUMAN_REVIEW_REQUIRED` for unresolved policy ambiguities), emitting:
+  1. `review_status: ABSTAIN` or `HUMAN_REVIEW_REQUIRED`;
   2. `auto_downgrade_permitted: false`;
   3. Bounded Severity Envelope: $[Score_{min}, Score_{max}]$, where $Score_{max}$ equals the unmitigated Base score and $Score_{min}$ represents the theoretical best-case environmental score.
 
@@ -81,7 +82,7 @@ Each ingested evidence item is tagged with:
 * `verification_status`: Cryptographic or architectural proof strength.
 
 ### Stage 2: Environmental Rule Catalog Engine
-Applies versioned, declarative rules (`ENVIRONMENTAL_RULE_CATALOG_V1`) to verify if specific attack prerequisites are constrained by the asset's active environment.
+Executes canonical versioned rules (`core/environmental_rule_catalog.py`, `v1.0.0`, SHA-256 bound) to verify if specific attack prerequisites are constrained by the asset's active environment.
 
 ### Stage 3: Metric Resolver
 Maps verified facts into the formal FIRST CVSS v4.0 taxonomy:
@@ -96,6 +97,6 @@ Feeds the resolved vector string directly into `core.cvss40.score()`. The algori
 
 ## 5. Governance and Continuous Calibration
 
-To comply with **NIST AI RMF**, **ISO/IEC 27001 (Control 8.8)**, and **ISO/IEC 42001**:
-* **Post-Hoc Random Sampling:** An automated background daemon selects a random sample of $3\%$ to $5\%$ of autonomous Straight-Through assessments for retrospective double-blind human audit.
+To support continuous improvement, monitoring, and drift detection (aligned with principles of **NIST AI RMF**, **ISO/IEC 27001 (Control 8.8)**, and **ISO/IEC 42001**):
+* **Post-Hoc Random Sampling (`HELPUS_INTERNAL_CONTROL`):** An internal HelpUS governance control (not a percentage mandated by external standards) selecting a random sample of $3\%$ to $5\%$ of autonomous Straight-Through assessments for retrospective double-blind human audit and calibration.
 * **Drift Detection:** If the retrospective audit indicates a drift or discrepancy rate $> 1\%$, an automated governance alert is triggered to re-verify the Environmental Rule Catalog.

@@ -15,7 +15,7 @@ def test_calculate_abstention_path_returns_source_assessment_without_nameerror()
         "evidence": {},
     })
     assert result["decision"] == "abstained"
-    assert result["review_status"] == "HUMAN_REVIEW_REQUIRED"
+    assert result["review_status"] in ("ABSTAIN", "HUMAN_REVIEW_REQUIRED")
     assert result["auto_downgrade_permitted"] is False
     assert result["environmental_vector"] is None
     assert result["source_vector"].startswith("CVSS:4.0/")

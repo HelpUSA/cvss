@@ -130,7 +130,7 @@ def test_adversarial_stale_telemetry_abstains():
     }
     res = calculate({"source_cvss_vector": BASE_RCE, "evidence": evidence_stale})
     assert res["decision"] == "abstained"
-    assert res["review_status"] == "HUMAN_REVIEW_REQUIRED"
+    assert res["review_status"] in ("ABSTAIN", "HUMAN_REVIEW_REQUIRED")
     assert res["auto_downgrade_permitted"] is False
     assert res["environmental_vector"] is None
 
@@ -147,7 +147,7 @@ def test_adversarial_conflict_flag_abstains():
     }
     res = calculate({"source_cvss_vector": BASE_RCE, "evidence": evidence_conflict})
     assert res["decision"] == "abstained"
-    assert res["review_status"] == "HUMAN_REVIEW_REQUIRED"
+    assert res["review_status"] in ("ABSTAIN", "HUMAN_REVIEW_REQUIRED")
     assert res["auto_downgrade_permitted"] is False
 
 
@@ -164,3 +164,153 @@ def test_control_present_is_not_metric_change():
     # Must not assert MAC:H simply because WAF is present
     if res["candidate_metrics"]:
         assert res["candidate_metrics"].get("MAC") != "H"
+
+
+def test_semantic_delta_zero_accepts():
+    """Governance requirement: Semantic inference with strict Delta=0 metric quorum is AUTO_ACCEPT."""
+    from core.environmental_rule_catalog import evaluate_semantic_quorum
+
+    resolver_a = {"MAV": "A", "MAC": "H"}
+    resolver_b = {"MAV": "A", "MAC": "H"}
+    q = evaluate_semantic_quorum(resolver_a, resolver_b)
+    assert q["quorum_passed"] is True
+    assert q["review_status"] == "AUTO_ACCEPT"
+    assert q["human_review_status"] == "none"
+    assert q["auto_downgrade_permitted"] is True
+
+
+def test_semantic_disagreement_rejects_and_escalates():
+    """Governance requirement: Any metric-level divergence breaks STP and forces HUMAN_REVIEW_REQUIRED."""
+    from core.environmental_rule_catalog import evaluate_semantic_quorum
+
+    resolver_a = {"MAV": "A", "MAC": "H"}
+    resolver_b = {"MAV": "N", "MAC": "H"}  # MAV diverges
+    q = evaluate_semantic_quorum(resolver_a, resolver_b)
+    assert q["quorum_passed"] is False
+    assert q["review_status"] == "HUMAN_REVIEW_REQUIRED"
+    assert q["human_review_status"] == "required"
+    assert q["auto_downgrade_permitted"] is False
+    assert len(q["divergences"]) == 1
+    assert q["divergences"][0]["metric"] == "MAV"
+
+
+def test_stale_evidence_warning_vs_rejection():
+    """Governance requirement: Warning threshold near expiration vs fail-closed rejection."""
+    # Near limit (0.88 days of 1.0 day limit) -> AUTO_ACCEPT_WITH_WARNING
+    warning_ev = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 0.88,
+        "telemetry_profile": "dynamic",
+        "reachability": "INTERNAL_ROUTED",
+    }
+    res_warn = calculate({"source_cvss_vector": BASE_RCE, "evidence": warning_ev})
+    assert res_warn["review_status"] == "AUTO_ACCEPT_WITH_WARNING"
+    assert res_warn["human_review_status"] == "audit_sample"
+    assert res_warn["auto_downgrade_permitted"] is True
+
+    # Exceeding limit (1.2 days of 1.0 day limit) -> ABSTAIN
+    stale_ev = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 1.2,
+        "telemetry_profile": "dynamic",
+        "reachability": "INTERNAL_ROUTED",
+    }
+    res_stale = calculate({"source_cvss_vector": BASE_RCE, "evidence": stale_ev})
+    assert res_stale["decision"] == "abstained"
+    assert res_stale["review_status"] == "ABSTAIN"
+    assert res_stale["auto_downgrade_permitted"] is False
+
+
+def test_contradictory_authoritative_sources_beyond_conflict_flag():
+    """Governance requirement: Conflicting firewall vs routing table evidence triggers fail-closed."""
+    ev = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 0.2,
+        "reachability": "INTERNAL_ROUTED",
+        "firewall_status": "ALLOW_PORT_443",
+        "routing_table_status": "NO_ROUTE_TO_HOST",
+    }
+    res = calculate({"source_cvss_vector": BASE_RCE, "evidence": ev})
+    assert res["decision"] == "abstained"
+    assert res["review_status"] == "ABSTAIN"
+    assert res["auto_downgrade_permitted"] is False
+
+
+def test_confidence_cannot_alter_score():
+    """Governance requirement: AI confidence must not affect CVSS scalar scores."""
+    ev_high_conf = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 0.2,
+        "reachability": "LOCAL_ONLY",
+        "ai_confidence": 0.99,
+    }
+    ev_low_conf = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 0.2,
+        "reachability": "LOCAL_ONLY",
+        "ai_confidence": 0.15,
+    }
+    r1 = calculate({"source_cvss_vector": BASE_RCE, "evidence": ev_high_conf})
+    r2 = calculate({"source_cvss_vector": BASE_RCE, "evidence": ev_low_conf})
+    assert r1["environmental_score"] == r2["environmental_score"]
+    assert r1["environmental_vector"] == r2["environmental_vector"]
+
+
+def test_malformed_vector_fails_closed():
+    """Governance requirement: Malformed input fails closed with ABSTAIN, never guesses."""
+    from core.environmental_rule_catalog import EnvironmentalRuleCatalogEngine
+
+    engine = EnvironmentalRuleCatalogEngine()
+    bad_res = engine.evaluate(
+        base_vector="MALFORMED_NON_CVSS_VECTOR",
+        evidence={"reachability": "LOCAL_ONLY", "telemetry_age_days": 0.1},
+    )
+    assert bad_res["review_status"] == "ABSTAIN"
+    assert bad_res["auto_downgrade_permitted"] is False
+    assert bad_res["candidate_metrics"] == {}
+
+
+def test_audit_record_completeness():
+    """Governance requirement: Autonomous output must contain all mandatory audit & provenance fields."""
+    ev = {
+        "evidence_quality": "SUFFICIENT",
+        "telemetry_age_days": 0.1,
+        "reachability": "ADJACENT_ONLY",
+    }
+    res = calculate({"cve_id": "CVE-2024-AUDIT", "source_cvss_vector": BASE_RCE, "evidence": ev})
+    required_fields = [
+        "source_vector", "environmental_vector", "delta", "decision",
+        "review_status", "human_review_status", "auto_downgrade_permitted",
+        "candidate_metrics", "adjustment_trace", "catalog_version",
+        "catalog_hash", "evidence_hash",
+    ]
+    for f in required_fields:
+        assert f in res, f"Missing required audit field: {f}"
+    assert res["catalog_version"] == "1.0.0"
+    assert len(res["catalog_hash"]) == 64
+    assert len(res["evidence_hash"]) == 64
+
+
+def test_post_facto_sampling_behavior():
+    """Governance requirement: 3%–5% post-facto sampling behaves deterministically (HELPUS_INTERNAL_CONTROL)."""
+    from core.environmental_rule_catalog import is_sampled_for_post_facto_audit
+
+    sample_count = 0
+    total = 10000
+    for i in range(total):
+        if is_sampled_for_post_facto_audit(f"FINDING-TEST-{i:05d}"):
+            sample_count += 1
+
+    rate = sample_count / total
+    # Verify rate is in the 3%–5% internal control band
+    assert 0.03 <= rate <= 0.05, f"Sampling rate {rate:.4f} outside 3%–5% band"
+
+
+def test_machine_readable_catalog_version_and_hash():
+    """Governance requirement: Catalog version and hash must be immutable and verified."""
+    from core.environmental_rule_catalog import CATALOG_HASH, CATALOG_VERSION, compute_catalog_hash
+
+    assert CATALOG_VERSION == "1.0.0"
+    assert len(CATALOG_HASH) == 64
+    assert CATALOG_HASH == compute_catalog_hash()
+

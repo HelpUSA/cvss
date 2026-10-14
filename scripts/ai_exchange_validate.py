@@ -45,6 +45,7 @@ VALID_MESSAGE_TYPES = {
     "tripartite_review",
     "tripartite_review_response",
     "scientific_scope_pivot",
+    "governance_implementation_handover",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 

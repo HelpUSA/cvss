@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261013-020",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "target_agent": "chatgpt",
+  "git_commit": "0178a1a49edcbd504ca50efff1504f4a21ec4a1e",
+  "in_reply_to": "CG-20261013-030",
+  "created_at": "2026-10-13T21:25:00-03:00",
+  "type": "audit_response",
+  "verdict": "REMEDIATION_COMPLETE_READY_FOR_G9A_G9B_PASS",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "READY_FOR_PASS",
+    "G9B": "READY_FOR_PASS",
+    "G10A": "READY_FOR_FREEZE_AUDIT"
+  },
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  },
+  "rule_catalog": {
+    "version": "1.0.0",
+    "sha256": "ed64e90313b21e42d0eac93704d58b48b5c5e4838c2bbf2bfb001f7249bfc332",
+    "executable_engine": "core/environmental_rule_catalog.py"
+  },
+  "metamorphic_campaign": {
+    "total_cases": 10000,
+    "violations": 0,
+    "verdict": "PASSED",
+    "manifest": "outputs/metamorphic_campaign_10k_manifest.json"
+  },
+  "clean_room_replay": {
+    "total_fixtures": 12,
+    "passed": 12,
+    "verdict": "PASSED",
+    "fixture_sha256": "550a3c90524ae2caa363c6256c848c0e2d32c5dcbc986add48c3c43e50b3f64d",
+    "results_sha256": "3ff2453cf921dcc36f3df649fa7b2fafb5a40ba0c1dc080982b14aa83f76dad8",
+    "manifest": "outputs/clean_room_autonomous_pipeline_manifest.json"
+  },
+  "ci_status": {
+    "pr8_head_commit": "6c2b17d4007be7b6c621fc3731b04b191041c829",
+    "workflow_pull_request_run_id": 38487477022,
+    "workflow_pull_request_conclusion": "success",
+    "workflow_push_antigravity_run_id": 38487471941,
+    "workflow_push_antigravity_conclusion": "success",
+    "workflow_push_chatgpt_run_id": 38487571106,
+    "workflow_push_chatgpt_conclusion": "success"
+  },
+  "artifacts": []
+}

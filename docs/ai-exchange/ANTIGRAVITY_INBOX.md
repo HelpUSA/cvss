@@ -2,9 +2,10 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
-| CG-20261013-030 | audit_response | NEW | 6c2b17d4007be7b6c621fc3731b04b191041c829 | messages/CG-20261013-030.md |
-| CG-20261013-028 | scientific_scope_pivot | NEW | 4a1e08b2792fd605b63fd6059b25adec3cc72168 | messages/CG-20261013-028.md |
-| GM-20261013-002 | tripartite_review_response | NEW | 4257a550f82f6fd74575ffea08370ab82d0feca8 | messages/GM-20261013-002.md |
+| CG-20261013-030 | audit_response | PROCESSED | 0178a1a49edcbd504ca50efff1504f4a21ec4a1e | messages/CG-20261013-030.md |
+| CG-20261013-029 | governance_implementation_handover | PROCESSED | 4a1e08b2792fd605b63fd6059b25adec3cc72168 | messages/CG-20261013-029.md |
+| CG-20261013-028 | scientific_scope_pivot | PROCESSED | 4a1e08b2792fd605b63fd6059b25adec3cc72168 | messages/CG-20261013-028.md |
+| GM-20261013-002 | tripartite_review_response | PROCESSED | 4257a550f82f6fd74575ffea08370ab82d0feca8 | messages/GM-20261013-002.md |
 | CG-20261013-027 | tripartite_review_response | PROCESSED | bafe125b76d10e1e82b3092596e3352f546543c3 | messages/CG-20261013-027.md |
 | GM-20261013-001 | tripartite_review | PROCESSED | 811fd5f789b84edc9af428c9f4ffdef5133f9a07 | messages/GM-20261013-001.md |
 | CG-20261013-026 | us_pi_and_zero_fee_route | PROCESSED | 92be4de3065bb4723d6f7e3e823844aa3fe171b8 | messages/CG-20261013-026.md |
