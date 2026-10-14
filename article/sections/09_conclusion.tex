@@ -1,4 +1,26 @@
-\section{Conclusion} \label{sec:conclusion}  This work presents a reproducible AI Bridge artifact for CVSS Environmental assessment using local-context evidence, deterministic case files, run manifests, audit traces, and a cloud dashboard. In the PCI segmented lab baseline, the artifact generated 12 before-after assessments for six findings, matched the expected Environmental labels encoded in the case files, and summarized the effect of segmentation as two downgraded findings and four unchanged findings.  The main contribution at this stage is not a claim of autonomous expert replacement. Instead, the project establishes a traceable baseline for how local evidence can be converted into auditable CVSS Environmental assessments and manuscript-ready artifacts. The dashboard and paper now expose the same validated run, making the artifact easier to inspect, reproduce, and extend.  The next step is a broader evaluation that separates deterministic artifact validation from comparative assessment. Future work should add more scenarios, independent expert labels, and a controlled comparison between manual assessment, LLM-only support, and watcher-mediated evidence collection.
+\section{Conclusion}
+\label{sec:conclusion}
 
-The current implementation therefore supports an automated evidence linked validation workflow and leaves independent human adjudication as future work for comparative evaluation.
+This work presents an autonomous-by-default, evidence-constrained framework for
+CVSS v4.0 environmental contextualization in which final score calculation is
+deterministic and auditable. The engineering baseline has been frozen after
+calculator conformance, reproducibility, rule-catalog validation, synthetic
+metamorphic testing, and clean-room checks.
 
+The primary scientific claim is intentionally narrower than autonomous expert
+replacement: given structured and verifiable environmental evidence, the
+system can derive candidate environmental/modified metrics under explicit
+rules, abstain when evidence is insufficient, and reproduce the same
+FIRST-compatible deterministic result from the same inputs.
+
+The remaining primary validation step is the pre-registered G10B held-out
+confirmatory run over C1 and C2. Those datasets remain sealed until explicit
+authorization and a one-time clean-room execution. Any later retuning after
+confirmatory exposure requires a new independent held-out dataset for a new
+confirmatory claim.
+
+HCAL remains a secondary optional assurance architecture rather than a runtime
+dependency of the deterministic core. Future work may compare alternative
+policy engines, richer provider-neutral context schemas, and optional human
+expert studies without retroactively changing the frozen confirmatory
+baseline.
