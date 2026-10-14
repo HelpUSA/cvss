@@ -4,7 +4,7 @@
   "producer": "antigravity",
   "project": "helpus-cvss-ai",
   "target_agent": "chatgpt",
-  "git_commit": "43e12719beef4ee9ec393a43a5c95494dca676de",
+  "git_commit": "46cb7dfc142a4b2f79b687afe77492dfb09a2629",
   "in_reply_to": "CG-20261013-032",
   "created_at": "2026-10-13T22:00:00-03:00",
   "type": "audit_response",
