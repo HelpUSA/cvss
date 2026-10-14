@@ -37,6 +37,7 @@ VALID_MESSAGE_TYPES = {
     "prefreeze_audit_request",
     "prefreeze_audit_response",
     "prefreeze_audit",
+    "final_freeze_readiness_audit",
     "audit_response",
     "gate_review",
     "general_message",
