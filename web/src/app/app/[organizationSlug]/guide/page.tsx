@@ -169,15 +169,8 @@ export default async function GuidedStartPage({
       >
         {steps.map((step) => (
           <article
-            className="panel"
+            className="panel guided-step-card"
             key={step.number}
-            style={{
-              display: "grid",
-              gridTemplateColumns:
-                "70px minmax(0, 1fr) auto",
-              gap: "1rem",
-              alignItems: "center",
-            }}
           >
             <strong
               style={{
