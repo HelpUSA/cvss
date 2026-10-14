@@ -125,3 +125,25 @@ user ID.
 Password reset is public but does not reveal whether an eligible account
 exists. Successful reset revokes all user sessions.
 <!-- auth1e-rbac-2026-07-20:end -->
+
+
+## Auth-2 SaaS multi-tenant operations
+
+Production authentication is Google OAuth through Better Auth.
+
+The canonical platform SuperAdmin is configured with
+`PLATFORM_SUPERADMIN_EMAIL`; the approved production value is
+`helpus.ecommerce@gmail.com`. The canonical account is protected from
+suspension, disablement and demotion.
+
+A global platform-user console now supports user listing, account lifecycle,
+session revocation and controlled platform-role changes. Platform role remains
+separate from tenant membership and never grants implicit tenant access.
+
+The broader operational target is:
+
+`User -> Organization -> Project -> Environment -> Assessment -> Run -> Evidence Snapshot -> Review/Audit`
+
+Detailed implementation and production-cutover requirements are documented in
+`docs/auth/AUTH2_SAAS_MULTI_TENANT_OPERATIONS.md` and
+`docs/architecture/SAAS_MULTI_TENANT_ASSESSMENT_LIFECYCLE.md`.
