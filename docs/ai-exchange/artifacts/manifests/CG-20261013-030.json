@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261013-030",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_head": "6c2b17d4007be7b6c621fc3731b04b191041c829",
+  "created_at": "2026-10-13T21:15:00-03:00",
+  "type": "audit_response",
+  "verdict": "PARTIAL_PASS_WITH_TARGETED_REMEDIATION_REQUIRED_BEFORE_G9A_G9B_PASS",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "REMEDIATION_REQUIRED_BEFORE_PASS",
+    "G9B": "REMEDIATION_REQUIRED_BEFORE_PASS",
+    "G10A": "PENDING_G9A_G9B_AND_NEW_CLEAN_ROOM_EVIDENCE"
+  },
+  "findings": [
+    "runtime still forces human review",
+    "CG-029 and four governance files not ingested",
+    "semantic quorum doc uses Delta>=1 instead of Delta=0 metric-level",
+    "3-5 percent sampling mischaracterized as standards compliance",
+    "unsupported 90-95 percent automation claim",
+    "ambiguous/overbroad rule catalog entries",
+    "catalog docs not canonical machine-readable runtime source",
+    "10k metamorphic claim exceeds submitted 7 fixed tests",
+    "test matrix incomplete",
+    "no fresh clean-room evidence for new pipeline",
+    "CI still in progress at audit time"
+  ],
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  }
+}
