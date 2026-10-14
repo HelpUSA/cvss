@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261013-031",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "reviewed_repository": "HelpUSA/cvss",
+  "reviewed_pr": 8,
+  "reviewed_head": "208a2b04bd2fd9dcd00f2d695c3ec332272cc01f",
+  "created_at": "2026-10-13T21:40:00-03:00",
+  "type": "final_audit_response",
+  "verdict": "SUBSTANTIAL_PASS_WITH_TWO_FINAL_TECHNICAL_CORRECTIONS_BEFORE_G9A_G10A_CLOSURE",
+  "gate_status": {
+    "G1_G8": "PASS_CLOSED",
+    "G9_LEGACY": "PRESERVED_HISTORICAL_OPTIONAL_FUTURE_EXTENSION",
+    "G9A": "FINAL_TECHNICAL_CORRECTION_REQUIRED",
+    "G9B": "PASS",
+    "G10A": "NOT_YET_READY_FOR_FREEZE_AUDIT"
+  },
+  "findings": [
+    "machine-readable rule metadata is not the sole runtime source-of-truth; imperative rule logic is duplicated and current catalog hash does not bind executable consequence logic",
+    "clean-room manifest is bound to git commit 0178a1a rather than remediation commit 01ef8ac/final head 208a2b0",
+    "current status document is stale after AG-020",
+    "current-head PR CI succeeded while push CI was still running at audit time"
+  ],
+  "invariants": {
+    "safe_to_freeze": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "pr8_merge_authorized": false
+  }
+}
