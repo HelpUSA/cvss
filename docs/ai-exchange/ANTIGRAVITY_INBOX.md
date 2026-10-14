@@ -2,6 +2,7 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
+| CG-20261014-038 | implementation_handoff | NEW | a431f0a4a65f618093ad3502921b635698603c6e | messages/CG-20261014-038.md |
 | CG-20261014-037 | confirmatory_protocol_specification | NEW | 3e3e65a72b5d8a1bb6ab1580e457fadedc6cccc3 | messages/CG-20261014-037.md |
 | CG-20261014-036 | postfreeze_governance_reconciliation | PROCESSED | 007fe79a6cd0e843fe6a9f837444720e23a4bcad | messages/CG-20261014-036.md |
 | CG-20261014-035 | final_freeze_readiness_audit | PROCESSED | f412091c44c7c38a6e01071be1b96c5843cea691 | messages/CG-20261014-035.md |
