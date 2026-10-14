@@ -52,6 +52,7 @@ VALID_MESSAGE_TYPES = {
     "final_audit_response",
     "optional_ai_assurance_architecture",
     "postfreeze_governance_reconciliation",
+    "confirmatory_protocol_specification",
 }
 VALID_STATUSES = {"NEW", "IN_PROGRESS", "PROCESSED", "SUPERSEDED", "ANSWERED"}
 
