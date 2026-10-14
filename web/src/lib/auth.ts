@@ -6,6 +6,7 @@ import {
   verifyPassword,
 } from "@/lib/password";
 import { prisma } from "@/lib/prisma";
+import { isCanonicalPlatformSuperAdminEmail } from "@/lib/platform-superadmin";
 
 function requiredAuthSecret(): string {
   const value = process.env.BETTER_AUTH_SECRET?.trim();
@@ -103,6 +104,30 @@ export const auth = betterAuth({
   },
 
   databaseHooks: {
+    user: {
+      create: {
+        before: async (user) => {
+          if (
+            isCanonicalPlatformSuperAdminEmail(
+              user.email,
+            )
+          ) {
+            return {
+              data: {
+                ...user,
+                status: "ACTIVE",
+                platformRole: "PLATFORM_ADMIN",
+              },
+            };
+          }
+
+          return {
+            data: user,
+          };
+        },
+      },
+    },
+
     session: {
       create: {
         before: async (session) => {
