@@ -2,6 +2,7 @@
 
 | Message ID | Type | Status | Commit | File |
 |---|---|---|---|---|
+| CG-20261014-037 | confirmatory_protocol_specification | NEW | 3e3e65a72b5d8a1bb6ab1580e457fadedc6cccc3 | messages/CG-20261014-037.md |
 | CG-20261014-036 | postfreeze_governance_reconciliation | PROCESSED | 007fe79a6cd0e843fe6a9f837444720e23a4bcad | messages/CG-20261014-036.md |
 | CG-20261014-035 | final_freeze_readiness_audit | PROCESSED | f412091c44c7c38a6e01071be1b96c5843cea691 | messages/CG-20261014-035.md |
 | GM-20261014-003 | tripartite_review_response | PROCESSED | f412091c44c7c38a6e01071be1b96c5843cea691 | messages/GM-20261014-003.md |
