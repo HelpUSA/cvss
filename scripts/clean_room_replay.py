@@ -41,12 +41,53 @@ def get_git_commit() -> str:
         return "UNKNOWN_COMMIT"
 
 
+def get_working_tree_status() -> dict:
+    try:
+        res = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=str(REPO_ROOT),
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        changes = [l for l in res.stdout.strip().splitlines() if l and not l.startswith("??")]
+        return {
+            "is_clean": len(changes) == 0,
+            "tracked_modifications_count": len(changes),
+        }
+    except Exception:
+        return {"is_clean": False, "tracked_modifications_count": -1}
+
+
+def get_dependency_inventory() -> dict:
+    try:
+        res = subprocess.run(
+            [sys.executable, "-m", "pip", "list", "--format=json"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        pkgs = json.loads(res.stdout)
+        pkg_dict = {p["name"]: p["version"] for p in pkgs}
+        hasher = hashlib.sha256()
+        for k in sorted(pkg_dict.keys()):
+            hasher.update(f"{k}=={pkg_dict[k]}".encode("utf-8"))
+        return {
+            "total_packages": len(pkg_dict),
+            "dependency_environment_hash": hasher.hexdigest(),
+            "core_packages": {k: pkg_dict[k] for k in ("pytest", "anyio") if k in pkg_dict},
+        }
+    except Exception:
+        return {"total_packages": 0, "dependency_environment_hash": "UNAVAILABLE", "core_packages": {}}
+
+
 def file_sha256(path: Path) -> str:
     hasher = hashlib.sha256()
     with open(path, "rb") as f:
         while chunk := f.read(65536):
             hasher.update(chunk)
     return hasher.hexdigest()
+
 
 
 def run_clean_room_replay() -> dict:
@@ -110,15 +151,19 @@ def run_clean_room_replay() -> dict:
         "manifest_type": "HELPUS_AUTONOMOUS_PIPELINE_CLEAN_ROOM_REPLAY",
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "git_commit": get_git_commit(),
+        "working_tree_provenance": get_working_tree_status(),
         "runtime_environment": {
             "python_version": platform.python_version(),
             "python_implementation": platform.python_implementation(),
             "system_platform": platform.platform(),
             "os_name": os.name,
+            "executable_path": sys.executable,
         },
+        "dependency_inventory": get_dependency_inventory(),
         "rule_catalog": {
             "catalog_version": CATALOG_VERSION,
             "catalog_sha256": CATALOG_HASH,
+            "rule_source_file_sha256": file_sha256(REPO_ROOT / "core" / "environmental_rule_catalog.py"),
         },
         "benchmark_fixtures": {
             "fixture_file": "data/autonomous_benchmark_fixtures.json",

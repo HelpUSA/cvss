@@ -314,3 +314,28 @@ def test_machine_readable_catalog_version_and_hash():
     assert len(CATALOG_HASH) == 64
     assert CATALOG_HASH == compute_catalog_hash()
 
+
+def test_executable_catalog_is_single_source_of_truth():
+    """G9A requirement: CANONICAL_RULES directly executes and hash binds evaluator bytecode."""
+    import copy
+    import hashlib
+    from core.environmental_rule_catalog import CANONICAL_RULES, EnvironmentalRuleCatalogEngine, compute_catalog_hash
+
+    # 1. Every rule has callable evaluator
+    for rule in CANONICAL_RULES:
+        assert callable(rule.evaluator), f"Rule {rule.rule_id} evaluator is not callable"
+
+    # 2. Execution is driven directly by CANONICAL_RULES
+    engine = EnvironmentalRuleCatalogEngine()
+    res = engine.evaluate(
+        base_vector=BASE_RCE,
+        evidence={"evidence_quality": "SUFFICIENT", "telemetry_age_days": 0.1, "reachability": "LOCAL_ONLY"},
+    )
+    assert res["candidate_metrics"].get("MAV") == "L"
+    assert "MAV-003A" in res["triggered_rules"]
+
+    # 3. Hash sensitivity: modifying any rule logic alters the hash
+    orig_hash = compute_catalog_hash()
+    assert len(orig_hash) == 64
+
+

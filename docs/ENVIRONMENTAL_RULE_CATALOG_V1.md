@@ -213,7 +213,7 @@ Every evaluation emitted by this catalog produces an immutable JSON trace contai
 3. `evidence_hash`: SHA-256 of the asset profile input;
 4. `timestamp`: UTC execution time;
 5. `catalog_version`: `1.0.0`;
-6. `catalog_hash`: SHA-256 binding (`ed64e90313b21e42d0eac93704d58b48b5c5e4838c2bbf2bfb001f7249bfc332`).
+6. `catalog_hash`: SHA-256 binding (`da7bfa9691bd91880948cdfcace70349a02f232e3aa8e8a4578c91bd7a6b52e8`).
 
 ---
 
@@ -223,6 +223,6 @@ This catalog is not merely a documentation specification. It is implemented as t
 - **Source Module:** `core/environmental_rule_catalog.py`
 - **Class:** `EnvironmentalRuleCatalogEngine`
 - **Catalog Version:** `1.0.0`
-- **Catalog SHA-256 Hash:** `ed64e90313b21e42d0eac93704d58b48b5c5e4838c2bbf2bfb001f7249bfc332`
+- **Catalog SHA-256 Hash:** `da7bfa9691bd91880948cdfcace70349a02f232e3aa8e8a4578c91bd7a6b52e8`
 - **Execution Invariant:** Zero external runtime dependencies; pure Python boolean evaluation feeding the official FIRST CVSS v4.0 scoring core (`core/cvss40.py`).
 

@@ -1,6 +1,6 @@
 {
   "campaign_id": "HELPUS-METAMORPHIC-10K-G9B",
-  "timestamp_utc": "2026-10-14T00:18:51.966693+00:00",
+  "timestamp_utc": "2026-10-14T00:58:03.607000+00:00",
   "random_seed": 20261013,
   "total_cases_evaluated": 10000,
   "results_by_relation": {
@@ -27,8 +27,8 @@
   },
   "total_violations": 0,
   "verdict": "PASSED",
-  "execution_time_seconds": 2.755,
-  "throughput_cases_per_sec": 3629.6,
+  "execution_time_seconds": 3.145,
+  "throughput_cases_per_sec": 3179.6,
   "catalog_version": "1.0.0",
-  "catalog_hash": "ed64e90313b21e42d0eac93704d58b48b5c5e4838c2bbf2bfb001f7249bfc332"
+  "catalog_hash": "da7bfa9691bd91880948cdfcace70349a02f232e3aa8e8a4578c91bd7a6b52e8"
 }

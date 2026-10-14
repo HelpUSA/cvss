@@ -5,17 +5,19 @@ Catalog Version: 1.0.0
 Execution Model: Pure Python Deterministic Boolean Logic (Zero External LLM Dependency).
 
 Governing Principles:
-1. CONTROL_PRESENT != CONTROL_EFFECTIVE != CVSS_MODIFIED_METRIC.
-2. Straight-Through Processing (STP) by default; Human-in-the-Loop (HITL) exception-only.
-3. Fail-Safe Abstention: Missing, stale, or conflicting evidence triggers ABSTAIN.
-4. Strict Semantic Quorum: Delta=0 at metric level required for semantic inference STP.
-5. Internal Control: 3%–5% post-facto sampling is an internal HelpUS control (HELPUS_INTERNAL_CONTROL).
+1. Single Source of Truth: CANONICAL_RULES directly drives runtime evaluation.
+2. CONTROL_PRESENT != CONTROL_EFFECTIVE != CVSS_MODIFIED_METRIC.
+3. Straight-Through Processing (STP) by default; Human-in-the-Loop (HITL) exception-only.
+4. Fail-Safe Abstention: Missing, stale, or conflicting evidence triggers ABSTAIN.
+5. Strict Semantic Quorum: Delta=0 at metric level required for semantic inference STP.
+6. Internal Control: 3%–5% post-facto sampling is an internal HelpUS control (HELPUS_INTERNAL_CONTROL).
 """
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple
 
@@ -44,6 +46,9 @@ _DYNAMIC_MAX_AGE_DAYS = 1.0
 _STATIC_MAX_AGE_DAYS = 7.0
 
 
+RuleEvaluator = Callable[[str, Mapping[str, Any], Mapping[str, Any]], Tuple[bool, Optional[str], Optional[str]]]
+
+
 @dataclass(frozen=True)
 class RuleDefinition:
     rule_id: str
@@ -52,6 +57,159 @@ class RuleDefinition:
     rationale: str
     citation: str
     preconditions: str
+    evaluator: RuleEvaluator
+
+
+# --- Evaluator Functions for Canonical Rules ---
+
+def _eval_mav_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reach = ctx.get("reachability", "")
+    if reach in ("PUBLIC_ROUTED", "INTERNAL_ROUTED") or ev.get("internet_exposed") is True:
+        return True, "N", "MAV:N - Rule MAV-001 (routed network reachability retains Network vector)."
+    return False, None, None
+
+
+def _eval_mav_002(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reach = ctx.get("reachability", "")
+    if reach == "ADJACENT_ONLY" or ev.get("l2_broadcast_only") is True:
+        return True, "A", "MAV:A - Rule MAV-002 (verified adjacent L2 broadcast boundary)."
+    return False, None, None
+
+
+def _eval_mav_003a(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reach = ctx.get("reachability", "")
+    if reach == "LOCAL_ONLY" or ev.get("local_host_only") is True:
+        return True, "L", "MAV:L - Rule MAV-003A (verified local host / socket isolation)."
+    return False, None, None
+
+
+def _eval_mav_003b(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reach = ctx.get("reachability", "")
+    if reach == "PHYSICAL_ONLY" or ev.get("physical_access_only") is True:
+        return True, "P", "MAV:P - Rule MAV-003B (verified physical airgap boundary)."
+    return False, None, None
+
+
+def _eval_mac_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    if ev.get("waf_active") is True and not ev.get("evidenced_exploit_preconditions_elevated"):
+        return True, "X", "MAC:X - Rule MAC-001 (defensive control presence alone preserves Base MAC)."
+    return False, None, None
+
+
+def _eval_mac_002(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    if ev.get("evidenced_exploit_preconditions_elevated") is True:
+        return True, "H", "MAC:H - Rule MAC-002 (target-specific exploit engineering verified)."
+    return False, None, None
+
+
+def _eval_mpr_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    target_pr = str(ev.get("target_authenticated_prerequisite", "")).upper()
+    if target_pr in ("LOW", "L"):
+        return True, "L", "MPR:L - Rule MPR-001 (target-specific low privileges required before exploit)."
+    elif target_pr in ("HIGH", "H"):
+        return True, "H", "MPR:H - Rule MPR-001 (target-specific high privileges required before exploit)."
+    return False, None, None
+
+
+def _eval_cr_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reqs = ev.get("security_requirements")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(reqs, Mapping) and pol_id and pol_ver:
+        val = str(reqs.get("CR", "")).upper()
+        if val in {"H", "M", "L"}:
+            return True, val, f"CR:{val} - Rule CR-001 (derived from organizational policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_ir_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reqs = ev.get("security_requirements")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(reqs, Mapping) and pol_id and pol_ver:
+        val = str(reqs.get("IR", "")).upper()
+        if val in {"H", "M", "L"}:
+            return True, val, f"IR:{val} - Rule IR-001 (derived from organizational policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_ar_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    reqs = ev.get("security_requirements")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(reqs, Mapping) and pol_id and pol_ver:
+        val = str(reqs.get("AR", "")).upper()
+        if val in {"H", "M", "L"}:
+            return True, val, f"AR:{val} - Rule AR-001 (derived from organizational policy {pol_id} v{pol_ver})."
+    elif ev.get("stateless_redundant") is True and not ev.get("explicit_ar_low"):
+        return True, "X", "AR:X - Rule AR-001 (architecture redundancy preserves Base AR)."
+    return False, None, None
+
+
+def _eval_msc_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MSC", "")).upper()
+        if val in {"H", "L", "N"}:
+            return True, val, f"MSC:{val} - Rule MSC-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_msi_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MSI", "")).upper()
+        if val in {"H", "L", "N", "S"}:
+            return True, val, f"MSI:{val} - Rule MSI-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_msa_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MSA", "")).upper()
+        if val in {"H", "L", "N", "S"}:
+            return True, val, f"MSA:{val} - Rule MSA-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_mvc_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MVC", "")).upper()
+        if val in {"H", "L", "N"}:
+            return True, val, f"MVC:{val} - Rule MVC-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_mvi_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MVI", "")).upper()
+        if val in {"H", "L", "N"}:
+            return True, val, f"MVI:{val} - Rule MVI-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
+
+
+def _eval_mva_001(base_vec: str, ev: Mapping[str, Any], ctx: Mapping[str, Any]) -> Tuple[bool, Optional[str], Optional[str]]:
+    impacts = ev.get("modified_impacts")
+    pol_id = ev.get("organization_policy_id")
+    pol_ver = ev.get("policy_version")
+    if isinstance(impacts, Mapping) and pol_id and pol_ver:
+        val = str(impacts.get("MVA", "")).upper()
+        if val in {"H", "L", "N"}:
+            return True, val, f"MVA:{val} - Rule MVA-001 (derived from policy {pol_id} v{pol_ver})."
+    return False, None, None
 
 
 # Canonical declarative catalog of environmental rules
@@ -63,6 +221,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset with public Internet route or ingress cannot downgrade network exploitability.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Network vector requires remote exploitability; public route retains MAV:N.",
         preconditions="Base AV == 'N' AND (internet_exposed == True OR routing_table_public == True)",
+        evaluator=_eval_mav_001,
     ),
     RuleDefinition(
         rule_id="MAV-002",
@@ -71,6 +230,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset unreachable from Internet and routed IP; strictly bounded to local Layer 2 or management VLAN.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Non-routed adjacent broadcast boundary justifies MAV:A.",
         preconditions="reachability == 'ADJACENT_ONLY' OR l2_broadcast_only == True",
+        evaluator=_eval_mav_002,
     ),
     RuleDefinition(
         rule_id="MAV-003A",
@@ -79,6 +239,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset has zero external listening interfaces; access requires local interactive session or IPC.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Local socket/host-only boundary justifies MAV:L.",
         preconditions="reachability == 'LOCAL_ONLY' OR local_host_only == True",
+        evaluator=_eval_mav_003a,
     ),
     RuleDefinition(
         rule_id="MAV-003B",
@@ -87,6 +248,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset is physically isolated with zero remote network or host connections; physical access required.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Physical airgap boundary justifies MAV:P.",
         preconditions="reachability == 'PHYSICAL_ONLY' OR physical_access_only == True",
+        evaluator=_eval_mav_003b,
     ),
     RuleDefinition(
         rule_id="MAC-001",
@@ -95,6 +257,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Presence of WAF/IPS does not increase complexity unless exploit requires target-specific engineering.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Generic defensive control presence preserves Base MAC:X.",
         preconditions="waf_active == True AND exploit_requires_custom_evasion == False",
+        evaluator=_eval_mac_001,
     ),
     RuleDefinition(
         rule_id="MAC-002",
@@ -103,6 +266,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Target-specific randomized mitigation (e.g. ASLR/DEP) forces non-generic memory leak exploitation.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Mandatory target-specific info-leak prerequisite elevates MAC:H.",
         preconditions="evidenced_exploit_preconditions_elevated == True",
+        evaluator=_eval_mac_002,
     ),
     RuleDefinition(
         rule_id="MPR-001",
@@ -111,6 +275,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Vulnerable execution path strictly requires authenticated credentials on the target before exploitation.",
         citation="FIRST CVSS v4.0 Sec 4.2 - Target-specific authorization prerequisite enforces MPR.",
         preconditions="target_authenticated_prerequisite == 'LOW'|'HIGH'",
+        evaluator=_eval_mpr_001,
     ),
     RuleDefinition(
         rule_id="CR-001",
@@ -119,6 +284,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset processes regulated PII/financial data under verified policy mapping.",
         citation="FIRST CVSS v4.0 Sec 4.1 - Versioned organizational policy mapping sets CR:H.",
         preconditions="organization_policy_id AND policy_version AND security_requirements.CR == 'H'",
+        evaluator=_eval_cr_001,
     ),
     RuleDefinition(
         rule_id="IR-001",
@@ -127,6 +293,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Asset processes core database or financial ledger records under verified policy mapping.",
         citation="FIRST CVSS v4.0 Sec 4.1 - Versioned organizational policy mapping sets IR:H.",
         preconditions="organization_policy_id AND policy_version AND security_requirements.IR == 'H'",
+        evaluator=_eval_ir_001,
     ),
     RuleDefinition(
         rule_id="AR-001",
@@ -135,6 +302,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Redundant architecture alone never lowers business availability requirement to Low.",
         citation="FIRST CVSS v4.0 Sec 4.1 - Architecture redundancy preserves AR:X / base policy requirement.",
         preconditions="stateless_redundant == True AND explicit_ar_low == False",
+        evaluator=_eval_ar_001,
     ),
     RuleDefinition(
         rule_id="MSC-001",
@@ -143,6 +311,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Vulnerability impact path analysis confirms subsequent system confidentiality is uncompromised.",
         citation="FIRST CVSS v4.0 Sec 4.3 - Bounded enclave with zero subsequent data exposure sets MSC:N.",
         preconditions="modified_impacts.MSC == 'N' AND policy_version",
+        evaluator=_eval_msc_001,
     ),
     RuleDefinition(
         rule_id="MSI-001",
@@ -151,6 +320,7 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Vulnerability impact path analysis confirms subsequent system integrity cannot be altered.",
         citation="FIRST CVSS v4.0 Sec 4.3 - Absence of downstream trust or tokens sets MSI:N.",
         preconditions="modified_impacts.MSI == 'N' AND policy_version",
+        evaluator=_eval_msi_001,
     ),
     RuleDefinition(
         rule_id="MSA-001",
@@ -159,17 +329,48 @@ CANONICAL_RULES: List[RuleDefinition] = [
         rationale="Vulnerability impact path analysis confirms subsequent systems suffer zero denial of service.",
         citation="FIRST CVSS v4.0 Sec 4.3 - Independent downstream control plane sets MSA:N.",
         preconditions="modified_impacts.MSA == 'N' AND policy_version",
+        evaluator=_eval_msa_001,
+    ),
+    RuleDefinition(
+        rule_id="MVC-001",
+        target_metric="MVC",
+        description="Modified Confidentiality impact derived from verified policy.",
+        rationale="Target enclave containment or encryption constraints modify vulnerable system confidentiality.",
+        citation="FIRST CVSS v4.0 Sec 4.3 - Modified Vulnerable System Confidentiality derived from verified policy.",
+        preconditions="organization_policy_id AND policy_version AND modified_impacts.MVC",
+        evaluator=_eval_mvc_001,
+    ),
+    RuleDefinition(
+        rule_id="MVI-001",
+        target_metric="MVI",
+        description="Modified Integrity impact derived from verified policy.",
+        rationale="Target enclave read-only mount or write-protection constraints modify vulnerable system integrity.",
+        citation="FIRST CVSS v4.0 Sec 4.3 - Modified Vulnerable System Integrity derived from verified policy.",
+        preconditions="organization_policy_id AND policy_version AND modified_impacts.MVI",
+        evaluator=_eval_mvi_001,
+    ),
+    RuleDefinition(
+        rule_id="MVA-001",
+        target_metric="MVA",
+        description="Modified Availability impact derived from verified policy.",
+        rationale="Target service architecture or isolation limits vulnerable system availability impact.",
+        citation="FIRST CVSS v4.0 Sec 4.3 - Modified Vulnerable System Availability derived from verified policy.",
+        preconditions="organization_policy_id AND policy_version AND modified_impacts.MVA",
+        evaluator=_eval_mva_001,
     ),
 ]
 
 
 def compute_catalog_hash() -> str:
-    """Return deterministic SHA-256 hash of canonical rule definitions."""
+    """Return deterministic SHA-256 hash of canonical rule definitions, including evaluator bytecode."""
     hasher = hashlib.sha256()
     hasher.update(CATALOG_VERSION.encode("utf-8"))
     for rule in CANONICAL_RULES:
-        rule_str = f"{rule.rule_id}|{rule.target_metric}|{rule.description}|{rule.preconditions}"
+        code_obj = getattr(rule.evaluator, "__code__", None)
+        bytecode = code_obj.co_code if code_obj else b""
+        rule_str = f"{rule.rule_id}|{rule.target_metric}|{rule.description}|{rule.preconditions}|{rule.citation}"
         hasher.update(rule_str.encode("utf-8"))
+        hasher.update(bytecode)
     return hasher.hexdigest()
 
 
@@ -185,7 +386,6 @@ def is_sampled_for_post_facto_audit(item_id: str, sample_rate: float = INTERNAL_
     not a requirement mandated by NIST AI RMF or ISO/IEC 42001.
     """
     digest = hashlib.sha256(item_id.encode("utf-8")).hexdigest()
-    # Map first 8 hex characters to integer modulo 10000
     val = int(digest[:8], 16) % 10000
     threshold = int(sample_rate * 10000)
     return val < threshold
@@ -234,12 +434,12 @@ def evaluate_semantic_quorum(
 
 
 class EnvironmentalRuleCatalogEngine:
-    """Pure Python deterministic engine executing the canonical rule catalog."""
+    """Pure Python deterministic engine directly executing CANONICAL_RULES."""
 
     def __init__(self):
         self.version = CATALOG_VERSION
         self.catalog_id = CATALOG_ID
-        self.catalog_hash = CATALOG_SHA256
+        self.catalog_hash = compute_catalog_hash()
 
     @staticmethod
     def _freshness_limit(evidence: Mapping[str, Any]) -> float:
@@ -248,35 +448,13 @@ class EnvironmentalRuleCatalogEngine:
         profile = str(evidence.get("telemetry_profile", "dynamic")).lower()
         return _STATIC_MAX_AGE_DAYS if profile == "static" else _DYNAMIC_MAX_AGE_DAYS
 
-    @staticmethod
-    def _validate_policy_mapping(
-        mapping: Any,
-        allowed_names: Set[str],
-        citations: List[str],
-        label: str,
-    ) -> Dict[str, str]:
-        if not isinstance(mapping, Mapping):
-            return {}
-        out: Dict[str, str] = {}
-        for name, value in mapping.items():
-            name = str(name).upper()
-            value = str(value).upper()
-            if name not in allowed_names:
-                continue
-            if value not in VALID_ENVIRONMENTAL_METRICS[name] or value == "X":
-                continue
-            out[name] = value
-        if out:
-            citations.append(label)
-        return out
-
     def evaluate(
         self,
         base_vector: str,
         evidence: Mapping[str, Any],
         cve_id: Optional[str] = None,
     ) -> Dict[str, Any]:
-        """Evaluates evidence against the catalog and returns a structured STP decision."""
+        """Evaluates evidence against CANONICAL_RULES and returns a structured STP decision."""
         citations: List[str] = []
         triggered_rules: List[str] = []
         candidate_metrics: Dict[str, str] = {}
@@ -373,109 +551,40 @@ class EnvironmentalRuleCatalogEngine:
                 "catalog_hash": self.catalog_hash,
             }
 
-        # Rule evaluation: MAV
-        if reachability in ("PUBLIC_ROUTED", "INTERNAL_ROUTED"):
-            candidate_metrics["MAV"] = "N"
-            triggered_rules.append("MAV-001")
-            citations.append("MAV:N - Rule MAV-001 (routed network reachability retains Network vector).")
-        elif reachability == "ADJACENT_ONLY":
-            candidate_metrics["MAV"] = "A"
-            triggered_rules.append("MAV-002")
-            citations.append("MAV:A - Rule MAV-002 (verified adjacent L2 broadcast boundary).")
-        elif reachability == "LOCAL_ONLY":
-            candidate_metrics["MAV"] = "L"
-            triggered_rules.append("MAV-003A")
-            citations.append("MAV:L - Rule MAV-003A (verified local host / socket isolation).")
-        elif reachability == "PHYSICAL_ONLY":
-            candidate_metrics["MAV"] = "P"
-            triggered_rules.append("MAV-003B")
-            citations.append("MAV:P - Rule MAV-003B (verified physical airgap boundary).")
-
-        # Rule evaluation: MAC
-        if evidence.get("evidenced_exploit_preconditions_elevated") is True:
-            candidate_metrics["MAC"] = "H"
-            triggered_rules.append("MAC-002")
-            citations.append("MAC:H - Rule MAC-002 (target-specific exploit engineering verified).")
-        elif evidence.get("waf_active") is True:
-            triggered_rules.append("MAC-001")
-            citations.append("MAC:X - Rule MAC-001 (defensive control presence alone preserves Base MAC).")
-
-        # Rule evaluation: MPR
-        target_pr = evidence.get("target_authenticated_prerequisite")
-        if target_pr in ("LOW", "L"):
-            candidate_metrics["MPR"] = "L"
-            triggered_rules.append("MPR-001")
-            citations.append("MPR:L - Rule MPR-001 (target-specific low privileges required before exploit).")
-        elif target_pr in ("HIGH", "H"):
-            candidate_metrics["MPR"] = "H"
-            triggered_rules.append("MPR-001")
-            citations.append("MPR:H - Rule MPR-001 (target-specific high privileges required before exploit).")
-
-        # Rule evaluation: Security Requirements (CR, IR, AR)
+        # Policy provenance check if security requirements or modified impacts supplied
         policy_id = evidence.get("organization_policy_id")
         policy_version = evidence.get("policy_version")
-        reqs = evidence.get("security_requirements")
-        if reqs:
-            if not policy_id or not policy_version:
-                return {
-                    "cve_id": cve_id or "UNKNOWN",
-                    "base_vector": base_vector,
-                    "review_status": "HUMAN_REVIEW_REQUIRED",
-                    "human_review_status": "required",
-                    "auto_downgrade_permitted": False,
-                    "evidence_quality": "INSUFFICIENT",
-                    "candidate_metrics": {},
-                    "citations": [],
-                    "uncertainty_flags": ["security requirements supplied without organization_policy_id and policy_version"],
-                    "summary_rationale": "Automated inference requires human review: missing policy provenance",
-                    "catalog_version": self.version,
-                    "catalog_hash": self.catalog_hash,
-                }
-            mapped_reqs = self._validate_policy_mapping(
-                reqs,
-                {"CR", "IR", "AR"},
-                citations,
-                f"Derived from organizational policy {policy_id} version {policy_version}.",
-            )
-            candidate_metrics.update(mapped_reqs)
-            if "CR" in mapped_reqs:
-                triggered_rules.append("CR-001")
-            if "IR" in mapped_reqs:
-                triggered_rules.append("IR-001")
-            if "AR" in mapped_reqs:
-                triggered_rules.append("AR-001")
+        if (evidence.get("security_requirements") or evidence.get("modified_impacts")) and (not policy_id or not policy_version):
+            return {
+                "cve_id": cve_id or "UNKNOWN",
+                "base_vector": base_vector,
+                "review_status": "HUMAN_REVIEW_REQUIRED",
+                "human_review_status": "required",
+                "auto_downgrade_permitted": False,
+                "evidence_quality": "INSUFFICIENT",
+                "candidate_metrics": {},
+                "citations": [],
+                "uncertainty_flags": ["organizational requirements or modified impacts supplied without policy provenance"],
+                "summary_rationale": "Automated inference requires human review: missing organization_policy_id/policy_version",
+                "catalog_version": self.version,
+                "catalog_hash": self.catalog_hash,
+            }
 
-        # Rule evaluation: Modified Impacts (MSC, MSI, MSA, MVC, MVI, MVA)
-        impacts = evidence.get("modified_impacts")
-        if impacts:
-            if not policy_id or not policy_version:
-                return {
-                    "cve_id": cve_id or "UNKNOWN",
-                    "base_vector": base_vector,
-                    "review_status": "HUMAN_REVIEW_REQUIRED",
-                    "human_review_status": "required",
-                    "auto_downgrade_permitted": False,
-                    "evidence_quality": "INSUFFICIENT",
-                    "candidate_metrics": {},
-                    "citations": [],
-                    "uncertainty_flags": ["modified impacts supplied without organization_policy_id and policy_version"],
-                    "summary_rationale": "Automated inference requires human review: missing policy provenance",
-                    "catalog_version": self.version,
-                    "catalog_hash": self.catalog_hash,
-                }
-            mapped_impacts = self._validate_policy_mapping(
-                impacts,
-                {"MVC", "MVI", "MVA", "MSC", "MSI", "MSA"},
-                citations,
-                f"Modified impacts derived from policy {policy_id} version {policy_version}.",
-            )
-            candidate_metrics.update(mapped_impacts)
-            if "MSC" in mapped_impacts and mapped_impacts["MSC"] == "N":
-                triggered_rules.append("MSC-001")
-            if "MSI" in mapped_impacts and mapped_impacts["MSI"] == "N":
-                triggered_rules.append("MSI-001")
-            if "MSA" in mapped_impacts and mapped_impacts["MSA"] == "N":
-                triggered_rules.append("MSA-001")
+        # Execution context for canonical rule evaluators
+        context = {
+            "reachability": reachability,
+            "evidence_quality": quality,
+        }
+
+        # DIRECT EXECUTION FROM CANONICAL_RULES (Single Source of Truth)
+        for rule in CANONICAL_RULES:
+            triggered, val, citation_str = rule.evaluator(base_vector, evidence, context)
+            if triggered:
+                triggered_rules.append(rule.rule_id)
+                if val is not None and val != "X":
+                    candidate_metrics[rule.target_metric] = val
+                if citation_str:
+                    citations.append(citation_str)
 
         # Operational status: determine STP state
         if warnings:
@@ -485,7 +594,6 @@ class EnvironmentalRuleCatalogEngine:
             review_status = "AUTO_ACCEPT"
             human_review_status = "none"
 
-        # Evidence hash for audit trace
         evidence_bytes = json.dumps(dict(evidence), sort_keys=True, default=str).encode("utf-8")
         evidence_hash = hashlib.sha256(evidence_bytes).hexdigest()
 
