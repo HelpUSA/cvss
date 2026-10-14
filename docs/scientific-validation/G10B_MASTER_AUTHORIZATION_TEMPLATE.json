@@ -1,0 +1,13 @@
+{
+  "CONFIRMATORY_RUN_AUTHORIZED": false,
+  "authorized_by": "wmsjp",
+  "authorized_at_utc": null,
+  "protocol_id": "HELPUS-G10B-CONFIRMATORY-RUN-v1.0",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "protocol_sha256": null,
+  "executor_sha256": null,
+  "dependency_lock_sha256": null,
+  "c1_expected_sha256": null,
+  "c2_expected_sha256": null,
+  "acknowledgement": "I authorize the one-time blind confirmatory execution of C1 and C2 under NO_RETUNING_PERMITTED."
+}
