@@ -1,0 +1,50 @@
+\chapter{Confirmatory Validation Protocol (G10B)}
+\label{chap:g10b_confirmatory}
+
+\section{Purpose and Freeze Boundary}
+The deterministic HelpUS CVSS v4.0 baseline is frozen at commit
+\texttt{007fe79a6cd0e843fe6a9f837444720e23a4bcad}. The held-out
+confirmatory datasets C1 and C2 remain strictly sealed and cannot be used for
+debugging, calibration, rule selection, or threshold tuning.
+
+The confirmatory evaluation is governed by
+\texttt{HELPUS-G10B-CONFIRMATORY-RUN-v1.0}. Architectural freeze does not
+authorize dataset unsealing. A separate explicit authorization by the Master
+SuperAdmin (\texttt{wmsjp}) is required after all execution artifacts and
+custody bindings are frozen.
+
+\section{Fail-Closed Execution Contract}
+The gatekeeper \texttt{scripts/g10b\_confirmatory\_gate.py} enforces the
+authorization boundary before any real confirmatory execution. The gate binds
+the authorization record to the protocol hash, executor hash, dependency-lock
+hash, frozen baseline, and pre-registered custody hashes for C1 and C2.
+
+The primary run is deterministic-core only. Network access is disabled during
+inference and HCAL is disabled. C1 and C2 are executed as one governed
+single-pass transaction; raw or aggregate results are not disclosed until both
+datasets complete and the output evidence is cryptographically sealed.
+
+\section{Pre-Registered Acceptance Criteria}
+For C1, primary acceptance requires metric-level exact agreement of at least
+95\%, full-vector exact agreement of at least 90\%, MAE no greater than 0.25
+CVSS points, maximum absolute error no greater than 1.0, severity-band
+agreement of at least 95\%, zero forced guesses where abstention is required,
+and zero canonical scoring-engine arithmetic divergences.
+
+For C2, the confirmatory requirement is zero violations across all
+pre-registered metamorphic invariants, zero state/order leakage, zero
+unexpected crashes, zero forced guesses when abstention is required, and zero
+deterministic reproducibility failures.
+
+\section{Irreversibility of Exposure}
+Once at least one held-out benchmark record has been parsed or scored, the
+confirmatory exposure is consumed. Any subsequent retuning of rules, scoring
+semantics, parser behavior, or acceptance thresholds prevents reuse of C1/C2
+for a new confirmatory claim. A new independent held-out dataset is then
+required.
+
+\section{Reporting Boundary}
+C1/C2 results apply only to the exact frozen deterministic baseline tested in
+the run manifest. They do not constitute FIRST certification or endorsement.
+HCAL remains a secondary optional layer and, if evaluated later, its results
+must be reported separately as post-hoc analysis.
