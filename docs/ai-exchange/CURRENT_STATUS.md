@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-13T21:15:00-03:00
+2026-10-13T22:05:00-03:00
 
 Current reviewed branch:
 antigravity/round5-prefreeze-reconciliation
@@ -16,10 +16,10 @@ Latest Antigravity message:
 AG-20261013-019
 
 Latest ChatGPT response:
-CG-20261013-030
+CG-20261013-032
 
 Current phase:
-AG-019 PARTIAL PASS / TARGETED REMEDIATION BEFORE G9A-G9B PASS
+DETERMINISTIC CORE FINALIZATION + OPTIONAL NON-BLOCKING AI ASSURANCE LAYER SPECIFICATION
 
 SAFE_TO_FREEZE:
 NO
@@ -40,4 +40,4 @@ Documentary Readiness Status:
 NON-HUMAN PRIMARY STUDY PIVOT ACCEPTED; AUTONOMOUS PIPELINE REMEDIATION REQUIRED
 
 Next Steps:
-Antigravity to remediate CG-20261013-030: reconcile CG-029 and four governance specs; implement real autonomous STP state machine; enforce semantic Delta=0 at metric level; correct sampling/standards language and unsupported 90%-95% automation claim; correct ambiguous rule-catalog entries; align machine-readable runtime rules with documentation; complete required test matrix and high-volume seeded metamorphic evidence; perform fresh clean-room replay; return exact commit, CI run IDs/conclusions, VALISTATUS, rule/fixture hashes, persistence status, and C1/C2 untouched attestation.
+1. Antigravity first completes CG-20261013-031 final G9A/G10A corrections without changing scoring mathematics. 2. In parallel or afterward, ingest CG-20261013-032 and implement the optional provider-neutral HelpUS Cognitive Assurance Layer (HCAL) as a strictly non-blocking module: AI disabled mode must remain fully functional; AI findings cannot directly change CVSS metrics/scores; candidate evidence must re-enter through deterministic validation/rules; complete outage must gracefully degrade. 3. Compile and validate the new book chapter and integrate the manuscript draft only as proposed/secondary research until AI-assurance experiments are actually executed. Preserve SAFE_TO_FREEZE=NO and C1/C2 seals.
