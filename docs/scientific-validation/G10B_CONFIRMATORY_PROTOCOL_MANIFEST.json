@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "protocol_id": "HELPUS-G10B-CONFIRMATORY-RUN-v1.0",
+  "status": "PROPOSED_NOT_AUTHORIZED_FOR_EXECUTION",
+  "created_at": "2026-10-14T12:30:00-03:00",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "authorization": {
+    "required": true,
+    "authority": "wmsjp",
+    "authorized": false,
+    "authorization_record": null
+  },
+  "datasets": {
+    "C1": {
+      "logical_name": "C1_real_world",
+      "path": "data/c1_real_world_benchmark.json",
+      "state": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+      "expected_sha256": null,
+      "note": "Must be populated from the pre-existing seal/custody record without inspecting benchmark semantics."
+    },
+    "C2": {
+      "logical_name": "C2_adversarial_metamorphic",
+      "path": "data/c2_adversarial_metamorphic_benchmark.json",
+      "state": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+      "expected_sha256": null,
+      "note": "Must be populated from the pre-existing seal/custody record without inspecting benchmark semantics."
+    }
+  },
+  "execution_contract": {
+    "mode": "SINGLE_PASS_CLEAN_ROOM_BLIND_EVALUATION",
+    "network_during_inference": "DISABLED",
+    "hcal_primary_run": "DISABLED",
+    "raw_results_visible_before_both_complete": false,
+    "no_retuning_permitted": true,
+    "no_case_retry": true,
+    "no_manual_exclusion": true
+  },
+  "c1_acceptance": {
+    "metric_exact_accuracy_min": 0.95,
+    "full_vector_exact_accuracy_min": 0.9,
+    "mae_max": 0.25,
+    "max_absolute_error_max": 1,
+    "severity_band_accuracy_min": 0.95,
+    "forced_guess_rate_max": 0,
+    "provenance_integrity_failures_max": 0,
+    "arithmetic_first_engine_divergence_max": 0
+  },
+  "c2_acceptance": {
+    "metamorphic_invariant_violations_max": 0,
+    "state_or_order_leakage_violations_max": 0,
+    "unexpected_exception_count_max": 0,
+    "forced_guess_where_abstain_required_max": 0,
+    "deterministic_reproducibility_failures_max": 0
+  },
+  "overall_rule": "CONFIRMATORY_PASS iff every mandatory C1 and C2 criterion passes; otherwise FAIL except predefined non-scientific invalidity/inconclusive cases.",
+  "confidence_reporting": {
+    "categorical": "Wilson 95% CI",
+    "mae": "bootstrap 95% CI when denominator supports resampling",
+    "descriptive": [
+      "median_absolute_error",
+      "p95_absolute_error",
+      "per_metric_confusion_counts",
+      "abstention_rate_and_reasons"
+    ]
+  },
+  "rerun_policy": {
+    "before_any_record_parsed": "PERMITTED_AFTER_PREFLIGHT_REPAIR",
+    "after_any_record_parsed": "DEFAULT_PROHIBITED",
+    "retune_then_reuse_c1_c2": "PROHIBITED",
+    "new_confirmatory_after_retuning": "REQUIRES_NEW_INDEPENDENT_DATASET_D"
+  },
+  "protocol_document": "docs/scientific-validation/G10B_CONFIRMATORY_UNSEALING_AND_EXECUTION_PROTOCOL.md",
+  "protocol_sha256": null,
+  "executor_sha256": null,
+  "dependency_lock_sha256": null,
+  "artifacts": []
+}
