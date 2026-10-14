@@ -37,7 +37,12 @@ const ROLE_PERMISSIONS: Record<
     ]),
 
   [MembershipRole.REVIEWER]:
-    new Set<TenantPermission>(),
+    new Set<TenantPermission>([
+      "organization:read",
+      "project:read",
+      "environment:read",
+      "decision:review",
+    ]),
 
   [MembershipRole.VIEWER]:
     new Set<TenantPermission>([
@@ -75,7 +80,7 @@ export function roleLabel(
       return "Operador";
 
     case MembershipRole.REVIEWER:
-      return "Revisor reservado";
+      return "Revisor";
 
     case MembershipRole.VIEWER:
       return "Visualizador";
