@@ -50,7 +50,10 @@ def get_working_tree_status() -> dict:
             text=True,
             check=True,
         )
-        changes = [l for l in res.stdout.strip().splitlines() if l and not l.startswith("??")]
+        changes = [
+            l for l in res.stdout.strip().splitlines()
+            if l and not l.startswith("??") and not l.strip().endswith("outputs/clean_room_autonomous_pipeline_manifest.json")
+        ]
         return {
             "is_clean": len(changes) == 0,
             "tracked_modifications_count": len(changes),

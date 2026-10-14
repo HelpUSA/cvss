@@ -1,0 +1,128 @@
+{
+  "artifact": "HelpUS CVSS AI monograph Pre-Freeze baseline (Autonomous Context-Aware CVSS v4.0 + HCAL)",
+  "generated_at_utc": "2026-10-14T12:47:18.796203+00:00",
+  "main_pdf": {
+    "path": "main.pdf",
+    "sha256": "e574830bb133cbbda9d89f30851ed600ca87c66c2d73f3a3bc42a7fc42a10515",
+    "bytes": 1239234,
+    "pages": 50
+  },
+  "build": {
+    "engine": "pdflatex",
+    "bibliography": "bibtex/bibtex8",
+    "undefined_citations": 0,
+    "undefined_references": 0,
+    "overfull_hboxes": 0,
+    "underfull_hboxes": 18
+  },
+  "scientific_status": {
+    "safe_to_freeze": "NO",
+    "primary_study": "Autonomous Context-Aware CVSS v4.0 Environmental Scoring (Non-Human Primary Study Pivot)",
+    "cognitive_assurance_layer": "HelpUS Cognitive Assurance Layer (HCAL) - Optional Non-Blocking Multi-AI Review",
+    "release_gates": {
+      "G1_G8": "PASS / CLOSED",
+      "G9A": "READY_FOR_PASS (Option A Canonical Rule Catalog)",
+      "G9B": "PASS (10,000 synthetic metamorphic cases, 0 violations)",
+      "G10A": "READY_FOR_FREEZE_AUDIT (Clean-room replay)",
+      "G11_OPTIONAL_AI": "IMPLEMENTED_PROTOTYPE_NON_BLOCKING"
+    },
+    "c1_c2": "SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE"
+  },
+  "source_files": [
+    {
+      "path": "chapters/01_introduction.tex",
+      "sha256": "732754f9763a87723a7aea604fe1490d1aac5f9646c7895d4e72ecd4f4b829c8",
+      "bytes": 5044
+    },
+    {
+      "path": "chapters/02_cvss_foundations.tex",
+      "sha256": "c728c07e9b50a49318a33ffa703a4e347ddb3709b0d83712cff2cf7619be6896",
+      "bytes": 8834
+    },
+    {
+      "path": "chapters/03_watcher_architecture.tex",
+      "sha256": "0e5727ab4dcbbfaf8bea27171ba8f70832d63a0df6c6cd5596d55eb1e6dcf507",
+      "bytes": 14877
+    },
+    {
+      "path": "chapters/04_scanner_and_topology.tex",
+      "sha256": "c009afe2bf08b4176a826d1dee046bad6779851bcd11776ae89dfdf5aedc1348",
+      "bytes": 5182
+    },
+    {
+      "path": "chapters/05_hitl_governance.tex",
+      "sha256": "effa841984ce26cee4f69a1ea4fcf595fd75c56311547a12e809126ef9fbfc16",
+      "bytes": 5852
+    },
+    {
+      "path": "chapters/06_empirical_evaluation.tex",
+      "sha256": "428edc88eb4098fb56c15530171b748702c0d3a56256c98db13ca75894a6c5e3",
+      "bytes": 8226
+    },
+    {
+      "path": "chapters/07_case_studies.tex",
+      "sha256": "3ac6bc6a1f24a2884e81956cd844e1362636c303738382ccac2d408ef7365f28",
+      "bytes": 7762
+    },
+    {
+      "path": "chapters/07b_optional_ai_assurance.tex",
+      "sha256": "2a27146814f6e18c529331ad9800d13fecfb62ce41ae34aaa510fcdce35abe4a",
+      "bytes": 4662
+    },
+    {
+      "path": "chapters/08_conclusion.tex",
+      "sha256": "081c352ff067637c88b682e977d6e771e4b3fb9162e3e823f34260a49ce6fb2d",
+      "bytes": 6014
+    },
+    {
+      "path": "chapters/appendix_a_pci_scenarios.tex",
+      "sha256": "8876964aaba943dee68357b469ba256c843ee7cb263f39822742cc38f1b46b0b",
+      "bytes": 5415
+    },
+    {
+      "path": "chapters/appendix_b_statistical_methods.tex",
+      "sha256": "100d8f7b643f2b270331e7afa7ec1d5a8e6159857724a8aff7961b9c81d52428",
+      "bytes": 5459
+    },
+    {
+      "path": "chapters/appendix_c_historical_dataset.tex",
+      "sha256": "55961ecb0bbf98daafa10c90979e524784b042ea13b1de70b23b9da047a0cb4e",
+      "bytes": 3945
+    },
+    {
+      "path": "chapters/dataset_b_v2_generated.tex",
+      "sha256": "3a2ac5f1060690e4645cd38b848c83bd58b319328fba43d23d41d9fec3232755",
+      "bytes": 4024
+    },
+    {
+      "path": "chapters/table_6_1_generated.tex",
+      "sha256": "8573445a1710ae133326ecf203a01fed82d30baa03959b97392c863cb3aa0718",
+      "bytes": 631
+    },
+    {
+      "path": "generated/dataset_b_source_assessments_v2.csv",
+      "sha256": "3fde32d15d62787c9ed0202ba5e86bdbb2a5f24edfa7586897441655aed7b9fd",
+      "bytes": 14007
+    },
+    {
+      "path": "main.tex",
+      "sha256": "f5e920e1f24f7838b177992a35a31eb0521fc6d0bd31d37fdcbbc21568f773d0",
+      "bytes": 4971
+    },
+    {
+      "path": "references.bib",
+      "sha256": "eb546e0d199bb6b8587a03ca8660508016dcea4d29b9f34a0f60336c75ed8054",
+      "bytes": 2843
+    }
+  ],
+  "overleaf_zip": {
+    "path": "helpus_cvss_ai_monograph_overleaf_final_round4.zip",
+    "bytes": 1985575,
+    "sha256": "09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5"
+  },
+  "overleaf_zip_prefreeze": {
+    "path": "helpus_cvss_ai_monograph_overleaf_prefreeze.zip",
+    "bytes": 1985575,
+    "sha256": "09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5"
+  }
+}

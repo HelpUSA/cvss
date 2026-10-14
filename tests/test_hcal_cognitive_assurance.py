@@ -460,3 +460,36 @@ def test_10_package_secret_stripping_and_audit_completeness():
     assert len(pkg.payload_hash) == 64
     assert pkg.schema_version == SCHEMA_VERSION
     assert pkg.package_id.startswith("PKG-VAP-CVE-2026-9999-")
+
+
+def test_11_hard_timeout_hanging_provider_does_not_block_gateway():
+    """Requirement 11 (CG-033 Finding C): Genuine hanging/sleeping provider must not block gateway caller."""
+    import time
+
+    # Mock provider simulating genuine thread hang / long network freeze (1.5 seconds)
+    hanging_provider = MockAIProviderAdapter(
+        provider_id="hung-ai",
+        simulate_sleep_seconds=1.5,
+    )
+    gateway = HCALGateway(
+        operating_mode=OperatingMode.SINGLE_AI_AUGMENTATION,
+        providers=[hanging_provider],
+        default_timeout_seconds=0.10,
+    )
+    pkg = PackageClassifier.build_vulnerability_analysis_package(
+        cve_id="CVE-2026-9999",
+        source_vector="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        description="Hard timeout isolation test",
+        evidence=_base_evidence(),
+    )
+
+    t0 = time.time()
+    result = gateway.execute_review(pkg, existing_evidence=_base_evidence(), timeout_seconds=0.10)
+    elapsed = time.time() - t0
+
+    # Must return cleanly in bounded time (< 0.45s, far below 1.5s sleep)
+    assert elapsed < 0.45, f"Gateway was blocked by hanging thread: {elapsed:.3f}s"
+    assert result.ai_enrichment_status == "NOT_AVAILABLE"
+    assert result.validated_evidence_updates == {}
+    assert result.advisory_reports == []
+

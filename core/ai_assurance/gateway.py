@@ -105,35 +105,45 @@ class HCALGateway:
 
         responses: List[ProviderResponse] = []
 
-        # Execute providers via thread pool with circuit-breaker timeout
-        with concurrent.futures.ThreadPoolExecutor(max_workers=len(active_providers)) as executor:
-            future_to_provider = {
-                executor.submit(p.analyze_package, package, timeout): p
-                for p in active_providers
-            }
+        # Execute providers via thread pool with hard non-blocking isolation
+        executor = concurrent.futures.ThreadPoolExecutor(max_workers=len(active_providers))
+        future_to_provider = {
+            executor.submit(p.analyze_package, package, timeout): p
+            for p in active_providers
+        }
+        try:
+            done, not_done = concurrent.futures.wait(
+                future_to_provider.keys(),
+                timeout=timeout,
+                return_when=concurrent.futures.ALL_COMPLETED,
+            )
+            for future in done:
+                provider = future_to_provider[future]
+                try:
+                    resp = future.result()
+                    responses.append(resp)
+                except Exception as e:
+                    responses.append(ProviderResponse(
+                        provider_id=provider.provider_id,
+                        status="ERROR",
+                        latency_ms=(time.time() - start_time) * 1000.0,
+                        error_message=f"Provider unhandled exception: {str(e)}",
+                    ))
+            for future in not_done:
+                provider = future_to_provider[future]
+                future.cancel()
+                responses.append(ProviderResponse(
+                    provider_id=provider.provider_id,
+                    status="TIMEOUT",
+                    latency_ms=timeout * 1000.0,
+                    error_message=f"Gateway hard timeout exceeded ({timeout}s).",
+                ))
+        finally:
+            # Hard non-blocking shutdown: caller never waits for hanging provider threads
             try:
-                for future in concurrent.futures.as_completed(future_to_provider, timeout=timeout + 0.5):
-                    provider = future_to_provider[future]
-                    try:
-                        resp = future.result()
-                        responses.append(resp)
-                    except Exception as e:
-                        responses.append(ProviderResponse(
-                            provider_id=provider.provider_id,
-                            status="ERROR",
-                            latency_ms=(time.time() - start_time) * 1000.0,
-                            error_message=f"Provider unhandled exception: {str(e)}",
-                        ))
-            except concurrent.futures.TimeoutError:
-                # Thread pool timeout: handle remaining futures gracefully
-                for future, provider in future_to_provider.items():
-                    if not future.done():
-                        responses.append(ProviderResponse(
-                            provider_id=provider.provider_id,
-                            status="TIMEOUT",
-                            latency_ms=timeout * 1000.0,
-                            error_message="Gateway timeout exceeded.",
-                        ))
+                executor.shutdown(wait=False, cancel_futures=True)
+            except TypeError:
+                executor.shutdown(wait=False)
 
         elapsed_ms = (time.time() - start_time) * 1000.0
 

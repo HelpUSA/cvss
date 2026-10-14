@@ -86,6 +86,7 @@ class MockAIProviderAdapter(AIProviderAdapter):
         simulate_timeout: bool = False,
         simulate_error: bool = False,
         simulate_malformed: bool = False,
+        simulate_sleep_seconds: float = 0.0,
         mock_findings: Optional[List[FindingItem]] = None,
         latency_ms: float = 10.0,
     ):
@@ -93,6 +94,7 @@ class MockAIProviderAdapter(AIProviderAdapter):
         self.simulate_timeout = simulate_timeout
         self.simulate_error = simulate_error
         self.simulate_malformed = simulate_malformed
+        self.simulate_sleep_seconds = simulate_sleep_seconds
         self.mock_findings = mock_findings or []
         self._latency_ms = latency_ms
 
@@ -101,6 +103,9 @@ class MockAIProviderAdapter(AIProviderAdapter):
         return True
 
     def analyze_package(self, package: BaseHCALPackage, timeout_seconds: float = 2.0) -> ProviderResponse:
+        if self.simulate_sleep_seconds > 0:
+            time.sleep(self.simulate_sleep_seconds)
+
         if self.simulate_timeout:
             return ProviderResponse(
                 provider_id=self.provider_id,

@@ -16,10 +16,12 @@ from __future__ import annotations
 
 import copy
 import hashlib
+import inspect
 import json
 from dataclasses import dataclass
 from datetime import datetime, timezone
-from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple
+from pathlib import Path
+from typing import Any, Callable, Dict, List, Mapping, Optional, Sequence, Set, Tuple
 
 CATALOG_VERSION = "1.0.0"
 CATALOG_ID = "HELPUS-ENVIRONMENTAL-RULE-CATALOG-V1"
@@ -361,16 +363,70 @@ CANONICAL_RULES: List[RuleDefinition] = [
 ]
 
 
-def compute_catalog_hash() -> str:
-    """Return deterministic SHA-256 hash of canonical rule definitions, including evaluator bytecode."""
+def serialize_code_object(code: Any) -> bytes:
+    """Recursively serialize a code object including bytecode, constants, names, and variable bindings."""
+    if not hasattr(code, "co_code"):
+        return b""
+    parts = [
+        b"CODE:", code.co_code,
+        b"NAMES:", repr(code.co_names).encode("utf-8"),
+        b"VARNAMES:", repr(code.co_varnames).encode("utf-8"),
+        b"FREEVARS:", repr(getattr(code, "co_freevars", ())).encode("utf-8"),
+        b"CELLVARS:", repr(getattr(code, "co_cellvars", ())).encode("utf-8"),
+    ]
+    const_parts = []
+    for c in code.co_consts:
+        if hasattr(c, "co_code"):
+            const_parts.append(serialize_code_object(c))
+        else:
+            const_parts.append(repr(c).encode("utf-8"))
+    parts.append(b"CONSTS:" + b"|".join(const_parts))
+    return b"::".join(parts)
+
+
+def compute_catalog_hash(rules: Optional[Sequence[RuleDefinition]] = None) -> str:
+    """Return deterministic SHA-256 hash binding rule metadata and complete executable semantics.
+
+    Guarantees sensitivity to:
+    1. Version and catalog identity.
+    2. Rule metadata declarations (rule_id, target_metric, description, preconditions, citation).
+    3. Complete executable code semantics for every evaluator:
+       - bytecode instructions (co_code)
+       - constant literals including strings, numbers, flags, tuples (co_consts recursively)
+       - global and attribute names (co_names)
+       - local variable names (co_varnames)
+       - closures and cell variables (co_freevars, co_cellvars).
+    4. Evaluator function source definition (inspect.getsource) when inspectable.
+    5. Canonical module file content hash when evaluated against CANONICAL_RULES.
+    """
+    if rules is None:
+        rules = CANONICAL_RULES
+
     hasher = hashlib.sha256()
     hasher.update(CATALOG_VERSION.encode("utf-8"))
-    for rule in CANONICAL_RULES:
+    hasher.update(CATALOG_ID.encode("utf-8"))
+
+    # When evaluating default CANONICAL_RULES, also bind normalized module source file SHA-256
+    if rules is CANONICAL_RULES:
+        try:
+            catalog_file = Path(__file__).resolve()
+            if catalog_file.is_file():
+                file_norm = catalog_file.read_bytes().replace(b"\r\n", b"\n")
+                hasher.update(hashlib.sha256(file_norm).digest())
+        except Exception:
+            pass
+
+    for rule in rules:
+        rule_meta = f"{rule.rule_id}|{rule.target_metric}|{rule.description}|{rule.preconditions}|{rule.citation}"
+        hasher.update(rule_meta.encode("utf-8"))
         code_obj = getattr(rule.evaluator, "__code__", None)
-        bytecode = code_obj.co_code if code_obj else b""
-        rule_str = f"{rule.rule_id}|{rule.target_metric}|{rule.description}|{rule.preconditions}|{rule.citation}"
-        hasher.update(rule_str.encode("utf-8"))
-        hasher.update(bytecode)
+        if code_obj:
+            hasher.update(serialize_code_object(code_obj))
+        try:
+            src = inspect.getsource(rule.evaluator).strip().replace("\r\n", "\n")
+            hasher.update(src.encode("utf-8"))
+        except Exception:
+            pass
     return hasher.hexdigest()
 
 

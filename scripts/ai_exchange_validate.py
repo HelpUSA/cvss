@@ -35,6 +35,8 @@ VALID_MESSAGE_TYPES = {
     "bridge_test_response",
     "audit_request",
     "prefreeze_audit_request",
+    "prefreeze_audit_response",
+    "prefreeze_audit",
     "audit_response",
     "gate_review",
     "general_message",

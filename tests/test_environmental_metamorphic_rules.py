@@ -337,5 +337,72 @@ def test_executable_catalog_is_single_source_of_truth():
     # 3. Hash sensitivity: modifying any rule logic alters the hash
     orig_hash = compute_catalog_hash()
     assert len(orig_hash) == 64
+    assert orig_hash == EnvironmentalRuleCatalogEngine().catalog_hash
+
+
+def test_catalog_hash_sensitivity_to_evaluator_semantics_and_constants():
+    """G9A Blocking Finding A Regression Test:
+    
+    Verifies that compute_catalog_hash binds:
+    1. Constant literals (co_consts) even when bytecode instructions (co_code) are identical.
+    2. Operational evaluator logic modifications.
+    3. Declarative rule metadata alterations.
+    """
+    from core.environmental_rule_catalog import (
+        CANONICAL_RULES,
+        RuleDefinition,
+        compute_catalog_hash,
+        serialize_code_object,
+    )
+
+    orig_hash = compute_catalog_hash()
+
+    # 1. Constant literal sensitivity test (identical co_code, different co_consts)
+    def func_ret_l(base_vec, ev, ctx):
+        return True, "L", "desc"
+
+    def func_ret_p(base_vec, ev, ctx):
+        return True, "P", "desc"
+
+    assert func_ret_l.__code__.co_code == func_ret_p.__code__.co_code, (
+        "Precondition: bytecode must be identical to prove constant sensitivity"
+    )
+    assert serialize_code_object(func_ret_l.__code__) != serialize_code_object(func_ret_p.__code__)
+
+    # 2. Mutate rule evaluator constant and verify catalog hash changes
+    mutated_rules = list(CANONICAL_RULES)
+    orig_rule = mutated_rules[0]
+    mutated_rules[0] = RuleDefinition(
+        rule_id=orig_rule.rule_id,
+        target_metric=orig_rule.target_metric,
+        description=orig_rule.description,
+        rationale=orig_rule.rationale,
+        citation=orig_rule.citation,
+        preconditions=orig_rule.preconditions,
+        evaluator=func_ret_p,
+    )
+    mutated_hash = compute_catalog_hash(mutated_rules)
+    assert mutated_hash != orig_hash, "Catalog hash failed to detect evaluator constant mutation"
+
+    # 3. Mutate metadata and verify catalog hash changes
+    mutated_rules_meta = list(CANONICAL_RULES)
+    mutated_rules_meta[0] = RuleDefinition(
+        rule_id=orig_rule.rule_id,
+        target_metric=orig_rule.target_metric,
+        description="Modified description text for sensitivity test",
+        rationale=orig_rule.rationale,
+        citation=orig_rule.citation,
+        preconditions=orig_rule.preconditions,
+        evaluator=orig_rule.evaluator,
+    )
+    assert compute_catalog_hash(mutated_rules_meta) != orig_hash, (
+        "Catalog hash failed to detect rule metadata mutation"
+    )
+
+    # 4. Removing a rule changes catalog hash
+    assert compute_catalog_hash(CANONICAL_RULES[:-1]) != orig_hash, (
+        "Catalog hash failed to detect rule removal"
+    )
+
 
 

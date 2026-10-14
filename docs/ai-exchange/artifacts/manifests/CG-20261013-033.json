@@ -27,5 +27,6 @@
     "safe_to_freeze": false,
     "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
     "pr8_merge_authorized": false
-  }
+  },
+  "artifacts": []
 }

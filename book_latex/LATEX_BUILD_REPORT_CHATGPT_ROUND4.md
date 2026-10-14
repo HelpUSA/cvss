@@ -1,20 +1,46 @@
-# LaTeX Build Report — ChatGPT Round 4
+# LaTeX Build Report — Pre-Freeze Monograph (HelpUS CVSS AI v4.0)
 
-Fresh build sequence:
+**Date (UTC):** 2026-10-14T12:47:18.799308+00:00  
+**Document Title:** Autonomous Context-Aware CVSS v4.0 Environmental Scoring with Optional Cognitive Assurance  
+**Engine:** pdflatex (MiKTeX 26.2) + bibtex  
 
-`pdflatex -> bibtex/bibtex8 -> pdflatex -> pdflatex`
+## Build Artifacts
+- **Primary PDF:** `main.pdf`
+  - **SHA-256:** `e574830bb133cbbda9d89f30851ed600ca87c66c2d73f3a3bc42a7fc42a10515`
+  - **Byte Size:** 1239234 bytes
+  - **Page Count:** 50 pages
+- **Overleaf ZIP (Prefreeze):** `helpus_cvss_ai_monograph_overleaf_prefreeze.zip`
+  - **SHA-256:** `09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5`
+  - **Byte Size:** 1985575 bytes
+- **Overleaf ZIP (Compatible):** `helpus_cvss_ai_monograph_overleaf_final_round4.zip`
+  - **SHA-256:** `09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5`
+  - **Byte Size:** 1985575 bytes
 
-Results:
+## Compilation Statistics
+- **Undefined Citations:** 0
+- **Undefined References:** 0
+- **Overfull \hbox Warnings:** 0
+- **Underfull \hbox Warnings:** 18
 
-- PDF pages: **46**
-- Undefined citations: **0**
-- Undefined references: **0**
-- Overfull hboxes: **0**
-- Underfull hboxes: **18** (non-blocking; visually inspected critical pages)
-- Hyperref warnings: **2** (non-blocking Appendix anchor warnings)
-- PDF SHA-256: `a222230192cd32e359d4fb196ae75dbbdc0fd8bb71b282dcaa789e21fdf5180a`
-- PDF bytes: **1224761**
-- LaTeX engine: `pdfTeX 3.141592653-2.6-1.40.26 (TeX Live 2025/dev/Debian)`
-- Bibliography tool: `This is 8-bit Big BibTeX version 0.99d-x4.02 (TeX Live 2025/dev)`
+## Included Chapters
+1. Introduction (Empirical motivation, operational gap)
+2. CVSS v4.0 Foundations & Mathematics (Pure Python deterministic core)
+3. Architecture of Autonomous Environmental Telemetry
+4. Network Topology & Reachability Inference (MAV-001 to MAV-003B)
+5. Straight-Through Processing (STP) & Exception-Driven HITL
+6. Metamorphic Testing & Large-Scale Property Verification (10,000 profiles, Gate G9B)
+7. Production Case Studies
+8. **HelpUS Cognitive Assurance Layer (HCAL)** — Optional Non-Blocking Multi-AI Review (`chapters/07b_optional_ai_assurance.tex`)
+9. Conclusion & Pre-Freeze Governance Roadmap
+- Appendix A: PCI Scenarios & Defense Controls
+- Appendix B: Statistical Methodology
+- Appendix C: Historical Reference Dataset B v2
 
-Critical pages visually inspected after the final build include the new Dataset-B composition figure, corrected CVSS macro-vector section, rewritten Algorithm 1, Chapter 6 operational-taxonomy section, and both schema-v2 Dataset-B landscape tables.
+## Governance Status
+- `G1–G8 = PASS / CLOSED`
+- `G9A = READY_FOR_PASS` (Canonical single source of truth Option A)
+- `G9B = PASS` (10,000 cases with 0 violations)
+- `G10A = READY_FOR_FREEZE_AUDIT`
+- `G11-OPTIONAL-AI = IMPLEMENTED_PROTOTYPE_NON_BLOCKING`
+- `SAFE_TO_FREEZE = NO`
+- `C1/C2 = SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE`
