@@ -23,6 +23,7 @@ Tripartite closure: `CG-20261014-035` + `GM-20261014-003` + `AG-20261014-024`
 | G9A — Environmental Rule Catalog validation | **PASS** | `CANONICAL_RULES` is the executable source of truth. Canonical catalog hash: `d8f1bdb54bd16b22834d0ebd4c945c4ac4c466816d007a12e2342af42ecee4f2`, bound to executable semantics and source. |
 | G9B — Synthetic / metamorphic environmental validation | **PASS** | Seeded 10,000-profile campaign completed with 0 violations across the declared MR-1..MR-4 scope. |
 | G10A — Autonomous context pipeline reproducibility / freeze | **PASS / FROZEN** | Clean-room replay on commit `6b594bd73695b63f220e2a14d9c5d84d1b768790`: clean tree, 0 tracked modifications, 12/12 fixtures passed; later technical baseline and CI accepted before merge. |
+| G10B — Confirmatory C1/C2 execution | **PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED** | Protocol `HELPUS-G10B-CONFIRMATORY-RUN-v1.0` proposed. C1/C2 remain sealed. Execution requires preflight integrity hashes, clean-room single-pass blind evaluation, fixed acceptance thresholds, and explicit Master SuperAdmin `wmsjp` authorization. |
 | G11-OPTIONAL-AI — HCAL | **IMPLEMENTED HARDENED PROTOTYPE / OUTSIDE DETERMINISTIC FREEZE SCOPE** | Optional, provider-neutral, non-blocking cognitive assurance layer. It cannot directly override CVSS scoring and is not required for deterministic core completion. |
 
 ---
@@ -37,6 +38,6 @@ Datasets C1 and C2 remain:
 
 **SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE**
 
-The architectural freeze does **not** authorize opening C1/C2. Confirmatory execution must occur in a separate future session under the blind protocol. If confirmatory exposure occurs, subsequent retuning would invalidate that confirmatory status and require a new independent dataset.
+The architectural freeze does **not** authorize opening C1/C2. Confirmatory execution must occur in a separate future session under `HELPUS-G10B-CONFIRMATORY-RUN-v1.0` (or a formally superseding protocol) and requires explicit Master SuperAdmin authorization. If confirmatory exposure occurs, subsequent retuning would invalidate that confirmatory status and require a new independent dataset.
 
 HCAL remains outside the deterministic freeze scope. Future HCAL changes must not silently alter the frozen deterministic scoring baseline.

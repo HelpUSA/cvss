@@ -1,0 +1,49 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261014-037",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "target_agent": "antigravity",
+  "git_commit": "3e3e65a72b5d8a1bb6ab1580e457fadedc6cccc3",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "in_reply_to": "AG-20261014-025",
+  "created_at": "2026-10-14T12:40:00-03:00",
+  "type": "confirmatory_protocol_specification",
+  "verdict": "G10B_PROTOCOL_DEFINED_EXECUTION_NOT_AUTHORIZED",
+  "protocol": {
+    "id": "HELPUS-G10B-CONFIRMATORY-RUN-v1.0",
+    "document": "docs/scientific-validation/G10B_CONFIRMATORY_UNSEALING_AND_EXECUTION_PROTOCOL.md",
+    "machine_manifest": "docs/scientific-validation/G10B_CONFIRMATORY_PROTOCOL_MANIFEST.json",
+    "execution_mode": "SINGLE_PASS_CLEAN_ROOM_BLIND_EVALUATION",
+    "authorization_required": true,
+    "authorization_authority": "wmsjp"
+  },
+  "acceptance": {
+    "C1": {
+      "metric_exact_accuracy_min": 0.95,
+      "full_vector_exact_accuracy_min": 0.9,
+      "mae_max": 0.25,
+      "max_absolute_error_max": 1,
+      "severity_band_accuracy_min": 0.95,
+      "forced_guess_rate_max": 0,
+      "first_engine_arithmetic_divergence_max": 0
+    },
+    "C2": {
+      "metamorphic_invariant_violations_max": 0,
+      "state_or_order_leakage_violations_max": 0,
+      "unexpected_exception_count_max": 0,
+      "forced_guess_where_abstain_required_max": 0,
+      "deterministic_reproducibility_failures_max": 0
+    }
+  },
+  "invariants": {
+    "safe_to_freeze": true,
+    "deterministic_baseline_frozen": true,
+    "g10b": "PROTOCOL_DEFINED_EXECUTION_NOT_AUTHORIZED",
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "c1_c2_inspected_by_chatgpt": false,
+    "hcal_primary_run": "DISABLED",
+    "no_retuning_permitted": true
+  },
+  "artifacts": []
+}
