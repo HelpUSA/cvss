@@ -1496,12 +1496,19 @@ tbody tr:last-child td {
 
 @media (max-width: 620px) {
   .site-header__inner {
-    min-height: 68px;
+    min-height: 64px;
+    gap: 0.5rem;
   }
 
-  .brand__text small,
-  .header-cta {
+  .brand__text small {
     display: none;
+  }
+
+  .header-cta {
+    display: inline-flex;
+    min-height: 36px;
+    padding: 0 0.85rem;
+    font-size: 0.82rem;
   }
 
   .page-shell {
