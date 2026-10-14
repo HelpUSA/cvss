@@ -21,6 +21,9 @@ import {
   prisma,
 } from "@/lib/prisma";
 import {
+  operationalAssessmentScopeWhere,
+} from "@/lib/operational-tenant-scope";
+import {
   assertJsonMutationRequest,
   getRequestAuditContext,
   readJsonObject,
@@ -138,30 +141,14 @@ export async function POST(
       await prisma
         .operationalAssessment
         .findFirst({
-          where: {
-            id: assessmentId,
-            status: {
-              in: [
-                "DRAFT",
-                "ACTIVE",
-              ],
-            },
-            environment: {
-              id: environmentId,
-              status: "ACTIVE",
-              project: {
-                id: projectId,
-                status: "ACTIVE",
-                organizationId:
-                  context.organization
-                    .id,
-                organization: {
-                  status:
-                    "ACTIVE",
-                },
-              },
-            },
-          },
+          where:
+            operationalAssessmentScopeWhere({
+              organizationId:
+                context.organization.id,
+              projectId,
+              environmentId,
+              assessmentId,
+            }),
           select: {
             id: true,
             vulnerabilityId:
