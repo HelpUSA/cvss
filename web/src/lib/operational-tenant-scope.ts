@@ -10,7 +10,7 @@ export function operationalAssessmentScopeWhere(input: {
       in: [
         "DRAFT",
         "ACTIVE",
-      ] as const,
+      ],
     },
     environment: {
       id: input.environmentId,
