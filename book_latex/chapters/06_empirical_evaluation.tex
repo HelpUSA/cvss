@@ -7,8 +7,8 @@ To evaluate the HelpUS framework with scientific rigor, we formalize a multi-dat
 \begin{enumerate}
     \item \textbf{Dataset A1 (Historical Human Benchmark)}: Comprises the $N=348$ vulnerability evaluations across 29 participants from the Allodi et al.~\cite{santos2017estimating} empirical trial. This dataset evaluates CVSS v3.0 in flat vs. segmented topologies and serves exclusively as a historical human-factor baseline.
     \item \textbf{Dataset B (Development Benchmark, $n=30$)}: The current 30-scenario testbed comprising 12 real-CVE records embedded in controlled deployment profiles and 18 synthetic scenarios. Dataset B serves strictly for internal architectural verification, debugging, and regression testing during development; it is not presented as confirmatory evidence of external generalization.
-    \item \textbf{Dataset C1 (Independent Diverse Held-Out Set -- Planned)}: A prospective evaluation suite of 25--40 unseen enterprise network scenarios conceived independently by external network engineers. Evaluated by blinded independent domain experts to address research question RQ1 (Effectiveness).
-    \item \textbf{Dataset C2 (Adversarial Safety Challenge Set -- Planned)}: A prospective stress-testing suite of 20--30 scenarios featuring ambiguous reachability, conflicting telemetry, NAT edge cases, and stale inventories to evaluate RQ2 (Severe False Downgrade Rate) and RQ3 (Fail-Safe Abstention).
+    \item \textbf{Dataset C1 (Held-Out Real-World Confirmatory Set)}: A sealed real-world benchmark reserved for the one-time G10B single-pass blind evaluation of the frozen deterministic baseline. C1 is not used for development, debugging, threshold selection, or rule calibration.
+    \item \textbf{Dataset C2 (Held-Out Adversarial/Metamorphic Set)}: A sealed adversarial benchmark reserved for zero-tolerance evaluation of pre-registered metamorphic invariants, fail-safe abstention, order/state isolation, and deterministic reproducibility. C2 is likewise excluded from development and tuning.
 \end{enumerate}
 
 \section{Distinction Between CVSS Severity and Operational Priority}
@@ -32,7 +32,7 @@ Table~\ref{tab:transition_matrix} summarizes Dataset B by scenario origin and le
 \input{chapters/table_6_1_generated.tex}
 
 \subsection{Formal Evaluation Metric Formulations}
-To evaluate safety and abstention without conflating constructs, we formalize the evaluation metrics that govern current observations and prospective held-out trials:
+To evaluate safety and abstention without conflating constructs, we formalize development metrics while the confirmatory C1/C2 endpoints are pre-registered separately under the G10B protocol:
 \begin{align}
     \text{FDR}_{\text{CVSS}} &= \frac{N(H_s < R_s)}{N(\text{eligible reference scenarios})}, \\
     \text{SFDR}_{\text{CVSS}} &= \frac{N(R_s \in \{C,H\} \land H_s \in \{M,L,N\})}{N(R_s \in \{C,H\})}, \\
