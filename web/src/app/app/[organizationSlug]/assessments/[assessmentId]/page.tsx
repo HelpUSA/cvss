@@ -19,6 +19,10 @@ import {
   CvssEvidenceHelp,
 } from "@/app/components/CvssEvidenceHelp";
 
+import {
+  GuidedWorkflowStepper,
+} from "@/app/components/GuidedWorkflowStepper";
+
 type Params = Promise<{
   organizationSlug: string;
   assessmentId: string;
@@ -76,6 +80,8 @@ export default async function AssessmentDetailPage({
           {assessment.environment.name}
         </p>
       </section>
+
+      <GuidedWorkflowStepper currentStep={4} />
 
       <div
         className="panel"
