@@ -23,12 +23,32 @@ export function LoginForm({
     setErrorMessage("");
     setSuccessMessage("");
 
+    // Fallback de segurança contra travamento de interface após 12 segundos
+    const timeoutId = setTimeout(() => {
+      setGoogleLoading(false);
+      setErrorMessage(
+        "A resposta do provedor de autenticação demorou mais que o esperado. Tente novamente."
+      );
+    }, 12000);
+
     try {
-      await authClient.signIn.social({
+      const res = await authClient.signIn.social({
         provider: "google",
-        callbackURL: callbackURL || "/",
+        callbackURL: callbackURL || "/app",
       });
+
+      clearTimeout(timeoutId);
+
+      if (res?.error) {
+        setErrorMessage(
+          res.error.message || "Erro ao conectar com a conta Google."
+        );
+        setGoogleLoading(false);
+      } else if ((res as any)?.data?.url) {
+        window.location.href = (res as any).data.url;
+      }
     } catch (e: any) {
+      clearTimeout(timeoutId);
       setErrorMessage(
         e?.message || "Erro ao conectar com a conta Google."
       );
