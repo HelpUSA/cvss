@@ -106,7 +106,7 @@ test.describe(
         await page
           .getByLabel("Slug")
           .fill(
-            `advanced-${viewportKey}-${suffix}`
+            `advanced-${viewportKey}-${attemptSuffix}`
               .toLowerCase(),
           );
 
@@ -140,7 +140,7 @@ test.describe(
         await page
           .getByLabel("Nome da avaliação")
           .fill(
-            `Advanced BTE ${viewportKey} ${suffix}`,
+            `Advanced BTE ${viewportKey} ${attemptSuffix}`,
           );
 
         await page
@@ -149,6 +149,10 @@ test.describe(
               "Criar e continuar para evidências",
           })
           .click();
+
+        await expect(page).toHaveURL(
+          /\/assessments\/[^/]+$/,
+        );
 
         await assertAdvancedClosed(page);
 

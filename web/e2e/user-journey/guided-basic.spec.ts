@@ -132,7 +132,7 @@ test.describe(
             await page
               .getByLabel("Slug")
               .fill(
-                `prod-e2e-${viewportKey}-${suffix}`
+                `prod-e2e-${viewportKey}-${attemptSuffix}`
                   .toLowerCase(),
               );
 
