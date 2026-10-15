@@ -101,7 +101,7 @@ export default async function AssessmentDetailPage({
         </a>
       </div>
 
-      {canExecute ? (
+      <CvssEvidenceHelp />\n\n      {canExecute ? (
         <AssessmentRunForm
           organizationSlug={
             context.organization.slug
