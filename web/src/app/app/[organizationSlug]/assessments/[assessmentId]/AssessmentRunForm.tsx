@@ -23,6 +23,13 @@ type ReusableEvidence = {
   maxTelemetryAgeDays: number;
 };
 
+type ActivePolicy = {
+  id: string;
+  policyId: string;
+  version: string;
+  effectiveFrom: string | null;
+};
+
 type Props = {
   organizationSlug: string;
   projectId: string;
@@ -30,6 +37,7 @@ type Props = {
   assessmentId: string;
   cveId: string;
   reusableEvidence: ReusableEvidence[];
+  activePolicies: ActivePolicy[];
 };
 
 export function AssessmentRunForm({
@@ -39,6 +47,7 @@ export function AssessmentRunForm({
   assessmentId,
   cveId,
   reusableEvidence,
+  activePolicies,
 }: Props) {
   const router = useRouter();
 
@@ -79,6 +88,20 @@ export function AssessmentRunForm({
     firewallActive,
     setFirewallActive,
   ] = useState(false);
+
+  const [cr, setCr] =
+    useState("X");
+
+  const [ir, setIr] =
+    useState("X");
+
+  const [ar, setAr] =
+    useState("X");
+
+  const [
+    selectedPolicyId,
+    setSelectedPolicyId,
+  ] = useState("");
 
   const [pending, setPending] =
     useState(false);
@@ -158,6 +181,27 @@ export function AssessmentRunForm({
       return;
     }
 
+    const securityRequirementsUsed =
+      [cr, ir, ar].some(
+        (value) => value !== "X",
+      );
+
+    const selectedPolicy =
+      activePolicies.find(
+        (policy) =>
+          policy.id === selectedPolicyId,
+      );
+
+    if (
+      securityRequirementsUsed &&
+      !selectedPolicy
+    ) {
+      setMessage(
+        "Selecione uma política organizacional ativa antes de definir CR/IR/AR.",
+      );
+      return;
+    }
+
     setPending(true);
     setMessage("");
 
@@ -209,6 +253,20 @@ export function AssessmentRunForm({
                 : new Date().toISOString(),
             evidence: {
               evidenceQuality,
+              ...(securityRequirementsUsed &&
+              selectedPolicy
+                ? {
+                    organizationPolicyId:
+                      selectedPolicy.policyId,
+                    policyVersion:
+                      selectedPolicy.version,
+                    securityRequirements: {
+                      CR: cr,
+                      IR: ir,
+                      AR: ar,
+                    },
+                  }
+                : {}),
               telemetryAgeDays:
                 telemetryAgeDays.trim() === ""
                   ? null
@@ -587,6 +645,117 @@ export function AssessmentRunForm({
           />
         </div>
       </div>
+
+      <details className="panel advanced-security-requirements">
+        <summary>
+          Requisitos de Segurança do ambiente (avançado)
+        </summary>
+        <p>
+          CR, IR e AR representam a importância
+          da confidencialidade, integridade e
+          disponibilidade do sistema vulnerável
+          neste ambiente. Se a organização não
+          definiu esses requisitos por política,
+          mantenha X (Não definido).
+        </p>
+
+        <div className="field">
+          <label htmlFor="security-policy">
+            Política organizacional
+          </label>
+          <select
+            id="security-policy"
+            value={selectedPolicyId}
+            onChange={(event) =>
+              setSelectedPolicyId(
+                event.target.value,
+              )
+            }
+          >
+            <option value="">
+              Nenhuma política selecionada
+            </option>
+            {activePolicies.map(
+              (policy) => (
+                <option
+                  key={policy.id}
+                  value={policy.id}
+                >
+                  {policy.policyId}
+                  {" · v"}
+                  {policy.version}
+                </option>
+              ),
+            )}
+          </select>
+          <small>
+            Obrigatória somente se algum de
+            CR/IR/AR for diferente de X.
+          </small>
+        </div>
+
+        <div className="advanced-security-requirements__grid">
+          {[
+            {
+              id: "security-cr",
+              label: "Confidencialidade (CR)",
+              value: cr,
+              setValue: setCr,
+            },
+            {
+              id: "security-ir",
+              label: "Integridade (IR)",
+              value: ir,
+              setValue: setIr,
+            },
+            {
+              id: "security-ar",
+              label: "Disponibilidade (AR)",
+              value: ar,
+              setValue: setAr,
+            },
+          ].map((metric) => (
+            <div
+              className="field"
+              key={metric.id}
+            >
+              <label htmlFor={metric.id}>
+                {metric.label}
+              </label>
+              <select
+                id={metric.id}
+                value={metric.value}
+                onChange={(event) =>
+                  metric.setValue(
+                    event.target.value,
+                  )
+                }
+              >
+                <option value="X">
+                  X — Não definido
+                </option>
+                <option value="H">
+                  H — Alto
+                </option>
+                <option value="M">
+                  M — Médio
+                </option>
+                <option value="L">
+                  L — Baixo
+                </option>
+              </select>
+            </div>
+          ))}
+        </div>
+
+        <p className="advanced-security-requirements__note">
+          Esses valores descrevem a criticidade
+          do sistema vulnerável, não a
+          vulnerabilidade em si. A seleção não
+          deve ser usada para compensar controles
+          técnicos ou alterar o vetor Base.
+        </p>
+      </details>
 
       <label
         style={{

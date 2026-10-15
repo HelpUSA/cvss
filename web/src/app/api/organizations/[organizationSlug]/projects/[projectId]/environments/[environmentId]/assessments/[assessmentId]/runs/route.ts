@@ -286,6 +286,53 @@ export async function POST(
         reusedSnapshot.id;
     }
 
+    const policyId = optionalString(
+      evidenceObject.organizationPolicyId,
+    );
+    const policyVersion = optionalString(
+      evidenceObject.policyVersion,
+    );
+    const securityRequirements =
+      evidenceObject.securityRequirements &&
+      typeof evidenceObject.securityRequirements === "object" &&
+      !Array.isArray(evidenceObject.securityRequirements)
+        ? (evidenceObject.securityRequirements as Record<string, unknown>)
+        : null;
+
+    const hasNonXRequirements =
+      securityRequirements !== null &&
+      (["CR", "IR", "AR"] as const).some((k) => {
+        const val = String(securityRequirements[k] ?? "X").toUpperCase();
+        return ["H", "M", "L"].includes(val);
+      });
+
+    if (hasNonXRequirements || policyId || policyVersion) {
+      if (!policyId || !policyVersion) {
+        throw new Error(
+          "Política organizacional e versão são obrigatórias para definir requisitos de segurança.",
+        );
+      }
+
+      const activePolicy =
+        await prisma.organizationPolicyVersion.findFirst({
+          where: {
+            organizationId: context.organization.id,
+            policyId,
+            version: String(policyVersion),
+            status: "ACTIVE",
+          },
+          select: {
+            id: true,
+          },
+        });
+
+      if (!activePolicy) {
+        throw new Error(
+          "Política organizacional não encontrada ou inativa para esta organização.",
+        );
+      }
+    }
+
     const analysis =
       analyzeEnvironment({
         cveId,
