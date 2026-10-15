@@ -3137,3 +3137,50 @@ tbody tr:last-child td {
   margin-top: 1rem;
 }
 /* evidence-library-provenance:end */
+
+
+/* run-explanation:start */
+.run-explanation {
+  margin-bottom: 1.25rem;
+}
+
+.run-explanation__grid {
+  display: grid;
+  margin-top: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.run-explanation__grid article {
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.run-explanation__grid h3 {
+  margin: 0 0 0.55rem;
+}
+
+.run-explanation__grid p,
+.run-explanation__grid li,
+.run-explanation__decision {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.run-explanation__grid ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.run-explanation__decision {
+  margin: 1rem 0 0;
+}
+
+@media (max-width: 720px) {
+  .run-explanation__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* run-explanation:end */
