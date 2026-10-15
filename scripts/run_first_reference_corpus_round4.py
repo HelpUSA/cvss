@@ -165,7 +165,7 @@ def run_pair_file(label: str, vector_file: str, score_file: str):
                 row["observed_score"] = obs_score
                 row["observed_severity"] = obs_sev
                 row["absolute_delta"] = round(abs(obs_score - row["expected_score"]), 10)
-                score_ok = row["absolute_delta"] < 0.05
+                score_ok = row["observed_score"] == row["expected_score"]
                 severity_ok = obs_sev.lower() == row["expected_severity"].lower()
                 row["status"] = "PASS" if score_ok and severity_ok else "FAIL_MISMATCH"
             except Exception as exc:
