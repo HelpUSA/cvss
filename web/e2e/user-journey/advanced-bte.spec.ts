@@ -203,12 +203,12 @@ test.describe(
             "E2E-THREAT-INTEL-POC",
           );
 
-        const observedAt =
-          new Date(
-            Date.now() - 60_000,
-          )
-            .toISOString()
-            .slice(0, 16);
+        const past = new Date(Date.now() - 2 * 3600_000);
+        const observedAt = new Date(
+          past.getTime() - past.getTimezoneOffset() * 60_000,
+        )
+          .toISOString()
+          .slice(0, 16);
 
         await page
           .getByLabel("Observada em")

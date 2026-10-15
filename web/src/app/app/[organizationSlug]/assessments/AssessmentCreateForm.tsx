@@ -105,8 +105,6 @@ export function AssessmentCreateForm({
       router.push(
         `/app/${organizationSlug}/assessments/${payload.assessment.id}`,
       );
-
-      router.refresh();
     } catch (error) {
       setMessage(
         error instanceof Error
