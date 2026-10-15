@@ -3110,3 +3110,30 @@ tbody tr:last-child td {
   }
 }
 /* guided-workflow-validation:end */
+
+
+/* evidence-library-provenance:start */
+.evidence-provenance-panel {
+  margin: 0;
+}
+
+.evidence-provenance-panel summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.evidence-provenance-panel summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.evidence-provenance-panel > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.evidence-provenance-panel .field + .field {
+  margin-top: 1rem;
+}
+/* evidence-library-provenance:end */

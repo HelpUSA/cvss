@@ -400,3 +400,53 @@ export async function getTenantOperationalRun(
     },
   });
 }
+
+
+export async function listTenantEvidenceSnapshots(
+  context: OrganizationContext,
+) {
+  return prisma.evidenceSnapshot.findMany({
+    where: {
+      environment: {
+        project: {
+          organizationId:
+            context.organization.id,
+        },
+      },
+    },
+    select: {
+      id: true,
+      sourceType: true,
+      sourceReference: true,
+      capturedAt: true,
+      expiresAt: true,
+      canonicalHash: true,
+      storageReference: true,
+      createdAt: true,
+      environment: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+          project: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+            },
+          },
+        },
+      },
+      _count: {
+        select: {
+          runs: true,
+        },
+      },
+    },
+    orderBy: [
+      { capturedAt: "desc" },
+      { id: "desc" },
+    ],
+    take: 200,
+  });
+}

@@ -33,6 +33,12 @@ export function AssessmentRunForm({
   const [provider, setProvider] =
     useState("CNA_PUBLISHED");
 
+  const [sourceReference, setSourceReference] =
+    useState("");
+
+  const [capturedAt, setCapturedAt] =
+    useState("");
+
   const [reachability, setReachability] =
     useState("UNKNOWN");
 
@@ -103,11 +109,24 @@ export function AssessmentRunForm({
               baseVector.trim(),
             sourceAssessmentMeta: {
               provider,
+              ...(sourceReference.trim()
+                ? {
+                    sourceReference:
+                      sourceReference.trim(),
+                  }
+                : {}),
             },
             sourceType:
               "GUIDED_MANUAL_INPUT",
+            sourceReference:
+              sourceReference.trim() ||
+              undefined,
             capturedAt:
-              new Date().toISOString(),
+              capturedAt.trim()
+                ? new Date(
+                    capturedAt,
+                  ).toISOString()
+                : new Date().toISOString(),
             evidence: {
               evidenceQuality,
               telemetryAgeDays:
@@ -210,6 +229,57 @@ export function AssessmentRunForm({
           seu ambiente.
         </small>
       </div>
+
+      <details className="panel evidence-provenance-panel">
+        <summary>
+          Provenance da fonte (opcional)
+        </summary>
+        <p>
+          Registre a referência original e,
+          quando necessário, o momento em que
+          a evidência foi capturada. Esses
+          dados são preservados no snapshot,
+          mas não alteram o score por si só.
+        </p>
+
+        <div className="field">
+          <label htmlFor="source-reference">
+            URL, advisory ou referência
+          </label>
+          <input
+            id="source-reference"
+            value={sourceReference}
+            onChange={(event) =>
+              setSourceReference(
+                event.target.value,
+              )
+            }
+            placeholder="https://... ou ADV-2026-001"
+            maxLength={1000}
+            autoComplete="off"
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="captured-at">
+            Capturada em
+          </label>
+          <input
+            id="captured-at"
+            type="datetime-local"
+            value={capturedAt}
+            onChange={(event) =>
+              setCapturedAt(
+                event.target.value,
+              )
+            }
+          />
+          <small>
+            Deixe em branco para registrar o
+            horário da execução.
+          </small>
+        </div>
+      </details>
 
       <div className="field">
         <label htmlFor="base-vector">
