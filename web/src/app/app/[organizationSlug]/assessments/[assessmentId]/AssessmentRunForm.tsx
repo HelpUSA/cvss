@@ -31,15 +31,15 @@ export function AssessmentRunForm({
     useState("CNA_PUBLISHED");
 
   const [reachability, setReachability] =
-    useState("INTERNAL_ROUTED");
+    useState("UNKNOWN");
 
   const [evidenceQuality, setEvidenceQuality] =
-    useState("SUFFICIENT");
+    useState("UNKNOWN");
 
   const [
     telemetryAgeDays,
     setTelemetryAgeDays,
-  ] = useState("0");
+  ] = useState("");
 
   const [
     maxTelemetryAgeDays,
@@ -234,7 +234,7 @@ export function AssessmentRunForm({
             )
           }
         >
-          <option value="PUBLIC_ROUTED">
+          <option value="UNKNOWN">\n            Ainda não avaliei\n          </option>\n          <option value="PUBLIC_ROUTED">
             Internet / rede pública roteada
           </option>
           <option value="INTERNAL_ROUTED">
@@ -274,7 +274,7 @@ export function AssessmentRunForm({
             )
           }
         >
-          <option value="SUFFICIENT">
+          <option value="UNKNOWN">\n            Ainda não avaliei\n          </option>\n          <option value="SUFFICIENT">
             Suficiente e verificável
           </option>
           <option value="INSUFFICIENT">
