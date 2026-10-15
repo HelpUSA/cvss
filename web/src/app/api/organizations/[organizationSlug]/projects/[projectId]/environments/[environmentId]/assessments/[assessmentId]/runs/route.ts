@@ -445,21 +445,22 @@ export async function POST(
 
       for (
         const [
-          metric,
-          allowedValues,
+          key,
+          value,
         ] of Object.entries(
-          allowedSupplemental,
+          supplementalMetrics,
         )
       ) {
-        const value =
-          supplementalMetrics[metric];
+        const allowedValues =
+          allowedSupplemental[key];
 
         if (
+          !allowedValues ||
           typeof value !== "string" ||
           !allowedValues.includes(value)
         ) {
           throw new Error(
-            `Supplemental Metric ${metric} inválida.`,
+            `Supplemental Metric ${key} inválida.`,
           );
         }
       }
