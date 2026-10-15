@@ -16,8 +16,21 @@ function asStringArray(value: unknown): string[] {
   }
 
   return value
-    .filter((item): item is string => typeof item === "string")
-    .map((item) => item.trim())
+    .map((item) => {
+      if (typeof item === "string") {
+        return item.trim();
+      }
+      if (item && typeof item === "object") {
+        const record = item as Record<string, unknown>;
+        if (typeof record.reason === "string") {
+          return record.reason.trim();
+        }
+        if (typeof record.message === "string") {
+          return record.message.trim();
+        }
+      }
+      return "";
+    })
     .filter(Boolean);
 }
 
