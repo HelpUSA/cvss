@@ -370,7 +370,6 @@ export function AssessmentRunForm({
       router.push(
         `/app/${organizationSlug}/assessments/${assessmentId}/runs/${payload.run.id}`,
       );
-      router.refresh();
     } catch (error) {
       setMessage(
         error instanceof Error

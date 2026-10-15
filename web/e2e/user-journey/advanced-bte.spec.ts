@@ -28,7 +28,10 @@ test.describe(
     const activePolicyLabel =
       process.env
         .E2E_ACTIVE_POLICY_LABEL
-        ?.trim();
+        ?.trim() ||
+      (process.env.E2E_SYNTHETIC_AUTH === "1"
+        ? "E2E-CVSS-ENV · v1"
+        : undefined);
 
     const suffix = runSuffix();
 
@@ -48,11 +51,16 @@ test.describe(
         const viewportKey =
           testInfo.project.name;
 
+        const attemptSuffix =
+          testInfo.retry > 0
+            ? `${suffix}-r${testInfo.retry}`
+            : suffix;
+
         const projectName =
-          `E2E advanced ${viewportKey} ${suffix}`;
+          `E2E advanced ${viewportKey} ${attemptSuffix}`;
 
         const environmentName =
-          `Advanced env ${viewportKey} ${suffix}`;
+          `Advanced env ${viewportKey} ${attemptSuffix}`;
 
         await page.goto(
           `/app/${organizationSlug}/projects`,
@@ -65,7 +73,7 @@ test.describe(
         await page
           .getByLabel("Slug")
           .fill(
-            `e2e-advanced-${viewportKey}-${suffix}`
+            `e2e-advanced-${viewportKey}-${attemptSuffix}`
               .toLowerCase(),
           );
 
@@ -98,7 +106,7 @@ test.describe(
         await page
           .getByLabel("Slug")
           .fill(
-            `advanced-${viewportKey}-${suffix}`
+            `advanced-${viewportKey}-${attemptSuffix}`
               .toLowerCase(),
           );
 
@@ -132,7 +140,7 @@ test.describe(
         await page
           .getByLabel("Nome da avaliação")
           .fill(
-            `Advanced BTE ${viewportKey} ${suffix}`,
+            `Advanced BTE ${viewportKey} ${attemptSuffix}`,
           );
 
         await page
@@ -141,6 +149,10 @@ test.describe(
               "Criar e continuar para evidências",
           })
           .click();
+
+        await expect(page).toHaveURL(
+          /\/assessments\/[^/]+$/,
+        );
 
         await assertAdvancedClosed(page);
 
@@ -191,12 +203,12 @@ test.describe(
             "E2E-THREAT-INTEL-POC",
           );
 
-        const observedAt =
-          new Date(
-            Date.now() - 60_000,
-          )
-            .toISOString()
-            .slice(0, 16);
+        const past = new Date(Date.now() - 2 * 3600_000);
+        const observedAt = new Date(
+          past.getTime() - past.getTimezoneOffset() * 60_000,
+        )
+          .toISOString()
+          .slice(0, 16);
 
         await page
           .getByLabel("Observada em")

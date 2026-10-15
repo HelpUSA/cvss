@@ -55,12 +55,17 @@ test.describe(
         const viewportKey =
           testInfo.project.name;
 
+        const attemptSuffix =
+          testInfo.retry > 0
+            ? `${suffix}-r${testInfo.retry}`
+            : suffix;
+
         projectName =
-          `E2E ${viewportKey} ${suffix}`;
+          `E2E ${viewportKey} ${attemptSuffix}`;
         environmentName =
-          `Produção E2E ${viewportKey} ${suffix}`;
+          `Produção E2E ${viewportKey} ${attemptSuffix}`;
         assessmentTitle =
-          `CVE E2E ${viewportKey} ${suffix}`;
+          `CVE E2E ${viewportKey} ${attemptSuffix}`;
 
         await test.step(
           "Step 1 — create project",
@@ -76,7 +81,7 @@ test.describe(
             await page
               .getByLabel("Slug")
               .fill(
-                `e2e-${viewportKey}-${suffix}`
+                `e2e-${viewportKey}-${attemptSuffix}`
                   .toLowerCase(),
               );
 
@@ -127,7 +132,7 @@ test.describe(
             await page
               .getByLabel("Slug")
               .fill(
-                `prod-e2e-${viewportKey}-${suffix}`
+                `prod-e2e-${viewportKey}-${attemptSuffix}`
                   .toLowerCase(),
               );
 

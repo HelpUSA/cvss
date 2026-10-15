@@ -76,3 +76,81 @@ jobs:
         run: python scripts/audit_public_site_claims_round4.py index.html
       - name: Validate committed real-world pipeline baseline
         run: python scripts/validate_real_pipeline.py
+
+
+  synthetic-user-e2e:
+    name: Synthetic User Journey E2E
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    continue-on-error: true
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: cvss_e2e
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d cvss_e2e"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/cvss_e2e
+      BETTER_AUTH_SECRET: synthetic-e2e-only-secret-0123456789abcdef
+      BETTER_AUTH_URL: http://127.0.0.1:3000
+      E2E_BASE_URL: http://127.0.0.1:3000
+      E2E_SYNTHETIC_AUTH: "1"
+      E2E_ORGANIZATION_SLUG: e2e-org
+      E2E_SERVER_COMMAND: npm run start -- --hostname 127.0.0.1 --port 3000
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install Web dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Generate Prisma client
+        working-directory: web
+        run: npx prisma generate
+
+      - name: Create disposable E2E schema
+        working-directory: web
+        run: npx prisma db push --skip-generate
+
+      - name: Build Web application
+        working-directory: web
+        run: npm run build
+
+      - name: Install Playwright Browsers
+        working-directory: web
+        run: npx playwright install --with-deps chromium webkit
+
+      - name: Run synthetic user journeys three times
+        working-directory: web
+        shell: bash
+        run: |
+          set -euo pipefail
+          for run in 1 2 3; do
+            echo "Synthetic E2E run $run/3"
+            E2E_RUN_ID="ci-${GITHUB_RUN_ID}-${run}" npm run test:user-journey:e2e
+          done
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-user-e2e-report-${{ github.run_id }}
+          path: |
+            web/playwright-report/user-journey
+            web/test-results
+          if-no-files-found: ignore
+          retention-days: 7
