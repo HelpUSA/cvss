@@ -3262,3 +3262,48 @@ tbody tr:last-child td {
   }
 }
 /* advanced-threat-maturity:end */
+
+
+/* supplemental-metrics:start */
+.supplemental-metrics-panel summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.supplemental-metrics-panel summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.supplemental-metrics-panel > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.supplemental-metrics-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.supplemental-metrics-panel__note {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (max-width: 900px) {
+  .supplemental-metrics-panel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .supplemental-metrics-panel__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* supplemental-metrics:end */
