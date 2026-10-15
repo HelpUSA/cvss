@@ -10,12 +10,18 @@ const storageStateCandidate =
   process.env.E2E_STORAGE_STATE ??
   path.resolve(__dirname, "playwright/.auth/user.json");
 
+const syntheticAuth =
+  process.env.E2E_SYNTHETIC_AUTH === "1";
+
 const storageState =
+  syntheticAuth ||
   fs.existsSync(storageStateCandidate)
     ? storageStateCandidate
     : undefined;
 
 export default defineConfig({
+  globalSetup:
+    "./e2e/user-journey/global-setup.ts",
   testDir: "./e2e/user-journey",
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
