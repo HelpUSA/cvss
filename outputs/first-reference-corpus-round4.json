@@ -68,7 +68,7 @@
     "severity_mismatch_count": 0,
     "gate_pass": true,
     "comments_or_headers_skipped": 33,
-    "duration_seconds": 42.545
+    "duration_seconds": 39.198
   },
   "mismatches": []
 }
