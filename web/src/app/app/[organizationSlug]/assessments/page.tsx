@@ -13,6 +13,10 @@ import {
   AssessmentCreateForm,
 } from "./AssessmentCreateForm";
 
+import {
+  GuidedWorkflowStepper,
+} from "@/app/components/GuidedWorkflowStepper";
+
 type Params = Promise<{
   organizationSlug: string;
 }>;
@@ -68,6 +72,8 @@ export default async function AssessmentsPage({
           e as evidências ambientais.
         </p>
       </section>
+
+      <GuidedWorkflowStepper currentStep={3} />
 
       <div
         className="panel"

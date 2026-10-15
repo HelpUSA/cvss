@@ -12,6 +12,10 @@ import {
   EnvironmentCreateForm,
 } from "./EnvironmentCreateForm";
 
+import {
+  GuidedWorkflowStepper,
+} from "@/app/components/GuidedWorkflowStepper";
+
 type TenantEnvironmentsParams = Promise<{
   organizationSlug: string;
 }>;
@@ -70,6 +74,8 @@ export default async function TenantEnvironmentsPage({
           for diferente.
         </p>
       </section>
+
+      <GuidedWorkflowStepper currentStep={2} />
 
       {canManage &&
       projects.length > 0 ? (

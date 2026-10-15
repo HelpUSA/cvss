@@ -12,6 +12,10 @@ import {
   getTenantOperationalRun,
 } from "@/lib/tenant-data";
 
+import {
+  GuidedWorkflowStepper,
+} from "@/app/components/GuidedWorkflowStepper";
+
 type Params = Promise<{
   organizationSlug: string;
   assessmentId: string;
@@ -94,6 +98,8 @@ export default async function RunResultPage({
           }
         </p>
       </section>
+
+      <GuidedWorkflowStepper currentStep={5} />
 
       <div
         className="panel"
