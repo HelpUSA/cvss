@@ -199,7 +199,7 @@ Migration:
 NO (JSONB metadata in EvidenceSnapshot reused)
 
 CI:
-PASS (Local gates 100% green; ready for GitHub Actions CI)
+PASS (real-pipeline #38779042077: PASS, validate: PASS, AI Exchange: PASS, Vercel: PASS)
 
 Files changed:
 - web/src/app/api/organizations/[organizationSlug]/projects/[projectId]/environments/[environmentId]/assessments/[assessmentId]/runs/route.ts
@@ -208,7 +208,7 @@ Files changed:
 - docs/reviews/ANTIGRAVITY_ADVANCED_THREAT_EXECUTION_REPORT.md
 
 Commit:
-<SHA>
+bd2174fd6df236ae25fb788c226fc0c9c3546736
 
 Residual issues:
 None.
