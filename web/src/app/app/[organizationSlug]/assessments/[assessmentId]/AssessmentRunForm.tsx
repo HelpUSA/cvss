@@ -103,6 +103,19 @@ export function AssessmentRunForm({
     setSelectedPolicyId,
   ] = useState("");
 
+  const [exploitMaturity, setExploitMaturity] =
+    useState("X");
+
+  const [
+    threatIntelReference,
+    setThreatIntelReference,
+  ] = useState("");
+
+  const [
+    threatIntelObservedAt,
+    setThreatIntelObservedAt,
+  ] = useState("");
+
   const [pending, setPending] =
     useState(false);
 
@@ -192,6 +205,29 @@ export function AssessmentRunForm({
           policy.id === selectedPolicyId,
       );
 
+    const threatMetricUsed =
+      exploitMaturity !== "X";
+
+    if (
+      threatMetricUsed &&
+      !threatIntelReference.trim()
+    ) {
+      setMessage(
+        "Informe a referência de threat intelligence para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
+    if (
+      threatMetricUsed &&
+      !threatIntelObservedAt.trim()
+    ) {
+      setMessage(
+        "Informe quando a threat intelligence foi observada para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
     if (
       securityRequirementsUsed &&
       !selectedPolicy
@@ -253,6 +289,19 @@ export function AssessmentRunForm({
                 : new Date().toISOString(),
             evidence: {
               evidenceQuality,
+              ...(threatMetricUsed
+                ? {
+                    threatIntelligence: {
+                      exploitMaturity,
+                      sourceReference:
+                        threatIntelReference.trim(),
+                      observedAt:
+                        new Date(
+                          threatIntelObservedAt,
+                        ).toISOString(),
+                    },
+                  }
+                : {}),
               ...(securityRequirementsUsed &&
               selectedPolicy
                 ? {
