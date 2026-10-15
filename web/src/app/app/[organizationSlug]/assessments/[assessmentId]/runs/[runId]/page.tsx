@@ -283,6 +283,19 @@ export default async function RunResultPage({
             </dd>
           </div>
           <div>
+            <dt>Fonte da evidência</dt>
+            <dd>
+              {run.evidenceSnapshot.sourceType}
+            </dd>
+          </div>
+          <div>
+            <dt>Referência</dt>
+            <dd>
+              {run.evidenceSnapshot.sourceReference ??
+                "Não informada"}
+            </dd>
+          </div>
+          <div>
             <dt>Receipt</dt>
             <dd>
               {run.auditReceiptHash}
