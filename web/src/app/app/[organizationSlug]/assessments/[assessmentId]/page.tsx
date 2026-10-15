@@ -10,6 +10,7 @@ import {
 } from "@/lib/organization-context";
 import {
   getTenantOperationalAssessment,
+  listReusableEvidenceSnapshots,
 } from "@/lib/tenant-data";
 
 import {
@@ -54,6 +55,55 @@ export default async function AssessmentDetailPage({
   if (!assessment) {
     notFound();
   }
+
+  const reusableEvidence =
+    await listReusableEvidenceSnapshots(
+      context,
+      assessment.environment.id,
+    );
+
+  const reusableEvidenceOptions =
+    reusableEvidence.map((snapshot) => {
+      const metadata =
+        snapshot.metadata &&
+        typeof snapshot.metadata === "object" &&
+        !Array.isArray(snapshot.metadata)
+          ? snapshot.metadata as Record<string, unknown>
+          : {};
+
+      return {
+        id: snapshot.id,
+        sourceType: snapshot.sourceType,
+        sourceReference:
+          snapshot.sourceReference,
+        capturedAt:
+          snapshot.capturedAt.toISOString(),
+        expiresAt:
+          snapshot.expiresAt
+            ?.toISOString() ?? null,
+        canonicalHash:
+          snapshot.canonicalHash,
+        reachability:
+          typeof metadata.reachability ===
+          "string"
+            ? metadata.reachability
+            : "UNKNOWN",
+        evidenceQuality:
+          typeof metadata.evidenceQuality ===
+          "string"
+            ? metadata.evidenceQuality
+            : "UNKNOWN",
+        firewallActive:
+          metadata.firewallActive === true,
+        maxTelemetryAgeDays:
+          typeof metadata
+            .maxTelemetryAgeDays ===
+          "number"
+            ? metadata
+                .maxTelemetryAgeDays
+            : 1,
+      };
+    });
 
   const canExecute =
     context.membership.role ===
@@ -130,6 +180,9 @@ export default async function AssessmentDetailPage({
           cveId={
             assessment.cve ??
             assessment.vulnerabilityId
+          }
+          reusableEvidence={
+            reusableEvidenceOptions
           }
         />
       ) : (
