@@ -103,6 +103,10 @@ export default async function TenantLayout({
             3–5. Avaliações
           </a>
 
+          <a href={`${basePath}/evidence`}>
+            Evidence Library
+          </a>
+
           {canReadMemberships ? (
             <a
               href={`${basePath}/members`}
