@@ -484,3 +484,29 @@ export async function listReusableEvidenceSnapshots(
     take: 50,
   });
 }
+
+
+export async function listActiveTenantPolicyVersions(
+  context: OrganizationContext,
+) {
+  return prisma.organizationPolicyVersion.findMany({
+    where: {
+      organizationId:
+        context.organization.id,
+      status: "ACTIVE",
+    },
+    select: {
+      id: true,
+      policyId: true,
+      version: true,
+      effectiveFrom: true,
+      createdAt: true,
+    },
+    orderBy: [
+      { effectiveFrom: "desc" },
+      { createdAt: "desc" },
+      { id: "desc" },
+    ],
+    take: 20,
+  });
+}
