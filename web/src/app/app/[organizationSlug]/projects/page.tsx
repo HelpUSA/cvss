@@ -11,6 +11,10 @@ import {
   ProjectCreateForm,
 } from "./ProjectCreateForm";
 
+import {
+  GuidedWorkflowStepper,
+} from "@/app/components/GuidedWorkflowStepper";
+
 type TenantProjectsParams = Promise<{
   organizationSlug: string;
 }>;
@@ -60,6 +64,8 @@ export default async function TenantProjectsPage({
           Web, Infraestrutura Clínica.
         </p>
       </section>
+
+      <GuidedWorkflowStepper currentStep={1} />
 
       {canManage ? (
         <ProjectCreateForm
