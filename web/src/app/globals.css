@@ -3037,3 +3037,76 @@ tbody tr:last-child td {
   }
 }
 /* guided-evidence-safety:end */
+
+
+/* guided-workflow-validation:start */
+.guided-workflow-stepper {
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+}
+
+.guided-workflow-stepper ol {
+  display: grid;
+  min-width: 720px;
+  margin: 0;
+  padding: 0.8rem;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.5rem;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+}
+
+.guided-workflow-stepper li {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.guided-workflow-stepper li.is-complete {
+  color: var(--positive);
+}
+
+.guided-workflow-stepper li.is-current {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.guided-workflow-stepper__number {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.7rem;
+}
+
+.vector-validation {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 750;
+}
+
+.vector-validation--ok {
+  color: var(--positive) !important;
+}
+
+.vector-validation--error {
+  color: var(--critical) !important;
+}
+
+@media (max-width: 760px) {
+  .guided-workflow-stepper ol {
+    min-width: 620px;
+  }
+}
+/* guided-workflow-validation:end */
