@@ -97,13 +97,13 @@ export function AssessmentRunForm({
             evidence: {
               evidenceQuality,
               telemetryAgeDays:
-                Number(
-                  telemetryAgeDays,
-                ),
+                telemetryAgeDays.trim() === ""
+                  ? null
+                  : Number(telemetryAgeDays),
               maxTelemetryAgeDays:
-                Number(
-                  maxTelemetryAgeDays,
-                ),
+                maxTelemetryAgeDays.trim() === ""
+                  ? null
+                  : Number(maxTelemetryAgeDays),
               telemetryProfile:
                 "dynamic",
               reachability,
@@ -234,7 +234,10 @@ export function AssessmentRunForm({
             )
           }
         >
-          <option value="UNKNOWN">\n            Ainda não avaliei\n          </option>\n          <option value="PUBLIC_ROUTED">
+          <option value="UNKNOWN">
+            Ainda não avaliei
+          </option>
+          <option value="PUBLIC_ROUTED">
             Internet / rede pública roteada
           </option>
           <option value="INTERNAL_ROUTED">
@@ -249,15 +252,12 @@ export function AssessmentRunForm({
           <option value="PHYSICAL_ONLY">
             Apenas acesso físico
           </option>
-          <option value="UNKNOWN">
-            Ainda não sei
-          </option>
         </select>
         <small>
           Esta evidência pode sustentar uma
           decisão de Modified Attack Vector.
           Se não houver evidência suficiente,
-          selecione “Ainda não sei”.
+          mantenha “Ainda não avaliei”.
         </small>
       </div>
 
@@ -274,7 +274,10 @@ export function AssessmentRunForm({
             )
           }
         >
-          <option value="UNKNOWN">\n            Ainda não avaliei\n          </option>\n          <option value="SUFFICIENT">
+          <option value="UNKNOWN">
+            Ainda não avaliei
+          </option>
+          <option value="SUFFICIENT">
             Suficiente e verificável
           </option>
           <option value="INSUFFICIENT">
