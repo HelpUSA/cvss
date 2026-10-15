@@ -1,2 +1,7 @@
 .vercel
 .env*.local
+
+# Playwright authenticated state and local artifacts
+playwright/.auth/
+playwright-report/
+test-results/

@@ -19,6 +19,8 @@
     "test:auth1f:integration": "tsx scripts/auth1f-integration.ts",
     "auth1g:seed": "tsx scripts/auth1g-seed.ts",
     "test:auth1g:e2e": "playwright test --config=playwright.config.ts",
+    "test:user-journey:e2e": "playwright test --config=playwright.user-journey.config.ts",
+    "test:user-journey:e2e:headed": "playwright test --config=playwright.user-journey.config.ts --headed",
     "validate:auth1h": "tsx scripts/auth1h-operational.ts",
     "email:auth1h:sandbox": "tsx scripts/auth1h-operational.ts",
     "auth:reconcile-google-superadmin": "tsx scripts/reconcile-google-platform-superadmin.ts",
