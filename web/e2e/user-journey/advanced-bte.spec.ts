@@ -51,11 +51,16 @@ test.describe(
         const viewportKey =
           testInfo.project.name;
 
+        const attemptSuffix =
+          testInfo.retry > 0
+            ? `${suffix}-r${testInfo.retry}`
+            : suffix;
+
         const projectName =
-          `E2E advanced ${viewportKey} ${suffix}`;
+          `E2E advanced ${viewportKey} ${attemptSuffix}`;
 
         const environmentName =
-          `Advanced env ${viewportKey} ${suffix}`;
+          `Advanced env ${viewportKey} ${attemptSuffix}`;
 
         await page.goto(
           `/app/${organizationSlug}/projects`,
@@ -68,7 +73,7 @@ test.describe(
         await page
           .getByLabel("Slug")
           .fill(
-            `e2e-advanced-${viewportKey}-${suffix}`
+            `e2e-advanced-${viewportKey}-${attemptSuffix}`
               .toLowerCase(),
           );
 

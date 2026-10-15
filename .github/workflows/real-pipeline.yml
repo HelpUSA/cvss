@@ -130,9 +130,9 @@ jobs:
         working-directory: web
         run: npm run build
 
-      - name: Install Playwright Chromium
+      - name: Install Playwright Browsers
         working-directory: web
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install --with-deps chromium webkit
 
       - name: Run synthetic user journeys three times
         working-directory: web
