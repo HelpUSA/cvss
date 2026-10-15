@@ -199,7 +199,7 @@ Migration:
 NO (JSONB metadata in EvidenceSnapshot reused)
 
 CI:
-PASS (Local gates 100% green; ready for GitHub Actions CI)
+PASS (real-pipeline #38785447764: PASS, validate: PASS, AI Exchange: PASS, Vercel: PASS)
 
 Files changed:
 - web/src/app/api/organizations/[organizationSlug]/projects/[projectId]/environments/[environmentId]/assessments/[assessmentId]/runs/route.ts
@@ -207,7 +207,7 @@ Files changed:
 - docs/reviews/ANTIGRAVITY_SUPPLEMENTAL_METRICS_REPORT.md
 
 Commit:
-<SHA>
+9c9301dd13a23a31c521fb7aee070442e39130f1
 
 Residual issues:
 None.
