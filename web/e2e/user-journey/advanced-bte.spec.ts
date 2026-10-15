@@ -28,7 +28,10 @@ test.describe(
     const activePolicyLabel =
       process.env
         .E2E_ACTIVE_POLICY_LABEL
-        ?.trim();
+        ?.trim() ||
+      (process.env.E2E_SYNTHETIC_AUTH === "1"
+        ? "E2E-CVSS-ENV · v1"
+        : undefined);
 
     const suffix = runSuffix();
 
