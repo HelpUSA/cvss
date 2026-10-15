@@ -138,3 +138,29 @@ test(
     );
   },
 );
+
+
+test(
+  "real pipeline keeps synthetic E2E non-blocking during proving period",
+  () => {
+    const workflow =
+      read("../.github/workflows/real-pipeline.yml");
+
+    assert.match(
+      workflow,
+      /synthetic-user-e2e:/,
+    );
+    assert.match(
+      workflow,
+      /continue-on-error:\s*true/,
+    );
+    assert.match(
+      workflow,
+      /Run synthetic user journeys three times/,
+    );
+    assert.match(
+      workflow,
+      /postgres:16/,
+    );
+  },
+);
