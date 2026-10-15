@@ -22,6 +22,17 @@ const storageState =
 export default defineConfig({
   globalSetup:
     "./e2e/user-journey/global-setup.ts",
+  webServer: syntheticAuth
+    ? {
+        command:
+          process.env.E2E_SERVER_COMMAND ??
+          "npm run dev -- --hostname 127.0.0.1 --port 3000",
+        url: baseURL,
+        reuseExistingServer:
+          !process.env.CI,
+        timeout: 120_000,
+      }
+    : undefined,
   testDir: "./e2e/user-journey",
   fullyParallel: false,
   forbidOnly: Boolean(process.env.CI),
