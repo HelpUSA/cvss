@@ -54,7 +54,7 @@ export default async function TenantEnvironmentsPage({
     <>
       <section className="tenant-page-heading">
         <span className="section-kicker">
-          Ambientes
+          Etapa 2 de 5
         </span>
 
         <h1>
@@ -63,9 +63,11 @@ export default async function TenantEnvironmentsPage({
         </h1>
 
         <p>
-          Cada ambiente é verificado contra
-          um projeto ativo que pertence à
-          organização autorizada.
+          Um ambiente descreve onde o sistema
+          está implantado. Separe produção,
+          homologação, DMZ, laboratório ou
+          filiais quando o contexto técnico
+          for diferente.
         </p>
       </section>
 
@@ -149,6 +151,31 @@ export default async function TenantEnvironmentsPage({
               </article>
             ),
           )}
+        </section>
+      ) : null}
+
+      {environments.length > 0 ? (
+        <section
+          className="panel"
+          style={{ marginTop: "1.5rem" }}
+        >
+          <span className="section-kicker">
+            Próxima etapa
+          </span>
+          <h2>
+            Etapa 3 — Registre a vulnerabilidade
+          </h2>
+          <p>
+            Associe a CVE ao ambiente onde o
+            produto vulnerável realmente está
+            implantado.
+          </p>
+          <a
+            className="button button--primary"
+            href={`/app/${context.organization.slug}/assessments`}
+          >
+            Continuar para Avaliações →
+          </a>
         </section>
       ) : null}
     </>

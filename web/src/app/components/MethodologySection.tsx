@@ -6,67 +6,96 @@ export function MethodologySection() {
       aria-labelledby="methodology-title"
     >
       <div className="section-heading section-heading--centered">
-        <span className="section-kicker">Arquitetura de Avaliação</span>
+        <span className="section-kicker">
+          Arquitetura de avaliação
+        </span>
         <h2 id="methodology-title">
-          Decisão Operacional em Cinco Camadas Auditáveis
+          Cinco camadas, sem misturar CVSS
+          com política operacional
         </h2>
         <p>
-          Separação formal entre o score oficial de origem, as evidências ambientais observadas,
-          o score ambiental derivado, a política de fluxo local (P0–P4) e a governança com especialista humano.
+          O fluxo preserva a avaliação de
+          origem, registra evidências,
+          resolve métricas sob regras
+          versionadas, calcula o CVSS
+          determinístico e mantém auditoria
+          da execução.
         </p>
       </div>
 
-      <div className="methodology-grid" style={{ gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))" }}>
+      <div
+        className="methodology-grid"
+        style={{
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(200px, 1fr))",
+        }}
+      >
         <article className="methodology-card">
-          <span className="methodology-card__number">01</span>
-          <h3>Score de Origem</h3>
+          <span className="methodology-card__number">
+            01
+          </span>
+          <h3>Origem</h3>
           <p>
-            O score oficial (CNA/NVD) permanece preservado como referência normativa e comparável.
+            Vetor e score CVSS-B publicados
+            pela fonte permanecem
+            preservados.
           </p>
           <code>source_cvss</code>
         </article>
 
         <article className="methodology-card">
-          <span className="methodology-card__number">02</span>
-          <h3>Evidências Locais</h3>
+          <span className="methodology-card__number">
+            02
+          </span>
+          <h3>Evidências</h3>
           <p>
-            Topologia, telemetria com controle de idade e políticas organizacionais versionadas.
+            Contexto observado, origem,
+            atualidade e qualidade da
+            evidência.
           </p>
-          <code>telemetry_evidence</code>
+          <code>evidence_snapshot</code>
         </article>
 
         <article className="methodology-card">
-          <span className="methodology-card__number">03</span>
-          <h3>CVSS v4.0 Ambiental</h3>
+          <span className="methodology-card__number">
+            03
+          </span>
+          <h3>Métricas ambientais</h3>
           <p>
-            Cálculo determinístico via algoritmo MacroVector FIRST CVSS v4.0 (sem deltas ad-hoc).
+            Regras determinísticas resolvem
+            apenas métricas sustentadas pela
+            evidência.
           </p>
-          <code>environmental_cvss</code>
+          <code>environmental_metrics</code>
         </article>
 
         <article className="methodology-card">
-          <span className="methodology-card__number">04</span>
-          <h3>Disposição P0–P4</h3>
+          <span className="methodology-card__number">
+            04
+          </span>
+          <h3>Score</h3>
           <p>
-            Mapeamento operacional da fila de remediação local (P0 a P4_DEFER_RECOMMENDED).
+            O cálculo final usa o scorer
+            CVSS v4.0 determinístico e mantém
+            a nomenclatura FIRST.
           </p>
-          <code>operational_policy</code>
+          <code>CVSS-BE / CVSS-BTE</code>
         </article>
 
         <article className="methodology-card">
-          <span className="methodology-card__number">05</span>
-          <h3>Governança HITL</h3>
+          <span className="methodology-card__number">
+            05
+          </span>
+          <h3>Auditoria</h3>
           <p>
-            Homologação obrigatória por analista humano credenciado e recibo criptográfico SHA-256.
+            Evidência, vetor, versão do motor
+            e recibo ficam associados à
+            execução. Revisão humana é
+            opcional conforme política local,
+            não requisito do score.
           </p>
-          <code>hitl_audit_receipt</code>
+          <code>audit_receipt</code>
         </article>
-      </div>
-
-      <div className="methodology-note">
-        <strong>Princípio central:</strong>
-        A priorização ambiental HelpUS não substitui nem revoga o score de origem do NVD/CNA.
-        A classificação P4_DEFER_RECOMMENDED constitui recomendação técnica e NÃO configura aceitação de risco sem autorização formal.
       </div>
     </section>
   );

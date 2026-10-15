@@ -1,0 +1,331 @@
+import {
+  notFound,
+} from "next/navigation";
+
+import {
+  cvssNomenclatureFromVector,
+} from "@/lib/cvss-presentation";
+import {
+  requireOrganizationContext,
+} from "@/lib/organization-context";
+import {
+  getTenantOperationalRun,
+} from "@/lib/tenant-data";
+
+type Params = Promise<{
+  organizationSlug: string;
+  assessmentId: string;
+  runId: string;
+}>;
+
+function formatScore(
+  score: number | null,
+) {
+  return score === null
+    ? "—"
+    : score.toFixed(1);
+}
+
+export default async function RunResultPage({
+  params,
+}: {
+  params: Params;
+}) {
+  const {
+    organizationSlug,
+    assessmentId,
+    runId,
+  } = await params;
+
+  const context =
+    await requireOrganizationContext({
+      organizationSlug,
+      permission:
+        "organization:read",
+    });
+
+  const run =
+    await getTenantOperationalRun(
+      context,
+      assessmentId,
+      runId,
+    );
+
+  if (!run) {
+    notFound();
+  }
+
+  const sourceNomenclature =
+    cvssNomenclatureFromVector(
+      run.sourceVector,
+    );
+
+  const finalNomenclature =
+    cvssNomenclatureFromVector(
+      run.finalVector ??
+        run.sourceVector,
+    );
+
+  const abstained =
+    run.status === "ABSTAINED";
+
+  return (
+    <>
+      <section className="tenant-page-heading">
+        <span className="section-kicker">
+          Etapa 5 de 5
+        </span>
+        <h1>
+          Resultado da avaliação
+        </h1>
+        <p>
+          {run.assessment.cve ??
+            run.assessment
+              .vulnerabilityId}
+          {" · "}
+          {
+            run.assessment
+              .environment.project.name
+          }
+          {" / "}
+          {
+            run.assessment
+              .environment.name
+          }
+        </p>
+      </section>
+
+      <div
+        className="panel"
+        style={{
+          marginBottom: "1.25rem",
+        }}
+      >
+        <span className="section-kicker">
+          Leitura principal
+        </span>
+        <h2>
+          {abstained
+            ? "O motor se absteve de afirmar um resultado ambiental."
+            : "Compare origem e contexto sem misturar os dois."}
+        </h2>
+        <p>
+          {abstained
+            ? "A evidência foi considerada insuficiente, vencida ou conflitante. O CVSS-B de origem permanece disponível, mas nenhuma métrica ambiental é forçada."
+            : "A nomenclatura segue a convenção da FIRST: CVSS-B para Base, CVSS-BE quando métricas ambientais são usadas e CVSS-BTE quando também há Threat."}
+        </p>
+      </div>
+
+      <section
+        className="tenant-metric-grid"
+        aria-label="Resumo do resultado"
+      >
+        <article className="tenant-metric">
+          <span>
+            Origem
+          </span>
+          <strong>
+            {formatScore(
+              run.sourceScore,
+            )}
+          </strong>
+          <small>
+            {sourceNomenclature}
+          </small>
+        </article>
+
+        <article className="tenant-metric">
+          <span>
+            Contextual
+          </span>
+          <strong>
+            {abstained
+              ? "ABSTAIN"
+              : formatScore(
+                  run.finalScore,
+                )}
+          </strong>
+          <small>
+            {abstained
+              ? "Sem score ambiental afirmado"
+              : finalNomenclature}
+          </small>
+        </article>
+
+        <article className="tenant-metric">
+          <span>
+            Estado
+          </span>
+          <strong>
+            {run.status}
+          </strong>
+          <small>
+            Decisão: {run.decision}
+          </small>
+        </article>
+      </section>
+
+      <section
+        className="panel"
+        style={{
+          marginTop: "1.25rem",
+        }}
+      >
+        <span className="section-kicker">
+          Vetores
+        </span>
+        <h2>
+          Preserve sempre score e vetor.
+        </h2>
+
+        <div
+          style={{
+            display: "grid",
+            gap: "1rem",
+          }}
+        >
+          <div>
+            <strong>
+              Vetor de origem — {
+                sourceNomenclature
+              }
+            </strong>
+            <pre
+              style={{
+                whiteSpace: "pre-wrap",
+                overflowWrap: "anywhere",
+              }}
+            >
+              {run.sourceVector}
+            </pre>
+          </div>
+
+          <div>
+            <strong>
+              Vetor contextual — {
+                abstained
+                  ? "não emitido"
+                  : finalNomenclature
+              }
+            </strong>
+            <pre
+              style={{
+                whiteSpace: "pre-wrap",
+                overflowWrap: "anywhere",
+              }}
+            >
+              {run.finalVector ??
+                "ABSTAIN — nenhuma afirmação ambiental final."}
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {abstained ? (
+        <section
+          className="panel"
+          style={{
+            marginTop: "1.25rem",
+          }}
+        >
+          <span className="section-kicker">
+            O que falta
+          </span>
+          <h2>
+            Corrija as evidências e execute
+            novamente.
+          </h2>
+          <pre
+            style={{
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {JSON.stringify(
+              run.abstentionReasons,
+              null,
+              2,
+            )}
+          </pre>
+        </section>
+      ) : null}
+
+      <section
+        className="panel"
+        style={{
+          marginTop: "1.25rem",
+        }}
+      >
+        <span className="section-kicker">
+          Rastreabilidade
+        </span>
+        <h2>
+          Evidência e versão da execução
+        </h2>
+
+        <dl className="context-list">
+          <div>
+            <dt>Run</dt>
+            <dd>{run.id}</dd>
+          </div>
+          <div>
+            <dt>Evidence</dt>
+            <dd>
+              {
+                run.evidenceSnapshot
+                  .canonicalHash
+              }
+            </dd>
+          </div>
+          <div>
+            <dt>Receipt</dt>
+            <dd>
+              {run.auditReceiptHash}
+            </dd>
+          </div>
+          <div>
+            <dt>Engine</dt>
+            <dd>
+              {run.engineCommit}
+            </dd>
+          </div>
+          <div>
+            <dt>Captured</dt>
+            <dd>
+              {run.evidenceSnapshot.capturedAt.toLocaleString(
+                "pt-BR",
+              )}
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <div
+        className="operational-actions"
+        style={{
+          marginTop: "1.5rem",
+        }}
+      >
+        <a
+          className="button button--primary"
+          href={`/app/${context.organization.slug}/assessments/${assessmentId}`}
+        >
+          Voltar e executar novamente
+        </a>
+        <a
+          className="button button--secondary"
+          href={`/app/${context.organization.slug}/assessments`}
+        >
+          Ver todas as avaliações
+        </a>
+        <a
+          className="button button--quiet"
+          href="https://www.first.org/cvss/calculator/4.0"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Comparar com calculadora FIRST ↗
+        </a>
+      </div>
+    </>
+  );
+}

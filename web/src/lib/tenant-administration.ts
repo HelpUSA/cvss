@@ -651,3 +651,154 @@ export async function createTenantEnvironment(
     throw error;
   }
 }
+
+
+export async function createTenantOperationalAssessment(
+  input: {
+    context: OrganizationContext;
+    actorUserId: string;
+    environmentId: unknown;
+    vulnerabilityId: unknown;
+    cve?: unknown;
+    title: unknown;
+    description?: unknown;
+    requestContext?: RequestAuditContext;
+  },
+) {
+  const environmentId = normalizeId(
+    input.environmentId,
+    "environmentId",
+  );
+
+  const vulnerabilityId =
+    typeof input.vulnerabilityId === "string"
+      ? input.vulnerabilityId.trim()
+      : "";
+
+  if (
+    vulnerabilityId.length < 2 ||
+    vulnerabilityId.length > 160
+  ) {
+    throw new DomainError({
+      code: "invalid_vulnerability_id",
+      message:
+        "Vulnerability identifier must contain between 2 and 160 characters.",
+      status: 400,
+    });
+  }
+
+  const cve =
+    typeof input.cve === "string" &&
+    input.cve.trim()
+      ? input.cve.trim().toUpperCase()
+      : null;
+
+  if (
+    cve &&
+    !/^CVE-\d{4}-\d{4,}$/.test(cve)
+  ) {
+    throw new DomainError({
+      code: "invalid_cve",
+      message:
+        "CVE must use the format CVE-YYYY-NNNN.",
+      status: 400,
+    });
+  }
+
+  const title = normalizeName(
+    input.title,
+    "assessment title",
+  );
+
+  const description =
+    typeof input.description === "string"
+      ? input.description.trim().slice(0, 4000)
+      : null;
+
+  return withSerializableRetry(
+    async (transaction) => {
+      const environment =
+        await transaction.environment.findFirst({
+          where: {
+            id: environmentId,
+            status:
+              EnvironmentStatus.ACTIVE,
+            project: {
+              organizationId:
+                input.context.organization.id,
+              status:
+                ProjectStatus.ACTIVE,
+            },
+          },
+          select: {
+            id: true,
+            name: true,
+            projectId: true,
+          },
+        });
+
+      if (!environment) {
+        throw new DomainError({
+          code:
+            "tenant_environment_not_found",
+          message:
+            "The environment was not found in this organization.",
+          status: 404,
+        });
+      }
+
+      const assessment =
+        await transaction.operationalAssessment.create({
+          data: {
+            environmentId:
+              environment.id,
+            vulnerabilityId,
+            cve,
+            title,
+            description:
+              description || null,
+            status: "ACTIVE",
+            createdByUserId:
+              input.actorUserId,
+          },
+          select: {
+            id: true,
+            vulnerabilityId: true,
+            cve: true,
+            title: true,
+            status: true,
+            environmentId: true,
+            createdAt: true,
+          },
+        });
+
+      await appendSecurityAuditEvent(
+        transaction,
+        {
+          organizationId:
+            input.context.organization.id,
+          actorUserId:
+            input.actorUserId,
+          action:
+            "operational_assessment.created",
+          targetType:
+            "OperationalAssessment",
+          targetId:
+            assessment.id,
+          metadata: {
+            environmentId:
+              environment.id,
+            projectId:
+              environment.projectId,
+            vulnerabilityId,
+            cve,
+          },
+          requestContext:
+            input.requestContext,
+        },
+      );
+
+      return assessment;
+    },
+  );
+}

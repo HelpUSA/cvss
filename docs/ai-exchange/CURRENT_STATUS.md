@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-14T15:10:00-03:00
+2026-10-14T16:50:00-03:00
 
 Current reviewed branch:
 scientific-validation
@@ -16,13 +16,13 @@ Latest Antigravity message:
 AG-20261014-028
 
 Latest ChatGPT response:
-CG-20261014-041
+CG-20261014-042
 
 Latest Gemini response:
 GM-20261014-003
 
 Current phase:
-PARALLEL TRACKS — G10B CONFIRMATORY PREPARATION + SAAS OPERATIONAL ASSESSMENT EXECUTION
+PARALLEL TRACKS — G10B CONFIRMATORY PREPARATION + FIRST-ALIGNED GUIDED SAAS UX
 
 SAFE_TO_FREEZE:
 YES
@@ -63,9 +63,10 @@ Documentary Readiness Status:
 POST-FREEZE STATUS RECONCILED. PR #8 IS ALREADY MERGED; NO FURTHER MERGE ACTION IS PENDING FOR THE DETERMINISTIC BASELINE.
 
 Next Steps:
-1. Antigravity validates the CG-041 Prisma schema locally and generates an additive migration against disposable PostgreSQL.
-2. Run prisma format/validate/generate, typecheck, production build, and npm run test:saas:unit.
-3. Add real disposable-PostgreSQL cross-tenant integration/E2E coverage before production migration.
-4. Configure an exact operational engine build identifier and distributed production rate limiting.
-5. Continue REVIEWER workflow and SuperAdmin organization/platform management in the operational SaaS track.
-6. Continue G10B preparation independently; C1/C2 remain SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE.
+1. Validate the CG-042 guided UX branch with Prisma validate/generate, typecheck, build, SaaS unit tests and browser smoke tests.
+2. Audit the actual production deployment bound to cvss.helpusbr.com; the currently reachable public site still appears to serve a stale dense AI/HITL frontend.
+3. After merge, deploy the canonical Next.js build and confirm /, /demo, /login, /app and tenant guided routes.
+4. Ensure no active production page presents mandatory expert/HITL review or runtime AI as a scoring authority.
+5. Preserve historical expert/HITL research artifacts as legacy/optional records; do not erase or relabel them.
+6. Continue operational Evidence Library, optional tenant Review queue, SuperAdmin organization lifecycle and distributed rate limiting in later rounds.
+7. Continue G10B independently; C1/C2 remain SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE.

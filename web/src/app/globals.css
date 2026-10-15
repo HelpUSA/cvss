@@ -59,7 +59,8 @@ body {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
 }
 
@@ -1029,7 +1030,8 @@ button {
 }
 
 .field input,
-.field select {
+.field select,
+.field textarea {
   width: 100%;
   min-height: 45px;
   padding: 0 0.75rem;
@@ -1039,7 +1041,8 @@ button {
   color: var(--text);
 }
 
-.field input::placeholder {
+.field input::placeholder,
+.field textarea::placeholder {
   color: #687b8f;
 }
 
@@ -2951,3 +2954,34 @@ tbody tr:last-child td {
 }
 
 /* auth1e-account-lifecycle:end */
+
+
+.guided-step-card {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+}
+
+.field small {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  line-height: 1.45;
+}
+
+.field textarea {
+  min-height: 88px;
+  padding: 0.7rem 0.75rem;
+  resize: vertical;
+}
+
+@media (max-width: 720px) {
+  .guided-step-card {
+    grid-template-columns: 48px minmax(0, 1fr);
+  }
+
+  .guided-step-card > a {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}

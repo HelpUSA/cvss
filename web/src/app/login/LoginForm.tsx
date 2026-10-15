@@ -30,7 +30,7 @@ export function LoginForm({
       });
     } catch (e: any) {
       setErrorMessage(
-        e?.message || "Erro ao conectar com o Google Workspace corporativo."
+        e?.message || "Erro ao conectar com a conta Google."
       );
       setGoogleLoading(false);
     }
@@ -138,7 +138,7 @@ export function LoginForm({
       ) : null}
 
       <div style={{ textAlign: "center", fontSize: "11px", color: "#64748b", marginTop: "4px" }}>
-        🔒 Acesso estritamente restrito via Google Workspace corporativo
+        🔒 Acesso via Google • permissões definidas por organização
       </div>
     </div>
   );

@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "CG-20261014-042",
+  "producer": "chatgpt",
+  "project": "helpus-cvss-ai",
+  "target_agent": "antigravity",
+  "implementation_commit": "7398129a7ae524c10863f7cd7494ceac0eee5158",
+  "frozen_baseline_commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+  "created_at": "2026-10-14T16:45:00-03:00",
+  "type": "implementation_handoff",
+  "verdict": "GUIDED_FIRST_ALIGNED_UX_IMPLEMENTED_PRODUCTION_DEPLOYMENT_AUDIT_REQUIRED",
+  "implemented": [
+    "minimal public landing",
+    "stateless guided demo",
+    "tenant Comece aqui roadmap",
+    "stepwise projects/environments/assessments/evidence/result workflow",
+    "tenant assessment creation endpoint",
+    "FIRST nomenclature presentation helper",
+    "next-action tenant dashboard",
+    "Google-only login wording cleanup",
+    "mandatory HITL semantics removed from operational TypeScript analysis service",
+    "public SEO/authenticated-route indexing boundary",
+    "FIRST-aligned UX architecture document"
+  ],
+  "production_observation": {
+    "domain": "https://cvss.helpusbr.com",
+    "stale_frontend_observed": true,
+    "examples": [
+      "AI Watcher",
+      "Priorização de Risco com IA",
+      "Gate de Homologação Humana",
+      "Acesso Exclusivo SuperAdmin Master",
+      "Aprovação HITL"
+    ]
+  },
+  "pending_antigravity": [
+    "validate_pr_build_typecheck_and_saas_tests",
+    "browser_smoke_test_guided_flow",
+    "identify_actual_vercel_project_serving_cvss.helpusbr.com",
+    "rebind_or_redeploy_domain_from_canonical_build",
+    "retire_stale_public_bundle",
+    "verify_no_mandatory_expert_hitl_claims_remain_on_production",
+    "later_replace_legacy_global_hitl_review_endpoint_with_optional_tenant_review_flow"
+  ],
+  "invariants": {
+    "deterministic_baseline_frozen": true,
+    "frozen_baseline_modified": false,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE",
+    "c1_c2_accessed_by_chatgpt": false
+  },
+  "artifacts": [],
+  "git_commit": "7ecf03ceebc29cc29bb51577d0ca66821e58d778"
+}

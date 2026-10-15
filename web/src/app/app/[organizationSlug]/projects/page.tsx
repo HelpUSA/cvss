@@ -45,7 +45,7 @@ export default async function TenantProjectsPage({
     <>
       <section className="tenant-page-heading">
         <span className="section-kicker">
-          Projetos
+          Etapa 1 de 5
         </span>
 
         <h1>
@@ -54,9 +54,10 @@ export default async function TenantProjectsPage({
         </h1>
 
         <p>
-          A consulta e a mutação usam
-          exclusivamente o identificador da
-          organização resolvido no servidor.
+          Um projeto representa o sistema,
+          produto ou escopo de trabalho que
+          será avaliado. Ex.: ERP, Portal
+          Web, Infraestrutura Clínica.
         </p>
       </section>
 
@@ -117,6 +118,32 @@ export default async function TenantProjectsPage({
           </p>
         </section>
       )}
+
+      {projects.length > 0 ? (
+        <section
+          className="panel"
+          style={{ marginTop: "1.5rem" }}
+        >
+          <span className="section-kicker">
+            Próxima etapa
+          </span>
+          <h2>
+            Etapa 2 — Defina um ambiente
+          </h2>
+          <p>
+            Agora informe onde esse projeto
+            está implantado. O contexto de
+            produção pode ser diferente de
+            homologação, DMZ ou laboratório.
+          </p>
+          <a
+            className="button button--primary"
+            href={`/app/${context.organization.slug}/environments`}
+          >
+            Continuar para Ambientes →
+          </a>
+        </section>
+      ) : null}
     </>
   );
 }

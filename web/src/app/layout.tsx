@@ -7,18 +7,18 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: "HelpUS CVSS",
   title: {
-    default: "HelpUS CVSS | Priorização contextual de vulnerabilidades",
+    default: "HelpUS CVSS | Contextualização ambiental CVSS v4.0",
     template: "%s | HelpUS CVSS",
   },
   description:
-    "Compare CVSS oficial, evidências ambientais e priorização contextual sem alterar o score oficial da vulnerabilidade.",
+    "Aplique contexto ambiental ao CVSS v4.0 com fluxo guiado, evidências rastreáveis e cálculo determinístico sem sobrescrever o vetor de origem.",
   keywords: [
     "CVSS",
     "vulnerability management",
     "cybersecurity",
-    "risk prioritization",
-    "environmental score",
-    "contextual prioritization",
+    "environmental metrics",
+    "CVSS-BE",
+    "vulnerability severity",
     "HelpUS",
   ],
   alternates: {
@@ -30,23 +30,23 @@ export const metadata: Metadata = {
     url: siteUrl,
     locale: "pt_BR",
     siteName: "HelpUS CVSS",
-    title: "HelpUS CVSS — contexto sem distorcer o score oficial",
+    title: "HelpUS CVSS — contextualização ambiental CVSS v4.0",
     description:
-      "Transforme evidências ambientais em decisões de priorização rastreáveis, mantendo o CVSS oficial separado do contexto operacional.",
+      "Preserve o CVSS-B de origem, registre evidências do ambiente e acompanhe resultados CVSS ambientais com rastreabilidade.",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "HelpUS CVSS — priorização contextual de vulnerabilidades",
+        alt: "HelpUS CVSS — contextualização ambiental CVSS v4.0",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "HelpUS CVSS — priorização contextual",
+    title: "HelpUS CVSS — CVSS v4.0 ambiental",
     description:
-      "CVSS oficial, contexto operacional e evidências em uma experiência auditável.",
+      "CVSS-B preservado, contexto ambiental e evidências em um fluxo guiado e auditável.",
     images: ["/opengraph-image"],
   },
   robots: {

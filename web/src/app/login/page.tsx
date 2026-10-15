@@ -125,14 +125,12 @@ export default async function LoginPage({
           </h1>
 
           <p>
-            Plataforma unificada de priorização com motor determinístico, recibos de proveniência RFC 8785 e governança supervisionada pelo SuperAdmin.
+            Workspace operacional multi-tenant com cálculo determinístico, histórico de evidências e rastreabilidade por organização.
           </p>
 
           <div style={{ marginTop: "16px", marginBottom: "20px" }}>
             <a
-              href="https://cvss.helpusbr.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/demo"
               style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -147,17 +145,17 @@ export default async function LoginPage({
                 textDecoration: "none",
               }}
             >
-              <span>🔬</span> Acessar Portal Científico & Demonstrador Público ↗
+              <span>🧪</span> Abrir demonstração pública
             </a>
           </div>
 
           <ul className="auth-principles">
             <li>
-              Autenticação unificada Google SSO ou credenciais
+              Autenticação via conta Google
             </li>
 
             <li>
-              Sessões auditadas e governança Human-in-the-Loop
+              Sessões auditadas e isolamento por organização
             </li>
 
             <li>
@@ -165,7 +163,7 @@ export default async function LoginPage({
             </li>
 
             <li>
-              Conexão com telemetria e controles de rede em tempo real
+              Evidências ambientais versionadas e histórico de execuções
             </li>
           </ul>
         </div>
@@ -179,7 +177,7 @@ export default async function LoginPage({
             <h2>Entrar na Plataforma</h2>
 
             <p>
-              Use sua conta Google corporativa ou credenciais autorizadas.
+              Use sua conta Google autorizada para acessar as organizações em que você possui membership ativa.
             </p>
           </div>
 
@@ -202,15 +200,13 @@ export default async function LoginPage({
               href="/"
               style={{ color: "#94a3b8" }}
             >
-              ← Painel Operacional
+              ← Página inicial
             </a>
             <a
-              href="https://cvss.helpusbr.com"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/demo"
               style={{ color: "#38bdf8", fontWeight: 600, textDecoration: "none" }}
             >
-              Portal Científico ↗
+              Demonstração
             </a>
           </div>
         </div>

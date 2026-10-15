@@ -26,14 +26,13 @@ export default async function OperationalHomePage() {
         id:
           currentSession.user.id,
       },
-
       select: {
         platformRole: true,
       },
     }),
   ]);
 
-  const canCreateOrganization =
+  const isPlatformAdmin =
     authoritativeUser?.platformRole ===
       "PLATFORM_ADMIN";
 
@@ -41,62 +40,33 @@ export default async function OperationalHomePage() {
     <>
       <section className="operational-hero">
         <span className="section-kicker">
-          Contexto organizacional
+          Workspace operacional
         </span>
 
         <h1>
-          Escolha uma organização autorizada.
+          Primeiro, escolha a organização.
         </h1>
 
         <p>
-          A organização é resolvida no
-          servidor a partir da sua membership
-          ativa. IDs e papéis enviados pelo
-          navegador não são considerados
-          confiáveis.
+          Cada organização mantém seus
+          próprios projetos, ambientes,
+          avaliações, evidências e
+          histórico. Depois de entrar em
+          uma organização, abra “Comece
+          aqui” para seguir o roteiro
+          prático.
         </p>
-
-        <div className="operational-actions">
-          {canCreateOrganization ? (
-            <>
-              <a
-                className="button button--primary"
-                href={
-                  "/app/admin/organizations/new"
-                }
-              >
-                Criar organização
-              </a>
-
-              <a
-                className="button button--secondary"
-                href="/app/admin/users"
-              >
-                Gerenciar usuários
-              </a>
-            </>
-          ) : null}
-
-          <a
-            className="button button--secondary"
-            href="/app/security/sessions"
-          >
-            Gerenciar sessões
-          </a>
-        </div>
       </section>
 
       {organizations.length > 0 ? (
         <section
           className="organization-grid"
-          aria-label={
-            "Organizações disponíveis"
-          }
+          aria-label="Organizações disponíveis"
         >
           {organizations.map((entry) => (
             <a
               className="organization-card"
-              href={`/app/${entry.organization.slug}`}
+              href={`/app/${entry.organization.slug}/guide`}
               key={entry.membership.id}
             >
               <span className="organization-card__mark">
@@ -116,13 +86,14 @@ export default async function OperationalHomePage() {
                   {entry.organization.name}
                 </h2>
 
-                <code>
-                  {entry.organization.slug}
-                </code>
+                <p>
+                  Abrir roteiro e continuar
+                  de onde parou.
+                </p>
               </div>
 
               <strong>
-                Acessar organização →
+                Começar / continuar →
               </strong>
             </a>
           ))}
@@ -130,41 +101,68 @@ export default async function OperationalHomePage() {
       ) : (
         <section className="tenant-empty-state">
           <span className="section-kicker">
-            Nenhum tenant disponível
+            Nenhuma organização disponível
           </span>
 
           <h2>
-            Sua conta não possui uma
-            membership operacional ativa.
+            Sua conta ainda não possui
+            acesso a uma organização.
           </h2>
 
           <p>
-            Contas de plataforma não recebem
-            acesso implícito às organizações.
-            Uma membership precisa existir
-            para acessar dados do tenant.
+            Peça a um Administrador da
+            organização para adicionar sua
+            conta. O Platform Admin não
+            recebe acesso automático aos
+            dados de clientes.
           </p>
         </section>
       )}
 
-      <section className="operational-boundary">
-        <div>
-          <span className="section-kicker">
-            Auth-1E
-          </span>
-
-          <h2>
-            Ciclo de conta com tokens,
-            convites e revogação.
-          </h2>
-        </div>
-
+      <section
+        className="panel"
+        style={{
+          marginTop: "2rem",
+        }}
+      >
+        <span className="section-kicker">
+          Conta e administração
+        </span>
+        <h2>
+          Ações fora do roteiro de avaliação
+        </h2>
         <p>
-          Senhas redefinidas revogam sessões,
-          convites são vinculados ao e-mail
-          autenticado e tokens nunca são
-          armazenados em texto aberto.
+          Use estas opções apenas para
+          administração da plataforma ou
+          segurança da sua própria sessão.
         </p>
+
+        <div className="operational-actions">
+          {isPlatformAdmin ? (
+            <>
+              <a
+                className="button button--secondary"
+                href="/app/admin/organizations/new"
+              >
+                Criar organização
+              </a>
+
+              <a
+                className="button button--secondary"
+                href="/app/admin/users"
+              >
+                Gerenciar usuários
+              </a>
+            </>
+          ) : null}
+
+          <a
+            className="button button--quiet"
+            href="/app/security/sessions"
+          >
+            Minhas sessões
+          </a>
+        </div>
       </section>
     </>
   );
