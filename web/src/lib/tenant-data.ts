@@ -450,3 +450,37 @@ export async function listTenantEvidenceSnapshots(
     take: 200,
   });
 }
+
+
+export async function listReusableEvidenceSnapshots(
+  context: OrganizationContext,
+  environmentId: string,
+) {
+  return prisma.evidenceSnapshot.findMany({
+    where: {
+      environmentId,
+      environment: {
+        project: {
+          organizationId:
+            context.organization.id,
+          status: "ACTIVE",
+        },
+        status: "ACTIVE",
+      },
+    },
+    select: {
+      id: true,
+      sourceType: true,
+      sourceReference: true,
+      capturedAt: true,
+      expiresAt: true,
+      canonicalHash: true,
+      metadata: true,
+    },
+    orderBy: [
+      { capturedAt: "desc" },
+      { id: "desc" },
+    ],
+    take: 50,
+  });
+}

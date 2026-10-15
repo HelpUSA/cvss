@@ -221,6 +221,71 @@ export async function POST(
         unknown
       >;
 
+    const reusedEvidenceSnapshotId =
+      optionalString(
+        body.reusedEvidenceSnapshotId,
+      );
+
+    let reusedSnapshot:
+      | {
+          id: string;
+          capturedAt: Date;
+          expiresAt: Date | null;
+        }
+      | null = null;
+
+    if (reusedEvidenceSnapshotId) {
+      reusedSnapshot =
+        await prisma.evidenceSnapshot.findFirst({
+          where: {
+            id: reusedEvidenceSnapshotId,
+            environmentId,
+            environment: {
+              project: {
+                organizationId:
+                  context.organization.id,
+              },
+            },
+          },
+          select: {
+            id: true,
+            capturedAt: true,
+            expiresAt: true,
+          },
+        });
+
+      if (!reusedSnapshot) {
+        throw new Error(
+          "Snapshot reutilizado não pertence ao mesmo ambiente",
+        );
+      }
+
+      if (
+        reusedSnapshot.expiresAt &&
+        reusedSnapshot.expiresAt.getTime() <
+          Date.now()
+      ) {
+        throw new Error(
+          "Snapshot reutilizado está expirado",
+        );
+      }
+
+      const currentAgeDays =
+        Math.max(
+          0,
+          (Date.now() -
+            reusedSnapshot
+              .capturedAt.getTime()) /
+            86_400_000,
+        );
+
+      evidenceObject.telemetryAgeDays =
+        currentAgeDays;
+
+      evidenceObject.reusedEvidenceSnapshotId =
+        reusedSnapshot.id;
+    }
+
     const analysis =
       analyzeEnvironment({
         cveId,
@@ -255,11 +320,13 @@ export async function POST(
       );
 
     const capturedAt =
-      capturedAtRaw
-        ? new Date(
-            capturedAtRaw,
-          )
-        : new Date();
+      reusedSnapshot
+        ? reusedSnapshot.capturedAt
+        : capturedAtRaw
+          ? new Date(
+              capturedAtRaw,
+            )
+          : new Date();
 
     if (
       Number.isNaN(
@@ -329,10 +396,12 @@ export async function POST(
                       assessment
                         .environmentId,
                     sourceType:
-                      optionalString(
-                        body.sourceType,
-                      ) ??
-                      "API_SUBMISSION",
+                      reusedSnapshot
+                        ? "GUIDED_REUSE"
+                        : optionalString(
+                            body.sourceType,
+                          ) ??
+                          "API_SUBMISSION",
                     sourceReference:
                       optionalString(
                         body.sourceReference,
@@ -463,6 +532,8 @@ export async function POST(
                   projectId,
                   evidenceSnapshotId:
                     snapshot.id,
+                  reusedEvidenceSnapshotId:
+                    reusedSnapshot?.id ?? null,
                   runStatus:
                     run.status,
                   auditReceiptHash:
