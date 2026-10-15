@@ -6,6 +6,9 @@ import {
 import {
   useRouter,
 } from "next/navigation";
+import {
+  validateCvss40VectorInput,
+} from "@/lib/cvss-vector-validation";
 
 type Props = {
   organizationSlug: string;
@@ -57,11 +60,22 @@ export function AssessmentRunForm({
   const [message, setMessage] =
     useState("");
 
+  const vectorValidation =
+    validateCvss40VectorInput(baseVector);
+
   async function submit(
     event:
       React.FormEvent<HTMLFormElement>,
   ) {
     event.preventDefault();
+
+    if (!vectorValidation.valid) {
+      setMessage(
+        vectorValidation.errors[0] ||
+          "Vetor CVSS v4.0 inválido.",
+      );
+      return;
+    }
 
     setPending(true);
     setMessage("");
@@ -212,7 +226,25 @@ export function AssessmentRunForm({
           }
           placeholder="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
           required
+          aria-invalid={
+            baseVector.trim() !== "" &&
+            !vectorValidation.valid
+          }
         />
+        {baseVector.trim() !== "" ? (
+          vectorValidation.valid ? (
+            <small className="vector-validation vector-validation--ok">
+              Vetor válido · {vectorValidation.nomenclature}
+            </small>
+          ) : (
+            <small
+              className="vector-validation vector-validation--error"
+              role="alert"
+            >
+              {vectorValidation.errors[0]}
+            </small>
+          )
+        ) : null}
         <small>
           Este é o CVSS-B de referência.
           O resultado contextual será
@@ -317,7 +349,6 @@ export function AssessmentRunForm({
                 event.target.value,
               )
             }
-            required
           />
         </div>
 
@@ -393,7 +424,10 @@ export function AssessmentRunForm({
       <button
         className="button button--primary"
         type="submit"
-        disabled={\n          pending ||\n          (baseVector.trim() !== "" && !vectorValidation.valid)\n        }
+        disabled={
+          pending ||
+          (baseVector.trim() !== "" && !vectorValidation.valid)
+        }
       >
         {pending
           ? "Executando..."
