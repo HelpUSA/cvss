@@ -56,6 +56,8 @@ export type EnvironmentalAnalysisResult = {
     abstentionReasons: string[];
     candidateMetrics:
       Record<string, string>;
+    supplementalMetrics:
+      Record<string, string>;
     citations: string[];
     reachabilityClass: string;
   };
@@ -288,6 +290,12 @@ function applyEnvironmentalMetrics(
     "MSC",
     "MSI",
     "MSA",
+    "S",
+    "AU",
+    "R",
+    "V",
+    "RE",
+    "U",
   ];
 
   const orderedParts = [prefix];
@@ -549,6 +557,68 @@ export function analyzeEnvironment(
     }
   }
 
+  const supplementalInput =
+    evidence.supplementalMetrics &&
+    typeof evidence.supplementalMetrics === "object" &&
+    !Array.isArray(evidence.supplementalMetrics)
+      ? evidence.supplementalMetrics as Record<string, unknown>
+      : null;
+
+  const supplementalMetrics:
+    Record<string, string> = {};
+
+  if (supplementalInput) {
+    const allowedSupplemental: Record<
+      string,
+      readonly string[]
+    > = {
+      S: ["N", "P"],
+      AU: ["N", "Y"],
+      R: ["A", "U", "I"],
+      V: ["D", "C"],
+      RE: ["L", "M", "H"],
+      U: [
+        "Clear",
+        "Green",
+        "Amber",
+        "Red",
+      ],
+    };
+
+    for (
+      const [
+        metric,
+        allowedValues,
+      ] of Object.entries(
+        allowedSupplemental,
+      )
+    ) {
+      const raw =
+        supplementalInput[metric];
+
+      if (
+        typeof raw !== "string" ||
+        raw === "X"
+      ) {
+        continue;
+      }
+
+      const value =
+        metric === "U"
+          ? raw
+          : raw.toUpperCase();
+
+      if (
+        allowedValues.includes(
+          value,
+        )
+      ) {
+        supplementalMetrics[metric] =
+          value;
+      }
+    }
+  }
+
   const requirements =
     evidence.securityRequirements as
       | Record<string, unknown>
@@ -610,7 +680,10 @@ export function analyzeEnvironment(
     const enrichedVector =
       applyEnvironmentalMetrics(
         baseVector,
-        candidateMetrics,
+        {
+          ...candidateMetrics,
+          ...supplementalMetrics,
+        },
       );
 
     const environmentCalculator =
@@ -738,6 +811,7 @@ export function analyzeEnvironment(
       abstentionReasons:
         reasons,
       candidateMetrics,
+      supplementalMetrics,
       citations,
       reachabilityClass:
         reachability,

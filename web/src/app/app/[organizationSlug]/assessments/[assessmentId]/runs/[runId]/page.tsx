@@ -20,6 +20,10 @@ import {
   RunExplanation,
 } from "@/app/components/RunExplanation";
 
+import {
+  SupplementalMetricsSummary,
+} from "@/app/components/SupplementalMetricsSummary";
+
 type Params = Promise<{
   organizationSlug: string;
   assessmentId: string;
@@ -136,6 +140,10 @@ export default async function RunResultPage({
         sourceType={run.evidenceSnapshot.sourceType}
         sourceReference={run.evidenceSnapshot.sourceReference}
         capturedAt={run.evidenceSnapshot.capturedAt}
+      />
+
+      <SupplementalMetricsSummary
+        metadata={run.evidenceSnapshot.metadata}
       />
 
       <section

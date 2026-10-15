@@ -408,6 +408,64 @@ export async function POST(
       }
     }
 
+    const supplementalMetrics =
+      evidenceObject.supplementalMetrics &&
+      typeof evidenceObject.supplementalMetrics === "object" &&
+      !Array.isArray(evidenceObject.supplementalMetrics)
+        ? (evidenceObject.supplementalMetrics as Record<string, unknown>)
+        : null;
+
+    if (
+      evidenceObject.supplementalMetrics !== undefined &&
+      !supplementalMetrics
+    ) {
+      throw new Error(
+        "supplementalMetrics deve ser um objeto.",
+      );
+    }
+
+    if (supplementalMetrics) {
+      const allowedSupplemental: Record<
+        string,
+        readonly string[]
+      > = {
+        S: ["X", "N", "P"],
+        AU: ["X", "N", "Y"],
+        R: ["X", "A", "U", "I"],
+        V: ["X", "D", "C"],
+        RE: ["X", "L", "M", "H"],
+        U: [
+          "X",
+          "Clear",
+          "Green",
+          "Amber",
+          "Red",
+        ],
+      };
+
+      for (
+        const [
+          key,
+          value,
+        ] of Object.entries(
+          supplementalMetrics,
+        )
+      ) {
+        const allowedValues =
+          allowedSupplemental[key];
+
+        if (
+          !allowedValues ||
+          typeof value !== "string" ||
+          !allowedValues.includes(value)
+        ) {
+          throw new Error(
+            `Supplemental Metric ${key} inválida.`,
+          );
+        }
+      }
+    }
+
     const analysis =
       analyzeEnvironment({
         cveId,

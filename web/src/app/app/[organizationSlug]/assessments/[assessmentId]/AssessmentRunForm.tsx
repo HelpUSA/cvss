@@ -116,6 +116,19 @@ export function AssessmentRunForm({
     setThreatIntelObservedAt,
   ] = useState("");
 
+  const [suppSafety, setSuppSafety] =
+    useState("X");
+  const [suppAutomatable, setSuppAutomatable] =
+    useState("X");
+  const [suppRecovery, setSuppRecovery] =
+    useState("X");
+  const [suppValueDensity, setSuppValueDensity] =
+    useState("X");
+  const [suppResponseEffort, setSuppResponseEffort] =
+    useState("X");
+  const [suppProviderUrgency, setSuppProviderUrgency] =
+    useState("X");
+
   const [pending, setPending] =
     useState(false);
 
@@ -289,6 +302,14 @@ export function AssessmentRunForm({
                 : new Date().toISOString(),
             evidence: {
               evidenceQuality,
+              supplementalMetrics: {
+                S: suppSafety,
+                AU: suppAutomatable,
+                R: suppRecovery,
+                V: suppValueDensity,
+                RE: suppResponseEffort,
+                U: suppProviderUrgency,
+              },
               ...(threatMetricUsed
                 ? {
                     threatIntelligence: {
@@ -803,6 +824,131 @@ export function AssessmentRunForm({
           vulnerabilidade em si. A seleção não
           deve ser usada para compensar controles
           técnicos ou alterar o vetor Base.
+        </p>
+      </details>
+
+      <details className="panel supplemental-metrics-panel">
+        <summary>
+          Supplemental Metrics (não alteram o score)
+        </summary>
+        <p>
+          Estes campos adicionam contexto ao vetor e ao audit trail,
+          mas não alteram o score CVSS-BT/BE/BTE. Mantenha X quando
+          a métrica não tiver sido avaliada.
+        </p>
+
+        <div className="supplemental-metrics-panel__grid">
+          <div className="field">
+            <label htmlFor="supp-safety">
+              Safety (S)
+            </label>
+            <select
+              id="supp-safety"
+              value={suppSafety}
+              onChange={(event) =>
+                setSuppSafety(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="N">N — Negligible</option>
+              <option value="P">P — Present</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-automatable">
+              Automatable (AU)
+            </label>
+            <select
+              id="supp-automatable"
+              value={suppAutomatable}
+              onChange={(event) =>
+                setSuppAutomatable(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="N">N — Não</option>
+              <option value="Y">Y — Sim</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-recovery">
+              Recovery (R)
+            </label>
+            <select
+              id="supp-recovery"
+              value={suppRecovery}
+              onChange={(event) =>
+                setSuppRecovery(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="A">A — Automatic</option>
+              <option value="U">U — User</option>
+              <option value="I">I — Irrecoverable</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-value-density">
+              Value Density (V)
+            </label>
+            <select
+              id="supp-value-density"
+              value={suppValueDensity}
+              onChange={(event) =>
+                setSuppValueDensity(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="D">D — Diffuse</option>
+              <option value="C">C — Concentrated</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-response-effort">
+              Vulnerability Response Effort (RE)
+            </label>
+            <select
+              id="supp-response-effort"
+              value={suppResponseEffort}
+              onChange={(event) =>
+                setSuppResponseEffort(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="L">L — Low</option>
+              <option value="M">M — Moderate</option>
+              <option value="H">H — High</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-provider-urgency">
+              Provider Urgency (U)
+            </label>
+            <select
+              id="supp-provider-urgency"
+              value={suppProviderUrgency}
+              onChange={(event) =>
+                setSuppProviderUrgency(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="Clear">Clear</option>
+              <option value="Green">Green</option>
+              <option value="Amber">Amber</option>
+              <option value="Red">Red</option>
+            </select>
+          </div>
+        </div>
+
+        <p className="supplemental-metrics-panel__note">
+          Supplemental Metrics podem influenciar processos locais de
+          priorização ou resposta, mas pela especificação FIRST não
+          alteram o valor numérico do CVSS.
         </p>
       </details>
 
