@@ -100,7 +100,7 @@ export default async function TenantLayout({
           <a
             href={`${basePath}/assessments`}
           >
-            3–5. Avaliações
+            3–5. Avaliações e resultados
           </a>
 
           <a href={`${basePath}/evidence`}>
