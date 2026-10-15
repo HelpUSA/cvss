@@ -25,16 +25,24 @@ function assertSyntheticMode() {
   }
 
   const databaseUrl =
-    process.env.DATABASE_URL ?? "";
+    process.env.DATABASE_URL?.trim();
+
+  if (!databaseUrl) {
+    throw new Error(
+      "Synthetic auth requires an explicit disposable PostgreSQL DATABASE_URL.",
+    );
+  }
+
+  const parsedDatabaseUrl =
+    new URL(databaseUrl);
 
   if (
-    !databaseUrl ||
-    !/localhost|127\.0\.0\.1|postgres/i.test(
-      databaseUrl,
+    !["localhost", "127.0.0.1"].includes(
+      parsedDatabaseUrl.hostname,
     )
   ) {
     throw new Error(
-      "Synthetic auth requires an explicit disposable PostgreSQL DATABASE_URL.",
+      "Synthetic auth is restricted to a local disposable PostgreSQL database.",
     );
   }
 
