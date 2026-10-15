@@ -181,7 +181,7 @@ FIRST semantic alignment:
 PASS (metrics describe vulnerable system criticality, not vulnerability)
 
 CI:
-PASS (Local gates 100% green; test syntax fix and server validation committed)
+PASS (real-pipeline #38774596922: PASS, validate: PASS, AI Exchange: PASS, Vercel: PASS)
 
 Files changed:
 - web/src/app/api/organizations/[organizationSlug]/projects/[projectId]/environments/[environmentId]/assessments/[assessmentId]/runs/route.ts
@@ -189,7 +189,7 @@ Files changed:
 - docs/reviews/ANTIGRAVITY_ADVANCED_SECURITY_REQUIREMENTS_REPORT.md
 
 Commit:
-<SHA>
+39fa74ae12e5241fbbd0c5a3d76378e990c0ef6a
 
 Residual issues:
 None.
