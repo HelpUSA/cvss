@@ -393,7 +393,7 @@ export function AssessmentRunForm({
       <button
         className="button button--primary"
         type="submit"
-        disabled={pending}
+        disabled={\n          pending ||\n          (baseVector.trim() !== "" && !vectorValidation.valid)\n        }
       >
         {pending
           ? "Executando..."
