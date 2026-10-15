@@ -33,7 +33,13 @@ export function AssessmentRunForm({
   const [provider, setProvider] =
     useState("CNA_PUBLISHED");
 
-  const [sourceReference, setSourceReference] =\n    useState("");\n\n  const [capturedAt, setCapturedAt] =\n    useState("");\n\n  const [reachability, setReachability] =
+  const [sourceReference, setSourceReference] =
+    useState("");
+
+  const [capturedAt, setCapturedAt] =
+    useState("");
+
+  const [reachability, setReachability] =
     useState("UNKNOWN");
 
   const [evidenceQuality, setEvidenceQuality] =
