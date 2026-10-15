@@ -7,6 +7,7 @@ import {
   assertAdvancedClosed,
   assertNoHorizontalOverflow,
   BASE_VECTOR,
+  hasAuthenticatedStorage,
   requiredEnv,
   runSuffix,
 } from "./helpers";
@@ -21,6 +22,7 @@ test.describe(
     const organizationSlug =
       requiredEnv(
         "E2E_ORGANIZATION_SLUG",
+        "e2e-org",
       );
 
     const activePolicyLabel =
@@ -33,6 +35,11 @@ test.describe(
     test(
       "operator can produce a governed BTE result and preserve Supplemental context",
       async ({ page }, testInfo) => {
+        test.skip(
+          !hasAuthenticatedStorage(),
+          "Authenticated storageState required. Generate via: npx playwright codegen --save-storage=playwright/.auth/user.json",
+        );
+
         test.skip(
           !activePolicyLabel,
           "E2E_ACTIVE_POLICY_LABEL is required for governed CR/IR/AR",

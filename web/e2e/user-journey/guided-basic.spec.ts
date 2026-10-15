@@ -7,6 +7,7 @@ import {
   assertAdvancedClosed,
   assertNoHorizontalOverflow,
   BASE_VECTOR,
+  hasAuthenticatedStorage,
   requiredEnv,
   runSuffix,
 } from "./helpers";
@@ -21,6 +22,7 @@ test.describe(
     const organizationSlug =
       requiredEnv(
         "E2E_ORGANIZATION_SLUG",
+        "e2e-org",
       );
 
     const suffix = runSuffix();
@@ -31,6 +33,11 @@ test.describe(
     let assessmentUrl = "";
 
     test.beforeEach(async ({ page }) => {
+      test.skip(
+        !hasAuthenticatedStorage(),
+        "Authenticated storageState required. Generate via: npx playwright codegen --save-storage=playwright/.auth/user.json",
+      );
+
       await page.goto(
         `/app/${organizationSlug}/guide`,
       );
@@ -360,6 +367,12 @@ test.describe(
               "Resultado da avaliação",
           }),
         ).toBeVisible();
+
+        await page
+          .getByText(
+            "Rastreabilidade e auditoria (hashes e engine)",
+          )
+          .click();
 
         await expect(
           page.getByText(

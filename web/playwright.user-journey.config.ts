@@ -1,12 +1,19 @@
+import fs from "node:fs";
+import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 
 const baseURL =
   process.env.E2E_BASE_URL ??
   "http://127.0.0.1:3000";
 
-const storageState =
+const storageStateCandidate =
   process.env.E2E_STORAGE_STATE ??
-  "playwright/.auth/user.json";
+  path.resolve(__dirname, "playwright/.auth/user.json");
+
+const storageState =
+  fs.existsSync(storageStateCandidate)
+    ? storageStateCandidate
+    : undefined;
 
 export default defineConfig({
   testDir: "./e2e/user-journey",

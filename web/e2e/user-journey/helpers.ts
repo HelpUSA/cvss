@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { expect, type Page } from "@playwright/test";
 
 export const BASE_VECTOR =
@@ -5,16 +7,32 @@ export const BASE_VECTOR =
 
 export function requiredEnv(
   name: string,
+  fallback?: string,
 ): string {
   const value = process.env[name]?.trim();
 
   if (!value) {
+    if (fallback !== undefined) {
+      return fallback;
+    }
     throw new Error(
       `Missing required environment variable: ${name}`,
     );
   }
 
   return value;
+}
+
+export function hasAuthenticatedStorage(): boolean {
+  const custom = process.env.E2E_STORAGE_STATE?.trim();
+  if (custom && fs.existsSync(custom)) {
+    return true;
+  }
+  const defaultAuth = path.resolve(
+    __dirname,
+    "../../playwright/.auth/user.json",
+  );
+  return fs.existsSync(defaultAuth);
 }
 
 export function runSuffix(): string {
