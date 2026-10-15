@@ -3307,3 +3307,16 @@ tbody tr:last-child td {
   }
 }
 /* supplemental-metrics:end */
+
+/* progressive-disclosure-panels:start */
+.panel > summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.panel > summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* progressive-disclosure-panels:end */

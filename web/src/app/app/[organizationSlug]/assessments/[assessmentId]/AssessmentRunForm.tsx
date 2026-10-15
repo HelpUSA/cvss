@@ -438,123 +438,6 @@ export function AssessmentRunForm({
         </small>
       </div>
 
-      <details className="panel">
-        <summary>
-          Reutilizar evidência existente (opcional)
-        </summary>
-        <p>
-          Somente evidências do mesmo ambiente
-          aparecem aqui. A seleção serve como
-          ponto de partida; a nova execução
-          cria um novo snapshot e preserva o
-          original.
-        </p>
-
-        <div className="field">
-          <label htmlFor="reuse-evidence">
-            Snapshot preservado
-          </label>
-          <select
-            id="reuse-evidence"
-            value={reusedEvidenceSnapshotId}
-            onChange={(event) =>
-              applyReusableEvidence(
-                event.target.value,
-              )
-            }
-          >
-            <option value="">
-              Não reutilizar
-            </option>
-            {reusableEvidence.map(
-              (snapshot) => {
-                const expired =
-                  snapshot.expiresAt !== null &&
-                  new Date(
-                    snapshot.expiresAt,
-                  ).getTime() < Date.now();
-
-                return (
-                  <option
-                    key={snapshot.id}
-                    value={snapshot.id}
-                    disabled={expired}
-                  >
-                    {snapshot.sourceReference ??
-                      snapshot.sourceType}
-                    {" · "}
-                    {new Date(
-                      snapshot.capturedAt,
-                    ).toLocaleString(
-                      "pt-BR",
-                    )}
-                    {expired
-                      ? " · expirada"
-                      : ""}
-                  </option>
-                );
-              },
-            )}
-          </select>
-          <small>
-            Evidências expiradas aparecem
-            apenas para contexto histórico e
-            não podem ser selecionadas.
-          </small>
-        </div>
-      </details>
-
-      <details className="panel evidence-provenance-panel">
-        <summary>
-          Provenance da fonte (opcional)
-        </summary>
-        <p>
-          Registre a referência original e,
-          quando necessário, o momento em que
-          a evidência foi capturada. Esses
-          dados são preservados no snapshot,
-          mas não alteram o score por si só.
-        </p>
-
-        <div className="field">
-          <label htmlFor="source-reference">
-            URL, advisory ou referência
-          </label>
-          <input
-            id="source-reference"
-            value={sourceReference}
-            onChange={(event) =>
-              setSourceReference(
-                event.target.value,
-              )
-            }
-            placeholder="https://... ou ADV-2026-001"
-            maxLength={1000}
-            autoComplete="off"
-          />
-        </div>
-
-        <div className="field">
-          <label htmlFor="captured-at">
-            Capturada em
-          </label>
-          <input
-            id="captured-at"
-            type="datetime-local"
-            value={capturedAt}
-            onChange={(event) =>
-              setCapturedAt(
-                event.target.value,
-              )
-            }
-          />
-          <small>
-            Deixe em branco para registrar o
-            horário da execução.
-          </small>
-        </div>
-      </details>
-
       <div className="field">
         <label htmlFor="base-vector">
           Vetor CVSS v4.0 de origem
@@ -715,6 +598,252 @@ export function AssessmentRunForm({
           />
         </div>
       </div>
+
+      <label
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: ".75rem",
+          padding: "1rem",
+          border: "1px solid var(--border)",
+          borderRadius:
+            "var(--radius-sm)",
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={firewallActive}
+          onChange={(event) =>
+            setFirewallActive(
+              event.target.checked,
+            )
+          }
+        />
+        <span>
+          <strong>
+            Há firewall/WAF registrado na
+            evidência
+          </strong>
+          <small
+            style={{
+              display: "block",
+              color:
+                "var(--text-muted)",
+            }}
+          >
+            Isto é registrado como contexto.
+            A presença isolada do controle
+            não altera automaticamente MAC
+            ou outra métrica CVSS.
+          </small>
+        </span>
+      </label>
+
+      <details className="panel">
+        <summary>
+          Reutilizar evidência existente (opcional)
+        </summary>
+        <p>
+          Somente evidências do mesmo ambiente
+          aparecem aqui. A seleção serve como
+          ponto de partida; a nova execução
+          cria um novo snapshot e preserva o
+          original.
+        </p>
+
+        <div className="field">
+          <label htmlFor="reuse-evidence">
+            Snapshot preservado
+          </label>
+          <select
+            id="reuse-evidence"
+            value={reusedEvidenceSnapshotId}
+            onChange={(event) =>
+              applyReusableEvidence(
+                event.target.value,
+              )
+            }
+          >
+            <option value="">
+              Não reutilizar
+            </option>
+            {reusableEvidence.map(
+              (snapshot) => {
+                const expired =
+                  snapshot.expiresAt !== null &&
+                  new Date(
+                    snapshot.expiresAt,
+                  ).getTime() < Date.now();
+
+                return (
+                  <option
+                    key={snapshot.id}
+                    value={snapshot.id}
+                    disabled={expired}
+                  >
+                    {snapshot.sourceReference ??
+                      snapshot.sourceType}
+                    {" · "}
+                    {new Date(
+                      snapshot.capturedAt,
+                    ).toLocaleString(
+                      "pt-BR",
+                    )}
+                    {expired
+                      ? " · expirada"
+                      : ""}
+                  </option>
+                );
+              },
+            )}
+          </select>
+          <small>
+            Evidências expiradas aparecem
+            apenas para contexto histórico e
+            não podem ser selecionadas.
+          </small>
+        </div>
+      </details>
+
+      <details className="panel evidence-provenance-panel">
+        <summary>
+          Provenance da fonte (opcional)
+        </summary>
+        <p>
+          Registre a referência original e,
+          quando necessário, o momento em que
+          a evidência foi capturada. Esses
+          dados são preservados no snapshot,
+          mas não alteram o score por si só.
+        </p>
+
+        <div className="field">
+          <label htmlFor="source-reference">
+            URL, advisory ou referência
+          </label>
+          <input
+            id="source-reference"
+            value={sourceReference}
+            onChange={(event) =>
+              setSourceReference(
+                event.target.value,
+              )
+            }
+            placeholder="https://... ou ADV-2026-001"
+            maxLength={1000}
+            autoComplete="off"
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="captured-at">
+            Capturada em
+          </label>
+          <input
+            id="captured-at"
+            type="datetime-local"
+            value={capturedAt}
+            onChange={(event) =>
+              setCapturedAt(
+                event.target.value,
+              )
+            }
+          />
+          <small>
+            Deixe em branco para registrar o
+            horário da execução.
+          </small>
+        </div>
+      </details>
+
+      <details className="panel advanced-threat-maturity">
+        <summary>
+          Threat — Exploit Maturity (E) (avançado)
+        </summary>
+        <p>
+          Exploit Maturity (E) reflete o estado conhecido de exploração segundo
+          fontes verificáveis de threat intelligence; não é uma previsão, não substitui
+          evidência ambiental e não deve ser inferida a partir do score Base ou suposições.
+        </p>
+
+        <div className="field">
+          <label htmlFor="exploit-maturity">
+            Exploit Maturity (E)
+          </label>
+          <select
+            id="exploit-maturity"
+            value={exploitMaturity}
+            onChange={(event) =>
+              setExploitMaturity(
+                event.target.value,
+              )
+            }
+          >
+            <option value="X">
+              X — Não definido
+            </option>
+            <option value="A">
+              A — Attacked
+            </option>
+            <option value="P">
+              P — Proof-of-Concept
+            </option>
+            <option value="U">
+              U — Unreported
+            </option>
+          </select>
+          <small>
+            O valor padrão é X (Não definido). Pelo FIRST CVSS v4.0, X assume pior caso razoável para o cálculo sem alegar exploração ativa.
+          </small>
+        </div>
+
+        <div className="advanced-threat-maturity__grid">
+          <div className="field">
+            <label htmlFor="threat-intel-reference">
+              Referência de threat intelligence
+            </label>
+            <input
+              id="threat-intel-reference"
+              value={threatIntelReference}
+              onChange={(event) =>
+                setThreatIntelReference(
+                  event.target.value,
+                )
+              }
+              placeholder="URL, boletim, advisory, feed..."
+              maxLength={1000}
+            />
+            <small>
+              Obrigatória para E diferente de X.
+            </small>
+          </div>
+
+          <div className="field">
+            <label htmlFor="threat-intel-observed-at">
+              Observada em
+            </label>
+            <input
+              id="threat-intel-observed-at"
+              type="datetime-local"
+              value={threatIntelObservedAt}
+              onChange={(event) =>
+                setThreatIntelObservedAt(
+                  event.target.value,
+                )
+              }
+            />
+            <small>
+              Obrigatória para E diferente de X (não pode estar no futuro).
+            </small>
+          </div>
+        </div>
+
+        <p className="advanced-threat-maturity__note">
+          Segundo o FIRST CVSS v4.0: E=X é o default operacional e não requer
+          provenance adicional. Selecionar A, P ou U exige registrar a fonte e a data
+          em que a informação foi observada.
+        </p>
+      </details>
 
       <details className="panel advanced-security-requirements">
         <summary>
@@ -951,135 +1080,6 @@ export function AssessmentRunForm({
           alteram o valor numérico do CVSS.
         </p>
       </details>
-
-      <details className="panel advanced-threat-maturity">
-        <summary>
-          Threat — Exploit Maturity (E) (avançado)
-        </summary>
-        <p>
-          Exploit Maturity (E) reflete o estado conhecido de exploração segundo
-          fontes verificáveis de threat intelligence; não é uma previsão, não substitui
-          evidência ambiental e não deve ser inferida a partir do score Base ou suposições.
-        </p>
-
-        <div className="field">
-          <label htmlFor="exploit-maturity">
-            Exploit Maturity (E)
-          </label>
-          <select
-            id="exploit-maturity"
-            value={exploitMaturity}
-            onChange={(event) =>
-              setExploitMaturity(
-                event.target.value,
-              )
-            }
-          >
-            <option value="X">
-              X — Não definido
-            </option>
-            <option value="A">
-              A — Attacked
-            </option>
-            <option value="P">
-              P — Proof-of-Concept
-            </option>
-            <option value="U">
-              U — Unreported
-            </option>
-          </select>
-          <small>
-            O valor padrão é X (Não definido). Pelo FIRST CVSS v4.0, X assume pior caso razoável para o cálculo sem alegar exploração ativa.
-          </small>
-        </div>
-
-        <div className="advanced-threat-maturity__grid">
-          <div className="field">
-            <label htmlFor="threat-intel-reference">
-              Referência de threat intelligence
-            </label>
-            <input
-              id="threat-intel-reference"
-              value={threatIntelReference}
-              onChange={(event) =>
-                setThreatIntelReference(
-                  event.target.value,
-                )
-              }
-              placeholder="URL, boletim, advisory, feed..."
-              maxLength={1000}
-            />
-            <small>
-              Obrigatória para E diferente de X.
-            </small>
-          </div>
-
-          <div className="field">
-            <label htmlFor="threat-intel-observed-at">
-              Observada em
-            </label>
-            <input
-              id="threat-intel-observed-at"
-              type="datetime-local"
-              value={threatIntelObservedAt}
-              onChange={(event) =>
-                setThreatIntelObservedAt(
-                  event.target.value,
-                )
-              }
-            />
-            <small>
-              Obrigatória para E diferente de X (não pode estar no futuro).
-            </small>
-          </div>
-        </div>
-
-        <p className="advanced-threat-maturity__note">
-          Segundo o FIRST CVSS v4.0: E=X é o default operacional e não requer
-          provenance adicional. Selecionar A, P ou U exige registrar a fonte e a data
-          em que a informação foi observada.
-        </p>
-      </details>
-
-      <label
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: ".75rem",
-          padding: "1rem",
-          border: "1px solid var(--border)",
-          borderRadius:
-            "var(--radius-sm)",
-        }}
-      >
-        <input
-          type="checkbox"
-          checked={firewallActive}
-          onChange={(event) =>
-            setFirewallActive(
-              event.target.checked,
-            )
-          }
-        />
-        <span>
-          <strong>
-            Há firewall/WAF registrado na
-            evidência
-          </strong>
-          <small
-            style={{
-              display: "block",
-              color:
-                "var(--text-muted)",
-            }}
-          >
-            Isto é registrado como contexto.
-            A presença isolada do controle
-            não altera automaticamente MAC
-            ou outra métrica CVSS.
-          </small>
-        </span>
-      </label>
 
       {message ? (
         <p
