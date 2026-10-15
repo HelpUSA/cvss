@@ -75,8 +75,10 @@ export const auth = betterAuth({
       clientId:
         process.env.GOOGLE_CLIENT_ID ||
         process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
-        "812202824664-s716306ibb7c15jh7aok2v0lfnuocpkn.apps.googleusercontent.com",
+        "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
+      prompt: "select_account",
+      accessType: "offline",
     },
   },
 

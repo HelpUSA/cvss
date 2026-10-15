@@ -39,9 +39,46 @@ export default async function OperationalHomePage() {
   return (
     <>
       <section className="operational-hero">
-        <span className="section-kicker">
-          Workspace operacional
-        </span>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "8px", marginBottom: "8px" }}>
+          <span className="section-kicker" style={{ margin: 0 }}>
+            Workspace operacional
+          </span>
+          {isPlatformAdmin ? (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: 700,
+                color: "#f59e0b",
+                background: "rgba(245, 158, 11, 0.15)",
+                border: "1px solid rgba(245, 158, 11, 0.4)",
+                padding: "4px 12px",
+                borderRadius: "999px",
+              }}
+            >
+              👑 Platform SuperAdmin ({currentSession.user.email})
+            </span>
+          ) : (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "12px",
+                fontWeight: 600,
+                color: "#94a3b8",
+                background: "rgba(255, 255, 255, 0.05)",
+                border: "1px solid rgba(255, 255, 255, 0.1)",
+                padding: "4px 12px",
+                borderRadius: "999px",
+              }}
+            >
+              👤 Usuário ({currentSession.user.email})
+            </span>
+          )}
+        </div>
 
         <h1>
           Primeiro, escolha a organização.
