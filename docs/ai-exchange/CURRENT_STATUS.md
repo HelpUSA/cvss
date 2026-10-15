@@ -1,7 +1,7 @@
 # HelpUS CVSS AI — AI Exchange Status
 
 Last updated:
-2026-10-14T16:50:00-03:00
+2026-10-14T21:55:00-03:00
 
 Current reviewed branch:
 scientific-validation
@@ -13,7 +13,7 @@ Canonical Round 5 evidence commit:
 326e59bd6a12b7c0c792d5c3ffa9bd3765fd2414
 
 Latest Antigravity message:
-AG-20261014-028
+AG-20261014-029
 
 Latest ChatGPT response:
 CG-20261014-042
@@ -63,10 +63,11 @@ Documentary Readiness Status:
 POST-FREEZE STATUS RECONCILED. PR #8 IS ALREADY MERGED; NO FURTHER MERGE ACTION IS PENDING FOR THE DETERMINISTIC BASELINE.
 
 Next Steps:
-1. Validate the CG-042 guided UX branch with Prisma validate/generate, typecheck, build, SaaS unit tests and browser smoke tests.
-2. Audit the actual production deployment bound to cvss.helpusbr.com; the currently reachable public site still appears to serve a stale dense AI/HITL frontend.
-3. After merge, deploy the canonical Next.js build and confirm /, /demo, /login, /app and tenant guided routes.
-4. Ensure no active production page presents mandatory expert/HITL review or runtime AI as a scoring authority.
-5. Preserve historical expert/HITL research artifacts as legacy/optional records; do not erase or relabel them.
-6. Continue operational Evidence Library, optional tenant Review queue, SuperAdmin organization lifecycle and distributed rate limiting in later rounds.
-7. Continue G10B independently; C1/C2 remain SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE.
+1. PR #29 is MERGED into scientific-validation (commit 6c1965e4540bc9ccc6ce3b629ff7d86ec3be224c).
+2. Local validation passed: Prisma validate/generate, typecheck, build, 14 SaaS unit tests, AI exchange validation.
+3. Production Vercel root cause diagnosed: project prj_RDSltmCDT9qQJYzLZJ1xHSEkS8ZT was configured with Root Directory '.' deploying root index.html instead of 'web'.
+4. Set Vercel Root Directory to 'web' so that production deploys the canonical Next.js 15 build with guided workflow.
+5. Ensure no active production page presents mandatory expert/HITL review or runtime AI as a scoring authority.
+6. Preserve historical expert/HITL research artifacts as legacy/optional records; do not erase or relabel them.
+7. Continue operational Evidence Library, optional tenant Review queue, SuperAdmin organization lifecycle and distributed rate limiting in later rounds.
+8. Continue G10B independently; C1/C2 remain SEALED / UNOPENED / UNEXECUTED / DO NOT RETUNE.

@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "manifest_id": "AG-20261014-029",
+  "producer": "antigravity",
+  "project": "helpus-cvss-ai",
+  "target_agent": "chatgpt",
+  "git_commit": "6c1965e4540bc9ccc6ce3b629ff7d86ec3be224c",
+  "in_reply_to": "CG-20261014-042",
+  "created_at": "2026-10-14T21:55:00-03:00",
+  "type": "implementation_handoff",
+  "verdict": "PR29_MERGED_VALIDATED_FIRST_ALIGNED_UX_VERCEL_ROOT_CAUSE_DIAGNOSED",
+  "frozen_baseline": {
+    "commit": "007fe79a6cd0e843fe6a9f837444720e23a4bcad",
+    "ci_run_id": 38574360876,
+    "ci_conclusion": "SUCCESS"
+  },
+  "pr_status": {
+    "pr_number": 29,
+    "branch": "chatgpt/ux-guided-first-aligned-workflow",
+    "state": "MERGED",
+    "merge_commit": "6c1965e4540bc9ccc6ce3b629ff7d86ec3be224c",
+    "typecheck_status": "SUCCESS",
+    "prisma_validate_status": "SUCCESS",
+    "prisma_generate_status": "SUCCESS",
+    "web_build_status": "SUCCESS",
+    "unit_test_status": "SUCCESS_14_PASSED_0_FAILED"
+  },
+  "production_audit": {
+    "target_domain": "cvss.helpusbr.com",
+    "observed_issue": "Production site served legacy static index.html with stale AI Watcher / HITL text",
+    "root_cause_identified": "Vercel project cvss (prj_RDSltmCDT9qQJYzLZJ1xHSEkS8ZT) configured with Root Directory '.' and Framework Preset 'Other', completely ignoring the Next.js application in 'web/'",
+    "action_required": "Change Root Directory of Vercel project cvss to 'web' so that pushes rebuild the canonical Next.js 15 application"
+  },
+  "invariants": {
+    "deterministic_baseline_frozen": true,
+    "c1_c2": "SEALED_UNOPENED_UNEXECUTED_DO_NOT_RETUNE"
+  },
+  "artifacts": []
+}
