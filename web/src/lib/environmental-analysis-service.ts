@@ -506,6 +506,49 @@ export function analyzeEnvironment(
     );
   }
 
+  const threatIntelligence =
+    evidence.threatIntelligence as
+      | Record<string, unknown>
+      | undefined;
+
+  if (threatIntelligence) {
+    const exploitMaturity =
+      String(
+        threatIntelligence.exploitMaturity ??
+          "X",
+      ).toUpperCase();
+
+    const threatSource =
+      typeof threatIntelligence.sourceReference ===
+      "string"
+        ? threatIntelligence.sourceReference.trim()
+        : "";
+
+    const observedAt =
+      typeof threatIntelligence.observedAt ===
+      "string"
+        ? threatIntelligence.observedAt.trim()
+        : "";
+
+    if (
+      ["A", "P", "U"].includes(
+        exploitMaturity,
+      )
+    ) {
+      if (!threatSource || !observedAt) {
+        reasons.push(
+          "Exploit Maturity explícita sem provenance completa de threat intelligence",
+        );
+      } else {
+        candidateMetrics.E =
+          exploitMaturity;
+        citations.push(
+          `E:${exploitMaturity} - threat intelligence ${threatSource} observada em ${observedAt}`,
+        );
+      }
+    }
+  }
+
   const requirements =
     evidence.securityRequirements as
       | Record<string, unknown>

@@ -333,6 +333,81 @@ export async function POST(
       }
     }
 
+    if (
+      evidenceObject.threatIntelligence !== undefined &&
+      evidenceObject.threatIntelligence !== null &&
+      (typeof evidenceObject.threatIntelligence !== "object" ||
+        Array.isArray(evidenceObject.threatIntelligence))
+    ) {
+      throw new Error("threatIntelligence deve ser um objeto.");
+    }
+
+    const threatIntelligence =
+      evidenceObject.threatIntelligence &&
+      typeof evidenceObject.threatIntelligence === "object" &&
+      !Array.isArray(evidenceObject.threatIntelligence)
+        ? (evidenceObject.threatIntelligence as Record<string, unknown>)
+        : null;
+
+    if (threatIntelligence) {
+      const exploitMaturity = String(
+        threatIntelligence.exploitMaturity ?? "X",
+      ).toUpperCase();
+
+      if (
+        !["X", "A", "P", "U"].includes(
+          exploitMaturity,
+        )
+      ) {
+        throw new Error(
+          "Exploit Maturity (E) inválida.",
+        );
+      }
+
+      if (exploitMaturity !== "X") {
+        const threatReference =
+          optionalString(
+            threatIntelligence.sourceReference,
+          );
+
+        const threatObservedAt =
+          optionalString(
+            threatIntelligence.observedAt,
+          );
+
+        if (
+          !threatReference ||
+          !threatObservedAt
+        ) {
+          throw new Error(
+            "Threat intelligence com E explícito exige referência e observedAt.",
+          );
+        }
+
+        const observedAtDate =
+          new Date(threatObservedAt);
+
+        if (
+          Number.isNaN(
+            observedAtDate.getTime(),
+          )
+        ) {
+          throw new Error(
+            "threatIntelligence.observedAt é inválido.",
+          );
+        }
+
+        if (
+          observedAtDate.getTime() >
+          Date.now()
+        ) {
+          throw new Error(
+            "threatIntelligence.observedAt não pode estar no futuro.",
+          );
+        }
+      }
+    }
+
     const analysis =
       analyzeEnvironment({
         cveId,

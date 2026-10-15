@@ -103,6 +103,19 @@ export function AssessmentRunForm({
     setSelectedPolicyId,
   ] = useState("");
 
+  const [exploitMaturity, setExploitMaturity] =
+    useState("X");
+
+  const [
+    threatIntelReference,
+    setThreatIntelReference,
+  ] = useState("");
+
+  const [
+    threatIntelObservedAt,
+    setThreatIntelObservedAt,
+  ] = useState("");
+
   const [pending, setPending] =
     useState(false);
 
@@ -192,6 +205,29 @@ export function AssessmentRunForm({
           policy.id === selectedPolicyId,
       );
 
+    const threatMetricUsed =
+      exploitMaturity !== "X";
+
+    if (
+      threatMetricUsed &&
+      !threatIntelReference.trim()
+    ) {
+      setMessage(
+        "Informe a referência de threat intelligence para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
+    if (
+      threatMetricUsed &&
+      !threatIntelObservedAt.trim()
+    ) {
+      setMessage(
+        "Informe quando a threat intelligence foi observada para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
     if (
       securityRequirementsUsed &&
       !selectedPolicy
@@ -253,6 +289,19 @@ export function AssessmentRunForm({
                 : new Date().toISOString(),
             evidence: {
               evidenceQuality,
+              ...(threatMetricUsed
+                ? {
+                    threatIntelligence: {
+                      exploitMaturity,
+                      sourceReference:
+                        threatIntelReference.trim(),
+                      observedAt:
+                        new Date(
+                          threatIntelObservedAt,
+                        ).toISOString(),
+                    },
+                  }
+                : {}),
               ...(securityRequirementsUsed &&
               selectedPolicy
                 ? {
@@ -754,6 +803,95 @@ export function AssessmentRunForm({
           vulnerabilidade em si. A seleção não
           deve ser usada para compensar controles
           técnicos ou alterar o vetor Base.
+        </p>
+      </details>
+
+      <details className="panel advanced-threat-maturity">
+        <summary>
+          Threat — Exploit Maturity (E) (avançado)
+        </summary>
+        <p>
+          Exploit Maturity (E) reflete o estado conhecido de exploração segundo
+          fontes verificáveis de threat intelligence; não é uma previsão, não substitui
+          evidência ambiental e não deve ser inferida a partir do score Base ou suposições.
+        </p>
+
+        <div className="field">
+          <label htmlFor="exploit-maturity">
+            Exploit Maturity (E)
+          </label>
+          <select
+            id="exploit-maturity"
+            value={exploitMaturity}
+            onChange={(event) =>
+              setExploitMaturity(
+                event.target.value,
+              )
+            }
+          >
+            <option value="X">
+              X — Não definido
+            </option>
+            <option value="A">
+              A — Attacked
+            </option>
+            <option value="P">
+              P — Proof-of-Concept
+            </option>
+            <option value="U">
+              U — Unreported
+            </option>
+          </select>
+          <small>
+            O valor padrão é X (Não definido). Pelo FIRST CVSS v4.0, X assume pior caso razoável para o cálculo sem alegar exploração ativa.
+          </small>
+        </div>
+
+        <div className="advanced-threat-maturity__grid">
+          <div className="field">
+            <label htmlFor="threat-intel-reference">
+              Referência de threat intelligence
+            </label>
+            <input
+              id="threat-intel-reference"
+              value={threatIntelReference}
+              onChange={(event) =>
+                setThreatIntelReference(
+                  event.target.value,
+                )
+              }
+              placeholder="URL, boletim, advisory, feed..."
+              maxLength={1000}
+            />
+            <small>
+              Obrigatória para E diferente de X.
+            </small>
+          </div>
+
+          <div className="field">
+            <label htmlFor="threat-intel-observed-at">
+              Observada em
+            </label>
+            <input
+              id="threat-intel-observed-at"
+              type="datetime-local"
+              value={threatIntelObservedAt}
+              onChange={(event) =>
+                setThreatIntelObservedAt(
+                  event.target.value,
+                )
+              }
+            />
+            <small>
+              Obrigatória para E diferente de X (não pode estar no futuro).
+            </small>
+          </div>
+        </div>
+
+        <p className="advanced-threat-maturity__note">
+          Segundo o FIRST CVSS v4.0: E=X é o default operacional e não requer
+          provenance adicional. Selecionar A, P ou U exige registrar a fonte e a data
+          em que a informação foi observada.
         </p>
       </details>
 
