@@ -3223,3 +3223,42 @@ tbody tr:last-child td {
   }
 }
 /* advanced-security-requirements:end */
+
+
+/* advanced-threat-maturity:start */
+.advanced-threat-maturity summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.advanced-threat-maturity summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.advanced-threat-maturity > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.advanced-threat-maturity__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.advanced-threat-maturity__note {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (max-width: 720px) {
+  .advanced-threat-maturity__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* advanced-threat-maturity:end */
