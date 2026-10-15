@@ -16,6 +16,10 @@ import {
   GuidedWorkflowStepper,
 } from "@/app/components/GuidedWorkflowStepper";
 
+import {
+  RunExplanation,
+} from "@/app/components/RunExplanation";
+
 type Params = Promise<{
   organizationSlug: string;
   assessmentId: string;
@@ -121,6 +125,18 @@ export default async function RunResultPage({
             : "A nomenclatura segue a convenção da FIRST: CVSS-B para Base, CVSS-BE quando métricas ambientais são usadas e CVSS-BTE quando também há Threat."}
         </p>
       </div>
+
+      <RunExplanation
+        status={run.status}
+        sourceScore={run.sourceScore}
+        finalScore={run.finalScore}
+        decision={run.decision}
+        candidateMetrics={run.candidateMetrics}
+        abstentionReasons={run.abstentionReasons}
+        sourceType={run.evidenceSnapshot.sourceType}
+        sourceReference={run.evidenceSnapshot.sourceReference}
+        capturedAt={run.evidenceSnapshot.capturedAt}
+      />
 
       <section
         className="tenant-metric-grid"
