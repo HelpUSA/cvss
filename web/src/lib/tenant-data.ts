@@ -375,6 +375,7 @@ export async function getTenantOperationalRun(
           capturedAt: true,
           expiresAt: true,
           canonicalHash: true,
+          metadata: true,
         },
       },
       assessment: {
