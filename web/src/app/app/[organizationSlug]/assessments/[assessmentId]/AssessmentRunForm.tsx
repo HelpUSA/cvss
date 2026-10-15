@@ -10,12 +10,26 @@ import {
   validateCvss40VectorInput,
 } from "@/lib/cvss-vector-validation";
 
+type ReusableEvidence = {
+  id: string;
+  sourceType: string;
+  sourceReference: string | null;
+  capturedAt: string;
+  expiresAt: string | null;
+  canonicalHash: string;
+  reachability: string;
+  evidenceQuality: string;
+  firewallActive: boolean;
+  maxTelemetryAgeDays: number;
+};
+
 type Props = {
   organizationSlug: string;
   projectId: string;
   environmentId: string;
   assessmentId: string;
   cveId: string;
+  reusableEvidence: ReusableEvidence[];
 };
 
 export function AssessmentRunForm({
@@ -24,6 +38,7 @@ export function AssessmentRunForm({
   environmentId,
   assessmentId,
   cveId,
+  reusableEvidence,
 }: Props) {
   const router = useRouter();
 
@@ -32,6 +47,11 @@ export function AssessmentRunForm({
 
   const [provider, setProvider] =
     useState("CNA_PUBLISHED");
+
+  const [
+    reusedEvidenceSnapshotId,
+    setReusedEvidenceSnapshotId,
+  ] = useState("");
 
   const [sourceReference, setSourceReference] =
     useState("");
@@ -68,6 +88,61 @@ export function AssessmentRunForm({
 
   const vectorValidation =
     validateCvss40VectorInput(baseVector);
+
+  function applyReusableEvidence(
+    snapshotId: string,
+  ) {
+    setReusedEvidenceSnapshotId(
+      snapshotId,
+    );
+
+    if (!snapshotId) {
+      return;
+    }
+
+    const snapshot =
+      reusableEvidence.find(
+        (item) => item.id === snapshotId,
+      );
+
+    if (!snapshot) {
+      return;
+    }
+
+    const captured =
+      new Date(snapshot.capturedAt);
+
+    const ageDays =
+      Math.max(
+        0,
+        (Date.now() - captured.getTime()) /
+          86_400_000,
+      );
+
+    setReachability(
+      snapshot.reachability,
+    );
+    setEvidenceQuality(
+      snapshot.evidenceQuality,
+    );
+    setFirewallActive(
+      snapshot.firewallActive,
+    );
+    setMaxTelemetryAgeDays(
+      String(
+        snapshot.maxTelemetryAgeDays,
+      ),
+    );
+    setTelemetryAgeDays(
+      ageDays.toFixed(2),
+    );
+    setSourceReference(
+      snapshot.sourceReference ?? "",
+    );
+    setCapturedAt(
+      snapshot.capturedAt.slice(0, 16),
+    );
+  }
 
   async function submit(
     event:
@@ -117,7 +192,12 @@ export function AssessmentRunForm({
                 : {}),
             },
             sourceType:
-              "GUIDED_MANUAL_INPUT",
+              reusedEvidenceSnapshotId
+                ? "GUIDED_REUSE"
+                : "GUIDED_MANUAL_INPUT",
+            reusedEvidenceSnapshotId:
+              reusedEvidenceSnapshotId ||
+              undefined,
             sourceReference:
               sourceReference.trim() ||
               undefined,
@@ -229,6 +309,72 @@ export function AssessmentRunForm({
           seu ambiente.
         </small>
       </div>
+
+      <details className="panel">
+        <summary>
+          Reutilizar evidência existente (opcional)
+        </summary>
+        <p>
+          Somente evidências do mesmo ambiente
+          aparecem aqui. A seleção serve como
+          ponto de partida; a nova execução
+          cria um novo snapshot e preserva o
+          original.
+        </p>
+
+        <div className="field">
+          <label htmlFor="reuse-evidence">
+            Snapshot preservado
+          </label>
+          <select
+            id="reuse-evidence"
+            value={reusedEvidenceSnapshotId}
+            onChange={(event) =>
+              applyReusableEvidence(
+                event.target.value,
+              )
+            }
+          >
+            <option value="">
+              Não reutilizar
+            </option>
+            {reusableEvidence.map(
+              (snapshot) => {
+                const expired =
+                  snapshot.expiresAt !== null &&
+                  new Date(
+                    snapshot.expiresAt,
+                  ).getTime() < Date.now();
+
+                return (
+                  <option
+                    key={snapshot.id}
+                    value={snapshot.id}
+                    disabled={expired}
+                  >
+                    {snapshot.sourceReference ??
+                      snapshot.sourceType}
+                    {" · "}
+                    {new Date(
+                      snapshot.capturedAt,
+                    ).toLocaleString(
+                      "pt-BR",
+                    )}
+                    {expired
+                      ? " · expirada"
+                      : ""}
+                  </option>
+                );
+              },
+            )}
+          </select>
+          <small>
+            Evidências expiradas aparecem
+            apenas para contexto histórico e
+            não podem ser selecionadas.
+          </small>
+        </div>
+      </details>
 
       <details className="panel evidence-provenance-panel">
         <summary>
