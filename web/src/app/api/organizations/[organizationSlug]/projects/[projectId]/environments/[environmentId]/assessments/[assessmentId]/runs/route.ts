@@ -333,6 +333,15 @@ export async function POST(
       }
     }
 
+    if (
+      evidenceObject.threatIntelligence !== undefined &&
+      evidenceObject.threatIntelligence !== null &&
+      (typeof evidenceObject.threatIntelligence !== "object" ||
+        Array.isArray(evidenceObject.threatIntelligence))
+    ) {
+      throw new Error("threatIntelligence deve ser um objeto.");
+    }
+
     const threatIntelligence =
       evidenceObject.threatIntelligence &&
       typeof evidenceObject.threatIntelligence === "object" &&
