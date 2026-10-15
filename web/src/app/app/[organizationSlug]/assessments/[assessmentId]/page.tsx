@@ -15,6 +15,9 @@ import {
 import {
   AssessmentRunForm,
 } from "./AssessmentRunForm";
+import {
+  CvssEvidenceHelp,
+} from "@/app/components/CvssEvidenceHelp";
 
 type Params = Promise<{
   organizationSlug: string;
@@ -100,6 +103,8 @@ export default async function AssessmentDetailPage({
           FIRST ↗
         </a>
       </div>
+
+      <CvssEvidenceHelp />
 
       {canExecute ? (
         <AssessmentRunForm
