@@ -71,6 +71,7 @@ export function ProjectCreateForm({
       setMessage(
         "Projeto criado com sucesso.",
       );
+      setPending(false);
 
       router.refresh();
     } catch (error) {
@@ -79,7 +80,6 @@ export function ProjectCreateForm({
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }

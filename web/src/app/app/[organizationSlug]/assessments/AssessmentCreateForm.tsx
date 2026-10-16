@@ -102,16 +102,18 @@ export function AssessmentCreateForm({
         );
       }
 
-      router.push(
-        `/app/${organizationSlug}/assessments/${payload.assessment.id}`,
-      );
+      const nextUrl = `/app/${organizationSlug}/assessments/${payload.assessment.id}`;
+      if (typeof window !== "undefined") {
+        window.location.assign(nextUrl);
+      } else {
+        router.push(nextUrl);
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }

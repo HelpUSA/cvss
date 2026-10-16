@@ -367,16 +367,18 @@ export function AssessmentRunForm({
         );
       }
 
-      router.push(
-        `/app/${organizationSlug}/assessments/${assessmentId}/runs/${payload.run.id}`,
-      );
+      const nextUrl = `/app/${organizationSlug}/assessments/${assessmentId}/runs/${payload.run.id}`;
+      if (typeof window !== "undefined") {
+        window.location.assign(nextUrl);
+      } else {
+        router.push(nextUrl);
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }

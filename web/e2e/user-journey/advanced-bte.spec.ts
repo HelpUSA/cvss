@@ -89,6 +89,13 @@ test.describe(
           ),
         ).toBeVisible();
 
+        await expect(
+          page.getByText(
+            projectName,
+            { exact: true },
+          ),
+        ).toBeVisible();
+
         await page.goto(
           `/app/${organizationSlug}/environments`,
         );
@@ -119,6 +126,13 @@ test.describe(
         await expect(
           page.getByText(
             "Ambiente criado com sucesso.",
+          ),
+        ).toBeVisible();
+
+        await expect(
+          page.getByText(
+            environmentName,
+            { exact: true },
           ),
         ).toBeVisible();
 
@@ -161,6 +175,12 @@ test.describe(
             "Vetor CVSS v4.0 de origem",
           )
           .fill(BASE_VECTOR);
+
+        await expect(
+          page.getByText(
+            /Vetor válido/i,
+          ),
+        ).toBeVisible();
 
         await page
           .getByLabel(
@@ -286,7 +306,9 @@ test.describe(
         ).toBeVisible();
 
         await expect(
-          page.getByText("CVSS-BTE"),
+          page.getByText("CVSS-BTE", {
+            exact: true,
+          }),
         ).toBeVisible();
 
         await expect(

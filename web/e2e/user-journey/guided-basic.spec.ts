@@ -304,7 +304,7 @@ test.describe(
             await expect(
               page.getByRole("heading", {
                 name:
-                  /Evidence Library/i,
+                  /Evidências preservadas por ambiente|Evidence Library/i,
               }),
             ).toBeVisible();
 
@@ -331,6 +331,12 @@ test.describe(
             "Vetor CVSS v4.0 de origem",
           )
           .fill(BASE_VECTOR);
+
+        await expect(
+          page.getByText(
+            /Vetor válido/i,
+          ),
+        ).toBeVisible();
 
         const reusePanel =
           page.getByText(
@@ -407,6 +413,12 @@ test.describe(
           )
           .fill(BASE_VECTOR);
 
+        await expect(
+          page.getByText(
+            /Vetor válido/i,
+          ),
+        ).toBeVisible();
+
         await page
           .getByLabel(
             /Como o sistema vulnerável pode ser alcançado/i,
@@ -451,6 +463,12 @@ test.describe(
             "Vetor CVSS v4.0 de origem",
           )
           .fill(BASE_VECTOR);
+
+        await expect(
+          page.getByText(
+            /Vetor válido/i,
+          ),
+        ).toBeVisible();
 
         await page
           .getByLabel(

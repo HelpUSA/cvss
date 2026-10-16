@@ -84,6 +84,7 @@ export function EnvironmentCreateForm({
       setMessage(
         "Ambiente criado com sucesso.",
       );
+      setPending(false);
 
       router.refresh();
     } catch (error) {
@@ -92,7 +93,6 @@ export function EnvironmentCreateForm({
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }
