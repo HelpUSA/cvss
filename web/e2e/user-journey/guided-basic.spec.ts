@@ -387,7 +387,8 @@ test.describe(
 
         await expect(
           page.getByText(
-            /GUIDED_REUSE/i,
+            "GUIDED_REUSE",
+            { exact: true },
           ),
         ).toBeVisible();
 

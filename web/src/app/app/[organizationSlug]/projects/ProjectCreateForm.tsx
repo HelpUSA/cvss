@@ -7,6 +7,13 @@ import {
   useRouter,
 } from "next/navigation";
 
+type CreatedProject = {
+  id: string;
+  name: string;
+  slug: string;
+  status: string;
+};
+
 export function ProjectCreateForm({
   organizationSlug,
 }: {
@@ -25,6 +32,11 @@ export function ProjectCreateForm({
 
   const [message, setMessage] =
     useState("");
+
+  const [
+    createdProjects,
+    setCreatedProjects,
+  ] = useState<CreatedProject[]>([]);
 
   async function submit(
     event: React.FormEvent<HTMLFormElement>,
@@ -66,6 +78,17 @@ export function ProjectCreateForm({
         );
       }
 
+      if (payload?.project) {
+        setCreatedProjects((prev) => [
+          payload.project as CreatedProject,
+          ...prev.filter(
+            (item) =>
+              item.id !==
+              payload.project.id,
+          ),
+        ]);
+      }
+
       setName("");
       setSlug("");
       setMessage(
@@ -73,7 +96,9 @@ export function ProjectCreateForm({
       );
       setPending(false);
 
-      router.refresh();
+      if (typeof window === "undefined") {
+        router.refresh();
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
@@ -85,66 +110,101 @@ export function ProjectCreateForm({
   }
 
   return (
-    <form
-      className="management-form management-form--inline"
-      onSubmit={submit}
-    >
-      <div className="field">
-        <label htmlFor="project-name">
-          Nome do projeto
-        </label>
-
-        <input
-          id="project-name"
-          value={name}
-          onChange={(event) =>
-            setName(event.target.value)
-          }
-          minLength={2}
-          maxLength={120}
-          required
-        />
-      </div>
-
-      <div className="field">
-        <label htmlFor="project-slug">
-          Slug
-        </label>
-
-        <input
-          id="project-slug"
-          value={slug}
-          onChange={(event) =>
-            setSlug(
-              event.target.value
-                .toLowerCase(),
-            )
-          }
-          pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
-          minLength={2}
-          maxLength={80}
-          required
-        />
-      </div>
-
-      <button
-        className="button button--primary"
-        type="submit"
-        disabled={pending}
+    <>
+      <form
+        className="management-form management-form--inline"
+        onSubmit={submit}
       >
-        {pending
-          ? "Criando..."
-          : "Criar projeto"}
-      </button>
+        <div className="field">
+          <label htmlFor="project-name">
+            Nome do projeto
+          </label>
 
-      {message ? (
-        <p
-          className="management-feedback"
-          role="status"
+          <input
+            id="project-name"
+            value={name}
+            onChange={(event) =>
+              setName(event.target.value)
+            }
+            minLength={2}
+            maxLength={120}
+            required
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="project-slug">
+            Slug
+          </label>
+
+          <input
+            id="project-slug"
+            value={slug}
+            onChange={(event) =>
+              setSlug(
+                event.target.value
+                  .toLowerCase(),
+              )
+            }
+            pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
+            minLength={2}
+            maxLength={80}
+            required
+          />
+        </div>
+
+        <button
+          className="button button--primary"
+          type="submit"
+          disabled={pending}
         >
-          {message}
-        </p>
+          {pending
+            ? "Criando..."
+            : "Criar projeto"}
+        </button>
+
+        {message ? (
+          <p
+            className="management-feedback"
+            role="status"
+          >
+            {message}
+          </p>
+        ) : null}
+      </form>
+
+      {createdProjects.length > 0 ? (
+        <section className="tenant-list">
+          {createdProjects.map((project) => (
+            <article
+              className="tenant-list-card"
+              key={project.id}
+            >
+              <div>
+                <span className="section-kicker">
+                  Projeto ativo
+                </span>
+
+                <h2>{project.name}</h2>
+
+                <code>{project.slug}</code>
+              </div>
+
+              <dl>
+                <div>
+                  <dt>Ambientes</dt>
+                  <dd>0</dd>
+                </div>
+
+                <div>
+                  <dt>Status</dt>
+                  <dd>{project.status}</dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </section>
       ) : null}
-    </form>
+    </>
   );
 }
