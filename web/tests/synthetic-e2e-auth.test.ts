@@ -156,7 +156,7 @@ test(
     );
     assert.match(
       workflow,
-      /Run synthetic user journeys three times/,
+      /Run (?:isolated )?synthetic user journeys three times/,
     );
     assert.match(
       workflow,
