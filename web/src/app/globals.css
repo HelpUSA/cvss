@@ -1018,6 +1018,8 @@ button {
 
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 0.4rem;
 }
 
@@ -1033,6 +1035,9 @@ button {
 .field select,
 .field textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   min-height: 45px;
   padding: 0 0.75rem;
   border: 1px solid var(--border);
@@ -2741,6 +2746,8 @@ tbody tr:last-child td {
 
 .management-form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   margin-top: 2rem;
   padding: 1.4rem;
   gap: 1rem;
@@ -2829,7 +2836,7 @@ tbody tr:last-child td {
   .management-form--inline,
   .membership-card,
   .membership-controls {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .management-form--inline
