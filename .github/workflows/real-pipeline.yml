@@ -82,7 +82,6 @@ jobs:
     name: Synthetic User Journey E2E
     runs-on: ubuntu-latest
     timeout-minutes: 25
-    continue-on-error: true
     services:
       postgres:
         image: postgres:16
