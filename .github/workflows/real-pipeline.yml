@@ -134,14 +134,21 @@ jobs:
         working-directory: web
         run: npx playwright install --with-deps chromium webkit
 
-      - name: Run synthetic user journeys three times
+      - name: Run isolated synthetic user journeys three times
         working-directory: web
         shell: bash
         run: |
           set -euo pipefail
           for run in 1 2 3; do
-            echo "Synthetic E2E run $run/3"
-            E2E_RUN_ID="ci-${GITHUB_RUN_ID}-${run}" npm run test:user-journey:e2e
+            echo "Synthetic E2E stability round $run/3"
+            for project in desktop tablet mobile; do
+              echo "Running $project in isolated tenant for round $run"
+              E2E_RUN_ID="ci-${GITHUB_RUN_ID}-${run}-${project}" \
+              E2E_ORGANIZATION_SLUG="e2e-${GITHUB_RUN_ID}-${run}-${project}" \
+              npx playwright test \
+                --config=playwright.user-journey.config.ts \
+                --project="${project}"
+            done
           done
 
       - name: Upload Playwright report
