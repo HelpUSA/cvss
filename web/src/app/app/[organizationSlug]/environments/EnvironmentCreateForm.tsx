@@ -9,6 +9,17 @@ import {
   useRouter,
 } from "next/navigation";
 
+function slugify(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 type ProjectOption = {
   id: string;
   name: string;
@@ -42,6 +53,11 @@ export function EnvironmentCreateForm({
 
   const [slug, setSlug] =
     useState("");
+
+  const [
+    slugManuallyEdited,
+    setSlugManuallyEdited,
+  ] = useState(false);
 
   const [pending, setPending] =
     useState(false);
@@ -159,6 +175,7 @@ export function EnvironmentCreateForm({
 
       setName("");
       setSlug("");
+      setSlugManuallyEdited(false);
       setMessage(
         "Ambiente criado com sucesso.",
       );
@@ -211,6 +228,36 @@ export function EnvironmentCreateForm({
         </div>
 
         <div className="field">
+          <label htmlFor="environment-template">
+            Tipo de ambiente (atalho)
+          </label>
+          <select
+            id="environment-template"
+            defaultValue=""
+            onChange={(event) => {
+              const value = event.target.value;
+              if (!value) return;
+              setName(value);
+              setSlug(slugify(value));
+              setSlugManuallyEdited(false);
+            }}
+          >
+            <option value="">
+              Escolher tipo...
+            </option>
+            <option value="Produção">Produção</option>
+            <option value="Homologação">Homologação</option>
+            <option value="Desenvolvimento">Desenvolvimento</option>
+            <option value="DMZ">DMZ</option>
+            <option value="Rede interna">Rede interna</option>
+            <option value="Cloud / Nuvem">Cloud / Nuvem</option>
+          </select>
+          <small>
+            Selecione um tipo comum ou escreva um nome personalizado abaixo.
+          </small>
+        </div>
+
+        <div className="field">
           <label htmlFor="environment-name">
             Nome do ambiente
           </label>
@@ -218,13 +265,20 @@ export function EnvironmentCreateForm({
           <input
             id="environment-name"
             value={name}
-            onChange={(event) =>
-              setName(event.target.value)
-            }
+            onChange={(event) => {
+              const nextName = event.target.value;
+              setName(nextName);
+              if (!slugManuallyEdited) {
+                setSlug(slugify(nextName));
+              }
+            }}
             minLength={2}
             maxLength={120}
             required
           />
+          <small>
+            O slug é gerado automaticamente e continua editável.
+          </small>
         </div>
 
         <div className="field">
@@ -235,12 +289,13 @@ export function EnvironmentCreateForm({
           <input
             id="environment-slug"
             value={slug}
-            onChange={(event) =>
+            onChange={(event) => {
               setSlug(
                 event.target.value
                   .toLowerCase(),
-              )
-            }
+              );
+              setSlugManuallyEdited(true);
+            }}
             pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
             minLength={2}
             maxLength={80}
