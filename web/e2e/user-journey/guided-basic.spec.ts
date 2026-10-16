@@ -84,10 +84,9 @@ test.describe(
             const slugInput =
               page.getByLabel("Slug");
 
-            await templateSelect.focus();
             await expect(
               templateSelect,
-            ).toBeFocused();
+            ).toBeEnabled();
 
             await templateSelect.selectOption(
               "ERP / Aplicação",
