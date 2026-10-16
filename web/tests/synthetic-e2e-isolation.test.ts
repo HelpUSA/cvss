@@ -34,15 +34,15 @@ test(
 );
 
 test(
-  "synthetic E2E remains non-blocking until isolated runs prove stable",
+  "synthetic E2E is a blocking CI gate after isolated stability proof",
   () => {
     assert.match(
       workflow,
       /synthetic-user-e2e:/,
     );
-    assert.match(
+    assert.doesNotMatch(
       workflow,
-      /continue-on-error:\s*true/,
+      /continue-on-error:/,
     );
   },
 );
