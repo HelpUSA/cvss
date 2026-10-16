@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -20,6 +22,8 @@ export function ProjectCreateForm({
   organizationSlug: string;
 }) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [name, setName] =
     useState("");
@@ -37,6 +41,46 @@ export function ProjectCreateForm({
     createdProjects,
     setCreatedProjects,
   ] = useState<CreatedProject[]>([]);
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const nameEl =
+        form.querySelector<HTMLInputElement>(
+          "#project-name",
+        );
+      if (nameEl && nameEl.value !== "") {
+        setName((prev) =>
+          prev === ""
+            ? nameEl.value
+            : prev,
+        );
+      }
+      const slugEl =
+        form.querySelector<HTMLInputElement>(
+          "#project-slug",
+        );
+      if (slugEl && slugEl.value !== "") {
+        const normalized =
+          slugEl.value.toLowerCase();
+        setSlug((prev) =>
+          prev === ""
+            ? normalized
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const frame =
+      window.requestAnimationFrame(
+        syncFromDom,
+      );
+    return () =>
+      window.cancelAnimationFrame(frame);
+  }, []);
 
   async function submit(
     event: React.FormEvent<HTMLFormElement>,
@@ -112,6 +156,7 @@ export function ProjectCreateForm({
   return (
     <>
       <form
+        ref={formRef}
         className="management-form management-form--inline"
         onSubmit={submit}
       >

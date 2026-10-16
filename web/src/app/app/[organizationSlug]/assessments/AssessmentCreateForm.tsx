@@ -1,7 +1,9 @@
 "use client";
 
 import {
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -25,6 +27,8 @@ export function AssessmentCreateForm({
   environments: EnvironmentOption[];
 }) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [environmentId, setEnvironmentId] =
     useState(
@@ -45,6 +49,57 @@ export function AssessmentCreateForm({
 
   const [message, setMessage] =
     useState("");
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const envEl =
+        form.querySelector<HTMLSelectElement>(
+          "#assessment-environment",
+        );
+      if (envEl && envEl.value !== "") {
+        setEnvironmentId((prev) =>
+          prev === envEl.value
+            ? prev
+            : envEl.value,
+        );
+      }
+      const cveEl =
+        form.querySelector<HTMLInputElement>(
+          "#assessment-cve",
+        );
+      if (cveEl && cveEl.value !== "") {
+        const normalized =
+          cveEl.value.toUpperCase();
+        setCve((prev) =>
+          prev === ""
+            ? normalized
+            : prev,
+        );
+      }
+      const titleEl =
+        form.querySelector<HTMLInputElement>(
+          "#assessment-title",
+        );
+      if (titleEl && titleEl.value !== "") {
+        setTitle((prev) =>
+          prev === ""
+            ? titleEl.value
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const timer = window.setInterval(
+      syncFromDom,
+      100,
+    );
+    return () =>
+      window.clearInterval(timer);
+  }, []);
 
   const selectedEnvironment =
     useMemo(
@@ -120,6 +175,7 @@ export function AssessmentCreateForm({
 
   return (
     <form
+      ref={formRef}
       className="management-form"
       onSubmit={submit}
     >

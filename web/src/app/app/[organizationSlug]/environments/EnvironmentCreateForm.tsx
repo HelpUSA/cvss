@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -27,6 +29,8 @@ export function EnvironmentCreateForm({
   projects: ProjectOption[];
 }) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [projectId, setProjectId] =
     useState(
@@ -49,6 +53,57 @@ export function EnvironmentCreateForm({
     createdEnvironments,
     setCreatedEnvironments,
   ] = useState<CreatedEnvironment[]>([]);
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const projEl =
+        form.querySelector<HTMLSelectElement>(
+          "#environment-project",
+        );
+      if (projEl && projEl.value !== "") {
+        setProjectId((prev) =>
+          prev === projEl.value
+            ? prev
+            : projEl.value,
+        );
+      }
+      const nameEl =
+        form.querySelector<HTMLInputElement>(
+          "#environment-name",
+        );
+      if (nameEl && nameEl.value !== "") {
+        setName((prev) =>
+          prev === ""
+            ? nameEl.value
+            : prev,
+        );
+      }
+      const slugEl =
+        form.querySelector<HTMLInputElement>(
+          "#environment-slug",
+        );
+      if (slugEl && slugEl.value !== "") {
+        const normalized =
+          slugEl.value.toLowerCase();
+        setSlug((prev) =>
+          prev === ""
+            ? normalized
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const frame =
+      window.requestAnimationFrame(
+        syncFromDom,
+      );
+    return () =>
+      window.cancelAnimationFrame(frame);
+  }, []);
 
   async function submit(
     event: React.FormEvent<HTMLFormElement>,
@@ -125,6 +180,7 @@ export function EnvironmentCreateForm({
   return (
     <>
       <form
+        ref={formRef}
         className="management-form management-form--inline"
         onSubmit={submit}
       >

@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -50,6 +52,8 @@ export function AssessmentRunForm({
   activePolicies,
 }: Props) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [baseVector, setBaseVector] =
     useState("");
@@ -134,6 +138,36 @@ export function AssessmentRunForm({
 
   const [message, setMessage] =
     useState("");
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const vectorEl =
+        form.querySelector<HTMLTextAreaElement>(
+          "#base-vector",
+        );
+      if (
+        vectorEl &&
+        vectorEl.value !== ""
+      ) {
+        setBaseVector((prev) =>
+          prev === ""
+            ? vectorEl.value
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const timer = window.setInterval(
+      syncFromDom,
+      100,
+    );
+    return () =>
+      window.clearInterval(timer);
+  }, []);
 
   const vectorValidation =
     validateCvss40VectorInput(baseVector);
@@ -385,6 +419,7 @@ export function AssessmentRunForm({
 
   return (
     <form
+      ref={formRef}
       className="management-form"
       onSubmit={submit}
     >
