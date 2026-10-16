@@ -61,29 +61,78 @@ test.describe(
             : suffix;
 
         projectName =
-          `E2E ${viewportKey} ${attemptSuffix}`;
-        environmentName =
-          `Produção E2E ${viewportKey} ${attemptSuffix}`;
+          `ERP Financeiro ${viewportKey} ${attemptSuffix}`;
+        environmentName = "Produção";
         assessmentTitle =
-          `CVE E2E ${viewportKey} ${attemptSuffix}`;
+          `CVE-2026-12345 — ${projectName} / ${environmentName}`;
 
         await test.step(
-          "Step 1 — create project",
+          "Step 1 — create project using model, automatic slug, and manual slug preservation",
           async () => {
             await page.goto(
               `/app/${organizationSlug}/projects`,
             );
 
-            await page
-              .getByLabel("Nome do projeto")
-              .fill(projectName);
-
-            await page
-              .getByLabel("Slug")
-              .fill(
-                `e2e-${viewportKey}-${attemptSuffix}`
-                  .toLowerCase(),
+            const templateSelect =
+              page.getByLabel(
+                "Começar por um modelo (opcional)",
               );
+            const nameInput =
+              page.getByLabel(
+                "Nome do projeto",
+              );
+            const slugInput =
+              page.getByLabel("Slug");
+
+            await templateSelect.focus();
+            await expect(
+              templateSelect,
+            ).toBeFocused();
+
+            await templateSelect.selectOption(
+              "ERP / Aplicação",
+            );
+            await expect(
+              nameInput,
+            ).toHaveValue(
+              "ERP / Aplicação",
+            );
+            await expect(
+              slugInput,
+            ).toHaveValue(
+              "erp-aplicacao",
+            );
+
+            await nameInput.fill(
+              "Aplicação São Paulo",
+            );
+            await expect(
+              slugInput,
+            ).toHaveValue(
+              "aplicacao-sao-paulo",
+            );
+
+            await nameInput.fill(
+              "ERP Financeiro",
+            );
+            await expect(
+              slugInput,
+            ).toHaveValue(
+              "erp-financeiro",
+            );
+
+            const customSlug =
+              `e2e-${viewportKey}-${attemptSuffix}`.toLowerCase();
+            await slugInput.fill(
+              customSlug,
+            );
+
+            await nameInput.fill(
+              projectName,
+            );
+            await expect(
+              slugInput,
+            ).toHaveValue(customSlug);
 
             await page
               .getByRole("button", {
@@ -111,7 +160,7 @@ test.describe(
         );
 
         await test.step(
-          "Step 2 — create environment",
+          "Step 2 — create environments using presets and automatic slugs",
           async () => {
             await page.goto(
               `/app/${organizationSlug}/environments`,
@@ -123,18 +172,89 @@ test.describe(
                 label: projectName,
               });
 
-            await page
-              .getByLabel(
-                "Nome do ambiente",
-              )
-              .fill(environmentName);
-
-            await page
-              .getByLabel("Slug")
-              .fill(
-                `prod-e2e-${viewportKey}-${attemptSuffix}`
-                  .toLowerCase(),
+            const envTemplate =
+              page.getByLabel(
+                "Tipo de ambiente (atalho)",
               );
+            const envName =
+              page.getByLabel(
+                "Nome do ambiente",
+              );
+            const envSlug =
+              page.getByLabel("Slug");
+
+            const expectedPresets: Array<
+              [string, string]
+            > = [
+              [
+                "Homologação",
+                "homologacao",
+              ],
+              [
+                "Desenvolvimento",
+                "desenvolvimento",
+              ],
+              ["DMZ", "dmz"],
+              [
+                "Rede interna",
+                "rede-interna",
+              ],
+              [
+                "Cloud / Nuvem",
+                "cloud-nuvem",
+              ],
+              ["Produção", "producao"],
+            ];
+
+            for (const [
+              presetLabel,
+              expectedSlug,
+            ] of expectedPresets) {
+              await envTemplate.selectOption(
+                presetLabel,
+              );
+              await expect(
+                envName,
+              ).toHaveValue(presetLabel);
+              await expect(
+                envSlug,
+              ).toHaveValue(expectedSlug);
+            }
+
+            await envName.fill(
+              "Filial Nordeste",
+            );
+            await expect(
+              envSlug,
+            ).toHaveValue(
+              "filial-nordeste",
+            );
+
+            await envTemplate.selectOption(
+              "Homologação",
+            );
+            await page
+              .getByRole("button", {
+                name: "Criar ambiente",
+              })
+              .click();
+
+            await expect(
+              page.getByRole("heading", {
+                name: "Homologação",
+                exact: true,
+              }),
+            ).toBeVisible();
+
+            await envTemplate.selectOption(
+              "Produção",
+            );
+            await expect(
+              envName,
+            ).toHaveValue("Produção");
+            await expect(
+              envSlug,
+            ).toHaveValue("producao");
 
             await page
               .getByRole("button", {
@@ -143,16 +263,10 @@ test.describe(
               .click();
 
             await expect(
-              page.getByText(
-                "Ambiente criado com sucesso.",
-              ),
-            ).toBeVisible();
-
-            await expect(
-              page.getByText(
-                environmentName,
-                { exact: true },
-              ),
+              page.getByRole("heading", {
+                name: environmentName,
+                exact: true,
+              }),
             ).toBeVisible();
 
             await assertNoHorizontalOverflow(
@@ -162,28 +276,128 @@ test.describe(
         );
 
         await test.step(
-          "Step 3 — create assessment",
+          "Step 3 — create assessment using title and observation templates",
           async () => {
             await page.goto(
               `/app/${organizationSlug}/assessments`,
             );
 
-            await page
-              .getByLabel("Ambiente")
-              .selectOption({
-                label:
-                  `${projectName} / ${environmentName}`,
-              });
-
-            await page
-              .getByLabel("CVE")
-              .fill("CVE-2026-12345");
-
-            await page
-              .getByLabel(
+            const envSelect =
+              page.getByLabel("Ambiente");
+            const cveInput =
+              page.getByLabel("CVE");
+            const titleTemplateSelect =
+              page.getByLabel(
+                "Modelo de nome (opcional)",
+              );
+            const titleInput =
+              page.getByLabel(
                 "Nome da avaliação",
-              )
-              .fill(assessmentTitle);
+              );
+            const obsTemplateSelect =
+              page.getByLabel(
+                "Observação rápida (opcional)",
+              );
+            const obsInput =
+              page.getByLabel(
+                "Observação opcional",
+              );
+
+            await expect(
+              cveInput,
+            ).toHaveValue("");
+
+            await envSelect.selectOption({
+              label: `${projectName} / Homologação`,
+            });
+
+            await cveInput.fill(
+              "CVE-2026-12345",
+            );
+
+            await titleTemplateSelect.selectOption(
+              "cve-environment",
+            );
+            await expect(
+              titleInput,
+            ).toHaveValue(
+              "CVE-2026-12345 no Homologação",
+            );
+
+            await envSelect.selectOption({
+              label: `${projectName} / ${environmentName}`,
+            });
+
+            await titleTemplateSelect.selectOption(
+              "cve-environment",
+            );
+            await expect(
+              titleInput,
+            ).toHaveValue(
+              `CVE-2026-12345 no ${environmentName}`,
+            );
+
+            await titleTemplateSelect.selectOption(
+              "assessment-cve",
+            );
+            await expect(
+              titleInput,
+            ).toHaveValue(
+              `Avaliação CVE-2026-12345 — ${environmentName}`,
+            );
+
+            await titleTemplateSelect.selectOption(
+              "project-environment",
+            );
+            await expect(
+              titleInput,
+            ).toHaveValue(
+              assessmentTitle,
+            );
+
+            await titleInput.fill(
+              `${assessmentTitle} (editado)`,
+            );
+            await expect(
+              titleInput,
+            ).toHaveValue(
+              `${assessmentTitle} (editado)`,
+            );
+            await titleInput.fill(
+              assessmentTitle,
+            );
+
+            await obsTemplateSelect.selectOption(
+              "internet",
+            );
+            await expect(
+              obsInput,
+            ).toHaveValue(
+              /Serviço acessível pela Internet/i,
+            );
+
+            await obsTemplateSelect.selectOption(
+              "internal",
+            );
+            await expect(
+              obsInput,
+            ).toHaveValue(
+              /rede interna/i,
+            );
+
+            await obsInput.fill(
+              "Observação ajustada manualmente pelo operador.",
+            );
+            await expect(
+              obsInput,
+            ).toHaveValue(
+              "Observação ajustada manualmente pelo operador.",
+            );
+
+            await obsInput.fill("");
+            await expect(
+              obsInput,
+            ).toHaveValue("");
 
             await page
               .getByRole("button", {
@@ -205,17 +419,23 @@ test.describe(
         );
 
         await test.step(
-          "Step 4 — execute with essential fields only",
+          "Step 4 — execute with essential fields and numeric shortcuts",
           async () => {
             await assertAdvancedClosed(
               page,
             );
 
-            await page
-              .getByLabel(
+            const vectorInput =
+              page.getByLabel(
                 "Vetor CVSS v4.0 de origem",
-              )
-              .fill(BASE_VECTOR);
+              );
+            await expect(
+              vectorInput,
+            ).toHaveValue("");
+
+            await vectorInput.fill(
+              BASE_VECTOR,
+            );
 
             await page
               .getByLabel(
@@ -231,11 +451,81 @@ test.describe(
               )
               .selectOption("SUFFICIENT");
 
-            await page
-              .getByLabel(
+            const agePreset =
+              page.getByLabel(
+                "Idade da evidência — atalho",
+              );
+            const ageInput =
+              page.getByLabel(
                 "Idade da evidência (dias)",
-              )
-              .fill("0");
+              );
+
+            for (const presetVal of [
+              "0",
+              "1",
+              "3",
+              "7",
+              "30",
+            ]) {
+              await agePreset.selectOption(
+                presetVal,
+              );
+              await expect(
+                ageInput,
+              ).toHaveValue(presetVal);
+            }
+
+            await agePreset.selectOption(
+              "7",
+            );
+            await ageInput.fill("7.5");
+            await expect(
+              ageInput,
+            ).toHaveValue("7.5");
+
+            await agePreset.selectOption(
+              "0",
+            );
+            await expect(
+              ageInput,
+            ).toHaveValue("0");
+
+            const validityPreset =
+              page.getByLabel(
+                "Validade máxima — atalho",
+              );
+            const validityInput =
+              page.getByLabel(
+                "Validade máxima (dias)",
+              );
+
+            for (const maxVal of [
+              "1",
+              "7",
+              "30",
+              "90",
+            ]) {
+              await validityPreset.selectOption(
+                maxVal,
+              );
+              await expect(
+                validityInput,
+              ).toHaveValue(maxVal);
+            }
+
+            await validityInput.fill(
+              "2.5",
+            );
+            await expect(
+              validityInput,
+            ).toHaveValue("2.5");
+
+            await validityPreset.selectOption(
+              "1",
+            );
+            await expect(
+              validityInput,
+            ).toHaveValue("1");
 
             await expect(
               page.getByText(

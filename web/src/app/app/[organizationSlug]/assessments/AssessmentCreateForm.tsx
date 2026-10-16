@@ -38,8 +38,16 @@ export function AssessmentCreateForm({
   const [cve, setCve] =
     useState("");
 
+  const [titleTemplate, setTitleTemplate] =
+    useState("");
+
   const [title, setTitle] =
     useState("");
+
+  const [
+    descriptionTemplate,
+    setDescriptionTemplate,
+  ] = useState("");
 
   const [description, setDescription] =
     useState("");
@@ -228,11 +236,12 @@ export function AssessmentCreateForm({
         <select
           id="assessment-environment"
           value={environmentId}
-          onChange={(event) =>
+          onChange={(event) => {
             setEnvironmentId(
               event.target.value,
-            )
-          }
+            );
+            setTitleTemplate("");
+          }}
           required
         >
           {environments.map(
@@ -264,12 +273,13 @@ export function AssessmentCreateForm({
         <input
           id="assessment-cve"
           value={cve}
-          onChange={(event) =>
+          onChange={(event) => {
             setCve(
               event.target.value
                 .toUpperCase(),
-            )
-          }
+            );
+            setTitleTemplate("");
+          }}
           placeholder="CVE-2026-12345"
           pattern="CVE-[0-9]{4}-[0-9]{4,}"
           required
@@ -287,9 +297,10 @@ export function AssessmentCreateForm({
         </label>
         <select
           id="assessment-title-template"
-          defaultValue=""
+          value={titleTemplate}
           onChange={(event) => {
             const value = event.target.value;
+            setTitleTemplate(value);
             if (!value) return;
             setTitle(
               suggestedTitle(
@@ -326,9 +337,10 @@ export function AssessmentCreateForm({
         <input
           id="assessment-title"
           value={title}
-          onChange={(event) =>
-            setTitle(event.target.value)
-          }
+          onChange={(event) => {
+            setTitle(event.target.value);
+            setTitleTemplate("");
+          }}
           placeholder="Ex.: CVE-2026-12345 no Produção"
           minLength={2}
           maxLength={120}
@@ -342,9 +354,10 @@ export function AssessmentCreateForm({
         </label>
         <select
           id="assessment-description-template"
-          defaultValue=""
+          value={descriptionTemplate}
           onChange={(event) => {
             const value = event.target.value;
+            setDescriptionTemplate(value);
             if (!value) return;
 
             const templates: Record<string, string> = {
@@ -391,11 +404,12 @@ export function AssessmentCreateForm({
         <textarea
           id="assessment-description"
           value={description}
-          onChange={(event) =>
+          onChange={(event) => {
             setDescription(
               event.target.value,
-            )
-          }
+            );
+            setDescriptionTemplate("");
+          }}
           rows={4}
           maxLength={4000}
           placeholder="Ex.: serviço financeiro exposto apenas pela rede interna."

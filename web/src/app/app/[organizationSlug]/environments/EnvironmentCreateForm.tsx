@@ -48,6 +48,9 @@ export function EnvironmentCreateForm({
       projects[0]?.id ?? "",
     );
 
+  const [template, setTemplate] =
+    useState("");
+
   const [name, setName] =
     useState("");
 
@@ -91,17 +94,24 @@ export function EnvironmentCreateForm({
         form.querySelector<HTMLInputElement>(
           "#environment-name",
         );
+      const slugEl =
+        form.querySelector<HTMLInputElement>(
+          "#environment-slug",
+        );
       if (nameEl && nameEl.value !== "") {
         setName((prev) =>
           prev === ""
             ? nameEl.value
             : prev,
         );
+        if (!slugEl || slugEl.value === "") {
+          setSlug((prev) =>
+            prev === ""
+              ? slugify(nameEl.value)
+              : prev,
+          );
+        }
       }
-      const slugEl =
-        form.querySelector<HTMLInputElement>(
-          "#environment-slug",
-        );
       if (slugEl && slugEl.value !== "") {
         const normalized =
           slugEl.value.toLowerCase();
@@ -173,6 +183,7 @@ export function EnvironmentCreateForm({
         ]);
       }
 
+      setTemplate("");
       setName("");
       setSlug("");
       setSlugManuallyEdited(false);
@@ -233,9 +244,10 @@ export function EnvironmentCreateForm({
           </label>
           <select
             id="environment-template"
-            defaultValue=""
+            value={template}
             onChange={(event) => {
               const value = event.target.value;
+              setTemplate(value);
               if (!value) return;
               setName(value);
               setSlug(slugify(value));
@@ -268,6 +280,7 @@ export function EnvironmentCreateForm({
             onChange={(event) => {
               const nextName = event.target.value;
               setName(nextName);
+              setTemplate("");
               if (!slugManuallyEdited) {
                 setSlug(slugify(nextName));
               }

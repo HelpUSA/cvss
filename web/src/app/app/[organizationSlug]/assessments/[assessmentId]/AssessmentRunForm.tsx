@@ -595,7 +595,13 @@ export function AssessmentRunForm({
         </label>
         <select
           id="evidence-age-preset"
-          defaultValue=""
+          value={
+            ["0", "1", "3", "7", "30"].includes(
+              telemetryAgeDays,
+            )
+              ? telemetryAgeDays
+              : ""
+          }
           onChange={(event) => {
             const value = event.target.value;
             if (value !== "") {
@@ -623,13 +629,23 @@ export function AssessmentRunForm({
         </label>
         <select
           id="evidence-validity-preset"
-          defaultValue="1"
-          onChange={(event) =>
-            setMaxTelemetryAgeDays(
-              event.target.value,
+          value={
+            ["1", "7", "30", "90"].includes(
+              maxTelemetryAgeDays,
             )
+              ? maxTelemetryAgeDays
+              : ""
           }
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value !== "") {
+              setMaxTelemetryAgeDays(value);
+            }
+          }}
         >
+          <option value="">
+            Escolher atalho...
+          </option>
           <option value="1">1 dia</option>
           <option value="7">7 dias</option>
           <option value="30">30 dias</option>

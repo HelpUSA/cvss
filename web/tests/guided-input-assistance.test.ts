@@ -26,11 +26,31 @@ const runForm = read(
 );
 
 test(
-  "project creation offers models and keeps generated slug editable",
+  "project creation offers all 5 models, normalizes accents in automatic slugs, and preserves manually edited slugs",
   () => {
     assert.match(
       projects,
-      /Começar por um modelo/,
+      /Começar por um modelo \(opcional\)/,
+    );
+    for (const model of [
+      "ERP / Aplicação",
+      "Portal / API",
+      "Infraestrutura",
+      "Serviço em nuvem",
+      "Projeto geral",
+    ]) {
+      assert.ok(
+        projects.includes(model),
+        `Expected project model "${model}"`,
+      );
+    }
+    assert.match(
+      projects,
+      /\.normalize\("NFD"\)/,
+    );
+    assert.match(
+      projects,
+      /if \(!slugManuallyEdited\)/,
     );
     assert.match(
       projects,
@@ -44,29 +64,38 @@ test(
 );
 
 test(
-  "environment creation offers common environment presets",
+  "environment creation offers all 6 common environment presets and automatic editable slugs",
   () => {
     assert.match(
       environments,
       /Tipo de ambiente \(atalho\)/,
     );
+    for (const preset of [
+      "Produção",
+      "Homologação",
+      "Desenvolvimento",
+      "DMZ",
+      "Rede interna",
+      "Cloud / Nuvem",
+    ]) {
+      assert.ok(
+        environments.includes(preset),
+        `Expected environment preset "${preset}"`,
+      );
+    }
     assert.match(
       environments,
-      /Produção/,
+      /if \(!slugManuallyEdited\)/,
     );
     assert.match(
       environments,
-      /Homologação/,
-    );
-    assert.match(
-      environments,
-      /Cloud \/ Nuvem/,
+      /setSlugManuallyEdited\(true\)/,
     );
   },
 );
 
 test(
-  "assessment creation offers editable title and observation templates",
+  "assessment creation offers editable title and observation templates without inventing CVE",
   () => {
     assert.match(
       assessments,
@@ -78,17 +107,45 @@ test(
     );
     assert.match(
       assessments,
+      /“Avaliação” \+ CVE \+ ambiente/,
+    );
+    assert.match(
+      assessments,
+      /CVE \+ projeto \+ ambiente/,
+    );
+    assert.match(
+      assessments,
       /Observação rápida \(opcional\)/,
+    );
+    assert.match(
+      assessments,
+      /Serviço acessível pela Internet/,
+    );
+    assert.match(
+      assessments,
+      /Somente rede interna/,
+    );
+    assert.match(
+      assessments,
+      /Ativo\/serviço crítico/,
+    );
+    assert.match(
+      assessments,
+      /Sem observação/,
     );
     assert.match(
       assessments,
       /ponto de partida e deve ser ajustado aos fatos reais/,
     );
+    assert.doesNotMatch(
+      assessments,
+      /useState\("CVE-20/,
+    );
   },
 );
 
 test(
-  "evidence form offers age and validity shortcuts but preserves manual numeric fields",
+  "evidence form offers age (0,1,3,7,30) and validity (1,7,30,90) shortcuts while preserving decimal manual numeric fields",
   () => {
     assert.match(
       runForm,
@@ -96,8 +153,39 @@ test(
     );
     assert.match(
       runForm,
+      /Coletada agora \/ hoje/,
+    );
+    for (const ageVal of [
+      "0",
+      "1",
+      "3",
+      "7",
+      "30",
+    ]) {
+      assert.match(
+        runForm,
+        new RegExp(
+          `<option value="${ageVal}">`,
+        ),
+      );
+    }
+    assert.match(
+      runForm,
       /Validade máxima — atalho/,
     );
+    for (const maxVal of [
+      "1",
+      "7",
+      "30",
+      "90",
+    ]) {
+      assert.match(
+        runForm,
+        new RegExp(
+          `<option value="${maxVal}">`,
+        ),
+      );
+    }
     assert.match(
       runForm,
       /id="telemetry-age"/,
@@ -106,11 +194,15 @@ test(
       runForm,
       /id="telemetry-max-age"/,
     );
+    assert.match(
+      runForm,
+      /step="0\.01"/,
+    );
   },
 );
 
 test(
-  "CVSS vector remains a required factual input rather than an auto-filled template",
+  "CVSS vector and provenance references remain required factual inputs rather than auto-filled templates",
   () => {
     assert.match(
       runForm,
@@ -123,6 +215,10 @@ test(
     assert.doesNotMatch(
       runForm,
       /setBaseVector\("CVSS:4\.0/,
+    );
+    assert.doesNotMatch(
+      runForm,
+      /useState\("CVSS:4\.0/,
     );
   },
 );

@@ -36,6 +36,9 @@ export function ProjectCreateForm({
   const formRef =
     useRef<HTMLFormElement>(null);
 
+  const [template, setTemplate] =
+    useState("");
+
   const [name, setName] =
     useState("");
 
@@ -68,17 +71,24 @@ export function ProjectCreateForm({
         form.querySelector<HTMLInputElement>(
           "#project-name",
         );
+      const slugEl =
+        form.querySelector<HTMLInputElement>(
+          "#project-slug",
+        );
       if (nameEl && nameEl.value !== "") {
         setName((prev) =>
           prev === ""
             ? nameEl.value
             : prev,
         );
+        if (!slugEl || slugEl.value === "") {
+          setSlug((prev) =>
+            prev === ""
+              ? slugify(nameEl.value)
+              : prev,
+          );
+        }
       }
-      const slugEl =
-        form.querySelector<HTMLInputElement>(
-          "#project-slug",
-        );
       if (slugEl && slugEl.value !== "") {
         const normalized =
           slugEl.value.toLowerCase();
@@ -149,6 +159,7 @@ export function ProjectCreateForm({
         ]);
       }
 
+      setTemplate("");
       setName("");
       setSlug("");
       setSlugManuallyEdited(false);
@@ -183,9 +194,10 @@ export function ProjectCreateForm({
           </label>
           <select
             id="project-template"
-            defaultValue=""
+            value={template}
             onChange={(event) => {
               const value = event.target.value;
+              setTemplate(value);
               if (!value) return;
               setName(value);
               setSlug(slugify(value));
@@ -227,6 +239,7 @@ export function ProjectCreateForm({
             onChange={(event) => {
               const nextName = event.target.value;
               setName(nextName);
+              setTemplate("");
               if (!slugManuallyEdited) {
                 setSlug(slugify(nextName));
               }
