@@ -44,6 +44,27 @@ export function AssessmentCreateForm({
   const [description, setDescription] =
     useState("");
 
+  function suggestedTitle(
+    mode: "cve-environment" | "assessment-cve" | "project-environment",
+  ): string {
+    const normalizedCve =
+      cve.trim().toUpperCase() || "CVE";
+    const environmentName =
+      selectedEnvironment?.name || "ambiente";
+    const projectName =
+      selectedEnvironment?.project.name || "projeto";
+
+    if (mode === "assessment-cve") {
+      return `Avaliação ${normalizedCve} — ${environmentName}`;
+    }
+
+    if (mode === "project-environment") {
+      return `${normalizedCve} — ${projectName} / ${environmentName}`;
+    }
+
+    return `${normalizedCve} no ${environmentName}`;
+  }
+
   const [pending, setPending] =
     useState(false);
 
@@ -261,6 +282,44 @@ export function AssessmentCreateForm({
       </div>
 
       <div className="field">
+        <label htmlFor="assessment-title-template">
+          Modelo de nome (opcional)
+        </label>
+        <select
+          id="assessment-title-template"
+          defaultValue=""
+          onChange={(event) => {
+            const value = event.target.value;
+            if (!value) return;
+            setTitle(
+              suggestedTitle(
+                value as
+                  | "cve-environment"
+                  | "assessment-cve"
+                  | "project-environment",
+              ),
+            );
+          }}
+        >
+          <option value="">
+            Escolher modelo...
+          </option>
+          <option value="cve-environment">
+            CVE + ambiente
+          </option>
+          <option value="assessment-cve">
+            “Avaliação” + CVE + ambiente
+          </option>
+          <option value="project-environment">
+            CVE + projeto + ambiente
+          </option>
+        </select>
+        <small>
+          O nome gerado pode ser editado antes de continuar.
+        </small>
+      </div>
+
+      <div className="field">
         <label htmlFor="assessment-title">
           Nome da avaliação
         </label>
@@ -270,11 +329,59 @@ export function AssessmentCreateForm({
           onChange={(event) =>
             setTitle(event.target.value)
           }
-          placeholder="Ex.: CVE no ERP de Produção"
+          placeholder="Ex.: CVE-2026-12345 no Produção"
           minLength={2}
           maxLength={120}
           required
         />
+      </div>
+
+      <div className="field">
+        <label htmlFor="assessment-description-template">
+          Observação rápida (opcional)
+        </label>
+        <select
+          id="assessment-description-template"
+          defaultValue=""
+          onChange={(event) => {
+            const value = event.target.value;
+            if (!value) return;
+
+            const templates: Record<string, string> = {
+              internet:
+                "Serviço acessível pela Internet. Confirmar exposição e controles aplicáveis.",
+              internal:
+                "Serviço acessível apenas pela rede interna. Confirmar rotas e segmentação.",
+              critical:
+                "Ativo ou serviço crítico para a operação. Validar requisitos de segurança do ambiente.",
+              none:
+                "",
+            };
+
+            setDescription(
+              templates[value] ?? description,
+            );
+          }}
+        >
+          <option value="">
+            Escolher modelo...
+          </option>
+          <option value="internet">
+            Serviço acessível pela Internet
+          </option>
+          <option value="internal">
+            Somente rede interna
+          </option>
+          <option value="critical">
+            Ativo/serviço crítico
+          </option>
+          <option value="none">
+            Sem observação
+          </option>
+        </select>
+        <small>
+          O texto é apenas um ponto de partida e deve ser ajustado aos fatos reais.
+        </small>
       </div>
 
       <div className="field">
