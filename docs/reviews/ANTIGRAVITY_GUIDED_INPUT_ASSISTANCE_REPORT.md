@@ -5,7 +5,7 @@
 - **Branch**: `chatgpt/guided-input-assistance`
 - **Base**: `scientific-validation`
 - **Initial Handoff HEAD**: `683b707973d9da457c3dcb149a46fad0c6497d8b`
-- **Tested Implementation HEAD**: `e79fee4a17e1426d0dc8d3c10a57cac1d17de368`
+- **Tested Implementation HEAD**: `806cb41e7586873450750d4a66cb52dc2d2a3589`
 
 ---
 
@@ -43,7 +43,7 @@ PR:
 #44
 
 Tested HEAD:
-e79fee4a17e1426d0dc8d3c10a57cac1d17de368
+806cb41e7586873450750d4a66cb52dc2d2a3589
 
 Project model selector:
 PASS
@@ -122,12 +122,12 @@ PASS
 
 Product defects found:
 1. Nos formulários de Projeto, Ambiente, Avaliação e Execução, os seletores de modelo/atalho usavam `defaultValue` não-controlado. Caso o operador selecionasse um modelo de título (ex.: "CVE + ambiente"), trocasse o Ambiente selecionado e tentasse selecionar novamente o mesmo modelo "CVE + ambiente" (ou editasse manualmente o campo e tentasse reaplicar o mesmo template), o evento `onChange` do `<select>` nativo não disparava por já estar com o mesmo `value` selecionado.
-2. Em mobile (`390×844`), quando um projeto criado a partir do modelo ("ERP Financeiro ...") aparecia como `<option>` nos seletores de Projeto/Ambiente, `.field` e `.management-form--inline` (que usava `grid-template-columns: 1fr` sem `minmax(0, 1fr)` / `min-width: 0`) expandiam pela largura intrínseca do `<select>`, gerando overflow horizontal (`438px > 391px`).
+2. Em mobile (`390×844` WebKit), quando um projeto criado a partir do modelo ("ERP Financeiro ...") aparecia como `<option>` nos seletores de Projeto/Ambiente, `.field`, `.management-form--inline` e o `<select>` nativo no WebKit propagavam a largura intrínseca do texto de `<option>` para o `scrollWidth` do documento (`438px > 391px`).
 
 UX changes made:
 1. `ProjectCreateForm.tsx`, `EnvironmentCreateForm.tsx`, `AssessmentCreateForm.tsx`: tornados controlados os seletores de modelo/template (`template`, `titleTemplate`, `descriptionTemplate`), resetando o seletor para `""` quando o usuário altera o Ambiente/CVE ou edita manualmente o texto, garantindo que a reseleção do mesmo modelo sempre dispare `onChange` com os dados atuais; adicionado fallback de `slugify` na sincronização pré-hidratação quando apenas o nome foi preenchido.
 2. `AssessmentRunForm.tsx`: sincronizados os seletores `#evidence-age-preset` e `#evidence-validity-preset` com os estados `telemetryAgeDays` e `maxTelemetryAgeDays`, refletindo valores personalizados (ex.: `7.5` ou `2.5`) e permitindo reaplicar o mesmo atalho numérico posteriormente.
-3. `globals.css`: adicionado `grid-template-columns: minmax(0, 1fr)` e `min-width: 0` em `.field`, `.management-form` e na media query `@media (max-width: 900px)` de `.management-form--inline`, além de `max-width: 100%; min-width: 0; box-sizing: border-box` nos controles `.field select/input/textarea`.
+3. `globals.css`: adicionado `grid-template-columns: minmax(0, 1fr)` e `min-width: 0` em `.field`, `.management-form` e na media query `@media (max-width: 900px)` de `.management-form--inline`, `max-width: 100%; min-width: 0; box-sizing: border-box` nos controles `.field select/input/textarea`, `overflow: hidden; text-overflow: ellipsis` em `.field select` e `overflow-x: clip` em `.operational-shell, .tenant-content, .management-form`.
 
 Test changes made:
 1. `web/e2e/user-journey/guided-basic.spec.ts`: expandida a jornada E2E nos 3 viewports (`desktop`, `tablet`, `mobile`) para exercitar seleção de modelo de projeto, normalização de acentos em slug automático, preservação de slug manual, todos os 6 presets de ambiente, os 3 modelos de título de avaliação (incluindo troca de ambiente e reseleção de modelo), templates de observação com edição/limpeza e todos os atalhos de idade/validade da evidência + valores decimais manuais (`7.5` e `2.5`).
