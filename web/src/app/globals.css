@@ -1046,6 +1046,11 @@ button {
   color: var(--text);
 }
 
+.field select {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .field input::placeholder,
 .field textarea::placeholder {
   color: #687b8f;
@@ -3341,3 +3346,12 @@ tbody tr:last-child td {
   border-radius: 4px;
 }
 /* progressive-disclosure-panels:end */
+
+/* guided-input-assistance-overflow-guard:start */
+.operational-shell,
+.tenant-content,
+.management-form {
+  overflow-x: clip;
+}
+/* guided-input-assistance-overflow-guard:end */
+
