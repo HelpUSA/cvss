@@ -9,6 +9,17 @@ import {
   useRouter,
 } from "next/navigation";
 
+function slugify(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 type CreatedProject = {
   id: string;
   name: string;
@@ -30,6 +41,11 @@ export function ProjectCreateForm({
 
   const [slug, setSlug] =
     useState("");
+
+  const [
+    slugManuallyEdited,
+    setSlugManuallyEdited,
+  ] = useState(false);
 
   const [pending, setPending] =
     useState(false);
@@ -135,6 +151,7 @@ export function ProjectCreateForm({
 
       setName("");
       setSlug("");
+      setSlugManuallyEdited(false);
       setMessage(
         "Projeto criado com sucesso.",
       );
@@ -161,6 +178,45 @@ export function ProjectCreateForm({
         onSubmit={submit}
       >
         <div className="field">
+          <label htmlFor="project-template">
+            Começar por um modelo (opcional)
+          </label>
+          <select
+            id="project-template"
+            defaultValue=""
+            onChange={(event) => {
+              const value = event.target.value;
+              if (!value) return;
+              setName(value);
+              setSlug(slugify(value));
+              setSlugManuallyEdited(false);
+            }}
+          >
+            <option value="">
+              Escolher modelo...
+            </option>
+            <option value="ERP / Aplicação">
+              ERP / Aplicação
+            </option>
+            <option value="Portal / API">
+              Portal / API
+            </option>
+            <option value="Infraestrutura">
+              Infraestrutura
+            </option>
+            <option value="Serviço em nuvem">
+              Serviço em nuvem
+            </option>
+            <option value="Projeto geral">
+              Projeto geral
+            </option>
+          </select>
+          <small>
+            O modelo apenas preenche um nome inicial; você pode editar.
+          </small>
+        </div>
+
+        <div className="field">
           <label htmlFor="project-name">
             Nome do projeto
           </label>
@@ -168,13 +224,20 @@ export function ProjectCreateForm({
           <input
             id="project-name"
             value={name}
-            onChange={(event) =>
-              setName(event.target.value)
-            }
+            onChange={(event) => {
+              const nextName = event.target.value;
+              setName(nextName);
+              if (!slugManuallyEdited) {
+                setSlug(slugify(nextName));
+              }
+            }}
             minLength={2}
             maxLength={120}
             required
           />
+          <small>
+            O slug é gerado automaticamente a partir do nome.
+          </small>
         </div>
 
         <div className="field">
@@ -185,12 +248,13 @@ export function ProjectCreateForm({
           <input
             id="project-slug"
             value={slug}
-            onChange={(event) =>
+            onChange={(event) => {
               setSlug(
                 event.target.value
                   .toLowerCase(),
-              )
-            }
+              );
+              setSlugManuallyEdited(true);
+            }}
             pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
             minLength={2}
             maxLength={80}
