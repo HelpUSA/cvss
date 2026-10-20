@@ -342,7 +342,7 @@ __SEVERITY_ROWS__
 \end{table}
 \subsection{Controlled Workflow Evaluation on Real NVD CVEs}
 
-The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/cvss40\_environmental\_scenarios.csv}.
+The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/\allowbreak cvss40\_\allowbreak environmental\_\allowbreak scenarios.csv}.
 
 \begin{table}[t]
 \caption{Controlled Workflow Evaluation on 12 Real NVD CVEs (Curated Benchmark, Not an Independent Efficacy Sample)}
@@ -403,6 +403,7 @@ Future work should add expert adjudication, peer-reviewed comparative
 baselines, inter-rater agreement analysis, and production-like evaluation.
 
 \bibliographystyle{IEEEtran}
+\IEEEtriggeratref{21}
 \bibliography{references}
 
 \end{document}
@@ -608,7 +609,8 @@ required_terms = [
     "\\begin{abstract}",
     "\\section{Results}",
     "\\bibliographystyle{IEEEtran}",
-    "\\bibliography{references}",
+    "\\IEEEtriggeratref{21}
+\bibliography{references}",
 ]
 
 normalized_tex = " ".join(tex.split()).lower()

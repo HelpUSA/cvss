@@ -403,7 +403,7 @@ S(v, T_{\text{MR1}}(e)) \ge S(v, e)
 \end{equation}
 Violation criterion: $S(v, T_{\text{MR1}}(e)) < S(v, e)$.
 
-\item \textbf{MR-2 (Defense Removal Monotonicity):} Let $e_{\text{def}} \in \mathcal{E}$ specify reachability under active defense or isolation ($\text{reachability} \in \{\text{ADJACENT\_ONLY}, \text{LOCAL\_ONLY}, \text{PHYSICAL\_ONLY}\}$). Let $T_{\text{MR2}}(e_{\text{def}}) = e_{\text{unprot}}$ remove network defenses ($\text{reachability} = \text{PUBLIC\_ROUTED}$, $\text{internet\_exposed} = \text{True}$).
+\item \textbf{MR-2 (Defense Removal Monotonicity):} Let $e_{\text{def}} \in \mathcal{E}$ specify reachability under active defense or isolation ($\text{reachability} \in \{\text{ADJACENT\_ONLY}, \allowbreak \text{LOCAL\_ONLY}, \allowbreak \text{PHYSICAL\_ONLY}\}$). Let $T_{\text{MR2}}(e_{\text{def}}) = e_{\text{unprot}}$ remove network defenses ($\text{reachability} = \text{PUBLIC\_ROUTED}$, $\text{internet\_exposed} = \text{True}$).
 \begin{equation}
 S(v, T_{\text{MR2}}(e_{\text{def}})) \ge S(v, e_{\text{def}})
 \end{equation}
@@ -626,7 +626,7 @@ MEDIUM & 13 \\
 \end{table}
 \subsection{Controlled Workflow Evaluation on Real NVD CVEs}
 
-The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/cvss40\_environmental\_scenarios.csv}.
+The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/\allowbreak cvss40\_\allowbreak environmental\_\allowbreak scenarios.csv}.
 
 \begin{table}[t]
 \caption{Controlled Workflow Evaluation on 12 Real NVD CVEs (Curated Benchmark, Not an Independent Efficacy Sample)}
@@ -870,6 +870,7 @@ measure inter-rater agreement and review effort, integrate production-like asset
 sources, and compare decisions with complementary approaches such as EPSS and SSVC.
 
 \bibliographystyle{IEEEtran}
+\IEEEtriggeratref{21}
 \bibliography{references}
 
 \end{document}
