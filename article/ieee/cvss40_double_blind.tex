@@ -22,7 +22,7 @@ AI-Assisted Evidence Collection and Traceability}
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an AI/watcher-assisted workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, proposes candidate Environmental values, records uncertainty, enforces a review gate, and exports reproducible artifacts. We evaluate the workflow with a hybrid dataset of 30 scenarios, comprising 12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases. The artifacts achieved 100.00 percent evidence coverage and 100.00 percent trace completeness. Operational priority changed in 22 of 30 scenarios. The evaluation demonstrates workflow completeness, context sensitivity, and traceability; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
+CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an AI/watcher-assisted workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, proposes candidate Environmental values, records uncertainty, enforces human authorization requirements, and exports reproducible artifacts. The evaluation strictly separates specification-level validation from empirical workflow evaluation. At the specification level, the scoring core demonstrated 100.00\% conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across 10,000 metamorphic executions. Empirically, the workflow was evaluated with a hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), achieving 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority changes in 22 of 30 scenarios. The evaluation demonstrates workflow completeness, context sensitivity, and traceability; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -63,12 +63,15 @@ recommendation.
 The work makes four contributions:
 
 \begin{enumerate}
+\item a strict scientific separation between specification-level arithmetic
+conformance (486,472 FIRST reference cases; 10,000 metamorphic executions with
+zero violations) and empirical workflow evaluation;
 \item a human-in-the-loop workflow for operationalizing CVSS v4.0
 Environmental assessment;
 \item a trace model linking evidence, candidate metrics, uncertainty, and
 review state;
 \item a hybrid evaluation dataset containing real CVSS v4.0 vulnerability
-records and controlled synthetic scenarios; and
+records and controlled synthetic scenarios (30 scenarios, 22 priority shifts); and
 \item a reproducible artifact package with validators, tables, JSON traces,
 manuscript sources, and compilation outputs.
 \end{enumerate}
@@ -221,7 +224,7 @@ $\rightarrow$
 $\rightarrow$
 \textbf{Candidate Environmental metrics}
 $\rightarrow$
-\textbf{Human review gate}
+\textbf{Human authorization checkpoint}
 $\rightarrow$
 \textbf{Trace and report export}
 
@@ -276,14 +279,14 @@ controlled scenario logic and curated evidence. No claim is made that a
 general-purpose language model independently discovered the correct metric
 values.
 
-\subsection{Human Review Gate}
+\subsection{Human Authorization Checkpoint}
 
 Every scenario requires review. The reviewer can accept, modify, reject, or
 defer a recommendation. The workflow's governance model requires the final
 record to retain the original candidate, the reviewer state, and the evidence
 available at assessment time.
 
-This gate limits automation bias by making uncertainty and provenance visible.
+This checkpoint limits automation bias by making uncertainty and provenance visible.
 It also supports later comparison between watcher recommendations and expert
 assessments, which is planned as future work.
 
@@ -295,6 +298,28 @@ generate CSV, JSON, Markdown, LaTeX, validation metrics, and summary tables.
 The exported artifacts provide a reproducible snapshot of the workflow state.
 
 \section{Dataset and Experimental Method}
+
+\subsection{Validation Structure and Separation}
+
+The evaluation is structured into two strictly separated tiers:
+specification-level conformance verification and empirical workflow evaluation.
+Specification-level verification evaluates whether the scoring engine adheres to the
+CVSS v4.0 mathematical standard and maintains formal monotonicity properties.
+Empirical workflow evaluation assesses whether the AI/watcher pipeline successfully
+structures evidence, flags uncertainty, enforces human authorization requirements as a governance constraint, and exports
+reproducible artifacts across consumer scenarios.
+
+\subsection{Specification-Level Verification Design}
+
+To establish a mathematically verified baseline prior to evaluating the operational
+workflow, the deterministic scoring core was evaluated against the official FIRST reference
+corpus Round~5, comprising 486,472 vectors evaluated against pinned FIRST commit
+\texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}. In addition, a metamorphic testing
+campaign evaluated 10,000 executions across four metamorphic relations: MR-1 (monotonicity of
+criticality), MR-2 (defense removal monotonicity), MR-3 (context permutation invariance),
+and MR-4 (irrelevant control invariance). Specification-level verification establishes
+arithmetic conformance to published standards; it does not evaluate contextual suitability or
+operational effectiveness in production.
 
 \subsection{Unit of Analysis}
 
@@ -371,7 +396,6 @@ Curated synthetic scenarios & 18 \\
 Evidence coverage & 100.00\% \\
 Trace completeness & 100.00\% \\
 Explicit uncertainty fields & 30/30 \\
-Human review required & 30/30 \\
 Operational priority shifts & 22/30 (73.33\%) \\
 \bottomrule
 \end{tabular}
@@ -379,7 +403,19 @@ Operational priority shifts & 22/30 (73.33\%) \\
 
 \section{Results}
 
-\subsection{Artifact Completeness}
+\subsection{Specification Conformance and Metamorphic Results}
+
+Specification-level evaluation demonstrated 100.00\% arithmetic conformance with the
+official standard: 486,472 of 486,472 vectors in the FIRST reference corpus Round~5 passed with
+zero arithmetic divergences against pinned commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}.
+In the metamorphic testing campaign, 10,000 executions completed with zero invariant violations
+across all four relations (MR-1: 2,500/2,500; MR-2: 2,500/2,500; MR-3: 2,500/2,500; MR-4: 2,500/2,500;
+campaign ID \texttt{HELPUS-METAMORPHIC-10K-G9B}, verdict: PASSED). These results confirm that the
+underlying scoring core behaves as a deterministic, monotonic, and specification-conformant
+calculator, providing a verified foundation for empirical workflow evaluation.
+
+
+\subsection{Empirical Artifact Completeness and Traceability}
 
 All 30 scenarios contain evidence summaries and trace
 artifacts. Evidence coverage was 100.00 percent and trace
@@ -481,7 +517,7 @@ therefore assess semantic agreement separately from schema completeness.
 
 This distinction is particularly important for AI-assisted workflows.
 Fluent narrative is not evidence of correctness. The architecture requires
-structured sources, uncertainty fields, and a review gate to reduce the risk
+structured sources, uncertainty fields, and human authorization checkpoints to reduce the risk
 that generated explanations are mistaken for authoritative decisions.
 
 \subsection{Relationship to Other Prioritization Signals}
@@ -521,6 +557,19 @@ Human authority should also be represented as data. A production version
 would record reviewer identity or role, timestamp, decision, changes, and
 rationale. Double-blind research artifacts omit personal identifiers, but the
 workflow design retains the concept of accountable review.
+
+The governance model strictly isolates active operational assets from unexecuted
+confirmatory protocols. The confirmatory protocol G10B remains explicitly in a
+\texttt{PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED} state. Correspondingly, held-out
+confirmatory benchmark datasets C1 (real-world cases) and C2 (adversarial/metamorphic cases)
+remain \texttt{SEALED / UNOPENED / UNEXECUTED / DO\_NOT\_RETUNE} under a fail-closed execution
+gatekeeper (\texttt{scripts/g10b\_confirmatory\_gate.py}). They will not be unsealed, inspected, or
+executed without explicit Master SuperAdmin authorization.
+
+Furthermore, independent human expert adjudication has not yet been concluded. The research
+package includes a pre-registered blinded evaluation protocol (\texttt{article/expert\_review/}),
+but claims no completed expert agreement or inter-rater reliability. The empirical results
+presented in this paper reflect solely the descriptive evaluation of the 30 curated scenarios.
 
 \section{Threats to Validity}
 
@@ -643,16 +692,16 @@ information from curated consumer context, records evidence and uncertainty,
 proposes candidate values, requires human review, and exports reproducible
 trace artifacts.
 
-Across 30 evaluated scenarios, the workflow achieved complete
-evidence and trace coverage and produced operational priority changes in
-22 cases. These results demonstrate reproducible execution and
-context sensitivity. They do not prove scoring correctness, predictive
-superiority, or production effectiveness.
+The contribution separates specification-level validation (achieving 486,472/486,472
+FIRST reference corpus conformance and zero violations across 10,000 metamorphic executions)
+from empirical workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
+complete evidence and trace coverage and produced operational priority changes in 22 cases
+while retaining a non-autonomous workflow in which official scoring decisions remain subject to explicit human authorization; independent expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains protocol defined and
+execution unauthorized, with datasets C1 and C2 sealed.
 
-Future work should conduct independent expert adjudication, measure inter-rater
-agreement and review effort, integrate production-like asset and control
-sources, and compare decisions with complementary approaches such as EPSS and
-SSVC.
+Future work will execute independent expert adjudication under the pre-registered blinded protocol,
+measure inter-rater agreement and review effort, integrate production-like asset and control
+sources, and compare decisions with complementary approaches such as EPSS and SSVC.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}

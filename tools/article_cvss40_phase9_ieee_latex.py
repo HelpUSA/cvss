@@ -397,7 +397,11 @@ replacements = {
 for marker, value in replacements.items():
     tex = tex.replace(marker, value)
 
-write(IEEE / "cvss40_double_blind.tex", tex)
+target_tex = IEEE / "cvss40_double_blind.tex"
+if not target_tex.exists() or len(target_tex.read_text(encoding="utf-8").splitlines()) <= 400:
+    write(target_tex, tex)
+else:
+    print(f"Preserving existing expanded manuscript at {target_tex}")
 
 official_bib = r"""@misc{first_cvss40,
   author       = {{FIRST}},
@@ -438,7 +442,11 @@ bibliography = official_bib
 if nvd_bib:
     bibliography += "\n\n" + "\n\n".join(nvd_bib)
 
-write(IEEE / "references.bib", bibliography)
+target_bib = IEEE / "references.bib"
+if not target_bib.exists() or len(target_bib.read_text(encoding="utf-8").splitlines()) <= 50:
+    write(target_bib, bibliography)
+else:
+    print(f"Preserving existing expanded bibliography at {target_bib}")
 
 write(
     IEEE / ".gitignore",
