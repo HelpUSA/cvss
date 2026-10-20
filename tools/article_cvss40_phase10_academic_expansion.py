@@ -403,6 +403,9 @@ tex = r"""\documentclass[conference]{IEEEtran}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 
 \title{Operationalizing CVSS v4.0 Environmental Metrics with
 AI-Assisted Evidence Collection and Traceability}
@@ -605,29 +608,76 @@ organized into six logical layers.
 
 \begin{figure*}[t]
 \centering
-\fbox{
-\parbox{0.96\textwidth}{
-\centering
-\textbf{Source adapters}
-$\rightarrow$
-\textbf{Evidence normalization}
-$\rightarrow$
-\textbf{Scenario context model}
-$\rightarrow$
-\textbf{Candidate Environmental metrics}
-$\rightarrow$
-\textbf{Human review gate}
-$\rightarrow$
-\textbf{Trace and report export}
+\begin{tikzpicture}[
+    node distance=4mm and 4.5mm,
+    box/.style={
+        draw=black!75,
+        fill=black!4,
+        rounded corners=2pt,
+        text width=2.35cm,
+        minimum height=1.35cm,
+        align=center,
+        inner sep=3pt,
+        font=\sffamily\scriptsize,
+        line width=0.6pt
+    },
+    scorer/.style={
+        box,
+        fill=black!8,
+        draw=black!90,
+        line width=0.8pt
+    },
+    gate/.style={
+        box,
+        fill=black!12,
+        draw=black!95,
+        line width=0.9pt
+    },
+    arrow/.style={
+        -{Stealth[scale=0.85]},
+        thick,
+        draw=black!75
+    }
+]
 
-\vspace{2mm}
+\node[box] (sources) {
+    \textbf{1. Evidence Sources}\\[1.5pt]
+    {\tiny NVD CVE records,\\asset class, controls,\\requirements (CR/IR/AR)}
+};
 
-NVD/CVSS data, asset context, exposure observations, control evidence, and
-security requirements are stored separately with source metadata. The watcher
-proposes values and uncertainty flags. A reviewer accepts, changes, or rejects
-the proposal before the decision artifact is treated as reviewed.
-}}
-\caption{Logical architecture of the AI/watcher-assisted assessment workflow.}
+\node[box, right=of sources] (norm) {
+    \textbf{2. Evidence Normalization}\\[1.5pt]
+    {\tiny Schema mapping,\\provenance URIs,\\uncertainty flags}
+};
+
+\node[box, right=of norm] (resolver) {
+    \textbf{3. Policy / Metric Resolver}\\[1.5pt]
+    {\tiny Deterministic rule resolution,\\candidate modified metrics\\(MAV, MAC, MAT, \dots)}
+};
+
+\node[scorer, right=of resolver] (scorer) {
+    \textbf{4. Canonical CVSS Scorer}\\[1.5pt]
+    {\tiny FIRST-conformant calculator,\\MacroVectors $\vec{M}=(EQ_1..EQ_6)$,\\computes CVSS-BE / CVSS-BTE}
+};
+
+\node[box, right=of scorer] (trace) {
+    \textbf{5. Audit Trace \& Report}\\[1.5pt]
+    {\tiny Immutable JSON trace artifact,\\score delta $\Delta$,\\priority shift $\Delta_{\text{cat}}$}
+};
+
+\node[gate, right=of trace] (auth) {
+    \textbf{6. Human Authorization}\\[1.5pt]
+    {\tiny Explicit analyst review,\\formal gatekeeper release,\\operational deployment}
+};
+
+\draw[arrow] (sources) -- (norm);
+\draw[arrow] (norm) -- (resolver);
+\draw[arrow] (resolver) -- (scorer);
+\draw[arrow] (scorer) -- (trace);
+\draw[arrow] (trace) -- (auth);
+
+\end{tikzpicture}
+\caption{End-to-end architecture of the CVSS v4.0 environmental assessment workflow, emphasizing evidence normalization, deterministic policy resolution, canonical scoring conformance, audit traceability, and explicit human authorization.}
 \label{fig:architecture}
 \end{figure*}
 

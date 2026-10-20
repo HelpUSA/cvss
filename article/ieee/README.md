@@ -1,25 +1,30 @@
-# IEEE LaTeX manuscript package
+# IEEE LaTeX Manuscript Package (Major Revision R1)
 
-Generated UTC: 2026-10-20T20:00:40.493178+00:00
+Title: Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability
 
 Files:
 - cvss40_double_blind.tex
 - references.bib
-- .gitignore
+- README.md
 
 Dataset:
-- Scenarios: 30
-- NVD/CVSS v4.0 records: 12
-- Synthetic scenarios: 18
-- Priority shifts: 22/30
+- Scenarios: 30 (12 real NVD CVEs carrying CVSS v4.0 data + 18 curated synthetic scenarios)
+- Priority shifts: 22/30 (Category Delta mean = 0.2, range [-3.0, +2.0])
 
-Approximate extracted word count: 946
-Tables: 3
-Bibliography entries: 17
+Tables:
+- Table I: Research Questions, Measures, and Interpretation Boundaries
+- Table II: Dataset and Workflow Summary
+- Table III: Operational Priority Transitions
+- Table IV: CVSS-B Severity Distribution
+- Table V: Controlled Workflow Evaluation on 12 Real NVD CVEs
 
-Compile from PowerShell:
+Figures:
+- Figure 1: TikZ native vector architecture pipeline
 
-Set-Location D:\dev\cvss\article\ieee
-latexmk -pdf -interaction=nonstopmode -halt-on-error cvss40_double_blind.tex
+Bibliography entries: 26 (including 12 NVD primary CVE records and FIRST standards)
 
-The final page count must be checked in the compiled two-column PDF.
+Compilation Instructions (Overleaf / pdflatex):
+1. pdflatex -interaction=nonstopmode cvss40_double_blind.tex
+2. bibtex cvss40_double_blind
+3. pdflatex -interaction=nonstopmode cvss40_double_blind.tex
+4. pdflatex -interaction=nonstopmode cvss40_double_blind.tex

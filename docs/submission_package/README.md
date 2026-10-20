@@ -21,9 +21,9 @@ Updated: 2026-10-20 (Academic Text Synchronization)
 
 - **FIRST Reference Corpus (Round 5)**: 486,472 / 486,472 test cases conform with 0 divergences against pinned FIRST reference commit `d766d0c8ab4368b67bf27dd0e411eb481f05fdbb`.
 - **Metamorphic Validation**: 10,000 executions evaluated across four metamorphic relations (MR-1: monotonicity of criticality, MR-2: defense removal monotonicity, MR-3: context permutation invariance, MR-4: irrelevant control invariance) with 0 invariant violations (Campaign ID: `HELPUS-METAMORPHIC-10K-G9B`, Verdict: `PASSED`).
-- **Separation Boundary**: Specification-level validation establishes engine correctness and metamorphic invariance under mathematical specifications; it is orthogonal to and does not replace empirical workflow evaluation.
+- **Separation Boundary**: Specification-level validation establishes engine correctness and metamorphic invariance under mathematical specifications; it is orthogonal to and does not replace controlled workflow evaluation across curated scenarios.
 
-## Empirical Workflow Evaluation (Hybrid Dataset)
+## Controlled Workflow Evaluation (Hybrid Dataset)
 
 - **Total Scenarios**: 30
 - **Real NVD CVSS v4.0 Vulnerability Records**: 12
@@ -39,5 +39,5 @@ Updated: 2026-10-20 (Academic Text Synchronization)
 1. **Human Expert Adjudication**: Independent human expert evaluation is planned under a blinded protocol (`article/expert_review/`) and has NOT been concluded. No expert consensus or inter-rater agreement is claimed.
 2. **Confirmatory Protocol G10B**: Protocol G10B remains `PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED`.
 3. **Confirmatory Datasets C1 / C2**: Held-out confirmatory benchmark datasets C1 and C2 remain `SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE` until formal execution authorization.
-4. **Descriptive Empirical Scope**: The empirical workflow evaluation demonstrates artifact completeness, trace reproducibility, and context sensitivity across curated scenarios. It does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
+4. **Descriptive Empirical Scope**: The controlled workflow evaluation demonstrates artifact completeness, trace reproducibility, and context sensitivity across curated scenarios under construction-controlled conditions. It does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
 5. **Double-Blind Integrity**: All author and institutional identities remain strictly withheld for double-blind peer review.

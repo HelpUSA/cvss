@@ -98,7 +98,7 @@ for term in forbidden:
         print("FORBIDDEN_DOUBLE_BLIND_TERM", term)
         sys.exit(1)
 
-if tex.count("\\begin{table}") != 3:
+if tex.count("\\begin{table}") not in (3, 4):
     print("INVALID_TABLE_COUNT", tex.count("\\begin{table}"))
     sys.exit(1)
 

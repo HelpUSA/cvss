@@ -8,9 +8,13 @@
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 
 \title{Operationalizing CVSS v4.0 Environmental Metrics with
-AI-Assisted Evidence Collection and Traceability}
+Evidence Normalization, Governance, and Traceability}
 
 \author{
 \IEEEauthorblockN{Anonymous Author(s)}
@@ -22,12 +26,12 @@ AI-Assisted Evidence Collection and Traceability}
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an AI/watcher-assisted workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, proposes candidate Environmental values, records uncertainty, enforces human authorization requirements, and exports reproducible artifacts. The evaluation strictly separates specification-level validation from empirical workflow evaluation. At the specification level, the scoring core demonstrated 100.00\% conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across 10,000 metamorphic executions. Empirically, the workflow was evaluated with a hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), achieving 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority changes in 22 of 30 scenarios. The evaluation demonstrates workflow completeness, context sensitivity, and traceability; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
+CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an evidence normalization, governance, and traceability workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, resolves candidate Environmental values under explicit governance policies, records uncertainty, enforces human authorization requirements, and exports reproducible artifacts. The evaluation strictly separates specification-level arithmetic conformance validation from controlled workflow evaluation across curated scenarios. At the specification level, the scoring core demonstrated 100.00\% conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across 10,000 metamorphic executions. Under controlled scenario evaluation with a hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), the workflow achieved 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority changes in 22 of 30 scenarios. The evaluation demonstrates workflow schema completeness, context sensitivity, and traceability under construction-controlled conditions; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
 \end{abstract}
 
 \begin{IEEEkeywords}
 CVSS v4.0, Environmental metrics, vulnerability prioritization,
-artificial intelligence, human-in-the-loop, traceability,
+evidence normalization, governance, human-in-the-loop, traceability,
 reproducibility, uncertainty
 \end{IEEEkeywords}
 
@@ -52,26 +56,25 @@ operational burden: analysts must locate evidence, interpret incomplete
 information, document assumptions, and preserve the reasoning behind each
 metric choice.
 
-This paper investigates whether an AI/watcher workflow can assist that process
-without modifying CVSS or displacing human judgment. The watcher is defined as
-an evidence-processing component rather than an autonomous scoring authority.
-It collects candidate evidence, normalizes it into a scenario record, proposes
-reviewable metric values, identifies uncertainty, and exports trace artifacts.
+This paper investigates whether an evidence normalization and governance workflow can assist that process
+without modifying CVSS or displacing human judgment. Assistive watcher components are defined as
+evidence-processing tools rather than autonomous scoring authorities.
+The pipeline ingests candidate evidence, normalizes it into a structured scenario record, resolves
+reviewable candidate metric values under deterministic policy rules, identifies uncertainty, and exports trace artifacts.
 A human analyst remains responsible for accepting, changing, or rejecting each
 recommendation.
 
-The work makes four contributions:
+The work makes five contributions:
 
 \begin{enumerate}
 \item a strict scientific separation between specification-level arithmetic
 conformance (486,472 FIRST reference cases; 10,000 metamorphic executions with
-zero violations) and empirical workflow evaluation;
-\item a human-in-the-loop workflow for operationalizing CVSS v4.0
+zero violations) and controlled workflow evaluation across curated scenarios;
+\item an evidence normalization and human-in-the-loop governance workflow for operationalizing CVSS v4.0
 Environmental assessment;
 \item a trace model linking evidence, candidate metrics, uncertainty, and
 review state;
-\item a hybrid evaluation dataset containing real CVSS v4.0 vulnerability
-records and controlled synthetic scenarios (30 scenarios, 22 priority shifts); and
+\item a controlled evaluation dataset of curated scenarios exercising schema coverage (12 real NVD records, 18 synthetic cases, 22 priority shifts); and
 \item a reproducible artifact package with validators, tables, JSON traces,
 manuscript sources, and compilation outputs.
 \end{enumerate}
@@ -105,6 +108,31 @@ particularly when technical severity is treated as a complete vulnerability
 management decision \cite{howland2023}. The present work addresses that concern
 by retaining Base severity as a separate field and labeling the prototype's
 priority output as an operational category rather than an official CVSS score.
+
+\subsection{CVSS v4.0 Nomenclature and Scoring Mechanics}
+
+The official FIRST specification establishes four formal nomenclature tiers depending
+on the metric groups populated in a score vector:
+\begin{itemize}
+\item \textbf{CVSS-B:} Base metrics only, quantifying intrinsic vulnerability characteristics across Exploitability (AV, AC, AT, PR, UI), Vulnerable System Impact (VC, VI, VA), and Subsequent System Impact (SC, SI, SA).
+\item \textbf{CVSS-BT:} Base and Threat metrics, incorporating Exploit Maturity ($E \in \{\text{Attacked}, \text{Proof-of-Concept}, \text{Unreported}, \text{Not Defined}\}$).
+\item \textbf{CVSS-BE:} Base and Environmental metrics, incorporating consumer-specific context without threat intelligence.
+\item \textbf{CVSS-BTE:} Base, Threat, and Environmental metrics combined, reflecting contemporary exploit activity alongside consumer deployment context.
+\end{itemize}
+
+Environmental assessment in CVSS v4.0 operates across two distinct mechanisms:
+\begin{enumerate}
+\item \textbf{Modified Base Metrics:} Allow the consumer organization to override intrinsic Base values when local defenses, privilege architectures, or compensating controls alter attack difficulty or impact. These comprise Modified Attack Vector (MAV), Modified Attack Complexity (MAC), Modified Attack Requirements (MAT), Modified Privileges Required (MPR), Modified User Interaction (MUI), Modified Vulnerable System Impacts (MVC, MVI, MVA), and Modified Subsequent System Impacts (MSC, MSI, MSA). When unmodified, each metric defaults to its underlying Base value ($MX = X$).
+\item \textbf{Security Requirements:} Express consumer-side mission criticality for Confidentiality Requirement (CR), Integrity Requirement (IR), and Availability Requirement (AR), taking values in $\{\text{High}, \text{Medium}, \text{Low}, \text{Not Defined}\}$. CR, IR, and AR rescale effective impact weights during MacroVector evaluation.
+\end{enumerate}
+
+Under the FIRST CVSS v4.0 standard, scoring does not follow an informal arithmetic formula. Vectors are mapped into a 6-dimensional discrete MacroVector:
+\begin{equation}
+\vec{M} = (EQ_1, EQ_2, EQ_3, EQ_4, EQ_5, EQ_6)
+\end{equation}
+where $EQ_1$ captures Exploitability (AV/PR/UI), $EQ_2$ captures Complexity (AC/AT), $EQ_3$ captures Vulnerable System Impact scaled by CR/IR/AR, $EQ_4$ captures Subsequent System Impact, $EQ_5$ captures Threat ($E$), and $EQ_6$ captures Modified Subsequent System Impact. Each MacroVector corresponds to a precomputed Equivalence Set with assigned boundary scores. The final score is resolved through deterministic interpolation between adjacent equivalence boundaries.
+
+Crucially, the workflow presented in this paper does not reimplement or approximate this algorithm. Instead, the workflow ingests local evidence, resolves applicable policy rules into valid Modified metrics and Security Requirements, and delegates calculation to the canonical FIRST-compatible scoring core (independently validated against 486,472 official reference vectors).
 
 \subsection{Stakeholder-Specific Prioritization}
 
@@ -213,29 +241,76 @@ organized into six logical layers.
 
 \begin{figure*}[t]
 \centering
-\fbox{
-\parbox{0.96\textwidth}{
-\centering
-\textbf{Source adapters}
-$\rightarrow$
-\textbf{Evidence normalization}
-$\rightarrow$
-\textbf{Scenario context model}
-$\rightarrow$
-\textbf{Candidate Environmental metrics}
-$\rightarrow$
-\textbf{Human authorization checkpoint}
-$\rightarrow$
-\textbf{Trace and report export}
+\begin{tikzpicture}[
+    node distance=4mm and 4.5mm,
+    box/.style={
+        draw=black!75,
+        fill=black!4,
+        rounded corners=2pt,
+        text width=2.35cm,
+        minimum height=1.35cm,
+        align=center,
+        inner sep=3pt,
+        font=\sffamily\scriptsize,
+        line width=0.6pt
+    },
+    scorer/.style={
+        box,
+        fill=black!8,
+        draw=black!90,
+        line width=0.8pt
+    },
+    gate/.style={
+        box,
+        fill=black!12,
+        draw=black!95,
+        line width=0.9pt
+    },
+    arrow/.style={
+        -{Stealth[scale=0.85]},
+        thick,
+        draw=black!75
+    }
+]
 
-\vspace{2mm}
+\node[box] (sources) {
+    \textbf{1. Evidence Sources}\\[1.5pt]
+    {\tiny NVD CVE records,\\asset class, controls,\\requirements (CR/IR/AR)}
+};
 
-NVD/CVSS data, asset context, exposure observations, control evidence, and
-security requirements are stored separately with source metadata. The watcher
-proposes values and uncertainty flags. A reviewer accepts, changes, or rejects
-the proposal before the decision artifact is treated as reviewed.
-}}
-\caption{Logical architecture of the AI/watcher-assisted assessment workflow.}
+\node[box, right=of sources] (norm) {
+    \textbf{2. Evidence Normalization}\\[1.5pt]
+    {\tiny Schema mapping,\\provenance URIs,\\uncertainty flags}
+};
+
+\node[box, right=of norm] (resolver) {
+    \textbf{3. Policy / Metric Resolver}\\[1.5pt]
+    {\tiny Deterministic rule resolution,\\candidate modified metrics\\(MAV, MAC, MAT, \dots)}
+};
+
+\node[scorer, right=of resolver] (scorer) {
+    \textbf{4. Canonical CVSS Scorer}\\[1.5pt]
+    {\tiny FIRST-conformant calculator,\\MacroVectors $\vec{M}=(EQ_1..EQ_6)$,\\computes CVSS-BE / CVSS-BTE}
+};
+
+\node[box, right=of scorer] (trace) {
+    \textbf{5. Audit Trace \& Report}\\[1.5pt]
+    {\tiny Immutable JSON trace artifact,\\score delta $\Delta$,\\priority shift $\Delta_{\text{cat}}$}
+};
+
+\node[gate, right=of trace] (auth) {
+    \textbf{6. Human Authorization}\\[1.5pt]
+    {\tiny Explicit analyst review,\\formal gatekeeper release,\\operational deployment}
+};
+
+\draw[arrow] (sources) -- (norm);
+\draw[arrow] (norm) -- (resolver);
+\draw[arrow] (resolver) -- (scorer);
+\draw[arrow] (scorer) -- (trace);
+\draw[arrow] (trace) -- (auth);
+
+\end{tikzpicture}
+\caption{End-to-end architecture of the CVSS v4.0 environmental assessment workflow, emphasizing evidence normalization, deterministic policy resolution, canonical scoring conformance, audit traceability, and explicit human authorization.}
 \label{fig:architecture}
 \end{figure*}
 
@@ -273,11 +348,7 @@ declared to be an authoritative score. The rationale field explains which
 evidence supports each recommendation, while uncertainty fields identify
 assumptions, stale observations, missing data, or conflicts.
 
-The current prototype evaluates the workflow artifact rather than the semantic
-accuracy of a learned model. Candidate values are therefore generated from
-controlled scenario logic and curated evidence. No claim is made that a
-general-purpose language model independently discovered the correct metric
-values.
+The evaluated prototype focuses on deterministic evidence normalization, governance gates, and trace generation rather than the semantic accuracy of an unconstrained generative AI model. Any assistive language processing or watcher heuristics are strictly scoped to evidence ingestion support and remain outside the scope of semantic truth validation; candidate values are resolved through structured scenario logic, deterministic policy rules, and curated evidence schemas. No claim is made that an artificial intelligence model independently discovered or empirically validated ground-truth metric values.
 
 \subsection{Human Authorization Checkpoint}
 
@@ -302,12 +373,12 @@ The exported artifacts provide a reproducible snapshot of the workflow state.
 \subsection{Validation Structure and Separation}
 
 The evaluation is structured into two strictly separated tiers:
-specification-level conformance verification and empirical workflow evaluation.
+specification-level conformance verification and controlled workflow evaluation.
 Specification-level verification evaluates whether the scoring engine adheres to the
 CVSS v4.0 mathematical standard and maintains formal monotonicity properties.
-Empirical workflow evaluation assesses whether the AI/watcher pipeline successfully
+Controlled workflow evaluation assesses whether the evidence normalization pipeline successfully
 structures evidence, flags uncertainty, enforces human authorization requirements as a governance constraint, and exports
-reproducible artifacts across consumer scenarios.
+reproducible artifacts across curated scenarios.
 
 \subsection{Specification-Level Verification Design}
 
@@ -320,6 +391,37 @@ criticality), MR-2 (defense removal monotonicity), MR-3 (context permutation inv
 and MR-4 (irrelevant control invariance). Specification-level verification establishes
 arithmetic conformance to published standards; it does not evaluate contextual suitability or
 operational effectiveness in production.
+
+\subsection{Formal Specification of Metamorphic Relations}
+
+Let $\mathcal{V}$ denote the space of valid CVSS v4.0 Base vectors, $\mathcal{E}$ the space of structured environmental evidence contexts, and $f: \mathcal{V} \times \mathcal{E} \to \mathbb{R} \times \mathcal{M}$ the deterministic evaluation pipeline returning an Environmental score $S(v, e) \in [0.0, 10.0]$ and candidate modified metrics $M(v, e) \in \mathcal{M}$. The campaign (Campaign ID: \texttt{HELPUS-METAMORPHIC-10K-G9B}) evaluated 10,000 executions ($2,500$ per relation) across four formal relations:
+
+\begin{enumerate}
+\item \textbf{MR-1 (Monotonicity of Criticality):} Let $e \in \mathcal{E}$ have security requirements $R \in \{\text{CR}, \text{IR}, \text{AR}\}$ ordered as $\text{L} < \text{M} < \text{H}$. Let $T_{\text{MR1}}(e)$ elevate one or more requirements to $R' > R$ ceteris paribus.
+\begin{equation}
+S(v, T_{\text{MR1}}(e)) \ge S(v, e)
+\end{equation}
+Violation criterion: $S(v, T_{\text{MR1}}(e)) < S(v, e)$.
+
+\item \textbf{MR-2 (Defense Removal Monotonicity):} Let $e_{\text{def}} \in \mathcal{E}$ specify reachability under active defense or isolation ($\text{reachability} \in \{\text{ADJACENT\_ONLY}, \text{LOCAL\_ONLY}, \text{PHYSICAL\_ONLY}\}$). Let $T_{\text{MR2}}(e_{\text{def}}) = e_{\text{unprot}}$ remove network defenses ($\text{reachability} = \text{PUBLIC\_ROUTED}$, $\text{internet\_exposed} = \text{True}$).
+\begin{equation}
+S(v, T_{\text{MR2}}(e_{\text{def}})) \ge S(v, e_{\text{def}})
+\end{equation}
+Violation criterion: $S(v, T_{\text{MR2}}(e_{\text{def}})) < S(v, e_{\text{def}})$.
+
+\item \textbf{MR-3 (Context Permutation Invariance):} Let $e = \{(k_i, v_i)\}_{i=1}^n$ be an evidence set, and let $\pi \in \Pi_n$ be an arbitrary key-ordering permutation.
+\begin{equation}
+S(v, \pi(e)) = S(v, e) \quad \land \quad M(v, \pi(e)) = M(v, e)
+\end{equation}
+Violation criterion: $S(v, \pi(e)) \ne S(v, e) \lor M(v, \pi(e)) \ne M(v, e)$.
+
+\item \textbf{MR-4 (Irrelevant Control Invariance):} Let $I$ be an evidence subset disjoint from CVSS environmental evaluation parameters ($I \cap \text{dom}(\mathcal{E}) = \emptyset$, e.g., backup logs, unrelated software flags).
+\begin{equation}
+S(v, e \cup I) = S(v, e) \quad \land \quad M(v, e \cup I) = M(v, e)
+\end{equation}
+Violation criterion: $S(v, e \cup I) \ne S(v, e) \lor M(v, e \cup I) \ne M(v, e)$.
+\end{enumerate}
+These relations characterize verified invariants within the finite campaign ($2,500$ executions per relation, zero violations); they do not constitute an exhaustive universal mathematical proof across infinite input spaces.
 
 \subsection{Unit of Analysis}
 
@@ -366,10 +468,36 @@ required per-scenario trace structure. Review coverage reports the presence of
 a human-review state. Uncertainty coverage reports whether uncertainty is
 represented explicitly.
 
-Context sensitivity is measured by comparing the Base-only operational
-priority with the Environmental-aware operational priority. The priority
-categories are prototype workflow labels. Their numeric difference is a custom
-category delta and is not part of the CVSS specification.
+Context sensitivity is measured by comparing the Base-only operational priority
+$P_{\text{base}}$ with the Environmental-aware operational priority $P_{\text{env}}$.
+Priorities belong to the ordered set:
+\begin{equation}
+\mathcal{P} = \langle \text{defer}, \text{low}, \text{medium}, \text{high}, \text{critical} \rangle
+\end{equation}
+with the bijective ordinal mapping $g: \mathcal{P} \to \{0, 1, 2, 3, 4\}$ defined as:
+\begin{equation}
+g(p) = \begin{cases}
+0, & p = \text{defer} \\
+1, & p = \text{low} \\
+2, & p = \text{medium} \\
+3, & p = \text{high} \\
+4, & p = \text{critical}
+\end{cases}
+\end{equation}
+The Category Delta $\Delta_{\text{cat}}$ for a scenario is formally defined as:
+\begin{equation}
+\Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})
+\end{equation}
+where $\Delta_{\text{cat}} > 0$ denotes priority escalation (up to $+2.0$),
+$\Delta_{\text{cat}} < 0$ denotes priority de-escalation (down to $-3.0$), and
+$\Delta_{\text{cat}} = 0$ denotes unchanged priority. Across the $N=30$ curated scenarios,
+the sample mean category delta is:
+\begin{equation}
+\bar{\Delta}_{\text{cat}} = \frac{1}{N} \sum_{i=1}^N \Delta_{\text{cat}}^{(i)} = \frac{6.0}{30} = 0.2
+\end{equation}
+confirming the exact empirical summary reported in the dataset metrics. The priority
+categories are prototype workflow labels, and their numeric difference is a custom
+category delta rather than an official CVSS specification metric.
 
 \subsection{Validation Procedure}
 
@@ -496,6 +624,36 @@ MEDIUM & 13 \\
 \bottomrule
 \end{tabular}
 \end{table}
+\subsection{Controlled Workflow Evaluation on Real NVD CVEs}
+
+The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/cvss40\_environmental\_scenarios.csv}.
+
+\begin{table}[t]
+\caption{Controlled Workflow Evaluation on 12 Real NVD CVEs (Curated Benchmark, Not an Independent Efficacy Sample)}
+\label{tab:nvd_cves}
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{@{}llccclc@{}}
+\toprule
+CVE ID & Input Type & Input & Context Type & Context & Score $\Delta$ & Priority Shift ($\Delta_{\text{cat}}$) \\
+\midrule
+CVE-2026-4251 & CVSS-BT & 1.1 & CVSS-BTE & 1.1 & \phantom{-}0.0 & low $\to$ low (0) \\
+CVE-2026-4252 & CVSS-BT & 8.9 & CVSS-BTE & 8.8 & -0.1 & high $\to$ medium (-1) \\
+CVE-2026-4270 & CVSS-B  & 6.8 & CVSS-BE  & 6.8 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-28490 & CVSS-B  & 8.3 & CVSS-BE  & 8.3 & \phantom{-}0.0 & high $\to$ critical (+1) \\
+CVE-2026-28498 & CVSS-B  & 8.2 & CVSS-BE  & 8.1 & -0.1 & high $\to$ high (0) \\
+CVE-2026-29510 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ low (-1) \\
+CVE-2026-29513 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ medium (0) \\
+CVE-2026-29520 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-29521 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-3644  & CVSS-B  & 6.0 & CVSS-BE  & 5.9 & -0.1 & medium $\to$ low (-1) \\
+CVE-2026-4224  & CVSS-B  & 6.0 & CVSS-BE  & 6.0 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-4253  & CVSS-BT & 2.0 & CVSS-BTE & 2.0 & \phantom{-}0.0 & low $\to$ medium (+1) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
 
 \subsection{Reviewability}
 
@@ -564,7 +722,7 @@ confirmatory protocols. The confirmatory protocol G10B remains explicitly in a
 confirmatory benchmark datasets C1 (real-world cases) and C2 (adversarial/metamorphic cases)
 remain \texttt{SEALED / UNOPENED / UNEXECUTED / DO\_NOT\_RETUNE} under a fail-closed execution
 gatekeeper (\texttt{scripts/g10b\_confirmatory\_gate.py}). They will not be unsealed, inspected, or
-executed without explicit Master SuperAdmin authorization.
+executed without explicit human authorization constraint and formal gatekeeper release.
 
 Furthermore, independent human expert adjudication has not yet been concluded. The research
 package includes a pre-registered blinded evaluation protocol (\texttt{article/expert\_review/}),
@@ -582,10 +740,16 @@ delta as a measurement of risk reduction.
 
 \subsection{Internal Validity}
 
-Scenario logic and context assignment were curated by the project. This may
-introduce confirmation bias because the same development process created the
-workflow and the evaluation cases. Independent expert adjudication is required
-to test whether analysts agree with the candidate metrics.
+Scenario logic and context assignment were curated by the project. This introduces
+construction bias (endogenous validation): because the 30 scenarios (12 real NVD records
+with CVSS v4.0 data and 18 curated synthetic cases) were designed to exercise schema coverage,
+field boundaries, and priority transitions, the 100.00\% evidence coverage, 100.00\% trace
+completeness, and observed priority transitions reflect designed capability rather than an
+independent natural distribution. They demonstrate that the workflow schema, ingestion pipeline,
+and governance gates function as designed across diverse asset profiles, but do not establish
+independent empirical proof of predictive superiority, operational accuracy, or real-world
+risk reduction. Independent expert adjudication is required to test whether analysts agree
+with candidate metrics.
 
 \subsection{External Validity}
 
@@ -686,18 +850,20 @@ flags predict later revisions.
 
 \section{Conclusion}
 
-This paper presents an AI/watcher-assisted workflow for operationalizing CVSS
-v4.0 Environmental metric assessment. The method separates official Base
+This paper presents an evidence normalization, governance, and traceability workflow
+for operationalizing CVSS v4.0 Environmental metric assessment. The method separates official Base
 information from curated consumer context, records evidence and uncertainty,
-proposes candidate values, requires human review, and exports reproducible
-trace artifacts.
+resolves candidate values under explicit governance policies, requires human authorization,
+and exports reproducible trace artifacts.
 
 The contribution separates specification-level validation (achieving 486,472/486,472
 FIRST reference corpus conformance and zero violations across 10,000 metamorphic executions)
-from empirical workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
+from controlled workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
 complete evidence and trace coverage and produced operational priority changes in 22 cases
-while retaining a non-autonomous workflow in which official scoring decisions remain subject to explicit human authorization; independent expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains protocol defined and
-execution unauthorized, with datasets C1 and C2 sealed.
+under controlled conditions subject to construction bias, while retaining a non-autonomous workflow
+in which official scoring decisions remain subject to explicit human authorization; independent
+expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains protocol defined
+and execution unauthorized, with datasets C1 and C2 sealed.
 
 Future work will execute independent expert adjudication under the pre-registered blinded protocol,
 measure inter-rater agreement and review effort, integrate production-like asset and control
