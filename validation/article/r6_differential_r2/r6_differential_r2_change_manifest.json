@@ -1,0 +1,87 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r2_change_manifest_v1.json",
+  "change_manifest_id": "MANIFEST-R6-DIFF-R2-CHANGE",
+  "protocol_version": "R6.2",
+  "protocol_deviation_id": "R6-DEV-005",
+  "classification": "POST_RESULT_CHANGE",
+  "timestamp_utc": "2026-10-21T22:15:00Z",
+  "predecessor_experiment": {
+    "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
+    "label": "R6.1-DIFF-R1",
+    "status": "HISTORICAL_SUPERSEDED_BY_R2",
+    "scientific_classification": "DIFF_R1_MULTIPLE_PROTOCOL_DEFECTS",
+    "frozen_results_hashes": {
+      "r6_differential_r1_results.json": "18563f9737b8e2f5c8eac632a56198d0f5adeb21b7decb10a22e39425a235dd6",
+      "r6_differential_r1_summary.md": "ec7e748f0a21e070ad423be0528834b64b774e0d00d73fa80724412a21ce6f52",
+      "r6_differential_r1_mismatch_analysis.md": "e1065dc3ac2df3d76f71dc48263e7d2559502bbc47bcaeb7092b9a8e7e2a6b44",
+      "r6_differential_r1_execution_manifest.json": "0a0eb9a08beda042666a0210691372bed4a2772468c4790bf09ee910ef1565ce",
+      "r6_differential_r1_mismatches.jsonl": "f298fd1e9a34e40147d3925e4741ae47fd14ee40ed39694bfc73535808ea5a98"
+    }
+  },
+  "corrected_experiment": {
+    "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2",
+    "label": "R6.2-DIFF-R2",
+    "contract_path": "validation/article/r6_differential_r2/r6_differential_r2_measurement_contract.json",
+    "preregistration_path": "validation/article/r6_differential_r2/r6_differential_r2_preregistration.md",
+    "corpus_eligibility_manifest": "validation/article/r6_differential_r2/r6_differential_r2_corpus_eligibility_manifest.json",
+    "runner_contract_path": "validation/article/r6_differential_r2/r6_differential_r2_runner_contract.json",
+    "status": "PREREGISTERED_FROZEN_NOT_EXECUTED"
+  },
+  "defects_identified": [
+    {
+      "defect_id": "DEFECT-A-CLASSIFICATION",
+      "title": "MissingMetric Exception Classification Defect",
+      "description": "cvss4py.classes.MissingMetric was omitted from the expected validation exception tuple in runner R1, causing 13,126 official FIRST negative test cases to be caught by generic exception handling and misclassified as EXECUTION_ERROR rather than syntax rejection."
+    },
+    {
+      "defect_id": "DEFECT-B-CORPUS-ENDPOINT-CONFLATION",
+      "title": "Corpus and Endpoint Eligibility Conflation Defect",
+      "description": "Protocol R1 aggregated 461,444 valid score-producing vectors and 25,028 syntax test cases into a single primary numeric score endpoint (D = 486,472), and collapsed mutual syntax rejections into EXACT_SCORE_MATCH."
+    }
+  ],
+  "post_result_declarations": {
+    "discovery_timing": "Defects were discovered strictly AFTER observing full R1 execution results during adversarial audit Order 288.",
+    "zero_r2_observations": "Zero records have been evaluated under Protocol R2; no R2 outcomes exist.",
+    "formal_versioning": "Protocol modifications are recorded as a versioned change (R6.2 / R2) under deviation R6-DEV-005.",
+    "historical_preservation": "All R1 execution outputs and documentation remain unchanged and permanently preserved."
+  },
+  "modifications": [
+    {
+      "dimension": "endpoint_structure",
+      "r1_protocol": "Single primary endpoint covering all 486,472 records with mutual rejections mapped to EXACT_SCORE_MATCH",
+      "r2_protocol": "Decoupled dual endpoints: Primary Numeric Score Concordance (D_numeric = 461,444) and Secondary Negative Validation Concordance (D_validation = 25,028)",
+      "impact": "Eliminates contamination of numeric scoring accuracy by syntax rejection cases"
+    },
+    {
+      "dimension": "expected_validation_exceptions",
+      "r1_protocol": "cvss4py tuple lacked MissingMetric",
+      "r2_protocol": "cvss4py tuple explicitly includes MissingMetric, UnknownMetricValue, InvalidEqClass, UnknownMetric, SyntaxError, ValueError, KeyError",
+      "impact": "Accurately categorizes missing-metric negative test rejections without false execution error crashes"
+    },
+    {
+      "dimension": "corpus_eligibility_filter",
+      "r1_protocol": "No deterministic pre-execution record classification manifest",
+      "r2_protocol": "Frozen corpus eligibility manifest classifying all 486,472 records before execution",
+      "impact": "Guarantees deterministic routing to primary vs secondary endpoints based strictly on fixture semantics"
+    },
+    {
+      "dimension": "first_reference_diagnostic",
+      "r1_protocol": "Not formally defined in measurement contract",
+      "r2_protocol": "Formally preregistered as secondary diagnostic analysis comparing primary and secondary scores against official FIRST reference outputs",
+      "impact": "Provides transparent attribution of numeric deltas without altering primary concordance classification"
+    }
+  ],
+  "invariants_preserved": {
+    "corpus_denominator": 486472,
+    "corpus_partition_sum": "461444 + 25028 == 486472",
+    "corpus_commit": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+    "comparator_pinned_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+    "primary_scorer_engine": "HelpUS Primary Scorer / Red Hat cvss 3.6 (commit 43664e5)",
+    "scoring_arithmetic_and_rounding": "STRICTLY_UNMODIFIED (zero retuning)",
+    "numeric_equivalence_tolerance": "|Delta| < 0.0001 (unmodified)",
+    "equation_8_nominal_policy": "UNTOUCHED",
+    "held_out_corpus_quarantine": "STRICTLY_LOCKED (held_out_accessed = false)",
+    "target_agreement_rate": null,
+    "expected_agreement_rate": null
+  }
+}

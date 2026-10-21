@@ -50,6 +50,7 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
 | `R6-DEV-002` | 2026-10-21T18:40:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Identification of valid-parent confounding in Experiment T4 where 30 historical parents were valid only under v1 and invalid under v2; preregistration of versioned rerun R6.1-T4R on 15 deterministically canonicalized v2-valid parents. |
 | `R6-DEV-003` | 2026-10-21T19:40:00Z | R6-A1 | RQ-R6-3 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Post-result identification of fixture/oracle inconsistency in Experiment T5 fixture T5.8 (injected nominal priority LOW for SCN-NVD-001 vs Eq. 8 computed nominal MEDIUM); preregistration of versioned rerun R6.1-T5R with minimal baseline alignment on T5R.8 while preserving original T5 (7/8) as historical finding. |
 | `R6-DEV-004` | 2026-10-21T20:44:00Z | R6-A1 | RQ-R6-4 | `PRE_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Pre-result clarification of differential validation measurement model (R6.1-DIFF-R1) reclassifying primary endpoint to exact numeric score concordance and removing comparator vector serializer requirement from precedence hierarchy to avoid false masking of 486,472 vectors prior to execution. |
+| `R6-DEV-005` | 2026-10-21T22:15:00Z | R6-A1 | RQ-R6-4 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Identification of classification defect (cvss4py MissingMetric exception omitted from expected rejection tuple) and corpus eligibility conflation (evaluating 461,444 valid score vectors and 25,028 syntax rejection tests under single denominator); preregistration of corrected protocol R6.2-DIFF-R2 with decoupled dual endpoints and pre-filtered eligibility manifest. |
 
 ---
 
@@ -212,3 +213,54 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
   7. **Core Invariance**: Equation 8 formula and weights unmodified.
 - **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-DIFF-R1`)
 - **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-DIFF-PRE-RESULT-CLARIFICATION-281`)
+
+
+---
+
+### Deviation ID: R6-DEV-005
+- **Timestamp UTC**: 2026-10-21T22:15:00Z
+- **Requested by**: AI Bridge Supervisor & HelpUS Research Team (`helpusdev@helpus.ai`)
+- **Phase**: R6-A1 (Differential Validation CVSS v4.0 R2)
+- **Original preregistered rule**: Protocol R1 (`TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1` in `validation/article/r6_differential_r1/`) defined a single aggregated denominator $D = 486{,}472$ for numeric score concordance, defined expected validation exceptions without `cvss4py.classes.MissingMetric`, and collapsed mutual syntax rejections of invalid cases into `EXACT_SCORE_MATCH`.
+- **Trigger**: Adversarial review and contract/corpus reconciliation (Order `CMD-CVSS-IEEE-R6-A1-DIFF-R1-ADVERSARIAL-RESULT-REVIEW-288`) following execution of `R6.1-DIFF-R1`.
+- **Two Independent Defects Identified**:
+  1. **Defect A: Classification Defect (Omission of Expected Validation Exception)**:
+     `cvss4py.classes.MissingMetric` was omitted from the expected validation exception tuple in runner R1. As a result, 13,126 official FIRST negative test cases (deliberately missing required metrics) were caught by the generic `except Exception as exc:` clause and misclassified as `EXECUTION_ERROR` rather than syntax rejection.
+  2. **Defect B: Corpus/Endpoint Eligibility Conflation**:
+     Protocol R1 declared a primary endpoint of exact numeric score concordance on valid vectors, but evaluated both 461,444 valid score-producing vectors and 25,028 negative syntax-rejection test cases from `reference-vectors` within the single denominator $D = 486{,}472$, collapsing mutual rejections into `EXACT_SCORE_MATCH`.
+- **Post-Result Declarations**:
+  - The discovery occurred strictly AFTER observing full R1 results;
+  - Zero R2 evaluation observations exist;
+  - The modification is strictly a post-result correction and is formally versioned as R2;
+  - R1 artifacts and counts remain permanently preserved as immutable historical evidence.
+- **Proposed Change**: Preregister versioned protocol R2 (`TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2` / `R6.2-DIFF-R2` in `validation/article/r6_differential_r2/`):
+  - **Decoupled Endpoints**:
+    * **Primary Endpoint**: Numeric Score Concordance ($D_{\text{numeric}} = 461{,}444$, valid score-producing vectors only). Precedence: `EXECUTION_ERROR > VALIDITY_DISAGREEMENT > SCORE_MISMATCH > EXACT_SCORE_MATCH`. Equivalence tolerance: $|\Delta| < 0.0001$.
+    * **Secondary Endpoint**: Negative Validation Concordance ($D_{\text{validation}} = 25{,}028$, FIRST negative test cases only). Precedence: `NEGATIVE_EXECUTION_ERROR > NEGATIVE_VALIDITY_DISAGREEMENT > SYNTAX_REJECTION_CONCORDANCE`.
+  - **Corpus Eligibility Pre-filtering**: Machine-readable eligibility manifest (`r6_differential_r2_corpus_eligibility_manifest.json`) classifying all 486,472 records strictly prior to execution.
+  - **Expected Validation Exceptions Contract**: Explicit inclusion of `cvss4py.classes.MissingMetric` in comparator validation exceptions, alongside `UnknownMetricValue`, `InvalidEqClass`, `UnknownMetric`, `SyntaxError`, `ValueError`, and `KeyError`.
+  - **FIRST Reference Diagnostic**: Secondary diagnostic analysis comparing primary and secondary scores against official FIRST reference values for any vector exhibiting `SCORE_MISMATCH`.
+  - **Derived Severity Diagnostic**: Qualitative severity rating interval comparison (Section 4.2).
+- **Rationale**: Eliminates measurement confounding between mathematical float arithmetic and syntax validation while maintaining complete epistemological transparency.
+- **Files Affected**:
+  - `validation/article/r6_a1_protocol_deviation_log.md` (this record)
+  - `validation/article/r6_a1_experiment_registry.json`
+  - `validation/article/r6_differential_r2/r6_differential_r2_corpus_eligibility_manifest.json`
+  - `validation/article/r6_differential_r2/r6_differential_r2_preregistration.md`
+  - `validation/article/r6_differential_r2/r6_differential_r2_measurement_contract.json`
+  - `validation/article/r6_differential_r2/r6_differential_r2_execution_plan.md`
+  - `validation/article/r6_differential_r2/r6_differential_r2_change_manifest.json`
+  - `validation/article/r6_differential_r2/r6_differential_r2_runner_contract.json`
+  - `scripts/run_r6_2_differential_experiment.py`
+- **RQ/Hypothesis Affected**: `RQ-R6-4`
+- **Had any relevant results already been observed?**: YES for R1 (454,047 exact matches, 7,397 mismatches at $|\Delta| = 0.1$, 25,028 negative cases); strictly NO for R2 (`observed_evaluation_records = 0`, `results_available = false`).
+- **Classification**: `POST_RESULT_CHANGE`
+- **Potential Bias Introduced & Anti-Retuning Safeguards**:
+  1. **Strict Engine Arithmetic Invariance**: Neither HelpUS scorer nor `cvss4py` arithmetic/rounding is modified.
+  2. **Zero Tolerance Retuning**: Delta of 0.1 remains strictly `SCORE_MISMATCH`; no tolerance expansion permitted.
+  3. **Null Targets**: `target_match_rate = null` and `expected_match_rate = null`.
+  4. **Corpus Partition Invariance**: Partition sum strictly preserved ($461{,}444 + 25{,}028 = 486{,}472$).
+  5. **Held-Out Quarantine**: Strictly locked (`held_out_accessed = false`).
+  6. **Equation 8 Invariance**: Formula and weights untouched.
+- **Whether a new protocol version (R6.2+) is required**: YES (`R6.2-DIFF-R2`)
+- **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-DIFF-R2-PREREGISTER-FREEZE-289`)
