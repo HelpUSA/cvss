@@ -9,6 +9,17 @@ import {
   useRouter,
 } from "next/navigation";
 
+function slugify(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80);
+}
+
 type ProjectOption = {
   id: string;
   name: string;
@@ -37,11 +48,19 @@ export function EnvironmentCreateForm({
       projects[0]?.id ?? "",
     );
 
+  const [template, setTemplate] =
+    useState("");
+
   const [name, setName] =
     useState("");
 
   const [slug, setSlug] =
     useState("");
+
+  const [
+    slugManuallyEdited,
+    setSlugManuallyEdited,
+  ] = useState(false);
 
   const [pending, setPending] =
     useState(false);
@@ -75,17 +94,24 @@ export function EnvironmentCreateForm({
         form.querySelector<HTMLInputElement>(
           "#environment-name",
         );
+      const slugEl =
+        form.querySelector<HTMLInputElement>(
+          "#environment-slug",
+        );
       if (nameEl && nameEl.value !== "") {
         setName((prev) =>
           prev === ""
             ? nameEl.value
             : prev,
         );
+        if (!slugEl || slugEl.value === "") {
+          setSlug((prev) =>
+            prev === ""
+              ? slugify(nameEl.value)
+              : prev,
+          );
+        }
       }
-      const slugEl =
-        form.querySelector<HTMLInputElement>(
-          "#environment-slug",
-        );
       if (slugEl && slugEl.value !== "") {
         const normalized =
           slugEl.value.toLowerCase();
@@ -157,8 +183,10 @@ export function EnvironmentCreateForm({
         ]);
       }
 
+      setTemplate("");
       setName("");
       setSlug("");
+      setSlugManuallyEdited(false);
       setMessage(
         "Ambiente criado com sucesso.",
       );
@@ -211,6 +239,37 @@ export function EnvironmentCreateForm({
         </div>
 
         <div className="field">
+          <label htmlFor="environment-template">
+            Tipo de ambiente (atalho)
+          </label>
+          <select
+            id="environment-template"
+            value={template}
+            onChange={(event) => {
+              const value = event.target.value;
+              setTemplate(value);
+              if (!value) return;
+              setName(value);
+              setSlug(slugify(value));
+              setSlugManuallyEdited(false);
+            }}
+          >
+            <option value="">
+              Escolher tipo...
+            </option>
+            <option value="Produção">Produção</option>
+            <option value="Homologação">Homologação</option>
+            <option value="Desenvolvimento">Desenvolvimento</option>
+            <option value="DMZ">DMZ</option>
+            <option value="Rede interna">Rede interna</option>
+            <option value="Cloud / Nuvem">Cloud / Nuvem</option>
+          </select>
+          <small>
+            Selecione um tipo comum ou escreva um nome personalizado abaixo.
+          </small>
+        </div>
+
+        <div className="field">
           <label htmlFor="environment-name">
             Nome do ambiente
           </label>
@@ -218,13 +277,21 @@ export function EnvironmentCreateForm({
           <input
             id="environment-name"
             value={name}
-            onChange={(event) =>
-              setName(event.target.value)
-            }
+            onChange={(event) => {
+              const nextName = event.target.value;
+              setName(nextName);
+              setTemplate("");
+              if (!slugManuallyEdited) {
+                setSlug(slugify(nextName));
+              }
+            }}
             minLength={2}
             maxLength={120}
             required
           />
+          <small>
+            O slug é gerado automaticamente e continua editável.
+          </small>
         </div>
 
         <div className="field">
@@ -235,12 +302,13 @@ export function EnvironmentCreateForm({
           <input
             id="environment-slug"
             value={slug}
-            onChange={(event) =>
+            onChange={(event) => {
               setSlug(
                 event.target.value
                   .toLowerCase(),
-              )
-            }
+              );
+              setSlugManuallyEdited(true);
+            }}
             pattern="[a-z0-9]+(?:-[a-z0-9]+)*"
             minLength={2}
             maxLength={80}

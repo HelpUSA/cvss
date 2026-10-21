@@ -589,6 +589,73 @@ export function AssessmentRunForm({
         </small>
       </div>
 
+      <div className="field">
+        <label htmlFor="evidence-age-preset">
+          Idade da evidência — atalho
+        </label>
+        <select
+          id="evidence-age-preset"
+          value={
+            ["0", "1", "3", "7", "30"].includes(
+              telemetryAgeDays,
+            )
+              ? telemetryAgeDays
+              : ""
+          }
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value !== "") {
+              setTelemetryAgeDays(value);
+            }
+          }}
+        >
+          <option value="">
+            Escolher atalho...
+          </option>
+          <option value="0">Coletada agora / hoje</option>
+          <option value="1">1 dia</option>
+          <option value="3">3 dias</option>
+          <option value="7">7 dias</option>
+          <option value="30">30 dias</option>
+        </select>
+        <small>
+          Use o valor real quando souber. O campo numérico abaixo continua editável.
+        </small>
+      </div>
+
+      <div className="field">
+        <label htmlFor="evidence-validity-preset">
+          Validade máxima — atalho
+        </label>
+        <select
+          id="evidence-validity-preset"
+          value={
+            ["1", "7", "30", "90"].includes(
+              maxTelemetryAgeDays,
+            )
+              ? maxTelemetryAgeDays
+              : ""
+          }
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value !== "") {
+              setMaxTelemetryAgeDays(value);
+            }
+          }}
+        >
+          <option value="">
+            Escolher atalho...
+          </option>
+          <option value="1">1 dia</option>
+          <option value="7">7 dias</option>
+          <option value="30">30 dias</option>
+          <option value="90">90 dias</option>
+        </select>
+        <small>
+          Escolha um prazo operacional comum ou ajuste manualmente abaixo.
+        </small>
+      </div>
+
       <div
         style={{
           display: "grid",
