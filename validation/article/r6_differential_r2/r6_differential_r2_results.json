@@ -1,0 +1,110 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r2_results_v1.json",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2",
+  "label": "R6.2-DIFF-R2",
+  "rq_id": "RQ-R6-4",
+  "protocol_version": "R6.2",
+  "protocol_deviation_id": "R6-DEV-005",
+  "preregistration_commit": "1bbd1b6b29abd25d5e7dc5b677fee3dae28ec6cb",
+  "runner_sha256": "b2b9d925c853f523e52ea661eeac3991eb4290077fa874187759b6871ce7cc82",
+  "eligibility_manifest_sha256": "71e0432bf5d3996978ded52cea7d39fcf1cc2c939c1ea15bc386650f5a8aebbe",
+  "comparator_name": "cvss4py",
+  "comparator_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+  "corpus_commit": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "total_corpus_records": 486472,
+  "primary_numeric_endpoint": {
+    "endpoint_name": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+    "target_population": "VALID_SCORE_VECTOR",
+    "denominator": 461444,
+    "processed_count": 461444,
+    "counts": {
+      "EXECUTION_ERROR": 0,
+      "VALIDITY_DISAGREEMENT": 0,
+      "SCORE_MISMATCH": 7397,
+      "EXACT_SCORE_MATCH": 454047
+    },
+    "category_sum": 461444,
+    "exact_score_match_count": 454047,
+    "exact_score_match_rate": "98.3970%",
+    "score_mismatch_count": 7397,
+    "score_mismatch_rate": "1.6030%",
+    "validity_disagreement_count": 0,
+    "validity_disagreement_rate": "0.0000%",
+    "execution_error_count": 0,
+    "execution_error_rate": "0.0000%",
+    "max_score_delta": 0.1,
+    "score_delta_distribution": {
+      "0.1": 7397
+    },
+    "sign_distribution": {
+      "HELPUS_GREATER_THAN_CVSS4PY": 6864,
+      "HELPUS_LESS_THAN_CVSS4PY": 533
+    },
+    "severity_boundary_crossings": 68
+  },
+  "secondary_negative_endpoint": {
+    "endpoint_name": "SECONDARY_NEGATIVE_VALIDATION_CONCORDANCE",
+    "target_population": "NEGATIVE_VALIDATION_CASE",
+    "denominator": 25028,
+    "processed_count": 25028,
+    "counts": {
+      "NEGATIVE_EXECUTION_ERROR": 0,
+      "NEGATIVE_VALIDITY_DISAGREEMENT": 0,
+      "SYNTAX_REJECTION_CONCORDANCE": 25028
+    },
+    "category_sum": 25028,
+    "syntax_rejection_concordance_count": 25028,
+    "syntax_rejection_concordance_rate": "100.0000%",
+    "negative_validity_disagreement_count": 0,
+    "negative_validity_disagreement_rate": "0.0000%",
+    "negative_execution_error_count": 0,
+    "negative_execution_error_rate": "0.0000%",
+    "missing_metric_count": 13126,
+    "comparator_negative_exceptions": {
+      "UnknownMetricValue": 11828,
+      "MissingMetric": 13126,
+      "SyntaxError": 74
+    },
+    "primary_negative_exceptions": {
+      "CVSS4MalformedError": 22205,
+      "CVSS4MandatoryError": 2823
+    }
+  },
+  "secondary_diagnostics": {
+    "first_reference_diagnostic": {
+      "HELPUS_MATCHES_FIRST_REFERENCE_ONLY": 7397,
+      "CVSS4PY_MATCHES_FIRST_REFERENCE_ONLY": 0,
+      "NEITHER_MATCHES_FIRST_REFERENCE": 0,
+      "FIRST_REFERENCE_UNAVAILABLE": 0
+    },
+    "severity_rating_concordance": {
+      "counts": {
+        "SAME_SEVERITY_BAND": 461376,
+        "SEVERITY_BOUNDARY_CROSSED": 68,
+        "NOT_APPLICABLE": 0
+      },
+      "same_severity_band_count": 461376,
+      "severity_boundary_crossed_count": 68,
+      "not_applicable_count": 0
+    }
+  },
+  "deterministic_rerun_parity": "PASS",
+  "run1_duration_seconds": 92.01,
+  "run2_duration_seconds": 94.31,
+  "mismatches_artifact": {
+    "path": "validation/article/r6_differential_r2/r6_differential_r2_mismatches.jsonl",
+    "record_count": 7397,
+    "sha256": "aa629f147be0c4194c108bf5300f88f71b09c0460ab4306fcbc39bb787ef86fe"
+  },
+  "guardrails": {
+    "canonical_engine_modified": false,
+    "comparator_modified": false,
+    "corpus_modified": false,
+    "held_out_accessed": false,
+    "target_match_rate": null,
+    "expected_match_rate": null,
+    "scientific_execution_count": 1,
+    "human_adjudication_completed": false
+  },
+  "results_status": "COMPLETED_FROZEN"
+}

@@ -343,19 +343,47 @@
   "differential_validation_r2_label": "R6.2-DIFF-R2",
   "differential_validation_r2_rq_id": "RQ-R6-4",
   "differential_validation_r2_parent_experiment": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
-  "differential_validation_r2_status": "PREREGISTERED_FROZEN_NOT_EXECUTED",
+  "differential_validation_r2_status": "COMPLETED_FROZEN",
   "differential_validation_r2_protocol_deviation_id": "R6-DEV-005",
   "differential_validation_r2_D_numeric": 461444,
   "differential_validation_r2_D_validation": 25028,
   "differential_validation_r2_total_denominator": 486472,
   "differential_validation_r2_target_match_rate": null,
   "differential_validation_r2_expected_match_rate": null,
-  "differential_validation_r2_results_available": false,
+  "differential_validation_r2_results_available": true,
   "differential_validation_r2_held_out_accessed": false,
   "differential_validation_r2_held_out_allowed": false,
   "differential_validation_r2_anti_retuning": true,
   "differential_validation_r2_eq8_modified": false,
   "differential_validation_r2_deterministic_rerun_required": true,
-  "differential_validation_r2_scientific_execution_count": 0,
-  "differential_validation_r2_execution_status": "NOT_EXECUTED"
+  "differential_validation_r2_scientific_execution_count": 1,
+  "differential_validation_r2_execution_status": "COMPLETED",
+  "differential_validation_r2_run1_counts": {
+    "primary": {
+      "EXECUTION_ERROR": 0,
+      "VALIDITY_DISAGREEMENT": 0,
+      "SCORE_MISMATCH": 7397,
+      "EXACT_SCORE_MATCH": 454047
+    },
+    "negative": {
+      "NEGATIVE_EXECUTION_ERROR": 0,
+      "NEGATIVE_VALIDITY_DISAGREEMENT": 0,
+      "SYNTAX_REJECTION_CONCORDANCE": 25028
+    }
+  },
+  "differential_validation_r2_run2_counts": {
+    "primary": {
+      "EXECUTION_ERROR": 0,
+      "VALIDITY_DISAGREEMENT": 0,
+      "SCORE_MISMATCH": 7397,
+      "EXACT_SCORE_MATCH": 454047
+    },
+    "negative": {
+      "NEGATIVE_EXECUTION_ERROR": 0,
+      "NEGATIVE_VALIDITY_DISAGREEMENT": 0,
+      "SYNTAX_REJECTION_CONCORDANCE": 25028
+    }
+  },
+  "differential_validation_r2_deterministic_rerun_parity": "PASS",
+  "differential_validation_r2_results_sha256": "e54d5841184bf10d5c5663032dab67063b15fb9ff53d2e3759d6646da5779776"
 }
