@@ -1,0 +1,36 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_1_t2_compatibility_contract_v1.json",
+  "contract_version": "2.1.0",
+  "protocol_version": "R6.1",
+  "parent_specification_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
+  "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+  "protocol_deviation_id": "R6-DEV-001",
+  "change_classification": "POST_RESULT_CHANGE",
+  "original_t2_immutable": true,
+  "compatibility_categories": [
+    "V1_VALID_V2_VALID",
+    "V1_VALID_V2_INVALID",
+    "V1_INVALID_V2_INVALID",
+    "V1_VALID_V2_VALID_NORMALIZED",
+    "V1_INVALID_V2_VALID"
+  ],
+  "diagnostic_dimension": "v2_error_category",
+  "allowed_diagnostic_error_categories": [
+    "UNKNOWN_FIELD",
+    "MISSING_REQUIRED_FIELD",
+    "INVALID_TYPE",
+    "INVALID_ENUM",
+    "INVALID_RANGE",
+    "INVALID_NESTED_OBJECT",
+    "RESERVED_FIELD",
+    "INVALID_EXTENSION_NAMESPACE"
+  ],
+  "result_target": null,
+  "held_out_allowed": false,
+  "schema_semantics_changed": false,
+  "governance_semantics_changed": false,
+  "eq8_changed": false,
+  "r5_results_changed": false,
+  "anti_overfitting_locked": true,
+  "rerun_status": "NOT_EXECUTED"
+}
