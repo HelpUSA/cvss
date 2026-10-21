@@ -1,0 +1,31 @@
+{
+  "acquisition_timestamp_utc": "2026-10-21T16:18:36.477731+00:00",
+  "acquisition_completed_utc": "2026-10-21T16:18:54.394465+00:00",
+  "primary_source_endpoint": "https://api.github.com/advisories",
+  "pagination_mechanism": "cursor_based_link_header",
+  "total_pages_fetched": 10,
+  "query_parameters": {
+    "type": "reviewed",
+    "published": "2026-09-01T00:00:00Z..2026-10-01T00:00:00Z",
+    "per_page": 100
+  },
+  "raw_candidate_count": 947,
+  "eligible_natural_count": 938,
+  "total_exclusions": 9,
+  "exclusion_breakdown": {
+    "MALWARE_ADVISORY": 9,
+    "UNREVIEWED_STATUS": 0,
+    "OUTSIDE_TEMPORAL_WINDOW": 0,
+    "INVALID_GHSA_ID": 0,
+    "INSUFFICIENT_METADATA": 0,
+    "R5_SCENARIO_OVERLAP": 0,
+    "DUPLICATE_GHSA_RECORD": 0
+  },
+  "r5_overlap_count": 0,
+  "r5_overlap_candidates": [],
+  "zero_selection_by_cvss_or_result": true,
+  "corpus_collected": true,
+  "corpus_locked": true,
+  "results_available": false,
+  "experiments_executed": false
+}
