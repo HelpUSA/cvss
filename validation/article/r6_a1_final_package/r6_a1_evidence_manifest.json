@@ -1,0 +1,75 @@
+{
+  "schema": "https://helpus.org/schemas/r6_a1_evidence_manifest_v1.json",
+  "schema_version": "1.0.0",
+  "package_name": "HELPUS-CVSS-R6-A1-CAMERA-READY-PACKAGE",
+  "created_at_utc": "2026-10-21T23:34:00Z",
+  "branch": "research/r6-a1-schema-governance-implementation",
+  "lineage": {
+    "r5_base_freeze": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
+    "r6_spec_freeze": "090ad8b727e674aac8e95864fe7740b15092ea60",
+    "r6_impl_freeze": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+    "r6_1_taxonomy_freeze": "bfaece26f9f718672be6b754ad83497ac7f102ea",
+    "t2r_freeze": "aa215569bddb2e1b341a62317cf3206d0d465a21",
+    "t3_freeze": "c77599be1ceac1cd39d9e552eb51196cbe427f5e",
+    "t4r_freeze": "c9ba1e28811588364c56cc7111a67cbb0929b765",
+    "nf2_r_freeze": "2996e3511c73623ef152dbf610516a54cb35328c",
+    "t5_r_freeze": "6c25b757a1360b1e813b4338918ec8c91ad69d29",
+    "t6_freeze": "8272f7dfa82d739ff09e9303acd9d12c38368cc1",
+    "r2_differential_prereg_freeze": "1bbd1b6b29abd25d5e7dc5b677fee3dae28ec6cb",
+    "r2_differential_results_freeze": "32407259b9e8b07f84316c5057bf885ec29e8e8f",
+    "t7_heldout_prereg_freeze": "978694618574a8962e5dc8b6c0111bc792110685",
+    "t7_heldout_results_freeze": "a1053b4240fad485b5dc55f7e16f0f5326e94285",
+    "manuscript_consolidation_commit": "716f820f162e5494f1455312eff12270763cf333"
+  },
+  "results_summary": {
+    "differential_r2": {
+      "D_numeric": 461444,
+      "exact_matches": 454047,
+      "exact_matches_pct": 98.397,
+      "mismatches": 7397,
+      "mismatches_pct": 1.603,
+      "mismatch_delta": 0.1,
+      "first_reference_match_for_helpus_divergences": "7397/7397 (100.0%)",
+      "validity_disagreements": 0,
+      "execution_errors": 0,
+      "D_validation": 25028,
+      "rejection_concordance": 25028,
+      "rejection_concordance_pct": 100.0,
+      "deterministic_parity": "PASS"
+    },
+    "held_out_transfer_t7": {
+      "eligible_denominator": 938,
+      "raw_candidates": 947,
+      "exclusions": 9,
+      "nominal_calculable": 339,
+      "nominal_calculable_pct": 36.1407,
+      "fail_closed_rejected": 599,
+      "fail_closed_rejected_pct": 63.8593,
+      "information_invented": 0,
+      "autonomous_overrides": 0,
+      "independent_trace_verifier_status": "938/938 PASS",
+      "diagnostic_checks_evaluated": 3232,
+      "deterministic_parity": "PASS"
+    },
+    "schema_v2_mutation_campaign": {
+      "t2r_historical_parents_invalid_v2": "30/30 (12 INVALID_TYPE, 18 INVALID_ENUM)",
+      "t3_replay_rejections": "120/120 (100.0%)",
+      "t3_f3_subobject_injection_v2_vs_v1": "16/16 rejected vs 0/16 rejected",
+      "t4r_primary_attributable_rejections": "75/90 (83.33%)",
+      "nf2_r_companion_root_rejections": "15/15 (100.0% UNKNOWN_FIELD)"
+    },
+    "governance_override_invariants": {
+      "t5_r_fixtures_pass": "8/8 PASS (INV-G1..INV-G8)",
+      "eq8_formula_invariance": "VERIFIED",
+      "autonomous_overrides_attempted": 0,
+      "t6_nvd_representability": "N=4 (0/4 schema-only, 2/4 composite normative, 2/4 new evidence required, 0 invented data)"
+    }
+  },
+  "governance_invariants": {
+    "human_adjudication_completed": false,
+    "g10b_confirmatory_gate": "SEALED",
+    "c1_c2_datasets": "SEALED_NOT_EXECUTED",
+    "held_out_accessed": true,
+    "new_scientific_executions": 0
+  }
+}
