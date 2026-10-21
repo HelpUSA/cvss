@@ -1,0 +1,84 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_comparator_contract_v1.json",
+  "contract_id": "CONTRACT-R6-DIFFERENTIAL-CVSS40",
+  "contract_version": "1.0.0",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40",
+  "label": "R6-DIFF",
+  "rq_id": "RQ-R6-4",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "created_at": "2026-10-21T20:25:00Z",
+  "primary_engine": {
+    "name": "HelpUS Primary Scorer (Red Hat cvss 3.6)",
+    "module_path": "core/cvss_calculator.py",
+    "upstream_repository": "https://github.com/RedHatProductSecurity/cvss",
+    "version": "3.6",
+    "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9"
+  },
+  "independent_comparator": {
+    "name": "cvss4py",
+    "upstream_repository": "https://github.com/bjedwards/cvss4py",
+    "maintainer": "Benjamin Edwards",
+    "license": "MIT",
+    "cvss40_support": true,
+    "acquisition_status": "NOT_ACQUIRED",
+    "offline_executable": true
+  },
+  "rejected_comparators": [
+    {
+      "name": "FIRSTdotorg/cvss-v4-calculator",
+      "reason": "Used as canonical reference test fixture generator in repository; requires Node.js runtime"
+    },
+    {
+      "name": "pandatix/go-cvss",
+      "reason": "Requires external Go compiler toolchain, introducing cross-platform replication friction"
+    },
+    {
+      "name": "Web/Remote Calculators (NVD/FIRST online APIs)",
+      "reason": "Violates mandatory offline deterministic execution requirement"
+    }
+  ],
+  "vector_corpus": {
+    "source": "FIRSTdotorg/cvss-resources (pinned commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb)",
+    "local_fixture_dir": "tests/fixtures/cvss_resources/vectorFiles",
+    "denominator": 486472,
+    "breakdown": {
+      "macro_vectors": 269,
+      "reference_vectors": 66299,
+      "base_threat_vectors": 419904
+    },
+    "ordering": "LEXICOGRAPHICAL_BY_VECTOR_STRING"
+  },
+  "classification_taxonomy": [
+    "EXACT_MATCH",
+    "SCORE_MISMATCH",
+    "SEVERITY_MISMATCH",
+    "VECTOR_NORMALIZATION_MISMATCH",
+    "VALIDITY_DISAGREEMENT",
+    "COMPARATOR_UNSUPPORTED_CASE",
+    "EXECUTION_ERROR"
+  ],
+  "mismatch_precedence": [
+    "EXECUTION_ERROR",
+    "VALIDITY_DISAGREEMENT",
+    "COMPARATOR_UNSUPPORTED_CASE",
+    "SCORE_MISMATCH",
+    "SEVERITY_MISMATCH",
+    "VECTOR_NORMALIZATION_MISMATCH",
+    "EXACT_MATCH"
+  ],
+  "outputs_compared": [
+    "exact_numeric_score",
+    "qualitative_severity_rating",
+    "vector_nomenclature"
+  ],
+  "deterministic": true,
+  "random_sampling": false,
+  "target_match_rate": null,
+  "expected_match_rate": null,
+  "results_available": false,
+  "held_out_allowed": false,
+  "held_out_accessed": false,
+  "anti_retuning": true,
+  "Eq8_modified": false,
+  "claim_boundary": "Differential validation evaluates mathematical and semantic scoring concordance between independent CVSS v4.0 codebases across a fixed vector corpus; it does not constitute formal verification of all possible inputs or evaluation of real-world operational risk policies."
+}

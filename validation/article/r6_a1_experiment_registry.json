@@ -5,7 +5,7 @@
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T20:18:30Z",
+  "last_updated_at": "2026-10-21T20:29:15Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -282,5 +282,22 @@
   "t6_nvd_representability_schema_only_representable": 0,
   "t6_nvd_representability_composite_representable": 2,
   "t6_nvd_representability_information_invention_count": 0,
-  "t6_nvd_representability_information_loss_count": 0
+  "t6_nvd_representability_information_loss_count": 0,
+  "differential_validation_experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40",
+  "differential_validation_label": "R6-DIFF",
+  "differential_validation_rq_id": "RQ-R6-4",
+  "differential_validation_status": "PREREGISTERED_NOT_EXECUTED",
+  "differential_validation_comparator_name": "cvss4py",
+  "differential_validation_comparator_repository": "https://github.com/bjedwards/cvss4py",
+  "differential_validation_comparator_status": "SELECTED_NOT_ACQUIRED",
+  "differential_validation_comparator_acquisition_rule": "PIN_UPSTREAM_COMMIT_VIA_LS_REMOTE_BEFORE_EXECUTION",
+  "differential_validation_vector_corpus_source": "FIRSTdotorg/cvss-resources (commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb)",
+  "differential_validation_vector_denominator": 486472,
+  "differential_validation_target_match_rate": null,
+  "differential_validation_expected_match_rate": null,
+  "differential_validation_results_available": false,
+  "differential_validation_held_out_accessed": false,
+  "differential_validation_held_out_allowed": false,
+  "differential_validation_anti_retuning": true,
+  "differential_validation_eq8_modified": false
 }
