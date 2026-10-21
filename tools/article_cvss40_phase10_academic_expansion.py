@@ -1069,7 +1069,19 @@ if remaining_markers:
         + ", ".join(remaining_markers)
     )
 
-write(TEX, tex)
+# PRESERVES_EXISTING_R2_CONTENT_ONLY:
+# If the expanded R2 manuscript exists with independent trace verification content,
+# preserve it strictly to prevent regression to legacy templates.
+has_r2_trace_content = (
+    TEX.exists()
+    and "Trace Governance and Machine-Checkable State" in TEX.read_text(encoding="utf-8")
+    and ("Ablation of Priority Components" in TEX.read_text(encoding="utf-8") or "Empirical Mutation Testing" in TEX.read_text(encoding="utf-8") or "Contextual Priority Sensitivity Stress Test" in TEX.read_text(encoding="utf-8") or "Independent Trace Verifier" in TEX.read_text(encoding="utf-8"))
+)
+
+if has_r2_trace_content or (TEX.exists() and len(TEX.read_text(encoding="utf-8").splitlines()) > 500):
+    print(f"PRESERVES_EXISTING_R2_CONTENT_ONLY: Preserving existing expanded R2 manuscript with Independent Trace Verification at {TEX}")
+else:
+    write(TEX, tex)
 
 academic_bib = r"""@misc{first_cvss40,
   author       = {{FIRST}},

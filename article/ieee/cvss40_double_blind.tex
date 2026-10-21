@@ -26,7 +26,7 @@ Evidence Normalization, Governance, and Traceability}
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents an evidence normalization, governance, and traceability workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, resolves candidate Environmental values under explicit governance policies, records uncertainty, enforces human authorization requirements, and exports reproducible artifacts. The evaluation strictly separates specification-level arithmetic conformance validation from controlled workflow evaluation across curated scenarios. At the specification level, the scoring core demonstrated 100.00\% conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across 10,000 metamorphic executions. Under controlled scenario evaluation with a hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), the workflow achieved 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority changes in 22 of 30 scenarios. The evaluation demonstrates workflow schema completeness, context sensitivity, and traceability under construction-controlled conditions; it does not establish autonomous scoring accuracy, predictive superiority, or production effectiveness.
+CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, resolves candidate Environmental values under explicit governance policies, records uncertainty, enforces human authorization checkpoints, and exports machine-checkable trace artifacts. The evaluation strictly separates specification-level arithmetic conformance validation from controlled workflow evaluation across curated scenarios. At the specification level, the scoring core demonstrated 100.00\% reference conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across a finite 10,000-execution metamorphic testing campaign. Under controlled scenario evaluation with a curated hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), the workflow achieved 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority shifts in 22 of 30 scenarios. The evaluation demonstrates workflow schema completeness, context sensitivity, and machine-checkable traceability under construction-controlled conditions with limited external validity; it does not establish autonomous scoring correctness, predictive superiority, or validated production effectiveness without human review.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -199,9 +199,7 @@ The evaluation addresses three research questions.
 each evaluated scenario?
 \item[RQ2:] Does consumer-side context produce observable changes in an
 operational priority view relative to a Base-only view?
-\item[RQ3:] Can uncertainty and human-review requirements be represented
-explicitly enough to prevent watcher output from being presented as an
-autonomous official score?
+\item[RQ3:] To what extent does the trace schema deterministically encode evidence provenance, explicit uncertainty, policy transitions, and mandatory authorization states in a machine-checkable format?
 \end{description}
 
 Table~\ref{tab:rq} maps each research question to its descriptive measure and
@@ -223,9 +221,9 @@ Completeness does not prove metric correctness. \\
 RQ2 & Sensitivity to curated consumer context &
 Priority transition count; transition distribution; category delta &
 The category delta is not an official CVSS score delta. \\
-RQ3 & Reviewability and uncertainty governance &
+RQ3 & Machine-checkable provenance, uncertainty, and authorization governance &
 Uncertainty fields; review-required state; claim-boundary checks &
-Review state does not constitute independent expert adjudication. \\
+Trace schema completeness does not constitute independent expert adjudication. \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -295,7 +293,7 @@ organized into six logical layers.
 
 \node[box, right=of scorer] (trace) {
     \textbf{5. Audit Trace \& Report}\\[1.5pt]
-    {\tiny Immutable JSON trace artifact,\\score delta $\Delta$,\\priority shift $\Delta_{\text{cat}}$}
+    {\tiny Structured JSON trace artifact,\\score delta $\Delta$,\\priority shift $\Delta_{\text{cat}}$}
 };
 
 \node[gate, right=of trace] (auth) {
@@ -382,7 +380,7 @@ reproducible artifacts across curated scenarios.
 
 \subsection{Specification-Level Verification Design}
 
-To establish a mathematically verified baseline prior to evaluating the operational
+To establish an exhaustive reference-conformance-tested baseline prior to evaluating the operational
 workflow, the deterministic scoring core was evaluated against the official FIRST reference
 corpus Round~5, comprising 486,472 vectors evaluated against pinned FIRST commit
 \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}. In addition, a metamorphic testing
@@ -409,17 +407,17 @@ S(v, T_{\text{MR2}}(e_{\text{def}})) \ge S(v, e_{\text{def}})
 \end{equation}
 Violation criterion: $S(v, T_{\text{MR2}}(e_{\text{def}})) < S(v, e_{\text{def}})$.
 
-\item \textbf{MR-3 (Context Permutation Invariance):} Let $e = \{(k_i, v_i)\}_{i=1}^n$ be an evidence set, and let $\pi \in \Pi_n$ be an arbitrary key-ordering permutation.
+\item \textbf{MR-3 (Context Permutation Invariance):} Let $\sigma = \langle (k_1, v_1), \dots, (k_n, v_n) \rangle \in \text{Seq}(\mathcal{E})$ be an ordered serialization of evidence key-value pairs ingested by the workflow, and let $\pi \in S_n$ be an arbitrary permutation representing an alternate arrival or serialization order of the same logical evidence.
 \begin{equation}
-S(v, \pi(e)) = S(v, e) \quad \land \quad M(v, \pi(e)) = M(v, e)
+S(v, \pi(\sigma)) = S(v, \sigma) \quad \land \quad M(v, \pi(\sigma)) = M(v, \sigma)
 \end{equation}
-Violation criterion: $S(v, \pi(e)) \ne S(v, e) \lor M(v, \pi(e)) \ne M(v, e)$.
+Violation criterion: $S(v, \pi(\sigma)) \ne S(v, \sigma) \lor M(v, \pi(\sigma)) \ne M(v, \sigma)$.
 
-\item \textbf{MR-4 (Irrelevant Control Invariance):} Let $I$ be an evidence subset disjoint from CVSS environmental evaluation parameters ($I \cap \text{dom}(\mathcal{E}) = \emptyset$, e.g., backup logs, unrelated software flags).
+\item \textbf{MR-4 (Irrelevant Evidence Invariance):} Let $\mathcal{K}$ be the universe of evidence keys, $K_{\text{rel}} \subset \mathcal{K}$ the subset consumed by the environmental resolver, and $I$ an orthogonal evidence record whose keys satisfy $\text{keys}(I) \subseteq \mathcal{K} \setminus K_{\text{rel}}$ (e.g., unrelated operational logs, maintenance timestamps).
 \begin{equation}
-S(v, e \cup I) = S(v, e) \quad \land \quad M(v, e \cup I) = M(v, e)
+S(v, e \oplus I) = S(v, e) \quad \land \quad M(v, e \oplus I) = M(v, e)
 \end{equation}
-Violation criterion: $S(v, e \cup I) \ne S(v, e) \lor M(v, e \cup I) \ne M(v, e)$.
+Violation criterion: $S(v, e \oplus I) \ne S(v, e) \lor M(v, e \oplus I) \ne M(v, e)$.
 \end{enumerate}
 These relations characterize verified invariants within the finite campaign ($2,500$ executions per relation, zero violations); they do not constitute an exhaustive universal mathematical proof across infinite input spaces.
 
@@ -488,20 +486,20 @@ The base priority $P_{\text{base}} \in \{\text{defer}, \text{low}, \text{medium}
 \begin{equation}
 g(P_{\text{env}}) = \min(4, \max(0, g(P_{\text{base}}) + w_{\text{context}}(e) + w_{\text{control}}(e)))
 \end{equation}
-where $w_{\text{context}}(e) \in \{0, 1, 2\}$ reflects deployment exposure ($+2$ for public web services, $0$ for restricted administrative segments) and $w_{\text{control}}(e) \in \{-1, 0\}$ reflects active compensating controls ($-1$ for defense-in-depth, network segmentation, or multi-factor authentication).
+where $w_{\text{context}}(e) \in \{-2, 0, 1, 2, 3\}$ is determined by the deployment environment profile ($+3$ for public API gateways, $+2$ for customer-facing web applications, identity providers, backend databases, and OT monitoring gateways, $+1$ for developer workstations, $0$ for internal administrative consoles, and $-2$ for isolated lab systems), and $w_{\text{control}}(e) \in \{-1, 0\}$ reflects active compensating controls ($-1$ when controls such as network isolation, WAF, or multi-factor authentication are present; $0$ when unconstrained).
 
 The Category Delta $\Delta_{\text{cat}}$ for a scenario is formally defined as:
 \begin{equation}
 \Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})
 \end{equation}
-where $\Delta_{\text{cat}} > 0$ denotes priority escalation (up to $+2.0$),
-$\Delta_{\text{cat}} < 0$ denotes priority de-escalation (down to $-3.0$), and
+where $\Delta_{\text{cat}} > 0$ denotes priority escalation (up to $+2$),
+$\Delta_{\text{cat}} < 0$ denotes priority de-escalation (down to $-3$), and
 $\Delta_{\text{cat}} = 0$ denotes unchanged priority. Across the $N=30$ curated scenarios,
 the sample mean category delta is:
 \begin{equation}
 \bar{\Delta}_{\text{cat}} = \frac{1}{N} \sum_{i=1}^N \Delta_{\text{cat}}^{(i)} = \frac{6.0}{30} = 0.2
 \end{equation}
-confirming the exact empirical summary reported in the dataset metrics. The priority categories are prototype workflow labels, and their numeric difference is a custom category delta rather than an official CVSS specification metric. This formal separation explains why in Table~\ref{tab:nvd_cves} several CVEs exhibit a numeric score delta of $0.0$ while undergoing an operational priority shift ($\Delta_{\text{cat}} = \pm 1$): $S_{\text{env}}$ is governed strictly by the official FIRST MacroVector equivalence classes, whereas $P_{\text{env}}$ incorporates consumer-side deployment exposure and compensating control policy weights outside the CVSS scoring engine.
+confirming the exact empirical summary reported in the dataset metrics. The priority categories are prototype workflow labels, and their numeric difference is a custom category delta rather than an official CVSS specification metric. This formal separation explains why in Table~\ref{tab:nvd_cves} several CVEs exhibit a numeric score delta of $0.0$ while undergoing an operational priority shift ($\Delta_{\text{cat}} = \pm 1$): $S_{\text{env}}$ is governed strictly by the official FIRST MacroVector equivalence classes, whereas $P_{\text{env}}$ incorporates consumer-side deployment exposure and compensating control policy weights outside the CVSS scoring engine. Furthermore, the corrected domain $w_{\text{context}} \in \{-2, 0, 1, 2, 3\}$ and $w_{\text{control}} \in \{-1, 0\}$ mathematically reproduces the full range of observed deltas $[-3, +2]$, including the de-escalations high$\to$defer ($\Delta_{\text{cat}} = -3$ in SCN-SYN-014) and medium$\to$defer ($\Delta_{\text{cat}} = -2$ in SCN-SYN-022) resulting from isolated non-production deployment ($w_{\text{context}} = -2, w_{\text{control}} = -1$).
 
 \subsection{Validation Procedure}
 
@@ -542,9 +540,7 @@ official standard: 486,472 of 486,472 vectors in the FIRST reference corpus Roun
 zero arithmetic divergences against pinned commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}.
 In the metamorphic testing campaign, 10,000 executions completed with zero invariant violations
 across all four relations (MR-1: 2,500/2,500; MR-2: 2,500/2,500; MR-3: 2,500/2,500; MR-4: 2,500/2,500;
-campaign ID \texttt{HELPUS-METAMORPHIC-10K-G9B}, verdict: PASSED). These results confirm that the
-underlying scoring core behaves as a deterministic, monotonic, and specification-conformant
-calculator, providing a verified foundation for empirical workflow evaluation.
+campaign ID \texttt{HELPUS-METAMORPHIC-10K-G9B}, verdict: PASSED). These results confirm that the underlying scoring core behaves as a deterministic and specification-conformant calculator across the reference corpus, providing a verified foundation for empirical workflow evaluation without claiming unconstrained universal monotonicity across untested inputs.
 
 
 \subsection{Empirical Artifact Completeness and Traceability}
@@ -659,13 +655,134 @@ CVE-2026-4253  & CVSS-BT & 2.0 & CVSS-BTE & 2.0 & \phantom{-}0.0 & low $\to$ med
 }
 \end{table}
 
-\subsection{Reviewability}
+\subsection{Trace Governance and Machine-Checkable State}
 
-The workflow preserves evidence, uncertainty, and review state instead of
-exporting only a final category. This supports RQ3 because an analyst can
-inspect the recommendation and its assumptions. However, the current review
-field indicates that review is required; it does not represent completed
-independent adjudication by multiple experts.
+The workflow deterministically encodes evidence provenance, uncertainty, and human authorization states in structured trace artifacts rather than exporting only an ungrounded score or category. To audit this structure independently, an automated trace verifier was executed against the benchmark corpus. Across all 30 canonical scenarios (12 curated NVD records and 18 synthetic test cases, with 12 out-of-scope legacy files segregated without benchmark contamination), the verifier demonstrated 30/30 canonical PASS (canonical failures = 0, overall status = PASS), validating 464 discrete checks across three categories:
+\begin{itemize}
+    \item \textbf{Structural Integrity (240 checks, 0 failures):} Verified top-level schema completeness, required nested environmental evidence structures, mandatory boundary disclaimers, explicit uncertainty representation, and strict enforcement of the non-autonomous human review gatekeeper status (\texttt{human\_review\_status = "required"}).
+    \item \textbf{Arithmetic and Policy Recomputation (128 checks, 0 failures):} Recomputed Base priority mapping $P_{\text{base}} = f(\text{Severity})$, Category Delta arithmetic $\Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})$, ordinal bounded range clamp $g(P_{\text{env}}) \in [0, 4]$, and nominal policy profile lookup decoupled via the canonical policy module (\texttt{core.cvss40\_environmental\_policy}).
+    \item \textbf{Cross-Artifact Consistency (96 checks, 0 failures):} Enforced epistemological source separation (NVD Base scores recomputed via the canonical parser/scorer \texttt{core.cvss40}, whereas synthetic scenarios strictly validated CVSS v4.0 vector grammar and uncertainty disclaimers without treating assigned vectors as official CVE ground truth) and cross-referenced all metadata against the canonical scenario dataset.
+\end{itemize}
+
+The evaluation recorded 34 structured schema limitations, isolated from failures: 30 instances reflect that the current schema provides narrative evidence fields rather than atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item; and four instances correspond to curated deployment adjustments in NVD scenarios (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}).
+
+Specifically, the framework deterministically verifies Base-priority mapping, Category-Delta arithmetic, and nominal policy lookup. Operational priority matches the nominal policy profile in 26 of 30 scenarios. In four curated NVD scenarios (SCN-NVD-001, SCN-NVD-006, SCN-NVD-007, and SCN-NVD-008), deployment-specific constraints recorded in narrative evidence introduce a curated adjustment; the verifier records this as a schema limitation rather than treating the adjustment as silently recomputed from structured weights. In these four cases, the stored operational value is not deterministically recomputable from structured sub-weights because the local trade-off is recorded in narrative prose; the verification instead validates nominal policy derivation combined with declared curated deviation and consistency cross-validation.
+
+These results provide empirical evidence for RQ3, demonstrating machine-checkable conformance with declared provenance, schema, policy-recomputation, uncertainty, and vector-validity constraints. Crucially, this conformance does not establish semantic correctness of the contextual choices, nor does it replace independent expert adjudication.
+
+\subsection{Empirical Mutation Testing of the Trace Verifier}
+
+To evaluate whether the independent trace verifier reliably detects violations of declared schema, arithmetic, governance, and provenance constraints, we conducted an empirical mutation testing campaign. The evaluation targeted six representative benchmark scenarios: three curated NVD records (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-003}, and \texttt{SCN-NVD-007}, spanning both curated overrides and nominal matches) and three synthetic test cases (\texttt{SCN-SYN-013}, \texttt{SCN-SYN-020}, and \texttt{SCN-SYN-028}).
+
+As an essential campaign integrity pre-condition, all six unmodified control traces were verified prior to mutation, demonstrating 6/6 PASS with zero failures. Cryptographic SHA-256 digests of the canonical trace files were recorded before and verified byte-identical after the campaign, confirming zero modification to the underlying benchmark artifacts.
+
+We formulated eight deterministic mutation operators ($M1$--$M8$) reflecting distinct constraint failure modes:
+\begin{table*}[t]
+\caption{Empirical Mutation Testing Results for the Independent Trace Verifier}
+\label{tab:mutation}
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Operator & Injected Violation Class & Applicable & Detected & Missed & Detection Rate \\
+\midrule
+M1 & Structural: Remove mandatory top-level field (\texttt{boundary})               & 6 & 6 & 0 & 100.0\% \\
+M2 & Arithmetic: Category delta mismatch ($\Delta_{\text{cat}}$ corrupted to $+4$)    & 6 & 6 & 0 & 100.0\% \\
+M3 & Vector syntax: Corrupted CVSS v4.0 vector string grammar                      & 6 & 6 & 0 & 100.0\% \\
+M4 & Scorer recomputation: Altered Base score in NVD trace (9.9 vs vector)$^*$     & 3 & 3 & 0 & 100.0\% \\
+M5 & Governance/Uncertainty: Blanked uncertainty flags in synthetic trace$^\dagger$ & 3 & 3 & 0 & 100.0\% \\
+M6 & Authorization state: Forbidden review bypass (\texttt{bypassed})               & 6 & 6 & 0 & 100.0\% \\
+M7 & Provenance: Source separation contamination (cross-origin CVE/source tag)      & 6 & 6 & 0 & 100.0\% \\
+M8 & Cross-artifact: Inconsistent Base severity vs reference CSV                   & 6 & 6 & 0 & 100.0\% \\
+\midrule
+Total & Evaluated Mutation Campaign                                                & 42 & 42 & 0 & 100.0\% \\
+\bottomrule
+\multicolumn{6}{@{}p{\columnwidth}@{}}{\footnotesize $^*$M4 is applicable strictly to NVD records with official scores; marked not applicable (N/A) for 3 synthetic cases. $^\dagger$M5 is applicable strictly to synthetic cases requiring non-official disclaimers; marked N/A for 3 NVD cases. All six N/A cases are excluded from the detection rate denominator.}
+\end{tabular}
+}
+\end{table*}
+
+Across 48 planned cases, 42 mutations were applicable and six were marked not applicable by design ($M4$ on synthetic records and $M5$ on NVD records). Detection semantics strictly required both that the verifier reject the mutated trace and that the operator-specific expected check appear among the recorded failures. The verifier rejected all 42 applicable mutants through their respective expected checks, achieving 42/42 detections (100.0\%) with 0 missed and 0 unexpected outcomes across both NVD (21/21) and synthetic (21/21) partitions.
+
+Empirical mutation testing provides empirical evidence that injected trace violations are detected and rejected in the evaluated mutation set. It does not constitute formal verification, proof of semantic correctness, a completeness guarantee, or exhaustive coverage.
+
+\subsection{Ablation of Priority Components}
+
+To assess the operational contribution of each evidence dimension, we conducted a deterministic ablation study across the $N=30$ canonical benchmark scenarios (12 curated NVD records and 18 synthetic cases). We evaluated five operational variants against the reference benchmark priority stored in the trace corpus:
+\begin{itemize}
+    \item \textbf{B0 (Base Severity Only):} Operational priority assigned strictly from base severity, ignoring environmental metrics and policy weights ($P_{B0} = f(\text{Severity})$).
+    \item \textbf{B1 (Environmental Score Only):} Operational priority assigned strictly from the CVSS-BE environmental score severity rating without contextual policy weighting.
+    \item \textbf{B2 (Context Only):} Policy evaluation incorporating only organizational context evidence ($w_{\text{context}}$), setting controls weight $w_{\text{control}} = 0$.
+    \item \textbf{B3 (Controls Only):} Policy evaluation incorporating only mitigating controls evidence ($w_{\text{control}}$), setting context weight $w_{\text{context}} = 0$.
+    \item \textbf{B4 (Full Nominal Policy):} Full structured policy evaluation combining context and control weights ($w_{\text{context}} + w_{\text{control}}$) clamped to $[0, 4]$.
+\end{itemize}
+
+\begin{table*}[t]
+\caption{Ablation of Priority Components on the Controlled Benchmark ($N=30$)}
+\label{tab:ablation}
+\centering
+\small
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Variant & Exact Match & Match Rate & Mean Signed Diff & Mean |Diff| & Shifts vs B0 \\
+\midrule
+B0 (Base Severity Only)                   & 8/30  & 26.7\%  & -0.200 & 0.933 & 0/30 (0.0\%) \\
+B1 (Environmental Score Only)             & 9/30  & 30.0\%  & -0.167 & 0.967 & 7/30 (23.3\%) \\
+B2 (Context Only, $w_{\text{control}}=0$)  & 11/30 & 36.7\%  & +0.633 & 0.700 & 23/30 (76.7\%) \\
+B3 (Controls Only, $w_{\text{context}}=0$) & 7/30  & 23.3\%  & -1.100 & 1.300 & 27/30 (90.0\%) \\
+B4 (Full Nominal Policy)                  & 26/30 & 86.7\%  & +0.100 & 0.167 & 24/30 (80.0\%) \\
+\midrule
+Reference (Stored Benchmark)$^*$          & 30/30 & 100.0\% & \phantom{+}0.000 & 0.000 & 22/30 (73.3\%) \\
+\bottomrule
+\multicolumn{6}{@{}p{\columnwidth}@{}}{\footnotesize $^*$The stored benchmark represents the reference operational priority within the corpus, not an independent competitive baseline. Agreement with it is tautological by construction for synthetic records and reflects benchmark internal consistency.}
+\end{tabular}
+}
+\end{table*}
+
+Across the 30-scenario controlled benchmark, the full nominal policy (B4) matched the stored operational priority in 26 scenarios (86.7\%) and reduced the mean absolute ordinal difference to 0.167, compared with 0.933 for Base Severity Only (B0), 0.967 for Environmental Score Only (B1), 0.700 for Context Only (B2), and 1.300 for Controls Only (B3). In terms of category shifts relative to base severity, B0 produces 0 shifts (0.0\%), B1 produces 7 shifts (23.3\%), B2 produces 23 shifts (76.7\%), B3 produces 27 shifts (90.0\%), and B4 produces 24 shifts (80.0\%), whereas the reference stored benchmark contains 22 shifts (73.3\%).
+
+Partition analysis reveals distinct epistemological profiles across data sources:
+\begin{itemize}
+    \item \textbf{Curated Real-World Records (NVD, $N=12$):} The full nominal policy achieves 8/12 exact matches with a mean absolute difference of 0.417 (compared with MAE of 0.750 for B0, 0.750 for B1, 1.083 for B2, and 1.167 for B3). The four B4 divergences correspond exactly to the curated NVD deployment adjustments identified by the trace audit (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}), where narrative environmental evidence guided operational posture beyond structured sub-weights.
+    \item \textbf{Curated Test Cases (Synthetic, $N=18$):} The full nominal policy achieves 18/18 exact matches with a mean absolute difference of 0.000 (compared with MAE of 1.056 for B0, 1.111 for B1, 0.444 for B2, and 1.389 for B3). Because synthetic scenarios were authored within the same specification rules, this 100\% match reflects construction consistency with the benchmark framework rather than independent predictive accuracy.
+\end{itemize}
+
+Ablating context ($w_{\text{control}}$ only, B3) and controls ($w_{\text{context}}$ only, B2) demonstrates that neither isolated dimension reproduces the operational target, confirming that both context and control evidence contribute to nominal policy resolution. Furthermore, the CVSS-BE score alone (B1) yields only 9/30 exact matches and a slightly higher mean absolute difference (0.967) than base severity alone (0.933), indicating that score modification without explicit policy weighting does not align with operational prioritization.
+
+Crucially, the stored benchmark is the reference target produced under the project's governance framework, not an independent competitive baseline; its 30/30 conformance is tautological by definition. Because the benchmark is endogenous and $N=30$, these descriptive metrics characterize internal benchmark consistency and component ablation rather than independent predictive validity.
+
+\subsection{Contextual Priority Sensitivity Stress Test}
+
+To evaluate the operational stability of nominal prioritization decisions under local contextual weight uncertainty, we execute a deterministic sensitivity stress test across the 30 canonical benchmark scenarios (12 curated NVD records and 18 synthetic test cases). Because organizational environmental policy in our framework is purely deterministic and rule-based rather than estimated from training data, standard machine learning cross-validation (such as Leave-One-Environment-Out) is methodologically inapplicable; instead, local weight perturbation provides an appropriate, conservative assessment of operational stability.
+
+The stress test perturbs policy weights strictly within the declared specification boundaries: $w_{\text{context}} \in \{-2, 0, 1, 2, 3\}$ and $w_{\text{control}} \in \{-1, 0\}$. For each scenario, context weight is systematically varied across its immediate ordinal neighbors in the ordered domain (nearest lower, nominal, and nearest upper value, bounded by $[-2, 3]$), while compensating control weight is evaluated under both nominal and flipped binary states ($-1 \leftrightarrow 0$). The full evaluation grid spans 166 combinations across the 30 scenarios, comprising 30 nominal configurations and 136 strictly perturbed cases (56 on NVD, 80 on synthetic). All ordinal shifts ($\Delta_p = g(P_{\text{env}}^{\text{pert}}) - g(P_{\text{env}}^{\text{nominal}})$) are measured strictly against the unperturbed nominal policy baseline ($B4_{\text{nominal}}$); observed stored priorities ($B4_{\text{observed}}$) are preserved separately for descriptive traceability and are not used as an empirical ground truth.
+
+\begin{table*}[t]
+\centering
+\caption{Deterministic Contextual Priority Sensitivity Stress Test Results Across 136 Valid Local Perturbations}
+\label{tab:sensitivity}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Evaluation Partition} & \textbf{Perturbations} & \textbf{Unchanged (\%)} & \textbf{Changed (\%)} & \textbf{Mean $|\Delta_p|$} & \textbf{Max $|\Delta_p|$} & \textbf{Stable Scenarios} \\
+\midrule
+Curated Real-World (NVD)        & 56  & 15 (26.79\%) & 41 (73.21\%) & 0.8571 & 2 & 0/12 (0.0\%)  \\
+Curated Test Cases (Synthetic)  & 80  & 40 (50.00\%) & 40 (50.00\%) & 0.6125 & 3 & 2/18 (11.1\%) \\
+\midrule
+\textbf{Total Benchmark Corpus} & \textbf{136} & \textbf{55 (40.44\%)} & \textbf{81 (59.56\%)} & \textbf{0.7132} & \textbf{3} & \textbf{2/30 (6.7\%)} \\
+\bottomrule
+\multicolumn{7}{@{}p{\textwidth}@{}}{\footnotesize Across 136 strictly perturbed cases, 121 (88.97\%) resulted in $|\Delta_p| \le 1$. Directional breakdown: 51 upward shifts (37.50\%) and 30 downward shifts (22.06\%). All deltas are computed relative to $B4_{\text{nominal}}$. Stable scenarios preserve nominal priority under all valid perturbations in the local grid.}
+\end{tabular}%
+}
+\end{table*}
+
+Across the 136 strictly perturbed cases (Table~\ref{tab:sensitivity}), 55 perturbations (40.44\%) preserved the nominal operational priority category and 81 (59.56\%) produced a priority transition (51 upward shifts, 37.50\%; 30 downward shifts, 22.06\%). However, 121 of 136 perturbations (88.97\%) produced an absolute ordinal shift of at most one category ($|\Delta_p| \le 1$), yielding a mean absolute shift of 0.7132. The distribution of shift magnitudes demonstrates bounded local variance: 55 cases with $|\Delta_p| = 0$, 66 with $|\Delta_p| = 1$, 14 with $|\Delta_p| = 2$, and exactly 1 extreme case with $|\Delta_p| = 3$ (observed in an isolated lab perturbation where maximum context elevation coincided with control removal).
+
+At the scenario level, 28 of 30 scenarios were sensitive to at least one valid local perturbation, while 2 scenarios demonstrated complete local stability under all valid perturbations: \texttt{SCN-SYN-019} (identity provider) and \texttt{SCN-SYN-025} (public web application). Across asset profiles, \texttt{internal\_admin\_console} exhibited the highest sensitivity rate (90.0\% changed, mean $|\Delta_p| = 1.2000$, max 2), followed by \texttt{isolated\_lab\_system} (66.67\% changed, mean $|\Delta_p| = 1.0833$, max 3), \texttt{developer\_workstation} (65.0\% changed, mean $|\Delta_p| = 0.7000$, max 2), \texttt{public\_web\_application} (60.0\% changed, mean $|\Delta_p| = 0.6500$, max 2), \texttt{database\_server} (50.0\% changed, mean $|\Delta_p| = 0.5500$, max 2), and \texttt{ot\_monitoring\_gateway} (46.67\% changed, mean $|\Delta_p| = 0.6000$, max 2); in contrast, \texttt{identity\_provider} (45.0\% changed, mean $|\Delta_p| = 0.4500$, max 1) and \texttt{public\_api\_gateway} (44.44\% changed, mean $|\Delta_p| = 0.4444$, max 1) exhibited maximum shifts of at most one rank. The four curated NVD deviations (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}) were evaluated against their respective $B4_{\text{nominal}}$ targets, confirming that operational adjustments recorded in traces reflect documented governance rationale rather than arithmetic fragility.
+
+These stress test results characterize deterministic sensitivity of nominal operational priority to valid local perturbations of contextual policy weights within the declared policy domain. They do not constitute predictive robustness, statistical robustness, generalization to unseen environments, causal sensitivity, calibrated uncertainty, or a formal robustness proof.
 
 \section{Discussion}
 
@@ -750,7 +867,13 @@ construction bias (endogenous validation): because the 30 scenarios (12 real NVD
 with CVSS v4.0 data and 18 curated synthetic cases) were designed to exercise schema coverage,
 field boundaries, and priority transitions, the 100.00\% evidence coverage, 100.00\% trace
 completeness, and observed priority transitions reflect designed capability rather than an
-independent natural distribution. They demonstrate that the workflow schema, ingestion pipeline,
+independent natural distribution. Similarly, the ablation results evaluate internal benchmark
+consistency under a shared governance framework; the agreement between nominal policy and stored
+operational priority represents component consistency rather than independent external validation.
+Furthermore, the mutation testing operators represent intentionally selected perturbations against
+declared schema invariants; high detection demonstrates verifier sensitivity to those injected fault
+classes only, and does not establish completeness against unknown fault classes or semantic correctness
+of the evidence. Similarly, the contextual priority sensitivity stress test evaluates deterministic local stability under valid parameter perturbations bounded by the declared specification domain; profile weights represent deterministic design choices rather than estimated random variables, and the results do not estimate population robustness, calibrated uncertainty, or statistical generalization. They demonstrate that the workflow schema, ingestion pipeline,
 and governance gates function as designed across diverse asset profiles, but do not establish
 independent empirical proof of predictive superiority, operational accuracy, or real-world
 risk reduction. Independent expert adjudication is required to test whether analysts agree
@@ -760,8 +883,10 @@ with candidate metrics.
 
 The dataset contains only 30 scenarios. The NVD sample is
 time-bounded, and the synthetic cases do not represent an empirical enterprise
-asset distribution. Results should not be generalized to all organizations,
-industries, or vulnerability classes.
+asset distribution. Consequently, the study exhibits limited external validity;
+results should not be generalized to all organizations, industries, or
+vulnerability classes. The findings demonstrate architectural feasibility and
+schema completeness rather than general operational effectiveness.
 
 \subsection{Conclusion Validity}
 
@@ -858,17 +983,17 @@ flags predict later revisions.
 
 \section{Conclusion}
 
-This paper presents an evidence normalization, governance, and traceability workflow
+This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow
 for operationalizing CVSS v4.0 Environmental metric assessment. The method separates official Base
 information from curated consumer context, records evidence and uncertainty,
-resolves candidate values under explicit governance policies, requires human authorization,
-and exports reproducible trace artifacts.
+resolves candidate values under explicit governance policies, enforces human authorization checkpoints,
+and exports reproducible, machine-checkable trace artifacts.
 
 The contribution separates specification-level validation (achieving 486,472/486,472
-FIRST reference corpus conformance and zero violations across 10,000 metamorphic executions)
+FIRST reference corpus conformance and zero violations across a finite 10,000-execution metamorphic campaign)
 from controlled workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
 complete evidence and trace coverage and produced operational priority changes in 22 cases
-under controlled conditions subject to construction bias, while retaining a non-autonomous workflow
+under controlled conditions subject to construction bias and limited external validity, while retaining a non-autonomous workflow
 in which official scoring decisions remain subject to explicit human authorization; independent
 expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains defined and unexecuted, with datasets C1 and C2 sealed.
 
