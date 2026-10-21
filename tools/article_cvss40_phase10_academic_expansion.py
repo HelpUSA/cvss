@@ -403,6 +403,9 @@ tex = r"""\documentclass[conference]{IEEEtran}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
 \usepackage{microtype}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
 
 \title{Operationalizing CVSS v4.0 Environmental Metrics with
 AI-Assisted Evidence Collection and Traceability}
@@ -598,36 +601,83 @@ The design goals derived from these questions are separation of concerns,
 provenance, conservative uncertainty handling, deterministic exports,
 idempotent validation, and explicit human authority.
 
-\section{AI/Watcher Architecture}
+\section{Evidence Normalization Architecture}
 
 Figure~\ref{fig:architecture} summarizes the architecture. The workflow is
 organized into six logical layers.
 
 \begin{figure*}[t]
 \centering
-\fbox{
-\parbox{0.96\textwidth}{
-\centering
-\textbf{Source adapters}
-$\rightarrow$
-\textbf{Evidence normalization}
-$\rightarrow$
-\textbf{Scenario context model}
-$\rightarrow$
-\textbf{Candidate Environmental metrics}
-$\rightarrow$
-\textbf{Human review gate}
-$\rightarrow$
-\textbf{Trace and report export}
+\begin{tikzpicture}[
+    node distance=4mm and 4.5mm,
+    box/.style={
+        draw=black!75,
+        fill=black!4,
+        rounded corners=2pt,
+        text width=2.35cm,
+        minimum height=1.35cm,
+        align=center,
+        inner sep=3pt,
+        font=\sffamily\scriptsize,
+        line width=0.6pt
+    },
+    scorer/.style={
+        box,
+        fill=black!8,
+        draw=black!90,
+        line width=0.8pt
+    },
+    gate/.style={
+        box,
+        fill=black!12,
+        draw=black!95,
+        line width=0.9pt
+    },
+    arrow/.style={
+        -{Stealth[scale=0.85]},
+        thick,
+        draw=black!75
+    }
+]
 
-\vspace{2mm}
+\node[box] (sources) {
+    \textbf{1. Evidence Sources}\\[1.5pt]
+    {\tiny NVD CVE records,\\asset class, controls,\\requirements (CR/IR/AR)}
+};
 
-NVD/CVSS data, asset context, exposure observations, control evidence, and
-security requirements are stored separately with source metadata. The watcher
-proposes values and uncertainty flags. A reviewer accepts, changes, or rejects
-the proposal before the decision artifact is treated as reviewed.
-}}
-\caption{Logical architecture of the AI/watcher-assisted assessment workflow.}
+\node[box, right=of sources] (norm) {
+    \textbf{2. Evidence Normalization}\\[1.5pt]
+    {\tiny Schema mapping,\\provenance URIs,\\uncertainty flags}
+};
+
+\node[box, right=of norm] (resolver) {
+    \textbf{3. Policy / Metric Resolver}\\[1.5pt]
+    {\tiny Deterministic rule resolution,\\candidate modified metrics\\(MAV, MAC, MAT, \dots)}
+};
+
+\node[scorer, right=of resolver] (scorer) {
+    \textbf{4. Canonical CVSS Scorer}\\[1.5pt]
+    {\tiny FIRST-conformant calculator,\\MacroVectors $\vec{M}=(EQ_1..EQ_6)$,\\computes CVSS-BE / CVSS-BTE}
+};
+
+\node[box, right=of scorer] (trace) {
+    \textbf{5. Audit Trace \& Report}\\[1.5pt]
+    {\tiny Immutable JSON trace artifact,\\score delta $\Delta$,\\priority shift $\Delta_{\text{cat}}$}
+};
+
+\node[gate, right=of trace] (auth) {
+    \textbf{6. Human Authorization}\\[1.5pt]
+    {\tiny Explicit analyst review,\\formal gatekeeper release,\\operational deployment}
+};
+
+\draw[arrow] (sources) -- (norm);
+\draw[arrow] (norm) -- (resolver);
+\draw[arrow] (resolver) -- (scorer);
+\draw[arrow] (scorer) -- (trace);
+\draw[arrow] (trace) -- (auth);
+
+\end{tikzpicture}
+\caption{End-to-end architecture of the CVSS v4.0 environmental assessment workflow, emphasizing evidence normalization, deterministic policy resolution, canonical scoring conformance, audit traceability, and explicit human authorization.}
 \label{fig:architecture}
 \end{figure*}
 
@@ -653,7 +703,7 @@ environmental context, candidate modified metrics, evidence summaries,
 uncertainty flags, review state, and trace references. Required-field
 validators detect omissions before article tables or reports are generated.
 
-Normalization is important because an AI recommendation without a stable
+Normalization is important because an automated recommendation without a stable
 evidence model is difficult to review or reproduce. The watcher must therefore
 produce structured fields in addition to narrative text.
 
@@ -851,7 +901,7 @@ sufficient for correctness. A completely documented recommendation can still
 contain an incorrect metric interpretation. Future expert evaluation must
 therefore assess semantic agreement separately from schema completeness.
 
-This distinction is particularly important for AI-assisted workflows.
+This distinction is particularly important for automated workflows.
 Fluent narrative is not evidence of correctness. The architecture requires
 structured sources, uncertainty fields, and a review gate to reduce the risk
 that generated explanations are mistaken for authoritative decisions.
@@ -1019,7 +1069,19 @@ if remaining_markers:
         + ", ".join(remaining_markers)
     )
 
-write(TEX, tex)
+# PRESERVES_EXISTING_R2/R3_CONTENT_ONLY:
+# If the expanded R2/R3 manuscript exists with independent trace verification content,
+# preserve it strictly to prevent regression to legacy templates.
+has_r2_r3_trace_content = (
+    TEX.exists()
+    and "Trace Governance and Machine-Checkable State" in TEX.read_text(encoding="utf-8")
+    and ("Ablation of Priority Components" in TEX.read_text(encoding="utf-8") or "Empirical Mutation Testing" in TEX.read_text(encoding="utf-8") or "Contextual Priority Sensitivity Stress Test" in TEX.read_text(encoding="utf-8") or "Independent Trace Verifier" in TEX.read_text(encoding="utf-8") or "Pre-Registered Adjudication Protocol Specification" in TEX.read_text(encoding="utf-8") or "Verifier-Agnostic Randomized Mutation Complement" in TEX.read_text(encoding="utf-8"))
+)
+
+if has_r2_r3_trace_content or (TEX.exists() and len(TEX.read_text(encoding="utf-8").splitlines()) > 500):
+    print(f"PRESERVES_EXISTING_R2/R3_CONTENT_ONLY: Preserving existing expanded R2/R3 manuscript with Independent Trace Verification at {TEX}")
+else:
+    write(TEX, tex)
 
 academic_bib = r"""@misc{first_cvss40,
   author       = {{FIRST}},

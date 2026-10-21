@@ -1,0 +1,61 @@
+{
+  "schema": "helpus_cvss.r4_freeze_manifest",
+  "schema_version": 1,
+  "correlation_id": "CMD-CVSS-IEEE-R4-FREEZE-193",
+  "branch": "revision/ieee-major-review-r4-conceptual-polish",
+  "pre_freeze_head": "073fa7d759d0fc5248a79398e719e615531102a5",
+  "timestamp_utc": "2026-10-21T12:44:25.176878+00:00",
+  "manuscript_title": "Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability",
+  "final_audit_conclusion": "R4_CONCEPTUAL_POLISH_PASS_READY_TO_FREEZE",
+  "full_pytest_result": "248/248 PASS",
+  "academic_validators": "14/14 PASS",
+  "overclaims": "CLEAN",
+  "abstract_word_count": 188,
+  "pdf_artifact": {
+    "path": "article/ieee/cvss40_double_blind.pdf",
+    "pages": 14,
+    "bytes": 420835,
+    "sha256": "618b863c65b544c91c4655fc0c1baf6671a8459614990671607a4af998fd372e"
+  },
+  "overleaf_zip_artifact": {
+    "path": "article/ieee/cvss40_ieee_article_overleaf.zip",
+    "bytes": 28442,
+    "sha256": "cca88a243908e8c82961a1236096bd18d01f2b514118c8347ac21e7498cf8ede",
+    "submission_package_mirror": "docs/submission_package/cvss40_ieee_article_overleaf.zip"
+  },
+  "r2_canonical_artifacts_verification": {
+    "status": "7/7 MATCH",
+    "reference_manifest": "validation/article/r2_freeze_manifest.json",
+    "all_byte_and_sha256_verified": true
+  },
+  "r3_randomized_mutation_artifacts_verification": {
+    "status": "2/2 MATCH",
+    "reference_manifest": "validation/article/r3_freeze_manifest.json",
+    "testing_json": {
+      "path": "validation/article/r3_randomized_mutation_testing.json",
+      "bytes": 99401,
+      "sha256": "32e273f1f0be0f631301edc9b1e2448d013586bf0a9c1e7b05688e6dcf1ac790"
+    },
+    "cases_csv": {
+      "path": "validation/article/r3_randomized_mutation_cases.csv",
+      "bytes": 24463,
+      "sha256": "60a38411df1753899f444a5e61895795dcdf9b4403327a1a0c6f2ff4b589d84c"
+    }
+  },
+  "conceptual_refinements": {
+    "rema_4_applied": true,
+    "rema_4_scope": "verifier-agnostic strictly denotes implementation independence from verifier internals, not conceptual independence from author design choices (F1-F9 author-defined taxonomy treated as threat to validity)",
+    "rema_5_applied": true,
+    "rema_5_scope": "F3 (0/16) interpreted as open-world JSON design-intent observation rather than unanticipated verifier failure, evaluating closed-world alternative in schema v2"
+  },
+  "reproducibility_limitation": {
+    "classification": "NONBLOCKING",
+    "status": "PRESERVES_EXISTING_R2/R3_CONTENT_ONLY"
+  },
+  "governance_and_protocol_locks": {
+    "g10b_confirmatory_protocol": "NOT_AUTHORIZED_NOT_EXECUTED",
+    "c1_c2_confirmatory_datasets": "SEALED_UNEXECUTED",
+    "independent_human_adjudication": "NOT_COMPLETED_FUTURE_VALIDATION",
+    "push_performed": false
+  }
+}

@@ -1,0 +1,4359 @@
+{
+  "generated_at_utc": "2026-10-21T02:25:15.812928+00:00",
+  "total_scenarios": 30,
+  "nvd_scenarios": 12,
+  "synthetic_scenarios": 18,
+  "passed_scenarios": 30,
+  "failed_scenarios": 0,
+  "overall_status": "PASS",
+  "category_counts": {
+    "STRUCTURAL": 240,
+    "RECOMPUTED": 128,
+    "CONSISTENCY": 96,
+    "SCHEMA_LIMITATION": 34
+  },
+  "status_counts": {
+    "PASS": 464,
+    "FAIL": 0,
+    "LIMITATION": 34
+  },
+  "failures": [],
+  "schema_limitations": [
+    {
+      "scenario_id": "SCN-NVD-001",
+      "check_name": "recomputed_nominal_policy_profile",
+      "category": "SCHEMA_LIMITATION",
+      "message": "Scenario exhibits curated local deployment context: stored (Env=low, Delta=0) vs nominal profile (Env=medium, Delta=1). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+      "details": {
+        "stored_env_priority": "low",
+        "stored_delta": "0",
+        "nominal_env_priority": "medium",
+        "nominal_delta": 1,
+        "asset_class": "public_web_application"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-002",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-004",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-005",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-006",
+      "check_name": "recomputed_nominal_policy_profile",
+      "category": "SCHEMA_LIMITATION",
+      "message": "Scenario exhibits curated local deployment context: stored (Env=low, Delta=-1) vs nominal profile (Env=defer, Delta=-2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+      "details": {
+        "stored_env_priority": "low",
+        "stored_delta": "-1",
+        "nominal_env_priority": "defer",
+        "nominal_delta": -2,
+        "asset_class": "isolated_lab_system"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-006",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "check_name": "recomputed_nominal_policy_profile",
+      "category": "SCHEMA_LIMITATION",
+      "message": "Scenario exhibits curated local deployment context: stored (Env=medium, Delta=0) vs nominal profile (Env=critical, Delta=2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+      "details": {
+        "stored_env_priority": "medium",
+        "stored_delta": "0",
+        "nominal_env_priority": "critical",
+        "nominal_delta": 2,
+        "asset_class": "ot_monitoring_gateway"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-008",
+      "check_name": "recomputed_nominal_policy_profile",
+      "category": "SCHEMA_LIMITATION",
+      "message": "Scenario exhibits curated local deployment context: stored (Env=high, Delta=1) vs nominal profile (Env=critical, Delta=2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+      "details": {
+        "stored_env_priority": "high",
+        "stored_delta": "1",
+        "nominal_env_priority": "critical",
+        "nominal_delta": 2,
+        "asset_class": "public_api_gateway"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-008",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-009",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-010",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-011",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-012",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-014",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-015",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-016",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-017",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-018",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-019",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-021",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-022",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-023",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-024",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-025",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-026",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-027",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-029",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-030",
+      "check_name": "schema_limitation_metric_evidence_linkage",
+      "category": "SCHEMA_LIMITATION",
+      "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+      "details": {
+        "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+      }
+    }
+  ],
+  "scenario_results": [
+    {
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-001' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'low' matches recomputed severity mapping for 'LOW'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=1 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 1.1 and severity 'LOW' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "Scenario exhibits curated local deployment context: stored (Env=low, Delta=0) vs nominal profile (Env=medium, Delta=1). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+          "details": {
+            "stored_env_priority": "low",
+            "stored_delta": "0",
+            "nominal_env_priority": "medium",
+            "nominal_delta": 1,
+            "asset_class": "public_web_application"
+          }
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-4251",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 2
+    },
+    {
+      "scenario_id": "SCN-NVD-002",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-002' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=2 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 8.9 and severity 'HIGH' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'internal_admin_console' (Delta=-1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-4252",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-003' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 6.8 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'identity_provider' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-4270",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-004",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-004' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 8.3 and severity 'HIGH' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'database_server' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-28490",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-005",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-005' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 8.2 and severity 'HIGH' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'developer_workstation' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-28498",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-006",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-006' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=1 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 5.1 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "Scenario exhibits curated local deployment context: stored (Env=low, Delta=-1) vs nominal profile (Env=defer, Delta=-2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+          "details": {
+            "stored_env_priority": "low",
+            "stored_delta": "-1",
+            "nominal_env_priority": "defer",
+            "nominal_delta": -2,
+            "asset_class": "isolated_lab_system"
+          }
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-29510",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 2
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-007' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=2 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 5.1 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "Scenario exhibits curated local deployment context: stored (Env=medium, Delta=0) vs nominal profile (Env=critical, Delta=2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+          "details": {
+            "stored_env_priority": "medium",
+            "stored_delta": "0",
+            "nominal_env_priority": "critical",
+            "nominal_delta": 2,
+            "asset_class": "ot_monitoring_gateway"
+          }
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-29513",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 2
+    },
+    {
+      "scenario_id": "SCN-NVD-008",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-008' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 5.1 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "Scenario exhibits curated local deployment context: stored (Env=high, Delta=1) vs nominal profile (Env=critical, Delta=2). The trace schema provides narrative evidence fields rather than explicit sub-weight vectors.",
+          "details": {
+            "stored_env_priority": "high",
+            "stored_delta": "1",
+            "nominal_env_priority": "critical",
+            "nominal_delta": 2,
+            "asset_class": "public_api_gateway"
+          }
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-29520",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 2
+    },
+    {
+      "scenario_id": "SCN-NVD-009",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-009' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 5.1 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'public_web_application' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-29521",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-010",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-010' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=1 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 6.0 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'internal_admin_console' (Delta=-1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-3644",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-011",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-011' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 6.0 and severity 'MEDIUM' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'identity_provider' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-4224",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-NVD-012",
+      "source_type": "NVD",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-NVD-012' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'local_environment_curated; human_review_required; threat_context_not_authoritative'",
+          "details": {
+            "uncertainty_flags": "local_environment_curated; human_review_required; threat_context_not_authoritative"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'low' matches recomputed severity mapping for 'LOW'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=2 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nvd_cvss_score",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "NVD CVSS Base score 2.0 and severity 'LOW' verified via canonical scorer",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'database_server' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "NVD source separation validated for CVE-2026-4253",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-013' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'critical' matches recomputed severity mapping for 'CRITICAL'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'developer_workstation' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-014",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-014' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-3 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=0 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'isolated_lab_system' (Delta=-3)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-015",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-015' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'ot_monitoring_gateway' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-016",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-016' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=2 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'public_api_gateway' (Delta=2)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-017",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-017' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'public_web_application' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-018",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-018' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'low' matches recomputed severity mapping for 'LOW'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=0 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'internal_admin_console' (Delta=-1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-019",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-019' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'critical' matches recomputed severity mapping for 'CRITICAL'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'identity_provider' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-020' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'database_server' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-021",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-021' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'developer_workstation' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-022",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-022' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-2 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=0 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'isolated_lab_system' (Delta=-2)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-023",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-023' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=2 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'ot_monitoring_gateway' (Delta=2)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review OT segmentation, safety dependency"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-024",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-024' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'low' matches recomputed severity mapping for 'LOW'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=2 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'public_api_gateway' (Delta=2)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review public exposure, token scope, rate"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-025",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-025' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'critical' matches recomputed severity mapping for 'CRITICAL'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'public_web_application' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should be reviewed against public exposure, WAF,"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-026",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-026' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=2 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'internal_admin_console' (Delta=-1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review restricted network path, MFA, priv"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-027",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-027' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'high' matches recomputed severity mapping for 'HIGH'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=4 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'identity_provider' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review identity blast radius, token expos"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-028' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=3 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'database_server' (Delta=1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review internal exposure, service account"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-029",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-029' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'medium' matches recomputed severity mapping for 'MEDIUM'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=0 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=2 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'developer_workstation' (Delta=0)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review endpoint controls, credentials, re"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    },
+    {
+      "scenario_id": "SCN-SYN-030",
+      "source_type": "SYNTHETIC",
+      "passed": true,
+      "checks": [
+        {
+          "name": "structural_required_top_level_fields",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "All required top-level fields are present",
+          "details": {}
+        },
+        {
+          "name": "structural_scenario_id_format",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Scenario ID 'SCN-SYN-030' matches canonical format",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_environmental_evidence",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested environmental_evidence structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_candidate_assessment",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested candidate_environmental_assessment structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_nested_priority_comparison",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Nested priority_comparison structure is complete",
+          "details": {}
+        },
+        {
+          "name": "structural_governance_authorization_state",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Mandatory human authorization gatekeeper status 'required' is enforced",
+          "details": {}
+        },
+        {
+          "name": "structural_uncertainty_representation",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Uncertainty flags present: 'synthetic_scenario; assigned_vector_not_official_cve; human_review_required'",
+          "details": {
+            "uncertainty_flags": "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+          }
+        },
+        {
+          "name": "structural_boundary_statement",
+          "category": "STRUCTURAL",
+          "status": "PASS",
+          "message": "Boundary disclaimer explicitly preserves governance limit",
+          "details": {}
+        },
+        {
+          "name": "recomputed_base_priority",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "P_base 'low' matches recomputed severity mapping for 'LOW'",
+          "details": {}
+        },
+        {
+          "name": "recomputed_category_delta",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Category delta Delta_cat=-1 verified algebraically",
+          "details": {}
+        },
+        {
+          "name": "recomputed_ordinal_clamp_range",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "g(P_env)=0 strictly bounded in [0, 4]",
+          "details": {}
+        },
+        {
+          "name": "recomputed_nominal_policy_profile",
+          "category": "RECOMPUTED",
+          "status": "PASS",
+          "message": "Trace priority matches nominal policy profile for 'isolated_lab_system' (Delta=-1)",
+          "details": {}
+        },
+        {
+          "name": "consistency_source_separation",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic source separation validated (cve_id empty, curated source tag)",
+          "details": {}
+        },
+        {
+          "name": "consistency_synthetic_vector_syntax",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic CVSS v4.0 vector string parsed cleanly by canonical grammar",
+          "details": {
+            "metric_count": 11
+          }
+        },
+        {
+          "name": "consistency_synthetic_uncertainty_flags",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Synthetic trace correctly disclaims official CVE ground truth via uncertainty flags",
+          "details": {}
+        },
+        {
+          "name": "consistency_csv_cross_reference",
+          "category": "CONSISTENCY",
+          "status": "PASS",
+          "message": "Trace matches reference CSV across all 7 core metadata columns",
+          "details": {}
+        },
+        {
+          "name": "schema_limitation_metric_evidence_linkage",
+          "category": "SCHEMA_LIMITATION",
+          "status": "LIMITATION",
+          "message": "The trace schema provides narrative evidence fields rather than an atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item.",
+          "details": {
+            "candidate_modified_metrics_excerpt": "Candidate Modified Base metrics should review isolation, lack of production data"
+          }
+        }
+      ],
+      "failure_count": 0,
+      "limitation_count": 1
+    }
+  ],
+  "canonical_expected": 30,
+  "canonical_found": 30,
+  "out_of_scope_files": [
+    {
+      "file_name": "SCN-SYN-001.json",
+      "scenario_id": "SCN-SYN-001",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-002.json",
+      "scenario_id": "SCN-SYN-002",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-003.json",
+      "scenario_id": "SCN-SYN-003",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-004.json",
+      "scenario_id": "SCN-SYN-004",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-005.json",
+      "scenario_id": "SCN-SYN-005",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-006.json",
+      "scenario_id": "SCN-SYN-006",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-007.json",
+      "scenario_id": "SCN-SYN-007",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-008.json",
+      "scenario_id": "SCN-SYN-008",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-009.json",
+      "scenario_id": "SCN-SYN-009",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-010.json",
+      "scenario_id": "SCN-SYN-010",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-011.json",
+      "scenario_id": "SCN-SYN-011",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    },
+    {
+      "file_name": "SCN-SYN-012.json",
+      "scenario_id": "SCN-SYN-012",
+      "classification": "OUT_OF_SCOPE",
+      "reason": "Legacy scenario artifact not present in canonical reference dataset CSV"
+    }
+  ]
+}

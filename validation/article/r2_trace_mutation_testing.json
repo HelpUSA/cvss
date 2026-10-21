@@ -1,0 +1,1188 @@
+{
+  "generated_at_utc": "2026-10-21T03:27:13.943729+00:00",
+  "total_mutants_planned": 48,
+  "applicable_mutants": 42,
+  "not_applicable_mutants": 6,
+  "detected_mutants": 42,
+  "overall_detection_rate": 1.0,
+  "operator_summaries": {
+    "M1_remove_required_field": {
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M2_delta_cat_mismatch": {
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M3_invalid_vector_syntax": {
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M4_nvd_score_mismatch": {
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "total_cases": 6,
+      "applicable_cases": 3,
+      "not_applicable_cases": 3,
+      "detected_count": 3,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M5_remove_synthetic_uncertainty_flag": {
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "total_cases": 6,
+      "applicable_cases": 3,
+      "not_applicable_cases": 3,
+      "detected_count": 3,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M6_invalid_review_state": {
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M7_source_provenance_mismatch": {
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "M8_canonical_dataset_mismatch": {
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "total_cases": 6,
+      "applicable_cases": 6,
+      "not_applicable_cases": 0,
+      "detected_count": 6,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    }
+  },
+  "source_partition_summaries": {
+    "NVD": {
+      "source_type": "NVD",
+      "total_cases": 24,
+      "applicable_cases": 21,
+      "not_applicable_cases": 3,
+      "detected_count": 21,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    },
+    "SYNTHETIC": {
+      "source_type": "SYNTHETIC",
+      "total_cases": 24,
+      "applicable_cases": 21,
+      "not_applicable_cases": 3,
+      "detected_count": 21,
+      "missed_count": 0,
+      "unexpected_count": 0,
+      "detection_rate": 1.0
+    }
+  },
+  "results": [
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M1",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M2",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('low') - g('low') = 0, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='0', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M3",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score"
+      ],
+      "failure_messages": [
+        "Canonical scorer execution failed for NVD vector: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M4",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "NVD CVSS score mismatch: calc=1.1, stored=9.9",
+        "CSV cross-reference mismatches: cvss_b_score: csv='1.1', trace='9.9'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M5",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "STRUCTURAL",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M6",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M7",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation"
+      ],
+      "failure_messages": [
+        "NVD scenario source must be 'nvd_cvss_v4_with_curated_environment', found 'corrupted_source_provenance'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-001-M8",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'CRITICAL' maps to 'critical', trace has 'low'",
+        "NVD CVSS severity mismatch: calc=LOW, stored=CRITICAL",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='LOW', trace='CRITICAL'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M1",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M2",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('high') - g('medium') = 1, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='1', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M3",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score"
+      ],
+      "failure_messages": [
+        "Canonical scorer execution failed for NVD vector: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M4",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "NVD CVSS score mismatch: calc=6.8, stored=9.9",
+        "CSV cross-reference mismatches: cvss_b_score: csv='6.8', trace='9.9'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M5",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "STRUCTURAL",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M6",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M7",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation"
+      ],
+      "failure_messages": [
+        "NVD scenario source must be 'nvd_cvss_v4_with_curated_environment', found 'corrupted_source_provenance'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-003-M8",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'LOW' maps to 'low', trace has 'medium'",
+        "NVD CVSS severity mismatch: calc=MEDIUM, stored=LOW",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='MEDIUM', trace='LOW'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M1",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M2",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('medium') - g('medium') = 0, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='0', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M3",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score"
+      ],
+      "failure_messages": [
+        "Canonical scorer execution failed for NVD vector: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M4",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_nvd_cvss_score",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "NVD CVSS score mismatch: calc=5.1, stored=9.9",
+        "CSV cross-reference mismatches: cvss_b_score: csv='5.1', trace='9.9'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M5",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "STRUCTURAL",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M6",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M7",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation"
+      ],
+      "failure_messages": [
+        "NVD scenario source must be 'nvd_cvss_v4_with_curated_environment', found 'corrupted_source_provenance'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-NVD-007-M8",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "recomputed_nvd_cvss_score",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'LOW' maps to 'low', trace has 'medium'",
+        "NVD CVSS severity mismatch: calc=MEDIUM, stored=LOW",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='MEDIUM', trace='LOW'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M1",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M2",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('critical') - g('critical') = 0, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='0', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M3",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "consistency_synthetic_vector_syntax",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_synthetic_vector_syntax"
+      ],
+      "failure_messages": [
+        "Synthetic vector syntax invalid: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M4",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "RECOMPUTED",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M5",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": true,
+      "expected_check": "structural_uncertainty_representation",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_uncertainty_representation",
+        "consistency_synthetic_uncertainty_flags"
+      ],
+      "failure_messages": [
+        "Uncertainty representation 'uncertainty_flags' is empty or missing",
+        "Synthetic trace must contain 'assigned_vector_not_official_cve' and 'synthetic_scenario' in uncertainty_flags"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M6",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M7",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Synthetic scenario must have empty cve_id; found 'CVE-2026-99999'",
+        "CSV cross-reference mismatches: cve_id: csv='', trace='CVE-2026-99999'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-013-M8",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'LOW' maps to 'low', trace has 'critical'",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='CRITICAL', trace='LOW'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M1",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M2",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('critical') - g('high') = 1, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='1', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M3",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "consistency_synthetic_vector_syntax",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_synthetic_vector_syntax"
+      ],
+      "failure_messages": [
+        "Synthetic vector syntax invalid: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M4",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "RECOMPUTED",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M5",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": true,
+      "expected_check": "structural_uncertainty_representation",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_uncertainty_representation",
+        "consistency_synthetic_uncertainty_flags"
+      ],
+      "failure_messages": [
+        "Uncertainty representation 'uncertainty_flags' is empty or missing",
+        "Synthetic trace must contain 'assigned_vector_not_official_cve' and 'synthetic_scenario' in uncertainty_flags"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M6",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M7",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Synthetic scenario must have empty cve_id; found 'CVE-2026-99999'",
+        "CSV cross-reference mismatches: cve_id: csv='', trace='CVE-2026-99999'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-020-M8",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'LOW' maps to 'low', trace has 'high'",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='HIGH', trace='LOW'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M1",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M1_remove_required_field",
+      "operator_name": "remove_required_field",
+      "is_applicable": true,
+      "expected_check": "structural_required_top_level_fields",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_required_top_level_fields",
+        "structural_boundary_statement"
+      ],
+      "failure_messages": [
+        "Missing required top-level fields: ['boundary']",
+        "Boundary disclaimer missing or does not state non-autonomous official status"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M2",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M2_delta_cat_mismatch",
+      "operator_name": "delta_cat_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_category_delta",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_category_delta",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Delta_cat mismatch: g('high') - g('medium') = 1, trace has 4",
+        "CSV cross-reference mismatches: priority_delta: csv='1', trace='4'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M3",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M3_invalid_vector_syntax",
+      "operator_name": "invalid_vector_syntax",
+      "is_applicable": true,
+      "expected_check": "consistency_synthetic_vector_syntax",
+      "target_category": "RECOMPUTED_OR_CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_synthetic_vector_syntax"
+      ],
+      "failure_messages": [
+        "Synthetic vector syntax invalid: invalid value 'INVALID_VAL' for metric AV"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M4",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M4_nvd_score_mismatch",
+      "operator_name": "nvd_score_mismatch",
+      "is_applicable": false,
+      "expected_check": "NOT_APPLICABLE",
+      "target_category": "RECOMPUTED",
+      "status": "NOT_APPLICABLE",
+      "detected": false,
+      "detected_by_expected_check": false,
+      "failing_checks": [],
+      "failure_messages": [],
+      "notes": "Operator not applicable to this scenario source type."
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M5",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M5_remove_synthetic_uncertainty_flag",
+      "operator_name": "remove_synthetic_uncertainty_flag",
+      "is_applicable": true,
+      "expected_check": "structural_uncertainty_representation",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_uncertainty_representation",
+        "consistency_synthetic_uncertainty_flags"
+      ],
+      "failure_messages": [
+        "Uncertainty representation 'uncertainty_flags' is empty or missing",
+        "Synthetic trace must contain 'assigned_vector_not_official_cve' and 'synthetic_scenario' in uncertainty_flags"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M6",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M6_invalid_review_state",
+      "operator_name": "invalid_review_state",
+      "is_applicable": true,
+      "expected_check": "structural_governance_authorization_state",
+      "target_category": "STRUCTURAL",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "structural_governance_authorization_state"
+      ],
+      "failure_messages": [
+        "Invalid governance review status: 'bypassed_auto_approved'. Must be 'required'."
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M7",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M7_source_provenance_mismatch",
+      "operator_name": "source_provenance_mismatch",
+      "is_applicable": true,
+      "expected_check": "consistency_source_separation",
+      "target_category": "CONSISTENCY",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "consistency_source_separation",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "Synthetic scenario must have empty cve_id; found 'CVE-2026-99999'",
+        "CSV cross-reference mismatches: cve_id: csv='', trace='CVE-2026-99999'"
+      ],
+      "notes": "Detected"
+    },
+    {
+      "mutant_id": "MUT-SCN-SYN-028-M8",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "operator_id": "M8_canonical_dataset_mismatch",
+      "operator_name": "canonical_dataset_mismatch",
+      "is_applicable": true,
+      "expected_check": "recomputed_base_priority",
+      "target_category": "RECOMPUTED",
+      "status": "DETECTED",
+      "detected": true,
+      "detected_by_expected_check": true,
+      "failing_checks": [
+        "recomputed_base_priority",
+        "consistency_csv_cross_reference"
+      ],
+      "failure_messages": [
+        "P_base mismatch: severity 'LOW' maps to 'low', trace has 'medium'",
+        "CSV cross-reference mismatches: cvss_b_severity: csv='MEDIUM', trace='LOW'"
+      ],
+      "notes": "Detected"
+    }
+  ],
+  "campaign_integrity_status": "PASS",
+  "canonical_scenarios_selected": [
+    "SCN-NVD-001",
+    "SCN-NVD-003",
+    "SCN-NVD-007",
+    "SCN-SYN-013",
+    "SCN-SYN-020",
+    "SCN-SYN-028"
+  ],
+  "original_controls": {
+    "SCN-NVD-001": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 2,
+      "status": "PASS",
+      "initial_sha256": "4c85af073393ba4671693f64c9e89c3e5a4c19d53a09d7c8167bb64f67075778",
+      "post_campaign_sha256": "4c85af073393ba4671693f64c9e89c3e5a4c19d53a09d7c8167bb64f67075778",
+      "hash_unmodified": true
+    },
+    "SCN-NVD-003": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 1,
+      "status": "PASS",
+      "initial_sha256": "c256781d418415fa37ef3024c4d8219f431b95b4a67f1afba2c34deafdcbd753",
+      "post_campaign_sha256": "c256781d418415fa37ef3024c4d8219f431b95b4a67f1afba2c34deafdcbd753",
+      "hash_unmodified": true
+    },
+    "SCN-NVD-007": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 2,
+      "status": "PASS",
+      "initial_sha256": "a6e2f212bce0a47519bafc87a6558971cd054b6419c377310b4ee9a8d91c2773",
+      "post_campaign_sha256": "a6e2f212bce0a47519bafc87a6558971cd054b6419c377310b4ee9a8d91c2773",
+      "hash_unmodified": true
+    },
+    "SCN-SYN-013": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 1,
+      "status": "PASS",
+      "initial_sha256": "ad5cdddb888afe4ec21587eb5d9e2d56f459fbe4e60e7d64a8cba3861cb32b8f",
+      "post_campaign_sha256": "ad5cdddb888afe4ec21587eb5d9e2d56f459fbe4e60e7d64a8cba3861cb32b8f",
+      "hash_unmodified": true
+    },
+    "SCN-SYN-020": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 1,
+      "status": "PASS",
+      "initial_sha256": "e7953a687ac75dc55297ce335480380df81883e0a4119713c4c2031024f4507a",
+      "post_campaign_sha256": "e7953a687ac75dc55297ce335480380df81883e0a4119713c4c2031024f4507a",
+      "hash_unmodified": true
+    },
+    "SCN-SYN-028": {
+      "passed": true,
+      "failure_count": 0,
+      "limitation_count": 1,
+      "status": "PASS",
+      "initial_sha256": "cb08b51cb6c712132edca87351efe1a96c1c0e68a219acfe10986dfecdabd4e3",
+      "post_campaign_sha256": "cb08b51cb6c712132edca87351efe1a96c1c0e68a219acfe10986dfecdabd4e3",
+      "hash_unmodified": true
+    }
+  },
+  "all_original_controls_passed": true,
+  "trace_files_hash_verified_unmodified": true,
+  "missed_mutants": 0,
+  "unexpected_mutants": 0,
+  "epistemological_statement": "Empirical mutation testing provides empirical evidence that injected trace violations are detected and rejected in the evaluated mutation set. It provides empirical sensitivity evidence and does NOT constitute formal verification, proof of semantic correctness, completeness guarantee, or exhaustive coverage."
+}

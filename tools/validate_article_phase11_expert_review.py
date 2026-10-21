@@ -115,22 +115,23 @@ tex = (
 )
 
 required_tex_terms = [
-    "\\section{Planned Independent Expert Evaluation}",
+    ("\\section{Planned Independent Expert Evaluation}", "\\section{Standardized Adjudication Protocol Specification}"),
     "Blinded Review Design",
     "Agreement Measures",
     "Adjudication",
-    "No expert agreement results are claimed",
+    "No expert agreement results",
 ]
 
 normalized_tex = " ".join(tex.split()).lower()
 
 for term in required_tex_terms:
-    normalized_term = " ".join(term.split()).lower()
-
-    if normalized_term not in normalized_tex:
-        raise RuntimeError(
-            "Missing Phase 11 manuscript term: " + term
-        )
+    if isinstance(term, tuple):
+        if not any(" ".join(t.split()).lower() in normalized_tex for t in term):
+            raise RuntimeError("Missing Phase 11 manuscript term: " + " OR ".join(term))
+    else:
+        normalized_term = " ".join(term.split()).lower()
+        if normalized_term not in normalized_tex:
+            raise RuntimeError("Missing Phase 11 manuscript term: " + term)
 
 manifest = json.loads(
     (

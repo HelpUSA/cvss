@@ -1,0 +1,67 @@
+{
+  "schema": "helpus_cvss.r3_freeze_manifest",
+  "schema_version": 1,
+  "correlation_id": "CMD-CVSS-IEEE-R3-FREEZE-186",
+  "branch": "revision/ieee-major-review-r3-reviewer-hardening",
+  "pre_freeze_head": "c41065ebdd93c6febb4597bae3487e1f8b61b517",
+  "timestamp_utc": "2026-10-21T12:23:27.630261+00:00",
+  "manuscript_title": "Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability",
+  "final_audit_conclusion": "R3_FINAL_AUDIT_PASS_READY_TO_FREEZE",
+  "full_pytest_result": "248/248 PASS",
+  "academic_validators": "14/14 PASS",
+  "forbidden_claims_count": 0,
+  "pdf_artifact": {
+    "path": "article/ieee/cvss40_double_blind.pdf",
+    "pages": 14,
+    "bytes": 420161,
+    "sha256": "2eb527a9cbd6ea2f8e75260fb69e027cd27e0f98ae8591ef43b4b506b5c215f8"
+  },
+  "overleaf_zip_artifact": {
+    "path": "article/ieee/cvss40_ieee_article_overleaf.zip",
+    "bytes": 28198,
+    "sha256": "1c0652642c84f6db33bdb8b18a41925d9e9a1559a3ea10bfc8fde1781d7ab156",
+    "submission_package_mirror": "docs/submission_package/cvss40_ieee_article_overleaf.zip"
+  },
+  "r3_randomized_mutation_artifacts": {
+    "testing_json": {
+      "path": "validation/article/r3_randomized_mutation_testing.json",
+      "bytes": 99401,
+      "sha256": "32e273f1f0be0f631301edc9b1e2448d013586bf0a9c1e7b05688e6dcf1ac790"
+    },
+    "cases_csv": {
+      "path": "validation/article/r3_randomized_mutation_cases.csv",
+      "bytes": 24463,
+      "sha256": "60a38411df1753899f444a5e61895795dcdf9b4403327a1a0c6f2ff4b589d84c"
+    }
+  },
+  "r2_canonical_artifacts_verification": {
+    "status": "7/7 MATCH",
+    "reference_manifest": "validation/article/r2_freeze_manifest.json",
+    "all_byte_and_sha256_verified": true
+  },
+  "randomized_mutation_summary": {
+    "planned_target": 120,
+    "applicable": 120,
+    "rejected": 83,
+    "accepted": 37,
+    "rejection_rate": 0.6917,
+    "seed": 20261021,
+    "design_frozen": true,
+    "accepted_breakdown": {
+      "F3_subobject_injection_open_world": 16,
+      "F5_F6_free_form_narrative": 19,
+      "F9_internet_exposure_unconstrained_flip": 2
+    },
+    "accepted_interpretation": "schema-valid but outside current verifier contract"
+  },
+  "reproducibility_limitation": {
+    "classification": "NONBLOCKING",
+    "status": "PRESERVES_EXISTING_R2/R3_CONTENT_ONLY"
+  },
+  "governance_and_protocol_locks": {
+    "g10b_confirmatory_protocol": "NOT_AUTHORIZED_NOT_EXECUTED",
+    "c1_c2_confirmatory_datasets": "SEALED_UNEXECUTED",
+    "independent_human_adjudication": "NOT_COMPLETED_FUTURE_VALIDATION",
+    "push_performed": false
+  }
+}

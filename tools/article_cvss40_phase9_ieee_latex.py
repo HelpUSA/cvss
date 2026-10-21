@@ -185,7 +185,7 @@ tex = r"""\documentclass[conference]{IEEEtran}
 \usepackage{microtype}
 
 \title{Operationalizing CVSS v4.0 Environmental Metrics with
-AI-Assisted Evidence Collection and Traceability}
+Evidence Normalization, Governance, and Traceability}
 
 \author{
 \IEEEauthorblockN{Anonymous Author(s)}
@@ -201,7 +201,8 @@ __ABSTRACT__
 
 \begin{IEEEkeywords}
 CVSS v4.0, Environmental metrics, vulnerability prioritization,
-artificial intelligence, traceability, reproducibility, human review
+evidence normalization, governance, human-in-the-loop, traceability,
+reproducibility, uncertainty
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -339,6 +340,36 @@ __SEVERITY_ROWS__
 \bottomrule
 \end{tabular}
 \end{table}
+\subsection{Controlled Workflow Evaluation on Real NVD CVEs}
+
+The controlled workflow evaluation incorporates 12 real CVE records from the National Vulnerability Database (NVD) published with official CVSS v4.0 metrics, paired with curated organizational deployment contexts. Table~\ref{tab:nvd_cves} details the 12 cases, reporting the official input score and nomenclature (CVSS-B or CVSS-BT), contextual score and nomenclature (CVSS-BE or CVSS-BTE), numeric score delta, and operational priority shift ($\Delta_{\text{cat}}$). This curated benchmark demonstrates operational workflow sensitivity under realistic vulnerability data rather than an independent sample of operational efficacy. Full 30-metric Base and Environmental vectors for all 12 cases are preserved in the reproducibility trace repository (\texttt{validation/article/trace/SCN-NVD-001.json} through \texttt{SCN-NVD-012.json}) and \texttt{data/article/\allowbreak cvss40\_\allowbreak environmental\_\allowbreak scenarios.csv}.
+
+\begin{table}[t]
+\caption{Controlled Workflow Evaluation on 12 Real NVD CVEs (Curated Benchmark, Not an Independent Efficacy Sample)}
+\label{tab:nvd_cves}
+\centering
+\scriptsize
+\resizebox{\columnwidth}{!}{
+\begin{tabular}{@{}llccclc@{}}
+\toprule
+CVE ID & Input Type & Input & Context Type & Context & Score $\Delta$ & Priority Shift ($\Delta_{\text{cat}}$) \\
+\midrule
+CVE-2026-4251 & CVSS-BT & 1.1 & CVSS-BTE & 1.1 & \phantom{-}0.0 & low $\to$ low (0) \\
+CVE-2026-4252 & CVSS-BT & 8.9 & CVSS-BTE & 8.8 & -0.1 & high $\to$ medium (-1) \\
+CVE-2026-4270 & CVSS-B  & 6.8 & CVSS-BE  & 6.8 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-28490 & CVSS-B  & 8.3 & CVSS-BE  & 8.3 & \phantom{-}0.0 & high $\to$ critical (+1) \\
+CVE-2026-28498 & CVSS-B  & 8.2 & CVSS-BE  & 8.1 & -0.1 & high $\to$ high (0) \\
+CVE-2026-29510 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ low (-1) \\
+CVE-2026-29513 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ medium (0) \\
+CVE-2026-29520 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-29521 & CVSS-B  & 5.1 & CVSS-BE  & 5.1 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-3644  & CVSS-B  & 6.0 & CVSS-BE  & 5.9 & -0.1 & medium $\to$ low (-1) \\
+CVE-2026-4224  & CVSS-B  & 6.0 & CVSS-BE  & 6.0 & \phantom{-}0.0 & medium $\to$ high (+1) \\
+CVE-2026-4253  & CVSS-BT & 2.0 & CVSS-BTE & 2.0 & \phantom{-}0.0 & low $\to$ medium (+1) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
 
 \section{Discussion}
 
@@ -372,6 +403,7 @@ Future work should add expert adjudication, peer-reviewed comparative
 baselines, inter-rater agreement analysis, and production-like evaluation.
 
 \bibliographystyle{IEEEtran}
+\IEEEtriggeratref{21}
 \bibliography{references}
 
 \end{document}
@@ -397,7 +429,11 @@ replacements = {
 for marker, value in replacements.items():
     tex = tex.replace(marker, value)
 
-write(IEEE / "cvss40_double_blind.tex", tex)
+target_tex = IEEE / "cvss40_double_blind.tex"
+if not target_tex.exists() or len(target_tex.read_text(encoding="utf-8").splitlines()) <= 400:
+    write(target_tex, tex)
+else:
+    print(f"Preserving existing expanded manuscript at {target_tex}")
 
 official_bib = r"""@misc{first_cvss40,
   author       = {{FIRST}},
@@ -438,7 +474,11 @@ bibliography = official_bib
 if nvd_bib:
     bibliography += "\n\n" + "\n\n".join(nvd_bib)
 
-write(IEEE / "references.bib", bibliography)
+target_bib = IEEE / "references.bib"
+if not target_bib.exists() or len(target_bib.read_text(encoding="utf-8").splitlines()) <= 50:
+    write(target_bib, bibliography)
+else:
+    print(f"Preserving existing expanded bibliography at {target_bib}")
 
 write(
     IEEE / ".gitignore",
@@ -569,7 +609,8 @@ required_terms = [
     "\\begin{abstract}",
     "\\section{Results}",
     "\\bibliographystyle{IEEEtran}",
-    "\\bibliography{references}",
+    "\\IEEEtriggeratref{21}
+\bibliography{references}",
 ]
 
 normalized_tex = " ".join(tex.split()).lower()
@@ -630,7 +671,7 @@ for term in forbidden:
         print("FORBIDDEN_DOUBLE_BLIND_TERM", term)
         sys.exit(1)
 
-if tex.count("\\begin{table}") != 3:
+if tex.count("\\begin{table}") not in (3, 4):
     print("INVALID_TABLE_COUNT", tex.count("\\begin{table}"))
     sys.exit(1)
 

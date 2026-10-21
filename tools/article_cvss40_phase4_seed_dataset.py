@@ -71,129 +71,13 @@ META_COLUMNS = [
 
 COLUMNS = BASE_COLUMNS + META_COLUMNS
 
-PRIORITY_ORDER = ["defer", "low", "medium", "high", "critical"]
-SEVERITY_TO_PRIORITY = {
-    "NONE": "defer",
-    "LOW": "low",
-    "MEDIUM": "medium",
-    "HIGH": "high",
-    "CRITICAL": "critical",
-}
-
-ENV_PROFILES = [
-    {
-        "asset_class": "public_web_application",
-        "deployment_context": "Customer-facing web application handling authenticated user data.",
-        "internet_exposure": "public",
-        "privilege_context": "Externally reachable service with standard user accounts.",
-        "compensating_controls": "WAF enabled, centralized logging, rate limiting, standard patch window.",
-        "cr": "CR:H - confidentiality is high because customer data may be processed.",
-        "ir": "IR:H - integrity is high because application state may affect user transactions.",
-        "ar": "AR:M - availability is medium because outage affects customer access but has fallback operations.",
-        "modified": "Candidate Modified Base metrics should be reviewed against public exposure, WAF, account privileges, and deployment controls.",
-        "supplemental": "Automatable and provider urgency should be reviewed if official supplemental data exists.",
-        "context_weight": 2,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "internal_admin_console",
-        "deployment_context": "Internal administrative interface restricted to VPN and privileged operators.",
-        "internet_exposure": "restricted",
-        "privilege_context": "Administrative role required after VPN authentication.",
-        "compensating_controls": "VPN, MFA, network segmentation, privileged access monitoring.",
-        "cr": "CR:M - confidentiality depends on administrative data visible through the console.",
-        "ir": "IR:H - integrity is high because admin actions may alter production configuration.",
-        "ar": "AR:M - availability is medium due to operational dependency.",
-        "modified": "Candidate Modified Base metrics should review restricted network path, MFA, privileges, and segmentation.",
-        "supplemental": "Recovery and provider urgency may support operational discussion.",
-        "context_weight": 0,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "identity_provider",
-        "deployment_context": "Identity and access management component used by multiple internal systems.",
-        "internet_exposure": "restricted",
-        "privilege_context": "Authentication boundary component with privileged integration tokens.",
-        "compensating_controls": "MFA, conditional access, monitoring, secrets rotation, incident response playbooks.",
-        "cr": "CR:H - confidentiality is high because identity data and tokens may be affected.",
-        "ir": "IR:H - integrity is high because identity compromise may affect trust decisions.",
-        "ar": "AR:H - availability is high because authentication outage affects many services.",
-        "modified": "Candidate Modified Base metrics should review identity blast radius, token exposure, and compensating controls.",
-        "supplemental": "Value density and provider urgency may be important because identity systems concentrate risk.",
-        "context_weight": 2,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "database_server",
-        "deployment_context": "Backend database storing regulated business records.",
-        "internet_exposure": "internal",
-        "privilege_context": "Access limited to application service accounts and database administrators.",
-        "compensating_controls": "Network isolation, backups, encryption at rest, privileged access logging.",
-        "cr": "CR:H - confidentiality is high because regulated records may be stored.",
-        "ir": "IR:H - integrity is high because records are authoritative.",
-        "ar": "AR:H - availability is high because dependent business processes may stop.",
-        "modified": "Candidate Modified Base metrics should review internal exposure, service account privileges, backups, and isolation.",
-        "supplemental": "Recovery may be relevant because backups and restore time affect operational impact.",
-        "context_weight": 2,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "developer_workstation",
-        "deployment_context": "Developer endpoint with access to source code, build tools, and internal repositories.",
-        "internet_exposure": "restricted",
-        "privilege_context": "Standard developer user with access to internal repositories and CI credentials.",
-        "compensating_controls": "EDR, device management, least privilege, repository access controls.",
-        "cr": "CR:M - confidentiality is medium due to source code and secrets exposure risk.",
-        "ir": "IR:H - integrity is high because code or pipeline changes may affect production.",
-        "ar": "AR:L - availability impact is usually limited to one endpoint.",
-        "modified": "Candidate Modified Base metrics should review endpoint controls, credentials, repository access, and user interaction.",
-        "supplemental": "Automatable may be relevant if exploitation can be scaled across endpoints.",
-        "context_weight": 1,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "isolated_lab_system",
-        "deployment_context": "Non-production lab system isolated from production networks.",
-        "internet_exposure": "isolated",
-        "privilege_context": "Local lab accounts only, no production credentials.",
-        "compensating_controls": "Network isolation, no production data, rebuildable images.",
-        "cr": "CR:L - confidentiality is low because no production data is expected.",
-        "ir": "IR:L - integrity is low because lab state is disposable.",
-        "ar": "AR:L - availability is low because outage has limited operational effect.",
-        "modified": "Candidate Modified Base metrics should review isolation, lack of production data, and rebuildability.",
-        "supplemental": "Recovery is likely favorable because lab systems are rebuildable.",
-        "context_weight": -2,
-        "control_weight": -1,
-    },
-    {
-        "asset_class": "ot_monitoring_gateway",
-        "deployment_context": "Operational technology monitoring gateway connected to industrial telemetry.",
-        "internet_exposure": "internal",
-        "privilege_context": "Restricted operator and service accounts.",
-        "compensating_controls": "Network segmentation, allow-listing, monitoring, maintenance window constraints.",
-        "cr": "CR:M - confidentiality is medium because operational telemetry may be sensitive.",
-        "ir": "IR:H - integrity is high because telemetry may influence operational decisions.",
-        "ar": "AR:H - availability is high because monitoring loss may affect operations.",
-        "modified": "Candidate Modified Base metrics should review OT segmentation, safety dependency, and maintenance constraints.",
-        "supplemental": "Safety and recovery should be reviewed as supplemental context.",
-        "context_weight": 2,
-        "control_weight": 0,
-    },
-    {
-        "asset_class": "public_api_gateway",
-        "deployment_context": "Public API gateway serving partner integrations and mobile clients.",
-        "internet_exposure": "public",
-        "privilege_context": "API tokens and service-to-service credentials are used.",
-        "compensating_controls": "API gateway policies, rate limiting, logging, schema validation, token rotation.",
-        "cr": "CR:H - confidentiality is high because API traffic may expose sensitive data.",
-        "ir": "IR:H - integrity is high because API actions may change business records.",
-        "ar": "AR:H - availability is high because partners and clients depend on the API.",
-        "modified": "Candidate Modified Base metrics should review public exposure, token scope, rate limiting, and API controls.",
-        "supplemental": "Provider urgency and automatable may support operational prioritization.",
-        "context_weight": 3,
-        "control_weight": -1,
-    },
-]
+from core.cvss40_environmental_policy import (
+    PRIORITY_ORDER,
+    SEVERITY_TO_PRIORITY,
+    ENV_PROFILES,
+    priority_to_num,
+    adjust_priority,
+)
 
 SYNTHETIC_VECTORS = [
     ("CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H", 9.3, "CRITICAL"),
@@ -204,15 +88,6 @@ SYNTHETIC_VECTORS = [
     ("CVSS:4.0/AV:P/AC:H/AT:P/PR:H/UI:A/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N", 2.1, "LOW"),
 ]
 
-def priority_to_num(value):
-    return PRIORITY_ORDER.index(value)
-
-def adjust_priority(base_priority, profile):
-    idx = priority_to_num(base_priority)
-    idx += profile["context_weight"]
-    idx += profile["control_weight"]
-    idx = max(0, min(len(PRIORITY_ORDER) - 1, idx))
-    return PRIORITY_ORDER[idx]
 
 def summarize(text, limit=220):
     text = " ".join((text or "").split())

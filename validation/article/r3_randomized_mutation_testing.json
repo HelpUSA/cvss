@@ -1,0 +1,2633 @@
+{
+  "schema": "cvss40_r3_randomized_mutation_testing",
+  "schema_version": 1,
+  "generated_at_utc": "2026-10-21T11:25:41.860223+00:00",
+  "campaign_name": "Verifier-Agnostic Randomized Mutation Complement",
+  "seed": 20261021,
+  "scenario_list": [
+    "SCN-NVD-001",
+    "SCN-NVD-003",
+    "SCN-NVD-007",
+    "SCN-SYN-013",
+    "SCN-SYN-020",
+    "SCN-SYN-028"
+  ],
+  "design_frozen": true,
+  "planned_target": 120,
+  "applicable_count": 120,
+  "not_applicable_attempts": 0,
+  "rejected_total": 83,
+  "accepted_total": 37,
+  "rejection_rate": 0.6917,
+  "per_source_type_results": {
+    "nvd": {
+      "applicable": 60,
+      "rejected": 43,
+      "accepted": 17,
+      "rejection_rate": 0.7167
+    },
+    "synthetic": {
+      "applicable": 60,
+      "rejected": 40,
+      "accepted": 20,
+      "rejection_rate": 0.6667
+    }
+  },
+  "per_scenario_results": {
+    "SCN-NVD-001": {
+      "applicable": 20,
+      "rejected": 14,
+      "accepted": 6,
+      "rejection_rate": 0.7,
+      "source_type": "nvd"
+    },
+    "SCN-NVD-003": {
+      "applicable": 20,
+      "rejected": 15,
+      "accepted": 5,
+      "rejection_rate": 0.75,
+      "source_type": "nvd"
+    },
+    "SCN-NVD-007": {
+      "applicable": 20,
+      "rejected": 14,
+      "accepted": 6,
+      "rejection_rate": 0.7,
+      "source_type": "nvd"
+    },
+    "SCN-SYN-013": {
+      "applicable": 20,
+      "rejected": 12,
+      "accepted": 8,
+      "rejection_rate": 0.6,
+      "source_type": "synthetic"
+    },
+    "SCN-SYN-020": {
+      "applicable": 20,
+      "rejected": 15,
+      "accepted": 5,
+      "rejection_rate": 0.75,
+      "source_type": "synthetic"
+    },
+    "SCN-SYN-028": {
+      "applicable": 20,
+      "rejected": 13,
+      "accepted": 7,
+      "rejection_rate": 0.65,
+      "source_type": "synthetic"
+    }
+  },
+  "per_family_counts": {
+    "F1_structural_required_field_removal": {
+      "applicable": 16,
+      "rejected": 16,
+      "accepted": 0,
+      "rejection_rate": 1.0,
+      "group": "structural_corruption"
+    },
+    "F2_structural_subobject_removal": {
+      "applicable": 12,
+      "rejected": 12,
+      "accepted": 0,
+      "rejection_rate": 1.0,
+      "group": "structural_corruption"
+    },
+    "F3_structural_subobject_injection": {
+      "applicable": 16,
+      "rejected": 0,
+      "accepted": 16,
+      "rejection_rate": 0.0,
+      "group": "structural_corruption"
+    },
+    "F4_structural_type_corruption": {
+      "applicable": 15,
+      "rejected": 15,
+      "accepted": 0,
+      "rejection_rate": 1.0,
+      "group": "structural_corruption"
+    },
+    "F5_field_string_truncation": {
+      "applicable": 13,
+      "rejected": 6,
+      "accepted": 7,
+      "rejection_rate": 0.4615,
+      "group": "field_level_corruption"
+    },
+    "F6_field_string_random_alteration": {
+      "applicable": 15,
+      "rejected": 3,
+      "accepted": 12,
+      "rejection_rate": 0.2,
+      "group": "field_level_corruption"
+    },
+    "F7_field_numeric_perturbation": {
+      "applicable": 10,
+      "rejected": 10,
+      "accepted": 0,
+      "rejection_rate": 1.0,
+      "group": "field_level_corruption"
+    },
+    "F8_field_numeric_swap_or_domain_shift": {
+      "applicable": 11,
+      "rejected": 11,
+      "accepted": 0,
+      "rejection_rate": 1.0,
+      "group": "field_level_corruption"
+    },
+    "F9_field_valid_token_flip": {
+      "applicable": 12,
+      "rejected": 10,
+      "accepted": 2,
+      "rejection_rate": 0.8333,
+      "group": "field_level_corruption"
+    }
+  },
+  "structural_vs_field_level_counts": {
+    "structural_corruption": {
+      "applicable": 59,
+      "rejected": 43,
+      "accepted": 16,
+      "rejection_rate": 0.7288
+    },
+    "field_level_corruption": {
+      "applicable": 61,
+      "rejected": 40,
+      "accepted": 21,
+      "rejection_rate": 0.6557
+    }
+  },
+  "failed_check_family_distribution": {
+    "STRUCTURAL": 49,
+    "CONSISTENCY": 58,
+    "RECOMPUTED": 50
+  },
+  "original_trace_sha256_before": {
+    "SCN-NVD-001": "4c85af073393ba4671693f64c9e89c3e5a4c19d53a09d7c8167bb64f67075778",
+    "SCN-NVD-003": "c256781d418415fa37ef3024c4d8219f431b95b4a67f1afba2c34deafdcbd753",
+    "SCN-NVD-007": "a6e2f212bce0a47519bafc87a6558971cd054b6419c377310b4ee9a8d91c2773",
+    "SCN-SYN-013": "ad5cdddb888afe4ec21587eb5d9e2d56f459fbe4e60e7d64a8cba3861cb32b8f",
+    "SCN-SYN-020": "e7953a687ac75dc55297ce335480380df81883e0a4119713c4c2031024f4507a",
+    "SCN-SYN-028": "cb08b51cb6c712132edca87351efe1a96c1c0e68a219acfe10986dfecdabd4e3"
+  },
+  "original_trace_sha256_after": {
+    "SCN-NVD-001": "4c85af073393ba4671693f64c9e89c3e5a4c19d53a09d7c8167bb64f67075778",
+    "SCN-NVD-003": "c256781d418415fa37ef3024c4d8219f431b95b4a67f1afba2c34deafdcbd753",
+    "SCN-NVD-007": "a6e2f212bce0a47519bafc87a6558971cd054b6419c377310b4ee9a8d91c2773",
+    "SCN-SYN-013": "ad5cdddb888afe4ec21587eb5d9e2d56f459fbe4e60e7d64a8cba3861cb32b8f",
+    "SCN-SYN-020": "e7953a687ac75dc55297ce335480380df81883e0a4119713c4c2031024f4507a",
+    "SCN-SYN-028": "cb08b51cb6c712132edca87351efe1a96c1c0e68a219acfe10986dfecdabd4e3"
+  },
+  "trace_files_hash_verified_unmodified": true,
+  "epistemological_statement": "The randomized mutation complement provides empirical evidence of verifier sensitivity to independently generated perturbations within the evaluated mutation set. It does not establish completeness, semantic correctness, exhaustive fault coverage, or formal verification.",
+  "accepted_mutants": [
+    {
+      "mutation_id": "MUT-R3-RAND-0001",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F9_field_valid_token_flip",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before": "public",
+      "after": "isolated",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0010",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: p...",
+      "after": "NVD CVE record with CVSS",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0011",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_11",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0014",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "priority_comparison.extra_attribute_14",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_14",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0016",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: p...",
+      "after": "NVD CVE record with CVSS v4.0 metric plus curated local deployment @rofile: p...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0017",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_17",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0023",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "nvd",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "priority_comparison.extra_attribute_23",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_23",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0026",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: i...",
+      "after": "NVD CVE record with CVSS v4.0 metric plu$ curated local deployment profile: i...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0028",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "nvd",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "environmental_evidence.evidence_links",
+      "before": "https://nvd.nist.gov/vuln/detail/CVE-2026-4270; https://aws.amazon.com/securi...",
+      "after": "https://nvd.nist.gov/vu",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0035",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "nvd",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "priority_comparison.extra_attribute_35",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_35",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0036",
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.privilege_context",
+      "before": "Authentication boundary component with privileged integration tokens.",
+      "after": "Authentication boundary component with 4rivileged integration tokens.",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0041",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before": "Operational technology monitoring gateway connected to industrial telemetry.",
+      "after": "Operational technology monitoring gateway connec",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0044",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.privilege_context",
+      "before": "Restricted operator and service accounts.",
+      "after": "Restricted ope1ator and service accounts.",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0046",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: o...",
+      "after": "NVD CVE record with CVSS v4.0 metric plus curated local deploymentXprofile: o...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0052",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: o...",
+      "after": "NVD CVE record with CVSS v4.0 metric plus1curated local deployment profile: o...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0056",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "environmental_evidence.compensating_controls",
+      "before": "Network segmentation, allow-listing, monitoring, maintenance window constraints.",
+      "after": "Net",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0057",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before": "Candidate Modified Base metrics should review OT segmentation, safety depende...",
+      "after": "CandidatZ Modified Base metrics should review OT segmentation, safety depende...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0061",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before": "Candidate Modified Base metrics should review endpoint controls, credentials,...",
+      "after": "Candidate Modified Base metrics should review endpoint controls",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0062",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_62",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0064",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_64",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_64",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0068",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before": "Developer endpoint with access to source code, build tools, and internal repo...",
+      "after": "Developer endpoint with access to source code, build tools, and internal repo...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0069",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F9_field_valid_token_flip",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before": "restricted",
+      "after": "internal",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0072",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "candidate_environmental_assessment.watcher_recommendation",
+      "before": "Use this row only as a curated scenario for workflow validation; final Enviro...",
+      "after": "Use this row only as a curated scenario for workflow validation; final Enviro...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0073",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_73",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_73",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0074",
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "synthetic",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_links",
+      "before": "local://curated-scenario/SCN-SYN-013; docs/ARTICLE_DATASET_SCHEMA.md; docs/AR...",
+      "after": "local://curated-scenario/SCN-SYN-013; docs/ARTICLE_DATASET_SCHEMA.md; docs/AR...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0085",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before": "Backend database storing regulated business records.",
+      "after": "Backend database storing regulated bu5iness records.",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0086",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "candidate_environmental_assessment.confidentiality_requirement",
+      "before": "CR:H - confidentiality is high because regulated records may be stored.",
+      "after": "CR:H - confidentiality is high because regulated records may be sto",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0093",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "priority_comparison.extra_attribute_93",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_93",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0097",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_97",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_97",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0100",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "mutation_family": "F6_field_string_random_alteration",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before": "Curated local environment profile for database_server; CVSS v4.0 vector assig...",
+      "after": "Curated local environment profile for database_server; CVSS v4.0 vector assig...",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0101",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "environmental_evidence.extra_attribute_101",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_101",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0104",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_104",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0109",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_109",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_109",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0110",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "priority_comparison.extra_attribute_110",
+      "before": "<NONEXISTENT>",
+      "after": "injected_value_110",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0113",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_113",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0114",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F5_field_string_truncation",
+      "selected_path": "candidate_environmental_assessment.availability_requirement",
+      "before": "AR:H - availability is high because dependent business processes may stop.",
+      "after": "AR:H - availability ",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    },
+    {
+      "mutation_id": "MUT-R3-RAND-0120",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "mutation_family": "F3_structural_subobject_injection",
+      "selected_path": "unexpected_structural_payload_120",
+      "before": "<NONEXISTENT>",
+      "after": "<INJECTED_OBJECT>",
+      "preliminary_classification": "schema-valid but outside current verifier contract",
+      "notes": "Perturbation accepted by current verifier assertions; candidate for specification extension."
+    }
+  ],
+  "mutant_records": [
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0001",
+      "rng_seed": 20261021,
+      "rng_index": 1,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before_summary": "public",
+      "after_summary": "isolated",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0002",
+      "rng_seed": 20261021,
+      "rng_index": 2,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "{'confidentiality_requirement': 'CR:H - confidentiality is high because custo...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0003",
+      "rng_seed": 20261021,
+      "rng_index": 3,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "-3",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0004",
+      "rng_seed": 20261021,
+      "rng_index": 4,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0005",
+      "rng_seed": 20261021,
+      "rng_index": 5,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "-4",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0006",
+      "rng_seed": 20261021,
+      "rng_index": 6,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "12345",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0007",
+      "rng_seed": 20261021,
+      "rng_index": 7,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "scenario_source",
+      "before_summary": "nvd_cvss_v4_with_curated_environment",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0008",
+      "rng_seed": 20261021,
+      "rng_index": 8,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0009",
+      "rng_seed": 20261021,
+      "rng_index": 9,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "1.1",
+      "after_summary": "0.0",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0010",
+      "rng_seed": 20261021,
+      "rng_index": 10,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: p...",
+      "after_summary": "NVD CVE record with CVSS",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0011",
+      "rng_seed": 20261021,
+      "rng_index": 11,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_11",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0012",
+      "rng_seed": 20261021,
+      "rng_index": 12,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "scenario_source",
+      "before_summary": "nvd_cvss_v4_with_curated_environment",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0013",
+      "rng_seed": 20261021,
+      "rng_index": 13,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "cvss_b_severity",
+      "before_summary": "LOW",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0014",
+      "rng_seed": 20261021,
+      "rng_index": 14,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.extra_attribute_14",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_14",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0015",
+      "rng_seed": 20261021,
+      "rng_index": 15,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0016",
+      "rng_seed": 20261021,
+      "rng_index": 16,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: p...",
+      "after_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment @rofile: p...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0017",
+      "rng_seed": 20261021,
+      "rng_index": 17,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_17",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0018",
+      "rng_seed": 20261021,
+      "rng_index": 18,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0019",
+      "rng_seed": 20261021,
+      "rng_index": 19,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.compensating_controls",
+      "before_summary": "WAF enabled, centralized logging, rate limiting, standard patch window.",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-001",
+      "mutation_id": "MUT-R3-RAND-0020",
+      "rng_seed": 20261021,
+      "rng_index": 20,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "['invalid', 'type', 'list']",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0021",
+      "rng_seed": 20261021,
+      "rng_index": 21,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before_summary": "Candidate Modified Base metrics should review identity blast radius, token ex...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0022",
+      "rng_seed": 20261021,
+      "rng_index": 22,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "12345",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0023",
+      "rng_seed": 20261021,
+      "rng_index": 23,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.extra_attribute_23",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_23",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0024",
+      "rng_seed": 20261021,
+      "rng_index": 24,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "official_or_assigned_cvss_v4_vector",
+      "before_summary": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X...",
+      "after_summary": "CVSS:4.0/AV:L/AC:L/A",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0025",
+      "rng_seed": 20261021,
+      "rng_index": 25,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.human_review_status",
+      "before_summary": "required",
+      "after_summary": "req",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0026",
+      "rng_seed": 20261021,
+      "rng_index": 26,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: i...",
+      "after_summary": "NVD CVE record with CVSS v4.0 metric plu$ curated local deployment profile: i...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0027",
+      "rng_seed": 20261021,
+      "rng_index": 27,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0028",
+      "rng_seed": 20261021,
+      "rng_index": 28,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_links",
+      "before_summary": "https://nvd.nist.gov/vuln/detail/CVE-2026-4270; https://aws.amazon.com/securi...",
+      "after_summary": "https://nvd.nist.gov/vu",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0029",
+      "rng_seed": 20261021,
+      "rng_index": 29,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "high",
+      "after_summary": "none",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0030",
+      "rng_seed": 20261021,
+      "rng_index": 30,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.base_priority",
+      "before_summary": "medium",
+      "after_summary": "high",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0031",
+      "rng_seed": 20261021,
+      "rng_index": 31,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "12345",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0032",
+      "rng_seed": 20261021,
+      "rng_index": 32,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0033",
+      "rng_seed": 20261021,
+      "rng_index": 33,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0034",
+      "rng_seed": 20261021,
+      "rng_index": 34,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "12345",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0035",
+      "rng_seed": 20261021,
+      "rng_index": 35,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.extra_attribute_35",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_35",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0036",
+      "rng_seed": 20261021,
+      "rng_index": 36,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.privilege_context",
+      "before_summary": "Authentication boundary component with privileged integration tokens.",
+      "after_summary": "Authentication boundary component with 4rivileged integration tokens.",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0037",
+      "rng_seed": 20261021,
+      "rng_index": 37,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0038",
+      "rng_seed": 20261021,
+      "rng_index": 38,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "high",
+      "after_summary": "critical",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0039",
+      "rng_seed": 20261021,
+      "rng_index": 39,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "official_or_assigned_cvss_v4_vector",
+      "before_summary": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "mutation_id": "MUT-R3-RAND-0040",
+      "rng_seed": 20261021,
+      "rng_index": 40,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "6.8",
+      "after_summary": "8.6",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0041",
+      "rng_seed": 20261021,
+      "rng_index": 41,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before_summary": "Operational technology monitoring gateway connected to industrial telemetry.",
+      "after_summary": "Operational technology monitoring gateway connec",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0042",
+      "rng_seed": 20261021,
+      "rng_index": 42,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0043",
+      "rng_seed": 20261021,
+      "rng_index": 43,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before_summary": "Candidate Modified Base metrics should review OT segmentation, safety depende...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0044",
+      "rng_seed": 20261021,
+      "rng_index": 44,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.privilege_context",
+      "before_summary": "Restricted operator and service accounts.",
+      "after_summary": "Restricted ope1ator and service accounts.",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0045",
+      "rng_seed": 20261021,
+      "rng_index": 45,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "5.1",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0046",
+      "rng_seed": 20261021,
+      "rng_index": 46,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: o...",
+      "after_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deploymentXprofile: o...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0047",
+      "rng_seed": 20261021,
+      "rng_index": 47,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.base_priority",
+      "before_summary": "medium",
+      "after_summary": "low",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0048",
+      "rng_seed": 20261021,
+      "rng_index": 48,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.confidentiality_requirement",
+      "before_summary": "CR:M - confidentiality is medium because operational telemetry may be sensitive.",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0049",
+      "rng_seed": 20261021,
+      "rng_index": 49,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_severity",
+      "before_summary": "MEDIUM",
+      "after_summary": "LOW",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0050",
+      "rng_seed": 20261021,
+      "rng_index": 50,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: o...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0051",
+      "rng_seed": 20261021,
+      "rng_index": 51,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "4",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0052",
+      "rng_seed": 20261021,
+      "rng_index": 52,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: o...",
+      "after_summary": "NVD CVE record with CVSS v4.0 metric plus1curated local deployment profile: o...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0053",
+      "rng_seed": 20261021,
+      "rng_index": 53,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before_summary": "internal",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0054",
+      "rng_seed": 20261021,
+      "rng_index": 54,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0055",
+      "rng_seed": 20261021,
+      "rng_index": 55,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "5.1",
+      "after_summary": "8.5",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0056",
+      "rng_seed": 20261021,
+      "rng_index": 56,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.compensating_controls",
+      "before_summary": "Network segmentation, allow-listing, monitoring, maintenance window constraints.",
+      "after_summary": "Net",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0057",
+      "rng_seed": 20261021,
+      "rng_index": 57,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before_summary": "Candidate Modified Base metrics should review OT segmentation, safety depende...",
+      "after_summary": "CandidatZ Modified Base metrics should review OT segmentation, safety depende...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0058",
+      "rng_seed": 20261021,
+      "rng_index": 58,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.asset_class",
+      "before_summary": "ot_monitoring_gateway",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0059",
+      "rng_seed": 20261021,
+      "rng_index": 59,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "official_or_assigned_cvss_v4_vector",
+      "before_summary": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N/E:X/CR:X/IR:X...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "mutation_id": "MUT-R3-RAND-0060",
+      "rng_seed": 20261021,
+      "rng_index": 60,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.base_priority",
+      "before_summary": "medium",
+      "after_summary": "none",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "nvd"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0061",
+      "rng_seed": 20261021,
+      "rng_index": 61,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.candidate_modified_metrics",
+      "before_summary": "Candidate Modified Base metrics should review endpoint controls, credentials,...",
+      "after_summary": "Candidate Modified Base metrics should review endpoint controls",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0062",
+      "rng_seed": 20261021,
+      "rng_index": 62,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_62",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0063",
+      "rng_seed": 20261021,
+      "rng_index": 63,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "9.3",
+      "after_summary": "5.6",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0064",
+      "rng_seed": 20261021,
+      "rng_index": 64,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_64",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_64",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0065",
+      "rng_seed": 20261021,
+      "rng_index": 65,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "['invalid', 'type', 'list']",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0066",
+      "rng_seed": 20261021,
+      "rng_index": 66,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "0",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0067",
+      "rng_seed": 20261021,
+      "rng_index": 67,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0068",
+      "rng_seed": 20261021,
+      "rng_index": 68,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before_summary": "Developer endpoint with access to source code, build tools, and internal repo...",
+      "after_summary": "Developer endpoint with access to source code, build tools, and internal repo...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0069",
+      "rng_seed": 20261021,
+      "rng_index": 69,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before_summary": "restricted",
+      "after_summary": "internal",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0070",
+      "rng_seed": 20261021,
+      "rng_index": 70,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "critical",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0071",
+      "rng_seed": 20261021,
+      "rng_index": 71,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "['invalid', 'type', 'list']",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0072",
+      "rng_seed": 20261021,
+      "rng_index": 72,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.watcher_recommendation",
+      "before_summary": "Use this row only as a curated scenario for workflow validation; final Enviro...",
+      "after_summary": "Use this row only as a curated scenario for workflow validation; final Enviro...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0073",
+      "rng_seed": 20261021,
+      "rng_index": 73,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_73",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_73",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0074",
+      "rng_seed": 20261021,
+      "rng_index": 74,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_links",
+      "before_summary": "local://curated-scenario/SCN-SYN-013; docs/ARTICLE_DATASET_SCHEMA.md; docs/AR...",
+      "after_summary": "local://curated-scenario/SCN-SYN-013; docs/ARTICLE_DATASET_SCHEMA.md; docs/AR...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0075",
+      "rng_seed": 20261021,
+      "rng_index": 75,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.asset_class",
+      "before_summary": "developer_workstation",
+      "after_summary": "develo",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0076",
+      "rng_seed": 20261021,
+      "rng_index": 76,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "{'confidentiality_requirement': 'CR:M - confidentiality is medium due to sour...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0077",
+      "rng_seed": 20261021,
+      "rng_index": 77,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "critical",
+      "after_summary": "medium",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0078",
+      "rng_seed": 20261021,
+      "rng_index": 78,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.human_review_status",
+      "before_summary": "required",
+      "after_summary": "approved",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0079",
+      "rng_seed": 20261021,
+      "rng_index": 79,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "mutation_id": "MUT-R3-RAND-0080",
+      "rng_seed": 20261021,
+      "rng_index": 80,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0081",
+      "rng_seed": 20261021,
+      "rng_index": 81,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.human_review_status",
+      "before_summary": "required",
+      "after_summary": "rejected",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0082",
+      "rng_seed": 20261021,
+      "rng_index": 82,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "scenario_source",
+      "before_summary": "curated_synthetic_no_cve",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0083",
+      "rng_seed": 20261021,
+      "rng_index": 83,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "8.7",
+      "after_summary": "10.0",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0084",
+      "rng_seed": 20261021,
+      "rng_index": 84,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "{'confidentiality_requirement': 'CR:H - confidentiality is high because regul...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0085",
+      "rng_seed": 20261021,
+      "rng_index": 85,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.deployment_context",
+      "before_summary": "Backend database storing regulated business records.",
+      "after_summary": "Backend database storing regulated bu5iness records.",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0086",
+      "rng_seed": 20261021,
+      "rng_index": 86,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.confidentiality_requirement",
+      "before_summary": "CR:H - confidentiality is high because regulated records may be stored.",
+      "after_summary": "CR:H - confidentiality is high because regulated records may be sto",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0087",
+      "rng_seed": 20261021,
+      "rng_index": 87,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.privilege_context",
+      "before_summary": "Access limited to application service accounts and database administrators.",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0088",
+      "rng_seed": 20261021,
+      "rng_index": 88,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison",
+      "before_summary": "<DICT>",
+      "after_summary": "['invalid', 'type', 'list']",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0089",
+      "rng_seed": 20261021,
+      "rng_index": 89,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "scenario_source",
+      "before_summary": "curated_synthetic_no_cve",
+      "after_summary": "curated_synthetic_n",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0090",
+      "rng_seed": 20261021,
+      "rng_index": 90,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0091",
+      "rng_seed": 20261021,
+      "rng_index": 91,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "<DICT>",
+      "after_summary": "['invalid', 'type', 'list']",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0092",
+      "rng_seed": 20261021,
+      "rng_index": 92,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.human_review_status",
+      "before_summary": "required",
+      "after_summary": "requi",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0093",
+      "rng_seed": 20261021,
+      "rng_index": 93,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.extra_attribute_93",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_93",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0094",
+      "rng_seed": 20261021,
+      "rng_index": 94,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "cvss_b_score",
+      "before_summary": "8.7",
+      "after_summary": "5.0",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0095",
+      "rng_seed": 20261021,
+      "rng_index": 95,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.asset_class",
+      "before_summary": "database_server",
+      "after_summary": "data",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0096",
+      "rng_seed": 20261021,
+      "rng_index": 96,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "This trace supports article workflow evaluation. It is not an autonom2us offi...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0097",
+      "rng_seed": 20261021,
+      "rng_index": 97,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_97",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_97",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0098",
+      "rng_seed": 20261021,
+      "rng_index": 98,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0099",
+      "rng_seed": 20261021,
+      "rng_index": 99,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment",
+      "before_summary": "{'confidentiality_requirement': 'CR:H - confidentiality is high because regul...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "mutation_id": "MUT-R3-RAND-0100",
+      "rng_seed": 20261021,
+      "rng_index": 100,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.evidence_summary",
+      "before_summary": "Curated local environment profile for database_server; CVSS v4.0 vector assig...",
+      "after_summary": "Curated local environment profile for database_server; CVSS v4.0 vector assig...",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0101",
+      "rng_seed": 20261021,
+      "rng_index": 101,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.extra_attribute_101",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_101",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0102",
+      "rng_seed": 20261021,
+      "rng_index": 102,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0103",
+      "rng_seed": 20261021,
+      "rng_index": 103,
+      "mutation_family": "F1_structural_required_field_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "boundary",
+      "before_summary": "This trace supports article workflow evaluation. It is not an autonomous offi...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0104",
+      "rng_seed": 20261021,
+      "rng_index": 104,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_104",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0105",
+      "rng_seed": 20261021,
+      "rng_index": 105,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.internet_exposure",
+      "before_summary": "internal",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0106",
+      "rng_seed": 20261021,
+      "rng_index": 106,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0107",
+      "rng_seed": 20261021,
+      "rng_index": 107,
+      "mutation_family": "F9_field_valid_token_flip",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "high",
+      "after_summary": "critical",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0108",
+      "rng_seed": 20261021,
+      "rng_index": 108,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.human_review_status",
+      "before_summary": "required",
+      "after_summary": "r@quired",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0109",
+      "rng_seed": 20261021,
+      "rng_index": 109,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "candidate_environmental_assessment.extra_attribute_109",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_109",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0110",
+      "rng_seed": 20261021,
+      "rng_index": 110,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.extra_attribute_110",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "injected_value_110",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0111",
+      "rng_seed": 20261021,
+      "rng_index": 111,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0112",
+      "rng_seed": 20261021,
+      "rng_index": 112,
+      "mutation_family": "F8_field_numeric_swap_or_domain_shift",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "8",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0113",
+      "rng_seed": 20261021,
+      "rng_index": 113,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_113",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0114",
+      "rng_seed": 20261021,
+      "rng_index": 114,
+      "mutation_family": "F5_field_string_truncation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "candidate_environmental_assessment.availability_requirement",
+      "before_summary": "AR:H - availability is high because dependent business processes may stop.",
+      "after_summary": "AR:H - availability ",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0115",
+      "rng_seed": 20261021,
+      "rng_index": 115,
+      "mutation_family": "F7_field_numeric_perturbation",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "priority_comparison.priority_delta",
+      "before_summary": "1",
+      "after_summary": "5",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0116",
+      "rng_seed": 20261021,
+      "rng_index": 116,
+      "mutation_family": "F4_structural_type_corruption",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence",
+      "before_summary": "<DICT>",
+      "after_summary": "corrupted_scalar",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0117",
+      "rng_seed": 20261021,
+      "rng_index": 117,
+      "mutation_family": "F6_field_string_random_alteration",
+      "mutation_group": "field_level_corruption",
+      "selected_path": "environmental_evidence.asset_class",
+      "before_summary": "database_server",
+      "after_summary": "database_s6rver",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0118",
+      "rng_seed": 20261021,
+      "rng_index": 118,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "environmental_evidence.evidence_links",
+      "before_summary": "local://curated-scenario/SCN-SYN-028; docs/ARTICLE_DATASET_SCHEMA.md; docs/AR...",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0119",
+      "rng_seed": 20261021,
+      "rng_index": 119,
+      "mutation_family": "F2_structural_subobject_removal",
+      "mutation_group": "structural_corruption",
+      "selected_path": "priority_comparison.environmental_priority",
+      "before_summary": "high",
+      "after_summary": "<REMOVED>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": false,
+      "failed_check_families": [
+        "CONSISTENCY",
+        "RECOMPUTED",
+        "STRUCTURAL"
+      ],
+      "source_type": "synthetic"
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "mutation_id": "MUT-R3-RAND-0120",
+      "rng_seed": 20261021,
+      "rng_index": 120,
+      "mutation_family": "F3_structural_subobject_injection",
+      "mutation_group": "structural_corruption",
+      "selected_path": "unexpected_structural_payload_120",
+      "before_summary": "<NONEXISTENT>",
+      "after_summary": "<INJECTED_OBJECT>",
+      "applicability": "APPLICABLE",
+      "verifier_accepted": true,
+      "failed_check_families": [],
+      "source_type": "synthetic"
+    }
+  ]
+}
