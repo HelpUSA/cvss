@@ -1,11 +1,11 @@
 {
   "schema": "https://helpus.org/schemas/r6_a1_experiment_registry_v1.json",
-  "schema_version": "1.2.0",
+  "schema_version": "1.3.0",
   "parent_r5_commit": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T17:35:00Z",
+  "last_updated_at": "2026-10-21T17:42:00Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -37,7 +37,7 @@
   "schema_v2": "IMPLEMENTED_AND_FROZEN",
   "governance_override": "IMPLEMENTED_AND_FROZEN",
   "differential_validation": "NOT_EXECUTED",
-  "mutation_r6": "NOT_EXECUTED",
+  "mutation_r6": "T3_REPLAY_COMPLETED_T4_NEW_MUTANTS_NOT_EXECUTED",
   "t2_original_status": "COMPLETED_WITH_FROZEN_TAXONOMY_GAP",
   "r6_1_t2r_status": "COMPLETED",
   "r6_1_t2r_results_available": true,
@@ -51,6 +51,47 @@
   "r6_1_t2r_error_counts": {
     "INVALID_TYPE": 12,
     "INVALID_ENUM": 18
+  },
+  "t3_replay_status": "COMPLETED",
+  "t3_replay_results_available": true,
+  "t3_replay_total_replayed": 120,
+  "t3_replay_family_counts": {
+    "F1_structural_required_field_removal": 16,
+    "F2_structural_subobject_removal": 12,
+    "F3_structural_subobject_injection": 16,
+    "F4_structural_type_corruption": 15,
+    "F5_field_string_truncation": 13,
+    "F6_field_string_random_alteration": 15,
+    "F7_field_numeric_perturbation": 10,
+    "F8_field_numeric_swap_or_domain_shift": 11,
+    "F9_field_valid_token_flip": 12
+  },
+  "t3_replay_family_rejections": {
+    "F1": 16,
+    "F2": 12,
+    "F3": 16,
+    "F4": 15,
+    "F5": 13,
+    "F6": 15,
+    "F7": 10,
+    "F8": 11,
+    "F9": 12
+  },
+  "t3_replay_family_acceptances": {
+    "F1": 0,
+    "F2": 0,
+    "F3": 0,
+    "F4": 0,
+    "F5": 0,
+    "F6": 0,
+    "F7": 0,
+    "F8": 0,
+    "F9": 0
+  },
+  "t3_replay_f3_v2_result": {
+    "rejected": 16,
+    "accepted": 0,
+    "total": 16
   },
   "g10b": "NOT_AUTHORIZED_NOT_EXECUTED",
   "c1_c2": "SEALED_NOT_USED under the existing fail-closed governance gate",
