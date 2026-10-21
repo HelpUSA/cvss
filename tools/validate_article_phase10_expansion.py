@@ -46,9 +46,14 @@ required_sections = [
 ]
 
 for section in required_sections:
-    marker = "\\section{" + section + "}"
-    if marker not in tex:
-        raise RuntimeError("Missing section: " + section)
+    if section == "AI/Watcher Architecture":
+        if ("\\section{AI/Watcher Architecture}" not in tex and
+            "\\section{Evidence Normalization Architecture}" not in tex):
+            raise RuntimeError("Missing section: Evidence Normalization Architecture")
+    else:
+        marker = "\\section{" + section + "}"
+        if marker not in tex:
+            raise RuntimeError("Missing section: " + section)
 
 required_terms = [
     "human-in-the-loop",

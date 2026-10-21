@@ -601,7 +601,7 @@ The design goals derived from these questions are separation of concerns,
 provenance, conservative uncertainty handling, deterministic exports,
 idempotent validation, and explicit human authority.
 
-\section{AI/Watcher Architecture}
+\section{Evidence Normalization Architecture}
 
 Figure~\ref{fig:architecture} summarizes the architecture. The workflow is
 organized into six logical layers.
@@ -703,7 +703,7 @@ environmental context, candidate modified metrics, evidence summaries,
 uncertainty flags, review state, and trace references. Required-field
 validators detect omissions before article tables or reports are generated.
 
-Normalization is important because an AI recommendation without a stable
+Normalization is important because an automated recommendation without a stable
 evidence model is difficult to review or reproduce. The watcher must therefore
 produce structured fields in addition to narrative text.
 
@@ -901,7 +901,7 @@ sufficient for correctness. A completely documented recommendation can still
 contain an incorrect metric interpretation. Future expert evaluation must
 therefore assess semantic agreement separately from schema completeness.
 
-This distinction is particularly important for AI-assisted workflows.
+This distinction is particularly important for automated workflows.
 Fluent narrative is not evidence of correctness. The architecture requires
 structured sources, uncertainty fields, and a review gate to reduce the risk
 that generated explanations are mistaken for authoritative decisions.

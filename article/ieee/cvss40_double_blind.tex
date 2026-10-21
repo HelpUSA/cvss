@@ -234,7 +234,7 @@ The design goals derived from these questions are separation of concerns,
 provenance, conservative uncertainty handling, deterministic exports,
 idempotent validation, and explicit human authority.
 
-\section{AI/Watcher Architecture}
+\section{Evidence Normalization Architecture}
 
 Figure~\ref{fig:architecture} summarizes the architecture. The workflow is
 organized into six logical layers.
@@ -336,8 +336,8 @@ environmental context, candidate modified metrics, evidence summaries,
 uncertainty flags, review state, and trace references. Required-field
 validators detect omissions before article tables or reports are generated.
 
-Normalization is important because an AI recommendation without a stable
-evidence model is difficult to review or reproduce. The watcher must therefore
+Normalization is important because an automated recommendation without a stable
+evidence model is difficult to review or reproduce. The architecture must therefore
 produce structured fields in addition to narrative text.
 
 \subsection{Candidate Recommendation Layer}
@@ -484,6 +484,12 @@ g(p) = \begin{cases}
 4, & p = \text{critical}
 \end{cases}
 \end{equation}
+The base priority $P_{\text{base}} \in \{\text{defer}, \text{low}, \text{medium}, \text{high}, \text{critical}\}$ is mapped from the official qualitative severity of the Base score $S_{\text{base}}$ via $P_{\text{base}} = \text{severity}(S_{\text{base}})$. Consumer-side operational prioritization derives the contextual priority $P_{\text{env}}$ via a deterministic policy function $h(P_{\text{base}}, e)$ defined over the deployment context $e$:
+\begin{equation}
+g(P_{\text{env}}) = \min(4, \max(0, g(P_{\text{base}}) + w_{\text{context}}(e) + w_{\text{control}}(e)))
+\end{equation}
+where $w_{\text{context}}(e) \in \{0, 1, 2\}$ reflects deployment exposure ($+2$ for public web services, $0$ for restricted administrative segments) and $w_{\text{control}}(e) \in \{-1, 0\}$ reflects active compensating controls ($-1$ for defense-in-depth, network segmentation, or multi-factor authentication).
+
 The Category Delta $\Delta_{\text{cat}}$ for a scenario is formally defined as:
 \begin{equation}
 \Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})
@@ -495,9 +501,7 @@ the sample mean category delta is:
 \begin{equation}
 \bar{\Delta}_{\text{cat}} = \frac{1}{N} \sum_{i=1}^N \Delta_{\text{cat}}^{(i)} = \frac{6.0}{30} = 0.2
 \end{equation}
-confirming the exact empirical summary reported in the dataset metrics. The priority
-categories are prototype workflow labels, and their numeric difference is a custom
-category delta rather than an official CVSS specification metric.
+confirming the exact empirical summary reported in the dataset metrics. The priority categories are prototype workflow labels, and their numeric difference is a custom category delta rather than an official CVSS specification metric. This formal separation explains why in Table~\ref{tab:nvd_cves} several CVEs exhibit a numeric score delta of $0.0$ while undergoing an operational priority shift ($\Delta_{\text{cat}} = \pm 1$): $S_{\text{env}}$ is governed strictly by the official FIRST MacroVector equivalence classes, whereas $P_{\text{env}}$ incorporates consumer-side deployment exposure and compensating control policy weights outside the CVSS scoring engine.
 
 \subsection{Validation Procedure}
 
@@ -673,7 +677,7 @@ sufficient for correctness. A completely documented recommendation can still
 contain an incorrect metric interpretation. Future expert evaluation must
 therefore assess semantic agreement separately from schema completeness.
 
-This distinction is particularly important for AI-assisted workflows.
+This distinction is particularly important for automated workflows.
 Fluent narrative is not evidence of correctness. The architecture requires
 structured sources, uncertainty fields, and human authorization checkpoints to reduce the risk
 that generated explanations are mistaken for authoritative decisions.
@@ -718,11 +722,12 @@ workflow design retains the concept of accountable review.
 
 The governance model strictly isolates active operational assets from unexecuted
 confirmatory protocols. The confirmatory protocol G10B remains explicitly in a
-\texttt{PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED} state. Correspondingly, held-out
-confirmatory benchmark datasets C1 (real-world cases) and C2 (adversarial/metamorphic cases)
-remain \texttt{SEALED / UNOPENED / UNEXECUTED / DO\_NOT\_RETUNE} under a fail-closed execution
-gatekeeper (\texttt{scripts/g10b\_confirmatory\_gate.py}). They will not be unsealed, inspected, or
-executed without explicit human authorization constraint and formal gatekeeper release.
+defined but unexecuted state. Correspondingly, held-out confirmatory benchmark
+datasets C1 (real-world cases) and C2 (adversarial/metamorphic cases) remain
+sealed and unexecuted under a pre-registered fail-closed gatekeeper
+(\texttt{scripts/g10b\_confirmatory\_gate.py}) to enforce a strict no-retuning
+constraint. They will not be inspected or executed without formal gatekeeper
+release and explicit operational authorization.
 
 Furthermore, independent human expert adjudication has not yet been concluded. The research
 package includes a pre-registered blinded evaluation protocol (\texttt{article/expert\_review/}),
@@ -781,12 +786,15 @@ real vulnerability records, their consumer contexts are curated, the priority
 delta is custom, all recommendations require human review, and no production
 validation is claimed.
 
-\section{Planned Independent Expert Evaluation}
+\section{Standardized Adjudication Protocol Specification}
 
-The next evaluation stage will compare watcher-generated candidate assessments
-with independent specialist judgments. This stage is designed to test semantic
-agreement and review effort, which are not established by the artifact
-completeness results reported in this paper.
+To support transparent external verification and future organizational deployment, this paper formalizes
+an open, standardized adjudication protocol specification and reproducible evaluation package
+(\texttt{article/expert\_review/}). Crucially, this protocol is presented as a specification deliverable;
+no independent human expert adjudication has been concluded in the present study. Specifying
+this protocol does not constitute completed empirical validation and does not eliminate the
+construction and endogenous selection bias inherent in the 30 curated scenarios. External execution
+remains necessary to measure empirical inter-rater agreement and operational generalizability.
 
 \subsection{Blinded Review Design}
 
@@ -822,9 +830,9 @@ insufficient evidence, ambiguity, reviewer interpretation differences,
 data-entry errors, watcher errors, specification interpretation issues, and
 operational-priority framework issues.
 
-This planned evaluation strengthens the human-in-the-loop design by measuring
-where automation assists analysts and where it requires correction. No expert
-agreement results are claimed in the present study.
+This standardized protocol specification strengthens the human-in-the-loop design by defining
+formal procedures to measure where automation assists analysts and where it requires correction. No expert
+agreement results or human adjudication data are claimed in the present study.
 
 \section{Operational Adoption Path}
 
@@ -862,8 +870,7 @@ from controlled workflow evaluation. Across 30 curated hybrid scenarios, the wor
 complete evidence and trace coverage and produced operational priority changes in 22 cases
 under controlled conditions subject to construction bias, while retaining a non-autonomous workflow
 in which official scoring decisions remain subject to explicit human authorization; independent
-expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains protocol defined
-and execution unauthorized, with datasets C1 and C2 sealed.
+expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains defined and unexecuted, with datasets C1 and C2 sealed.
 
 Future work will execute independent expert adjudication under the pre-registered blinded protocol,
 measure inter-rater agreement and review effort, integrate production-like asset and control

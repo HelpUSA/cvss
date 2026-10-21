@@ -35,3 +35,16 @@ Um operador autenticado cria um ambiente, importa dados reais e visualiza os ati
 ## Notas relacionadas
 
 [[00_Index]] · [[CURRENT_PHASE_STATUS]] · [[ROADMAP]] · [[ARCHITECTURE]]
+
+<!-- BEGIN CVSS40_PHASE11_PROTECTED_ANSWER_KEY_NEXT_20260713 -->
+## CVSS v4.0 Phase 11 protected answer key
+
+The adjudication answer key remains local and excluded from Git.
+
+Requirements:
+
+1. Do not distribute the answer-key CSV to reviewers.
+2. Lock independent responses before opening the answer key.
+3. Preserve original reviewer files before adjudication.
+4. Verify the revealed key against its committed SHA-256 value.
+<!-- END CVSS40_PHASE11_PROTECTED_ANSWER_KEY_NEXT_20260713 -->
