@@ -1,0 +1,9 @@
+flowchart LR
+    A["Antigravity (Local IDE)"] -->|"POST /bridge/commands"| B["Gateway Local (8766) / queue_local.db"]
+    B -->|"Row 17114 (acked)"| C["Chrome Extension (v0.5.88)"]
+    C -->|"Injeção Automática no Chat"| D["ChatGPT (Aba Web)"]
+    D -.->|"Resposta com Envelope ou Auto-Fallback"| C
+    C -.->|"POST /bridge/commands"| B
+    B -.->|"Fila para Antigravity"| A
+    A -->|"Git Commit 9aead61 & e19ce12"| E["GitHub PR #8"]
+    E -->|"GitHub Actions (38246197523 & 38246215153)"| F["CI: 100% GREEN (Passed)"]

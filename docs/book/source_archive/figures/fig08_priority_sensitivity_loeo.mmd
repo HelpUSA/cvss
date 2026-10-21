@@ -1,0 +1,7 @@
+flowchart TD
+    A["CMD-160: Priority Sensitivity Tool"] --> B["tools/article_cvss40_r2_priority_sensitivity.py"]
+    B --> C["Domínios Reutilizados de Policy<br/>w_ctx in {-2,0,1,2,3} | w_ctrl in {-1,0}"]
+    B --> D["Dataclasses:<br/>SensitivityPerturbationResult<br/>ScenarioSensitivityResult<br/>SensitivityAggregate"]
+    B --> E["CLI: --plan-only<br/>166 Combinações na Grade (136 Perturbações)"]
+    E --> F["py_compile & Import: PASS (Código 0)"]
+    F --> G["Despacho Bridge HTTP 200 OK<br/>R2_SENSITIVITY_TOOL_CREATED_READY_FOR_TESTS"]

@@ -1,0 +1,26 @@
+flowchart TD
+    subgraph Auditoria_T2_Original["Experimento T2 Original (Imutável no commit 43664e5)"]
+        T2_RES["validation/article/r6_t2/ (30 Casos)"]
+        T2_GAP["30/30 UNCLASSIFIED (INVALID_TYPE: 12, INVALID_ENUM: 18)"]
+        T2_RES --- T2_GAP
+    end
+
+    subgraph Protocol_Deviation["Governança de Desvio (Protocol R6.1)"]
+        DEV["R6-DEV-001 (POST_RESULT_CHANGE)"]
+        LOG["validation/article/r6_a1_protocol_deviation_log.md"]
+        DEV --> LOG
+    end
+
+    subgraph Nova_Taxonomia_R6_1["Taxonomia Ortogonal R6.1 (Congelada no commit bfaece2)"]
+        SPEC_TAX["validation/article/r6_1_t2_compatibility_taxonomy.md"]
+        SPEC_JSON["validation/article/r6_1_t2_compatibility_contract.json"]
+        PLAN["validation/article/r6_1_t2_rerun_plan.md"]
+    end
+
+    subgraph Futuro_Rerun_Isolado["Futura Reexecução R6.1-T2R (NOT_EXECUTED)"]
+        T2R_DIR["validation/article/r6_1_t2r/ (Diretório Isolado)"]
+    end
+
+    T2_GAP --> DEV
+    DEV --> SPEC_TAX & SPEC_JSON & PLAN
+    PLAN -.->|Aguardando Ordem Técnica| T2R_DIR

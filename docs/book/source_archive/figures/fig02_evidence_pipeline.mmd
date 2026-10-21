@@ -1,0 +1,18 @@
+flowchart LR
+    subgraph Trigger["1. Disparo da Varredura"]
+        UI["Interface Web / Botão<br/>'Nova Varredura'"] -->|Alvo: IP, Repo ou Upload| API["API / Backend de Execução"]
+    end
+
+    subgraph Scanner["2. Varredura no Ambiente Real"]
+        API -->|Comando Silencioso| TRIVY["Scanner Trivy<br/>(fs / image / repo)"]
+        TRIVY -->|JSON Bruto com CVEs| PARSER["Normalizador de Achados"]
+    end
+
+    subgraph AI_Engine["3. Análise Contextual com IA"]
+        PARSER -->|CVEs + Dados do Ambiente| AI["core/ai_evidence_engine.py<br/>(Analisa Firewall, Exposição e PCI)"]
+        AI -->|Métricas Propostas MAV, CR, IR...| MATH["core/cvss40.py<br/>(Calcula CVSS-BE Oficial)"]
+    end
+
+    subgraph Results["4. Exibição e Decisão"]
+        MATH -->|Resultado Consolidado| DASH["Dashboard com Gráficos,<br/>Citações de IA e Botão de Homologação"]
+    end

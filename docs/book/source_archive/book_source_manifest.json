@@ -1,0 +1,31 @@
+{
+  "$schema": "https://helpus.org/schemas/book_source_manifest_v1.json",
+  "archive_version": "1.0.0",
+  "generated_at_utc": "2026-10-21T17:31:00Z",
+  "generated_from_conversation_id": "52c43697-a431-4abf-a13d-6a5d1cb0b95b",
+  "repository_branch": "research/r6-a1-schema-governance-implementation",
+  "repository_head": "bfaece26f9f718672be6b754ad83497ac7f102ea",
+  "collection_scope": "FULL_ANTIGRAVITY_AND_REPOSITORY_HISTORY",
+  "conversation_history_available_extent": "25240_STEPS_SCAVENGE_COMPLETE",
+  "git_history_scanned": "ALL_COMMITS_GENESIS_TO_R6_1",
+  "source_documents_scanned": "DOCS_ARTICLE_VALIDATION_SCRIPTS",
+  "timeline_entries_count": 24,
+  "engineering_decision_entries_count": 10,
+  "scientific_decision_entries_count": 9,
+  "failure_entries_count": 7,
+  "commit_entries_count": 16,
+  "figures_inventory_count": 20,
+  "diagram_source_files_count": 11,
+  "unresolved_gaps": [
+    "Raw conversation transcripts prior to October 2026 occurred across earlier chat sessions outside current thread",
+    "High-resolution vector PDF rendering of the 11 standalone Mermaid diagrams pending compilation",
+    "Experiments R6.1-T2R, T3, T4, T6, and T7 pending future authorized execution orders",
+    "Independent human expert panel adjudication pending formal execution",
+    "Double-blind institutional author identities retained under redaction pending final publication unblinding",
+    "Final chapter retrospective pending completion of Phase R6 evaluation"
+  ],
+  "scientific_artifacts_modified": false,
+  "experiments_executed": false,
+  "held_out_accessed_for_scientific_analysis": false,
+  "archive_status": "ARCHIVE_INITIALIZED_READY_FOR_MONOGRAPH_AUTHORING"
+}
