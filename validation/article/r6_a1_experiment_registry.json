@@ -5,7 +5,7 @@
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T20:29:15Z",
+  "last_updated_at": "2026-10-21T20:35:45Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -289,7 +289,7 @@
   "differential_validation_status": "PREREGISTERED_NOT_EXECUTED",
   "differential_validation_comparator_name": "cvss4py",
   "differential_validation_comparator_repository": "https://github.com/bjedwards/cvss4py",
-  "differential_validation_comparator_status": "SELECTED_NOT_ACQUIRED",
+  "differential_validation_comparator_status": "ACQUIRED_FROZEN",
   "differential_validation_comparator_acquisition_rule": "PIN_UPSTREAM_COMMIT_VIA_LS_REMOTE_BEFORE_EXECUTION",
   "differential_validation_vector_corpus_source": "FIRSTdotorg/cvss-resources (commit d766d0c8ab4368b67bf27dd0e411eb481f05fdbb)",
   "differential_validation_vector_denominator": 486472,
@@ -299,5 +299,17 @@
   "differential_validation_held_out_accessed": false,
   "differential_validation_held_out_allowed": false,
   "differential_validation_anti_retuning": true,
-  "differential_validation_eq8_modified": false
+  "differential_validation_eq8_modified": false,
+  "differential_validation_comparator_upstream_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+  "differential_validation_comparator_source_file_count": 14,
+  "differential_validation_comparator_total_bytes": 66567,
+  "differential_validation_comparator_capabilities": {
+    "parse_cvss40_vector": true,
+    "compute_numeric_score": true,
+    "expose_direct_severity_label": false,
+    "severity_derivation_mechanism": "DETERMINISTIC_FIRST_MAPPING",
+    "detect_invalid_vectors": true,
+    "rounding_mechanism": "ROUND_HALF_UP_DECIMAL_1"
+  },
+  "differential_validation_execution_status": "NOT_EXECUTED"
 }

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_comparator_acquisition_manifest_v1.json",
+  "manifest_id": "MANIFEST-R6-DIFFERENTIAL-COMPARATOR-ACQUISITION",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40",
+  "rq_id": "RQ-R6-4",
+  "status": "ACQUIRED_FROZEN",
+  "acquired_at": "2026-10-21T20:33:00Z",
+  "comparator": {
+    "name": "cvss4py",
+    "upstream_repository": "https://github.com/bjedwards/cvss4py",
+    "upstream_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+    "upstream_branch": "main",
+    "commit_date": "2026-06-12T09:59:33-05:00",
+    "author": "Ben Edwards <ben@cyentia.com>",
+    "license": "BSD-2-Clause",
+    "license_sha256": "c54e32bbc812ebaae2352eb64409d9eded9a2df75e4c8bb343030bd620208ea0",
+    "local_path": "external/comparators/cvss4py",
+    "source_file_count": 14,
+    "total_source_bytes": 66567,
+    "source_tree_sha256": "5c907106093aa9a35e40854cff2088f572a153f3e1a0df91b365e9c0ca1ffae2"
+  },
+  "runtime_environment": {
+    "language": "Python",
+    "required_python_version": "^3.8",
+    "external_dependencies": [],
+    "stdlib_dependencies": [
+      "itertools",
+      "statistics",
+      "decimal",
+      "json",
+      "pkgutil",
+      "warnings"
+    ],
+    "offline_executable": true,
+    "network_required_during_execution": false
+  },
+  "independence_audit": {
+    "imports_our_engine": false,
+    "imports_redhat_cvss": false,
+    "wraps_first_api": false,
+    "clean_room_implementation": true,
+    "status": "PASS"
+  },
+  "capability_audit": {
+    "parse_cvss40_vector": true,
+    "compute_numeric_score": true,
+    "expose_direct_severity_label": false,
+    "severity_derivation_mechanism": "DETERMINISTIC_FIRST_MAPPING_FROM_NUMERIC_SCORE",
+    "serialize_canonical_vector": false,
+    "detect_invalid_vectors": true,
+    "rounding_mechanism": "ROUND_HALF_UP_DECIMAL_1",
+    "status": "COMPATIBLE_WITH_RUNNER_NORMALIZATION"
+  },
+  "differential_execution_status": "NOT_EXECUTED",
+  "results_available": false,
+  "held_out_accessed": false
+}
