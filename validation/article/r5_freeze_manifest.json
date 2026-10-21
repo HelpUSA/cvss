@@ -1,0 +1,77 @@
+{
+  "schema": "helpus_cvss.r5_freeze_manifest",
+  "schema_version": 1,
+  "correlation_id": "CMD-CVSS-IEEE-R5-FREEZE-196",
+  "branch": "revision/ieee-camera-ready-r5-abstract-polish",
+  "pre_freeze_head": "97931e12bb6be09407ba8db4d860fa1fb826d345",
+  "timestamp_utc": "2026-10-21T14:04:37.647865+00:00",
+  "manuscript_title": "Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability",
+  "final_audit_conclusion": "R5_CAMERA_READY_PASS_READY_TO_FREEZE",
+  "camera_ready_scope": "ABSTRACT_ONLY_EDITORIAL_POLISH",
+  "full_pytest_result": "248/248 PASS",
+  "academic_validators": "14/14 PASS",
+  "overclaims": "CLEAN",
+  "abstract_word_count": {
+    "tex": 155,
+    "pdf": 156
+  },
+  "pdf_artifact": {
+    "path": "article/ieee/cvss40_double_blind.pdf",
+    "pages": 14,
+    "bytes": 420602,
+    "sha256": "ee3fb8784e1b09ba248d9608df57daa4060930dcc767b4b7ac5a5c4cca644252"
+  },
+  "overleaf_zip_artifact": {
+    "path": "article/ieee/cvss40_ieee_article_overleaf.zip",
+    "bytes": 28397,
+    "sha256": "d37d2daa7e198d71ebdc7d26bfb9dd7eb52faab02b475ef2fc23812c1807d203",
+    "submission_package_mirror": "docs/submission_package/cvss40_ieee_article_overleaf.zip"
+  },
+  "r2_canonical_artifacts_verification": {
+    "status": "7/7 MATCH",
+    "reference_manifest": "validation/article/r2_freeze_manifest.json",
+    "all_byte_and_sha256_verified": true
+  },
+  "r3_randomized_mutation_artifacts_verification": {
+    "status": "2/2 MATCH",
+    "reference_manifest": "validation/article/r3_freeze_manifest.json",
+    "testing_json": {
+      "path": "validation/article/r3_randomized_mutation_testing.json",
+      "bytes": 99401,
+      "sha256": "32e273f1f0be0f631301edc9b1e2448d013586bf0a9c1e7b05688e6dcf1ac790"
+    },
+    "cases_csv": {
+      "path": "validation/article/r3_randomized_mutation_cases.csv",
+      "bytes": 24463,
+      "sha256": "60a38411df1753899f444a5e61895795dcdf9b4403327a1a0c6f2ff4b589d84c"
+    }
+  },
+  "r4_freeze_manifest_reference": {
+    "path": "validation/article/r4_freeze_manifest.json",
+    "status": "INTACT",
+    "bytes": 2836,
+    "sha256": "096f51dadb2451642dbf15fc42b031a0cd6200f8ca9051e763e51ac4aec5d6ce"
+  },
+  "stale_or_ocr_reviewer_findings_audit": {
+    "status": "ALREADY_CORRECT",
+    "findings_confirmed_in_source_and_build": [
+      "Table VI: M4 (*) and M5 (\u2020) with correct textual footnotes",
+      "Table VIII: B2 w_control=0 and B3 w_context=0 verified correct without inversion",
+      "Table IX: Sensitivity stable scenarios 0/12 (0.0%), 2/18 (11.1%), 2/30 (6.7%) confirmed",
+      "Section VI-F: Duplicate sentence absent in source",
+      "Section VII-A: Subobject injection open-world vs closed-world discussion confirmed",
+      "Paths: scripts/g10b_confirmatory_gate.py and article/expert_review/ verified",
+      "References: Jacobs et al. pages=tyaa015 and doi=10.1093/cybsec/tyaa015 confirmed"
+    ]
+  },
+  "reproducibility_limitation": {
+    "classification": "NONBLOCKING",
+    "status": "PRESERVES_EXISTING_R2/R3/R4/R5_CONTENT_ONLY"
+  },
+  "governance_and_protocol_locks": {
+    "g10b_confirmatory_protocol": "NOT_AUTHORIZED_NOT_EXECUTED",
+    "c1_c2_confirmatory_datasets": "SEALED_UNEXECUTED",
+    "independent_human_adjudication": "NOT_COMPLETED_FUTURE_VALIDATION",
+    "push_performed": false
+  }
+}
