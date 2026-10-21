@@ -1,11 +1,11 @@
 {
   "schema": "https://helpus.org/schemas/r6_a1_experiment_registry_v1.json",
-  "schema_version": "1.1.0",
+  "schema_version": "1.2.0",
   "parent_r5_commit": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T17:25:00Z",
+  "last_updated_at": "2026-10-21T17:35:00Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -39,7 +39,19 @@
   "differential_validation": "NOT_EXECUTED",
   "mutation_r6": "NOT_EXECUTED",
   "t2_original_status": "COMPLETED_WITH_FROZEN_TAXONOMY_GAP",
-  "r6_1_t2r_status": "PREREGISTERED_NOT_EXECUTED",
+  "r6_1_t2r_status": "COMPLETED",
+  "r6_1_t2r_results_available": true,
+  "r6_1_t2r_category_counts": {
+    "V1_VALID_V2_VALID": 0,
+    "V1_VALID_V2_INVALID": 30,
+    "V1_INVALID_V2_INVALID": 0,
+    "V1_VALID_V2_VALID_NORMALIZED": 0,
+    "V1_INVALID_V2_VALID": 0
+  },
+  "r6_1_t2r_error_counts": {
+    "INVALID_TYPE": 12,
+    "INVALID_ENUM": 18
+  },
   "g10b": "NOT_AUTHORIZED_NOT_EXECUTED",
   "c1_c2": "SEALED_NOT_USED under the existing fail-closed governance gate",
   "human_adjudication": "NOT_COMPLETED",
