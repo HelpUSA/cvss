@@ -1,0 +1,143 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t4_mutation_contract_v1.json",
+  "contract_version": "1.0.0",
+  "experiment_id": "R6-T4-SCHEMA-V2-MUTATION-CAMPAIGN",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "specification_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
+  "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+  "t3_freeze_commit": "c77599be1ceac1cd39d9e552eb51196cbe427f5e",
+  "created_at": "2026-10-21T18:00:00Z",
+  "family_count": 6,
+  "families": [
+    {
+      "family_id": "NF1",
+      "title": "extension_unnamespaced_key_injection",
+      "normative_property_under_test": "Trace extensions must strictly conform to vendor-namespaced syntax ^[a-z0-9_]{3,30}:[a-z0-9_]{2,50}$",
+      "source_spec_section": "r6_schema_v2_specification.md §5.2",
+      "mutation_operator": "inject_unnamespaced_extension_key",
+      "valid_source_input_precondition": "valid_trace_root",
+      "deterministic_construction_rule": "extensions['unprefixed_telemetry_flag'] = 'unauthorized_bypass'",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema / Extension Integrity)",
+      "detection_criterion": "rejection_with_invalid_extension_namespace_or_unknown_field",
+      "accepted_boundary_criterion": "accepted_if_bare_keys_permitted",
+      "compatible_error_categories": [
+        "INVALID_EXTENSION_NAMESPACE",
+        "UNKNOWN_FIELD"
+      ],
+      "exclusions": "core_subobjects",
+      "overlap_with_F1_F9": "NONE",
+      "rationale": "Validates vendor namespace isolation mechanism without corrupting core trace semantics."
+    },
+    {
+      "family_id": "NF2",
+      "title": "core_field_shadowing_in_extensions",
+      "normative_property_under_test": "Extension attributes must not duplicate, mirror, or shadow core normative metric keys",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutation_operator": "inject_namespaced_core_metric_shadow",
+      "valid_source_input_precondition": "valid_trace_root_with_core_metrics",
+      "deterministic_construction_rule": "extensions['custom_audit:cvss_b_score'] = 1.0",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema / Extension Integrity)",
+      "detection_criterion": "rejection_with_unknown_field_or_invalid_extension_namespace",
+      "accepted_boundary_criterion": "accepted_if_extensions_treated_as_opaque_metadata",
+      "compatible_error_categories": [
+        "UNKNOWN_FIELD",
+        "INVALID_EXTENSION_NAMESPACE",
+        "RESERVED_FIELD"
+      ],
+      "exclusions": "non_colliding_valid_domain_extensions",
+      "overlap_with_F1_F9": "NONE",
+      "rationale": "Prevents side-channel redefinition of core scoring fields via extension payload."
+    },
+    {
+      "family_id": "NF3",
+      "title": "reserved_architectural_keyword_injection",
+      "normative_property_under_test": "Forward-reserved architectural keywords (delta_audit, formula_override, dynamic_weights, runtime_bypass) are strictly prohibited across all scopes",
+      "source_spec_section": "r6_schema_v2_specification.md §4 and §5.4",
+      "mutation_operator": "inject_reserved_keyword_at_root",
+      "valid_source_input_precondition": "valid_trace_root",
+      "deterministic_construction_rule": "trace['formula_override'] = {'bypass_eq8': True}",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema Validation)",
+      "detection_criterion": "rejection_with_reserved_field_or_unknown_field",
+      "accepted_boundary_criterion": "accepted_if_parser_ignores_reserved_keywords",
+      "compatible_error_categories": [
+        "RESERVED_FIELD",
+        "UNKNOWN_FIELD"
+      ],
+      "exclusions": "arbitrary_non_reserved_keys",
+      "overlap_with_F1_F9": "NONE",
+      "rationale": "Confirms reserved protocol keywords are blocked fail-closed."
+    },
+    {
+      "family_id": "NF4",
+      "title": "nested_array_item_undeclared_property",
+      "normative_property_under_test": "Closed-world property rejection applies recursively to composite array elements and metric containers",
+      "source_spec_section": "r6_schema_v2_specification.md §4.1.C, §4.1.D, §4.1.F",
+      "mutation_operator": "inject_undeclared_property_in_array_item",
+      "valid_source_input_precondition": "valid_trace_with_controls_or_modified_metrics",
+      "deterministic_construction_rule": "compensating_controls[0]['kernel_enforced'] = True if controls else candidate_modified_metrics['MXP'] = 'X'",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema Validation)",
+      "detection_criterion": "rejection_with_unknown_field_on_nested_path",
+      "accepted_boundary_criterion": "accepted_if_closed_world_is_shallow",
+      "compatible_error_categories": [
+        "UNKNOWN_FIELD",
+        "INVALID_NESTED_OBJECT"
+      ],
+      "exclusions": "top_level_subobjects",
+      "overlap_with_F1_F9": "PARTIAL",
+      "rationale": "Evaluates deep recursive structural validation vs shallow object-level closure."
+    },
+    {
+      "family_id": "NF5",
+      "title": "explicit_null_on_non_nullable_scalar",
+      "normative_property_under_test": "Mandatory non-nullable scalar fields must reject explicit null literal assignments",
+      "source_spec_section": "r6_schema_v2_specification.md §4 and §4.1",
+      "mutation_operator": "set_non_nullable_scalar_to_null",
+      "valid_source_input_precondition": "valid_trace_with_populated_non_nullable_scalars",
+      "deterministic_construction_rule": "environmental_evidence['asset_class'] = None",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema Validation)",
+      "detection_criterion": "rejection_with_invalid_type_or_missing_required_field",
+      "accepted_boundary_criterion": "accepted_if_parser_coerces_null_to_empty_or_default",
+      "compatible_error_categories": [
+        "INVALID_TYPE",
+        "MISSING_REQUIRED_FIELD"
+      ],
+      "exclusions": "key_removal",
+      "overlap_with_F1_F9": "PARTIAL",
+      "rationale": "Distinguishes missing-key syntax errors from null-coercion type vulnerabilities."
+    },
+    {
+      "family_id": "NF6",
+      "title": "schema_downgrade_header_injection",
+      "normative_property_under_test": "Payloads cannot force fallback to open-world v1 parsing via injected version headers or mode flags",
+      "source_spec_section": "r6_schema_v2_specification.md §3, §4.1.A, §8",
+      "mutation_operator": "inject_schema_downgrade_attribute",
+      "valid_source_input_precondition": "valid_trace_root",
+      "deterministic_construction_rule": "trace['$schema'] = 'https://helpus.org/schemas/v1/open_world.json'",
+      "applicability_rule": "all_canonical_traces",
+      "expected_validation_stage": "Stage 1 (Closed-World Schema Validation)",
+      "detection_criterion": "rejection_with_unknown_field",
+      "accepted_boundary_criterion": "accepted_if_validator_dynamically_downgrades_to_open_world",
+      "compatible_error_categories": [
+        "UNKNOWN_FIELD",
+        "INVALID_TYPE"
+      ],
+      "exclusions": "official_v2_contract_headers",
+      "overlap_with_F1_F9": "NONE",
+      "rationale": "Protects verification pipeline against protocol confusion and downgrade attacks."
+    }
+  ],
+  "denominator_rule": "EXHAUSTIVE_HISTORICAL_CANONICAL_CORPUS_30_SCENARIOS_X_6_FAMILIES_EQUALS_180",
+  "deterministic_seed": 20261021,
+  "selection_rule": "DETERMINISTIC_EXHAUSTIVE_NO_SAMPLING",
+  "expected_detection_rate": null,
+  "target_success_rate": null,
+  "held_out_allowed": false,
+  "results_available": false,
+  "implementation_modified": false,
+  "anti_retuning_locked": true
+}
