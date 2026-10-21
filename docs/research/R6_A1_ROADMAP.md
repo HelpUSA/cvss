@@ -48,7 +48,8 @@
 * Maintain complete isolation: zero held-out external results visible during design.
 
 ### Phase R6-2 — External Corpus Acquisition and Lock
-* Execute the pre-registered programmatic filter over an independent public vulnerability feed (source candidates include NVD CVE JSON, CISA KEV or distribution advisory feeds, to be formally designated before acquisition).
+* Execute the pre-registered programmatic filter over the primary source: GitHub Advisory Database (reviewed global advisories, excluding malware; specification in r6_a1_heldout_corpus_protocol.md).
+* Secondary cross-check via OSV.dev strictly after primary corpus lock (zero selection authority).
 * Acquire out-of-distribution external vulnerabilities without manual cherry-picking.
 * Generate complete provenance metadata, cryptographic SHA-256 snapshot, and raw payload archive.
 * Cryptographically lock the acquired corpus before initiating trace verification or analysis.

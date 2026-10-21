@@ -24,6 +24,12 @@
     }
   ],
   "held_out_corpus": "NOT_COLLECTED",
+  "held_out_source_specification": "FROZEN_NOT_COLLECTED",
+  "primary_source": "GitHub Advisory Database reviewed global advisories",
+  "secondary_crosscheck": "OSV_POST_LOCK_ONLY",
+  "temporal_window_start": "2026-09-01T00:00:00Z",
+  "temporal_window_end_exclusive": "2026-10-01T00:00:00Z",
+  "corpus_collected": false,
   "schema_v2": "NOT_IMPLEMENTED",
   "governance_override": "NOT_IMPLEMENTED",
   "differential_validation": "NOT_EXECUTED",

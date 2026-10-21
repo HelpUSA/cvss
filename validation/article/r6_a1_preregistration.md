@@ -10,16 +10,15 @@ R6 é uma extensão científica pré-planejada para aumentar a validade externa,
 - **RQ-R6-4 (Differential Scorer Concordance)**: Qual é o grau de concordância e quais classes de discrepância, se houver, são observadas entre o scorer primário CVSS v4.0 e uma implementação secundária independente sob um corpus de vetores pré-definido?
 
 ## 3. External Held-Out Corpus Protocol
-Definido integralmente ANTES da coleta:
-- Fonte pública independente a ser selecionada e documentada formalmente antes da coleta (fontes candidatas incluem NVD CVE JSON, CISA KEV ou feeds de segurança abertos, sem fixação obrigatória prematura nesta fase).
-- Janela temporal ou critério objetivo de seleção pré-definido e fixado antes da aquisição.
-- Regra determinística de inclusão/exclusão (ex.: registros com métricas e contexto ambiental legíveis; exclusão de registros rejeitados ou disputados).
-- Tamanho-alvo justificado por cobertura operacional e diversidade de casos, e não por inferência estatística populacional não suportada.
-- Zero reutilização dos 30 cenários existentes (SCN-NVD-001–012, SCN-SYN-013–030).
-- Zero escolha manual ou seletiva baseada em resultado prévio ou conveniência.
-- Provenance completo de aquisição documentado.
-- Snapshot imutável e hash SHA-256 gerados imediatamente após coleta sob controle fail-closed.
-- Corpus bloqueado antes de qualquer análise de resultados.
+O protocolo detalhado e congelado do corpus held-out encontra-se especificado em `validation/article/r6_a1_heldout_corpus_protocol.md`, regido pelos seguintes princípios fixados ANTES de qualquer coleta:
+- Fonte primária: `GitHub Advisory Database reviewed global advisories` (excluindo malware).
+- Fonte secundária de cross-check: `OSV_POST_LOCK_ONLY` (consulta estritamente posterior ao lacre do corpus primário, com zero autoridade de seleção).
+- Janela temporal imutável: `2026-09-01T00:00:00Z` até `2026-10-01T00:00:00Z` (último mês civil completo anterior ao freeze do pré-registro).
+- Regra determinística de inclusão/exclusão com chave canônica `GHSA ID`; exclusão de unreviewed, malware e sobreposição com R5.
+- Tamanho natural da janela registrado inicialmente; se redução for necessária, aplicação de ordenação pseudo-aleatória determinística via SHA-256 com seed do commit `c0b4025d9f560b8e525accd17e1b075cd23a355b`.
+- Zero reutilização dos 30 cenários R5 e zero escolha manual por conveniência ou resultado.
+- Limite estrito de externalidade: advisories públicos testam transferência do contrato de verificação e não constituem ground truth de métricas ambientais organizacionais sem contexto controlado explicitamente rotulado.
+- Provenance completo, snapshot imutável e hash SHA-256 gerados sob controle fail-closed antes da análise.
 *Nota de Governança*: O corpus NÃO é coletado nesta ordem; este documento define exclusivamente o protocolo.
 
 ## 4. Schema v2 Closed-World Protocol
