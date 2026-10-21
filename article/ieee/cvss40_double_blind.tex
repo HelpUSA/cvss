@@ -26,7 +26,7 @@ Evidence Normalization, Governance, and Traceability}
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 provides Environmental metrics for adapting vulnerability assessment to the deployment context of a consumer organization, but selecting those metrics remains evidence-intensive. This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow that collects, structures, and traces environmental evidence while preserving official CVSS semantics and human responsibility for final metric selection. The workflow separates Base vulnerability information from consumer-side context, resolves candidate Environmental values under explicit governance policies, records uncertainty, enforces human authorization checkpoints, and exports machine-checkable trace artifacts. The evaluation strictly separates specification-level arithmetic conformance validation from controlled workflow evaluation across curated scenarios. At the specification level, the scoring core demonstrated 100.00\% reference conformance across 486,472 official FIRST reference corpus vectors (commit \texttt{d766d0c8ab4368b67bf27dd0e411eb481f05fdbb}) and zero invariant violations across a finite 10,000-execution metamorphic testing campaign. Under controlled scenario evaluation with a curated hybrid dataset of 30 scenarios (12 real NVD records carrying CVSS v4.0 data and 18 curated synthetic cases), the workflow achieved 100.00\% evidence coverage, 100.00\% trace completeness, and operational priority shifts in 22 of 30 scenarios. The evaluation demonstrates workflow schema completeness, context sensitivity, and machine-checkable traceability under construction-controlled conditions with limited external validity; it does not establish autonomous scoring correctness, predictive superiority, or validated production effectiveness without human review.
+CVSS v4.0 introduces Environmental metrics to adapt vulnerability assessments to organizational deployment context, but operationalization remains evidence-intensive and difficult to audit. We present a deterministic, machine-checkable evidence normalization, governance, and traceability workflow that structures environmental evidence, resolves candidate metrics under explicit policy, and enforces human authorization checkpoints. The scoring core achieves conformance across 486,472 FIRST reference vectors and zero violations over 10,000 metamorphic executions. Across a controlled 30-scenario verification corpus (12 curated NVD records and 18 synthetic test cases), an independent trace verifier evaluated all 30 traces, recording 464 machine-checkable assertions with 34 cataloged schema limitations. In empirical mutation testing, a structured campaign detected all 42 applicable designed faults, while a verifier-agnostic randomized complement rejected 83 of 120 independently generated perturbations, exposing explicit boundaries in the current machine-checkable contract. A sensitivity stress test across 136 local perturbations demonstrated bounded variance, with 121 of 136 perturbations yielding at most one ordinal category shift ($|\Delta_p| \le 1$). The workflow provides machine-checkable provenance and governance constraints under controlled conditions; it does not establish semantic correctness, population-level generalization, predictive superiority, or expert agreement without human adjudication. Independent expert adjudication remains future work.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -57,8 +57,7 @@ information, document assumptions, and preserve the reasoning behind each
 metric choice.
 
 This paper investigates whether an evidence normalization and governance workflow can assist that process
-without modifying CVSS or displacing human judgment. Assistive watcher components are defined as
-evidence-processing tools rather than autonomous scoring authorities.
+without modifying CVSS or displacing human judgment. We use ``watcher'' only to denote the deterministic evidence-ingestion and normalization component of the architecture; it is not an autonomous scoring authority. ``Workflow'' denotes the complete end-to-end process, including evidence processing, policy resolution, trace generation and verification, and the mandatory authorization checkpoint.
 The pipeline ingests candidate evidence, normalizes it into a structured scenario record, resolves
 reviewable candidate metric values under deterministic policy rules, identifies uncertainty, and exports trace artifacts.
 A human analyst remains responsible for accepting, changing, or rejecting each
@@ -457,6 +456,7 @@ The synthetic scenarios are not intended to simulate the statistical
 distribution of enterprise assets. They are controlled test cases for the
 workflow schema and validators. Similarly, the NVD sample is time-bounded and
 is not claimed to represent the population of CVSS v4.0 vulnerabilities.
+The benchmark is a verification corpus rather than a statistical sample. Its purpose is to exercise the trace schema, deterministic policy logic, verification mechanisms, and governance gates across heterogeneous asset profiles. It is not intended to support population-level inference, and no statistical generalization claim in this study depends on the corpus size.
 
 \subsection{Measures}
 
@@ -487,6 +487,8 @@ The base priority $P_{\text{base}} \in \{\text{defer}, \text{low}, \text{medium}
 g(P_{\text{env}}) = \min(4, \max(0, g(P_{\text{base}}) + w_{\text{context}}(e) + w_{\text{control}}(e)))
 \end{equation}
 where $w_{\text{context}}(e) \in \{-2, 0, 1, 2, 3\}$ is determined by the deployment environment profile ($+3$ for public API gateways, $+2$ for customer-facing web applications, identity providers, backend databases, and OT monitoring gateways, $+1$ for developer workstations, $0$ for internal administrative consoles, and $-2$ for isolated lab systems), and $w_{\text{control}}(e) \in \{-1, 0\}$ reflects active compensating controls ($-1$ when controls such as network isolation, WAF, or multi-factor authentication are present; $0$ when unconstrained).
+
+These weights encode explicit policy design choices rather than parameters estimated from data. Section VI-I therefore evaluates deterministic local sensitivity within the declared discrete weight domain rather than statistical uncertainty or predictive robustness.
 
 The Category Delta $\Delta_{\text{cat}}$ for a scenario is formally defined as:
 \begin{equation}
@@ -659,7 +661,7 @@ CVE-2026-4253  & CVSS-BT & 2.0 & CVSS-BTE & 2.0 & \phantom{-}0.0 & low $\to$ med
 
 The workflow deterministically encodes evidence provenance, uncertainty, and human authorization states in structured trace artifacts rather than exporting only an ungrounded score or category. To audit this structure independently, an automated trace verifier was executed against the benchmark corpus. Across all 30 canonical scenarios (12 curated NVD records and 18 synthetic test cases, with 12 out-of-scope legacy files segregated without benchmark contamination), the verifier demonstrated 30/30 canonical PASS (canonical failures = 0, overall status = PASS), validating 464 discrete checks across three categories:
 \begin{itemize}
-    \item \textbf{Structural Integrity (240 checks, 0 failures):} Verified top-level schema completeness, required nested environmental evidence structures, mandatory boundary disclaimers, explicit uncertainty representation, and strict enforcement of the non-autonomous human review gatekeeper status (\texttt{human\_review\_status = "required"}).
+    \item \textbf{Structural Integrity (240 checks, 0 failures):} Verified top-level schema conformance, required nested environmental evidence structures, mandatory boundary disclaimers, explicit uncertainty representation, and strict enforcement of the non-autonomous human review gatekeeper status (\texttt{human\_review\_status = "required"}).
     \item \textbf{Arithmetic and Policy Recomputation (128 checks, 0 failures):} Recomputed Base priority mapping $P_{\text{base}} = f(\text{Severity})$, Category Delta arithmetic $\Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})$, ordinal bounded range clamp $g(P_{\text{env}}) \in [0, 4]$, and nominal policy profile lookup decoupled via the canonical policy module (\texttt{core.cvss40\_environmental\_policy}).
     \item \textbf{Cross-Artifact Consistency (96 checks, 0 failures):} Enforced epistemological source separation (NVD Base scores recomputed via the canonical parser/scorer \texttt{core.cvss40}, whereas synthetic scenarios strictly validated CVSS v4.0 vector grammar and uncertainty disclaimers without treating assigned vectors as official CVE ground truth) and cross-referenced all metadata against the canonical scenario dataset.
 \end{itemize}
@@ -707,6 +709,34 @@ Across 48 planned cases, 42 mutations were applicable and six were marked not ap
 
 Empirical mutation testing provides empirical evidence that injected trace violations are detected and rejected in the evaluated mutation set. It does not constitute formal verification, proof of semantic correctness, a completeness guarantee, or exhaustive coverage.
 
+\subsection{Verifier-Agnostic Randomized Mutation Complement}
+
+To evaluate verifier sensitivity without operator-selection bias and complement the structured mutation campaign ($M1$--$M8$), we implemented an independent, verifier-agnostic randomized mutation generator. The generator was authored in a separate utility without importing verifier assertion maps, check identifiers, or internal verification catalogs. Using a published, reproducible pseudo-random seed (\texttt{seed = 20261021}), the tool generated mutations strictly in-memory on deep copies of trace data across the six representative scenarios (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-003}, \texttt{SCN-NVD-007}, \texttt{SCN-SYN-013}, \texttt{SCN-SYN-020}, and \texttt{SCN-SYN-028}). Cryptographic SHA-256 digests of the six canonical trace files on disk were recorded before and verified byte-identical after the campaign.
+
+The generator produced exactly 20 applicable perturbations per scenario across nine verifier-agnostic mutation families ($F1$--$F9$), partitioned into structural corruption ($F1$--$F4$) and field-level corruption ($F5$--$F9$), yielding 120 applicable perturbations total with zero discarded $N/A$ attempts. Each applicable perturbation was submitted to the independent trace verifier. Table~\ref{tab:random_mutation} summarizes the evaluation outcomes.
+
+\begin{table*}[t]
+\caption{Verifier-Agnostic Randomized Mutation Results Across Representative Scenarios}
+\label{tab:random_mutation}
+\centering
+\small
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Group / Evaluation Subset & Applicable & Rejected & Accepted & Rejection Rate \\
+\midrule
+Overall Campaign          & 120        & 83       & 37       & 69.2\% \\
+NVD Partition             & 60         & 43       & 17       & 71.7\% \\
+Synthetic Partition       & 60         & 40       & 20       & 66.7\% \\
+Structural Corruption     & 59         & 43       & 16       & 72.9\% \\
+Field-Level Corruption    & 61         & 40       & 21       & 65.6\% \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
+Across the 120 applicable perturbations, the verifier rejected 83 cases (69.2\% overall rejection rate), comprising 43/60 rejected in the NVD partition (71.7\%) and 40/60 rejected in the synthetic partition (66.7\%). Group-level analysis demonstrated 43/59 rejections (72.9\%) for structural corruption and 40/61 rejections (65.6\%) for field-level corruption. Across individual mutation families, the verifier achieved 100.0\% rejection on top-level required field removals ($F1$: 16/16), subobject removals ($F2$: 12/12), structural type corruptions ($F4$: 15/15), numeric perturbations ($F7$: 10/10), and numeric domain shifts ($F8$: 11/11). Conversely, subobject injections ($F3$: 0/16 rejected) were accepted because current JSON schema parsing permits undeclared attributes. String truncations ($F5$: 6/13 rejected, 46.2\%) and random string alterations ($F6$: 3/15 rejected, 20.0\%) exhibited lower rejection rates because they primarily perturbed unconstrained narrative text fields rather than formal vector grammar. Valid token flips ($F9$) achieved 10/12 rejections (83.3\%), rejecting priority and severity inconsistencies while accepting context exposure flips lacking explicit cross-field invariants. Rejections were triggered across three primary failure categories: Consistency (58 rejections), Recomputed Arithmetic/Policy (50 rejections), and Structural Integrity (49 rejections).
+
+The 37 accepted perturbations expose boundaries of the current machine-checkable contract rather than being silently discarded. Sixteen added schema-valid attributes that are permitted by the current open-world JSON handling; nineteen modified free-form narrative fields for which the verifier currently imposes no lexical or semantic constraints; and two flipped \texttt{internet\_exposure} without violating any currently encoded cross-field invariant. These cases identify concrete specification gaps and future schema-hardening targets, categorized as accepted perturbations outside or at the boundary of the currently encoded verifier constraints. They do not by themselves establish that every accepted perturbation is semantically benign, nor do the rejection results establish completeness or exhaustive fault coverage. The randomized mutation complement provides empirical evidence of verifier sensitivity to independently generated perturbations within the evaluated mutation set. It does not establish completeness, semantic correctness, exhaustive fault coverage, or formal verification.
+
 \subsection{Ablation of Priority Components}
 
 To assess the operational contribution of each evidence dimension, we conducted a deterministic ablation study across the $N=30$ canonical benchmark scenarios (12 curated NVD records and 18 synthetic cases). We evaluated five operational variants against the reference benchmark priority stored in the trace corpus:
@@ -753,6 +783,8 @@ Ablating context ($w_{\text{control}}$ only, B3) and controls ($w_{\text{context
 
 Crucially, the stored benchmark is the reference target produced under the project's governance framework, not an independent competitive baseline; its 30/30 conformance is tautological by definition. Because the benchmark is endogenous and $N=30$, these descriptive metrics characterize internal benchmark consistency and component ablation rather than independent predictive validity.
 
+The difference between the 24 category shifts produced by the nominal B4 policy and the 22 shifts recorded in the stored benchmark is explained by the four curated NVD deviations. In \texttt{SCN-NVD-001} and \texttt{SCN-NVD-007}, the nominal policy produces a category shift relative to Base priority, whereas the stored operational priority returns to the Base-priority category after a documented narrative deployment adjustment. \texttt{SCN-NVD-006} and \texttt{SCN-NVD-008} remain category shifts under both representations, although their final categories differ. Thus, the two-shift count difference between Sections VI-C and VI-H results from the documented curated adjustments rather than an inconsistency in the reported results.
+
 \subsection{Contextual Priority Sensitivity Stress Test}
 
 To evaluate the operational stability of nominal prioritization decisions under local contextual weight uncertainty, we execute a deterministic sensitivity stress test across the 30 canonical benchmark scenarios (12 curated NVD records and 18 synthetic test cases). Because organizational environmental policy in our framework is purely deterministic and rule-based rather than estimated from training data, standard machine learning cross-validation (such as Leave-One-Environment-Out) is methodologically inapplicable; instead, local weight perturbation provides an appropriate, conservative assessment of operational stability.
@@ -798,6 +830,10 @@ This distinction is particularly important for automated workflows.
 Fluent narrative is not evidence of correctness. The architecture requires
 structured sources, uncertainty fields, and human authorization checkpoints to reduce the risk
 that generated explanations are mistaken for authoritative decisions.
+
+Of the 34 schema limitations identified by the independent trace verifier, 30 arise because evidence is represented through narrative fields rather than atomic, machine-addressable records linked to individual modified metrics. The remaining four correspond to curated NVD scenarios (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}) in which deployment-specific narrative adjustments cannot be deterministically reconstructed from the structured policy weights alone. This is an architectural limitation rather than an arithmetic verification failure. A future schema revision should require each candidate modified metric to reference a structured evidence record through a stable evidence identifier, extending machine-checkability to the evidence-to-metric boundary and reducing reliance on narrative-only adjustments.
+
+The empirical results of the randomized mutation complement directly reinforce these architectural observations. The 16 accepted subobject injection perturbations ($F3$) demonstrate the need for an explicit governance choice regarding open-world versus closed-world schema validation for undeclared attributes. Similarly, the 19 accepted narrative truncations and alterations ($F5$ and $F6$) confirm that free-form narrative evidence remains machine-unaddressable, establishing concrete empirical justification for atomic evidence identifiers in schema v2. Finally, the two accepted exposure flips ($F9$) highlight the potential for future semantic invariants linking deployment context evidence to candidate modified metrics, provided such rules are defined by independent specification.
 
 \subsection{Relationship to Other Prioritization Signals}
 
@@ -879,6 +915,8 @@ independent empirical proof of predictive superiority, operational accuracy, or 
 risk reduction. Independent expert adjudication is required to test whether analysts agree
 with candidate metrics.
 
+The verifier-agnostic randomized mutation complement is subject to specific methodological threats. Although fully reproducible under \texttt{seed = 20261021}, evaluating a single seed does not characterize the full space of possible random perturbations. The six representative scenarios constitute a controlled verification subset rather than a statistical sample of enterprise vulnerabilities. Furthermore, while the generator operates independently without verifier assertion maps, the mutation family taxonomies were defined by the authors; generation is verifier-agnostic, but this does not render the evaluation unbiased. In addition, the 37 accepted perturbations lack an independent semantic oracle, precluding definitive determination of whether accepted cases represent false negatives. Rejection rates measure verifier sensitivity within the evaluated randomized mutation set; they do not measure semantic correctness, nor do they establish completeness, exhaustive fault coverage, or population-level generalization.
+
 \subsection{External Validity}
 
 The dataset contains only 30 scenarios. The NVD sample is
@@ -911,7 +949,56 @@ real vulnerability records, their consumer contexts are curated, the priority
 delta is custom, all recommendations require human review, and no production
 validation is claimed.
 
-\section{Standardized Adjudication Protocol Specification}
+% \section{Standardized Adjudication Protocol Specification} moved to Appendix A
+A pre-registered blinded adjudication protocol is specified in Appendix~\ref{app:adjudication}. It remains unexecuted under the G10B authorization gate, and no expert-agreement, inter-rater-reliability, or human semantic-validation results are claimed in this study.
+
+\section{Operational Adoption Path}
+
+A staged adoption process can reduce risk. In the first stage, the watcher runs
+in observation mode and produces recommendations that do not affect
+remediation queues. Analysts compare the evidence package with their normal
+assessment. In the second stage, accepted recommendations may pre-populate
+tickets while analysts remain responsible for approval. In the third stage,
+organizations can measure review time, disagreement rates, stale-evidence
+frequency, and decision consistency.
+
+Expert evaluation should use multiple reviewers and a blinded scenario set.
+Agreement can be measured per Environmental metric and per final operational
+category. Review effort should be recorded independently of agreement so that
+automation does not appear beneficial merely because it encourages rapid
+acceptance.
+
+A production study should also monitor reversals. When new threat or asset
+evidence arrives, the workflow should generate a new trace version rather than
+overwrite the previous assessment. This would allow researchers to examine
+whether recommendations change for defensible reasons and whether uncertainty
+flags predict later revisions.
+
+\section{Conclusion}
+
+This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow
+for operationalizing CVSS v4.0 Environmental metric assessment. The method separates official Base
+information from curated consumer context, records evidence and uncertainty,
+resolves candidate values under explicit governance policies, enforces human authorization checkpoints,
+and exports reproducible, machine-checkable trace artifacts.
+
+The contribution separates specification-level validation (achieving 486,472/486,472
+FIRST reference corpus conformance and zero violations across a finite 10,000-execution metamorphic campaign)
+from controlled workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
+complete evidence and trace coverage and produced operational priority changes in 22 cases
+under controlled conditions subject to construction bias and limited external validity, while retaining a non-autonomous workflow
+in which official scoring decisions remain subject to explicit human authorization; independent
+expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains defined and unexecuted, with datasets C1 and C2 sealed. The randomized mutation complement further exposes where the current verifier stops: 37 of 120 generated perturbations remained acceptable under the encoded constraints, providing concrete targets for schema v2 rather than evidence of semantic correctness.
+
+Future work will execute independent expert adjudication under the pre-registered blinded protocol,
+measure inter-rater agreement and review effort, integrate production-like asset and control
+sources, and compare decisions with complementary approaches such as EPSS and SSVC.
+
+
+
+\appendices
+\section{Pre-Registered Adjudication Protocol Specification}
+\label{app:adjudication}
 
 To support transparent external verification and future organizational deployment, this paper formalizes
 an open, standardized adjudication protocol specification and reproducible evaluation package
@@ -958,49 +1045,6 @@ operational-priority framework issues.
 This standardized protocol specification strengthens the human-in-the-loop design by defining
 formal procedures to measure where automation assists analysts and where it requires correction. No expert
 agreement results or human adjudication data are claimed in the present study.
-
-\section{Operational Adoption Path}
-
-A staged adoption process can reduce risk. In the first stage, the watcher runs
-in observation mode and produces recommendations that do not affect
-remediation queues. Analysts compare the evidence package with their normal
-assessment. In the second stage, accepted recommendations may pre-populate
-tickets while analysts remain responsible for approval. In the third stage,
-organizations can measure review time, disagreement rates, stale-evidence
-frequency, and decision consistency.
-
-Expert evaluation should use multiple reviewers and a blinded scenario set.
-Agreement can be measured per Environmental metric and per final operational
-category. Review effort should be recorded independently of agreement so that
-automation does not appear beneficial merely because it encourages rapid
-acceptance.
-
-A production study should also monitor reversals. When new threat or asset
-evidence arrives, the workflow should generate a new trace version rather than
-overwrite the previous assessment. This would allow researchers to examine
-whether recommendations change for defensible reasons and whether uncertainty
-flags predict later revisions.
-
-\section{Conclusion}
-
-This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow
-for operationalizing CVSS v4.0 Environmental metric assessment. The method separates official Base
-information from curated consumer context, records evidence and uncertainty,
-resolves candidate values under explicit governance policies, enforces human authorization checkpoints,
-and exports reproducible, machine-checkable trace artifacts.
-
-The contribution separates specification-level validation (achieving 486,472/486,472
-FIRST reference corpus conformance and zero violations across a finite 10,000-execution metamorphic campaign)
-from controlled workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
-complete evidence and trace coverage and produced operational priority changes in 22 cases
-under controlled conditions subject to construction bias and limited external validity, while retaining a non-autonomous workflow
-in which official scoring decisions remain subject to explicit human authorization; independent
-expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains defined and unexecuted, with datasets C1 and C2 sealed.
-
-Future work will execute independent expert adjudication under the pre-registered blinded protocol,
-measure inter-rater agreement and review effort, integrate production-like asset and control
-sources, and compare decisions with complementary approaches such as EPSS and SSVC.
-
 \bibliographystyle{IEEEtran}
 \IEEEtriggeratref{21}
 \bibliography{references}

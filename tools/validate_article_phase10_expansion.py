@@ -561,6 +561,95 @@ if has_forbidden_affirmative_claim(normalized_tex, "calibrated uncertainty"):
 if has_forbidden_affirmative_claim(normalized_tex, "formal robustness proof"):
     raise RuntimeError("Forbidden overclaim present: formal robustness proof")
 
+# m. R3 Editorial Hardening Assertions
+# 1. Stable counts: Total 2/30, NVD 0/12, Synthetic 2/18
+if "2/30" not in tex or "0/12" not in tex or "2/18" not in tex:
+    raise RuntimeError("Missing R3 stable counts in sensitivity table (2/30, 0/12, 2/18)")
+
+# 2. 24-vs-22 reconciliation
+if "difference between the 24 category shifts" not in normalized_tex or "22 shifts recorded in the stored benchmark" not in normalized_tex:
+    raise RuntimeError("Missing 24-vs-22 shift reconciliation in ablation section")
+
+# 3. 34 = 30 narrative + 4 curated structural limitations
+if "34 schema limitations" not in normalized_tex or "30 arise because evidence is represented through narrative fields" not in normalized_tex:
+    raise RuntimeError("Missing 34 schema limitations structural linkage explanation in Discussion")
+
+# 4. Verification corpus not statistical sample
+if "verification corpus rather than a statistical sample" not in normalized_tex:
+    raise RuntimeError("Missing verification corpus rather than statistical sample statement")
+
+# 5. Weights = design choices not estimates
+if "encode explicit policy design choices rather than parameters estimated from data" not in normalized_tex:
+    raise RuntimeError("Missing Eq. 8 design-choice clarification statement")
+
+# 6. Watcher vs workflow distinction
+if "watcher'' only to denote the deterministic evidence-ingestion" not in normalized_tex and "watcher only to denote" not in normalized_tex:
+    raise RuntimeError("Missing watcher vs workflow distinction in Introduction")
+
+# 7. Adjudication protocol moved/referenced as Appendix A
+if "appendix a" not in normalized_tex or "pre-registered adjudication protocol specification" not in normalized_tex:
+    raise RuntimeError("Missing Appendix A adjudication protocol reference or specification")
+
+# 8. Abstract <= 200 words e sem forbidden overclaims
+abs_match = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", tex, re.DOTALL)
+if not abs_match:
+    raise RuntimeError("Missing abstract environment")
+abs_words = abs_match.group(1).strip().split()
+if len(abs_words) > 200:
+    raise RuntimeError(f"Abstract exceeds 200 words: {len(abs_words)} words")
+
+for forbidden_term in ["schema completeness", "100% evidence coverage", "formal verification", "formally verified", "proof of correctness", "mathematically verified"]:
+    if has_forbidden_affirmative_claim(" ".join(abs_words).lower(), forbidden_term):
+        raise RuntimeError(f"Forbidden overclaim in abstract: {forbidden_term}")
+
+# n. R3-2C Randomized Mutation Complement Assertions
+if "\\subsection{Verifier-Agnostic Randomized Mutation Complement}" not in tex:
+    raise RuntimeError("Missing subsection Verifier-Agnostic Randomized Mutation Complement")
+
+if "20261021" not in tex:
+    raise RuntimeError("Missing RNG seed 20261021 in randomized mutation section")
+
+if "120" not in tex or "83" not in tex or "37" not in tex or "69.2" not in tex:
+    raise RuntimeError("Missing core counts for randomized mutation")
+
+if "43/60" not in tex or "71.7" not in tex:
+    raise RuntimeError("Missing NVD partition counts (43/60, 71.7%)")
+
+if "40/60" not in tex or "66.7" not in tex:
+    raise RuntimeError("Missing Synthetic partition counts (40/60, 66.7%)")
+
+if "43/59" not in tex or "72.9" not in tex:
+    raise RuntimeError("Missing Structural corruption counts (43/59, 72.9%)")
+
+if "40/61" not in tex or "65.6" not in tex:
+    raise RuntimeError("Missing Field-level corruption counts (40/61, 65.6%)")
+
+if "0/16" not in tex:
+    raise RuntimeError("Missing F3 rejection count (0/16)")
+
+if "open-world" not in normalized_tex:
+    raise RuntimeError("Missing open-world parsing discussion")
+
+if "nineteen modified free-form narrative fields" not in normalized_tex:
+    raise RuntimeError("Missing nineteen narrative modifications discussion")
+
+if "two flipped" not in normalized_tex or ("internet_exposure" not in normalized_tex and "internet\\_exposure" not in normalized_tex):
+    raise RuntimeError("Missing two flipped internet_exposure discussion")
+
+if "single seed" not in normalized_tex:
+    raise RuntimeError("Missing single seed limitation in Threats to Validity")
+
+if "semantic oracle" not in normalized_tex:
+    raise RuntimeError("Missing semantic oracle limitation in Threats to Validity")
+
+if "evaluated randomized mutation set" not in normalized_tex:
+    raise RuntimeError("Missing evaluated randomized mutation set phrase")
+
+# Overclaim safeguards for randomized mutation section
+for forbidden_term in ["unbiased evaluation", "exhaustive fault coverage", "formal verification", "proof of semantic correctness"]:
+    if has_forbidden_affirmative_claim(normalized_tex, forbidden_term):
+        raise RuntimeError(f"Forbidden overclaim present: {forbidden_term}")
+
 print("CVSS40_PHASE10_ACADEMIC_EXPANSION_VALIDATION_OK")
 print("page_count=" + str(page_count))
 print("table_count=" + str(tex.count("\\begin{table")))

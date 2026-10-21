@@ -1069,17 +1069,17 @@ if remaining_markers:
         + ", ".join(remaining_markers)
     )
 
-# PRESERVES_EXISTING_R2_CONTENT_ONLY:
-# If the expanded R2 manuscript exists with independent trace verification content,
+# PRESERVES_EXISTING_R2/R3_CONTENT_ONLY:
+# If the expanded R2/R3 manuscript exists with independent trace verification content,
 # preserve it strictly to prevent regression to legacy templates.
-has_r2_trace_content = (
+has_r2_r3_trace_content = (
     TEX.exists()
     and "Trace Governance and Machine-Checkable State" in TEX.read_text(encoding="utf-8")
-    and ("Ablation of Priority Components" in TEX.read_text(encoding="utf-8") or "Empirical Mutation Testing" in TEX.read_text(encoding="utf-8") or "Contextual Priority Sensitivity Stress Test" in TEX.read_text(encoding="utf-8") or "Independent Trace Verifier" in TEX.read_text(encoding="utf-8"))
+    and ("Ablation of Priority Components" in TEX.read_text(encoding="utf-8") or "Empirical Mutation Testing" in TEX.read_text(encoding="utf-8") or "Contextual Priority Sensitivity Stress Test" in TEX.read_text(encoding="utf-8") or "Independent Trace Verifier" in TEX.read_text(encoding="utf-8") or "Pre-Registered Adjudication Protocol Specification" in TEX.read_text(encoding="utf-8") or "Verifier-Agnostic Randomized Mutation Complement" in TEX.read_text(encoding="utf-8"))
 )
 
-if has_r2_trace_content or (TEX.exists() and len(TEX.read_text(encoding="utf-8").splitlines()) > 500):
-    print(f"PRESERVES_EXISTING_R2_CONTENT_ONLY: Preserving existing expanded R2 manuscript with Independent Trace Verification at {TEX}")
+if has_r2_r3_trace_content or (TEX.exists() and len(TEX.read_text(encoding="utf-8").splitlines()) > 500):
+    print(f"PRESERVES_EXISTING_R2/R3_CONTENT_ONLY: Preserving existing expanded R2/R3 manuscript with Independent Trace Verification at {TEX}")
 else:
     write(TEX, tex)
 
