@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_id": "CONTRACT-R6-GOVERNANCE-OVERRIDE",
+  "contract_version": "1.0.0",
+  "status": "SPECIFIED_NOT_IMPLEMENTED",
+  "parent_preregistration_commit": "c0b4025d9f560b8e525accd17e1b075cd23a355b",
+  "heldout_lock_commit": "12bf6c456054656a1bbc198d7e3729d2675098b2",
+  "specification_head": "2346859b319eac9146273b215eca796147816837",
+  "specification_reference": "validation/article/r6_governance_override_specification.md",
+  "nominal_formula_unchanged": true,
+  "delta_audit_present": false,
+  "auto_override_allowed": false,
+  "human_authorization_required": true,
+  "human_adjudication_completed": false,
+  "r5_deviations_used_for_tuning": false,
+  "implementation_status": "NOT_IMPLEMENTED",
+  "tests_executed": false,
+  "results_available": false,
+  "anti_retuning_locked": true,
+  "claim_boundary": "Governance override enforces machine-checkable traceability and role authorization for policy exceptions; it does not demonstrate that human decisions reflect objective ground truth or semantic correctness.",
+  "fields": {
+    "override_id": {
+      "type": "string",
+      "required": true,
+      "pattern": "^OVR-\\d{4}-\\d{4,}$",
+      "description": "Unique deterministic identifier for the governance override record"
+    },
+    "case_id": {
+      "type": "string",
+      "required": true,
+      "description": "Canonical vulnerability case identifier corresponding to trace"
+    },
+    "nominal_policy_priority": {
+      "type": "string",
+      "required": true,
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+      "description": "Nominal priority directly evaluated via Equation 8 without perturbation"
+    },
+    "pre_override_priority": {
+      "type": "string",
+      "required": true,
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+      "description": "Priority state of record immediately prior to override application"
+    },
+    "post_override_priority": {
+      "type": "string",
+      "required": true,
+      "enum": ["CRITICAL", "HIGH", "MEDIUM", "LOW"],
+      "description": "Final operational priority resulting from authorized governance action"
+    },
+    "override_requested": {
+      "type": "boolean",
+      "required": true,
+      "description": "Indicates whether a priority override request was formally initiated"
+    },
+    "override_applied": {
+      "type": "boolean",
+      "required": true,
+      "description": "Flag confirming that the override has met all invariants and been formally applied"
+    },
+    "reason_code": {
+      "type": ["string", "null"],
+      "required": false,
+      "enum": [
+        "DOCUMENTED_ENVIRONMENTAL_EXCEPTION",
+        "CONTROL_COMPENSATION",
+        "ASSET_CRITICALITY_EXCEPTION",
+        "EXPOSURE_CONTEXT_EXCEPTION",
+        "EVIDENCE_CONFLICT_REQUIRES_REVIEW",
+        "OTHER_REQUIRES_DOCUMENTED_JUSTIFICATION",
+        null
+      ],
+      "description": "Normative justification token mandatory when override_applied is true"
+    },
+    "reason_text_optional": {
+      "type": ["string", "null"],
+      "required": false,
+      "description": "Optional contextual rationale; mandatory minimum 30 characters when code is OTHER_REQUIRES_DOCUMENTED_JUSTIFICATION"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "required": true,
+      "description": "Array of evidence link or control IDs supporting the override"
+    },
+    "authorization_state": {
+      "type": "string",
+      "required": true,
+      "enum": [
+        "NOT_REQUESTED",
+        "REQUESTED",
+        "APPROVED",
+        "REJECTED",
+        "SUPERSEDED"
+      ],
+      "description": "Lifecycle state of governance authorization request"
+    },
+    "authorized_by_role": {
+      "type": ["string", "null"],
+      "required": false,
+      "enum": [
+        "SECURITY_LEAD",
+        "MASTER_SUPERADMIN",
+        "INCIDENT_COMMANDER",
+        null
+      ],
+      "description": "Role-based authorization token preserving double-blind evaluation standards"
+    },
+    "authorization_timestamp": {
+      "type": ["string", "null"],
+      "required": false,
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of formal role authorization"
+    },
+    "review_required": {
+      "type": "boolean",
+      "required": true,
+      "description": "Flag indicating that manual human review or verification remains outstanding"
+    },
+    "trace_link": {
+      "type": ["string", "null"],
+      "required": false,
+      "description": "Path or URI linking governance record to the primary evidence trace"
+    },
+    "schema_version": {
+      "type": "string",
+      "required": true,
+      "description": "Semantic version of governance override contract specification"
+    }
+  },
+  "authorization_states": [
+    "NOT_REQUESTED",
+    "REQUESTED",
+    "APPROVED",
+    "REJECTED",
+    "SUPERSEDED"
+  ],
+  "reason_codes": [
+    "DOCUMENTED_ENVIRONMENTAL_EXCEPTION",
+    "CONTROL_COMPENSATION",
+    "ASSET_CRITICALITY_EXCEPTION",
+    "EXPOSURE_CONTEXT_EXCEPTION",
+    "EVIDENCE_CONFLICT_REQUIRES_REVIEW",
+    "OTHER_REQUIRES_DOCUMENTED_JUSTIFICATION"
+  ],
+  "invariants": [
+    {
+      "id": "INV-G1",
+      "name": "explicit_request_and_approval_prerequisite",
+      "rule": "override_applied == true requires (override_requested == true && authorization_state == 'APPROVED' && authorized_by_role != null)"
+    },
+    {
+      "id": "INV-G2",
+      "name": "nominal_preservation",
+      "rule": "nominal_policy_priority must always be preserved and match Equation 8 evaluation"
+    },
+    {
+      "id": "INV-G3",
+      "name": "mandatory_justification_and_evidence",
+      "rule": "override_applied == true requires (reason_code in reason_codes && len(evidence_ids) >= 1)"
+    },
+    {
+      "id": "INV-G4",
+      "name": "separation_of_roles_no_self_authorization",
+      "rule": "requester role cannot match authorized_by_role; autonomous watchers cannot self-authorize"
+    },
+    {
+      "id": "INV-G5",
+      "name": "no_autonomous_override_by_scorer",
+      "rule": "core scorer cannot autonomously apply override without external governance dispatch"
+    },
+    {
+      "id": "INV-G6",
+      "name": "formula_immutability",
+      "rule": "Equation 8 weights and formula structure remain invariant; delta_audit term is prohibited"
+    },
+    {
+      "id": "INV-G7",
+      "name": "no_silent_override",
+      "rule": "pre_override_priority and post_override_priority must be explicitly recorded in trace"
+    },
+    {
+      "id": "INV-G8",
+      "name": "fail_closed_on_malformed_or_unauthorized",
+      "rule": "any contract violation forces override_applied = false, post_override_priority = nominal_policy_priority, review_required = true"
+    }
+  ],
+  "allowed_transitions": {
+    "NOT_REQUESTED": ["REQUESTED"],
+    "REQUESTED": ["APPROVED", "REJECTED", "SUPERSEDED"],
+    "APPROVED": ["SUPERSEDED"],
+    "REJECTED": ["REQUESTED"],
+    "SUPERSEDED": []
+  },
+  "fail_closed_behavior": {
+    "on_missing_authorization": {
+      "override_applied": false,
+      "post_override_priority": "nominal_policy_priority",
+      "review_required": true,
+      "emit_diagnostic": "GOVERNANCE_UNAUTHORIZED_OVERRIDE_REJECTED"
+    },
+    "on_missing_reason_code": {
+      "override_applied": false,
+      "post_override_priority": "nominal_policy_priority",
+      "review_required": true,
+      "emit_diagnostic": "GOVERNANCE_MISSING_REASON_CODE_REJECTED"
+    },
+    "on_empty_evidence_ids": {
+      "override_applied": false,
+      "post_override_priority": "nominal_policy_priority",
+      "review_required": true,
+      "emit_diagnostic": "GOVERNANCE_EMPTY_EVIDENCE_REJECTED"
+    },
+    "on_invalid_transition": {
+      "override_applied": false,
+      "post_override_priority": "nominal_policy_priority",
+      "review_required": true,
+      "emit_diagnostic": "GOVERNANCE_INVALID_TRANSITION_REJECTED"
+    }
+  }
+}
