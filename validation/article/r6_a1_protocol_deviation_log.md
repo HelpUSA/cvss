@@ -130,3 +130,8 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
   5. **Core Equation 8 Invariance**: Policy scoring formula remains completely untouched.
 - **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-T4R`)
 - **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T4-DEVIATION-AND-T4R-PREREG-259`)
+
+#### Clarification Note: Pre-Result Denominator Clarification (Order 260)
+- **Timestamp UTC**: 2026-10-21T18:55:00Z
+- **Classification**: `PRE_RESULT_CLARIFICATION` (within scope of R6-DEV-002; zero T4R results observed)
+- **Clarification**: Resolved potential ambiguity regarding primary vs. companion denominators. The primary campaign (`R6.1-T4R-PRIMARY`) is strictly frozen at $N = 15 \text{ canonical parents} \times 6 \text{ original families} = 90 \text{ mutants}$. The post-result companion operator is partitioned into an isolated subexperiment (`R6.1-T4R-NF2R-COMPANION`) with denominator $N = 15 \times 1 = 15 \text{ mutants}$. The construction of a combined single primary detection rate (out of 105) is explicitly prohibited. Approval state: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T4R-DENOMINATOR-CLARIFY-260`).

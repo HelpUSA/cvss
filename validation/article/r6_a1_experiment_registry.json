@@ -1,11 +1,11 @@
 {
   "schema": "https://helpus.org/schemas/r6_a1_experiment_registry_v1.json",
-  "schema_version": "1.5.0",
+  "schema_version": "1.6.0",
   "parent_r5_commit": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T18:45:00Z",
+  "last_updated_at": "2026-10-21T18:55:00Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -147,5 +147,13 @@
   "r6_1_t4r_frozen_denominator": 90,
   "r6_1_t4r_results_available": false,
   "r6_1_t4r_held_out_accessed": false,
-  "r6_1_t4r_target_rate": null
+  "r6_1_t4r_target_rate": null,
+  "r6_1_t4r_clarification": "PRE_RESULT_CLARIFICATION",
+  "r6_1_t4r_primary_experiment_id": "R6.1-T4R-PRIMARY",
+  "r6_1_t4r_primary_denominator": 90,
+  "r6_1_t4r_primary_family_count": 6,
+  "r6_1_t4r_companion_experiment_id": "R6.1-T4R-NF2R-COMPANION",
+  "r6_1_t4r_companion_denominator": 15,
+  "r6_1_t4r_companion_operator_count": 1,
+  "r6_1_t4r_combined_primary_rate_prohibited": true
 }

@@ -1,18 +1,89 @@
 {
   "$schema": "https://helpus.org/schemas/r6_1_t4r_contract_v1.json",
-  "contract_version": "1.0.0",
-  "experiment_id": "R6.1-T4R-VALID-PARENT-MUTATION-RERUN",
+  "contract_version": "1.1.0",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-002",
+  "change_classification": "PRE_RESULT_CLARIFICATION",
   "status": "PREREGISTERED_NOT_EXECUTED",
   "specification_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
   "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
   "created_at": "2026-10-21T18:40:00Z",
+  "clarified_at": "2026-10-21T18:50:00Z",
   "parent_manifest": "validation/article/r6_1_t4r/r6_1_t4r_parent_manifest.json",
   "valid_canonical_parents_count": 15,
   "uncanonicalizable_parents_count": 15,
-  "primary_family_count": 6,
-  "frozen_denominator": 90,
+  "primary_campaign": {
+    "experiment_id": "R6.1-T4R-PRIMARY",
+    "family_count": 6,
+    "frozen_denominator": 90,
+    "denominator_rule": "15_VALID_CANONICAL_PARENTS_X_6_ORIGINAL_FAMILIES_EQUALS_90",
+    "families": [
+      {
+        "family_id": "NF1",
+        "title": "extension_unnamespaced_key_injection",
+        "target_path": "root.extensions.unprefixed_telemetry_flag",
+        "expected_category": "INVALID_EXTENSION_NAMESPACE",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_invalid_extension_namespace"
+      },
+      {
+        "family_id": "NF2",
+        "title": "core_field_shadowing_in_extensions",
+        "target_path": "root.extensions.custom_audit:cvss_b_score",
+        "expected_category": "ATTRIBUTION_UNRESOLVED_OR_BOUNDARY_ACCEPTED",
+        "detection_criterion": "evaluated_as_extension_boundary_observation_without_tuning"
+      },
+      {
+        "family_id": "NF3",
+        "title": "reserved_architectural_keyword_injection",
+        "target_path": "root.formula_override",
+        "expected_category": "RESERVED_FIELD",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_reserved_field"
+      },
+      {
+        "family_id": "NF4",
+        "title": "nested_array_item_undeclared_property",
+        "target_path": "root.environmental_evidence.compensating_controls[0].kernel_enforced",
+        "expected_category": "UNKNOWN_FIELD",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_on_nested_path"
+      },
+      {
+        "family_id": "NF5",
+        "title": "explicit_null_on_non_nullable_scalar",
+        "target_path": "root.environmental_evidence.asset_class",
+        "expected_category": "INVALID_TYPE",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_invalid_type_on_null_scalar"
+      },
+      {
+        "family_id": "NF6",
+        "title": "schema_downgrade_header_injection",
+        "target_path": "root.$schema",
+        "expected_category": "UNKNOWN_FIELD",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_on_downgrade_header"
+      }
+    ]
+  },
+  "companion_campaign": {
+    "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+    "operator_count": 1,
+    "frozen_denominator": 15,
+    "denominator_rule": "15_VALID_CANONICAL_PARENTS_X_1_COMPANION_OPERATOR_EQUALS_15",
+    "operators": [
+      {
+        "family_id": "NF2-R",
+        "title": "core_subobject_extension_attribute_injection",
+        "target_path": "root.environmental_evidence.vendor:telemetry_hook",
+        "expected_category": "UNKNOWN_FIELD",
+        "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_in_core_subobject",
+        "classification": "POST_RESULT_COMPANION_HYPOTHESIS"
+      }
+    ]
+  },
+  "reporting_mandates": {
+    "combined_primary_rate_prohibited": true,
+    "combined_metric_label": "DESCRIPTIVE_COMBINED_ONLY",
+    "primary_rate_denominator": 90,
+    "companion_rate_denominator": 15
+  },
   "deterministic_seed": 20261021,
   "selection_rule": "DETERMINISTIC_EXHAUSTIVE_ON_VALID_CANONICAL_PARENTS",
   "expected_detection_rate": null,
@@ -23,61 +94,10 @@
   "anti_retuning_locked": true,
   "primary_attribution_taxonomy": [
     "ATTRIBUTABLE_MUTATION_DETECTION",
-    "PREEXISTING_PARENT_INVALIDITY",
+    "PARENT_INVALID_PRECONDITION_FAILURE",
     "ATTRIBUTION_UNRESOLVED"
   ],
   "orthogonal_diagnostic_flags": [
     "mutation_specific_error_additionally_observed"
-  ],
-  "families": [
-    {
-      "family_id": "NF1",
-      "title": "extension_unnamespaced_key_injection",
-      "target_path": "root.extensions.unprefixed_telemetry_flag",
-      "expected_category": "INVALID_EXTENSION_NAMESPACE",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_invalid_extension_namespace"
-    },
-    {
-      "family_id": "NF2",
-      "title": "core_field_shadowing_in_extensions",
-      "target_path": "root.extensions.custom_audit:cvss_b_score",
-      "expected_category": "ATTRIBUTION_UNRESOLVED_OR_BOUNDARY_ACCEPTED",
-      "detection_criterion": "evaluated_as_extension_boundary_observation"
-    },
-    {
-      "family_id": "NF2-R",
-      "title": "core_subobject_extension_attribute_injection",
-      "target_path": "root.environmental_evidence.vendor:telemetry_hook",
-      "expected_category": "UNKNOWN_FIELD",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_in_core_subobject"
-    },
-    {
-      "family_id": "NF3",
-      "title": "reserved_architectural_keyword_injection",
-      "target_path": "root.formula_override",
-      "expected_category": "RESERVED_FIELD",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_reserved_field"
-    },
-    {
-      "family_id": "NF4",
-      "title": "nested_array_item_undeclared_property",
-      "target_path": "root.environmental_evidence.compensating_controls[0].kernel_enforced",
-      "expected_category": "UNKNOWN_FIELD",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_on_nested_path"
-    },
-    {
-      "family_id": "NF5",
-      "title": "explicit_null_on_non_nullable_scalar",
-      "target_path": "root.environmental_evidence.asset_class",
-      "expected_category": "INVALID_TYPE",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_invalid_type_on_null_scalar"
-    },
-    {
-      "family_id": "NF6",
-      "title": "schema_downgrade_header_injection",
-      "target_path": "root.$schema",
-      "expected_category": "UNKNOWN_FIELD",
-      "detection_criterion": "parent_v2_valid_and_mutant_rejected_with_unknown_field_on_downgrade_header"
-    }
   ]
 }

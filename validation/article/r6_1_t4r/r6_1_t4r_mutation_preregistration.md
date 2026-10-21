@@ -1,9 +1,10 @@
 # R6.1-T4R Mutation Testing Preregistration
 ## Versioned Rerun on Validated Canonical Schema v2 Parents
 
-* **Experiment ID**: `R6.1-T4R-VALID-PARENT-MUTATION-RERUN`
+* **Primary Experiment ID**: `R6.1-T4R-PRIMARY`
+* **Companion Experiment ID**: `R6.1-T4R-NF2R-COMPANION`
 * **Protocol Version**: R6.1
-* **Protocol Deviation ID**: `R6-DEV-002` (`POST_RESULT_CHANGE`)
+* **Protocol Deviation ID**: `R6-DEV-002` (`POST_RESULT_CHANGE` with `PRE_RESULT_CLARIFICATION`)
 * **Status**: `PREREGISTERED_NOT_EXECUTED`
 * **Specification Freeze**: `090ad8b727e674aac8e95864fe7740b15092ea60`
 * **Implementation Freeze**: `43664e58b4f7852d0a03c6b21ab043dec2529be9`
@@ -15,26 +16,35 @@
 
 ---
 
-## 1. Scientific Purpose & Hypotheses
-Following Auditorial Order `CMD-CVSS-IEEE-R6-A1-T4-ATTRIBUTION-AUDIT-258`, Experiment T4R reruns the novel Schema v2 mutation campaign on a certified baseline of 15 canonicalized historical traces that are 100% valid under Schema v2 prior to mutation.
+## 1. Scientific Architecture: Separation of Primary and Companion Campaigns
 
-By guaranteeing `parent.v2_valid == True`, T4R resolves the causal confounding observed in T4 and provides an unambiguous measurement of runtime mutation-kill.
+To ensure strict methodological rigor and prevent denominator ambiguity, the R6.1-T4R evaluation is partitioned into two distinct, unmerged campaigns:
+
+1. **`R6.1-T4R-PRIMARY`**:
+   - Evaluates the **exact 6 original mutation families** ($NF_1$–$NF_6$) from the frozen T4 preregistration on the 15 certified Schema v2-valid canonical parents.
+   - **Primary Denominator**: Exactly $15 \text{ parents} \times 6 \text{ families} = \mathbf{90 \text{ applicable mutants}}$.
+   - $NF_2$ remains in the primary campaign without retrospective adjustment.
+2. **`R6.1-T4R-NF2R-COMPANION`**:
+   - Evaluates the companion operator $NF_2\text{-R}$ formulated post-result to isolate core subobject extension injection ([Spec §5.3](file:///D:/AntiG/cvss/validation/article/r6_schema_v2_specification.md#L173)).
+   - **Companion Denominator**: Exactly $15 \text{ parents} \times 1 \text{ operator} = \mathbf{15 \text{ applicable mutants}}$.
+   - Classified as an exploratory post-result companion hypothesis.
+3. **Prohibition of Combined Primary Rate**:
+   - The 15 companion evaluations shall **never** be combined with the 90 primary evaluations to produce a single primary mutation detection rate.
+   - Any consolidated display must be explicitly designated as `DESCRIPTIVE_COMBINED_ONLY`.
 
 ---
 
 ## 2. Refined Attribution Taxonomy (Mutually Exclusive)
 
-To eliminate reporting overlap, T4R defines a strict, partition-based attribution model:
+Every mutant evaluation resolves to **exactly one** primary state, guaranteeing that primary category sums equal the denominator:
 
-### 2.1 Primary Attribution State (Mutually Exclusive — Sums Exactly to Denominator)
-Every mutant evaluation resolves to **exactly one** primary state:
+### 2.1 Primary Attribution State (Mutually Exclusive)
 1. **`ATTRIBUTABLE_MUTATION_DETECTION`**:
    - `parent.v2_valid == True`
    - `mutant.v2_valid == False`
    - Primary rejection error matches the intended normative property under test.
-2. **`PREEXISTING_PARENT_INVALIDITY`**:
-   - `parent.v2_valid == False`
-   - (By design in T4R, this state will be $0$ because all 15 parents are certified v2-valid prior to injection).
+2. **`PARENT_INVALID_PRECONDITION_FAILURE`**:
+   - `parent.v2_valid == False` (Precondition guard state; verified as 0 by pre-execution validation of all 15 canonical parents).
 3. **`ATTRIBUTION_UNRESOLVED`**:
    - `mutant.v2_valid == True` (accepted mutation / contract boundary observation), OR
    - Rejection occurs due to an unclassifiable side-effect.
@@ -47,35 +57,39 @@ Every mutant evaluation resolves to **exactly one** primary state:
 
 ## 3. Preregistered Mutation Families
 
-T4R preserves the exact operator definitions from the original T4 preregistration:
-
+### 3.1 Primary Campaign ($NF_1$–$NF_6$, $N=90$)
 1. **`NF1`** (`extension_unnamespaced_key_injection`):
    - Injects unnamespaced key into `extensions`.
-   - Expected Rejection: `INVALID_EXTENSION_NAMESPACE`.
+   - Expected Category: `INVALID_EXTENSION_NAMESPACE`.
 2. **`NF2`** (`core_field_shadowing_in_extensions`):
    - Injects `custom_audit:cvss_b_score: 1.0` into `extensions`.
-   - Evaluated as a contract boundary finding (the current validator permits namespaced keys without shadow collision checking).
-3. **`NF2-R`** (`core_subobject_extension_attribute_injection` - Diagnostic Companion):
-   - Injects namespaced attribute `vendor:telemetry_hook` directly into `environmental_evidence`, evaluating Spec §5.3 (prohibition of extension attributes inside core subobjects).
-   - Expected Rejection: `UNKNOWN_FIELD`.
-4. **`NF3`** (`reserved_architectural_keyword_injection`):
+   - Evaluated as an extension boundary observation (namespaced keys permitted without shadow collision checks in frozen validator).
+3. **`NF3`** (`reserved_architectural_keyword_injection`):
    - Injects `formula_override: {"bypass_eq8": true}` at root.
-   - Expected Rejection: `RESERVED_FIELD`.
-5. **`NF4`** (`nested_array_item_undeclared_property`):
+   - Expected Category: `RESERVED_FIELD`.
+4. **`NF4`** (`nested_array_item_undeclared_property`):
    - Injects undeclared property `kernel_enforced: true` into `compensating_controls[0]`.
-   - Expected Rejection: `UNKNOWN_FIELD`.
-6. **`NF5`** (`explicit_null_on_non_nullable_scalar`):
+   - Expected Category: `UNKNOWN_FIELD`.
+5. **`NF5`** (`explicit_null_on_non_nullable_scalar`):
    - Sets non-nullable scalar `environmental_evidence.asset_class = null`.
-   - Expected Rejection: `INVALID_TYPE`.
-7. **`NF6`** (`schema_downgrade_header_injection`):
+   - Expected Category: `INVALID_TYPE`.
+6. **`NF6`** (`schema_downgrade_header_injection`):
    - Injects `$schema` header into root.
-   - Expected Rejection: `UNKNOWN_FIELD`.
+   - Expected Category: `UNKNOWN_FIELD`.
+
+### 3.2 Companion Subexperiment ($NF_2\text{-R}$, $N=15$)
+* **`NF2-R`** (`core_subobject_extension_attribute_injection`):
+  - Injects namespaced attribute `vendor:telemetry_hook` directly into `environmental_evidence` ([Spec §5.3](file:///D:/AntiG/cvss/validation/article/r6_schema_v2_specification.md#L173)).
+  - Expected Category: `UNKNOWN_FIELD`.
 
 ---
 
-## 4. Denominator & Input Corpus
-* **Corpus**: 15 certified v2-valid canonical parents (`validation/article/r6_1_t4r/canonical_parents/*.json`).
-* **Families**: 6 primary families ($NF_1$–$NF_6$).
-* **Total Primary Denominator**:
-  $$\text{Denominator T4R} = 15 \times 6 = 90 \text{ applicable mutants}$$
-* If $NF_2\text{-R}$ is evaluated alongside as a 7th diagnostic family, the extended evaluation comprises $15 \times 7 = 105$ mutants.
+## 4. Denominator & Corpus Accounting
+
+$$\begin{aligned}
+\text{Total Historical Scenarios Examined} &= 30 \\
+\text{Certified Schema v2-Valid Canonical Parents} &= 15 \\
+\text{Uncanonicalizable Scenarios (Excluded)} &= 15 \ (\text{ambiguous enums 'restricted' / 'defer'}) \\
+\mathbf{\text{Primary Denominator}} \ (NF_1\text{--}NF_6) &= 15 \times 6 = \mathbf{90 \text{ mutants}} \\
+\mathbf{\text{Companion Denominator}} \ (NF_2\text{-R}) &= 15 \times 1 = \mathbf{15 \text{ mutants}}
+\end{aligned}$$
