@@ -49,6 +49,7 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
 | `R6-DEV-001` | 2026-10-21T17:20:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Generalization of T2 compatibility taxonomy from restrictive 4-category model to complete 5-state orthogonal model after observing 30/30 unclassified cases due to legitimate closed-world type and enum constraints. |
 | `R6-DEV-002` | 2026-10-21T18:40:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Identification of valid-parent confounding in Experiment T4 where 30 historical parents were valid only under v1 and invalid under v2; preregistration of versioned rerun R6.1-T4R on 15 deterministically canonicalized v2-valid parents. |
 | `R6-DEV-003` | 2026-10-21T19:40:00Z | R6-A1 | RQ-R6-3 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Post-result identification of fixture/oracle inconsistency in Experiment T5 fixture T5.8 (injected nominal priority LOW for SCN-NVD-001 vs Eq. 8 computed nominal MEDIUM); preregistration of versioned rerun R6.1-T5R with minimal baseline alignment on T5R.8 while preserving original T5 (7/8) as historical finding. |
+| `R6-DEV-004` | 2026-10-21T20:44:00Z | R6-A1 | RQ-R6-4 | `PRE_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Pre-result clarification of differential validation measurement model (R6.1-DIFF-R1) reclassifying primary endpoint to exact numeric score concordance and removing comparator vector serializer requirement from precedence hierarchy to avoid false masking of 486,472 vectors prior to execution. |
 
 ---
 
@@ -174,3 +175,40 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
   7. **Held-Out Quarantine**: Held-out corpus remains untouched (`held_out_accessed = false`).
 - **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-T5R`)
 - **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T5-DEVIATION-T5R-PREREGISTER-269`)
+
+---
+
+### Deviation ID: R6-DEV-004
+- **Timestamp UTC**: 2026-10-21T20:44:00Z
+- **Requested by**: AI Bridge Supervisor & HelpUS Research Team (`helpusdev@helpus.ai`)
+- **Phase**: R6-A1 (Differential Validation CVSS v4.0)
+- **Original preregistered rule**: `validation/article/r6_differential/r6_differential_preregistration.md` included `COMPARATOR_UNSUPPORTED_CASE` and `VECTOR_NORMALIZATION_MISMATCH` directly in the primary classification precedence hierarchy above `EXACT_MATCH`.
+- **Trigger**: Capability audit of acquired comparator `cvss4py` revealed it does not implement vector string serialization or direct severity string methods. Under original precedence, 100% of 486,472 vectors would be classified as `COMPARATOR_UNSUPPORTED_CASE` or fail normalization, completely obscuring the core mathematical scoring concordance.
+- **Proposed change**: Preregister clarified protocol R1 (`TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1` in `validation/article/r6_differential_r1/`):
+  - Primary endpoint: `EXACT_NUMERIC_SCORE_CONCORDANCE` ($|\text{score}_{\text{primary}} - \text{score}_{\text{secondary}}| < 0.0001$).
+  - Clarified precedence hierarchy: `EXECUTION_ERROR > VALIDITY_DISAGREEMENT > SCORE_MISMATCH > EXACT_SCORE_MATCH`.
+  - Orthogonal secondary diagnostic dimensions: `derived_severity_concordance` via FIRST §4.2 intervals; `native_vector_serializer` recorded as unsupported capability metadata; `nomenclature_input_prefix` validated.
+  - Prohibition of synthetic serializer adapters.
+- **Rationale**: Pre-result clarification eliminates instrumentation artifacts without altering the scientific question, corpus, or comparison engines.
+- **Files affected**:
+  - `validation/article/r6_a1_protocol_deviation_log.md` (this record)
+  - `validation/article/r6_a1_experiment_registry.json`
+  - `validation/article/r6_differential_r1/r6_differential_r1_preregistration.md`
+  - `validation/article/r6_differential_r1/r6_differential_r1_measurement_contract.json`
+  - `validation/article/r6_differential_r1/r6_differential_r1_execution_plan.md`
+  - `validation/article/r6_differential_r1/r6_differential_r1_change_manifest.json`
+  - `validation/article/r6_differential_r1/r6_differential_r1_runner_contract.json`
+- **RQ/Hypothesis affected**: RQ-R6-4
+- **Had any relevant results already been observed?**: NO (0 / 486,472 vectors evaluated; `observed_evaluation_vectors = 0`, `results_available = false`).
+- **Classification**: `PRE_RESULT_CHANGE`
+- **Potential bias introduced**: None; change is committed strictly before any corpus vector is executed.
+- **Corrective action & Anti-Overfitting Safeguards**:
+  1. **Corpus Denominator Invariance**: Strictly 486,472 vectors ($D = 486{,}472$) unchanged.
+  2. **Pinned Commits Invariance**: Corpus commit `d766d0c` and comparator commit `9fe705c` unchanged.
+  3. **Strict Zero-Tolerance Numeric Equivalence**: Absolute threshold $|\Delta| < 0.0001$ unmodified.
+  4. **Engine Invariance**: Both engines unmodified; zero serializer adapters fabricated.
+  5. **No Target Rates**: Formally documented as `target_agreement_rate = null` and `expected_agreement_rate = null`.
+  6. **Held-Out Quarantine**: Held-out corpus remains strictly quarantined (`held_out_accessed = false`).
+  7. **Core Invariance**: Equation 8 formula and weights unmodified.
+- **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-DIFF-R1`)
+- **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-DIFF-PRE-RESULT-CLARIFICATION-281`)

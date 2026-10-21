@@ -1,11 +1,11 @@
 {
   "schema": "https://helpus.org/schemas/r6_a1_experiment_registry_v1.json",
-  "schema_version": "1.6.0",
+  "schema_version": "1.7.0",
   "parent_r5_commit": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T20:35:45Z",
+  "last_updated_at": "2026-10-21T20:44:00Z",
   "protocol_version": "R6.1",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
@@ -286,7 +286,7 @@
   "differential_validation_experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40",
   "differential_validation_label": "R6-DIFF",
   "differential_validation_rq_id": "RQ-R6-4",
-  "differential_validation_status": "PREREGISTERED_NOT_EXECUTED",
+  "differential_validation_status": "HISTORICAL_SUPERSEDED_BY_R1",
   "differential_validation_comparator_name": "cvss4py",
   "differential_validation_comparator_repository": "https://github.com/bjedwards/cvss4py",
   "differential_validation_comparator_status": "ACQUIRED_FROZEN",
@@ -311,5 +311,29 @@
     "detect_invalid_vectors": true,
     "rounding_mechanism": "ROUND_HALF_UP_DECIMAL_1"
   },
-  "differential_validation_execution_status": "NOT_EXECUTED"
+  "differential_validation_execution_status": "NOT_EXECUTED",
+  "differential_validation_r1_experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
+  "differential_validation_r1_label": "R6.1-DIFF-R1",
+  "differential_validation_r1_rq_id": "RQ-R6-4",
+  "differential_validation_r1_status": "PREREGISTERED_CLARIFIED_NOT_EXECUTED",
+  "differential_validation_r1_protocol_deviation_id": "R6-DEV-004",
+  "differential_validation_r1_primary_endpoint": "EXACT_NUMERIC_SCORE_CONCORDANCE",
+  "differential_validation_r1_primary_precedence": [
+    "EXECUTION_ERROR",
+    "VALIDITY_DISAGREEMENT",
+    "SCORE_MISMATCH",
+    "EXACT_SCORE_MATCH"
+  ],
+  "differential_validation_r1_derived_severity_concordance": true,
+  "differential_validation_r1_comparator_native_vector_serializer": false,
+  "differential_validation_r1_vector_denominator": 486472,
+  "differential_validation_r1_target_match_rate": null,
+  "differential_validation_r1_expected_match_rate": null,
+  "differential_validation_r1_observed_evaluation_vectors": 0,
+  "differential_validation_r1_results_available": false,
+  "differential_validation_r1_held_out_accessed": false,
+  "differential_validation_r1_held_out_allowed": false,
+  "differential_validation_r1_anti_retuning": true,
+  "differential_validation_r1_eq8_modified": false,
+  "differential_validation_r1_execution_status": "NOT_EXECUTED"
 }

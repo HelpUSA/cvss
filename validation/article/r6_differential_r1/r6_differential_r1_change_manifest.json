@@ -1,0 +1,71 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r1_change_manifest_v1.json",
+  "change_manifest_id": "MANIFEST-R6-DIFF-R1-CHANGE",
+  "protocol_version": "R6.1",
+  "protocol_deviation_id": "R6-DEV-004",
+  "classification": "PRE_RESULT_CHANGE",
+  "timestamp_utc": "2026-10-21T20:44:00Z",
+  "original_suite": {
+    "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40",
+    "label": "R6-DIFF",
+    "contract_path": "validation/article/r6_differential/r6_differential_comparator_contract.json",
+    "preregistration_path": "validation/article/r6_differential/r6_differential_preregistration.md",
+    "status": "PREREGISTERED_NOT_EXECUTED"
+  },
+  "clarified_suite": {
+    "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
+    "label": "R6.1-DIFF-R1",
+    "contract_path": "validation/article/r6_differential_r1/r6_differential_r1_measurement_contract.json",
+    "preregistration_path": "validation/article/r6_differential_r1/r6_differential_r1_preregistration.md",
+    "status": "PREREGISTERED_CLARIFIED_NOT_EXECUTED"
+  },
+  "justification": "Comparator capability audit revealed that cvss4py evaluates float scores and validates vector syntax but lacks a native vector string serializer and qualitative severity string method. Under literal application of historical precedence (COMPARATOR_UNSUPPORTED_CASE > SCORE_MISMATCH > VECTOR_NORMALIZATION_MISMATCH > EXACT_MATCH), the missing auxiliary serializer would dominate 100% of cases, obscuring the primary scientific endpoint of numeric scoring concordance across the 486,472-vector corpus. Because zero vectors have been executed, this pre-result clarification cleanly separates core numeric concordance from orthogonal diagnostic capabilities.",
+  "modifications": [
+    {
+      "dimension": "primary_endpoint",
+      "original_definition": "Homogeneous score and vector normalization equivalence bundle",
+      "clarified_definition": "EXACT_NUMERIC_SCORE_CONCORDANCE (|score_primary - score_secondary| < 0.0001)",
+      "impact": "Decouples numeric score evaluation from auxiliary string serialization"
+    },
+    {
+      "dimension": "precedence_hierarchy",
+      "original_precedence": [
+        "COMPARATOR_UNSUPPORTED_CASE",
+        "SCORE_MISMATCH",
+        "VECTOR_NORMALIZATION_MISMATCH",
+        "EXACT_MATCH"
+      ],
+      "clarified_precedence": [
+        "EXECUTION_ERROR",
+        "VALIDITY_DISAGREEMENT",
+        "SCORE_MISMATCH",
+        "EXACT_SCORE_MATCH"
+      ],
+      "impact": "Eliminates spurious 100% masking of numeric scores by missing string serializer"
+    },
+    {
+      "dimension": "qualitative_severity",
+      "original_definition": "Comparator-native severity label comparison",
+      "clarified_definition": "DERIVED_SEVERITY_CONCORDANCE (deterministic FIRST CVSS v4.0 Section 4.2 intervals applied symmetrically)",
+      "impact": "Evaluated as an orthogonal secondary diagnostic dimension without precedence interference"
+    },
+    {
+      "dimension": "vector_string_serialization",
+      "original_definition": "Primary taxonomy tier (VECTOR_NORMALIZATION_MISMATCH)",
+      "clarified_definition": "CAPABILITY_DIAGNOSTIC_NOT_PRIMARY_ENDPOINT (recorded globally as unsupported; adapter fabrication prohibited)",
+      "impact": "Prevents artificial adapter bias while accurately recording comparator feature scope"
+    }
+  ],
+  "invariants_preserved": {
+    "corpus_denominator": 486472,
+    "corpus_files_sha256": "PRESERVED_IDENTICAL",
+    "comparator_pinned_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+    "primary_scorer_engine": "Red Hat cvss 3.6 (core/cvss_calculator.py)",
+    "equation_8_nominal_policy": "UNTOUCHED",
+    "held_out_corpus_quarantine": "STRICTLY_LOCKED",
+    "target_agreement_rate": null,
+    "expected_agreement_rate": null,
+    "observed_evaluation_vectors_prior_to_clarification": 0,
+    "results_available": false
+  }
+}
