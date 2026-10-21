@@ -1,0 +1,36 @@
+{
+  "schema": "https://helpus.org/schemas/r6_a1_experiment_registry_v1.json",
+  "schema_version": "1.0.0",
+  "parent_r5_commit": "cc4418e062101f5259c15e51dc9a1bc2fd9c3e88",
+  "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
+  "preregistration_branch": "research/r6-a1-preregistration",
+  "created_at": "2026-10-21T12:50:00Z",
+  "rqs": [
+    {
+      "id": "RQ-R6-1",
+      "statement": "O contrato de verificação mantém integridade e cobertura em um novo corpus externo held-out, independente dos 30 casos R5?"
+    },
+    {
+      "id": "RQ-R6-2",
+      "statement": "Como schema v2 closed-world altera detecção de mutações e compatibilidade comparado ao open-world v1?"
+    },
+    {
+      "id": "RQ-R6-3",
+      "statement": "Uma camada estruturada de governance override pode tornar os desvios operacionais auditáveis sem modificar a política nominal da Eq. 8?"
+    },
+    {
+      "id": "RQ-R6-4",
+      "statement": "Qual é o grau de concordância e quais classes de discrepância, se houver, são observadas entre o scorer primário CVSS v4.0 e uma implementação secundária independente sob um corpus de vetores pré-definido?"
+    }
+  ],
+  "held_out_corpus": "NOT_COLLECTED",
+  "schema_v2": "NOT_IMPLEMENTED",
+  "governance_override": "NOT_IMPLEMENTED",
+  "differential_validation": "NOT_EXECUTED",
+  "mutation_r6": "NOT_EXECUTED",
+  "g10b": "NOT_AUTHORIZED_NOT_EXECUTED",
+  "c1_c2": "SEALED_NOT_USED under the existing fail-closed governance gate",
+  "human_adjudication": "NOT_COMPLETED",
+  "results_available": false,
+  "anti_retuning_locked": true
+}
