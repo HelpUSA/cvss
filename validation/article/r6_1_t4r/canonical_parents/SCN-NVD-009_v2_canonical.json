@@ -1,0 +1,73 @@
+{
+  "scenario_id": "SCN-NVD-009",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-29521",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "5.1",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "public_web_application",
+    "deployment_context": "Customer-facing web application handling authenticated user data.",
+    "internet_exposure": "public",
+    "privilege_context": "Externally reachable service with standard user accounts.",
+    "compensating_controls": [
+      {
+        "control_id": "CTRL-SCN-NVD-009-01",
+        "control_type": "waf",
+        "status": "enforced",
+        "description": "WAF enabled, centralized logging, rate limiting, standard patch window."
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "LINK-SCN-NVD-009-01",
+        "uri_or_reference": "https://nvd.nist.gov/vuln/detail/CVE-2026-29521",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-NVD-009-02",
+        "uri_or_reference": "https://web.archive.org/web/20250820105319/http://hereta.com/",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-NVD-009-03",
+        "uri_or_reference": "https://www.vulncheck.com/advisories/hereta-eth-imc408m-csrf-via-configuration-setup",
+        "confidence": "high"
+      }
+    ],
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: public_web_application."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "H",
+    "integrity_requirement": "H",
+    "availability_requirement": "M",
+    "candidate_modified_metrics": {
+      "MAV": "X",
+      "MAC": "X",
+      "MAT": "X",
+      "MPR": "X",
+      "MUI": "X",
+      "MVC": "X",
+      "MVI": "X",
+      "MVA": "X",
+      "MSC": "X",
+      "MSI": "X",
+      "MSA": "X",
+      "CR": "X",
+      "IR": "X",
+      "AR": "X"
+    },
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": [
+      "local_environment_curated; human_review_required; threat_context_not_authoritative"
+    ],
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "MEDIUM",
+    "environmental_priority": "HIGH",
+    "priority_delta": "1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score.",
+  "extensions": {}
+}

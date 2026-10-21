@@ -47,6 +47,7 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
 | Deviation ID | Date UTC | Phase | RQ Affected | Classification | Approval State | Summary |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `R6-DEV-001` | 2026-10-21T17:20:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Generalization of T2 compatibility taxonomy from restrictive 4-category model to complete 5-state orthogonal model after observing 30/30 unclassified cases due to legitimate closed-world type and enum constraints. |
+| `R6-DEV-002` | 2026-10-21T18:40:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Identification of valid-parent confounding in Experiment T4 where 30 historical parents were valid only under v1 and invalid under v2; preregistration of versioned rerun R6.1-T4R on 15 deterministically canonicalized v2-valid parents. |
 
 ---
 
@@ -91,3 +92,41 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
   8. **Core Invariance**: Nominal Equation 8 formula in `core/cvss40_environmental_policy.py`, historical R5 results, and governance override semantics remain completely untouched.
 - **Whether a new protocol version (R6.1+) is required**: YES (`R6.1`)
 - **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T2-DEVIATION-FREEZE-241`)
+
+---
+
+### Deviation ID: R6-DEV-002
+- **Timestamp UTC**: 2026-10-21T18:40:00Z
+- **Requested by**: AI Bridge Supervisor & HelpUS Research Team (`helpusdev@helpus.ai`)
+- **Phase**: R6-A1 (Experiment T4 Novel Schema v2 Mutation Campaign)
+- **Original preregistered rule**: In `validation/article/r6_t4/r6_t4_mutation_family_contract.json` and `r6_t4_mutation_family_preregistration.md`, the preconditions for families NF1–NF6 were defined as `valid_trace_root` / `valid_trace_with_controls`, referencing the 30 canonical historical scenarios. Detection was evaluated by `mutant.v2_valid == False`.
+- **Trigger**: Auditorial Order `CMD-CVSS-IEEE-R6-A1-T4-ATTRIBUTION-AUDIT-258` revealed that all 30 historical scenarios are valid only under Schema v1 and are 100% invalid under Schema v2 prior to mutation (12 `INVALID_TYPE` on legacy narrative controls/links, 18 `INVALID_ENUM` on synthetic `cve_id: ""`). Consequently, while all 180 mutated inputs were rejected by the Schema v2 validator (`180/180 rejected`), the rejection cannot be causally attributed to the injected mutations under a fail-fast parser because the parent inputs were already rejected. Furthermore, for Family NF2 (`custom_audit:cvss_b_score` in extensions), the mutation matches the vendor namespace regex and is accepted by the validator; its rejection in T4 was 100% artifactual, masked by the pre-existing invalidity of the parent traces.
+- **Proposed change**:
+  1. **Preserve Original T4**: The original T4 campaign remains completely immutable in `validation/article/r6_t4/` with factually reported outcomes (`180/180 mutated inputs rejected; attribution confounded by v2-invalid parents`). No original T4 result will be overwritten or retroactively altered.
+  2. **Refine Attribution Taxonomy**: For versioned reruns, replace overlapping status reporting with a mutually exclusive primary attribution model (`ATTRIBUTABLE_MUTATION_DETECTION`, `PREEXISTING_PARENT_INVALIDITY`, `ATTRIBUTION_UNRESOLVED`) and an orthogonal diagnostic flag (`mutation_specific_error_additionally_observed`).
+  3. **Preregister Versioned Rerun `R6.1-T4R`**: Conduct a versioned rerun on certified Schema v2-compliant canonical parents:
+     - 15 historical scenarios deterministically canonicalized to `v2_valid == True` without inventing new information (preserving all nominal Equation 8 inputs and narrative descriptions).
+     - 15 historical scenarios with unresolved enums (`internet_exposure = 'restricted'` or `environmental_priority = 'defer'`) marked as `PARENT_CANONICALIZATION_NOT_POSSIBLE_WITHOUT_NEW_INFORMATION` and excluded from the T4R denominator.
+     - Frozen denominator: $15 \text{ parents} \times 6 \text{ families} = 90 \text{ applicable mutants}$.
+  4. **Boundary Finding Preservation**: NF2 is retained exactly as preregistered, acknowledging that vendor namespaced keys without shadow collision checks represent an authentic boundary property of the frozen validator implementation. Companion family NF2-R is preregistered to isolate core subobject injection.
+- **Rationale**: Strict IEEE Q1 research integrity demands that mutation-kill claims reflect causal detection rather than inherited parent syntax errors.
+- **Files affected**:
+  - `validation/article/r6_a1_protocol_deviation_log.md` (this record)
+  - `validation/article/r6_1_t4r/r6_1_t4r_parent_canonicalization_spec.md`
+  - `validation/article/r6_1_t4r/r6_1_t4r_parent_manifest.json`
+  - `validation/article/r6_1_t4r/r6_1_t4r_mutation_preregistration.md`
+  - `validation/article/r6_1_t4r/r6_1_t4r_contract.json`
+  - `validation/article/r6_1_t4r/r6_1_t4r_execution_plan.md`
+  - `validation/article/r6_a1_experiment_registry.json`
+- **RQ/Hypothesis affected**: RQ-R6-1, RQ-R6-2
+- **Had any relevant results already been observed?**: YES (T4 canonical execution observed 180/180 rejected inputs under confounded parents).
+- **Classification**: `POST_RESULT_CHANGE`
+- **Potential bias introduced**: Construction of canonicalized parents after observing T4 outcomes.
+- **Corrective action & Anti-Overfitting Safeguards**:
+  1. **Canonicalization derived strictly from spec**: No transformation uses T4 results to choose repairs.
+  2. **Refusal to guess**: Scenarios with ambiguous enums (`restricted`, `defer`) are excluded rather than coerced.
+  3. **Original T4 Immutability**: All 4 result artifacts and 3 preregistration files of T4 remain byte-identical.
+  4. **Held-Out Quarantine**: Held-out corpus remains untouched (`held_out_accessed = false`).
+  5. **Core Equation 8 Invariance**: Policy scoring formula remains completely untouched.
+- **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-T4R`)
+- **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T4-DEVIATION-AND-T4R-PREREG-259`)
