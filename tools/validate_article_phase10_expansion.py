@@ -645,6 +645,22 @@ if "semantic oracle" not in normalized_tex:
 if "evaluated randomized mutation set" not in normalized_tex:
     raise RuntimeError("Missing evaluated randomized mutation set phrase")
 
+# o. R4 Conceptual Polish Assertions (REMA-4 & REMA-5)
+if "implementation independence from verifier internals" not in normalized_tex:
+    raise RuntimeError("Missing implementation independence phrasing for REMA-4")
+
+if "not imply conceptual independence" not in normalized_tex and "not conceptual independence" not in normalized_tex:
+    raise RuntimeError("Missing not conceptual independence phrasing for REMA-4")
+
+if "author-defined" not in normalized_tex:
+    raise RuntimeError("Missing author-defined taxonomy phrasing for REMA-4")
+
+if "design-intent observation" not in normalized_tex:
+    raise RuntimeError("Missing design-intent observation phrasing for REMA-5")
+
+if "closed-world alternative" not in normalized_tex:
+    raise RuntimeError("Missing closed-world alternative phrasing for REMA-5")
+
 # Overclaim safeguards for randomized mutation section
 for forbidden_term in ["unbiased evaluation", "exhaustive fault coverage", "formal verification", "proof of semantic correctness"]:
     if has_forbidden_affirmative_claim(normalized_tex, forbidden_term):
