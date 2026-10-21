@@ -245,5 +245,29 @@
     "INV-G6_eq8_formula_invariance": "PASS (Equation 8 weights and calculation unmodified)",
     "INV-G7_audit_reproducibility": "PASS",
     "INV-G8_fail_closed_default": "PASS (All non-conforming requests failed closed to nominal priority)"
-  }
+  },
+  "t6_nvd_representability_experiment_id": "TEST-SUITE-R6-T6-NVD-REPRESENTABILITY",
+  "t6_nvd_representability_label": "R6-T6",
+  "t6_nvd_representability_rq_id": "RQ-R6-3",
+  "t6_nvd_representability_status": "PREREGISTERED_NOT_EXECUTED",
+  "t6_nvd_representability_case_count": 4,
+  "t6_nvd_representability_execution_check_count": 12,
+  "t6_nvd_representability_case_ids": [
+    "T6.1",
+    "T6.2",
+    "T6.3",
+    "T6.4"
+  ],
+  "t6_nvd_representability_source_scenario_ids": [
+    "SCN-NVD-001",
+    "SCN-NVD-003",
+    "SCN-NVD-007",
+    "SCN-NVD-011"
+  ],
+  "t6_nvd_representability_results_available": false,
+  "t6_nvd_representability_held_out_accessed": false,
+  "t6_nvd_representability_human_adjudication_completed": false,
+  "t6_nvd_representability_target_success_rate": null,
+  "t6_nvd_representability_expected_success_rate": null,
+  "t6_nvd_representability_eq8_modified": false
 }
