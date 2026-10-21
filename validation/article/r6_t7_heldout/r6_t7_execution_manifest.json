@@ -1,0 +1,51 @@
+{
+  "experiment_id": "TEST-SUITE-R6-T7-HELDOUT-TRANSFER",
+  "label": "R6-T7-HELDOUT",
+  "status": "COMPLETED_UNFROZEN",
+  "execution_date_utc": "2026-10-21T23:03:31.460895+00:00",
+  "runs": [
+    {
+      "pass_label": "Run 1",
+      "processed_count": 938,
+      "primary_counts": {
+        "SCHEMA_V2_VALID_NOMINAL_CALCULABLE": 339,
+        "SCHEMA_V2_VALID_GOVERNANCE_OVERRIDE_DOCUMENTED": 0,
+        "SCHEMA_V2_STRUCTURAL_INVALIDITY_REJECTED": 0,
+        "MISSING_MANDATORY_EVIDENCE_REJECTED": 599,
+        "INSUFFICIENT_INFORMATION_UNRESOLVED": 0,
+        "EXECUTION_OR_ENVIRONMENT_ERROR": 0
+      },
+      "trace_verification_counts": {
+        "TRACE_VERIFICATION_PASS": 938,
+        "TRACE_VERIFICATION_FAIL": 0
+      },
+      "total_diagnostic_checks": 3232,
+      "duration_seconds": 0.0267,
+      "human_authorization_simulated_count": 0,
+      "autonomous_override_count": 0,
+      "information_invention_count": 0
+    },
+    {
+      "pass_label": "Run 2",
+      "processed_count": 938,
+      "primary_counts": {
+        "SCHEMA_V2_VALID_NOMINAL_CALCULABLE": 339,
+        "SCHEMA_V2_VALID_GOVERNANCE_OVERRIDE_DOCUMENTED": 0,
+        "SCHEMA_V2_STRUCTURAL_INVALIDITY_REJECTED": 0,
+        "MISSING_MANDATORY_EVIDENCE_REJECTED": 599,
+        "INSUFFICIENT_INFORMATION_UNRESOLVED": 0,
+        "EXECUTION_OR_ENVIRONMENT_ERROR": 0
+      },
+      "trace_verification_counts": {
+        "TRACE_VERIFICATION_PASS": 938,
+        "TRACE_VERIFICATION_FAIL": 0
+      },
+      "total_diagnostic_checks": 3232,
+      "duration_seconds": 0.0247,
+      "human_authorization_simulated_count": 0,
+      "autonomous_override_count": 0,
+      "information_invention_count": 0
+    }
+  ],
+  "parity_check": "PASS"
+}
