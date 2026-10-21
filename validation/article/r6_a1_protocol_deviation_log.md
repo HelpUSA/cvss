@@ -48,6 +48,7 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | `R6-DEV-001` | 2026-10-21T17:20:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Generalization of T2 compatibility taxonomy from restrictive 4-category model to complete 5-state orthogonal model after observing 30/30 unclassified cases due to legitimate closed-world type and enum constraints. |
 | `R6-DEV-002` | 2026-10-21T18:40:00Z | R6-A1 | RQ-R6-1, RQ-R6-2 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Identification of valid-parent confounding in Experiment T4 where 30 historical parents were valid only under v1 and invalid under v2; preregistration of versioned rerun R6.1-T4R on 15 deterministically canonicalized v2-valid parents. |
+| `R6-DEV-003` | 2026-10-21T19:40:00Z | R6-A1 | RQ-R6-3 | `POST_RESULT_CHANGE` | `APPROVED_BY_SUPERVISOR` | Post-result identification of fixture/oracle inconsistency in Experiment T5 fixture T5.8 (injected nominal priority LOW for SCN-NVD-001 vs Eq. 8 computed nominal MEDIUM); preregistration of versioned rerun R6.1-T5R with minimal baseline alignment on T5R.8 while preserving original T5 (7/8) as historical finding. |
 
 ---
 
@@ -135,3 +136,41 @@ When logging an unavoidable protocol adjustment, append an entry using the follo
 - **Timestamp UTC**: 2026-10-21T18:55:00Z
 - **Classification**: `PRE_RESULT_CLARIFICATION` (within scope of R6-DEV-002; zero T4R results observed)
 - **Clarification**: Resolved potential ambiguity regarding primary vs. companion denominators. The primary campaign (`R6.1-T4R-PRIMARY`) is strictly frozen at $N = 15 \text{ canonical parents} \times 6 \text{ original families} = 90 \text{ mutants}$. The post-result companion operator is partitioned into an isolated subexperiment (`R6.1-T4R-NF2R-COMPANION`) with denominator $N = 15 \times 1 = 15 \text{ mutants}$. The construction of a combined single primary detection rate (out of 105) is explicitly prohibited. Approval state: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T4R-DENOMINATOR-CLARIFY-260`).
+
+---
+
+### Deviation ID: R6-DEV-003
+- **Timestamp UTC**: 2026-10-21T19:40:00Z
+- **Requested by**: AI Bridge Supervisor & HelpUS Research Team (`helpusdev@helpus.ai`)
+- **Phase**: R6-A1 (Experiment T5 Governance Contract Evaluation)
+- **Original preregistered rule**: Fixture `T5.8` (`nominal_formula_intact`) in `validation/article/r6_t5/r6_t5_governance_fixtures.json` was defined referencing case `SCN-NVD-001` with hardcoded `nominal_policy_priority = "LOW"` in the fixture and in `override_data`, with expected oracle `expected_override_applied: true`, `expected_final_priority: "HIGH"`, and `expected_diagnostics: ["GOVERNANCE_OVERRIDE_APPLIED_SUCCESSFULLY"]`.
+- **Trigger**: Read-only adversarial audit `CMD-CVSS-IEEE-R6-A1-T5-GOVERNANCE-REVIEW-268` revealed that for `SCN-NVD-001` (`base_priority = "LOW"`, `asset_class = "public_web_application"`), Equation 8 computes nominal environmental priority as `"MEDIUM"` ($s_{\text{base}} = 1, w_{\text{context}} = 2, w_{\text{control}} = -1 \implies s_{\text{nominal}} = 2 \Rightarrow \text{MEDIUM}$). When passed to `evaluate_governance_override()`, the implementation at line 175 of `core/r6_governance_override.py` actively enforced Invariant G2, detecting that `payload_nominal ("LOW") != nominal_policy_priority ("MEDIUM")`, restoring `"MEDIUM"` and failing closed (`override_applied = False`), contradicting the fixture's expected oracle. The failure was classified as `FIXTURE_OR_ORACLE_DEFECT`.
+- **Proposed change**:
+  1. **Preserve Original T5**: The original T5 campaign remains completely immutable in `validation/article/r6_t5/` with factually reported outcomes (`7/8 PASS, 1/8 FAIL`). No original T5 file will be overwritten or retroactively altered.
+  2. **Preregister Versioned Rerun `R6.1-T5R`**: Create `TEST-SUITE-R6-T5R-GOVERNANCE-CONTRACT` in `validation/article/r6_t5r/`:
+     - Fixtures `T5R.1` to `T5R.7` remain semantically identical to `T5.1` to `T5.7` (zero change).
+     - Fixture `T5R.8` applies minimal correction: aligns `nominal_policy_priority` in payload and preconditions with the actual Equation 8 nominal ground truth (`"MEDIUM"`), testing that when nominal priority is consistent with Equation 8, authorized override applies cleanly and Equation 8 nominal calculation remains intact in `priority_comparison.nominal_policy_priority`.
+  3. **Denominator and Invariants**: Exactly 8 fixtures ($D = 8$). `target_success_rate = null`, `expected_pass_rate = null`.
+- **Rationale**: Strict scientific integrity requires isolating and testing the Equation 8 nominal preservation invariant without confounding baseline nominal mismatch.
+- **Files affected**:
+  - `validation/article/r6_a1_protocol_deviation_log.md` (this record)
+  - `validation/article/r6_a1_experiment_registry.json`
+  - `validation/article/r6_t5r/r6_t5r_governance_preregistration.md`
+  - `validation/article/r6_t5r/r6_t5r_governance_fixture_contract.json`
+  - `validation/article/r6_t5r/r6_t5r_governance_fixtures.json`
+  - `validation/article/r6_t5r/r6_t5r_governance_execution_plan.md`
+  - `validation/article/r6_t5r/r6_t5_to_t5r_change_manifest.json`
+- **RQ/Hypothesis affected**: RQ-R6-3
+- **Had any relevant results already been observed?**: YES (Canonical T5 run observed 7/8 PASS, 1/8 FAIL on T5.8).
+- **Classification**: `POST_RESULT_CHANGE`
+- **Potential bias introduced**: Correction of test fixture after observing preliminary execution failure.
+- **Corrective action & Anti-Overfitting Safeguards**:
+  1. **Original T5 Immutability**: All original T5 artifacts and results remain byte-identical and permanently recorded as historical evidence ($7/8 \text{ PASS}, 1/8 \text{ FAIL}$).
+  2. **Zero Implementation Modifications**: The implementation module `core/r6_governance_override.py` remains 100% untouched.
+  3. **Zero Specification Modifications**: The specification `r6_governance_override_specification.md` remains 100% untouched.
+  4. **Zero Formula Modifications**: Equation 8 weights and calculation logic remain 100% untouched.
+  5. **Minimal Scope**: Only T5R.8 baseline is aligned with Eq. 8 ground truth; T5R.1 to T5R.7 remain semantically identical.
+  6. **No Target Rates**: Formally `target_success_rate = null` and `expected_pass_rate = null`.
+  7. **Held-Out Quarantine**: Held-out corpus remains untouched (`held_out_accessed = false`).
+- **Whether a new protocol version (R6.1+) is required**: YES (`R6.1-T5R`)
+- **Approval state**: `APPROVED_BY_SUPERVISOR` (Order `CMD-CVSS-IEEE-R6-A1-T5-DEVIATION-T5R-PREREGISTER-269`)

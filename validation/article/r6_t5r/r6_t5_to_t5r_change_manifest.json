@@ -1,0 +1,101 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t5_to_t5r_change_manifest_v1.json",
+  "manifest_id": "MANIFEST-R6-T5-TO-T5R-CHANGES",
+  "manifest_version": "1.0.0",
+  "protocol_version": "R6.1",
+  "protocol_deviation_id": "R6-DEV-003",
+  "classification": "POST_RESULT_CHANGE",
+  "created_at": "2026-10-21T19:40:00Z",
+  "source_experiment_id": "TEST-SUITE-R6-T5-GOVERNANCE-CONTRACT",
+  "target_experiment_id": "TEST-SUITE-R6-T5R-GOVERNANCE-CONTRACT",
+  "trigger": "Adversarial review CMD-CVSS-IEEE-R6-A1-T5-GOVERNANCE-REVIEW-268 classified T5.8 failure as FIXTURE_OR_ORACLE_DEFECT. The original fixture T5.8 hardcoded nominal_policy_priority as 'LOW' in the payload for scenario SCN-NVD-001, whereas Equation 8 evaluates to 'MEDIUM'. Invariant G2 in core/r6_governance_override.py actively detected the mismatch, restored the Eq. 8 ground truth ('MEDIUM'), and failed closed, conflicting with the fixture oracle.",
+  "minimal_change_mandate": "T5R.1 to T5R.7 remain semantically identical to T5.1 to T5.7. T5R.8 is the sole fixture modified, applying only the minimal baseline alignment required to resolve the Equation 8 nominal ground-truth contradiction.",
+  "fixture_comparisons": [
+    {
+      "source_fixture_id": "T5.1",
+      "target_fixture_id": "T5R.1",
+      "title": "override_not_requested",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.2",
+      "target_fixture_id": "T5R.2",
+      "title": "requested_not_approved",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.3",
+      "target_fixture_id": "T5R.3",
+      "title": "approved_valid_override",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.4",
+      "target_fixture_id": "T5R.4",
+      "title": "missing_reason_code_fails_closed",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.5",
+      "target_fixture_id": "T5R.5",
+      "title": "empty_evidence_fails_closed",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.6",
+      "target_fixture_id": "T5R.6",
+      "title": "self_authorization_rejected",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.7",
+      "target_fixture_id": "T5R.7",
+      "title": "malformed_transition_rejected",
+      "changed": false,
+      "diff": null,
+      "semantic_equivalence_confirmed": true
+    },
+    {
+      "source_fixture_id": "T5.8",
+      "target_fixture_id": "T5R.8",
+      "title": "nominal_formula_intact",
+      "changed": true,
+      "diff": {
+        "nominal_policy_priority": {
+          "before": "LOW",
+          "after": "MEDIUM"
+        },
+        "override_data.nominal_policy_priority": {
+          "before": "LOW",
+          "after": "MEDIUM"
+        },
+        "override_data.pre_override_priority": {
+          "before": "LOW",
+          "after": "MEDIUM"
+        },
+        "override_data.post_override_priority": {
+          "before": "HIGH",
+          "after": "HIGH"
+        },
+        "precondition": {
+          "before": "trace has deterministic Equation 8 nominal calculation result",
+          "after": "trace SCN-NVD-001 has deterministic Equation 8 nominal calculation result == 'MEDIUM'"
+        }
+      },
+      "normative_justification": "Derives nominal baseline strictly from the canonical Equation 8 calculation for SCN-NVD-001 (recompute_p_env_nominal('low', 'public_web_application') == ('medium', 1)), eliminating the internal contradiction in T5.8 where a hardcoded 'LOW' nominal priority caused Invariant G2 to detect payload forgery and fail closed.",
+      "semantic_equivalence_confirmed": false
+    }
+  ]
+}
