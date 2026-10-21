@@ -1018,6 +1018,8 @@ button {
 
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   gap: 0.4rem;
 }
 
@@ -1033,12 +1035,20 @@ button {
 .field select,
 .field textarea {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   min-height: 45px;
   padding: 0 0.75rem;
   border: 1px solid var(--border);
   border-radius: 12px;
   background: rgba(3, 12, 22, 0.72);
   color: var(--text);
+}
+
+.field select {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .field input::placeholder,
@@ -2543,6 +2553,7 @@ tbody tr:last-child td {
 
 .tenant-metric {
   display: grid;
+  min-width: 0;
   min-height: 180px;
   padding: 1.25rem;
   align-content: space-between;
@@ -2565,8 +2576,9 @@ tbody tr:last-child td {
 }
 
 .tenant-metric strong {
-  font-size: 3rem;
+  font-size: clamp(1.75rem, 3vw, 3rem);
   letter-spacing: -0.055em;
+  overflow-wrap: anywhere;
 }
 
 .tenant-metric small {
@@ -2610,6 +2622,7 @@ tbody tr:last-child td {
 
 .tenant-list-card {
   display: grid;
+  min-width: 0;
   padding: 1.25rem;
   grid-template-columns:
     minmax(0, 1fr) auto;
@@ -2620,17 +2633,27 @@ tbody tr:last-child td {
   background: var(--surface);
 }
 
-.tenant-list-card h2 {
-  margin: 0.45rem 0 0.25rem;
+.tenant-list-card > div {
+  min-width: 0;
 }
 
-.tenant-list-card code {
+.tenant-list-card h2 {
+  margin: 0.45rem 0 0.25rem;
+  overflow-wrap: anywhere;
+}
+
+.tenant-list-card code,
+.panel pre {
   color: var(--text-muted);
   font-size: 0.72rem;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .tenant-list-card dl {
   display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   margin: 0;
   gap: 2rem;
 }
@@ -2654,11 +2677,12 @@ tbody tr:last-child td {
   color: var(--text);
   font-size: 0.85rem;
   font-weight: 750;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 1000px) {
   .tenant-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .tenant-sidebar {
@@ -2669,7 +2693,7 @@ tbody tr:last-child td {
 
   .tenant-nav {
     grid-template-columns:
-      repeat(3, 1fr);
+      repeat(3, minmax(0, 1fr));
   }
 
   .tenant-boundary-note {
@@ -2681,11 +2705,11 @@ tbody tr:last-child td {
   .organization-grid,
   .tenant-metric-grid,
   .tenant-next-steps {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .tenant-list-card {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .tenant-list-card dl {
@@ -2695,7 +2719,7 @@ tbody tr:last-child td {
 
 @media (max-width: 560px) {
   .tenant-nav {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .tenant-list-card dl {
@@ -2727,6 +2751,8 @@ tbody tr:last-child td {
 
 .management-form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
   margin-top: 2rem;
   padding: 1.4rem;
   gap: 1rem;
@@ -2815,7 +2841,7 @@ tbody tr:last-child td {
   .management-form--inline,
   .membership-card,
   .membership-controls {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .management-form--inline
@@ -3184,3 +3210,148 @@ tbody tr:last-child td {
   }
 }
 /* run-explanation:end */
+
+
+/* advanced-security-requirements:start */
+.advanced-security-requirements summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.advanced-security-requirements summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.advanced-security-requirements > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.advanced-security-requirements__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.advanced-security-requirements__note {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (max-width: 760px) {
+  .advanced-security-requirements__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* advanced-security-requirements:end */
+
+
+/* advanced-threat-maturity:start */
+.advanced-threat-maturity summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.advanced-threat-maturity summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.advanced-threat-maturity > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.advanced-threat-maturity__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.advanced-threat-maturity__note {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (max-width: 720px) {
+  .advanced-threat-maturity__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* advanced-threat-maturity:end */
+
+
+/* supplemental-metrics:start */
+.supplemental-metrics-panel summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.supplemental-metrics-panel summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.supplemental-metrics-panel > p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.supplemental-metrics-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.supplemental-metrics-panel__note {
+  margin-top: 1rem;
+  padding: 0.8rem 1rem;
+  border-left: 3px solid var(--primary);
+  background: var(--primary-soft);
+}
+
+@media (max-width: 900px) {
+  .supplemental-metrics-panel__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .supplemental-metrics-panel__grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* supplemental-metrics:end */
+
+/* progressive-disclosure-panels:start */
+.panel > summary {
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.panel > summary:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+/* progressive-disclosure-panels:end */
+
+/* guided-input-assistance-overflow-guard:start */
+.operational-shell,
+.tenant-content,
+.management-form {
+  overflow-x: clip;
+}
+/* guided-input-assistance-overflow-guard:end */
+

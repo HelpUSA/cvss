@@ -1,7 +1,9 @@
 "use client";
 
 import {
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import {
@@ -25,6 +27,8 @@ export function AssessmentCreateForm({
   environments: EnvironmentOption[];
 }) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [environmentId, setEnvironmentId] =
     useState(
@@ -34,17 +38,97 @@ export function AssessmentCreateForm({
   const [cve, setCve] =
     useState("");
 
+  const [titleTemplate, setTitleTemplate] =
+    useState("");
+
   const [title, setTitle] =
     useState("");
 
+  const [
+    descriptionTemplate,
+    setDescriptionTemplate,
+  ] = useState("");
+
   const [description, setDescription] =
     useState("");
+
+  function suggestedTitle(
+    mode: "cve-environment" | "assessment-cve" | "project-environment",
+  ): string {
+    const normalizedCve =
+      cve.trim().toUpperCase() || "CVE";
+    const environmentName =
+      selectedEnvironment?.name || "ambiente";
+    const projectName =
+      selectedEnvironment?.project.name || "projeto";
+
+    if (mode === "assessment-cve") {
+      return `Avaliação ${normalizedCve} — ${environmentName}`;
+    }
+
+    if (mode === "project-environment") {
+      return `${normalizedCve} — ${projectName} / ${environmentName}`;
+    }
+
+    return `${normalizedCve} no ${environmentName}`;
+  }
 
   const [pending, setPending] =
     useState(false);
 
   const [message, setMessage] =
     useState("");
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const envEl =
+        form.querySelector<HTMLSelectElement>(
+          "#assessment-environment",
+        );
+      if (envEl && envEl.value !== "") {
+        setEnvironmentId((prev) =>
+          prev === envEl.value
+            ? prev
+            : envEl.value,
+        );
+      }
+      const cveEl =
+        form.querySelector<HTMLInputElement>(
+          "#assessment-cve",
+        );
+      if (cveEl && cveEl.value !== "") {
+        const normalized =
+          cveEl.value.toUpperCase();
+        setCve((prev) =>
+          prev === ""
+            ? normalized
+            : prev,
+        );
+      }
+      const titleEl =
+        form.querySelector<HTMLInputElement>(
+          "#assessment-title",
+        );
+      if (titleEl && titleEl.value !== "") {
+        setTitle((prev) =>
+          prev === ""
+            ? titleEl.value
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const timer = window.setInterval(
+      syncFromDom,
+      100,
+    );
+    return () =>
+      window.clearInterval(timer);
+  }, []);
 
   const selectedEnvironment =
     useMemo(
@@ -102,24 +186,25 @@ export function AssessmentCreateForm({
         );
       }
 
-      router.push(
-        `/app/${organizationSlug}/assessments/${payload.assessment.id}`,
-      );
-
-      router.refresh();
+      const nextUrl = `/app/${organizationSlug}/assessments/${payload.assessment.id}`;
+      if (typeof window !== "undefined") {
+        window.location.assign(nextUrl);
+      } else {
+        router.push(nextUrl);
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }
 
   return (
     <form
+      ref={formRef}
       className="management-form"
       onSubmit={submit}
     >
@@ -151,11 +236,12 @@ export function AssessmentCreateForm({
         <select
           id="assessment-environment"
           value={environmentId}
-          onChange={(event) =>
+          onChange={(event) => {
             setEnvironmentId(
               event.target.value,
-            )
-          }
+            );
+            setTitleTemplate("");
+          }}
           required
         >
           {environments.map(
@@ -187,12 +273,13 @@ export function AssessmentCreateForm({
         <input
           id="assessment-cve"
           value={cve}
-          onChange={(event) =>
+          onChange={(event) => {
             setCve(
               event.target.value
                 .toUpperCase(),
-            )
-          }
+            );
+            setTitleTemplate("");
+          }}
           placeholder="CVE-2026-12345"
           pattern="CVE-[0-9]{4}-[0-9]{4,}"
           required
@@ -205,20 +292,109 @@ export function AssessmentCreateForm({
       </div>
 
       <div className="field">
+        <label htmlFor="assessment-title-template">
+          Modelo de nome (opcional)
+        </label>
+        <select
+          id="assessment-title-template"
+          value={titleTemplate}
+          onChange={(event) => {
+            const value = event.target.value;
+            setTitleTemplate(value);
+            if (!value) return;
+            setTitle(
+              suggestedTitle(
+                value as
+                  | "cve-environment"
+                  | "assessment-cve"
+                  | "project-environment",
+              ),
+            );
+          }}
+        >
+          <option value="">
+            Escolher modelo...
+          </option>
+          <option value="cve-environment">
+            CVE + ambiente
+          </option>
+          <option value="assessment-cve">
+            “Avaliação” + CVE + ambiente
+          </option>
+          <option value="project-environment">
+            CVE + projeto + ambiente
+          </option>
+        </select>
+        <small>
+          O nome gerado pode ser editado antes de continuar.
+        </small>
+      </div>
+
+      <div className="field">
         <label htmlFor="assessment-title">
           Nome da avaliação
         </label>
         <input
           id="assessment-title"
           value={title}
-          onChange={(event) =>
-            setTitle(event.target.value)
-          }
-          placeholder="Ex.: CVE no ERP de Produção"
+          onChange={(event) => {
+            setTitle(event.target.value);
+            setTitleTemplate("");
+          }}
+          placeholder="Ex.: CVE-2026-12345 no Produção"
           minLength={2}
           maxLength={120}
           required
         />
+      </div>
+
+      <div className="field">
+        <label htmlFor="assessment-description-template">
+          Observação rápida (opcional)
+        </label>
+        <select
+          id="assessment-description-template"
+          value={descriptionTemplate}
+          onChange={(event) => {
+            const value = event.target.value;
+            setDescriptionTemplate(value);
+            if (!value) return;
+
+            const templates: Record<string, string> = {
+              internet:
+                "Serviço acessível pela Internet. Confirmar exposição e controles aplicáveis.",
+              internal:
+                "Serviço acessível apenas pela rede interna. Confirmar rotas e segmentação.",
+              critical:
+                "Ativo ou serviço crítico para a operação. Validar requisitos de segurança do ambiente.",
+              none:
+                "",
+            };
+
+            setDescription(
+              templates[value] ?? description,
+            );
+          }}
+        >
+          <option value="">
+            Escolher modelo...
+          </option>
+          <option value="internet">
+            Serviço acessível pela Internet
+          </option>
+          <option value="internal">
+            Somente rede interna
+          </option>
+          <option value="critical">
+            Ativo/serviço crítico
+          </option>
+          <option value="none">
+            Sem observação
+          </option>
+        </select>
+        <small>
+          O texto é apenas um ponto de partida e deve ser ajustado aos fatos reais.
+        </small>
       </div>
 
       <div className="field">
@@ -228,11 +404,12 @@ export function AssessmentCreateForm({
         <textarea
           id="assessment-description"
           value={description}
-          onChange={(event) =>
+          onChange={(event) => {
             setDescription(
               event.target.value,
-            )
-          }
+            );
+            setDescriptionTemplate("");
+          }}
           rows={4}
           maxLength={4000}
           placeholder="Ex.: serviço financeiro exposto apenas pela rede interna."

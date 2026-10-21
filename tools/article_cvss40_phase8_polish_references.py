@@ -141,7 +141,7 @@ write(DOCS / "ARTICLE_REFERENCES_CVSS40.md", references_md)
 
 abstract = f"""CVSS v4.0 defines Environmental metrics that allow vulnerability severity to be adapted to a consumer organization's deployment context. However, selecting Environmental metric values remains evidence-intensive because local asset criticality, exposure, compensating controls, and operational requirements are often distributed across multiple sources. This paper presents an AI/watcher-assisted workflow for collecting, structuring, and tracing environmental evidence used to support CVSS v4.0 Environmental metric assessment. The workflow preserves official CVSS v4.0 semantics and treats watcher output as evidence-backed candidate recommendations requiring human review, not as autonomous official scoring. We evaluate the approach using a hybrid dataset of {metrics.get('scenario_count')} scenarios, including {metrics.get('nvd_cvss_v4_rows')} real NVD/CVSS v4.0 vulnerability records and {metrics.get('synthetic_rows')} curated synthetic scenarios. The evaluation reports evidence coverage, trace completeness, uncertainty flags, human review status, and priority shifts between Base-only and Environmental-aware views. Results show {metrics.get('evidence_coverage_pct')}% evidence coverage, {metrics.get('trace_completeness_pct')}% trace completeness, and priority changes in {metrics.get('priority_shift_count')} of {metrics.get('scenario_count')} scenarios, supporting the feasibility of reproducible artifacts for assisting human review of Environmental metric choices."""
 
-polished = f"""# Operationalizing CVSS v4.0 Environmental Metrics with AI-Assisted Evidence Collection and Traceability
+polished = f"""# Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability
 
 Generated UTC: `{generated_at}`
 
@@ -231,7 +231,7 @@ This paper presents an AI/watcher-assisted workflow for supporting CVSS v4.0 Env
 
 write(GENERATED / "cvss40_ieee_manuscript_polished.md", polished)
 
-double_blind = f"""# Operationalizing CVSS v4.0 Environmental Metrics with AI-Assisted Evidence Collection and Traceability
+double_blind = f"""# Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability
 
 ## Abstract
 

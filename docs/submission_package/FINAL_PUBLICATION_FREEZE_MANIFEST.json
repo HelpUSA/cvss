@@ -1,0 +1,61 @@
+{
+  "schema": "helpus_cvss.publication_freeze_manifest",
+  "schema_version": 1,
+  "correlation_id": "CMD-CVSS-PUBLICATION-FREEZE-038",
+  "freeze_status": "PUBLICATION_FREEZE_READY",
+  "timestamp_utc": "2026-10-20T20:25:00Z",
+  "git_baseline": {
+    "repository": "cvss",
+    "branch": "chatgpt/guided-input-assistance",
+    "head_commit": "5f933313842101a9196716727e376a764611deaa",
+    "first_reference_pinned_commit": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb"
+  },
+  "scientific_baseline_invariants": {
+    "first_calculator_conformance": "486,472 / 486,472 (100% exact concordance, 0 divergences)",
+    "metamorphic_validation": "10,000 / 10,000 executions (0 invariant violations, HELPUS-METAMORPHIC-10K-G9B, MR-1 to MR-4)",
+    "empirical_scenarios": "30 scenarios (12 NVD v4.0 real records + 18 synthetic fixtures)",
+    "operational_priority_shifts": "22 / 30 scenarios (73.33%)",
+    "evidence_coverage": "100.00%",
+    "trace_completeness": "100.00%",
+    "abstention_and_governance": "Non-autonomous workflow with explicit human authorization checkpoints; official scoring requires explicit authorization by design"
+  },
+  "governance_and_protocol_locks": {
+    "g10b_confirmatory_protocol": "PROTOCOL DEFINED / EXECUTION NOT AUTHORIZED",
+    "c1_c2_confirmatory_datasets": "SEALED / UNOPENED / UNEXECUTED / DO_NOT_RETUNE",
+    "independent_expert_adjudication": "PENDING / NOT COMPLETED (pre-registered blinded protocol defined in article/expert_review/)",
+    "gatekeeper_enforcement": "scripts/g10b_confirmatory_gate.py (fail-closed)"
+  },
+  "academic_artifacts": {
+    "article": {
+      "status": "SAFE_TO_SUBMIT",
+      "canonical_tex_path": "article/ieee/cvss40_double_blind.tex",
+      "canonical_tex_sha256": "4eccba99a3fc2322392f9fa1d17f17dcf0997103624ad52e0a601938d3851da9",
+      "canonical_pdf_path": "article/ieee/cvss40_double_blind.pdf",
+      "submission_package_pdf_path": "docs/submission_package/article_main.pdf",
+      "pdf_sha256": "19c2f48c96eb859a38c926468e5240d85fbf826d3c27c1ee0872ce88ad1a905e",
+      "pdf_bytes": 181653,
+      "pdf_pages": 7,
+      "pdf_double_blind_verified": true
+    },
+    "book": {
+      "status": "BOOK_READY_FOR_PUBLICATION",
+      "canonical_tex_path": "book_latex/main.tex",
+      "canonical_tex_sha256": "6803d1c92cc31d923f8792d325b63946976aefc05628132a2e5dc053aaae7c36",
+      "canonical_pdf_path": "book_latex/main.pdf",
+      "pdf_sha256": "78ab00dcc822e52acbc102d0cba1d68ec21ec60fc6feb9265d4961c335837b02",
+      "pdf_bytes": 1239234,
+      "pdf_pages": 50,
+      "overleaf_bundle_zip": "book_latex/helpus_cvss_ai_monograph_overleaf_final_round4.zip",
+      "overleaf_bundle_sha256": "09effd8a0f045081b1028b5f3177464b0e1d4c26b8e2555053b564b184f15af5"
+    }
+  },
+  "referenced_manifests_and_reports": [
+    "docs/submission_package/README.md",
+    "docs/ARTICLE_IEEE_LATEX_READINESS_CVSS40.md",
+    "book_latex/BUILD_MANIFEST_CHATGPT_ROUND4.json",
+    "book_latex/LATEX_BUILD_REPORT_CHATGPT_ROUND4.md",
+    "book_latex/ROUND4_BOOK_CHANGELOG.md",
+    "outputs/metamorphic_campaign_10k_manifest.json",
+    "outputs/first-reference-corpus-round4.json"
+  ]
+}

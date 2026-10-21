@@ -1,45 +1,39 @@
 ---
-status: academically-expanded
+status: active
 last_updated: 2026-07-13
 owner: "Wagner / CVSS project"
-tags: [cvss-v4, ieee, latex, phase10, double-blind]
+tags: [cvss-v4, ieee, latex, double-blind]
 ---
 
 # CVSS v4.0 IEEE LaTeX readiness
 
-## Compilation
+## Artifacts
 
-- Status: passed
-- Page count: 6
-- Page size: 612 x 792 pts (letter)
-- PDF size: 151250 bytes
-- Undefined citations: none
-- Structural validation: passed
+- `article/ieee/cvss40_double_blind.tex`
+- `article/ieee/references.bib`
+- `article/ieee/README.md`
 
-## Content readiness
-
-- Related work: expanded
-- Research questions: added
-- Architecture: expanded
-- Experimental method: expanded
-- Results: expanded
-- Threats to validity: expanded
-- Reproducibility: added
-- Operational adoption path: added
-
-## Dataset
+## Snapshot
 
 - Scenarios: 30
 - NVD/CVSS v4.0 rows: 12
-- Synthetic curated rows: 18
+- Synthetic rows: 18
 - Evidence coverage: 100.00%
 - Trace completeness: 100.00%
 - Priority shifts: 22/30
+- Extracted word count: 946
 
-## Remaining research work
+## Double-blind controls
 
-1. Independent expert adjudication.
-2. Inter-rater agreement measurement.
-3. Analyst-effort measurement.
-4. Production-like evidence integration.
-5. Conference-specific formatting and anonymization review.
+- Anonymous author block.
+- Affiliation withheld.
+- No local Windows path inside the manuscript.
+- No project owner metadata inside the manuscript.
+
+## Remaining work
+
+1. Compile and inspect the two-column PDF.
+2. Verify target conference page limit.
+3. Add peer-reviewed related work.
+4. Verify conference anonymization requirements.
+5. Consider independent expert adjudication.

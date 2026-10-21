@@ -1,0 +1,1307 @@
+{
+  "generated_at_utc": "2026-10-21T03:00:03.618883+00:00",
+  "canonical_expected": 30,
+  "canonical_found": 30,
+  "total_scenarios": 30,
+  "nvd_scenarios": 12,
+  "synthetic_scenarios": 18,
+  "nominal_vs_observed_divergence_count": 4,
+  "nominal_vs_observed_divergent_ids": [
+    "SCN-NVD-001",
+    "SCN-NVD-006",
+    "SCN-NVD-007",
+    "SCN-NVD-008"
+  ],
+  "baseline_summaries": {
+    "B0": {
+      "baseline_name": "B0",
+      "total": {
+        "exact_matches_vs_observed": 8,
+        "match_rate_vs_observed": 0.2667,
+        "mean_signed_ordinal_diff": -0.2,
+        "mean_absolute_ordinal_diff": 0.9333,
+        "ordinal_diff_distribution": {
+          "-2": 3,
+          "-1": 11,
+          "0": 8,
+          "1": 6,
+          "2": 1,
+          "3": 1
+        },
+        "category_shift_count_vs_b0": 0,
+        "shift_rate_vs_b0": 0.0
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 3,
+        "match_rate_vs_observed": 0.25,
+        "mean_signed_ordinal_diff": -0.25,
+        "mean_absolute_ordinal_diff": 0.75,
+        "ordinal_diff_distribution": {
+          "-1": 6,
+          "0": 3,
+          "1": 3
+        },
+        "category_shift_count_vs_b0": 0,
+        "shift_rate_vs_b0": 0.0
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 5,
+        "match_rate_vs_observed": 0.2778,
+        "mean_signed_ordinal_diff": -0.1667,
+        "mean_absolute_ordinal_diff": 1.0556,
+        "ordinal_diff_distribution": {
+          "-2": 3,
+          "-1": 5,
+          "0": 5,
+          "1": 3,
+          "2": 1,
+          "3": 1
+        },
+        "category_shift_count_vs_b0": 0,
+        "shift_rate_vs_b0": 0.0
+      }
+    },
+    "B1": {
+      "baseline_name": "B1",
+      "total": {
+        "exact_matches_vs_observed": 9,
+        "match_rate_vs_observed": 0.3,
+        "mean_signed_ordinal_diff": -0.1667,
+        "mean_absolute_ordinal_diff": 0.9667,
+        "ordinal_diff_distribution": {
+          "-3": 1,
+          "-2": 2,
+          "-1": 10,
+          "0": 9,
+          "1": 5,
+          "2": 2,
+          "3": 1
+        },
+        "category_shift_count_vs_b0": 7,
+        "shift_rate_vs_b0": 0.2333
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 3,
+        "match_rate_vs_observed": 0.25,
+        "mean_signed_ordinal_diff": -0.25,
+        "mean_absolute_ordinal_diff": 0.75,
+        "ordinal_diff_distribution": {
+          "-1": 6,
+          "0": 3,
+          "1": 3
+        },
+        "category_shift_count_vs_b0": 0,
+        "shift_rate_vs_b0": 0.0
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 6,
+        "match_rate_vs_observed": 0.3333,
+        "mean_signed_ordinal_diff": -0.1111,
+        "mean_absolute_ordinal_diff": 1.1111,
+        "ordinal_diff_distribution": {
+          "-3": 1,
+          "-2": 2,
+          "-1": 4,
+          "0": 6,
+          "1": 2,
+          "2": 2,
+          "3": 1
+        },
+        "category_shift_count_vs_b0": 7,
+        "shift_rate_vs_b0": 0.3889
+      }
+    },
+    "B2": {
+      "baseline_name": "B2",
+      "total": {
+        "exact_matches_vs_observed": 11,
+        "match_rate_vs_observed": 0.3667,
+        "mean_signed_ordinal_diff": 0.6333,
+        "mean_absolute_ordinal_diff": 0.7,
+        "ordinal_diff_distribution": {
+          "-1": 1,
+          "0": 11,
+          "1": 16,
+          "2": 2
+        },
+        "category_shift_count_vs_b0": 23,
+        "shift_rate_vs_b0": 0.7667
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 1,
+        "match_rate_vs_observed": 0.0833,
+        "mean_signed_ordinal_diff": 0.9167,
+        "mean_absolute_ordinal_diff": 1.0833,
+        "ordinal_diff_distribution": {
+          "-1": 1,
+          "0": 1,
+          "1": 8,
+          "2": 2
+        },
+        "category_shift_count_vs_b0": 10,
+        "shift_rate_vs_b0": 0.8333
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 10,
+        "match_rate_vs_observed": 0.5556,
+        "mean_signed_ordinal_diff": 0.4444,
+        "mean_absolute_ordinal_diff": 0.4444,
+        "ordinal_diff_distribution": {
+          "0": 10,
+          "1": 8
+        },
+        "category_shift_count_vs_b0": 13,
+        "shift_rate_vs_b0": 0.7222
+      }
+    },
+    "B3": {
+      "baseline_name": "B3",
+      "total": {
+        "exact_matches_vs_observed": 7,
+        "match_rate_vs_observed": 0.2333,
+        "mean_signed_ordinal_diff": -1.1,
+        "mean_absolute_ordinal_diff": 1.3,
+        "ordinal_diff_distribution": {
+          "-3": 2,
+          "-2": 11,
+          "-1": 8,
+          "0": 7,
+          "1": 1,
+          "2": 1
+        },
+        "category_shift_count_vs_b0": 27,
+        "shift_rate_vs_b0": 0.9
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 4,
+        "match_rate_vs_observed": 0.3333,
+        "mean_signed_ordinal_diff": -1.1667,
+        "mean_absolute_ordinal_diff": 1.1667,
+        "ordinal_diff_distribution": {
+          "-2": 6,
+          "-1": 2,
+          "0": 4
+        },
+        "category_shift_count_vs_b0": 11,
+        "shift_rate_vs_b0": 0.9167
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 3,
+        "match_rate_vs_observed": 0.1667,
+        "mean_signed_ordinal_diff": -1.0556,
+        "mean_absolute_ordinal_diff": 1.3889,
+        "ordinal_diff_distribution": {
+          "-3": 2,
+          "-2": 5,
+          "-1": 6,
+          "0": 3,
+          "1": 1,
+          "2": 1
+        },
+        "category_shift_count_vs_b0": 16,
+        "shift_rate_vs_b0": 0.8889
+      }
+    },
+    "B4_nominal": {
+      "baseline_name": "B4_nominal",
+      "total": {
+        "exact_matches_vs_observed": 26,
+        "match_rate_vs_observed": 0.8667,
+        "mean_signed_ordinal_diff": 0.1,
+        "mean_absolute_ordinal_diff": 0.1667,
+        "ordinal_diff_distribution": {
+          "-1": 1,
+          "0": 26,
+          "1": 2,
+          "2": 1
+        },
+        "category_shift_count_vs_b0": 24,
+        "shift_rate_vs_b0": 0.8
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 8,
+        "match_rate_vs_observed": 0.6667,
+        "mean_signed_ordinal_diff": 0.25,
+        "mean_absolute_ordinal_diff": 0.4167,
+        "ordinal_diff_distribution": {
+          "-1": 1,
+          "0": 8,
+          "1": 2,
+          "2": 1
+        },
+        "category_shift_count_vs_b0": 11,
+        "shift_rate_vs_b0": 0.9167
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 18,
+        "match_rate_vs_observed": 1.0,
+        "mean_signed_ordinal_diff": 0.0,
+        "mean_absolute_ordinal_diff": 0.0,
+        "ordinal_diff_distribution": {
+          "0": 18
+        },
+        "category_shift_count_vs_b0": 13,
+        "shift_rate_vs_b0": 0.7222
+      }
+    },
+    "B4_observed": {
+      "baseline_name": "B4_observed",
+      "total": {
+        "exact_matches_vs_observed": 30,
+        "match_rate_vs_observed": 1.0,
+        "mean_signed_ordinal_diff": 0.0,
+        "mean_absolute_ordinal_diff": 0.0,
+        "ordinal_diff_distribution": {
+          "0": 30
+        },
+        "category_shift_count_vs_b0": 22,
+        "shift_rate_vs_b0": 0.7333
+      },
+      "nvd": {
+        "exact_matches_vs_observed": 12,
+        "match_rate_vs_observed": 1.0,
+        "mean_signed_ordinal_diff": 0.0,
+        "mean_absolute_ordinal_diff": 0.0,
+        "ordinal_diff_distribution": {
+          "0": 12
+        },
+        "category_shift_count_vs_b0": 9,
+        "shift_rate_vs_b0": 0.75
+      },
+      "synthetic": {
+        "exact_matches_vs_observed": 18,
+        "match_rate_vs_observed": 1.0,
+        "mean_signed_ordinal_diff": 0.0,
+        "mean_absolute_ordinal_diff": 0.0,
+        "ordinal_diff_distribution": {
+          "0": 18
+        },
+        "category_shift_count_vs_b0": 13,
+        "shift_rate_vs_b0": 0.7222
+      }
+    }
+  },
+  "scenario_results": [
+    {
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-4251",
+      "s_base": 1.1,
+      "p_base": "low",
+      "s_env": 1.1,
+      "p_b1": "low",
+      "environment_profile": "public_web_application",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "low",
+      "b1": "low",
+      "b2": "high",
+      "b3": "defer",
+      "b4_nominal": "medium",
+      "b4_observed": "low",
+      "curated_override": true,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-002",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-4252",
+      "s_base": 8.9,
+      "p_base": "high",
+      "s_env": 8.8,
+      "p_b1": "high",
+      "environment_profile": "internal_admin_console",
+      "w_context": 0,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "high",
+      "b3": "medium",
+      "b4_nominal": "medium",
+      "b4_observed": "medium",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 0,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": -1,
+        "B4_observed": -1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-003",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-4270",
+      "s_base": 6.8,
+      "p_base": "medium",
+      "s_env": 6.8,
+      "p_b1": "medium",
+      "environment_profile": "identity_provider",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-004",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-28490",
+      "s_base": 8.3,
+      "p_base": "high",
+      "s_env": 8.3,
+      "p_b1": "high",
+      "environment_profile": "database_server",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 0,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-005",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-28498",
+      "s_base": 8.2,
+      "p_base": "high",
+      "s_env": 8.1,
+      "p_b1": "high",
+      "environment_profile": "developer_workstation",
+      "w_context": 1,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-006",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-29510",
+      "s_base": 5.1,
+      "p_base": "medium",
+      "s_env": 5.1,
+      "p_b1": "medium",
+      "environment_profile": "isolated_lab_system",
+      "w_context": -2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "defer",
+      "b3": "low",
+      "b4_nominal": "defer",
+      "b4_observed": "low",
+      "curated_override": true,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 1,
+        "B2": -1,
+        "B3": 0,
+        "B4_nominal": -1,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": -2,
+        "B3": -1,
+        "B4_nominal": -2,
+        "B4_observed": -1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-29513",
+      "s_base": 5.1,
+      "p_base": "medium",
+      "s_env": 5.1,
+      "p_b1": "medium",
+      "environment_profile": "ot_monitoring_gateway",
+      "w_context": 2,
+      "w_control": 0,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "critical",
+      "b4_observed": "medium",
+      "curated_override": true,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 2,
+        "B3": 0,
+        "B4_nominal": 2,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": 0,
+        "B4_nominal": 2,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-008",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-29520",
+      "s_base": 5.1,
+      "p_base": "medium",
+      "s_env": 5.1,
+      "p_b1": "medium",
+      "environment_profile": "public_api_gateway",
+      "w_context": 3,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "critical",
+      "b4_observed": "high",
+      "curated_override": true,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 1,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 2,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-009",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-29521",
+      "s_base": 5.1,
+      "p_base": "medium",
+      "s_env": 5.1,
+      "p_b1": "medium",
+      "environment_profile": "public_web_application",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-010",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-3644",
+      "s_base": 6.0,
+      "p_base": "medium",
+      "s_env": 5.9,
+      "p_b1": "medium",
+      "environment_profile": "internal_admin_console",
+      "w_context": 0,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "medium",
+      "b3": "low",
+      "b4_nominal": "low",
+      "b4_observed": "low",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 0,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": -1,
+        "B4_observed": -1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-011",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-4224",
+      "s_base": 6.0,
+      "p_base": "medium",
+      "s_env": 6.0,
+      "p_b1": "medium",
+      "environment_profile": "identity_provider",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-NVD-012",
+      "source_type": "NVD",
+      "cve_id": "CVE-2026-4253",
+      "s_base": 2.0,
+      "p_base": "low",
+      "s_env": 2.0,
+      "p_b1": "low",
+      "environment_profile": "database_server",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "low",
+      "b1": "low",
+      "b2": "high",
+      "b3": "defer",
+      "b4_nominal": "medium",
+      "b4_observed": "medium",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-013",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 9.3,
+      "p_base": "critical",
+      "s_env": 10.0,
+      "p_b1": "critical",
+      "environment_profile": "developer_workstation",
+      "w_context": 1,
+      "w_control": -1,
+      "b0": "critical",
+      "b1": "critical",
+      "b2": "critical",
+      "b3": "high",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-014",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 8.7,
+      "p_base": "high",
+      "s_env": 8.7,
+      "p_b1": "high",
+      "environment_profile": "isolated_lab_system",
+      "w_context": -2,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "low",
+      "b3": "medium",
+      "b4_nominal": "defer",
+      "b4_observed": "defer",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 3,
+        "B1": 3,
+        "B2": 1,
+        "B3": 2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": -2,
+        "B3": -1,
+        "B4_nominal": -3,
+        "B4_observed": -3
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-015",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 7.1,
+      "p_base": "high",
+      "s_env": 7.4,
+      "p_b1": "high",
+      "environment_profile": "ot_monitoring_gateway",
+      "w_context": 2,
+      "w_control": 0,
+      "b0": "high",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "high",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 1,
+        "B3": 0,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-016",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 6.8,
+      "p_base": "medium",
+      "s_env": 8.4,
+      "p_b1": "high",
+      "environment_profile": "public_api_gateway",
+      "w_context": 3,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -2,
+        "B1": -1,
+        "B2": 0,
+        "B3": -3,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 1,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 2,
+        "B4_observed": 2
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-017",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 4.8,
+      "p_base": "medium",
+      "s_env": 2.0,
+      "p_b1": "low",
+      "environment_profile": "public_web_application",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "low",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -2,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": -1,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-018",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 2.1,
+      "p_base": "low",
+      "s_env": 1.0,
+      "p_b1": "low",
+      "environment_profile": "internal_admin_console",
+      "w_context": 0,
+      "w_control": -1,
+      "b0": "low",
+      "b1": "low",
+      "b2": "low",
+      "b3": "defer",
+      "b4_nominal": "defer",
+      "b4_observed": "defer",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 1,
+        "B3": 0,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": -1,
+        "B4_observed": -1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-019",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 9.3,
+      "p_base": "critical",
+      "s_env": 10.0,
+      "p_b1": "critical",
+      "environment_profile": "identity_provider",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "critical",
+      "b1": "critical",
+      "b2": "critical",
+      "b3": "high",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 8.7,
+      "p_base": "high",
+      "s_env": 9.4,
+      "p_b1": "critical",
+      "environment_profile": "database_server",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "critical",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": 0,
+        "B2": 0,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 1,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-021",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 7.1,
+      "p_base": "high",
+      "s_env": 7.3,
+      "p_b1": "high",
+      "environment_profile": "developer_workstation",
+      "w_context": 1,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-022",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 6.8,
+      "p_base": "medium",
+      "s_env": 6.9,
+      "p_b1": "medium",
+      "environment_profile": "isolated_lab_system",
+      "w_context": -2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "medium",
+      "b2": "defer",
+      "b3": "low",
+      "b4_nominal": "defer",
+      "b4_observed": "defer",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 2,
+        "B1": 2,
+        "B2": 0,
+        "B3": 1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": -2,
+        "B3": -1,
+        "B4_nominal": -2,
+        "B4_observed": -2
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-023",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 4.8,
+      "p_base": "medium",
+      "s_env": 2.0,
+      "p_b1": "low",
+      "environment_profile": "ot_monitoring_gateway",
+      "w_context": 2,
+      "w_control": 0,
+      "b0": "medium",
+      "b1": "low",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -2,
+        "B1": -3,
+        "B2": 0,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": -1,
+        "B2": 2,
+        "B3": 0,
+        "B4_nominal": 2,
+        "B4_observed": 2
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-024",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 2.1,
+      "p_base": "low",
+      "s_env": 1.0,
+      "p_b1": "low",
+      "environment_profile": "public_api_gateway",
+      "w_context": 3,
+      "w_control": -1,
+      "b0": "low",
+      "b1": "low",
+      "b2": "critical",
+      "b3": "defer",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -2,
+        "B1": -2,
+        "B2": 1,
+        "B3": -3,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 3,
+        "B3": -1,
+        "B4_nominal": 2,
+        "B4_observed": 2
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-025",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 9.3,
+      "p_base": "critical",
+      "s_env": 10.0,
+      "p_b1": "critical",
+      "environment_profile": "public_web_application",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "critical",
+      "b1": "critical",
+      "b2": "critical",
+      "b3": "high",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-026",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 8.7,
+      "p_base": "high",
+      "s_env": 9.3,
+      "p_b1": "critical",
+      "environment_profile": "internal_admin_console",
+      "w_context": 0,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "critical",
+      "b2": "high",
+      "b3": "medium",
+      "b4_nominal": "medium",
+      "b4_observed": "medium",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 2,
+        "B2": 1,
+        "B3": 0,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 1,
+        "B2": 0,
+        "B3": -1,
+        "B4_nominal": -1,
+        "B4_observed": -1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-027",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 7.1,
+      "p_base": "high",
+      "s_env": 8.4,
+      "p_b1": "high",
+      "environment_profile": "identity_provider",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "high",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "medium",
+      "b4_nominal": "critical",
+      "b4_observed": "critical",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": -1,
+        "B2": 0,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 6.8,
+      "p_base": "medium",
+      "s_env": 8.4,
+      "p_b1": "high",
+      "environment_profile": "database_server",
+      "w_context": 2,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "high",
+      "b2": "critical",
+      "b3": "low",
+      "b4_nominal": "high",
+      "b4_observed": "high",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": -1,
+        "B1": 0,
+        "B2": 1,
+        "B3": -2,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 1,
+        "B2": 2,
+        "B3": -1,
+        "B4_nominal": 1,
+        "B4_observed": 1
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-029",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 4.8,
+      "p_base": "medium",
+      "s_env": 2.0,
+      "p_b1": "low",
+      "environment_profile": "developer_workstation",
+      "w_context": 1,
+      "w_control": -1,
+      "b0": "medium",
+      "b1": "low",
+      "b2": "high",
+      "b3": "low",
+      "b4_nominal": "medium",
+      "b4_observed": "medium",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 0,
+        "B1": -1,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": -1,
+        "B2": 1,
+        "B3": -1,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      }
+    },
+    {
+      "scenario_id": "SCN-SYN-030",
+      "source_type": "SYNTHETIC",
+      "cve_id": "",
+      "s_base": 2.1,
+      "p_base": "low",
+      "s_env": 1.0,
+      "p_b1": "low",
+      "environment_profile": "isolated_lab_system",
+      "w_context": -2,
+      "w_control": -1,
+      "b0": "low",
+      "b1": "low",
+      "b2": "defer",
+      "b3": "defer",
+      "b4_nominal": "defer",
+      "b4_observed": "defer",
+      "curated_override": false,
+      "ordinal_differences_vs_observed": {
+        "B0": 1,
+        "B1": 1,
+        "B2": 0,
+        "B3": 0,
+        "B4_nominal": 0,
+        "B4_observed": 0
+      },
+      "category_shifts_vs_b0": {
+        "B1": 0,
+        "B2": -1,
+        "B3": -1,
+        "B4_nominal": -1,
+        "B4_observed": -1
+      }
+    }
+  ],
+  "methodological_note": "All metrics are deterministic descriptive statistics computed over the N=30 canonical benchmark corpus. No inferential population claims, p-values, confidence intervals, or IID assumptions are asserted."
+}

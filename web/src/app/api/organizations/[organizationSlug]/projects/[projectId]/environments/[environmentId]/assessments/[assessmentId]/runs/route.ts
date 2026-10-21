@@ -286,6 +286,186 @@ export async function POST(
         reusedSnapshot.id;
     }
 
+    const policyId = optionalString(
+      evidenceObject.organizationPolicyId,
+    );
+    const policyVersion = optionalString(
+      evidenceObject.policyVersion,
+    );
+    const securityRequirements =
+      evidenceObject.securityRequirements &&
+      typeof evidenceObject.securityRequirements === "object" &&
+      !Array.isArray(evidenceObject.securityRequirements)
+        ? (evidenceObject.securityRequirements as Record<string, unknown>)
+        : null;
+
+    const hasNonXRequirements =
+      securityRequirements !== null &&
+      (["CR", "IR", "AR"] as const).some((k) => {
+        const val = String(securityRequirements[k] ?? "X").toUpperCase();
+        return ["H", "M", "L"].includes(val);
+      });
+
+    if (hasNonXRequirements || policyId || policyVersion) {
+      if (!policyId || !policyVersion) {
+        throw new Error(
+          "Política organizacional e versão são obrigatórias para definir requisitos de segurança.",
+        );
+      }
+
+      const activePolicy =
+        await prisma.organizationPolicyVersion.findFirst({
+          where: {
+            organizationId: context.organization.id,
+            policyId,
+            version: String(policyVersion),
+            status: "ACTIVE",
+          },
+          select: {
+            id: true,
+          },
+        });
+
+      if (!activePolicy) {
+        throw new Error(
+          "Política organizacional não encontrada ou inativa para esta organização.",
+        );
+      }
+    }
+
+    if (
+      evidenceObject.threatIntelligence !== undefined &&
+      evidenceObject.threatIntelligence !== null &&
+      (typeof evidenceObject.threatIntelligence !== "object" ||
+        Array.isArray(evidenceObject.threatIntelligence))
+    ) {
+      throw new Error("threatIntelligence deve ser um objeto.");
+    }
+
+    const threatIntelligence =
+      evidenceObject.threatIntelligence &&
+      typeof evidenceObject.threatIntelligence === "object" &&
+      !Array.isArray(evidenceObject.threatIntelligence)
+        ? (evidenceObject.threatIntelligence as Record<string, unknown>)
+        : null;
+
+    if (threatIntelligence) {
+      const exploitMaturity = String(
+        threatIntelligence.exploitMaturity ?? "X",
+      ).toUpperCase();
+
+      if (
+        !["X", "A", "P", "U"].includes(
+          exploitMaturity,
+        )
+      ) {
+        throw new Error(
+          "Exploit Maturity (E) inválida.",
+        );
+      }
+
+      if (exploitMaturity !== "X") {
+        const threatReference =
+          optionalString(
+            threatIntelligence.sourceReference,
+          );
+
+        const threatObservedAt =
+          optionalString(
+            threatIntelligence.observedAt,
+          );
+
+        if (
+          !threatReference ||
+          !threatObservedAt
+        ) {
+          throw new Error(
+            "Threat intelligence com E explícito exige referência e observedAt.",
+          );
+        }
+
+        const observedAtDate =
+          new Date(threatObservedAt);
+
+        if (
+          Number.isNaN(
+            observedAtDate.getTime(),
+          )
+        ) {
+          throw new Error(
+            "threatIntelligence.observedAt é inválido.",
+          );
+        }
+
+        if (
+          observedAtDate.getTime() >
+          Date.now()
+        ) {
+          throw new Error(
+            "threatIntelligence.observedAt não pode estar no futuro.",
+          );
+        }
+      }
+    }
+
+    const supplementalMetrics =
+      evidenceObject.supplementalMetrics &&
+      typeof evidenceObject.supplementalMetrics === "object" &&
+      !Array.isArray(evidenceObject.supplementalMetrics)
+        ? (evidenceObject.supplementalMetrics as Record<string, unknown>)
+        : null;
+
+    if (
+      evidenceObject.supplementalMetrics !== undefined &&
+      !supplementalMetrics
+    ) {
+      throw new Error(
+        "supplementalMetrics deve ser um objeto.",
+      );
+    }
+
+    if (supplementalMetrics) {
+      const allowedSupplemental: Record<
+        string,
+        readonly string[]
+      > = {
+        S: ["X", "N", "P"],
+        AU: ["X", "N", "Y"],
+        R: ["X", "A", "U", "I"],
+        V: ["X", "D", "C"],
+        RE: ["X", "L", "M", "H"],
+        U: [
+          "X",
+          "Clear",
+          "Green",
+          "Amber",
+          "Red",
+        ],
+      };
+
+      for (
+        const [
+          key,
+          value,
+        ] of Object.entries(
+          supplementalMetrics,
+        )
+      ) {
+        const allowedValues =
+          allowedSupplemental[key];
+
+        if (
+          !allowedValues ||
+          typeof value !== "string" ||
+          !allowedValues.includes(value)
+        ) {
+          throw new Error(
+            `Supplemental Metric ${key} inválida.`,
+          );
+        }
+      }
+    }
+
     const analysis =
       analyzeEnvironment({
         cveId,

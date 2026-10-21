@@ -1,0 +1,69 @@
+{
+  "schema": "cvss40_ieee_r2_freeze_manifest",
+  "schema_version": 1,
+  "freeze_timestamp_utc": "2026-10-21T04:16:00Z",
+  "branch": "revision/ieee-major-review-r2-machine-verifiable",
+  "pre_freeze_head": "29a087de453b864b23b1b678c9c4ee3aaac535f3",
+  "commit_sha": "RECORDED_IN_RESPONSE_NO_SELF_REFERENCE_CYCLE",
+  "manuscript_title": "Operationalizing CVSS v4.0 Environmental Metrics with Evidence Normalization, Governance, and Traceability",
+  "final_audit_conclusion": "R2_FINAL_AUDIT_PASS_WITH_NONBLOCKING_LIMITATIONS_READY_TO_FREEZE",
+  "pytest_suite": {
+    "total": 237,
+    "passed": 237,
+    "failed": 0,
+    "status": "PASS"
+  },
+  "academic_validators": {
+    "total": 14,
+    "passed": 14,
+    "status": "PASS"
+  },
+  "canonical_artifacts": {
+    "validation/article/r2_trace_integrity_verification.json": {
+      "bytes": 169933,
+      "sha256": "8f9f887bde810d0a880194cafb1f1b2def61404d3dc6c650ab7061ac6fa031d6"
+    },
+    "validation/article/r2_ablation_baselines.json": {
+      "bytes": 32900,
+      "sha256": "51628b64af84e085476c50a94a10ba85640acd449962420fe43f3eb21868ca14"
+    },
+    "validation/article/r2_ablation_scenarios.csv": {
+      "bytes": 4560,
+      "sha256": "d0ca4e2441fb10f5efc74b042902bdc01b454078e12bc42d7feb8ae2a71633af"
+    },
+    "validation/article/r2_trace_mutation_testing.json": {
+      "bytes": 42587,
+      "sha256": "2ea540eb917edbaac714b460162312d184fde2cbd2149a7d354d350aa0e35e7f"
+    },
+    "validation/article/r2_trace_mutation_cases.csv": {
+      "bytes": 15978,
+      "sha256": "90d3a86753f0b77414f3a3fb789c899da77c1147cb023758480f8b675ff346f5"
+    },
+    "validation/article/r2_priority_sensitivity.json": {
+      "bytes": 93037,
+      "sha256": "0fa4c9478558615dcd3f61d804bde919a88fcf567f7f25059d3b0c529e14b6cf"
+    },
+    "validation/article/r2_priority_sensitivity_cases.csv": {
+      "bytes": 17333,
+      "sha256": "7ad8a93e10d0ffdefc9b04bc88f35e3c7151859ed007ed0043c85b49f80f2f1b"
+    }
+  },
+  "pdf_artifact": {
+    "relative_path": "article/ieee/cvss40_double_blind.pdf",
+    "pages": 12,
+    "bytes": 407888,
+    "sha256": "a009ce95184b7126878cb949abd501bdd26afe783726926034281c77e209534b"
+  },
+  "overleaf_zip_artifact": {
+    "relative_path": "article/ieee/cvss40_ieee_article_overleaf.zip",
+    "bytes": 25358,
+    "sha256": "538e42ef24b07adb190546da9975aac101ba08e3e13e4646464379e9b58b8391"
+  },
+  "reproducibility_guard": "PRESERVES_EXISTING_R2_CONTENT_ONLY_NONBLOCKING",
+  "governance": {
+    "g10b_gatekeeper": "NOT_AUTHORIZED_NOT_EXECUTED",
+    "c1_c2_confirmatory_datasets": "SEALED_UNEXECUTED",
+    "human_adjudication": "NOT_COMPLETED_FUTURE_VALIDATION"
+  },
+  "push_performed": false
+}

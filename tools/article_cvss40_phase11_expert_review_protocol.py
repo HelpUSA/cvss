@@ -956,7 +956,7 @@ write(
 )
 
 planned_section = r"""
-\section{Planned Independent Expert Evaluation}
+\section{Standardized Adjudication Protocol Specification}
 
 The next evaluation stage will compare watcher-generated candidate assessments
 with independent specialist judgments. This stage is designed to test semantic
@@ -1004,7 +1004,7 @@ agreement results are claimed in the present study.
 
 tex = read(TEX)
 
-section_marker = r"\section{Planned Independent Expert Evaluation}"
+section_marker = r"\section{Standardized Adjudication Protocol Specification}"
 anchor = r"\section{Operational Adoption Path}"
 
 if section_marker not in tex:
@@ -1142,7 +1142,7 @@ tex = (
 )
 
 required_tex_terms = [
-    "\\section{Planned Independent Expert Evaluation}",
+    "\\section{Standardized Adjudication Protocol Specification}",
     "Blinded Review Design",
     "Agreement Measures",
     "Adjudication",

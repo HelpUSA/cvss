@@ -10,6 +10,7 @@ import {
 } from "@/lib/organization-context";
 import {
   getTenantOperationalAssessment,
+  listActiveTenantPolicyVersions,
   listReusableEvidenceSnapshots,
 } from "@/lib/tenant-data";
 
@@ -105,6 +106,21 @@ export default async function AssessmentDetailPage({
       };
     });
 
+  const activePolicies =
+    await listActiveTenantPolicyVersions(
+      context,
+    );
+
+  const activePolicyOptions =
+    activePolicies.map((policy) => ({
+      id: policy.id,
+      policyId: policy.policyId,
+      version: policy.version,
+      effectiveFrom:
+        policy.effectiveFrom
+          ?.toISOString() ?? null,
+    }));
+
   const canExecute =
     context.membership.role ===
       "ADMIN" ||
@@ -183,6 +199,9 @@ export default async function AssessmentDetailPage({
           }
           reusableEvidence={
             reusableEvidenceOptions
+          }
+          activePolicies={
+            activePolicyOptions
           }
         />
       ) : (

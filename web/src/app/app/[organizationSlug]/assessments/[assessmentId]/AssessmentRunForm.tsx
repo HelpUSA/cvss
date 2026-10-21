@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import {
@@ -23,6 +25,13 @@ type ReusableEvidence = {
   maxTelemetryAgeDays: number;
 };
 
+type ActivePolicy = {
+  id: string;
+  policyId: string;
+  version: string;
+  effectiveFrom: string | null;
+};
+
 type Props = {
   organizationSlug: string;
   projectId: string;
@@ -30,6 +39,7 @@ type Props = {
   assessmentId: string;
   cveId: string;
   reusableEvidence: ReusableEvidence[];
+  activePolicies: ActivePolicy[];
 };
 
 export function AssessmentRunForm({
@@ -39,8 +49,11 @@ export function AssessmentRunForm({
   assessmentId,
   cveId,
   reusableEvidence,
+  activePolicies,
 }: Props) {
   const router = useRouter();
+  const formRef =
+    useRef<HTMLFormElement>(null);
 
   const [baseVector, setBaseVector] =
     useState("");
@@ -80,11 +93,81 @@ export function AssessmentRunForm({
     setFirewallActive,
   ] = useState(false);
 
+  const [cr, setCr] =
+    useState("X");
+
+  const [ir, setIr] =
+    useState("X");
+
+  const [ar, setAr] =
+    useState("X");
+
+  const [
+    selectedPolicyId,
+    setSelectedPolicyId,
+  ] = useState("");
+
+  const [exploitMaturity, setExploitMaturity] =
+    useState("X");
+
+  const [
+    threatIntelReference,
+    setThreatIntelReference,
+  ] = useState("");
+
+  const [
+    threatIntelObservedAt,
+    setThreatIntelObservedAt,
+  ] = useState("");
+
+  const [suppSafety, setSuppSafety] =
+    useState("X");
+  const [suppAutomatable, setSuppAutomatable] =
+    useState("X");
+  const [suppRecovery, setSuppRecovery] =
+    useState("X");
+  const [suppValueDensity, setSuppValueDensity] =
+    useState("X");
+  const [suppResponseEffort, setSuppResponseEffort] =
+    useState("X");
+  const [suppProviderUrgency, setSuppProviderUrgency] =
+    useState("X");
+
   const [pending, setPending] =
     useState(false);
 
   const [message, setMessage] =
     useState("");
+
+  useEffect(() => {
+    const syncFromDom = () => {
+      const form = formRef.current;
+      if (!form) {
+        return;
+      }
+      const vectorEl =
+        form.querySelector<HTMLTextAreaElement>(
+          "#base-vector",
+        );
+      if (
+        vectorEl &&
+        vectorEl.value !== ""
+      ) {
+        setBaseVector((prev) =>
+          prev === ""
+            ? vectorEl.value
+            : prev,
+        );
+      }
+    };
+    syncFromDom();
+    const timer = window.setInterval(
+      syncFromDom,
+      100,
+    );
+    return () =>
+      window.clearInterval(timer);
+  }, []);
 
   const vectorValidation =
     validateCvss40VectorInput(baseVector);
@@ -158,6 +241,50 @@ export function AssessmentRunForm({
       return;
     }
 
+    const securityRequirementsUsed =
+      [cr, ir, ar].some(
+        (value) => value !== "X",
+      );
+
+    const selectedPolicy =
+      activePolicies.find(
+        (policy) =>
+          policy.id === selectedPolicyId,
+      );
+
+    const threatMetricUsed =
+      exploitMaturity !== "X";
+
+    if (
+      threatMetricUsed &&
+      !threatIntelReference.trim()
+    ) {
+      setMessage(
+        "Informe a referência de threat intelligence para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
+    if (
+      threatMetricUsed &&
+      !threatIntelObservedAt.trim()
+    ) {
+      setMessage(
+        "Informe quando a threat intelligence foi observada para definir Exploit Maturity (E).",
+      );
+      return;
+    }
+
+    if (
+      securityRequirementsUsed &&
+      !selectedPolicy
+    ) {
+      setMessage(
+        "Selecione uma política organizacional ativa antes de definir CR/IR/AR.",
+      );
+      return;
+    }
+
     setPending(true);
     setMessage("");
 
@@ -209,6 +336,41 @@ export function AssessmentRunForm({
                 : new Date().toISOString(),
             evidence: {
               evidenceQuality,
+              supplementalMetrics: {
+                S: suppSafety,
+                AU: suppAutomatable,
+                R: suppRecovery,
+                V: suppValueDensity,
+                RE: suppResponseEffort,
+                U: suppProviderUrgency,
+              },
+              ...(threatMetricUsed
+                ? {
+                    threatIntelligence: {
+                      exploitMaturity,
+                      sourceReference:
+                        threatIntelReference.trim(),
+                      observedAt:
+                        new Date(
+                          threatIntelObservedAt,
+                        ).toISOString(),
+                    },
+                  }
+                : {}),
+              ...(securityRequirementsUsed &&
+              selectedPolicy
+                ? {
+                    organizationPolicyId:
+                      selectedPolicy.policyId,
+                    policyVersion:
+                      selectedPolicy.version,
+                    securityRequirements: {
+                      CR: cr,
+                      IR: ir,
+                      AR: ar,
+                    },
+                  }
+                : {}),
               telemetryAgeDays:
                 telemetryAgeDays.trim() === ""
                   ? null
@@ -239,23 +401,25 @@ export function AssessmentRunForm({
         );
       }
 
-      router.push(
-        `/app/${organizationSlug}/assessments/${assessmentId}/runs/${payload.run.id}`,
-      );
-      router.refresh();
+      const nextUrl = `/app/${organizationSlug}/assessments/${assessmentId}/runs/${payload.run.id}`;
+      if (typeof window !== "undefined") {
+        window.location.assign(nextUrl);
+      } else {
+        router.push(nextUrl);
+      }
     } catch (error) {
       setMessage(
         error instanceof Error
           ? error.message
           : "Falha inesperada.",
       );
-    } finally {
       setPending(false);
     }
   }
 
   return (
     <form
+      ref={formRef}
       className="management-form"
       onSubmit={submit}
     >
@@ -309,6 +473,274 @@ export function AssessmentRunForm({
           seu ambiente.
         </small>
       </div>
+
+      <div className="field">
+        <label htmlFor="base-vector">
+          Vetor CVSS v4.0 de origem
+        </label>
+        <textarea
+          id="base-vector"
+          rows={3}
+          value={baseVector}
+          onChange={(event) =>
+            setBaseVector(
+              event.target.value,
+            )
+          }
+          placeholder="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+          required
+          aria-invalid={
+            baseVector.trim() !== "" &&
+            !vectorValidation.valid
+          }
+        />
+        {baseVector.trim() !== "" ? (
+          vectorValidation.valid ? (
+            <small className="vector-validation vector-validation--ok">
+              Vetor válido · {vectorValidation.nomenclature}
+            </small>
+          ) : (
+            <small
+              className="vector-validation vector-validation--error"
+              role="alert"
+            >
+              {vectorValidation.errors[0]}
+            </small>
+          )
+        ) : null}
+        <small>
+          Este é o CVSS-B de referência.
+          O resultado contextual será
+          exibido separadamente.
+        </small>
+      </div>
+
+      <div className="field">
+        <label htmlFor="reachability">
+          Como o sistema vulnerável pode ser
+          alcançado no seu ambiente?
+        </label>
+        <select
+          id="reachability"
+          value={reachability}
+          onChange={(event) =>
+            setReachability(
+              event.target.value,
+            )
+          }
+        >
+          <option value="UNKNOWN">
+            Ainda não avaliei
+          </option>
+          <option value="PUBLIC_ROUTED">
+            Internet / rede pública roteada
+          </option>
+          <option value="INTERNAL_ROUTED">
+            Rede interna roteada
+          </option>
+          <option value="ADJACENT_ONLY">
+            Apenas rede adjacente
+          </option>
+          <option value="LOCAL_ONLY">
+            Apenas acesso local
+          </option>
+          <option value="PHYSICAL_ONLY">
+            Apenas acesso físico
+          </option>
+        </select>
+        <small>
+          Esta evidência pode sustentar uma
+          decisão de Modified Attack Vector.
+          Se não houver evidência suficiente,
+          mantenha “Ainda não avaliei”.
+        </small>
+      </div>
+
+      <div className="field">
+        <label htmlFor="evidence-quality">
+          Qualidade da evidência
+        </label>
+        <select
+          id="evidence-quality"
+          value={evidenceQuality}
+          onChange={(event) =>
+            setEvidenceQuality(
+              event.target.value,
+            )
+          }
+        >
+          <option value="UNKNOWN">
+            Ainda não avaliei
+          </option>
+          <option value="SUFFICIENT">
+            Suficiente e verificável
+          </option>
+          <option value="INSUFFICIENT">
+            Incompleta
+          </option>
+          <option value="CONFLICTING">
+            Há conflito entre fontes
+          </option>
+        </select>
+        <small>
+          Evidência incompleta ou conflitante
+          pode levar o motor a ABSTAIN, em
+          vez de criar uma métrica sem base.
+        </small>
+      </div>
+
+      <div className="field">
+        <label htmlFor="evidence-age-preset">
+          Idade da evidência — atalho
+        </label>
+        <select
+          id="evidence-age-preset"
+          value={
+            ["0", "1", "3", "7", "30"].includes(
+              telemetryAgeDays,
+            )
+              ? telemetryAgeDays
+              : ""
+          }
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value !== "") {
+              setTelemetryAgeDays(value);
+            }
+          }}
+        >
+          <option value="">
+            Escolher atalho...
+          </option>
+          <option value="0">Coletada agora / hoje</option>
+          <option value="1">1 dia</option>
+          <option value="3">3 dias</option>
+          <option value="7">7 dias</option>
+          <option value="30">30 dias</option>
+        </select>
+        <small>
+          Use o valor real quando souber. O campo numérico abaixo continua editável.
+        </small>
+      </div>
+
+      <div className="field">
+        <label htmlFor="evidence-validity-preset">
+          Validade máxima — atalho
+        </label>
+        <select
+          id="evidence-validity-preset"
+          value={
+            ["1", "7", "30", "90"].includes(
+              maxTelemetryAgeDays,
+            )
+              ? maxTelemetryAgeDays
+              : ""
+          }
+          onChange={(event) => {
+            const value = event.target.value;
+            if (value !== "") {
+              setMaxTelemetryAgeDays(value);
+            }
+          }}
+        >
+          <option value="">
+            Escolher atalho...
+          </option>
+          <option value="1">1 dia</option>
+          <option value="7">7 dias</option>
+          <option value="30">30 dias</option>
+          <option value="90">90 dias</option>
+        </select>
+        <small>
+          Escolha um prazo operacional comum ou ajuste manualmente abaixo.
+        </small>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns:
+            "repeat(auto-fit, minmax(220px, 1fr))",
+          gap: "1rem",
+        }}
+      >
+        <div className="field">
+          <label htmlFor="telemetry-age">
+            Idade da evidência (dias)
+          </label>
+          <input
+            id="telemetry-age"
+            type="number"
+            min="0"
+            step="0.01"
+            value={telemetryAgeDays}
+            onChange={(event) =>
+              setTelemetryAgeDays(
+                event.target.value,
+              )
+            }
+          />
+        </div>
+
+        <div className="field">
+          <label htmlFor="telemetry-max-age">
+            Validade máxima (dias)
+          </label>
+          <input
+            id="telemetry-max-age"
+            type="number"
+            min="0.01"
+            step="0.01"
+            value={maxTelemetryAgeDays}
+            onChange={(event) =>
+              setMaxTelemetryAgeDays(
+                event.target.value,
+              )
+            }
+            required
+          />
+        </div>
+      </div>
+
+      <label
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: ".75rem",
+          padding: "1rem",
+          border: "1px solid var(--border)",
+          borderRadius:
+            "var(--radius-sm)",
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={firewallActive}
+          onChange={(event) =>
+            setFirewallActive(
+              event.target.checked,
+            )
+          }
+        />
+        <span>
+          <strong>
+            Há firewall/WAF registrado na
+            evidência
+          </strong>
+          <small
+            style={{
+              display: "block",
+              color:
+                "var(--text-muted)",
+            }}
+          >
+            Isto é registrado como contexto.
+            A presença isolada do controle
+            não altera automaticamente MAC
+            ou outra métrica CVSS.
+          </small>
+        </span>
+      </label>
 
       <details className="panel">
         <summary>
@@ -427,206 +859,330 @@ export function AssessmentRunForm({
         </div>
       </details>
 
-      <div className="field">
-        <label htmlFor="base-vector">
-          Vetor CVSS v4.0 de origem
-        </label>
-        <textarea
-          id="base-vector"
-          rows={3}
-          value={baseVector}
-          onChange={(event) =>
-            setBaseVector(
-              event.target.value,
-            )
-          }
-          placeholder="CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
-          required
-          aria-invalid={
-            baseVector.trim() !== "" &&
-            !vectorValidation.valid
-          }
-        />
-        {baseVector.trim() !== "" ? (
-          vectorValidation.valid ? (
-            <small className="vector-validation vector-validation--ok">
-              Vetor válido · {vectorValidation.nomenclature}
-            </small>
-          ) : (
-            <small
-              className="vector-validation vector-validation--error"
-              role="alert"
-            >
-              {vectorValidation.errors[0]}
-            </small>
-          )
-        ) : null}
-        <small>
-          Este é o CVSS-B de referência.
-          O resultado contextual será
-          exibido separadamente.
-        </small>
-      </div>
+      <details className="panel advanced-threat-maturity">
+        <summary>
+          Threat — Exploit Maturity (E) (avançado)
+        </summary>
+        <p>
+          Exploit Maturity (E) reflete o estado conhecido de exploração segundo
+          fontes verificáveis de threat intelligence; não é uma previsão, não substitui
+          evidência ambiental e não deve ser inferida a partir do score Base ou suposições.
+        </p>
 
-      <div className="field">
-        <label htmlFor="reachability">
-          Como o sistema vulnerável pode ser
-          alcançado no seu ambiente?
-        </label>
-        <select
-          id="reachability"
-          value={reachability}
-          onChange={(event) =>
-            setReachability(
-              event.target.value,
-            )
-          }
-        >
-          <option value="UNKNOWN">
-            Ainda não avaliei
-          </option>
-          <option value="PUBLIC_ROUTED">
-            Internet / rede pública roteada
-          </option>
-          <option value="INTERNAL_ROUTED">
-            Rede interna roteada
-          </option>
-          <option value="ADJACENT_ONLY">
-            Apenas rede adjacente
-          </option>
-          <option value="LOCAL_ONLY">
-            Apenas acesso local
-          </option>
-          <option value="PHYSICAL_ONLY">
-            Apenas acesso físico
-          </option>
-        </select>
-        <small>
-          Esta evidência pode sustentar uma
-          decisão de Modified Attack Vector.
-          Se não houver evidência suficiente,
-          mantenha “Ainda não avaliei”.
-        </small>
-      </div>
-
-      <div className="field">
-        <label htmlFor="evidence-quality">
-          Qualidade da evidência
-        </label>
-        <select
-          id="evidence-quality"
-          value={evidenceQuality}
-          onChange={(event) =>
-            setEvidenceQuality(
-              event.target.value,
-            )
-          }
-        >
-          <option value="UNKNOWN">
-            Ainda não avaliei
-          </option>
-          <option value="SUFFICIENT">
-            Suficiente e verificável
-          </option>
-          <option value="INSUFFICIENT">
-            Incompleta
-          </option>
-          <option value="CONFLICTING">
-            Há conflito entre fontes
-          </option>
-        </select>
-        <small>
-          Evidência incompleta ou conflitante
-          pode levar o motor a ABSTAIN, em
-          vez de criar uma métrica sem base.
-        </small>
-      </div>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns:
-            "repeat(auto-fit, minmax(220px, 1fr))",
-          gap: "1rem",
-        }}
-      >
         <div className="field">
-          <label htmlFor="telemetry-age">
-            Idade da evidência (dias)
+          <label htmlFor="exploit-maturity">
+            Exploit Maturity (E)
           </label>
-          <input
-            id="telemetry-age"
-            type="number"
-            min="0"
-            step="0.01"
-            value={telemetryAgeDays}
+          <select
+            id="exploit-maturity"
+            value={exploitMaturity}
             onChange={(event) =>
-              setTelemetryAgeDays(
+              setExploitMaturity(
                 event.target.value,
               )
             }
-          />
-        </div>
-
-        <div className="field">
-          <label htmlFor="telemetry-max-age">
-            Validade máxima (dias)
-          </label>
-          <input
-            id="telemetry-max-age"
-            type="number"
-            min="0.01"
-            step="0.01"
-            value={maxTelemetryAgeDays}
-            onChange={(event) =>
-              setMaxTelemetryAgeDays(
-                event.target.value,
-              )
-            }
-            required
-          />
-        </div>
-      </div>
-
-      <label
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: ".75rem",
-          padding: "1rem",
-          border: "1px solid var(--border)",
-          borderRadius:
-            "var(--radius-sm)",
-        }}
-      >
-        <input
-          type="checkbox"
-          checked={firewallActive}
-          onChange={(event) =>
-            setFirewallActive(
-              event.target.checked,
-            )
-          }
-        />
-        <span>
-          <strong>
-            Há firewall/WAF registrado na
-            evidência
-          </strong>
-          <small
-            style={{
-              display: "block",
-              color:
-                "var(--text-muted)",
-            }}
           >
-            Isto é registrado como contexto.
-            A presença isolada do controle
-            não altera automaticamente MAC
-            ou outra métrica CVSS.
+            <option value="X">
+              X — Não definido
+            </option>
+            <option value="A">
+              A — Attacked
+            </option>
+            <option value="P">
+              P — Proof-of-Concept
+            </option>
+            <option value="U">
+              U — Unreported
+            </option>
+          </select>
+          <small>
+            O valor padrão é X (Não definido). Pelo FIRST CVSS v4.0, X assume pior caso razoável para o cálculo sem alegar exploração ativa.
           </small>
-        </span>
-      </label>
+        </div>
+
+        <div className="advanced-threat-maturity__grid">
+          <div className="field">
+            <label htmlFor="threat-intel-reference">
+              Referência de threat intelligence
+            </label>
+            <input
+              id="threat-intel-reference"
+              value={threatIntelReference}
+              onChange={(event) =>
+                setThreatIntelReference(
+                  event.target.value,
+                )
+              }
+              placeholder="URL, boletim, advisory, feed..."
+              maxLength={1000}
+            />
+            <small>
+              Obrigatória para E diferente de X.
+            </small>
+          </div>
+
+          <div className="field">
+            <label htmlFor="threat-intel-observed-at">
+              Observada em
+            </label>
+            <input
+              id="threat-intel-observed-at"
+              type="datetime-local"
+              value={threatIntelObservedAt}
+              onChange={(event) =>
+                setThreatIntelObservedAt(
+                  event.target.value,
+                )
+              }
+            />
+            <small>
+              Obrigatória para E diferente de X (não pode estar no futuro).
+            </small>
+          </div>
+        </div>
+
+        <p className="advanced-threat-maturity__note">
+          Segundo o FIRST CVSS v4.0: E=X é o default operacional e não requer
+          provenance adicional. Selecionar A, P ou U exige registrar a fonte e a data
+          em que a informação foi observada.
+        </p>
+      </details>
+
+      <details className="panel advanced-security-requirements">
+        <summary>
+          Requisitos de Segurança do ambiente (avançado)
+        </summary>
+        <p>
+          CR, IR e AR representam a importância
+          da confidencialidade, integridade e
+          disponibilidade do sistema vulnerável
+          neste ambiente. Se a organização não
+          definiu esses requisitos por política,
+          mantenha X (Não definido).
+        </p>
+
+        <div className="field">
+          <label htmlFor="security-policy">
+            Política organizacional
+          </label>
+          <select
+            id="security-policy"
+            value={selectedPolicyId}
+            onChange={(event) =>
+              setSelectedPolicyId(
+                event.target.value,
+              )
+            }
+          >
+            <option value="">
+              Nenhuma política selecionada
+            </option>
+            {activePolicies.map(
+              (policy) => (
+                <option
+                  key={policy.id}
+                  value={policy.id}
+                >
+                  {policy.policyId}
+                  {" · v"}
+                  {policy.version}
+                </option>
+              ),
+            )}
+          </select>
+          <small>
+            Obrigatória somente se algum de
+            CR/IR/AR for diferente de X.
+          </small>
+        </div>
+
+        <div className="advanced-security-requirements__grid">
+          {[
+            {
+              id: "security-cr",
+              label: "Confidencialidade (CR)",
+              value: cr,
+              setValue: setCr,
+            },
+            {
+              id: "security-ir",
+              label: "Integridade (IR)",
+              value: ir,
+              setValue: setIr,
+            },
+            {
+              id: "security-ar",
+              label: "Disponibilidade (AR)",
+              value: ar,
+              setValue: setAr,
+            },
+          ].map((metric) => (
+            <div
+              className="field"
+              key={metric.id}
+            >
+              <label htmlFor={metric.id}>
+                {metric.label}
+              </label>
+              <select
+                id={metric.id}
+                value={metric.value}
+                onChange={(event) =>
+                  metric.setValue(
+                    event.target.value,
+                  )
+                }
+              >
+                <option value="X">
+                  X — Não definido
+                </option>
+                <option value="H">
+                  H — Alto
+                </option>
+                <option value="M">
+                  M — Médio
+                </option>
+                <option value="L">
+                  L — Baixo
+                </option>
+              </select>
+            </div>
+          ))}
+        </div>
+
+        <p className="advanced-security-requirements__note">
+          Esses valores descrevem a criticidade
+          do sistema vulnerável, não a
+          vulnerabilidade em si. A seleção não
+          deve ser usada para compensar controles
+          técnicos ou alterar o vetor Base.
+        </p>
+      </details>
+
+      <details className="panel supplemental-metrics-panel">
+        <summary>
+          Supplemental Metrics (não alteram o score)
+        </summary>
+        <p>
+          Estes campos adicionam contexto ao vetor e ao audit trail,
+          mas não alteram o score CVSS-BT/BE/BTE. Mantenha X quando
+          a métrica não tiver sido avaliada.
+        </p>
+
+        <div className="supplemental-metrics-panel__grid">
+          <div className="field">
+            <label htmlFor="supp-safety">
+              Safety (S)
+            </label>
+            <select
+              id="supp-safety"
+              value={suppSafety}
+              onChange={(event) =>
+                setSuppSafety(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="N">N — Negligible</option>
+              <option value="P">P — Present</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-automatable">
+              Automatable (AU)
+            </label>
+            <select
+              id="supp-automatable"
+              value={suppAutomatable}
+              onChange={(event) =>
+                setSuppAutomatable(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="N">N — Não</option>
+              <option value="Y">Y — Sim</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-recovery">
+              Recovery (R)
+            </label>
+            <select
+              id="supp-recovery"
+              value={suppRecovery}
+              onChange={(event) =>
+                setSuppRecovery(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="A">A — Automatic</option>
+              <option value="U">U — User</option>
+              <option value="I">I — Irrecoverable</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-value-density">
+              Value Density (V)
+            </label>
+            <select
+              id="supp-value-density"
+              value={suppValueDensity}
+              onChange={(event) =>
+                setSuppValueDensity(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="D">D — Diffuse</option>
+              <option value="C">C — Concentrated</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-response-effort">
+              Vulnerability Response Effort (RE)
+            </label>
+            <select
+              id="supp-response-effort"
+              value={suppResponseEffort}
+              onChange={(event) =>
+                setSuppResponseEffort(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="L">L — Low</option>
+              <option value="M">M — Moderate</option>
+              <option value="H">H — High</option>
+            </select>
+          </div>
+
+          <div className="field">
+            <label htmlFor="supp-provider-urgency">
+              Provider Urgency (U)
+            </label>
+            <select
+              id="supp-provider-urgency"
+              value={suppProviderUrgency}
+              onChange={(event) =>
+                setSuppProviderUrgency(event.target.value)
+              }
+            >
+              <option value="X">X — Não definido</option>
+              <option value="Clear">Clear</option>
+              <option value="Green">Green</option>
+              <option value="Amber">Amber</option>
+              <option value="Red">Red</option>
+            </select>
+          </div>
+        </div>
+
+        <p className="supplemental-metrics-panel__note">
+          Supplemental Metrics podem influenciar processos locais de
+          priorização ou resposta, mas pela especificação FIRST não
+          alteram o valor numérico do CVSS.
+        </p>
+      </details>
 
       {message ? (
         <p

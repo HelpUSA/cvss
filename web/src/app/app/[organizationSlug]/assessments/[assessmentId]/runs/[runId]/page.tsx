@@ -20,6 +20,10 @@ import {
   RunExplanation,
 } from "@/app/components/RunExplanation";
 
+import {
+  SupplementalMetricsSummary,
+} from "@/app/components/SupplementalMetricsSummary";
+
 type Params = Promise<{
   organizationSlug: string;
   assessmentId: string;
@@ -138,6 +142,10 @@ export default async function RunResultPage({
         capturedAt={run.evidenceSnapshot.capturedAt}
       />
 
+      <SupplementalMetricsSummary
+        metadata={run.evidenceSnapshot.metadata}
+      />
+
       <section
         className="tenant-metric-grid"
         aria-label="Resumo do resultado"
@@ -187,23 +195,29 @@ export default async function RunResultPage({
         </article>
       </section>
 
-      <section
+      <details
         className="panel"
         style={{
           marginTop: "1.25rem",
         }}
       >
-        <span className="section-kicker">
-          Vetores
-        </span>
-        <h2>
-          Preserve sempre score e vetor.
-        </h2>
+        <summary
+          style={{
+            cursor: "pointer",
+            fontWeight: 800,
+          }}
+        >
+          Vetores CVSS completos (origem e contextual)
+        </summary>
+        <p>
+          Compare o vetor Base de referência com o vetor contextual enriquecido com métricas de ameaça, ambientais e suplementares.
+        </p>
 
         <div
           style={{
             display: "grid",
             gap: "1rem",
+            marginTop: "1rem",
           }}
         >
           <div>
@@ -241,7 +255,7 @@ export default async function RunResultPage({
             </pre>
           </div>
         </div>
-      </section>
+      </details>
 
       {abstained ? (
         <section
@@ -271,18 +285,23 @@ export default async function RunResultPage({
         </section>
       ) : null}
 
-      <section
+      <details
         className="panel"
         style={{
           marginTop: "1.25rem",
         }}
       >
-        <span className="section-kicker">
-          Rastreabilidade
-        </span>
-        <h2>
-          Evidência e versão da execução
-        </h2>
+        <summary
+          style={{
+            cursor: "pointer",
+            fontWeight: 800,
+          }}
+        >
+          Rastreabilidade e auditoria (hashes e engine)
+        </summary>
+        <p>
+          Identificadores criptográficos, recibo de auditoria e versão do motor para conformidade e reprodutibilidade.
+        </p>
 
         <dl className="context-list">
           <div>
@@ -332,7 +351,7 @@ export default async function RunResultPage({
             </dd>
           </div>
         </dl>
-      </section>
+      </details>
 
       <div
         className="operational-actions"

@@ -64,3 +64,11 @@ related_files:
 ## Regra central
 
 `official_cvss` deriva somente do vetor CVSS oficial. A camada contextual pode usar evidências operacionais, mas nunca deve ser apresentada como CVSS oficial.
+
+<!-- BEGIN CVSS40_PHASE11_BLINDING_AUDIT_INDEX_20260713 -->
+## CVSS v4.0 Phase 11 Blinding Audit
+
+- [Blinding audit report](ARTICLE_PHASE11_BLINDING_AUDIT_CVSS40.md)
+- [Machine-readable audit](../validation/article/phase11_blinding_audit.json)
+- [Answer-key commitment](../article/expert_review/adjudication_answer_key.commitment.json)
+<!-- END CVSS40_PHASE11_BLINDING_AUDIT_INDEX_20260713 -->
