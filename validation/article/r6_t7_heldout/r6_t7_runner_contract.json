@@ -1,0 +1,42 @@
+{
+  "schema": "https://helpus.ai/schemas/r6_t7_runner_contract.json",
+  "schema_version": "1.0.0",
+  "runner_path": "scripts/run_r6_t7_heldout_experiment.py",
+  "experiment_id": "TEST-SUITE-R6-T7-HELDOUT-TRANSFER",
+  "label": "R6-T7-HELDOUT",
+  "execution_gate_default": "QUARANTINED_LOCKED",
+  "command_line_interface": {
+    "flags": {
+      "--authorize-held-out-access": {
+        "type": "boolean",
+        "required_for_execution": true,
+        "default": false,
+        "description": "Explicit supervisor flag enabling access to held-out data"
+      },
+      "--auth-token": {
+        "type": "string",
+        "required_for_execution": true,
+        "description": "Cryptographic authorization token referencing T7 preregistration commit"
+      },
+      "--verify-structural-invariants-only": {
+        "type": "boolean",
+        "required_for_execution": false,
+        "default": false,
+        "description": "Executes structural pre-flight verification without touching held-out records"
+      }
+    }
+  },
+  "exit_codes": {
+    "0": "SUCCESS_EXECUTION_COMPLETED",
+    "1": "GENERIC_EXECUTION_FAILURE",
+    "2": "GATE_LOCKED_ACCESS_DENIED",
+    "3": "DETERMINISTIC_PARITY_MISMATCH",
+    "4": "CORPUS_INTEGRITY_VIOLATION"
+  },
+  "runtime_invariants": {
+    "max_record_count": 938,
+    "min_record_count": 938,
+    "require_two_passes": true,
+    "require_strict_parity": true
+  }
+}

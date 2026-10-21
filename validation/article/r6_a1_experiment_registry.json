@@ -5,25 +5,25 @@
   "parent_main_commit": "e5215b525c90696043b1d68ea5bf4ce4c88f2d41",
   "preregistration_branch": "research/r6-a1-preregistration",
   "created_at": "2026-10-21T12:50:00Z",
-  "last_updated_at": "2026-10-21T22:15:00Z",
+  "last_updated_at": "2026-10-21T22:50:23.080947+00:00",
   "protocol_version": "R6.2",
   "protocol_deviation_id": "R6-DEV-001",
   "rqs": [
     {
       "id": "RQ-R6-1",
-      "statement": "O contrato de verificação mantém integridade e cobertura em um novo corpus externo held-out, independente dos 30 casos R5?"
+      "statement": "O contrato de verifica\u00e7\u00e3o mant\u00e9m integridade e cobertura em um novo corpus externo held-out, independente dos 30 casos R5?"
     },
     {
       "id": "RQ-R6-2",
-      "statement": "Como schema v2 closed-world altera detecção de mutações e compatibilidade comparado ao open-world v1?"
+      "statement": "Como schema v2 closed-world altera detec\u00e7\u00e3o de muta\u00e7\u00f5es e compatibilidade comparado ao open-world v1?"
     },
     {
       "id": "RQ-R6-3",
-      "statement": "Uma camada estruturada de governance override pode tornar os desvios operacionais auditáveis sem modificar a política nominal da Eq. 8?"
+      "statement": "Uma camada estruturada de governance override pode tornar os desvios operacionais audit\u00e1veis sem modificar a pol\u00edtica nominal da Eq. 8?"
     },
     {
       "id": "RQ-R6-4",
-      "statement": "Qual é o grau de concordância e quais classes de discrepância, se houver, são observadas entre o scorer primário CVSS v4.0 e uma implementação secundária independente sob um corpus de vetores pré-definido?"
+      "statement": "Qual \u00e9 o grau de concord\u00e2ncia e quais classes de discrep\u00e2ncia, se houver, s\u00e3o observadas entre o scorer prim\u00e1rio CVSS v4.0 e uma implementa\u00e7\u00e3o secund\u00e1ria independente sob um corpus de vetores pr\u00e9-definido?"
     }
   ],
   "held_out_corpus": "COLLECTED_AND_QUARANTINED",
@@ -385,5 +385,30 @@
     }
   },
   "differential_validation_r2_deterministic_rerun_parity": "PASS",
-  "differential_validation_r2_results_sha256": "e54d5841184bf10d5c5663032dab67063b15fb9ff53d2e3759d6646da5779776"
+  "differential_validation_r2_results_sha256": "e54d5841184bf10d5c5663032dab67063b15fb9ff53d2e3759d6646da5779776",
+  "t7_heldout_transfer_experiment_id": "TEST-SUITE-R6-T7-HELDOUT-TRANSFER",
+  "t7_heldout_transfer_label": "R6-T7-HELDOUT",
+  "t7_heldout_transfer_rq_id": "RQ-R6-1",
+  "t7_heldout_transfer_prerequisite_commit": "32407259b9e8b07f84316c5057bf885ec29e8e8f",
+  "t7_heldout_transfer_status": "PREREGISTERED_FROZEN_AWAITING_HELDOUT_AUTHORIZATION",
+  "t7_heldout_transfer_execution_status": "QUARANTINED_LOCKED",
+  "t7_heldout_transfer_eligible_denominator": 938,
+  "t7_heldout_transfer_raw_candidate_count": 947,
+  "t7_heldout_transfer_exclusions_count": 9,
+  "t7_heldout_transfer_r5_overlap_count": 0,
+  "t7_heldout_transfer_target_rate": null,
+  "t7_heldout_transfer_expected_rate": null,
+  "t7_heldout_transfer_results_available": false,
+  "t7_heldout_transfer_scientific_execution_count": 0,
+  "t7_heldout_transfer_held_out_accessed": false,
+  "t7_heldout_transfer_held_out_records_read": 0,
+  "t7_heldout_transfer_held_out_ids_listed": 0,
+  "t7_heldout_transfer_human_adjudication_completed": false,
+  "t7_heldout_transfer_eq8_modified": false,
+  "t7_heldout_transfer_information_invention_allowed": false,
+  "t7_heldout_transfer_deterministic_rerun_required": true,
+  "t7_heldout_transfer_protocol_freeze_commit": "106049618eff5e2f2a34aa591475c4a042bdba37",
+  "t7_heldout_transfer_acquisition_freeze_commit": "2346859b319eac9146273b215eca796147816837",
+  "t7_heldout_transfer_corpus_lock_commit": "12bf6c456054656a1bbc198d7e3729d2675098b2",
+  "t7_heldout_transfer_corpus_manifest_sha256": "b09a8cc45147f25073103c005d87b4244ea9e03a8233b7059fbd310cc13a22cf"
 }
