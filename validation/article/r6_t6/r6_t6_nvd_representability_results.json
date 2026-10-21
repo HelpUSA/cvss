@@ -1,0 +1,196 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t6_nvd_representability_results_v1.json",
+  "experiment_id": "TEST-SUITE-R6-T6-NVD-REPRESENTABILITY",
+  "label": "R6-T6",
+  "rq_id": "RQ-R6-3",
+  "status": "COMPLETED_UNFROZEN",
+  "executed_at": "2026-10-21T20:11:44Z",
+  "preregistration_freeze_commit": "5a6c8c67088a8ed26e2cbf91a5e3317ceffb2925",
+  "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+  "primary_denominator": 4,
+  "execution_check_count": 12,
+  "deterministic_rerun_parity": "PASS",
+  "held_out_accessed": false,
+  "eq8_modified": false,
+  "human_adjudication_completed": false,
+  "information_invention_allowed": false,
+  "taxonomy_summary": {
+    "REPRESENTABLE_DIRECTLY": 0,
+    "REPRESENTABLE_BY_NORMATIVE_STRUCTURAL_TRANSFORMATION": 2,
+    "NOT_REPRESENTABLE_WITHOUT_NEW_INFORMATION": 2,
+    "REPRESENTABILITY_AMBIGUOUS_UNDER_FROZEN_CONTRACT": 0,
+    "total_evaluated": 4,
+    "percentages": {
+      "REPRESENTABLE_DIRECTLY": "0.0%",
+      "REPRESENTABLE_BY_NORMATIVE_STRUCTURAL_TRANSFORMATION": "50.0%",
+      "NOT_REPRESENTABLE_WITHOUT_NEW_INFORMATION": "50.0%",
+      "REPRESENTABILITY_AMBIGUOUS_UNDER_FROZEN_CONTRACT": "0.0%"
+    }
+  },
+  "case_evaluations": [
+    {
+      "case_id": "T6.1",
+      "source_scenario_id": "SCN-NVD-001",
+      "cve_id": "CVE-2026-4251",
+      "asset_class": "public_web_application",
+      "raw_internet_exposure": "public",
+      "exposure_in_closed_world": true,
+      "p_base": "LOW",
+      "eq8_nominal_priority": "MEDIUM",
+      "eq8_nominal_delta": 1,
+      "practitioner_annotated_priority": "LOW",
+      "priority_divergence_observed": true,
+      "direct_v2_valid": false,
+      "direct_v2_error_count": 1,
+      "direct_v2_errors": [
+        "root.environmental_evidence.compensating_controls: Field 'compensating_controls' expects type <class 'list'>, got str"
+      ],
+      "transformed_v2_valid": true,
+      "transformed_v2_error_count": 0,
+      "transformed_v2_errors": [],
+      "transformation_log": [
+        "Wrapped compensating_controls narrative string into CompensatingControlItem array preserving full narrative in description",
+        "Wrapped evidence_links string into EvidenceLinkItem array",
+        "Normalized confidentiality_requirement to enum token 'H'",
+        "Normalized integrity_requirement to enum token 'H'",
+        "Normalized availability_requirement to enum token 'M'",
+        "Normalized candidate_modified_metrics to dictionary container",
+        "Wrapped uncertainty_flags string into list",
+        "Initialized extensions dictionary"
+      ],
+      "governance_override_applicable": true,
+      "governance_reason_code": "CONTROL_COMPENSATION",
+      "governance_override_applied": true,
+      "governance_final_authorized_priority": "LOW",
+      "governance_diagnostics": [
+        "GOVERNANCE_OVERRIDE_APPLIED_SUCCESSFULLY"
+      ],
+      "eq8_nominal_invariance_verified": true,
+      "primary_classification": "REPRESENTABLE_BY_NORMATIVE_STRUCTURAL_TRANSFORMATION",
+      "classification_rationale": "Valid under Schema v2 after deterministic normative structural transformation (array-wrapping and container normalization) with zero information invention. Operational priority divergence is fully encapsulated by formal GovernanceOverrideRecord."
+    },
+    {
+      "case_id": "T6.2",
+      "source_scenario_id": "SCN-NVD-003",
+      "cve_id": "CVE-2026-4270",
+      "asset_class": "identity_provider",
+      "raw_internet_exposure": "restricted",
+      "exposure_in_closed_world": false,
+      "p_base": "MEDIUM",
+      "eq8_nominal_priority": "HIGH",
+      "eq8_nominal_delta": 1,
+      "practitioner_annotated_priority": "HIGH",
+      "priority_divergence_observed": false,
+      "direct_v2_valid": false,
+      "direct_v2_error_count": 1,
+      "direct_v2_errors": [
+        "root.environmental_evidence.compensating_controls: Field 'compensating_controls' expects type <class 'list'>, got str"
+      ],
+      "transformed_v2_valid": false,
+      "transformed_v2_error_count": 1,
+      "transformed_v2_errors": [
+        "root.environmental_evidence.internet_exposure: Invalid internet_exposure: 'restricted'"
+      ],
+      "transformation_log": [
+        "Wrapped compensating_controls narrative string into CompensatingControlItem array preserving full narrative in description",
+        "Wrapped evidence_links string into EvidenceLinkItem array",
+        "Normalized confidentiality_requirement to enum token 'H'",
+        "Normalized integrity_requirement to enum token 'H'",
+        "Normalized availability_requirement to enum token 'H'",
+        "Normalized candidate_modified_metrics to dictionary container",
+        "Wrapped uncertainty_flags string into list",
+        "Initialized extensions dictionary"
+      ],
+      "governance_override_applicable": false,
+      "governance_reason_code": null,
+      "governance_override_applied": null,
+      "governance_final_authorized_priority": "HIGH",
+      "governance_diagnostics": [],
+      "eq8_nominal_invariance_verified": true,
+      "primary_classification": "NOT_REPRESENTABLE_WITHOUT_NEW_INFORMATION",
+      "classification_rationale": "Attribute internet_exposure='restricted' is outside Schema v2 closed-world enum ['dmz', 'internal', 'isolated', 'public']. Resolving this requires fabricating network topology assumptions not present in the historical trace."
+    },
+    {
+      "case_id": "T6.3",
+      "source_scenario_id": "SCN-NVD-007",
+      "cve_id": "CVE-2026-29513",
+      "asset_class": "ot_monitoring_gateway",
+      "raw_internet_exposure": "internal",
+      "exposure_in_closed_world": true,
+      "p_base": "MEDIUM",
+      "eq8_nominal_priority": "CRITICAL",
+      "eq8_nominal_delta": 2,
+      "practitioner_annotated_priority": "MEDIUM",
+      "priority_divergence_observed": true,
+      "direct_v2_valid": false,
+      "direct_v2_error_count": 1,
+      "direct_v2_errors": [
+        "root.environmental_evidence.compensating_controls: Field 'compensating_controls' expects type <class 'list'>, got str"
+      ],
+      "transformed_v2_valid": true,
+      "transformed_v2_error_count": 0,
+      "transformed_v2_errors": [],
+      "transformation_log": [
+        "Wrapped compensating_controls narrative string into CompensatingControlItem array preserving full narrative in description",
+        "Wrapped evidence_links string into EvidenceLinkItem array",
+        "Normalized confidentiality_requirement to enum token 'M'",
+        "Normalized integrity_requirement to enum token 'H'",
+        "Normalized availability_requirement to enum token 'H'",
+        "Normalized candidate_modified_metrics to dictionary container",
+        "Wrapped uncertainty_flags string into list",
+        "Initialized extensions dictionary"
+      ],
+      "governance_override_applicable": true,
+      "governance_reason_code": "EXPOSURE_CONTEXT_EXCEPTION",
+      "governance_override_applied": true,
+      "governance_final_authorized_priority": "MEDIUM",
+      "governance_diagnostics": [
+        "GOVERNANCE_OVERRIDE_APPLIED_SUCCESSFULLY"
+      ],
+      "eq8_nominal_invariance_verified": true,
+      "primary_classification": "REPRESENTABLE_BY_NORMATIVE_STRUCTURAL_TRANSFORMATION",
+      "classification_rationale": "Valid under Schema v2 after deterministic normative structural transformation (array-wrapping and container normalization) with zero information invention. Operational priority divergence is fully encapsulated by formal GovernanceOverrideRecord."
+    },
+    {
+      "case_id": "T6.4",
+      "source_scenario_id": "SCN-NVD-011",
+      "cve_id": "CVE-2026-4224",
+      "asset_class": "identity_provider",
+      "raw_internet_exposure": "restricted",
+      "exposure_in_closed_world": false,
+      "p_base": "MEDIUM",
+      "eq8_nominal_priority": "HIGH",
+      "eq8_nominal_delta": 1,
+      "practitioner_annotated_priority": "HIGH",
+      "priority_divergence_observed": false,
+      "direct_v2_valid": false,
+      "direct_v2_error_count": 1,
+      "direct_v2_errors": [
+        "root.environmental_evidence.compensating_controls: Field 'compensating_controls' expects type <class 'list'>, got str"
+      ],
+      "transformed_v2_valid": false,
+      "transformed_v2_error_count": 1,
+      "transformed_v2_errors": [
+        "root.environmental_evidence.internet_exposure: Invalid internet_exposure: 'restricted'"
+      ],
+      "transformation_log": [
+        "Wrapped compensating_controls narrative string into CompensatingControlItem array preserving full narrative in description",
+        "Wrapped evidence_links string into EvidenceLinkItem array",
+        "Normalized confidentiality_requirement to enum token 'H'",
+        "Normalized integrity_requirement to enum token 'H'",
+        "Normalized availability_requirement to enum token 'H'",
+        "Normalized candidate_modified_metrics to dictionary container",
+        "Wrapped uncertainty_flags string into list",
+        "Initialized extensions dictionary"
+      ],
+      "governance_override_applicable": false,
+      "governance_reason_code": null,
+      "governance_override_applied": null,
+      "governance_final_authorized_priority": "HIGH",
+      "governance_diagnostics": [],
+      "eq8_nominal_invariance_verified": true,
+      "primary_classification": "NOT_REPRESENTABLE_WITHOUT_NEW_INFORMATION",
+      "classification_rationale": "Attribute internet_exposure='restricted' is outside Schema v2 closed-world enum ['dmz', 'internal', 'isolated', 'public']. Resolving this requires fabricating network topology assumptions not present in the historical trace."
+    }
+  ]
+}
