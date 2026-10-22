@@ -116,7 +116,7 @@ The official FIRST specification establishes four formal nomenclature tiers depe
 on the metric groups populated in a score vector:
 \begin{itemize}
 \item \textbf{CVSS-B:} Base metrics only, quantifying intrinsic vulnerability characteristics across Exploitability (AV, AC, AT, PR, UI), Vulnerable System Impact (VC, VI, VA), and Subsequent System Impact (SC, SI, SA).
-\item \textbf{CVSS-BT:} Base and Threat metrics, incorporating Exploit Maturity ($E \in \{\text{Attacked}, \text{Proof-of-Concept}, \text{Unreported}, \text{Not Defined}\}$).
+\item \textbf{CVSS-BT:} Base and Threat metrics, incorporating Exploit Maturity ($E$), whose allowed values are \{\text{Attacked}, \text{Proof-of-Concept}, \text{Unreported}, \text{Not Defined}\}.
 \item \textbf{CVSS-BE:} Base and Environmental metrics, incorporating consumer-specific context without threat intelligence.
 \item \textbf{CVSS-BTE:} Base, Threat, and Environmental metrics combined, reflecting contemporary exploit activity alongside consumer deployment context.
 \end{itemize}
@@ -302,7 +302,7 @@ organized into six logical layers.
 
 \node[scorer, right=of resolver] (scorer) {
     \textbf{4. Canonical CVSS Scorer}\\[1.5pt]
-    {\tiny FIRST-conformant calculator,\\MacroVectors $\vec{M}=(EQ_1..EQ_6)$,\\computes CVSS-BE / CVSS-BTE}
+    {\tiny FIRST-conformant calculator,\\MacroVectors $\vec{M}=(\mathrm{EQ}_{1},\ldots,\mathrm{EQ}_{6})$,\\computes CVSS-BE / CVSS-BTE}
 };
 
 \node[box, right=of scorer] (trace) {
@@ -364,7 +364,7 @@ The evaluated prototype focuses on deterministic evidence normalization, governa
 
 \subsection{Closed-World Schema v2 Contract}
 \label{sec:schema_v2_contract}
-The original JSON schema formulation operated under open-world semantics, permitting undeclared attributes. As revealed by exploratory mutation testing, open-world tolerance allows arbitrary undeclared payload injections ($F3$). To enforce rigorous auditability, we formulated Schema~v2 as a closed-world contract. Under Schema~v2, all object schemas declare \texttt{"additionalProperties": false}, requiring all ingested properties to belong to the declared normative specification. Schema~v2 strictly enforces string enums (such as non-empty CVE identifiers matching \texttt{\detokenize{^CVE-\d{4}-\d{4,}$}}), structured object arrays for compensating controls, explicit nullability constraints, and reserved future-version field guards.
+The original JSON schema formulation operated under open-world semantics, permitting undeclared attributes. As revealed by exploratory mutation testing, open-world tolerance allows arbitrary undeclared payload injections ($F3$). To enforce rigorous auditability, we formulated Schema~v2 as a closed-world contract. Under Schema~v2, all object schemas declare \texttt{"additionalProperties": false}, requiring all ingested properties to belong to the declared normative specification. Schema~v2 strictly enforces string enums (such as non-empty CVE identifiers matching \texttt{\textasciicircum CVE-\textbackslash d\{4\}-\textbackslash d\{4,\}\$}), structured object arrays for compensating controls, explicit nullability constraints, and reserved future-version field guards.
 
 \subsection{Downstream Governance Override Architecture}
 \label{sec:governance_override}
@@ -917,6 +917,7 @@ To address RQ4, we evaluated the transferability of the machine-checkable verifi
 \label{tab:heldout_t7}
 \centering
 \small
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{@{}lrr@{}}
 \toprule
 Classification / Invariant Outcome & Count & Percentage \\
@@ -933,7 +934,8 @@ Independent Trace Verifier Status           & 938/938 & 100.0\% Pass \\
 Diagnostic Checks Evaluated                 & 3,232 & Verified \\
 Deterministic Rerun Parity                  & Pass  & Run 1 $\equiv$ Run 2 \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 As summarized in Table~\ref{tab:heldout_t7}, the workflow classified 339 advisories as nominal-calculable (36.1407\%), where complete CVSS v4.0 environmental context was present. For the remaining 599 advisories (63.8593\%), the workflow executed fail-closed rejections (\texttt{MISSING\_MANDATORY\_EVIDENCE\_REJECTED}) due to incomplete deployment telemetry. Crucially, zero information was invented to force a score, and zero autonomous overrides were attempted. The independent trace verifier validated all 938 generated traces across 3,232 machine-checkable diagnostic checks with zero verification failures. An independent dual-pass execution verified complete deterministic parity. The 599 fail-closed outcomes reflect strict enforcement of evidence requirements rather than pipeline failure, demonstrating that the workflow abstains reliably when operational context is incomplete.
