@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_id": "MANIFEST-R6-A1-IMPLEMENTATION-PRE-FREEZE",
+  "manifest_version": "1.0.0",
+  "specification_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
+  "implementation_branch": "research/r6-a1-schema-governance-implementation",
+  "implementation_base_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
+  "schema_v2_implementation_status": "IMPLEMENTED_PRE_FREEZE",
+  "governance_implementation_status": "IMPLEMENTED_PRE_FREEZE",
+  "implementation_files": [
+    "core/r6_schema_v2_validator.py",
+    "core/r6_governance_override.py"
+  ],
+  "test_files": [
+    "tests/test_r6_schema_v2_contract.py",
+    "tests/test_r6_governance_override_contract.py",
+    "tests/test_r6_schema_governance_boundaries.py"
+  ],
+  "py_compile_status": "PASS",
+  "suite_level_evidence_available": true,
+  "suite_counts": {
+    "T1_schema_v2_contract": {
+      "planned": 15,
+      "executed": 15,
+      "passed": 15,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "T5_governance_override_contract": {
+      "planned": 18,
+      "executed": 18,
+      "passed": 18,
+      "failed": 0,
+      "status": "PASS"
+    },
+    "boundary_architectural_integration": {
+      "planned": 6,
+      "executed": 6,
+      "passed": 6,
+      "failed": 0,
+      "status": "PASS"
+    }
+  },
+  "aggregate_tests_executed": 39,
+  "aggregate_tests_passed": 39,
+  "aggregate_tests_failed": 0,
+  "scientific_result_boundary": "The 39 test executions recorded in this manifest represent unit, contract, and architectural boundary verifications of the Schema v2 and Governance Override code modules. They do not constitute empirical scientific R6 results (such as backward compatibility classification over historical corpus, R5 mutation replay, held-out evaluation, or differential scoring), which remain planned and unexecuted until post-implementation freeze authorization.",
+  "held_out_accessed": false,
+  "held_out_processed": false,
+  "held_out_artifacts_modified": false,
+  "r5_mutation_replay_executed": false,
+  "schema_v2_mutation_campaign_executed": false,
+  "historical_nvd_representability_executed": false,
+  "differential_testing_executed": false,
+  "results_available": false,
+  "Eq8_modified": false,
+  "delta_audit_present": false,
+  "specification_modified": false,
+  "registry_modified": false,
+  "protocol_deviation_count": 0,
+  "anti_retuning_locked": true,
+  "implementation_freeze_commit": null,
+  "commit_performed": false,
+  "push_performed": false
+}

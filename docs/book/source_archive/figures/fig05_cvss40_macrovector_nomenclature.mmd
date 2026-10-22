@@ -1,0 +1,15 @@
+flowchart TD
+    subgraph S1["Section II: CVSS v4.0 Background & Formalism"]
+        A["Nomenclature Clarification<br/>(CVSS-B, CVSS-BT, CVSS-BE, CVSS-BTE)"]
+        B["Base vs. Modified Metrics<br/>(MAV, MAC, MAT, MPR, MUI, MVC, MVI, MVA, MSC, MSI, MSA)"]
+        C["Security Requirements<br/>(CR, IR, AR in {H, M, L, X})"]
+        D["MacroVector Equivalence Partitioning<br/>M = (EQ1, EQ2, EQ3, EQ4, EQ5, EQ6)"]
+        E["Algorithmic Fidelity Validation<br/>(486,472 / 486,472 FIRST Vectors)"]
+        A --> B --> C --> D --> E
+    end
+
+    subgraph S2["Next Step: MC-4B"]
+        F["Table IV: 12 Real NVD CVEs<br/>(Base vs Env Scores, Exact Nomenclature & Deltas)"]
+    end
+
+    S1 -.-> S2

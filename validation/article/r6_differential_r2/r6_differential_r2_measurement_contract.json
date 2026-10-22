@@ -1,0 +1,159 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r2_measurement_contract_v1.json",
+  "contract_id": "CONTRACT-R6-DIFFERENTIAL-CVSS40-R2",
+  "contract_version": "2.0.0-R2",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2",
+  "historical_experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
+  "label": "R6.2-DIFF-R2",
+  "rq_id": "RQ-R6-4",
+  "protocol_version": "R6.2",
+  "protocol_deviation_id": "R6-DEV-005",
+  "status": "PREREGISTERED_FROZEN_NOT_EXECUTED",
+  "created_at": "2026-10-21T22:15:00Z",
+  "primary_engine": {
+    "name": "HelpUS Primary Scorer (Red Hat cvss 3.6)",
+    "module_path": "core/cvss_calculator.py",
+    "fallback_class": "cvss.CVSS4",
+    "upstream_repository": "https://github.com/RedHatProductSecurity/cvss",
+    "version": "3.6",
+    "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+    "expected_validation_exceptions": [
+      "CVSS4MalformedError",
+      "CVSS4MandatoryError",
+      "CVSS4Error",
+      "CVSSError",
+      "ValueError",
+      "KeyError"
+    ]
+  },
+  "independent_comparator": {
+    "name": "cvss4py",
+    "upstream_repository": "https://github.com/bjedwards/cvss4py",
+    "pinned_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+    "maintainer": "Benjamin Edwards",
+    "license": "BSD-2-Clause",
+    "acquisition_status": "ACQUIRED_FROZEN",
+    "local_path": "external/comparators/cvss4py",
+    "offline_executable": true,
+    "expected_validation_exceptions": [
+      "UnknownMetricValue",
+      "InvalidEqClass",
+      "MissingMetric",
+      "UnknownMetric",
+      "SyntaxError",
+      "ValueError",
+      "KeyError"
+    ]
+  },
+  "corpus_partitioning": {
+    "eligibility_manifest": "validation/article/r6_differential_r2/r6_differential_r2_corpus_eligibility_manifest.json",
+    "total_corpus_records": 486472,
+    "D_numeric": 461444,
+    "D_validation": 25028,
+    "partition_sum_check": "461444 + 25028 == 486472"
+  },
+  "primary_endpoint_numeric_score_concordance": {
+    "endpoint_name": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+    "target_population": "VALID_SCORE_VECTOR",
+    "denominator": 461444,
+    "equivalence_criterion": "|score_primary - score_secondary| < 0.0001",
+    "rounding_retuning_prohibited": true,
+    "target_match_rate": null,
+    "expected_match_rate": null,
+    "taxonomy": [
+      "EXECUTION_ERROR",
+      "VALIDITY_DISAGREEMENT",
+      "SCORE_MISMATCH",
+      "EXACT_SCORE_MATCH"
+    ],
+    "precedence": [
+      "EXECUTION_ERROR",
+      "VALIDITY_DISAGREEMENT",
+      "SCORE_MISMATCH",
+      "EXACT_SCORE_MATCH"
+    ],
+    "definitions": {
+      "EXACT_SCORE_MATCH": "Both engines accept valid score-producing vector and compute numerically identical CVSS v4.0 score within absolute tolerance < 0.0001.",
+      "SCORE_MISMATCH": "Both engines accept valid score-producing vector and emit scores, but numeric delta >= 0.0001.",
+      "VALIDITY_DISAGREEMENT": "Exactly one implementation rejects an input formally classified as a valid score-producing vector by the eligibility manifest.",
+      "EXECUTION_ERROR": "Unexpected runtime failure or unhandled exception not corresponding to expected validation behavior."
+    }
+  },
+  "secondary_endpoint_negative_validation_concordance": {
+    "endpoint_name": "SECONDARY_NEGATIVE_VALIDATION_CONCORDANCE",
+    "target_population": "NEGATIVE_VALIDATION_CASE",
+    "denominator": 25028,
+    "target_match_rate": null,
+    "expected_match_rate": null,
+    "taxonomy": [
+      "NEGATIVE_EXECUTION_ERROR",
+      "NEGATIVE_VALIDITY_DISAGREEMENT",
+      "SYNTAX_REJECTION_CONCORDANCE"
+    ],
+    "precedence": [
+      "NEGATIVE_EXECUTION_ERROR",
+      "NEGATIVE_VALIDITY_DISAGREEMENT",
+      "SYNTAX_REJECTION_CONCORDANCE"
+    ],
+    "definitions": {
+      "SYNTAX_REJECTION_CONCORDANCE": "Both engines reject an input officially designated as negative/reference-invalid by FIRST, regardless of differences in specific exception class or message text.",
+      "NEGATIVE_VALIDITY_DISAGREEMENT": "Exactly one implementation accepts an input officially designated as negative/reference-invalid while the other rejects it.",
+      "NEGATIVE_EXECUTION_ERROR": "Unexpected non-domain runtime crash or exception outside the frozen expected validation exception contract."
+    }
+  },
+  "secondary_diagnostic_analyses": {
+    "first_reference_diagnostic": {
+      "applicable_subset": "VALID_SCORE_VECTOR with SCORE_MISMATCH",
+      "purpose": "Identify whether primary, comparator, or neither matches the official FIRST reference score without altering the primary classification of the vector.",
+      "taxonomy": [
+        "HELPUS_MATCHES_FIRST_REFERENCE_ONLY",
+        "CVSS4PY_MATCHES_FIRST_REFERENCE_ONLY",
+        "NEITHER_MATCHES_FIRST_REFERENCE",
+        "FIRST_REFERENCE_UNAVAILABLE"
+      ],
+      "official_score_source": "FIRST reference score files (macro-scores, reference-scores, base-threat-scores)",
+      "alters_primary_endpoint": false
+    },
+    "derived_severity_concordance": {
+      "applicable_subset": "VALID_SCORE_VECTOR with valid scores from both engines",
+      "derivation_rule": "FIRST_CVSS_V40_SPEC_SECTION_4_2_INTERVALS",
+      "intervals": {
+        "None": [0.0, 0.0],
+        "Low": [0.1, 3.9],
+        "Medium": [4.0, 6.9],
+        "High": [7.0, 8.9],
+        "Critical": [9.0, 10.0]
+      },
+      "taxonomy": [
+        "SAME_SEVERITY_BAND",
+        "SEVERITY_BOUNDARY_CROSSED",
+        "NOT_APPLICABLE"
+      ]
+    }
+  },
+  "determinism_requirements": {
+    "run1_required": true,
+    "run2_required": true,
+    "exact_order_and_eligibility": true,
+    "per_record_comparison_required": true,
+    "aggregate_counts_comparison_required": true,
+    "deterministic_parity_criterion": "ALL_PASS"
+  },
+  "anti_retuning_declaration": {
+    "locked": true,
+    "prior_observations_from_r1_acknowledged": [
+      "454,047 positive exact matches observed in R1",
+      "7,397 positive score mismatches observed in R1, all with |Delta| = 0.1",
+      "25,028 negative cases in reference-vectors with mutual rejection concordance",
+      "13,126 MissingMetric occurrences falling into generic exception in R1",
+      "observed association with cvss4py float-to-Decimal quantization in macro 2"
+    ],
+    "safeguards": [
+      "Zero tolerance widening to absorb 0.1 delta",
+      "No post-hoc exclusion of discordant vectors",
+      "No calibration or tuning of scoring engines",
+      "Null target and expected success rates"
+    ]
+  },
+  "claim_boundary": "Test Suite TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2 rigorously separates numeric float score concordance (D_numeric = 461,444) from negative syntax validation concordance (D_validation = 25,028) across independent CVSS v4.0 engines, maintaining strict post-result auditability under R6-DEV-005."
+}

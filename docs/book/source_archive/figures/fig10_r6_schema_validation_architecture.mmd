@@ -1,0 +1,38 @@
+flowchart TD
+    subgraph Entrada["Trace Canônico de Entrada"]
+        T["Trace sob Validação"]
+    end
+
+    subgraph Validacao_Dupla["Avaliação Contratual Independente"]
+        V1{"Schema v1 Válido?"}
+        V2{"Schema v2 Válido?"}
+    end
+
+    subgraph Taxonomia_Ortogonal_R6_1["Taxonomia Ortogonal Recomendada (R6.1)"]
+        S1["V1_VALID_V2_VALID"]
+        S2["V1_VALID_V2_INVALID"]
+        S3["V1_INVALID_V2_INVALID"]
+        S4["V1_VALID_V2_VALID_NORMALIZED"]
+        S5["V1_INVALID_V2_VALID (Anomalia)"]
+    end
+
+    subgraph Subclassificacao_Diagnostico["Subdiagnóstico via v2_error_category (Seção 9 Pré-registrada)"]
+        E1["UNKNOWN_FIELD (ex-UNDECLARED_FIELD)"]
+        E2["INVALID_TYPE (12 Casos NVD)"]
+        E3["INVALID_ENUM (18 Casos Sintéticos)"]
+        E4["INVALID_RANGE / OUTROS"]
+    end
+
+    T --> V1
+    T --> V2
+    V1 -- Sim -->|e v2 Sim| S1
+    V1 -- Sim -->|e v2 Não| S2
+    V1 -- Não -->|e v2 Não| S3
+    V1 -- Sim -->|via Normalizer| S4
+    V1 -- Não -->|e v2 Sim| S5
+
+    S2 -.->|Diagnóstico Ortogonal| Subclassificacao_Diagnostico
+    Subclassificacao_Diagnostico --> E1
+    Subclassificacao_Diagnostico --> E2
+    Subclassificacao_Diagnostico --> E3
+    Subclassificacao_Diagnostico --> E4

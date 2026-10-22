@@ -1,0 +1,78 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r1_runner_contract_v1.json",
+  "contract_id": "CONTRACT-R6-DIFF-R1-RUNNER",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R1",
+  "label": "R6.1-DIFF-R1",
+  "protocol_version": "R6.1",
+  "protocol_deviation_id": "R6-DEV-004",
+  "execution_status": "PREREGISTERED_CLARIFIED_NOT_EXECUTED",
+  "execution_authorization_required": true,
+  "execution_authorization_state": "PENDING_SUPERVISOR_ORDER",
+  "target_inputs": [
+    {
+      "file_path": "tests/fixtures/cvss_resources/vectorFiles/01_macro_vectors.txt",
+      "vector_count": 269,
+      "sha256": "4733470ba0ae851b2382029671d152c9377a06c5ee77fc20c455c1f0b09dc99c"
+    },
+    {
+      "file_path": "tests/fixtures/cvss_resources/vectorFiles/02_reference_vectors.txt",
+      "vector_count": 66299,
+      "sha256": "fa08a49ba3604f54eb132a0004526543b5e408ec2103f6f369fdf57790bdfce4"
+    },
+    {
+      "file_path": "tests/fixtures/cvss_resources/vectorFiles/03_base_threat_vectors.txt",
+      "vector_count": 419904,
+      "sha256": "a35368a44b82d478bf1e34e5a95350c33d87455d37da8211db3e8785160fa86f"
+    }
+  ],
+  "expected_denominator": 486472,
+  "engine_bindings": {
+    "primary": {
+      "name": "HelpUS Primary Scorer (Red Hat cvss 3.6)",
+      "module": "core.cvss_calculator",
+      "entry_function": "calculate_cvss40_from_vector",
+      "fallback_library": "cvss.CVSS4"
+    },
+    "secondary": {
+      "name": "cvss4py",
+      "sys_path_entry": "external/comparators/cvss4py",
+      "entry_function": "cvss4py.calculate_vector",
+      "pinned_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a"
+    }
+  },
+  "runner_invariants": {
+    "no_held_out_import": true,
+    "no_held_out_open": true,
+    "no_eq8_invocation": true,
+    "no_serializer_adapter": true,
+    "deterministic_two_pass_verification": true
+  },
+  "runner_outputs": [
+    "validation/article/r6_differential_r1/r6_differential_r1_results.json",
+    "validation/article/r6_differential_r1/r6_differential_r1_summary.md",
+    "validation/article/r6_differential_r1/r6_differential_r1_mismatch_analysis.md",
+    "validation/article/r6_differential_r1/SHA256SUMS_RESULTS.txt"
+  ],
+  "verification_checks": [
+    {
+      "check_id": "CHK-DIFF-01",
+      "description": "Total executed vectors strictly equals 486,472"
+    },
+    {
+      "check_id": "CHK-DIFF-02",
+      "description": "Sum of primary taxonomy counts equals 486,472 with zero unclassified cases"
+    },
+    {
+      "check_id": "CHK-DIFF-03",
+      "description": "Exact bitwise rerun parity across two full passes"
+    },
+    {
+      "check_id": "CHK-DIFF-04",
+      "description": "Zero access to held-out directory"
+    },
+    {
+      "check_id": "CHK-DIFF-05",
+      "description": "Equation 8 untouched and uncalled"
+    }
+  ]
+}

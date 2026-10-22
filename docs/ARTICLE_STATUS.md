@@ -2,33 +2,28 @@
 
 ## Status
 
-Pausado aguardando respostas de três revisores independentes.
+Campanha experimental R6-A1 concluída com sucesso e congelada no repositório. Manuscrito IEEE e monografia consolidados e compilados. Adjudicação humana independente permanece pendente como trabalho futuro (`human_adjudication_completed = false`).
 
-## Evidência disponível
+## Evidência disponível e congelada
 
-- 30 cenários preparados.
-- Pacotes cegos R01, R02 e R03.
-- Compromisso criptográfico da chave.
-- Gate de pré-análise.
-- Motor estatístico da Fase 15 protegido pelo gate.
+- **Dataset B histórico**: 30 cenários de benchmark de desenvolvimento.
+- **Campanha Metamórfica**: 10.000 execuções com zero violações em 4 relações metamórficas.
+- **Conformidade FIRST**: 486.472 vetores avaliados contra FIRST commit `d766d0c` com 100% de conformidade.
+- **Schema v2 Closed-World (T2R & T3)**: 30/30 rejeições de formatos legados não canonicalizados (12 INVALID_TYPE, 18 INVALID_ENUM); 120/120 mutações rejeitadas no replay (16/16 injeções F3 rejeitadas).
+- **Mutações v2 (T4R & NF2-R)**: 75/90 rejeições atribuíveis em T4R; 15/15 rejeições em companion NF2-R.
+- **Governança Downstream (T5-R & T6)**: 8/8 invariantes atendidos em T5-R com fórmula da Equação 8 invariante e zero overrides autônomos; T6 com 2/4 representáveis normativamente e 2/4 demandando evidência externa, zero dados inventados.
+- **Validação Diferencial R2**: 454.047/461.444 exatos (98,3970%) e 25.028/25.028 concordâncias negativas (100,0%) contra `cvss4py` sob paridade determinística.
+- **Transferência Held-Out T7**: $N=938$ avisos do GitHub Advisory Database com 339 calculáveis nominais e 599 rejeições fail-closed sem invenção de dados; 938/938 traces verificados em 3.232 verificações de diagnóstico sob paridade determinística.
+- **Manuscrito IEEE**: `article/ieee/cvss40_double_blind.tex` (compilado em `cvss40_double_blind.pdf`, 17 páginas).
+- **Monografia (Book)**: `book_latex/main.tex` (compilado em `main.pdf`, 51 páginas).
 
-## Evidência ainda inexistente
+## Evidência ainda não executada (trabalho futuro)
 
-- respostas humanas recebidas e bloqueadas;
-- concordância entre revisores;
-- adjudicação liberada;
-- estatística baseada nas respostas reais;
-- validação externa concluída;
-- conclusão científica final.
+- Adjudicação humana presencial/cega com especialistas do domínio (`human_adjudication_completed = false`).
+- Protocolo confirmatório G10B e datasets confirmatórios C1 e C2 permanecem selados e não executados.
 
-## Condição para retomar
+## Proteções e Governança
 
-A análise somente pode começar após a recepção, validação e bloqueio das três submissões e a liberação prevista pelo protocolo.
-
-## Proteções
-
-Não acessar artefatos privados de revisão, não abrir a chave antes da hora e não substituir respostas humanas por dados simulados.
-
-## Notas relacionadas
-
-[[09_Paper_or_Article]] · [[ARTICLE_PHASE14_PREANALYSIS_GATE_CVSS40]] · [[ARTICLE_PHASE15_GATED_ANALYSIS_CVSS40]] · [[ARTICLE_CLAIM_GUARDRAILS_CVSS40]]
+- Protocolo de desvios R6-DEV-001 a R6-DEV-005 formalmente auditado e registrado.
+- Invariantes de governança INV-G1 a INV-G8 plenamente respeitadas.
+- Zero sobrescrita retroativa de resultados históricos.

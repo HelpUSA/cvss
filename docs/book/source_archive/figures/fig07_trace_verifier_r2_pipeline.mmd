@@ -1,0 +1,8 @@
+flowchart TD
+    subgraph R2Integration ["Fluxo de Governança R2 Integrado"]
+        TEX["article/ieee/cvss40_double_blind.tex<br/>(Section VI-E: Trace Governance)"] --> Assertions["tools/validate_article_phase10_expansion.py<br/>(10 Novas Asserções Estritas a-j)"]
+        GEN["tools/article_cvss40_phase10_academic_expansion.py<br/>(PRESERVES_EXISTING_R2_CONTENT_ONLY)"] -. Preserva .-> TEX
+        
+        Assertions --> Suite["Bateria Acadêmica Completa<br/>(14 / 14 Validadores Aprovados)"]
+        Suite --> Guardrails["Guardrails Científicos Ativos<br/>• Zero Overclaims Proibidos<br/>• Conformance != Semantic Correctness<br/>• Isolamento de Limitações (34)"]
+    end

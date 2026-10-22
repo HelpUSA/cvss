@@ -1,0 +1,44 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_vector_corpus_manifest_v1.json",
+  "corpus_id": "CORPUS-R6-DIFFERENTIAL-FIRST-V40",
+  "status": "PREREGISTERED_FROZEN",
+  "upstream_repository": "https://github.com/FIRSTdotorg/cvss-resources",
+  "pinned_commit": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "local_base_dir": "tests/fixtures/cvss_resources/vectorFiles",
+  "total_canonical_vectors": 486472,
+  "fixture_files": [
+    {
+      "name": "macro-vectors",
+      "path": "tests/fixtures/cvss_resources/vectorFiles/macro-vectors",
+      "sha256": "f653914506e697a94a18b690c051144b295626c534737fb79c589a61c1e0e8a3",
+      "byte_size": 23490,
+      "total_lines": 270,
+      "header_comment_lines": 1,
+      "valid_vector_count": 269,
+      "coverage": "Exhaustive combinations of macro-vector metric clusters (EQ1-EQ6)"
+    },
+    {
+      "name": "reference-vectors",
+      "path": "tests/fixtures/cvss_resources/vectorFiles/reference-vectors",
+      "sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "byte_size": 6911531,
+      "total_lines": 66331,
+      "header_comment_lines": 32,
+      "valid_vector_count": 66299,
+      "coverage": "Full metric vectors spanning Base, Threat, and Environmental requirements"
+    },
+    {
+      "name": "base-threat-vectors",
+      "path": "tests/fixtures/cvss_resources/vectorFiles/base-threat-vectors",
+      "sha256": "eb9cf89bab6712f368fe65c43f884e1ca4750e4e30181fabad4a61aaecccede1",
+      "byte_size": 28553472,
+      "total_lines": 419904,
+      "header_comment_lines": 0,
+      "valid_vector_count": 419904,
+      "coverage": "Systematic combinatorial grid of Base and Threat metric permutations"
+    }
+  ],
+  "ordering_rule": "STRICT_LEXICOGRAPHICAL_PER_FILE",
+  "held_out_overlap": false,
+  "held_out_vectors_included": 0
+}

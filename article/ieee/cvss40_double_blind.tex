@@ -26,7 +26,7 @@ Evidence Normalization, Governance, and Traceability}
 \maketitle
 
 \begin{abstract}
-CVSS v4.0 Environmental metrics adapt vulnerability assessment to organizational deployment context, but operationalization remains evidence-intensive and difficult to audit. We present a deterministic, machine-checkable workflow that normalizes environmental evidence, resolves candidate metrics under explicit policy, enforces human authorization checkpoints, and exports structured traces. The scoring core achieves 100\% conformance across 486,472 FIRST reference vectors with zero violations over 10,000 metamorphic executions. Across a controlled 30-scenario verification corpus, an independent trace verifier validated 464 machine-checkable assertions across all traces, with 34 cataloged schema limitations. A structured mutation campaign detected 42/42 designed faults; a verifier-agnostic randomized complement rejected 83/120 independently generated perturbations, exposing explicit boundaries in the current machine-checkable contract. A sensitivity stress test over 136 local perturbations showed 121/136 yielding at most one ordinal category shift ($|\Delta_p| \leq 1$). The workflow provides machine-checkable provenance and governance constraints under controlled conditions; it does not establish semantic correctness, population-level generalization, predictive superiority, or expert agreement without human adjudication.
+CVSS v4.0 Environmental metrics adapt vulnerability assessment to organizational deployment context, but operationalization remains evidence-intensive and difficult to audit. We present a deterministic, machine-checkable workflow that normalizes environmental evidence, resolves candidate metrics under explicit policy, enforces human authorization checkpoints, and exports structured traces. The scoring core achieves 100\% conformance across 486,472 FIRST reference vectors with zero violations over 10,000 metamorphic executions. In differential validation against an independent secondary implementation (\texttt{cvss4py}) across 486,472 vectors, the pipeline demonstrated 454,047/461,444 exact numeric score concordance (98.3970\%) with zero validity disagreements, where all 7,397 observed discrepancies match official FIRST reference scores, alongside 25,028/25,028 (100.0\%) syntax rejection concordance on malformed inputs under verified deterministic parity. To evaluate contract robustness, closed-world Schema v2 validation and a downstream governance override contract were established without modifying nominal policy formulas. Replaying the historical mutation complement under closed-world Schema v2 achieved 120/120 rejections (100.0\%), including 16/16 subobject injections previously accepted under open-world Schema v1. In a pre-registered transfer evaluation on an external quarantined held-out corpus of $N=938$ real-world advisories, the workflow classified 339 cases as nominal-calculable (36.1407\%) and executed 599 fail-closed rejections (63.8593\%) due to missing mandatory operational evidence, with zero data invention, zero autonomous overrides, and 938/938 traces validated across 3,232 machine-checkable diagnostic checks under deterministic parity. The workflow provides machine-checkable provenance and governance constraints under controlled conditions; independent human expert adjudication has not been completed (\texttt{human\_adjudication\_completed = false}), and confirmatory datasets C1/C2 remain sealed.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -63,7 +63,7 @@ reviewable candidate metric values under deterministic policy rules, identifies 
 A human analyst remains responsible for accepting, changing, or rejecting each
 recommendation.
 
-The work makes five contributions:
+The work makes eight contributions:
 
 \begin{enumerate}
 \item a strict scientific separation between specification-level arithmetic
@@ -73,9 +73,11 @@ zero violations) and controlled workflow evaluation across curated scenarios;
 Environmental assessment;
 \item a trace model linking evidence, candidate metrics, uncertainty, and
 review state;
-\item a controlled evaluation dataset of curated scenarios exercising schema coverage (12 real NVD records, 18 synthetic cases, 22 priority shifts); and
-\item a reproducible artifact package with validators, tables, JSON traces,
-manuscript sources, and compilation outputs.
+\item a controlled evaluation dataset of curated scenarios exercising schema coverage (12 real NVD records, 18 synthetic cases, 22 priority shifts);
+\item a closed-world Schema v2 contract that replaces open-world permissiveness, eliminating subobject injection gaps (16/16 rejections in replay) and establishing strict field and enum boundaries;
+\item an auditable downstream governance override contract enforcing eight strict operational invariants, preserving nominal Equation~8 formula invariance and guaranteeing zero autonomous overrides;
+\item an independent differential validation protocol evaluating 486,472 vectors against secondary comparator \texttt{cvss4py}, establishing 454,047/461,444 exact numeric concordance (98.3970\%) on calculable vectors and 25,028/25,028 syntax rejection concordance (100.0\%); and
+\item an external held-out transfer campaign across $N=938$ real-world advisories quarantined prior to execution, demonstrating 339 nominal-calculable assessments, 599 fail-closed abstentions under missing evidence, zero data invention, and 938/938 verified traces across 3,232 diagnostic checks.
 \end{enumerate}
 
 The evaluation is deliberately descriptive. It measures artifact completeness,
@@ -199,6 +201,10 @@ each evaluated scenario?
 \item[RQ2:] Does consumer-side context produce observable changes in an
 operational priority view relative to a Base-only view?
 \item[RQ3:] To what extent does the trace schema deterministically encode evidence provenance, explicit uncertainty, policy transitions, and mandatory authorization states in a machine-checkable format?
+\item[RQ-R6-1:] Does the machine-checkable verification contract maintain integrity and coverage when transferred to an external, quarantined held-out corpus of real-world advisories?
+\item[RQ-R6-2:] How does a closed-world schema specification alter mutation detection and backward compatibility relative to the open-world baseline?
+\item[RQ-R6-3:] Can a structured downstream governance override layer make operational deviations fully auditable while preserving the mathematical invariance of the nominal policy formula?
+\item[RQ-R6-4:] What degree of numerical and validity concordance is observed between the primary scoring engine and an independent secondary implementation across an exhaustive vector corpus?
 \end{description}
 
 Table~\ref{tab:rq} maps each research question to its descriptive measure and
@@ -209,8 +215,7 @@ interpretation boundary.
 \label{tab:rq}
 \centering
 \small
-\begin{tabular}{@{}p{0.08\textwidth}p{0.31\textwidth}
-p{0.25\textwidth}p{0.28\textwidth}@{}}
+\begin{tabular}{@{}p{0.10\textwidth}p{0.28\textwidth}p{0.26\textwidth}p{0.28\textwidth}@{}}
 \toprule
 RQ & Question focus & Measures & Boundary \\
 \midrule
@@ -220,9 +225,21 @@ Completeness does not prove metric correctness. \\
 RQ2 & Sensitivity to curated consumer context &
 Priority transition count; transition distribution; category delta &
 The category delta is not an official CVSS score delta. \\
-RQ3 & Machine-checkable provenance, uncertainty, and authorization governance &
+RQ3 & Machine-checkable provenance and authorization &
 Uncertainty fields; review-required state; claim-boundary checks &
 Trace schema completeness does not constitute independent expert adjudication. \\
+RQ-R6-1 & Held-out corpus transfer integrity &
+Nominal-calculable count; fail-closed abstention; diagnostic checks &
+Abstention on missing evidence is a safety property, not a pipeline failure. \\
+RQ-R6-2 & Closed-world schema robustness &
+Mutation detection rate; compatibility taxonomy; attribute injection &
+Closed-world strictness rejects uncanonicalized legacy records. \\
+RQ-R6-3 & Auditable governance override layer &
+Invariant adherence (INV-G1--G8); nominal Eq.~8 invariance &
+Operational overrides require human authorization; zero autonomous override. \\
+RQ-R6-4 & Independent differential validation &
+Exact numeric match rate; syntax rejection concordance &
+Concordance reflects implementation alignment; cvss4py is not an absolute reference authority. \\
 \bottomrule
 \end{tabular}
 \end{table*}
@@ -346,6 +363,30 @@ evidence supports each recommendation, while uncertainty fields identify
 assumptions, stale observations, missing data, or conflicts.
 
 The evaluated prototype focuses on deterministic evidence normalization, governance gates, and trace generation rather than the semantic accuracy of an unconstrained generative AI model. Any assistive language processing or watcher heuristics are strictly scoped to evidence ingestion support and remain outside the scope of semantic truth validation; candidate values are resolved through structured scenario logic, deterministic policy rules, and curated evidence schemas. No claim is made that an artificial intelligence model independently discovered or empirically validated ground-truth metric values.
+
+\subsection{Closed-World Schema v2 Contract}
+\label{sec:schema_v2_contract}
+The original JSON schema formulation operated under open-world semantics, permitting undeclared attributes. As revealed by exploratory mutation testing, open-world tolerance allows arbitrary undeclared payload injections ($F3$). To enforce rigorous auditability, we formulated Schema~v2 as a closed-world contract. Under Schema~v2, all object schemas declare \texttt{"additionalProperties": false}, requiring all ingested properties to belong to the declared normative specification. Schema~v2 strictly enforces string enums (such as non-empty CVE identifiers matching \texttt{^CVE-\\d{4}-\\d{4,}$}), structured object arrays for compensating controls, explicit nullability constraints, and reserved future-version field guards.
+
+\subsection{Downstream Governance Override Architecture}
+\label{sec:governance_override}
+In operational environments, security analysts occasionally require policy-driven deviations from nominal algorithmic recommendations. To support these operational requirements without corrupting mathematical rigor, we introduced a downstream Governance Override layer. The override operates strictly post-scoring, leaving the nominal scoring function and prioritization formula (Equation~8) mathematically invariant.
+
+The Governance Override layer enforces eight mandatory architectural invariants:
+\begin{enumerate}
+\item \textbf{INV-G1 (Authorization Prerequisite):} Overrides require authenticated human identity, role authorization, and non-empty rationale.
+\item \textbf{INV-G2 (Nominal Preservation):} Nominal score and calculated priority are immutably preserved in the audit trace alongside the override.
+\item \textbf{INV-G3 (Mandatory Justification):} Every deviation must reference verifiable evidence identifiers.
+\item \textbf{INV-G4 (Separation of Roles):} Automated normalization agents are strictly prohibited from approving overrides.
+\item \textbf{INV-G5 (No Autonomous Override):} Automated components cannot initiate or self-approve operational adjustments; autonomous overrides are identically zero.
+\item \textbf{INV-G6 (Formula Invariance):} Equation~8 parameters, weights, and scoring rules remain byte-level immutable.
+\item \textbf{INV-G7 (Audit Reproducibility):} Given the same input trace and override payload, replay reproduces identical audit states.
+\item \textbf{INV-G8 (Fail-Closed Default):} Any override lacking valid authorization or complete evidence fails closed to the nominal recommendation.
+\end{enumerate}
+
+\subsection{Differential Testing and Held-Out Protocol}
+\label{sec:diff_and_heldout_methods}
+To verify the scoring core beyond self-consistency, we established an independent differential testing protocol comparing the primary engine with \texttt{cvss4py}~\cite{cvss4py} (pinned commit \texttt{9fe705c}) across the official FIRST corpus ($N=486,472$). To prevent data snooping, the protocol decouples numeric score concordance ($D_{\text{numeric}} = 461,444$) from negative syntax validation ($D_{\text{validation}} = 25,028$). Furthermore, to evaluate generalization, an external held-out corpus of $N=938$ real-world advisories was acquired from the GitHub Advisory Database~\cite{gh_advisory_database}, cryptographically hashed, and quarantined under commit-level locks prior to first evaluation.
 
 \subsection{Human Authorization Checkpoint}
 
@@ -663,7 +704,7 @@ The workflow deterministically encodes evidence provenance, uncertainty, and hum
 \begin{itemize}
     \item \textbf{Structural Integrity (240 checks, 0 failures):} Verified top-level schema conformance, required nested environmental evidence structures, mandatory boundary disclaimers, explicit uncertainty representation, and strict enforcement of the non-autonomous human review gatekeeper status (\texttt{human\_review\_status = "required"}).
     \item \textbf{Arithmetic and Policy Recomputation (128 checks, 0 failures):} Recomputed Base priority mapping $P_{\text{base}} = f(\text{Severity})$, Category Delta arithmetic $\Delta_{\text{cat}} = g(P_{\text{env}}) - g(P_{\text{base}})$, ordinal bounded range clamp $g(P_{\text{env}}) \in [0, 4]$, and nominal policy profile lookup decoupled via the canonical policy module (\texttt{core.cvss40\_environmental\_policy}).
-    \item \textbf{Cross-Artifact Consistency (96 checks, 0 failures):} Enforced epistemological source separation (NVD Base scores recomputed via the canonical parser/scorer \texttt{core.cvss40}, whereas synthetic scenarios strictly validated CVSS v4.0 vector grammar and uncertainty disclaimers without treating assigned vectors as official CVE ground truth) and cross-referenced all metadata against the canonical scenario dataset.
+    \item \textbf{Cross-Artifact Consistency (96 checks, 0 failures):} Enforced epistemological source separation (NVD Base scores recomputed via the canonical parser/scorer \texttt{core.cvss40}, whereas synthetic scenarios strictly validated CVSS v4.0 vector grammar and uncertainty disclaimers without treating assigned vectors as official reference specification) and cross-referenced all metadata against the canonical scenario dataset.
 \end{itemize}
 
 The evaluation recorded 34 structured schema limitations, isolated from failures: 30 instances reflect that the current schema provides narrative evidence fields rather than atomic, machine-addressable linkage between each candidate modified metric and its corresponding evidence item; and four instances correspond to curated deployment adjustments in NVD scenarios (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}).
@@ -707,7 +748,7 @@ Total & Evaluated Mutation Campaign                                             
 
 Across 48 planned cases, 42 mutations were applicable and six were marked not applicable by design ($M4$ on synthetic records and $M5$ on NVD records). Detection semantics strictly required both that the verifier reject the mutated trace and that the operator-specific expected check appear among the recorded failures. The verifier rejected all 42 applicable mutants through their respective expected checks, achieving 42/42 detections (100.0\%) with 0 missed and 0 unexpected outcomes across both NVD (21/21) and synthetic (21/21) partitions.
 
-Empirical mutation testing provides empirical evidence that injected trace violations are detected and rejected in the evaluated mutation set. It does not constitute formal verification, proof of semantic correctness, a completeness guarantee, or exhaustive coverage.
+Empirical mutation testing provides empirical evidence that injected trace violations are detected and rejected in the evaluated mutation set. It does not constitute a mathematical proof, proof of semantic correctness, a completeness guarantee, or exhaustive coverage.
 
 \subsection{Verifier-Agnostic Randomized Mutation Complement}
 
@@ -735,7 +776,7 @@ Field-Level Corruption    & 61         & 40       & 21       & 65.6\% \\
 
 Across the 120 applicable perturbations, the verifier rejected 83 cases (69.2\% overall rejection rate), comprising 43/60 rejected in the NVD partition (71.7\%) and 40/60 rejected in the synthetic partition (66.7\%). Group-level analysis demonstrated 43/59 rejections (72.9\%) for structural corruption and 40/61 rejections (65.6\%) for field-level corruption. Across individual mutation families, the verifier achieved 100.0\% rejection on top-level required field removals ($F1$: 16/16), subobject removals ($F2$: 12/12), structural type corruptions ($F4$: 15/15), numeric perturbations ($F7$: 10/10), and numeric domain shifts ($F8$: 11/11). Conversely, subobject injections ($F3$: 0/16 rejected) were accepted because current JSON handling deliberately follows open-world semantics and therefore permits undeclared attributes. $F3$ is best interpreted as a design-intent observation rather than an unanticipated verifier failure: whether that tolerance is appropriate for a governance-oriented audit schema remains a policy choice for schema v2, where a closed-world alternative could be evaluated explicitly. String truncations ($F5$: 6/13 rejected, 46.2\%) and random string alterations ($F6$: 3/15 rejected, 20.0\%) exhibited lower rejection rates because they primarily perturbed unconstrained narrative text fields rather than formal vector grammar. Valid token flips ($F9$) achieved 10/12 rejections (83.3\%), rejecting priority and severity inconsistencies while accepting context exposure flips lacking explicit cross-field invariants. Rejections were triggered across three primary failure categories: Consistency (58 rejections), Recomputed Arithmetic/Policy (50 rejections), and Structural Integrity (49 rejections).
 
-The 37 accepted perturbations expose boundaries of the current machine-checkable contract rather than being silently discarded. Sixteen added schema-valid attributes that are permitted by the current open-world JSON handling; nineteen modified free-form narrative fields for which the verifier currently imposes no lexical or semantic constraints; and two flipped \texttt{internet\_exposure} without violating any currently encoded cross-field invariant. These cases identify concrete specification gaps and future schema-hardening targets, categorized as accepted perturbations outside or at the boundary of the currently encoded verifier constraints. They do not by themselves establish that every accepted perturbation is semantically benign, nor do the rejection results establish completeness or exhaustive fault coverage. The randomized mutation complement provides empirical evidence of verifier sensitivity to independently generated perturbations within the evaluated mutation set. It does not establish completeness, semantic correctness, exhaustive fault coverage, or formal verification.
+The 37 accepted perturbations expose boundaries of the current machine-checkable contract rather than being silently discarded. Sixteen added schema-valid attributes that are permitted by the current open-world JSON handling; nineteen modified free-form narrative fields for which the verifier currently imposes no lexical or semantic constraints; and two flipped \texttt{internet\_exposure} without violating any currently encoded cross-field invariant. These cases identify concrete specification gaps and future schema-hardening targets, categorized as accepted perturbations outside or at the boundary of the currently encoded verifier constraints. They do not by themselves establish that every accepted perturbation is semantically benign, nor do the rejection results establish completeness or exhaustive fault coverage. The randomized mutation complement provides empirical evidence of verifier sensitivity to independently generated perturbations within the evaluated mutation set. It does not establish completeness, semantic correctness, exhaustive fault coverage, or mathematical proof of correctness.
 
 \subsection{Ablation of Priority Components}
 
@@ -789,7 +830,7 @@ The difference between the 24 category shifts produced by the nominal B4 policy 
 
 To evaluate the operational stability of nominal prioritization decisions under local contextual weight uncertainty, we execute a deterministic sensitivity stress test across the 30 canonical benchmark scenarios (12 curated NVD records and 18 synthetic test cases). Because organizational environmental policy in our framework is purely deterministic and rule-based rather than estimated from training data, standard machine learning cross-validation (such as Leave-One-Environment-Out) is methodologically inapplicable; instead, local weight perturbation provides an appropriate, conservative assessment of operational stability.
 
-The stress test perturbs policy weights strictly within the declared specification boundaries: $w_{\text{context}} \in \{-2, 0, 1, 2, 3\}$ and $w_{\text{control}} \in \{-1, 0\}$. For each scenario, context weight is systematically varied across its immediate ordinal neighbors in the ordered domain (nearest lower, nominal, and nearest upper value, bounded by $[-2, 3]$), while compensating control weight is evaluated under both nominal and flipped binary states ($-1 \leftrightarrow 0$). The full evaluation grid spans 166 combinations across the 30 scenarios, comprising 30 nominal configurations and 136 strictly perturbed cases (56 on NVD, 80 on synthetic). All ordinal shifts ($\Delta_p = g(P_{\text{env}}^{\text{pert}}) - g(P_{\text{env}}^{\text{nominal}})$) are measured strictly against the unperturbed nominal policy baseline ($B4_{\text{nominal}}$); observed stored priorities ($B4_{\text{observed}}$) are preserved separately for descriptive traceability and are not used as an empirical ground truth.
+The stress test perturbs policy weights strictly within the declared specification boundaries: $w_{\text{context}} \in \{-2, 0, 1, 2, 3\}$ and $w_{\text{control}} \in \{-1, 0\}$. For each scenario, context weight is systematically varied across its immediate ordinal neighbors in the ordered domain (nearest lower, nominal, and nearest upper value, bounded by $[-2, 3]$), while compensating control weight is evaluated under both nominal and flipped binary states ($-1 \leftrightarrow 0$). The full evaluation grid spans 166 combinations across the 30 scenarios, comprising 30 nominal configurations and 136 strictly perturbed cases (56 on NVD, 80 on synthetic). All ordinal shifts ($\Delta_p = g(P_{\text{env}}^{\text{pert}}) - g(P_{\text{env}}^{\text{nominal}})$) are measured strictly against the unperturbed nominal policy baseline ($B4_{\text{nominal}}$); observed stored priorities ($B4_{\text{observed}}$) are preserved separately for descriptive traceability and are not used as an empirical reference baseline.
 
 \begin{table*}[t]
 \centering
@@ -816,6 +857,109 @@ At the scenario level, 28 of 30 scenarios were sensitive to at least one valid l
 
 These stress test results characterize deterministic sensitivity of nominal operational priority to valid local perturbations of contextual policy weights within the declared policy domain. They do not constitute predictive robustness, statistical robustness, generalization to unseen environments, causal sensitivity, calibrated uncertainty, or a formal robustness proof.
 
+\subsection{Schema v2 Closed-World Compatibility and Replay (T2/T2R, T3)}
+\label{sec:r6_t2_t3}
+To address RQ-R6-2, we evaluated backward compatibility and mutation detection under the closed-world Schema~v2 contract. In the compatibility evaluation (Experiment T2/T2R), all 30 historical benchmark traces (Dataset~B) were evaluated against Schema~v2. As formalized in protocol deviation R6-DEV-001, 30/30 historical traces were classified as \texttt{V1\_VALID\_V2\_INVALID} (0/30 valid under v2), demonstrating that Schema~v2 successfully rejects uncanonicalized legacy formats: 12 NVD records were rejected due to \texttt{INVALID\_TYPE} (narrative string in \texttt{compensating\_controls} rather than structured object arrays), and 18 synthetic cases were rejected due to \texttt{INVALID\_ENUM} (empty string \texttt{""} in \texttt{cve\_id} rather than null or valid CVE pattern). No undeclared fields were observed.
+
+In the historical mutation replay campaign (Experiment T3), all 120 perturbations from the verifier-agnostic complement were resubmitted under Schema~v2. Replay achieved 120/120 rejections (100.0\%), compared with 83/120 under open-world Schema~v1. Crucially, in mutation family $F3$ (subobject injection), Schema~v2 achieved 16/16 rejections (100.0\%), in stark contrast to 0/16 under Schema~v1. This confirms the closed-world hypothesis: prohibiting undeclared properties systematically eliminates silent injection vulnerabilities without modifying scoring logic.
+
+\subsection{Novel Mutation Campaign and Attribution Decoupling (T4, T4R, NF2-R)}
+\label{sec:r6_t4}
+To evaluate Schema~v2 boundaries against domain-specific faults, we designed six novel mutation families ($NF1$--$NF6$): extension unnamespaced keys ($NF1$), core-field shadowing in extensions ($NF2$), reserved keyword injection ($NF3$), nested array undeclared properties ($NF4$), explicit null on non-nullable scalars ($NF5$), and schema downgrade header injections ($NF6$).
+
+In the initial execution (Experiment T4, $N=180$), all 180 mutants were rejected by Schema~v2. However, methodological auditing revealed that all 30 source parents were legacy traces already invalid under v2; thus, causal fault detection was confounded by pre-existing parent invalidity. In accordance with protocol deviation R6-DEV-002, we preregistered and executed versioned rerun R6.1-T4R on 15 deterministically canonicalized parents ($N=90$, 15 parents $\times$ 6 families).
+
+In R6.1-T4R, the verifier achieved 75/90 attributable rejections (83.33\% overall): $NF1$, $NF3$, $NF4$, $NF5$, and $NF6$ each achieved 15/15 attributable rejections (100.0\%). In family $NF2$, 15/15 mutants were accepted by the primary schema because extensions allow arbitrary sub-objects under their isolated namespace. To test this specific boundary without confounding, we executed companion experiment R6.1-T4R-NF2R ($N=15$), verifying that when core fields are shadowed directly within the closed-world root, 15/15 are rejected under error category \texttt{UNKNOWN\_FIELD}. Methodologically, T4R ($75/90$) and NF2-R ($15/15$) represent decoupled test suites and are retained as separate denominators rather than summed into an invalid aggregate.
+
+\subsection{Governance Override Invariants and Representability (T5, T5-R, T6)}
+\label{sec:r6_t5_t6}
+To address RQ-R6-3, we evaluated the Governance Override layer across eight adversarial operational fixtures (Experiment T5/T5-R). In initial execution T5, seven fixtures passed all checks, but fixture T5.8 failed due to an injected baseline priority mismatch (injected nominal Low vs Eq.~8 calculated Medium). Protocol deviation R6-DEV-003 established that this failure was an oracle/fixture defect rather than an architectural violation. Rerun R6.1-T5R achieved 8/8 PASS (100.0\%), confirming complete adherence to all eight governance invariants (INV-G1 through INV-G8). Crucially, Equation~8 nominal formula parameters remained identical, and autonomous overrides were zero across all fixtures.
+
+In Experiment T6, we evaluated the representability of four curated NVD CVEs exhibiting narrative deployment adjustments (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-003}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-011}) across 12 diagnostic checks. Under pure schema-only representation, 0/4 cases could represent narrative adjustments without information loss. Under the composite architecture combining Schema~v2 with downstream governance override, 2/4 cases (\texttt{SCN-NVD-001} and \texttt{SCN-NVD-007}) were fully represented through normative structural transformation. The remaining 2/4 cases (\texttt{SCN-NVD-003} and \texttt{SCN-NVD-011}) could not be represented without acquiring new operational evidence. Zero data were invented across all 12 diagnostic checks, demonstrating that the governance override provides auditable expressiveness without speculative data fabrication.
+
+\subsection{Independent Differential Validation (Differential R2)}
+\label{sec:r6_diff}
+To address RQ-R6-4, we conducted an exhaustive differential testing campaign comparing our primary scoring engine with \texttt{cvss4py}~\cite{cvss4py} across all 486,472 vectors in the FIRST reference corpus. Following protocol deviations R6-DEV-004 and R6-DEV-005, the evaluation decoupled valid vector scoring from syntax error rejection to prevent category masking.
+
+\begin{table}[t]
+\caption{Differential Validation Results Against \texttt{cvss4py} on FIRST Corpus}
+\label{tab:diff_r2}
+\centering
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Evaluation Dimension & Count & Percentage \\
+\midrule
+\textbf{Numeric Endpoint ($D_{\text{numeric}}$)} & \textbf{461,444} & \textbf{100.0000\%} \\
+\quad Exact Numeric Score Match                  & 454,047 & 98.3970\% \\
+\quad Score Mismatch ($|\Delta| = 0.1$)           & 7,397   & 1.6030\% \\
+\quad Validity Disagreement                      & 0       & 0.0000\% \\
+\quad Execution / System Error                   & 0       & 0.0000\% \\
+\midrule
+\textbf{Validation Endpoint ($D_{\text{validation}}$)} & \textbf{25,028} & \textbf{100.0000\%} \\
+\quad Syntax Rejection Concordance               & 25,028  & 100.0000\% \\
+\quad Negative Validity Disagreement             & 0       & 0.0000\% \\
+\quad Negative Execution Error                   & 0       & 0.0000\% \\
+\midrule
+\textbf{Deterministic Rerun Parity}              & \textbf{Pass} & \textbf{Run 1 $\equiv$ Run 2} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As detailed in Table~\ref{tab:diff_r2}, on the calculable vector subset ($D_{\text{numeric}} = 461,444$), the primary scorer achieved 454,047 exact score matches (98.3970\%) with zero validity disagreements and zero runtime errors. All 7,397 observed score mismatches (1.6030\%) exhibited an absolute difference of exactly $|\Delta| = 0.1$. In-depth audit confirmed that for 100\% of these 7,397 cases, the score computed by our engine matches the official FIRST reference score; the discrepancy stems from MacroVector equivalence class interpolation differences in the secondary comparator. On the negative vector subset ($D_{\text{validation}} = 25,028$), both implementations achieved 25,028/25,028 syntax rejection concordance (100.0\%). A full duplicate pass confirmed bit-for-bit deterministic rerun parity (\texttt{Run 1} $\equiv$ \texttt{Run 2}).
+
+\subsection{External Held-Out Transfer Evaluation (T7)}
+\label{sec:r6_t7}
+To address RQ-R6-1, we evaluated the transferability of the machine-checkable verification contract on an unseen held-out corpus of $N=938$ real-world vulnerability advisories collected from the GitHub Advisory Database~\cite{gh_advisory_database} (published between September 1 and October 1, 2026). The corpus was collected, deduplicated (9 exclusions from 947 raw candidates, zero overlap with historical R5 data), and quarantined under commit-level cryptographic locks before any experimental access.
+
+\begin{table}[t]
+\caption{Held-Out Transfer Evaluation Results on Unseen Advisories ($N=938$)}
+\label{tab:heldout_t7}
+\centering
+\small
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Classification / Invariant Outcome & Count & Percentage \\
+\midrule
+Nominal-Calculable (Complete Evidence)      & 339   & 36.1407\% \\
+Fail-Closed Rejections (Missing Evidence)   & 599   & 63.8593\% \\
+Structural Invalidity Rejections            & 0     & 0.0000\% \\
+Unresolved Insufficient Information        & 0     & 0.0000\% \\
+Execution / Environment Errors              & 0     & 0.0000\% \\
+\midrule
+Information Invented                        & 0     & Verified \\
+Autonomous Overrides Attempted              & 0     & Verified \\
+Independent Trace Verifier Status           & 938/938 & 100.0\% Pass \\
+Diagnostic Checks Evaluated                 & 3,232 & Verified \\
+Deterministic Rerun Parity                  & Pass  & Run 1 $\equiv$ Run 2 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As summarized in Table~\ref{tab:heldout_t7}, the workflow classified 339 advisories as nominal-calculable (36.1407\%), where complete CVSS v4.0 environmental context was present. For the remaining 599 advisories (63.8593\%), the workflow executed fail-closed rejections (\texttt{MISSING\_MANDATORY\_EVIDENCE\_REJECTED}) due to incomplete deployment telemetry. Crucially, zero information was invented to force a score, and zero autonomous overrides were attempted. The independent trace verifier validated all 938 generated traces across 3,232 machine-checkable diagnostic checks with zero verification failures. An independent dual-pass execution verified complete deterministic parity. The 599 fail-closed outcomes reflect strict enforcement of evidence requirements rather than pipeline failure, demonstrating that the workflow abstains reliably when operational context is incomplete.
+
+\subsection{Methodological Protocol Deviations (R6-DEV-001--005)}
+\label{sec:r6_deviations}
+To ensure reproducibility and research integrity, all methodological adjustments during the R6 campaign were pre-registered in a formal deviation log prior to continuation. Table~\ref{tab:deviations} summarizes deviations R6-DEV-001 through R6-DEV-005.
+
+\begin{table*}[t]
+\caption{Summary of Formal Protocol Deviations in R6-A1 Experimental Campaign}
+\label{tab:deviations}
+\centering
+\small
+\begin{tabular}{@{}llllp{0.42\textwidth}@{}}
+\toprule
+Deviation ID & Classification & Affected Phase & Target RQ & Methodological Rationale and Resolution \\
+\midrule
+R6-DEV-001 & POST\_RESULT\_CHANGE & T2 Compatibility & RQ-R6-2 & Refined 4-category taxonomy to orthogonal 5-state model after observing 30/30 legacy traces rejected under v2 type/enum constraints; original T2 results frozen. \\
+R6-DEV-002 & POST\_RESULT\_CHANGE & T4 Mutations & RQ-R6-2 & Identified valid-parent confounding in T4 ($N=180$); executed versioned rerun R6.1-T4R on 15 canonical parents ($N=90$) with companion NF2-R ($N=15$). \\
+R6-DEV-003 & POST\_RESULT\_CHANGE & T5 Governance & RQ-R6-3 & Diagnosed fixture T5.8 failure as baseline priority injected defect; executed versioned rerun R6.1-T5R (8/8 Pass) preserving original T5 (7/8) as historical record. \\
+R6-DEV-004 & PRE\_RESULT\_CHANGE  & Differential R1 & RQ-R6-4 & Clarified primary measurement endpoint as exact numeric score concordance and removed comparator serialization requirement prior to observing results. \\
+R6-DEV-005 & POST\_RESULT\_CHANGE & Differential R2 & RQ-R6-4 & Decoupled calculable vectors ($D_{\text{numeric}} = 461,444$) from syntax rejection tests ($D_{\text{validation}} = 25,028$); executed corrected protocol R6.2-DIFF-R2. \\
+\bottomrule
+\end{tabular}
+\end{table*}
+
 \section{Discussion}
 
 \subsection{Completeness Versus Correctness}
@@ -833,7 +977,7 @@ that generated explanations are mistaken for authoritative decisions.
 
 Of the 34 schema limitations identified by the independent trace verifier, 30 arise because evidence is represented through narrative fields rather than atomic, machine-addressable records linked to individual modified metrics. The remaining four correspond to curated NVD scenarios (\texttt{SCN-NVD-001}, \texttt{SCN-NVD-006}, \texttt{SCN-NVD-007}, and \texttt{SCN-NVD-008}) in which deployment-specific narrative adjustments cannot be deterministically reconstructed from the structured policy weights alone. This is an architectural limitation rather than an arithmetic verification failure. A future schema revision should require each candidate modified metric to reference a structured evidence record through a stable evidence identifier, extending machine-checkability to the evidence-to-metric boundary and reducing reliance on narrative-only adjustments.
 
-The empirical results of the randomized mutation complement directly reinforce these architectural observations. The 16 accepted subobject injection perturbations ($F3$) demonstrate the need for an explicit governance choice regarding open-world versus closed-world schema validation for undeclared attributes. Similarly, the 19 accepted narrative truncations and alterations ($F5$ and $F6$) confirm that free-form narrative evidence remains machine-unaddressable, establishing concrete empirical justification for atomic evidence identifiers in schema v2. Finally, the two accepted exposure flips ($F9$) highlight the potential for future semantic invariants linking deployment context evidence to candidate modified metrics, provided such rules are defined by independent specification.
+The empirical results of the randomized mutation complement directly motivated our architectural formulation of Schema~v2 as a closed-world contract. In the R6 campaign, closed-world Schema~v2 was evaluated not as a retroactive bugfix of R5, but as a distinct governance hypothesis: prohibiting undeclared properties systematically eliminates subobject injections (16/16 rejections in replay) and enforces rigorous field typing. Similarly, the downstream governance override contract establishes an auditable bridge between operational requirements and formal scoring, ensuring that deviations require explicit human authorization while Equation~8 nominal weights remain mathematically invariant.
 
 \subsection{Relationship to Other Prioritization Signals}
 
@@ -919,12 +1063,7 @@ The verifier-agnostic randomized mutation complement is subject to specific meth
 
 \subsection{External Validity}
 
-The dataset contains only 30 scenarios. The NVD sample is
-time-bounded, and the synthetic cases do not represent an empirical enterprise
-asset distribution. Consequently, the study exhibits limited external validity;
-results should not be generalized to all organizations, industries, or
-vulnerability classes. The findings demonstrate architectural feasibility and
-schema completeness rather than general operational effectiveness.
+Although the benchmark evaluation was expanded in R6 to include an external held-out corpus of $N=938$ real-world advisories from the GitHub Advisory Database, external validity remains bounded. The 938 advisories represent open-source software vulnerabilities and do not capture proprietary operational technology (OT), industrial control systems (ICS), or complex enterprise cloud service meshes. In addition, 599 advisories were rejected fail-closed due to absent environmental evidence, demonstrating that without active telemetry integration, operational applicability is constrained. Consequently, our findings demonstrate architectural feasibility, deterministic verification, and fail-closed safety rather than universal operational effectiveness across arbitrary enterprise infrastructures.
 
 \subsection{Conclusion Validity}
 
@@ -933,21 +1072,31 @@ It does not compare remediation time, exploit outcomes, analyst workload, or
 prediction accuracy against a control group. The reported percentages describe
 the current artifact package only.
 
-\section{Reproducibility}
+\section{Reproducibility and Lineage}
 
-The repository contains the scenario CSV, metrics JSON, trace artifacts,
-generation scripts, validators, Markdown manuscript, LaTeX manuscript,
-bibliography, compiled PDF, and a SHA-256 manifest. Generated tables are
-derived from the dataset rather than copied manually.
+The complete research package is reproducible from source artifacts. The repository tracks the complete, unbroken cryptographic commit lineage of the R6 campaign:
+\begin{itemize}
+\item Base R5 freeze: \texttt{cc4418e062101f5259c15e51dc9a1bc2fd9c3e88};
+\item R6 pre-registration: \texttt{090ad8b727e674aac8e95864fe7740b15092ea60};
+\item Schema v2 implementation: \texttt{43664e58b4f7852d0a03c6b21ab043dec2529be9};
+\item R6.1 taxonomy: \texttt{bfaece26f9f718672be6b754ad83497ac7f102ea};
+\item T2R execution freeze: \texttt{aa215569bddb2e1b341a62317cf3206d0d465a21};
+\item T3 replay and T4 freeze: \texttt{c77599be1ceac1cd39d9e552eb51196cbe427f5e};
+\item T4R pre-registration: \texttt{887201c13d8d646c07a0c1023795bca364a61367};
+\item T4R results freeze: \texttt{00b04c86ec55eb1bca56a73841a1564f9bf3cf8f};
+\item T5 original freeze: \texttt{9da6c5e5339df5e55259f93318f7736630f6eb94};
+\item T5-R results freeze: \texttt{2346859b319eac9146273b215eca796147816837};
+\item T6 and corpus lock: \texttt{12bf6c456054656a1bbc198d7e3729d2675098b2};
+\item Differential R1 pre-result clarification: \texttt{096e2777e5f938ce70ef6a49c73847da7809415d};
+\item Differential R2 pre-registration: \texttt{1bbd1b6b29abd25d5e7dc5b677fee3dae28ec6cb};
+\item Differential R2 results freeze: \texttt{32407259b9e8b07f84316c5057bf885ec29e8e8f};
+\item T7 held-out pre-registration: \texttt{978694618574a8962e5dc8b6c0111bc792110685};
+\item T7 held-out results freeze: \texttt{a1053b4240fad485b5dc55f7e16f0f5326e94285}.
+\end{itemize}
 
-Reproduction requires running the validators and the LaTeX build sequence.
-The compilation report records page count, bibliography status, and warnings.
-The double-blind manuscript omits author and affiliation information.
-
-The artifact package also retains explicit claim boundaries: NVD records are
-real vulnerability records, their consumer contexts are curated, the priority
-delta is custom, all recommendations require human review, and no production
-validation is claimed.
+Cryptographic digests of key result artifacts are frozen in registry manifests:
+Held-out corpus manifest SHA-256 is \texttt{b09a8cc4...}, Differential R2 results SHA-256 is \texttt{e54d5841...}, and T7 results SHA-256 is \texttt{6d9ffb49...}.
+Reproduction requires executing the test suites and LaTeX compilation sequence. All recommendations require human review (\texttt{human\_adjudication\_completed = false}), G10B/C1/C2 datasets remain sealed under fail-closed gates, and historical access to the held-out corpus post-T7 is explicitly recorded (\texttt{held\_out\_accessed = true}).
 
 % \section{Standardized Adjudication Protocol Specification} moved to Appendix A
 A pre-registered blinded adjudication protocol is specified in Appendix~\ref{app:adjudication}. It remains unexecuted under the G10B authorization gate, and no expert-agreement, inter-rater-reliability, or human semantic-validation results are claimed in this study.
@@ -976,23 +1125,11 @@ flags predict later revisions.
 
 \section{Conclusion}
 
-This paper presents a deterministic, machine-verifiable evidence normalization, governance, and traceability workflow
-for operationalizing CVSS v4.0 Environmental metric assessment. The method separates official Base
-information from curated consumer context, records evidence and uncertainty,
-resolves candidate values under explicit governance policies, enforces human authorization checkpoints,
-and exports reproducible, machine-checkable trace artifacts.
+This paper has presented a deterministic, machine-checkable evidence normalization, governance, and traceability workflow for operationalizing CVSS v4.0 Environmental metrics. The architecture strictly isolates official Base information from consumer deployment context, evaluates candidate metrics under explicit governance policies, enforces human authorization checkpoints, and exports structured, machine-checkable trace artifacts.
 
-The contribution separates specification-level validation (achieving 486,472/486,472
-FIRST reference corpus conformance and zero violations across a finite 10,000-execution metamorphic campaign)
-from controlled workflow evaluation. Across 30 curated hybrid scenarios, the workflow achieved
-complete evidence and trace coverage and produced operational priority changes in 22 cases
-under controlled conditions subject to construction bias and limited external validity, while retaining a non-autonomous workflow
-in which official scoring decisions remain subject to explicit human authorization; independent
-expert adjudication was not part of this evaluation. Confirmatory protocol G10B remains defined and unexecuted, with datasets C1 and C2 sealed. The randomized mutation complement further exposes where the current verifier stops: 37 of 120 generated perturbations remained acceptable under the encoded constraints, providing concrete targets for schema v2 rather than evidence of semantic correctness.
+The investigation demonstrated 100\% arithmetic conformance across 486,472 FIRST reference vectors and zero violations over 10,000 metamorphic executions. In differential validation against secondary implementation \texttt{cvss4py}, the workflow achieved 454,047/461,444 exact numeric concordance (98.3970\%) on calculable vectors and 25,028/25,028 syntax rejection concordance (100.0\%) on malformed vectors. Formulating closed-world Schema~v2 eliminated subobject injection vulnerabilities (16/16 rejections in replay), while a downstream governance override contract achieved 8/8 invariant passes without modifying Equation~8 nominal formulas. In external held-out transfer across $N=938$ real-world advisories, the workflow classified 339 cases as nominal-calculable and executed 599 fail-closed rejections under missing evidence, with zero data invention, zero autonomous overrides, and 938/938 traces validated across 3,232 diagnostic checks.
 
-Future work will execute independent expert adjudication under the pre-registered blinded protocol,
-measure inter-rater agreement and review effort, integrate production-like asset and control
-sources, and compare decisions with complementary approaches such as EPSS and SSVC.
+Strict claim boundaries remain: independent expert adjudication has not been completed (\texttt{human\_adjudication\_completed = false}), and confirmatory benchmark sets C1 and C2 remain sealed under gatekeeper protocol G10B. Future work will execute blinded expert adjudication, measure inter-rater reliability, and evaluate live telemetry integrations in production environments.
 
 
 

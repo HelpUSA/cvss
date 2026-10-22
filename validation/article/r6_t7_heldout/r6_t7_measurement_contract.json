@@ -1,0 +1,45 @@
+{
+  "schema": "https://helpus.ai/schemas/r6_t7_measurement_contract.json",
+  "schema_version": "1.0.0",
+  "experiment_id": "TEST-SUITE-R6-T7-HELDOUT-TRANSFER",
+  "label": "R6-T7-HELDOUT",
+  "rq_id": "RQ-R6-1",
+  "rq_wording": "O contrato de verificação mantém integridade e cobertura em um novo corpus externo held-out, independente dos 30 casos R5?",
+  "status": "PREREGISTERED_FROZEN_AWAITING_HELDOUT_AUTHORIZATION",
+  "parent_commit": "32407259b9e8b07f84316c5057bf885ec29e8e8f",
+  "unit_of_analysis": "advisory_record",
+  "eligible_denominator": 938,
+  "held_out_accessed": false,
+  "human_adjudication_completed": false,
+  "eq8_modified": false,
+  "governance_override_downstream": true,
+  "information_invention_allowed": false,
+  "target_rate": null,
+  "expected_rate": null,
+  "statistical_inference_default": null,
+  "two_pass_determinism_required": true,
+  "execution_gate": "QUARANTINED_LOCKED",
+  "outcome_taxonomy": [
+    "SCHEMA_V2_VALID_NOMINAL_CALCULABLE",
+    "SCHEMA_V2_VALID_GOVERNANCE_OVERRIDE_DOCUMENTED",
+    "SCHEMA_V2_STRUCTURAL_INVALIDITY_REJECTED",
+    "MISSING_MANDATORY_EVIDENCE_REJECTED",
+    "INSUFFICIENT_INFORMATION_UNRESOLVED",
+    "EXECUTION_OR_ENVIRONMENT_ERROR"
+  ],
+  "trace_verification_taxonomy": [
+    "TRACE_VERIFICATION_PASS",
+    "TRACE_VERIFICATION_FAIL"
+  ],
+  "frozen_metadata_hashes": {
+    "eligible_corpus_manifest_sha256": "b09a8cc45147f25073103c005d87b4244ea9e03a8233b7059fbd310cc13a22cf",
+    "acquisition_metadata_sha256": "0821b7cc11a6c3e967fad38e0607140fd2f90a3ecbd3f6dbd1011ebbc5f756b4",
+    "inclusion_exclusion_ledger_sha256": "171c89aa26404da7728d10ccc69b7eea6bb2b271ad9df50cb569e0ff8040c69c",
+    "raw_source_snapshot_sha256": "eb0d5e80dfd6827896aa87315f1f9fd63748f243ae831185c068cf4c35641df2"
+  },
+  "provenance_commits": {
+    "protocol_freeze": "106049618eff5e2f2a34aa591475c4a042bdba37",
+    "acquisition_script_freeze": "2346859b319eac9146273b215eca796147816837",
+    "corpus_lock_freeze": "12bf6c456054656a1bbc198d7e3729d2675098b2"
+  }
+}

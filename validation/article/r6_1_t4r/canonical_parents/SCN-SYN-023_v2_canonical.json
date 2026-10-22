@@ -1,0 +1,73 @@
+{
+  "scenario_id": "SCN-SYN-023",
+  "scenario_source": "curated_synthetic_no_cve",
+  "cve_id": null,
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:H/AT:P/PR:L/UI:A/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+  "cvss_b_score": "4.8",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "ot_monitoring_gateway",
+    "deployment_context": "Operational technology monitoring gateway connected to industrial telemetry.",
+    "internet_exposure": "internal",
+    "privilege_context": "Restricted operator and service accounts.",
+    "compensating_controls": [
+      {
+        "control_id": "CTRL-SCN-SYN-023-01",
+        "control_type": "segmentation",
+        "status": "enforced",
+        "description": "Network segmentation, allow-listing, monitoring, maintenance window constraints."
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "LINK-SCN-SYN-023-01",
+        "uri_or_reference": "local://curated-scenario/SCN-SYN-023",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-SYN-023-02",
+        "uri_or_reference": "docs/ARTICLE_DATASET_SCHEMA.md",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-SYN-023-03",
+        "uri_or_reference": "docs/ARTICLE_CLAIM_GUARDRAILS_CVSS40.md",
+        "confidence": "high"
+      }
+    ],
+    "evidence_summary": "Curated local environment profile for ot_monitoring_gateway; CVSS v4.0 vector assigned for controlled experiment, not an official CVE score."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "M",
+    "integrity_requirement": "H",
+    "availability_requirement": "H",
+    "candidate_modified_metrics": {
+      "MAV": "X",
+      "MAC": "X",
+      "MAT": "X",
+      "MPR": "X",
+      "MUI": "X",
+      "MVC": "X",
+      "MVI": "X",
+      "MVA": "X",
+      "MSC": "X",
+      "MSI": "X",
+      "MSA": "X",
+      "CR": "X",
+      "IR": "X",
+      "AR": "X"
+    },
+    "watcher_recommendation": "Use this row only as a curated scenario for workflow validation; final Environmental choices require human review.",
+    "uncertainty_flags": [
+      "synthetic_scenario; assigned_vector_not_official_cve; human_review_required"
+    ],
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "MEDIUM",
+    "environmental_priority": "CRITICAL",
+    "priority_delta": "2"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score.",
+  "extensions": {}
+}

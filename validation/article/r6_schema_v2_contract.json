@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "contract_id": "CONTRACT-R6-SCHEMA-V2",
+  "contract_version": "2.0.0",
+  "parent_preregistration_commit": "c0b4025d9f560b8e525accd17e1b075cd23a355b",
+  "heldout_lock_commit": "12bf6c456054656a1bbc198d7e3729d2675098b2",
+  "current_head_before_spec": "2346859b319eac9146273b215eca796147816837",
+  "schema_v1_status": "HISTORICAL_BASELINE",
+  "schema_v2_status": "SPECIFIED_NOT_IMPLEMENTED",
+  "implementation_status": "NOT_IMPLEMENTED",
+  "tests_executed": false,
+  "results_available": false,
+  "anti_retuning_locked": true,
+  "closed_world_default": true,
+  "specification_reference": "validation/article/r6_schema_v2_specification.md",
+  "f3_historical_result": {
+    "status": "HISTORICAL_BASELINE_INFORMATIONAL_ONLY_NOT_TARGET",
+    "description": "Historical R3 canonical run baseline under Schema v1 open-world contract",
+    "accepted_count": 16,
+    "rejected_count": 0,
+    "applicable_denominator": 16,
+    "rejection_rate": 0.0,
+    "target_claim_in_spec": null
+  },
+  "backward_compatibility_categories": [
+    "V1_VALID_V2_VALID",
+    "V1_VALID_V2_INVALID_UNDECLARED_FIELD",
+    "V1_INVALID_V2_INVALID",
+    "V1_VALID_V2_VALID_NORMALIZED"
+  ],
+  "error_categories": [
+    {
+      "code": "UNKNOWN_FIELD",
+      "description": "Property not declared in the object closed-world specification"
+    },
+    {
+      "code": "MISSING_REQUIRED_FIELD",
+      "description": "Required property is absent from payload"
+    },
+    {
+      "code": "INVALID_TYPE",
+      "description": "Property value violates declared primitive or composite type"
+    },
+    {
+      "code": "INVALID_ENUM",
+      "description": "Property value is not among allowed enumeration tokens"
+    },
+    {
+      "code": "INVALID_RANGE",
+      "description": "Numeric property value lies outside allowed bounds"
+    },
+    {
+      "code": "INVALID_NESTED_OBJECT",
+      "description": "Child composite object is malformed or invalid"
+    },
+    {
+      "code": "RESERVED_FIELD",
+      "description": "Use of prohibited or reserved keyword"
+    },
+    {
+      "code": "INVALID_EXTENSION_NAMESPACE",
+      "description": "Extension property violates vendor-namespacing syntax"
+    }
+  ],
+  "object_policies": {
+    "TraceRoot": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "scenario_id",
+        "scenario_source",
+        "official_or_assigned_cvss_v4_vector",
+        "cvss_b_score",
+        "cvss_b_severity",
+        "environmental_evidence",
+        "candidate_environmental_assessment",
+        "priority_comparison",
+        "boundary"
+      ],
+      "optional_fields": [
+        "cve_id",
+        "governance_override",
+        "extensions"
+      ]
+    },
+    "EnvironmentalEvidence": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "asset_class",
+        "deployment_context",
+        "internet_exposure",
+        "privilege_context",
+        "compensating_controls",
+        "evidence_links",
+        "evidence_summary"
+      ],
+      "optional_fields": []
+    },
+    "CompensatingControlItem": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "control_id",
+        "control_type",
+        "status"
+      ],
+      "optional_fields": [
+        "description"
+      ]
+    },
+    "EvidenceLinkItem": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "link_id",
+        "uri_or_reference",
+        "confidence"
+      ],
+      "optional_fields": []
+    },
+    "CandidateEnvironmentalAssessment": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "confidentiality_requirement",
+        "integrity_requirement",
+        "availability_requirement",
+        "candidate_modified_metrics",
+        "watcher_recommendation",
+        "uncertainty_flags",
+        "human_review_status"
+      ],
+      "optional_fields": []
+    },
+    "CandidateModifiedMetrics": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [],
+      "optional_fields": [
+        "MAV", "MAC", "MAT", "MPR", "MUI",
+        "MVC", "MVI", "MVA",
+        "MSC", "MSI", "MSA",
+        "CR", "IR", "AR"
+      ]
+    },
+    "PriorityComparison": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "base_priority",
+        "environmental_priority",
+        "priority_delta"
+      ],
+      "optional_fields": []
+    },
+    "GovernanceOverrideRecord": {
+      "policy": "CLOSED_WORLD_REQUIRED",
+      "additional_properties": false,
+      "required_fields": [
+        "override_id",
+        "case_id",
+        "nominal_policy_priority",
+        "pre_override_priority",
+        "post_override_priority",
+        "override_requested",
+        "override_applied",
+        "authorization_state",
+        "review_required",
+        "schema_version"
+      ],
+      "conditional_fields_when_applied": [
+        "reason_code",
+        "evidence_ids",
+        "authorized_by_role",
+        "authorization_timestamp"
+      ],
+      "optional_fields": [
+        "reason_text_optional",
+        "trace_link"
+      ]
+    }
+  },
+  "extension_points": {
+    "extensions": {
+      "policy": "OPEN_EXTENSION_POINT_ALLOWED",
+      "allowed_parent": "TraceRoot",
+      "namespace_pattern": "^[a-z0-9_]{3,30}:[a-z0-9_]{2,50}$",
+      "reserved_keywords": [
+        "delta_audit",
+        "formula_override",
+        "dynamic_weights",
+        "runtime_bypass"
+      ]
+    }
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t5r_governance_results_v1.json",
+  "experiment_id": "TEST-SUITE-R6-T5R-GOVERNANCE-CONTRACT",
+  "label": "R6.1-T5R",
+  "rq_linkage": "RQ-R6-3",
+  "protocol_version": "R6.1",
+  "protocol_deviation_id": "R6-DEV-003",
+  "classification": "POST_RESULT_CHANGE",
+  "status": "COMPLETED",
+  "executed_at_utc": "2026-10-21T19:44:24.656786+00:00",
+  "preregistration_commit": "5c9b918a5a16d22e0ad5ef3981d84925de931fca",
+  "specification_freeze_commit": "090ad8b727e674aac8e95864fe7740b15092ea60",
+  "implementation_freeze_commit": "43664e58b4f7852d0a03c6b21ab043dec2529be9",
+  "fixture_count": 8,
+  "execution_case_count": 8,
+  "total_pass": 8,
+  "total_fail": 0,
+  "T5R8_result": "PASS",
+  "deterministic_rerun_parity": "PASS",
+  "automatic_override_attempts": 0,
+  "unauthorized_actions_accepted": 0,
+  "Eq8_modified": false,
+  "nominal_scores_modified": false,
+  "held_out_accessed": false,
+  "human_adjudication_completed": false,
+  "implementation_modified": false,
+  "specification_modified": false,
+  "anti_retuning_preserved": true,
+  "historical_linkage": {
+    "t5_original_experiment_id": "TEST-SUITE-R6-T5-GOVERNANCE-CONTRACT",
+    "t5_original_result": "7/8 PASS, 1/8 FAIL",
+    "t5_original_preserved": true,
+    "t5_original_failure_classification": "FIXTURE_OR_ORACLE_DEFECT"
+  },
+  "invariant_results": {
+    "INV-G1_authorization_prerequisite": "PASS",
+    "INV-G2_nominal_preservation": "PASS",
+    "INV-G3_mandatory_justification_and_evidence": "PASS",
+    "INV-G4_separation_of_roles": "PASS",
+    "INV-G5_no_autonomous_override": "PASS (Zero autonomous overrides attempted across all fixtures)",
+    "INV-G6_eq8_formula_invariance": "PASS (Equation 8 weights and calculation unmodified)",
+    "INV-G7_audit_reproducibility": "PASS",
+    "INV-G8_fail_closed_default": "PASS (All non-conforming requests failed closed to nominal priority)"
+  },
+  "fixture_results": [
+    {
+      "fixture_id": "T5R.1",
+      "source_original_fixture_id": "T5.1",
+      "changed_since_T5": false,
+      "case_id": "SCN-SYN-015",
+      "title": "override_not_requested",
+      "normative_property": "If override_requested is false, override_applied cannot be true and nominal priority must govern unconditionally.",
+      "source_spec_section": "r6_governance_override_specification.md §3, §6 (Invariant G1)",
+      "input_state": {
+        "override_id": "OVR-2026-0001",
+        "case_id": "SCN-SYN-015",
+        "nominal_policy_priority": "LOW",
+        "pre_override_priority": "LOW",
+        "post_override_priority": "MEDIUM",
+        "override_requested": false,
+        "authorization_state": "NOT_REQUESTED",
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "LOW",
+      "actual_governance_decision": "NOMINAL_PRESERVED",
+      "expected_governance_decision": "NOMINAL_PRESERVED",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "LOW",
+      "expected_final_priority": "LOW",
+      "review_required": false,
+      "diagnostics": [
+        "GOVERNANCE_OVERRIDE_NOT_REQUESTED"
+      ],
+      "invariant_violations": [],
+      "automatic_action_attempted": false,
+      "human_authorization_required": false,
+      "human_authorization_present": false,
+      "eq8_nominal_score_after_governance": "LOW",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.2",
+      "source_original_fixture_id": "T5.2",
+      "changed_since_T5": false,
+      "case_id": "SCN-NVD-004",
+      "title": "requested_not_approved",
+      "normative_property": "A requested override in REQUESTED or REJECTED state fails closed to nominal priority and flags review_required.",
+      "source_spec_section": "r6_governance_override_specification.md §4, §6 (Invariant G1), §9",
+      "input_state": {
+        "override_id": "OVR-2026-0002",
+        "case_id": "SCN-NVD-004",
+        "nominal_policy_priority": "MEDIUM",
+        "pre_override_priority": "MEDIUM",
+        "post_override_priority": "HIGH",
+        "override_requested": true,
+        "authorization_state": "REQUESTED",
+        "reason_code": "DOCUMENTED_ENVIRONMENTAL_EXCEPTION",
+        "evidence_ids": [
+          "EVID-NET-01"
+        ],
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "MEDIUM",
+      "actual_governance_decision": "UNAUTHORIZED_REQUEST_REJECTED",
+      "expected_governance_decision": "UNAUTHORIZED_REQUEST_REJECTED",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "MEDIUM",
+      "expected_final_priority": "MEDIUM",
+      "review_required": true,
+      "diagnostics": [
+        "GOVERNANCE_UNAUTHORIZED_OVERRIDE_REJECTED"
+      ],
+      "invariant_violations": [],
+      "automatic_action_attempted": false,
+      "human_authorization_required": false,
+      "human_authorization_present": false,
+      "eq8_nominal_score_after_governance": "MEDIUM",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.3",
+      "source_original_fixture_id": "T5.3",
+      "changed_since_T5": false,
+      "case_id": "SCN-NVD-001",
+      "title": "approved_valid_override",
+      "normative_property": "A fully authorized override record with valid role, timestamp, reason code, and evidence transitions priority cleanly and logs complete audit trail.",
+      "source_spec_section": "r6_governance_override_specification.md §3, §4, §5, §6 (Invariants G1, G3, G4, G7)",
+      "input_state": {
+        "override_id": "OVR-2026-0003",
+        "case_id": "SCN-NVD-001",
+        "nominal_policy_priority": "LOW",
+        "pre_override_priority": "LOW",
+        "post_override_priority": "MEDIUM",
+        "override_requested": true,
+        "authorization_state": "APPROVED",
+        "authorized_by_role": "SECURITY_LEAD",
+        "authorization_timestamp": "2026-10-21T18:00:00Z",
+        "reason_code": "DOCUMENTED_ENVIRONMENTAL_EXCEPTION",
+        "reason_text_optional": "Isolating microsegment confirmed by continuous monitoring telemetry.",
+        "evidence_ids": [
+          "EVID-LINK-01",
+          "EVID-LINK-03"
+        ],
+        "trace_link": "validation/article/r6_1_t4r/canonical_parents/SCN-NVD-001_v2_canonical.json",
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "LOW",
+      "actual_governance_decision": "OVERRIDE_APPLIED_SUCCESSFULLY",
+      "expected_governance_decision": "OVERRIDE_APPLIED_SUCCESSFULLY",
+      "override_applied": true,
+      "expected_override_applied": true,
+      "final_authorized_priority": "MEDIUM",
+      "expected_final_priority": "MEDIUM",
+      "review_required": false,
+      "diagnostics": [
+        "GOVERNANCE_OVERRIDE_APPLIED_SUCCESSFULLY"
+      ],
+      "invariant_violations": [],
+      "automatic_action_attempted": false,
+      "human_authorization_required": true,
+      "human_authorization_present": true,
+      "eq8_nominal_score_after_governance": "LOW",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.4",
+      "source_original_fixture_id": "T5.4",
+      "changed_since_T5": false,
+      "case_id": "SCN-SYN-020",
+      "title": "missing_reason_code_fails_closed",
+      "normative_property": "An approved override missing mandatory reason_code fails closed to nominal priority and flags review_required.",
+      "source_spec_section": "r6_governance_override_specification.md §5, §6 (Invariant G3), §9",
+      "input_state": {
+        "override_id": "OVR-2026-0004",
+        "case_id": "SCN-SYN-020",
+        "nominal_policy_priority": "HIGH",
+        "pre_override_priority": "HIGH",
+        "post_override_priority": "CRITICAL",
+        "override_requested": true,
+        "authorization_state": "APPROVED",
+        "authorized_by_role": "INCIDENT_COMMANDER",
+        "authorization_timestamp": "2026-10-21T18:05:00Z",
+        "reason_code": null,
+        "evidence_ids": [
+          "EVID-INCIDENT-99"
+        ],
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "HIGH",
+      "actual_governance_decision": "FAIL_CLOSED_MISSING_REASON_CODE",
+      "expected_governance_decision": "FAIL_CLOSED_MISSING_REASON_CODE",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "HIGH",
+      "expected_final_priority": "HIGH",
+      "review_required": true,
+      "diagnostics": [
+        "GOVERNANCE_MISSING_REASON_CODE_REJECTED"
+      ],
+      "invariant_violations": [
+        "INV-G3: Invalid or missing reason_code 'None'"
+      ],
+      "automatic_action_attempted": false,
+      "human_authorization_required": true,
+      "human_authorization_present": true,
+      "eq8_nominal_score_after_governance": "HIGH",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.5",
+      "source_original_fixture_id": "T5.5",
+      "changed_since_T5": false,
+      "case_id": "SCN-NVD-007",
+      "title": "empty_evidence_fails_closed",
+      "normative_property": "An approved override with empty evidence_ids array fails closed to nominal priority.",
+      "source_spec_section": "r6_governance_override_specification.md §3, §6 (Invariant G3), §9",
+      "input_state": {
+        "override_id": "OVR-2026-0005",
+        "case_id": "SCN-NVD-007",
+        "nominal_policy_priority": "MEDIUM",
+        "pre_override_priority": "MEDIUM",
+        "post_override_priority": "LOW",
+        "override_requested": true,
+        "authorization_state": "APPROVED",
+        "authorized_by_role": "MASTER_SUPERADMIN",
+        "authorization_timestamp": "2026-10-21T18:10:00Z",
+        "reason_code": "CONTROL_COMPENSATION",
+        "evidence_ids": [],
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "MEDIUM",
+      "actual_governance_decision": "FAIL_CLOSED_EMPTY_EVIDENCE",
+      "expected_governance_decision": "FAIL_CLOSED_EMPTY_EVIDENCE",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "MEDIUM",
+      "expected_final_priority": "MEDIUM",
+      "review_required": true,
+      "diagnostics": [
+        "GOVERNANCE_EMPTY_EVIDENCE_REJECTED"
+      ],
+      "invariant_violations": [
+        "INV-G3: evidence_ids cannot be empty when applying override"
+      ],
+      "automatic_action_attempted": false,
+      "human_authorization_required": true,
+      "human_authorization_present": true,
+      "eq8_nominal_score_after_governance": "MEDIUM",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.6",
+      "source_original_fixture_id": "T5.6",
+      "changed_since_T5": false,
+      "case_id": "SCN-SYN-028",
+      "title": "self_authorization_rejected",
+      "normative_property": "A trace where the requesting agent/role matches authorized_by_role fails closed under Invariant G4 (separation of duties).",
+      "source_spec_section": "r6_governance_override_specification.md §6 (Invariant G4), §7",
+      "input_state": {
+        "override_id": "OVR-2026-0006",
+        "case_id": "SCN-SYN-028",
+        "nominal_policy_priority": "LOW",
+        "pre_override_priority": "LOW",
+        "post_override_priority": "CRITICAL",
+        "override_requested": true,
+        "authorization_state": "APPROVED",
+        "authorized_by_role": "SECURITY_LEAD",
+        "authorization_timestamp": "2026-10-21T18:15:00Z",
+        "reason_code": "ASSET_CRITICALITY_EXCEPTION",
+        "evidence_ids": [
+          "EVID-CRIT-01"
+        ],
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "LOW",
+      "actual_governance_decision": "FAIL_CLOSED_SELF_AUTHORIZATION",
+      "expected_governance_decision": "FAIL_CLOSED_SELF_AUTHORIZATION",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "LOW",
+      "expected_final_priority": "LOW",
+      "review_required": true,
+      "diagnostics": [
+        "GOVERNANCE_SELF_AUTHORIZATION_REJECTED"
+      ],
+      "invariant_violations": [
+        "INV-G4: Requester role cannot match authorized_by_role (self-authorization prohibited)"
+      ],
+      "automatic_action_attempted": false,
+      "human_authorization_required": true,
+      "human_authorization_present": true,
+      "eq8_nominal_score_after_governance": "LOW",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.7",
+      "source_original_fixture_id": "T5.7",
+      "changed_since_T5": false,
+      "case_id": "N/A",
+      "title": "malformed_transition_rejected",
+      "normative_property": "Direct state transition from NOT_REQUESTED to APPROVED without intermediate REQUESTED state is rejected with INVALID_STATE_TRANSITION.",
+      "source_spec_section": "r6_governance_override_specification.md §4",
+      "input_state": {
+        "current_state": "NOT_REQUESTED",
+        "next_state": "APPROVED"
+      },
+      "nominal_priority_before_governance": "MEDIUM",
+      "actual_governance_decision": "INVALID_STATE_TRANSITION_REJECTED",
+      "expected_governance_decision": "INVALID_STATE_TRANSITION_REJECTED",
+      "override_applied": false,
+      "expected_override_applied": false,
+      "final_authorized_priority": "MEDIUM",
+      "expected_final_priority": "MEDIUM",
+      "review_required": true,
+      "diagnostics": [
+        "INVALID_STATE_TRANSITION"
+      ],
+      "invariant_violations": [
+        "Invalid state transition from 'NOT_REQUESTED' to 'APPROVED'. Permitted next states: ['REQUESTED']"
+      ],
+      "automatic_action_attempted": false,
+      "human_authorization_required": false,
+      "human_authorization_present": false,
+      "eq8_nominal_score_after_governance": "MEDIUM",
+      "contract_pass": true,
+      "failure_reason": null
+    },
+    {
+      "fixture_id": "T5R.8",
+      "source_original_fixture_id": "T5.8",
+      "changed_since_T5": true,
+      "case_id": "SCN-NVD-001",
+      "title": "nominal_formula_intact",
+      "normative_property": "Confirm Equation 8 nominal policy calculation is identical before and after governance pipeline execution, with zero modification to mathematical weights, and an authorized override applies cleanly when nominal baseline matches Equation 8 ground truth.",
+      "source_spec_section": "r6_governance_override_specification.md §2, §6 (Invariants G2, G6)",
+      "input_state": {
+        "override_id": "OVR-2026-0008",
+        "case_id": "SCN-NVD-001",
+        "nominal_policy_priority": "MEDIUM",
+        "pre_override_priority": "MEDIUM",
+        "post_override_priority": "HIGH",
+        "override_requested": true,
+        "authorization_state": "APPROVED",
+        "authorized_by_role": "MASTER_SUPERADMIN",
+        "authorization_timestamp": "2026-10-21T18:20:00Z",
+        "reason_code": "EXPOSURE_CONTEXT_EXCEPTION",
+        "evidence_ids": [
+          "EVID-SEG-01"
+        ],
+        "schema_version": "1.0.0"
+      },
+      "nominal_priority_before_governance": "MEDIUM",
+      "actual_governance_decision": "NOMINAL_CALCULATION_UNMODIFIED",
+      "expected_governance_decision": "NOMINAL_CALCULATION_UNMODIFIED",
+      "override_applied": true,
+      "expected_override_applied": true,
+      "final_authorized_priority": "HIGH",
+      "expected_final_priority": "HIGH",
+      "review_required": false,
+      "diagnostics": [
+        "GOVERNANCE_OVERRIDE_APPLIED_SUCCESSFULLY"
+      ],
+      "invariant_violations": [],
+      "automatic_action_attempted": false,
+      "human_authorization_required": true,
+      "human_authorization_present": true,
+      "eq8_nominal_score_after_governance": "MEDIUM",
+      "contract_pass": true,
+      "failure_reason": null
+    }
+  ]
+}

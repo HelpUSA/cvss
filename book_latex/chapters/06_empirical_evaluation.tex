@@ -79,3 +79,16 @@ The most pronounced disparity in Table~\ref{tab:santos_comparison} occurs in the
 \end{itemize}
 The historical study reports substantial disagreement on these routing cases. The HelpUS graph engine can evaluate the encoded reachability graph deterministically, but correctness must be established against an independently adjudicated expert reference. Engine micro-timings are reported separately from the historical participant-session duration.
 
+
+
+\section{R6-A1 Experimental Campaign: Schema v2, Governance, Differential, and Transfer}
+\label{sec:r6_a1_campaign}
+Following the development baseline of Dataset B, the R6-A1 experimental campaign evaluated contract robustness, downstream governance, differential arithmetic concordance, and external transfer:
+\begin{enumerate}
+    \item \textbf{Closed-World Schema v2 (T2R, T3):} Replaced open-world semantics with closed-world validation (\texttt{"additionalProperties": false}). In compatibility testing (T2R), all 30 legacy Dataset B traces were classified as \texttt{V1\_VALID\_V2\_INVALID} due to strict typing (12 \texttt{INVALID\_TYPE}) and enum constraints (18 \texttt{INVALID\_ENUM}). Replaying the 120-case mutation complement (T3) achieved 120/120 rejections (100.0\%), successfully resolving the historical subobject injection gap ($F3$: 16/16 rejections under Schema v2 vs 0/16 under Schema v1).
+    \item \textbf{Novel Mutation Campaign (T4R, NF2-R):} Evaluated six domain-specific mutation families across 15 canonicalized parents ($N=90$), achieving 75/90 attributable rejections (83.33\%), alongside companion experiment NF2-R ($N=15$) verifying 15/15 rejections of core-field shadowing at the root boundary.
+    \item \textbf{Governance Override Invariants (T5-R, T6):} Verified downstream governance override across eight adversarial fixtures with 8/8 PASS across all invariants (INV-G1--G8). Nominal Equation~8 weights remained invariant, and autonomous overrides were zero. Evaluated representability across four NVD CVEs (12 diagnostic checks), showing 2/4 representable by normative structural transformation and 2/4 requiring new evidence, with zero data invented.
+    \item \textbf{Independent Differential Validation (Differential R2):} Evaluated 486,472 FIRST reference vectors against secondary comparator \texttt{cvss4py} (commit \texttt{9fe705c}). Decoupled endpoints demonstrated 454,047/461,444 exact numeric concordance (98.3970\%) on calculable vectors (all 7,397 mismatches $|\Delta|=0.1$ and 100\% matching FIRST official values) and 25,028/25,028 syntax rejection concordance (100.0\%) on malformed vectors under deterministic parity.
+    \item \textbf{External Held-Out Transfer (T7):} Evaluated an external quarantined corpus of $N=938$ real-world advisories from the GitHub Advisory Database. Classified 339 as nominal-calculable (36.1407\%) and executed 599 fail-closed rejections (63.8593\%) due to missing mandatory evidence, with zero data invented, zero autonomous overrides, and 938/938 traces validated across 3,232 diagnostic checks.
+\end{enumerate}
+Independent human expert adjudication remains pending (\texttt{human\_adjudication\_completed = false}), and confirmatory datasets C1/C2 remain sealed under gatekeeper protocol G10B.

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_r2_corpus_eligibility_manifest_v1.json",
+  "manifest_id": "MANIFEST-R6-DIFF-R2-CORPUS-ELIGIBILITY",
+  "experiment_id": "TEST-SUITE-R6-DIFFERENTIAL-CVSS40-R2",
+  "label": "R6.2-DIFF-R2",
+  "protocol_version": "R6.2",
+  "protocol_deviation_id": "R6-DEV-005",
+  "created_at": "2026-10-21T22:15:00Z",
+  "corpus_source": "FIRSTdotorg/cvss-resources",
+  "corpus_commit": "d766d0c8ab4368b67bf27dd0e411eb481f05fdbb",
+  "total_corpus_records": 486472,
+  "partitions_summary": {
+    "total_records": 486472,
+    "valid_score_producing_vectors": 461444,
+    "negative_validation_cases": 25028,
+    "mathematical_verification": "461444 + 25028 == 486472 (VERIFIED)"
+  },
+  "endpoints": {
+    "primary_numeric_concordance": {
+      "endpoint_id": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+      "denominator": 461444,
+      "eligible_class": "VALID_SCORE_VECTOR",
+      "population_description": "Canonical, complete, valid CVSS v4.0 vectors intended to yield numeric scores",
+      "target_match_rate": null,
+      "expected_match_rate": null,
+      "primary_precedence": [
+        "EXECUTION_ERROR",
+        "VALIDITY_DISAGREEMENT",
+        "SCORE_MISMATCH",
+        "EXACT_SCORE_MATCH"
+      ]
+    },
+    "secondary_negative_concordance": {
+      "endpoint_id": "SECONDARY_NEGATIVE_VALIDATION_CONCORDANCE",
+      "denominator": 25028,
+      "eligible_class": "NEGATIVE_VALIDATION_CASE",
+      "population_description": "Official FIRST negative and reference-invalid test cases designed to test parser rejection",
+      "target_match_rate": null,
+      "expected_match_rate": null,
+      "secondary_precedence": [
+        "NEGATIVE_EXECUTION_ERROR",
+        "NEGATIVE_VALIDITY_DISAGREEMENT",
+        "SYNTAX_REJECTION_CONCORDANCE"
+      ]
+    }
+  },
+  "partitions": [
+    {
+      "partition_id": "PART-01-MACRO-VECTORS",
+      "source_file": "tests/fixtures/cvss_resources/vectorFiles/macro-vectors",
+      "source_file_sha256": "f653914506e697a94a18b690c051144b295626c534737fb79c589a61c1e0e8a3",
+      "line_range": {
+        "start_line": 1,
+        "end_line": 270
+      },
+      "record_count": 270,
+      "eligibility_class": "VALID_SCORE_VECTOR",
+      "expected_outcome_class": "VALID_NUMERIC_SCORE",
+      "inclusion_endpoint": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+      "description": "Equivalence class macro-vectors from FIRST specification"
+    },
+    {
+      "partition_id": "PART-02-REF-VECTORS-PREFIX-VALID",
+      "source_file": "tests/fixtures/cvss_resources/vectorFiles/reference-vectors",
+      "source_file_sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "line_range": {
+        "start_line": 6,
+        "end_line": 275
+      },
+      "record_count": 270,
+      "eligibility_class": "VALID_SCORE_VECTOR",
+      "expected_outcome_class": "VALID_NUMERIC_SCORE",
+      "inclusion_endpoint": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+      "description": "Equivalence class reference vectors prior to Negative Tests section"
+    },
+    {
+      "partition_id": "PART-03-REF-VECTORS-NEGATIVE-CASES",
+      "source_file": "tests/fixtures/cvss_resources/vectorFiles/reference-vectors",
+      "source_file_sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "line_range": {
+        "start_line": 281,
+        "end_line": 25308
+      },
+      "record_count": 25028,
+      "eligibility_class": "NEGATIVE_VALIDATION_CASE",
+      "expected_outcome_class": "SYNTAX_VALIDATION_REJECTION",
+      "inclusion_endpoint": "SECONDARY_NEGATIVE_VALIDATION_CONCORDANCE",
+      "description": "Official FIRST negative test suite demarcated under # Negative Tests"
+    },
+    {
+      "partition_id": "PART-04-REF-VECTORS-SUFFIX-VALID",
+      "source_file": "tests/fixtures/cvss_resources/vectorFiles/reference-vectors",
+      "source_file_sha256": "fdcb3de3485354ff36577b41b2fcf7f8056785fb6d6bf6c6eed97e7d3bc934bf",
+      "line_range": {
+        "start_line": 25316,
+        "end_line": 66331
+      },
+      "record_count": 41000,
+      "eligibility_class": "VALID_SCORE_VECTOR",
+      "expected_outcome_class": "VALID_NUMERIC_SCORE",
+      "inclusion_endpoint": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+      "description": "Representative valid programmatic enumeration vectors following Negative Tests section"
+    },
+    {
+      "partition_id": "PART-05-BASE-THREAT-VECTORS",
+      "source_file": "tests/fixtures/cvss_resources/vectorFiles/base-threat-vectors",
+      "source_file_sha256": "eb9cf89bab6712f368fe65c43f884e1ca4750e4e30181fabad4a61aaecccede1",
+      "line_range": {
+        "start_line": 1,
+        "end_line": 419904
+      },
+      "record_count": 419904,
+      "eligibility_class": "VALID_SCORE_VECTOR",
+      "expected_outcome_class": "VALID_NUMERIC_SCORE",
+      "inclusion_endpoint": "PRIMARY_NUMERIC_SCORE_CONCORDANCE",
+      "description": "Exhaustive base-threat metric space valid combinations"
+    }
+  ],
+  "eligibility_determination_rule": "The classification of each record is derived exclusively from frozen FIRST fixture semantics and line ranges documented above, determined strictly PRIOR to execution and independent of scorer runtime outcomes."
+}

@@ -1,0 +1,503 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_1_t4r_companion_results_v1.json",
+  "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+  "experiment_type": "POST_RESULT_COMPANION_SUBEXPERIMENT",
+  "protocol_version": "R6.1",
+  "protocol_deviation_id": "R6-DEV-002",
+  "status": "COMPLETED",
+  "executed_at_utc": "2026-10-21T19:05:58.845637+00:00",
+  "parent_manifest": "validation/article/r6_1_t4r/r6_1_t4r_parent_manifest.json",
+  "parent_count": 15,
+  "operator_count": 1,
+  "operator_id": "NF2-R",
+  "total_mutants": 15,
+  "frozen_denominator": 15,
+  "combined_primary_rate_prohibited": true,
+  "primary_campaign_experiment_id": "R6.1-T4R-PRIMARY",
+  "primary_campaign_denominator": 90,
+  "deterministic_rerun_parity": "PASS",
+  "metrics": {
+    "total_mutants": 15,
+    "total_rejected": 15,
+    "total_accepted": 0,
+    "total_attributable_mutation_detections": 15,
+    "total_unresolved": 0,
+    "total_boundary_behavior_observed": 0,
+    "total_precondition_failures": 0,
+    "primary_error_categories": {
+      "UNKNOWN_FIELD": 15
+    }
+  },
+  "held_out_accessed": false,
+  "implementation_modified": false,
+  "specification_modified": false,
+  "Eq8_modified": false,
+  "anti_retuning_preserved": true,
+  "per_mutation_results": [
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0001",
+      "scenario_id": "SCN-NVD-001",
+      "source_type": "nvd",
+      "parent_hash": "6e310980a8f46ea3e04405b2d702c5e547762d98ac5d2eabefad313d2320165a",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0002",
+      "scenario_id": "SCN-NVD-004",
+      "source_type": "nvd",
+      "parent_hash": "6f006ee62746a84cab184c50350d4ae31976b2f877d7d6f7ef7c8d8d9ad674bc",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0003",
+      "scenario_id": "SCN-NVD-006",
+      "source_type": "nvd",
+      "parent_hash": "66fab4cc7f3cbdd0636545572b862aa767e40f87608a672964d31dda14402b7b",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0004",
+      "scenario_id": "SCN-NVD-007",
+      "source_type": "nvd",
+      "parent_hash": "5e934128773fdd6bb2b6be0a267367d1462307797767c78bd724808f3a74d8a5",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0005",
+      "scenario_id": "SCN-NVD-008",
+      "source_type": "nvd",
+      "parent_hash": "66c365f67f66c6d76a27c17575138131c550d0603678ac8069371adcdf24c42a",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0006",
+      "scenario_id": "SCN-NVD-009",
+      "source_type": "nvd",
+      "parent_hash": "dbf6d0cb3990e6579cf3b02a04fb0abda44d790e312c94ceb2fd6940e0a176f0",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0007",
+      "scenario_id": "SCN-NVD-012",
+      "source_type": "nvd",
+      "parent_hash": "8befc11dca649db592ec8d55ca44b53edd455602225295df3d2354a4566e0287",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0008",
+      "scenario_id": "SCN-SYN-015",
+      "source_type": "synthetic",
+      "parent_hash": "29847885fb034d0980c2521f4f2c1eaa497c3c8c3a845d6a5775e714d7d7121d",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0009",
+      "scenario_id": "SCN-SYN-016",
+      "source_type": "synthetic",
+      "parent_hash": "2b70012a59271c53d3d1012fdd917513f2f43bdf0c41beb8049ab7b263799bd8",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0010",
+      "scenario_id": "SCN-SYN-017",
+      "source_type": "synthetic",
+      "parent_hash": "234a1b98a24084ac79f65fe60b47aca4a8e873f2243f8fe82804d97558af75df",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0011",
+      "scenario_id": "SCN-SYN-020",
+      "source_type": "synthetic",
+      "parent_hash": "01427120ab9cd2b1d17cebd4ce28ac703a29c80cdc989eea05b0903cec0673a0",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0012",
+      "scenario_id": "SCN-SYN-023",
+      "source_type": "synthetic",
+      "parent_hash": "ba64a3d2c75e63e74d5b7cf094cd5e29e21c53bc9a24e60377e8a9f920d1bff7",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0013",
+      "scenario_id": "SCN-SYN-024",
+      "source_type": "synthetic",
+      "parent_hash": "8194485720d2a2e9c899b9021eb0cf9869840ac12548ef0f1dce76b61e2f4d64",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0014",
+      "scenario_id": "SCN-SYN-025",
+      "source_type": "synthetic",
+      "parent_hash": "8c49ba3e0db85db45b3f33322c3fb88d4ee1ec8da5cf24462fa01d46bb298ae2",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    },
+    {
+      "experiment_id": "R6.1-T4R-NF2R-COMPANION",
+      "mutation_id": "MUT-R6-1-T4R-NF2R-0015",
+      "scenario_id": "SCN-SYN-028",
+      "source_type": "synthetic",
+      "parent_hash": "479938d3115c4ef1420a54d33f8f8e97e7e4bc8a9c9bbc227e780c06c0f70ba2",
+      "parent_v2_valid": true,
+      "operator_id": "NF2-R",
+      "operator_title": "core_subobject_extension_attribute_injection",
+      "mutation_description": "Inject namespaced extension attribute 'vendor:telemetry_hook' directly into closed core subobject environmental_evidence",
+      "mutated_field_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "normative_property_tested": "Core normative subobjects are closed-world containers and strictly prohibit direct injection of vendor-namespaced extension attributes",
+      "source_spec_section": "r6_schema_v2_specification.md §5.3",
+      "mutant_v2_valid": false,
+      "rejected": true,
+      "accepted": false,
+      "primary_error_category": "UNKNOWN_FIELD",
+      "primary_error_message": "Undeclared property 'vendor:telemetry_hook' in closed-world object EnvironmentalEvidence",
+      "primary_error_path": "root.environmental_evidence.vendor:telemetry_hook",
+      "all_error_categories": [
+        "UNKNOWN_FIELD"
+      ],
+      "all_error_paths": [
+        "root.environmental_evidence.vendor:telemetry_hook"
+      ],
+      "mutation_specific_error_observed": true,
+      "detection_criterion_satisfied": true,
+      "attribution_state": "ATTRIBUTABLE_MUTATION_DETECTION",
+      "boundary_behavior_observed": false,
+      "historical_v1_valid": true
+    }
+  ]
+}

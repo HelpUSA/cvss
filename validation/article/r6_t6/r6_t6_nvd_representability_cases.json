@@ -1,0 +1,60 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t6_nvd_representability_cases_v1.json",
+  "experiment_id": "TEST-SUITE-R6-T6-NVD-REPRESENTABILITY",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "case_count": 4,
+  "cases": [
+    {
+      "case_id": "T6.1",
+      "source_scenario_id": "SCN-NVD-001",
+      "cve_id": "CVE-2026-4251",
+      "source_artifact_path": "validation/article/trace/SCN-NVD-001.json",
+      "source_artifact_sha256": "4c85af073393ba4671693f64c9e89c3e5a4c19d53a09d7c8167bb64f67075778",
+      "historical_r5_status": "Operational deviation: base_priority='LOW', asset_class='public_web_application', Eq. 8 nominal='MEDIUM', practitioner annotated='LOW'.",
+      "reason_for_inclusion": "Demonstrates operational downgrade from Eq. 8 nominal 'MEDIUM' to practitioner 'LOW' based on WAF and compensating perimeter controls.",
+      "exact_representability_issue": "Reconciles legacy string controls/links with Schema v2 structured arrays, and tests governance override encapsulation (reason_code='CONTROL_COMPENSATION') preserving Eq. 8 nominal 'MEDIUM'.",
+      "t4r_canonicalization_status": "CANONICALIZED_V2_VALID",
+      "semantic_preservation_criterion": "Must preserve asset_class, internet_exposure='public', base_priority='LOW', and exact control text without adding undeclared properties or mutating Eq. 8 weights.",
+      "information_invention_prohibited": "Cannot invent new network interfaces or modify CVSS base metrics."
+    },
+    {
+      "case_id": "T6.2",
+      "source_scenario_id": "SCN-NVD-003",
+      "cve_id": "CVE-2026-4270",
+      "source_artifact_path": "validation/article/trace/SCN-NVD-003.json",
+      "source_artifact_sha256": "c256781d418415fa37ef3024c4d8219f431b95b4a67f1afba2c34deafdcbd753",
+      "historical_r5_status": "Operational deviation: base_priority='MEDIUM', asset_class='identity_provider', Eq. 8 nominal='HIGH', practitioner annotated='HIGH'. Enum gap: internet_exposure='restricted'.",
+      "reason_for_inclusion": "Evaluates closed-world schema boundary on non-enumerated legacy exposure tokens ('restricted') in a high-criticality identity component.",
+      "exact_representability_issue": "Legacy token 'restricted' is outside Schema v2 closed-world enum ['public', 'dmz', 'internal', 'isolated']. Evaluates whether schema/governance contract can represent this case without inventing unverified deployment topology.",
+      "t4r_canonicalization_status": "PARENT_CANONICALIZATION_NOT_POSSIBLE_WITHOUT_NEW_INFORMATION",
+      "semantic_preservation_criterion": "Must preserve identity_provider classification and authentication context. Must not guess between 'dmz' vs 'internal' without explicit architectural evidence.",
+      "information_invention_prohibited": "Arbitrary selection of closed-world exposure enum without evidentiary basis is strictly prohibited."
+    },
+    {
+      "case_id": "T6.3",
+      "source_scenario_id": "SCN-NVD-007",
+      "cve_id": "CVE-2026-29513",
+      "source_artifact_path": "validation/article/trace/SCN-NVD-007.json",
+      "source_artifact_sha256": "a6e2f212bce0a47519bafc87a6558971cd054b6419c377310b4ee9a8d91c2773",
+      "historical_r5_status": "Operational deviation: base_priority='MEDIUM', asset_class='ot_monitoring_gateway', Eq. 8 nominal='CRITICAL', practitioner annotated='MEDIUM'.",
+      "reason_for_inclusion": "Demonstrates large operational divergence (+2 delta suppression) where severe OT asset heuristic is mitigated by air-gapped/segmented telemetry.",
+      "exact_representability_issue": "Tests governance override record expressing two-level priority suppression from 'CRITICAL' to 'MEDIUM' via 'EXPOSURE_CONTEXT_EXCEPTION', while structurally converting narrative controls into Schema v2 arrays.",
+      "t4r_canonicalization_status": "CANONICALIZED_V2_VALID",
+      "semantic_preservation_criterion": "Must preserve asset_class='ot_monitoring_gateway', internet_exposure='internal', and original telemetry control context.",
+      "information_invention_prohibited": "Cannot alter base severity score or invent external exposure paths."
+    },
+    {
+      "case_id": "T6.4",
+      "source_scenario_id": "SCN-NVD-011",
+      "cve_id": "CVE-2026-4224",
+      "source_artifact_path": "validation/article/trace/SCN-NVD-011.json",
+      "source_artifact_sha256": "37f09f7921ade1d447cfd44def48e31cd8f8c16ad5f49def7fd0630061820a32",
+      "historical_r5_status": "Operational deviation: base_priority='MEDIUM', asset_class='identity_provider', Eq. 8 nominal='HIGH', practitioner annotated='HIGH'. Enum gap: internet_exposure='restricted'.",
+      "reason_for_inclusion": "Examines multi-link evidence integration and closed-world enumeration constraint on identity infrastructure.",
+      "exact_representability_issue": "Evaluates representability under Schema v2 given 'restricted' exposure enum and array conversion of multiple semi-colon delimited URI references.",
+      "t4r_canonicalization_status": "PARENT_CANONICALIZATION_NOT_POSSIBLE_WITHOUT_NEW_INFORMATION",
+      "semantic_preservation_criterion": "Must preserve all 4 distinct evidence URI links and identity component blast radius without loss.",
+      "information_invention_prohibited": "Cannot invent missing network attributes or fabricate deployment exposure tier."
+    }
+  ]
+}

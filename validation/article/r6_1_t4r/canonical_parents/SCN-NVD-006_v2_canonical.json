@@ -1,0 +1,73 @@
+{
+  "scenario_id": "SCN-NVD-006",
+  "scenario_source": "nvd_cvss_v4_with_curated_environment",
+  "cve_id": "CVE-2026-29510",
+  "official_or_assigned_cvss_v4_vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+  "cvss_b_score": "5.1",
+  "cvss_b_severity": "MEDIUM",
+  "environmental_evidence": {
+    "asset_class": "isolated_lab_system",
+    "deployment_context": "Non-production lab system isolated from production networks.",
+    "internet_exposure": "isolated",
+    "privilege_context": "Local lab accounts only, no production credentials.",
+    "compensating_controls": [
+      {
+        "control_id": "CTRL-SCN-NVD-006-01",
+        "control_type": "custom_compensating_control",
+        "status": "enforced",
+        "description": "Network isolation, no production data, rebuildable images."
+      }
+    ],
+    "evidence_links": [
+      {
+        "link_id": "LINK-SCN-NVD-006-01",
+        "uri_or_reference": "https://nvd.nist.gov/vuln/detail/CVE-2026-29510",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-NVD-006-02",
+        "uri_or_reference": "https://web.archive.org/web/20250820105319/http://hereta.com/",
+        "confidence": "high"
+      },
+      {
+        "link_id": "LINK-SCN-NVD-006-03",
+        "uri_or_reference": "https://www.vulncheck.com/advisories/hereta-eth-imc408m-stored-xss-via-device-name",
+        "confidence": "high"
+      }
+    ],
+    "evidence_summary": "NVD CVE record with CVSS v4.0 metric plus curated local deployment profile: isolated_lab_system."
+  },
+  "candidate_environmental_assessment": {
+    "confidentiality_requirement": "L",
+    "integrity_requirement": "L",
+    "availability_requirement": "L",
+    "candidate_modified_metrics": {
+      "MAV": "X",
+      "MAC": "X",
+      "MAT": "X",
+      "MPR": "X",
+      "MUI": "X",
+      "MVC": "X",
+      "MVI": "X",
+      "MVA": "X",
+      "MSC": "X",
+      "MSI": "X",
+      "MSA": "X",
+      "CR": "X",
+      "IR": "X",
+      "AR": "X"
+    },
+    "watcher_recommendation": "Review candidate Environmental metric choices against curated deployment evidence before treating them as final.",
+    "uncertainty_flags": [
+      "local_environment_curated; human_review_required; threat_context_not_authoritative"
+    ],
+    "human_review_status": "required"
+  },
+  "priority_comparison": {
+    "base_priority": "MEDIUM",
+    "environmental_priority": "LOW",
+    "priority_delta": "-1"
+  },
+  "boundary": "This trace supports article workflow evaluation. It is not an autonomous official CVSS score.",
+  "extensions": {}
+}

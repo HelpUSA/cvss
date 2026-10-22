@@ -1,0 +1,80 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_differential_comparator_source_manifest_v1.json",
+  "manifest_id": "MANIFEST-R6-DIFF-COMPARATOR-SOURCES",
+  "comparator": "cvss4py",
+  "pinned_commit": "9fe705cdb7d4a222770e0561f046d3e3f061088a",
+  "file_count": 14,
+  "total_bytes": 66567,
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "c54e32bbc812ebaae2352eb64409d9eded9a2df75e4c8bb343030bd620208ea0",
+      "size_bytes": 1337
+    },
+    {
+      "path": "README.md",
+      "sha256": "d791e742144a95bb239fc997ea4e3170b69980b87b9678b541cc0f0c18455384",
+      "size_bytes": 93
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "70db701a863b7512c89533cdb47ad9705871b11c69770cb9533d6b52e8e105d3",
+      "size_bytes": 275
+    },
+    {
+      "path": "cvss4py/__init__.py",
+      "sha256": "aeb038c96b618ce5ab337c898a5c6044e8673e1af98ed0f3b927f25c97b90db9",
+      "size_bytes": 446
+    },
+    {
+      "path": "cvss4py/__main__.py",
+      "sha256": "80f5593d7a16e1656b28f620adb6816350019f2a067def2c59b7f5a49f2cf8ac",
+      "size_bytes": 3123
+    },
+    {
+      "path": "cvss4py/classes.py",
+      "sha256": "ab1f38b481c4bdcba6e4b42af99db358e2dc7ecf46f1ed39b9d316506b22a1d1",
+      "size_bytes": 174
+    },
+    {
+      "path": "cvss4py/score.py",
+      "sha256": "82be9c9049c2fb70e3525cbc45772c211f3ce6dfc4b8ba20287de80840ce758e",
+      "size_bytes": 5218
+    },
+    {
+      "path": "cvss4py/transform.py",
+      "sha256": "54e34b00d6c0f219ce03819facfcbdbb7333bc4a313a944f41b079f9caf61eea",
+      "size_bytes": 5533
+    },
+    {
+      "path": "cvss4py/data/__init__.py",
+      "sha256": "b06d3977a8b4f5dd8f01fdf30a62fdf5831855abed814ca1354daadd29887755",
+      "size_bytes": 1159
+    },
+    {
+      "path": "cvss4py/data/eq_data.json",
+      "sha256": "903320d517386827636022a8e561683cbc986ebe532f30f3dccdbba4efb6dc55",
+      "size_bytes": 8704
+    },
+    {
+      "path": "cvss4py/data/metric_data.json",
+      "sha256": "0a7ef5e4c2b292f8ddb33dba3d90790fb346aa47cd2ab7906a74d2c876e1bb88",
+      "size_bytes": 2352
+    },
+    {
+      "path": "cvss4py/data/test_vectors.json",
+      "sha256": "0de1ff59fd151ba382974fb059faccc11f9e99455b6b4ffe830a57c995c4c00e",
+      "size_bytes": 37785
+    },
+    {
+      "path": "tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0
+    },
+    {
+      "path": "tests/test.py",
+      "sha256": "b3134cdfefcaffd96b7d7d04d7baaf6ab25c9176aed13b4ef2f1303bbf9c7129",
+      "size_bytes": 326
+    }
+  ]
+}

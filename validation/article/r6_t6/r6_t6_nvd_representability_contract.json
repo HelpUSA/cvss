@@ -1,0 +1,48 @@
+{
+  "$schema": "https://helpus.org/schemas/r6_t6_nvd_representability_contract_v1.json",
+  "contract_id": "CONTRACT-R6-T6-NVD-REPRESENTABILITY",
+  "contract_version": "1.0.0",
+  "experiment_id": "TEST-SUITE-R6-T6-NVD-REPRESENTABILITY",
+  "label": "R6-T6",
+  "rq_id": "RQ-R6-3",
+  "status": "PREREGISTERED_NOT_EXECUTED",
+  "created_at": "2026-10-21T20:00:00Z",
+  "case_count": 4,
+  "execution_check_count": 12,
+  "case_ids": [
+    "T6.1",
+    "T6.2",
+    "T6.3",
+    "T6.4"
+  ],
+  "source_scenario_ids": [
+    "SCN-NVD-001",
+    "SCN-NVD-003",
+    "SCN-NVD-007",
+    "SCN-NVD-011"
+  ],
+  "denominator_rule": "EXACTLY_4_HISTORICAL_NVD_CASES",
+  "deterministic": true,
+  "random_sampling": false,
+  "target_success_rate": null,
+  "expected_success_rate": null,
+  "held_out_allowed": false,
+  "held_out_accessed": false,
+  "human_adjudication_completed": false,
+  "information_invention_allowed": false,
+  "results_available": false,
+  "anti_retuning": true,
+  "Eq8_modified": false,
+  "target_modules": [
+    "core/r6_schema_v2_validator.py",
+    "core/r6_governance_override.py",
+    "core/cvss40_environmental_policy.py"
+  ],
+  "classification_taxonomy": [
+    "REPRESENTABLE_DIRECTLY",
+    "REPRESENTABLE_BY_NORMATIVE_STRUCTURAL_TRANSFORMATION",
+    "NOT_REPRESENTABLE_WITHOUT_NEW_INFORMATION",
+    "REPRESENTABILITY_AMBIGUOUS_UNDER_FROZEN_CONTRACT"
+  ],
+  "claim_boundary": "T6 evaluates whether the Schema v2 and Governance Override contracts can faithfully represent historical NVD operational deviations without information invention or Equation 8 formula alterations; it does not constitute empirical human validation, proof of optimal remediation, or verification of ground-truth semantic correctness."
+}

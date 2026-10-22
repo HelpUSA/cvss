@@ -1,0 +1,31 @@
+{
+  "schema": "https://helpus.ai/schemas/r6_t7_change_manifest.json",
+  "schema_version": "1.0.0",
+  "experiment_id": "TEST-SUITE-R6-T7-HELDOUT-TRANSFER",
+  "label": "R6-T7-HELDOUT",
+  "preregistration_status": "PREREGISTERED_FROZEN_AWAITING_HELDOUT_AUTHORIZATION",
+  "parent_head_commit": "32407259b9e8b07f84316c5057bf885ec29e8e8f",
+  "preregistration_branch": "research/r6-a1-schema-governance-implementation",
+  "created_at_utc": "2026-10-21T22:48:00Z",
+  "normative_specifications": {
+    "r6_r6_1_test_plan": "validation/article/r6_r6_1_test_plan.md",
+    "r6_a1_preregistration": "validation/article/r6_a1_preregistration.md",
+    "r6_a1_heldout_corpus_protocol": "validation/article/r6_a1_heldout_corpus_protocol.md",
+    "r6_schema_v2_specification": "validation/article/r6_schema_v2_specification.md",
+    "r6_governance_override_specification": "validation/article/r6_governance_override_specification.md"
+  },
+  "provenance_lineage": {
+    "corpus_protocol_freeze_commit": "106049618eff5e2f2a34aa591475c4a042bdba37",
+    "acquisition_tool_freeze_commit": "2346859b319eac9146273b215eca796147816837",
+    "heldout_corpus_freeze_commit": "12bf6c456054656a1bbc198d7e3729d2675098b2",
+    "r6_2_diff_r2_freeze_commit": "32407259b9e8b07f84316c5057bf885ec29e8e8f"
+  },
+  "invariants": {
+    "held_out_accessed": false,
+    "human_adjudication_completed": false,
+    "eq8_modified": false,
+    "information_invention_allowed": false,
+    "target_rate": null,
+    "expected_rate": null
+  }
+}
