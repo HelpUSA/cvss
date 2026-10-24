@@ -102,10 +102,10 @@ This document establishes the provisional editorial outline for the comprehensiv
 * **Current Completeness**: **HIGH**.
 * **Dependencies**: None.
 
-### Chapter 13: External Held-Out Corpus Design & Cryptographic Quarantining
-* **Purpose**: Document the automated acquisition of 947 candidates from GitHub Advisory Database, exclusion of 9 malware records, and the 938-case lock.
+### Chapter 13: External Held-Out Corpus Design, Quarantining & Transfer Evaluation
+* **Purpose**: Document the automated acquisition of 947 candidates from GitHub Advisory Database, exclusion of 9 malware records, the 938-case cryptographic lock, and the subsequent preregistered held-out transfer evaluation after quarantine release.
 * **Source Archive Files**: `02_ENGINEERING_DECISION_LOG.md` (ENG-DEC-007), `03_SCIENTIFIC_DECISION_LOG.md` (Decision 7).
-* **Scientific Artifacts Involved**: `tools/acquire_r6_heldout_corpus.py`, `validation/article/r6_heldout/`.
+* **Scientific Artifacts Involved**: `tools/acquire_r6_heldout_corpus.py`, `validation/article/r6_heldout/`, T7 result and trace-verification artifacts.
 * **Candidate Figures**: FIG-CORP-016.
 * **Current Completeness**: **HIGH**.
 * **Dependencies**: None.
@@ -118,13 +118,13 @@ This document establishes the provisional editorial outline for the comprehensiv
 * **Current Completeness**: **HIGH**.
 * **Dependencies**: None.
 
-### Chapter 15: Experiment T2: The Unexpected Finding, Protocol Deviation, and R6.1
-* **Purpose**: Deep-dive into the 30/30 unclassified result, the taxonomy gap, the refusal to silently coerce data, and the creation of the R6.1 orthogonal model.
+### Chapter 15: From T2 Protocol Deviation to R6.1 Resolution
+* **Purpose**: Deep-dive into the original 30/30 unclassified result, the taxonomy gap, the refusal to silently coerce data, the creation of the R6.1 orthogonal model, and the completed T2R compatibility rerun.
 * **Source Archive Files**: `01_MASTER_TIMELINE.md` (Epoch 8), `04_FAILURES_NEGATIVE_RESULTS_AND_RECOVERIES.md` (SCI-004), `validation/article/r6_a1_protocol_deviation_log.md`.
 * **Scientific Artifacts Involved**: `validation/article/r6_t2/`, `validation/article/r6_1_t2_compatibility_taxonomy.md`.
 * **Candidate Figures**: FIG-TAX-018.
 * **Current Completeness**: **HIGH**.
-* **Dependencies**: Pending future execution of R6.1-T2R for post-rerun discussion.
+* **Dependencies**: None for the experimental result. R6.1-T2R is complete and frozen; the chapter should now incorporate the rerun outcome and protocol-deviation resolution.
 
 ### Chapter 16: Multi-Agent Collaboration, Tooling, and E2E Quality Assurance
 * **Purpose**: How Antigravity, ChatGPT, and Gemini collaborated via `ai-bridge-local`; Playwright synthetic user journeys; WebKit CSS fixes.
@@ -139,13 +139,13 @@ This document establishes the provisional editorial outline for the comprehensiv
 * **Source Archive Files**: `03_SCIENTIFIC_DECISION_LOG.md`, `04_FAILURES_NEGATIVE_RESULTS_AND_RECOVERIES.md`.
 * **Scientific Artifacts Involved**: Synthesized project retrospective.
 * **Candidate Figures**: Conceptual summary matrices.
-* **Current Completeness**: **MEDIUM**.
-* **Dependencies**: Final completion of Phase R6 experimental execution.
+* **Current Completeness**: **HIGH** for the R6-A1 retrospective; additional publication lessons may be appended after external peer-review outcomes.
+* **Dependencies**: None for the R6-A1 retrospective.
 
 ### Chapter 18: Research Roadmap: Toward Automated Autonomous Cyber Defense
 * **Purpose**: Future outlook: scaling to hundreds of thousands of advisories, dynamic eBPF evidence collection, and formal verification with SMT solvers.
 * **Source Archive Files**: `docs/research/R6_A1_ROADMAP.md` (Phase R6-7).
 * **Scientific Artifacts Involved**: Long-term HelpUS architectural plans.
 * **Candidate Figures**: Future architecture diagrams.
-* **Current Completeness**: **LOW** (Forward-looking).
-* **Dependencies**: Completion of R6 publication submission.
+* **Current Completeness**: **MEDIUM** (intentionally forward-looking).
+* **Dependencies**: External publication outcomes may refine priorities but are not required to draft the roadmap.
