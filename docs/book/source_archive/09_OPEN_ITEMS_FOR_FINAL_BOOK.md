@@ -1,6 +1,6 @@
 # HelpUS CVSS AI v4.0 — Open Items and Gaps for Final Book
 
-This document catalogs the outstanding gaps, pending experimental results, and editorial tasks required before the final technical monograph can be published. It ensures complete transparency regarding what remains unfinished.
+This document catalogs the outstanding editorial, publication, and human-validation items that remain after completion of the R6-A1 experimental campaign. It supersedes the earlier pre-execution status language and is reconciled against the frozen repository state as of 2026-10-24.
 
 ---
 
@@ -26,22 +26,39 @@ This document catalogs the outstanding gaps, pending experimental results, and e
 
 ---
 
-## 3. Pending Experimental Executions (`EXPERIMENT_PENDING`)
+## 3. Completed R6-A1 Experimental Campaign (`EXPERIMENT_COMPLETE`)
 
-1. **Experiment R6.1-T2R (Backward Compatibility Rerun)**:
-   - *Status*: `PREREGISTERED_NOT_EXECUTED`.
-   - *Requirement*: Awaiting official supervisor authorization to execute the rerun under the frozen R6.1 orthogonal taxonomy.
-2. **Experiment T3 (Mutation Replay on Schema v2)**:
-   - *Status*: `NOT_EXECUTED`.
-   - *Requirement*: Re-evaluate the 120 randomized mutants from R3 under Schema v2 to empirically test the hypothesis that closed-world validation rejects Family F3 injections.
-3. **Experiment T4 (New Target Mutants)**:
-   - *Status*: `NOT_EXECUTED`.
-   - *Requirement*: Generate and evaluate newly structured mutation families targeting closed-world boundaries.
-4. **Experiment T6 (NVD Representability & Generalization)**:
-   - *Status*: `NOT_EXECUTED`.
-5. **Experiment T7 (External Held-Out Corpus Evaluation)**:
-   - *Status*: `NOT_EXECUTED` (Quarantine strictly maintained; `held_out_accessed = false`).
-   - *Requirement*: Execute the full contextual pipeline across the 938 locked GitHub Advisory Database cases.
+The experimental items previously listed here as pending have now been executed and frozen in Git. They are no longer blockers for the current book revision:
+
+1. **R6.1-T2R — Backward Compatibility Rerun**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 30/30 legacy/non-canonical records rejected under the orthogonal compatibility taxonomy (12 `INVALID_TYPE`, 18 `INVALID_ENUM`).
+
+2. **T3 — Historical Mutation Replay on Schema v2**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 120/120 historical mutations rejected, including 16/16 Family F3 injections.
+
+3. **T4R / NF2-R — Closed-World Mutation Campaign**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 75/90 attributable rejections in the primary valid-parent campaign and 15/15 rejections in the NF2-R companion campaign.
+
+4. **T5-R — Governance Contract Verification**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 8/8 governance invariants satisfied; Equation 8 remained unchanged; zero autonomous overrides were introduced.
+
+5. **T6 — NVD Representability**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 2/4 cases were normatively representable; 2/4 correctly required external environmental evidence, with no invented data.
+
+6. **Differential Validation R2**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 454,047/461,444 exact score matches (98.3970%) and 25,028/25,028 negative-case agreements against `cvss4py` under deterministic parity conditions.
+
+7. **T7 — External Held-Out Transfer**
+   - *Status*: `COMPLETED_FROZEN`.
+   - *Result*: 938 GitHub Advisory Database records evaluated; 339 nominally calculable and 599 fail-closed rejections; all 938 traces verified across 3,232 diagnostic checks.
+
+The remaining confirmatory work is distinct from R6-A1: expert adjudication and the separately governed G10B/C1/C2 confirmatory protocol remain future work and must not be conflated with the completed R6-A1 held-out transfer.
 
 ---
 
@@ -59,15 +76,15 @@ This document catalogs the outstanding gaps, pending experimental results, and e
 ## 5. Editorial and Manuscript Finalization (`EDITORIAL_PENDING`)
 
 1. **Top-Tier A1 Article Freeze**:
-   - *Status*: The manuscript for top-tier security venues (IEEE S&P / USENIX Security) is currently in pre-registration phase (R6-A1).
-   - *Action for Book*: Update Chapter 11 and Chapter 12 with final acceptance reviews, camera-ready diffs, and artifact evaluation badges.
+   - *Status*: R6-A1 experimentation is complete and frozen; the manuscript has undergone post-R6 editorial consolidation and camera-ready typography review.
+   - *Action for Book*: Keep Chapter 11 and Chapter 12 synchronized with the actual submission venue, acceptance/review outcome, and artifact-evaluation status as those external events occur.
 2. **Epilogue and Post-R6 Retrospective**:
-   - *Action for Book*: Chapter 17 (Lessons Learned) and Chapter 18 (Roadmap) require writing after the full Phase R6 empirical results are analyzed.
+   - *Action for Book*: Chapter 17 can now incorporate the completed R6-A1 empirical retrospective. Chapter 18 remains intentionally forward-looking and should clearly separate validated results from proposed future research.
 
 ---
 
 ## 6. Artifact Verification Ledger (`ARTIFACT_PENDING`)
 
 1. **Overleaf Monograph Companion ZIP Update**:
-   - *Current Baseline*: `book_latex/helpus_cvss_ai_monograph_overleaf_final_round4.zip` (50 pages).
-   - *Action for Book*: Compile the 18-chapter extended monograph into a refreshed Overleaf bundle once all chapters are drafted.
+   - *Current Baseline*: the consolidated monograph is recorded as 51 pages in `docs/ARTICLE_STATUS.md`; the older Round-4 Overleaf ZIP remains a historical 50-page artifact.
+   - *Action for Book*: produce a refreshed Overleaf bundle and cryptographic manifest after the 18-chapter editorial expansion is materially drafted; do not label the historical Round-4 ZIP as the current book.
