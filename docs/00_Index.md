@@ -51,6 +51,7 @@ related_files:
 
 ## Pesquisa científica
 
+- [[CVSS_RESEARCH_PORTFOLIO_PUBLIC_INDEX|Índice do Portfólio de Pesquisa e Produto (Governança)]]
 - [[09_Paper_or_Article|Artigo e protocolo]]
 - [[ARTICLE_STATUS|Status do artigo]]
 - [[ARTICLE_PHASE14_PREANALYSIS_GATE_CVSS40|Gate de pré-análise]]
