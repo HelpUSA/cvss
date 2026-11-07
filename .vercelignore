@@ -7,4 +7,19 @@ compress_videos.py
 *.py
 *.zip
 *.patch
+*.pdf
+*.tex
 staging_chatgpt_return_package/
+
+# Build & Deploy Shield: Exclude private research, conference and book trees (Order 036)
+article/
+docs/
+usenix27_prototype/
+gate_*/
+docs/proposals/
+first-2027/
+cvss-book/
+cvss-book-r6/
+packages/
+.tmp_cache/
+synthetic_bridge_test*

@@ -40,3 +40,35 @@ article/*.aux
 article/*.bbl
 article/*.blg
 article/*.out
+
+# ==============================================================================
+# HELPUS SECURITY & REPOSITORY SEGREGATION SHIELD (ORDER 036)
+# ==============================================================================
+# Prevent accidental leaks of binary packages, bundles and compiled PDFs
+*.pdf
+*.zip
+*.tar.gz
+
+# Segregate private academic manuscripts and research prototypes
+usenix-security-27/
+usenix27*/
+article/usenix27/
+article/generated/
+
+# Segregate private conference dossiers and proposal planning
+docs/proposals/
+first-2027/
+proposals/
+
+# Segregate private monographs, book sources, and generated drafts
+cvss-book/
+cvss-book-r6/
+book_latex/generated/
+book_latex/test_snippets/
+
+# Segregate internal validation gates, test harnesses and temporary caches
+gate_*/
+synthetic_bridge_test*
+packages/
+.tmp_cache/
+external/
